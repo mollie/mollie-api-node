@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "list.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "src/lib/mollie/api/object/list.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;CAAA;CAAA;CAAA;CAAA,KAAA;KAAA;oSAAA;;CAAA,CA8BA,CAAS,GAAT;CAAS,CAAK,CAAL,CAAA;CAAK,CAAQ,IAAR;MAAL;CA9BT,GAAA;;CAAA,CAgCA,CAAuB,GAAjB,CAAN;CACE;;CAAa,EAAA,CAAA,UAAA;CACX,EAAc,CAAb,EAAD,IAAA;CAAA,EACU,CAAT,EAAD;CADA,CAAA,CAES,CAAR,CAAD,CAAA;CAHF,IAAa;;CAAb;;CADoD;CAhCtD"
+}

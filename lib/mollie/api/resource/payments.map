@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "payments.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "src/lib/mollie/api/resource/payments.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;CAAA;CAAA;CAAA;CAAA,KAAA,qBAAA;KAAA;oSAAA;;CAAA,CA8BA,CAAS,GAAT;CAAS,CAAK,CAAL,CAAA;CAAK,CAAU,IAAV,EAAA;MAAL;CA9BT,GAAA;;CAAA,CA+BA,CAAO,CAAP,GAAO,CAAA;;CA/BP,CAgCA,CAAU,IAAV,YAAU;;CAhCV,CAkCA,CAAuB,GAAjB,CAAN,CAA0C;CACxC;;;;;CAAA;;CAAA,EAAY,CAAZ,IAAC,EAAD;;CAAA,EACU,CAAV,EAAA,CADA,CACC;;CADD;;CAD0D;CAlC5D"
+}
