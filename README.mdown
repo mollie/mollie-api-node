@@ -68,7 +68,7 @@ Retrieving a payment.
 
 ```javascript
     mollie.payments.get(
-        payment.id,
+        payment.id
     ,   function (payment) {
         if (payment.isPaid())
             console.log("Payment received.");
