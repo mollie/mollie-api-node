@@ -42,6 +42,9 @@ module.exports = class Mollie.API.Object.Method
     @amount =
       minimum: null
       maximum: null
+    @image =
+      normal: null
+      bigger: null
 
   getMinimumAmount: ->
     parseFloat @amount?.minimum || "0"

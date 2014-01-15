@@ -36,7 +36,9 @@
         });
         for (_i = 0, _len = methods.length; _i < _len; _i++) {
           method = methods[_i];
-          response.write(" * " + (_.escape(method.id)) + ": " + (_.escape(method.description)) + " <br>");
+          response.write("<div style='line-height:40px; vertical-align:top'>");
+          response.write("<img src='" + (_.escape(method.image.normal)) + "'>");
+          response.write("" + (_.escape(method.description)) + " (" + (_.escape(method.id)) + ")</div>");
         }
         return response.end();
       });

@@ -25,7 +25,9 @@ class example
 
       response.writeHead 200, "Content-Type": "text/html; charset=utf-8"
       for method in methods
-        response.write " * #{_.escape(method.id)}: #{_.escape(method.description)} <br>"
+        response.write "<div style='line-height:40px; vertical-align:top'>"
+        response.write "<img src='#{_.escape(method.image.normal)}'>"
+        response.write "#{_.escape(method.description)} (#{_.escape(method.id)})</div>"
       response.end()
 
 module.exports = example
