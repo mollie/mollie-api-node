@@ -35,6 +35,7 @@ module.exports = class Mollie.API.Object.Method
   @PAYSAFECARD = "paysafecard";
   @CREDITCARD  = "creditcard";
   @MISTERCASH  = "mistercash";
+  @PAYPAL      = "paypal";
 
   constructor: ->
     @id = null

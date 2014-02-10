@@ -38,7 +38,7 @@ Methods = require "./resource/methods"
 Issuers = require "./resource/issuers"
 
 module.exports = class Mollie.API.Client
-  @version = "1.0.0"
+  @version = "1.0.1"
 
   constructor: ->
     @config =
