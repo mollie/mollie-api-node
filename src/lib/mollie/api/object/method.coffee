@@ -31,11 +31,12 @@
 Mollie = API: Object: {}
 
 module.exports = class Mollie.API.Object.Method
-  @IDEAL       = "ideal";
-  @PAYSAFECARD = "paysafecard";
-  @CREDITCARD  = "creditcard";
-  @MISTERCASH  = "mistercash";
-  @PAYPAL      = "paypal";
+  @IDEAL        = "ideal"
+  @PAYSAFECARD  = "paysafecard"
+  @CREDITCARD   = "creditcard"
+  @MISTERCASH   = "mistercash"
+  @BANKTRANSFER = "banktransfer"
+  @PAYPAL       = "paypal"
 
   constructor: ->
     @id = null
