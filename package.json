@@ -1,6 +1,6 @@
 {
   "name": "mollie-api-node",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Official Mollie API client for Node (by Mollie B.V.)",
   "homepage": "https://github.com/mollie/mollie-api-node",
   "author": "Mollie B.V. <info@mollie.nl>",
