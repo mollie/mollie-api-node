@@ -119,7 +119,3 @@
   module.exports = example;
 
 }).call(this);
-
-/*
-//@ sourceMappingURL=4-ideal-payment.map
-*/

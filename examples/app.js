@@ -30,7 +30,9 @@
         "Content-Type": "text/html; charset=utf-8"
       });
       response.write('<a href="./1-new-payment">Try example 1</a><br>');
-      response.write('<a href="./4-ideal-payment">Try example 4</a>');
+      response.write('<a href="./4-ideal-payment">Try example 4</a><br>');
+      response.write('<a href="./5-payments-history">Try example 5</a><br>');
+      response.write('<a href="./6-list-available-methods">Try example 6</a><br>');
       return response.end();
     }
   });
@@ -38,7 +40,3 @@
   app.listen(8888);
 
 }).call(this);
-
-/*
-//@ sourceMappingURL=app.map
-*/

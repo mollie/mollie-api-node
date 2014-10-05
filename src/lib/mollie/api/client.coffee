@@ -32,7 +32,7 @@ Mollie = API: {}
 url = require "url"
 fs = require "fs"
 https = require "https"
-execSync = require "exec-sync"
+os = require "os"
 Payments = require "./resource/payments"
 Methods = require "./resource/methods"
 Issuers = require "./resource/issuers"
@@ -58,16 +58,7 @@ module.exports = class Mollie.API.Client
 
   callRest: (method, resource, id, data, callback) ->
     id = id || ''
-
-    try
-      uname = execSync("uname -a").trim()
-    catch error
-      uname = "unknown"
-
-    try
-      npmVersion = execSync("npm -v").trim()
-    catch error
-      npmVersion = "unknown"
+    uname = [os.type(), os.release(), os.platform(), os.arch(), os.hostname()].join(" ")
 
     parsedUrl = url.parse "#{@config.endpoint}/#{@config.version}/#{resource}/#{id}"
     parsedUrl.method = method
@@ -76,7 +67,7 @@ module.exports = class Mollie.API.Client
     parsedUrl.headers =
       Authorization: "Bearer #{@config.key}"
       Accept: "application/json"
-      'User-Agent': "Mollie/#{@constructor.version} Node/#{process.version} Npm/#{npmVersion}"
+      'User-Agent': "Mollie/#{@constructor.version} Node/#{process.version}"
       'X-Mollie-Client-Info': uname
 
     request = https.request parsedUrl

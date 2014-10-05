@@ -37,6 +37,8 @@ module.exports = class Mollie.API.Object.Method
   @MISTERCASH   = "mistercash"
   @BANKTRANSFER = "banktransfer"
   @PAYPAL       = "paypal"
+  @BITCOIN      = "bitcoin"
+  @SOFORT       = "sofort"
 
   constructor: ->
     @id = null

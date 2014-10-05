@@ -51,7 +51,3 @@
   module.exports = example;
 
 }).call(this);
-
-/*
-//@ sourceMappingURL=3-return-page.map
-*/

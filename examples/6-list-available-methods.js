@@ -51,7 +51,3 @@
   module.exports = example;
 
 }).call(this);
-
-/*
-//@ sourceMappingURL=6-list-available-methods.map
-*/

@@ -80,7 +80,3 @@
   module.exports = example;
 
 }).call(this);
-
-/*
-//@ sourceMappingURL=2-webhook-verification.map
-*/

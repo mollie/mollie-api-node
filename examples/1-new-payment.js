@@ -81,7 +81,3 @@
   module.exports = example;
 
 }).call(this);
-
-/*
-//@ sourceMappingURL=1-new-payment.map
-*/

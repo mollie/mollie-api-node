@@ -49,7 +49,3 @@
   module.exports = example;
 
 }).call(this);
-
-/*
-//@ sourceMappingURL=5-payments-history.map
-*/
