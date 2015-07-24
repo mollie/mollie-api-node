@@ -63,7 +63,7 @@ module.exports = class Mollie.API.Client
     parsedUrl = url.parse "#{@config.endpoint}/#{@config.version}/#{resource}/#{id}"
     parsedUrl.method = method
     parsedUrl.rejectUnauthorized = true
-    parsedUrl.cert = [fs.readFileSync __dirname + "/certdata.txt"]
+    parsedUrl.cert = fs.readFileSync __dirname + "/cacert.pem"
     parsedUrl.headers =
       Authorization: "Bearer #{@config.key}"
       Accept: "application/json"
