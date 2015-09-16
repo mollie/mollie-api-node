@@ -31,6 +31,7 @@
 Mollie = API: Resource: {}
 Base = require "./base"
 Payment = require "../object/payment"
+List = require "../object/list"
 
 module.exports = class Mollie.API.Resource.Payments extends Base
   @resource = "payments"
