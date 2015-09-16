@@ -63,6 +63,8 @@ module.exports = class Mollie.API.Client
     uri = "#{@config.endpoint}/#{@config.version}/#{resource}/#{id}"
     if (typeof obj.count != 'undefined' && typeof obj.offset != 'undefined')
       uri = "#{@config.endpoint}/#{@config.version}/#{resource}?count=#{obj.count}&offset=#{obj.offset}"
+    if (typeof obj.refunds != 'undefined')
+      uri = "#{@config.endpoint}/#{@config.version}/#{resource}/#{id}/refunds"
 
     parsedUrl = url.parse uri
     parsedUrl.method = method

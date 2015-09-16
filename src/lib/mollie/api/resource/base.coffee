@@ -76,18 +76,3 @@ module.exports = class Mollie.API.Resource.Base
         list.push @copy(body.data[item], new @constructor.object)
 
       callback list
-
-  list: (count, offset, callback) ->
-    @api.callRest "GET", @constructor.resource, { id: null, count: count, offset: offset }, null, (body) =>
-      return callback body if body.error
-
-      list = new List
-      list.totalCount = body.totalCount
-      list.offset = body.offset
-      list.links  = body.links
-
-      for item of body.data
-        list.push @copy(body.data[item], new @constructor.object)
-
-      callback list
-
