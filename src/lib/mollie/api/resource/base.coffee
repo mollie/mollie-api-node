@@ -44,27 +44,41 @@ module.exports = class Mollie.API.Resource.Base
     object
 
   create: (data, callback) ->
-    @api.callRest "POST", @constructor.resource, null, data, (body) =>
+    @api.callRest "POST", @constructor.resource, { id: null }, data, (body) =>
       return callback body if body.error
       callback @copy(body, new @constructor.object)
 
   get: (id, callback) ->
-    @api.callRest "GET", @constructor.resource, id, null, (body) =>
+    @api.callRest "GET", @constructor.resource, { id: id }, null, (body) =>
       return callback body if body.error
       callback @copy(body, new @constructor.object)
 
   update: (id, data, callback) ->
-    @api.callRest "POST", @constructor.resource, id, data, (body) =>
+    @api.callRest "POST", @constructor.resource, { id: id }, data, (body) =>
       return callback body if body.error
       callback @copy(body, new @constructor.object)
 
   delete: (id, callback) ->
-    @api.callRest "DELETE", @constructor.resource, id, null, (body) =>
+    @api.callRest "DELETE", @constructor.resource, { id: id }, null, (body) =>
       return callback body if body.error
       callback @copy(body, new @constructor.object)
 
   all: (callback) ->
-    @api.callRest "GET", @constructor.resource, null, null, (body) =>
+    @api.callRest "GET", @constructor.resource, { id: null }, null, (body) =>
+      return callback body if body.error
+
+      list = new List
+      list.totalCount = body.totalCount
+      list.offset = body.offset
+      list.links  = body.links
+
+      for item of body.data
+        list.push @copy(body.data[item], new @constructor.object)
+
+      callback list
+
+  list: (count, offset, callback) ->
+    @api.callRest "GET", @constructor.resource, { id: null, count: count, offset: offset }, null, (body) =>
       return callback body if body.error
 
       list = new List
