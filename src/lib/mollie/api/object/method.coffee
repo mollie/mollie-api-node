@@ -32,13 +32,15 @@ Mollie = API: Object: {}
 
 module.exports = class Mollie.API.Object.Method
   @IDEAL        = "ideal"
-  @PAYSAFECARD  = "paysafecard"
   @CREDITCARD   = "creditcard"
   @MISTERCASH   = "mistercash"
-  @BANKTRANSFER = "banktransfer"
-  @PAYPAL       = "paypal"
-  @BITCOIN      = "bitcoin"
   @SOFORT       = "sofort"
+  @BANKTRANSFER = "banktransfer"
+  @DIRECTDEBIT  = "directdebit"
+  @BITCOIN      = "bitcoin"
+  @PAYPAL       = "paypal"
+  @BELFIUS      = "belfius"
+  @PAYSAFECARD  = "paysafecard"
 
   constructor: ->
     @id = null

@@ -5,19 +5,9 @@
   "homepage": "https://github.com/mollie/mollie-api-node",
   "author": "Mollie B.V. <info@mollie.nl>",
   "keywords": [
-    "mollie",
-    "payment",
-    "service",
-    "ideal",
-    "creditcard",
-    "mistercash",
-    "paypal",
-    "paysafecard",
-    "sofort",
-    "banking",
-    "bitcoin",
-    "payments",
-    "gateway"
+    "mollie", "payment", "service", "ideal", "creditcard", "mistercash", "bancontact", "sofort", "sofortbanking",
+    "sepa", "bitcoin", "paypal", "paysafecard", "banktransfer", "direct debit", "belfius", "belfius direct net",
+    "refunds", "api", "payments", "gateway"
   ],
   "dependencies": {
     "underscore": "~1.7.0"
