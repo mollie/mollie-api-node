@@ -6,8 +6,8 @@
   "author": "Mollie B.V. <info@mollie.nl>",
   "keywords": [
     "mollie", "payment", "service", "ideal", "creditcard", "mistercash", "bancontact", "sofort", "sofortbanking",
-    "sepa", "bitcoin", "paypal", "paysafecard", "banktransfer", "direct debit", "belfius", "belfius direct net",
-    "refunds", "api", "payments", "gateway"
+    "sepa", "bitcoin", "paypal", "paysafecard", "podiumcadeaukaart", "banktransfer", "direct debit", "belfius",
+    "belfius direct net", "refunds", "api", "payments", "gateway"
   ],
   "dependencies": {
     "underscore": "~1.7.0"
