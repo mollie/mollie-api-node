@@ -1,5 +1,5 @@
 ###
-  Copyright (c) 2013, Mollie B.V.
+  Copyright (c) 2016, Mollie B.V.
   All rights reserved.
 
   Redistribution and use in source and binary forms, with or without
@@ -38,7 +38,7 @@ Methods = require "./resource/methods"
 Issuers = require "./resource/issuers"
 
 module.exports = class Mollie.API.Client
-  @version = "1.0.6"
+  @version = "1.0.7"
 
   constructor: ->
     @config =

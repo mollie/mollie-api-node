@@ -2,4 +2,4 @@
 
 npm install
 
-./node_modules/.bin/coffee -c -w -o . src
+./node_modules/.bin/coffee -c -o . src
