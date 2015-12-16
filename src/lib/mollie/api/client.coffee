@@ -56,11 +56,17 @@ module.exports = class Mollie.API.Client
   setApiKey: (key) ->
     @config.key = key
 
-  callRest: (method, resource, id, data, callback) ->
-    id = id || ''
+  callRest: (method, resource, obj, data, callback) ->
+    id = obj.id || ''
     uname = [os.type(), os.release(), os.platform(), os.arch(), os.hostname()].join(" ")
 
-    parsedUrl = url.parse "#{@config.endpoint}/#{@config.version}/#{resource}/#{id}"
+    uri = "#{@config.endpoint}/#{@config.version}/#{resource}/#{id}"
+    if (typeof obj.count != 'undefined' && typeof obj.offset != 'undefined')
+      uri = "#{@config.endpoint}/#{@config.version}/#{resource}?count=#{obj.count}&offset=#{obj.offset}"
+    if (typeof obj.refunds != 'undefined')
+      uri = "#{@config.endpoint}/#{@config.version}/#{resource}/#{id}/refunds"
+
+    parsedUrl = url.parse uri
     parsedUrl.method = method
     parsedUrl.rejectUnauthorized = true
     parsedUrl.cert = fs.readFileSync __dirname + "/cacert.pem"

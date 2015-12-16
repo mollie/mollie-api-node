@@ -44,27 +44,27 @@ module.exports = class Mollie.API.Resource.Base
     object
 
   create: (data, callback) ->
-    @api.callRest "POST", @constructor.resource, null, data, (body) =>
+    @api.callRest "POST", @constructor.resource, { id: null }, data, (body) =>
       return callback body if body.error
       callback @copy(body, new @constructor.object)
 
   get: (id, callback) ->
-    @api.callRest "GET", @constructor.resource, id, null, (body) =>
+    @api.callRest "GET", @constructor.resource, { id: id }, null, (body) =>
       return callback body if body.error
       callback @copy(body, new @constructor.object)
 
   update: (id, data, callback) ->
-    @api.callRest "POST", @constructor.resource, id, data, (body) =>
+    @api.callRest "POST", @constructor.resource, { id: id }, data, (body) =>
       return callback body if body.error
       callback @copy(body, new @constructor.object)
 
   delete: (id, callback) ->
-    @api.callRest "DELETE", @constructor.resource, id, null, (body) =>
+    @api.callRest "DELETE", @constructor.resource, { id: id }, null, (body) =>
       return callback body if body.error
       callback @copy(body, new @constructor.object)
 
   all: (callback) ->
-    @api.callRest "GET", @constructor.resource, null, null, (body) =>
+    @api.callRest "GET", @constructor.resource, { id: null }, null, (body) =>
       return callback body if body.error
 
       list = new List
@@ -76,4 +76,3 @@ module.exports = class Mollie.API.Resource.Base
         list.push @copy(body.data[item], new @constructor.object)
 
       callback list
-

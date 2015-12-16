@@ -31,7 +31,26 @@
 Mollie = API: Resource: {}
 Base = require "./base"
 Payment = require "../object/payment"
+List = require "../object/list"
 
 module.exports = class Mollie.API.Resource.Payments extends Base
   @resource = "payments"
   @object = Payment
+
+  list: (count, offset, callback) ->
+    @api.callRest "GET", @constructor.resource, { id: null, count: count, offset: offset }, null, (body) =>
+      return callback body if body.error
+
+      list = new List
+      list.totalCount = body.totalCount
+      list.offset = body.offset
+      list.links  = body.links
+
+      for item of body.data
+        list.push @copy(body.data[item], new @constructor.object)
+
+      callback list
+
+  refund: (payment, amount, callback) ->
+    @api.callRest "POST", @constructor.resource, { id: payment.id, refunds: true }, { amount: amount }, (body) =>
+      callback body
