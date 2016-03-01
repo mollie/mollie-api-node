@@ -28,33 +28,34 @@
   @copyright   Mollie B.V.
   @link        https://www.mollie.nl
 ###
-Mollie = API: Object: {}
+module.exports = class Method
+	this.IDEAL             = "ideal";
+	this.CREDITCARD        = "creditcard";
+	this.MISTERCASH        = "mistercash";
+	this.SOFORT            = "sofort";
+	this.BANKTRANSFER      = "banktransfer";
+	this.DIRECTDEBIT       = "directdebit";
+	this.BITCOIN           = "bitcoin";
+	this.PAYPAL            = "paypal";
+	this.BELFIUS           = "belfius";
+	this.PAYSAFECARD       = "paysafecard";
+	this.PODIUMCADEAUKAART = "podiumcadeaukaart";
 
-module.exports = class Mollie.API.Object.Method
-  @IDEAL             = "ideal"
-  @CREDITCARD        = "creditcard"
-  @MISTERCASH        = "mistercash"
-  @SOFORT            = "sofort"
-  @BANKTRANSFER      = "banktransfer"
-  @DIRECTDEBIT       = "directdebit"
-  @BITCOIN           = "bitcoin"
-  @PAYPAL            = "paypal"
-  @BELFIUS           = "belfius"
-  @PAYSAFECARD       = "paysafecard"
-  @PODIUMCADEAUKAART = "podiumcadeaukaart"
+	constructor: () ->
+		this.resource    = "method";
+		this.id          = null;
+		this.description = null;
+		this.amount      = {
+			minimum: null,
+			maximum: null,
+		};
+		this.image       = {
+			normal: null,
+			bigger: null,
+		};
 
-  constructor: ->
-    @id = null
-    @description = null
-    @amount =
-      minimum: null
-      maximum: null
-    @image =
-      normal: null
-      bigger: null
+	getMinimumAmount: () ->
+		return parseFloat(this.amount?.minimum || "0");
 
-  getMinimumAmount: ->
-    parseFloat @amount?.minimum || "0"
-
-  getMaximumAmount: ->
-    parseFloat @amount?.maximum || "0"
+	getMaximumAmount: () ->
+		return parseFloat(this.amount?.maximum || "0");

@@ -28,10 +28,9 @@
   @copyright   Mollie B.V.
   @link        https://www.mollie.nl
 ###
-Mollie = API: Resource: {}
-Base = require "./base"
-Payment = require "../object/payment"
+Base    = require("./base");
+Payment = require("../object/payment");
 
-module.exports = class Mollie.API.Resource.Payments extends Base
-  @resource = "payments"
-  @object = Payment
+module.exports = class Payments extends Base
+	this.resource = "payments";
+	this.object   = Payment;

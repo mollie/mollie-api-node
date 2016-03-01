@@ -1,7 +1,7 @@
 ###
   Example 2 - How to verify Mollie API Payments in a webhook.
 ###
-Mollie = require "../lib/mollie"
+mollie = require("./mollie");
 querystring = require "querystring"
 fs = require "fs"
 
@@ -13,13 +13,6 @@ class example
     request.on "end", () =>
       @body = querystring.parse(@body)
       return response.end() unless @body?.id
-
-      ###
-        Initialize the Mollie API library with your API key.
-        See: https://www.mollie.nl/beheer/account/profielen/
-      ###
-      mollie = new Mollie.API.Client
-      mollie.setApiKey "test_b93kfaAsnngIAT3NysojhYvKEJ5YbP"
 
       ###
         Retrieve the payment's current state.

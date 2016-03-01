@@ -5,9 +5,9 @@
  */
 
 (function() {
-  var Mollie, example, fs;
+  var example, fs, mollie;
 
-  Mollie = require("../lib/mollie");
+  mollie = require("./mollie");
 
   fs = require("fs");
 
@@ -15,17 +15,10 @@
     function example(request, response) {
 
       /*
-        Initialize the Mollie API library with your API key.
-        See: https://www.mollie.nl/beheer/account/profielen/
-       */
-      var mollie, orderId;
-      mollie = new Mollie.API.Client;
-      mollie.setApiKey("test_b93kfaAsnngIAT3NysojhYvKEJ5YbP");
-
-      /*
         Generate a unique order id for this example. It is important to include this unique attribute
         in the redirectUrl (below) so a proper return page can be shown to the customer.
        */
+      var orderId;
       orderId = new Date().getTime();
 
       /*

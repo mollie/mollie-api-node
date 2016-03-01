@@ -28,52 +28,83 @@
   @copyright   Mollie B.V.
   @link        https://www.mollie.nl
 ###
-Mollie = API: Resource: {}
-List = require "../object/list"
+List = require("../object/list");
 
-module.exports = class Mollie.API.Resource.Base
-  @resource = "unknown"
-  @object = (->)
+module.exports = class Base
+	this.api      = null;
+	this.resource = "unknown";
+	this.object   = (->);
+	this.parentId = null;
 
-  constructor: (@api) ->
+	constructor: (api) ->
+		this.api = api;
 
-  copy: (body, object) ->
-    for key of object
-      if typeof object[key] != "function"
-        object[key] = body[key]
-    object
+	copy: (body, object) ->
+		for key of object
+			if (typeof object[key] != "function")
+				object[key] = body[key];
+		return object;
 
-  create: (data, callback) ->
-    @api.callRest "POST", @constructor.resource, null, data, (body) =>
-      return callback body if body.error
-      callback @copy(body, new @constructor.object)
+	create: (data, callback) ->
+		this.api.callRest(
+			"POST", this.getResourceName(), null, data, (body) =>
+				if (body.error)
+					return callback(body);
+				callback(this.copy(body, new this.constructor.object));
+		);
 
-  get: (id, callback) ->
-    @api.callRest "GET", @constructor.resource, id, null, (body) =>
-      return callback body if body.error
-      callback @copy(body, new @constructor.object)
+	get: (id, callback) ->
+		this.api.callRest(
+			"GET", this.getResourceName(), id, null, (body) =>
+				if (body.error)
+					return callback(body);
+				callback(this.copy(body, new this.constructor.object));
+		);
 
-  update: (id, data, callback) ->
-    @api.callRest "POST", @constructor.resource, id, data, (body) =>
-      return callback body if body.error
-      callback @copy(body, new @constructor.object)
+	update: (id, data, callback) ->
+		this.api.callRest(
+			"POST", this.getResourceName(), id, data, (body) =>
+				if (body.error)
+					return callback(body);
+				callback(this.copy(body, new this.constructor.object));
+		);
 
-  delete: (id, callback) ->
-    @api.callRest "DELETE", @constructor.resource, id, null, (body) =>
-      return callback body if body.error
-      callback @copy(body, new @constructor.object)
+	delete: (id, callback) ->
+		this.api.callRest(
+			"DELETE", this.getResourceName(), id, null, (body) =>
+				if (body.error)
+					return callback(body);
+				callback(this.copy(body, new this.constructor.object));
+		);
 
-  all: (callback) ->
-    @api.callRest "GET", @constructor.resource, null, null, (body) =>
-      return callback body if body.error
+	all: (callback) ->
+		this.api.callRest(
+			"GET", this.getResourceName(), null, null, (body) =>
+				if (body.error)
+					return callback(body);
 
-      list = new List
-      list.totalCount = body.totalCount
-      list.offset = body.offset
-      list.links  = body.links
+				list = new List;
+				list.totalCount = body.totalCount;
+				list.offset = body.offset;
+				list.links = body.links;
 
-      for item of body.data
-        list.push @copy(body.data[item], new @constructor.object)
+				for item of body.data
+					list.push(this.copy(body.data[item], new this.constructor.object));
 
-      callback list
+				callback(list);
+		);
 
+	getResourceName: () ->
+		if (this.constructor.resource.indexOf("_") >= 0)
+			if (!this.parentId)
+				throw new Error("Missing parent id");
+			parts = this.constructor.resource.split("_");
+			return parts[0] + "/" + this.parentId + "/" + parts[1];
+		return this.constructor.resource;
+
+	withParent: (parent) ->
+		return this.withParentId(parent.id);
+
+	withParentId: (parentId) ->
+		this.parentId = parentId;
+		return this;

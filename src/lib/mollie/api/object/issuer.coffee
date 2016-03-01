@@ -28,10 +28,9 @@
   @copyright   Mollie B.V.
   @link        https://www.mollie.nl
 ###
-Mollie = API: Object: {}
-
-module.exports = class Mollie.API.Object.Issuer
-  constructor: ->
-    @id = null
-    @name = null
-    @method = null
+module.exports = class Issuer
+	constructor: () ->
+		this.resource = "issuer";
+		this.id       = null;
+		this.name     = null;
+		this.method   = null;

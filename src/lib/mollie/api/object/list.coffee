@@ -28,10 +28,8 @@
   @copyright   Mollie B.V.
   @link        https://www.mollie.nl
 ###
-Mollie = API: Object: {}
-
-module.exports = class Mollie.API.Object.List extends Array
-  constructor: ->
-    @totalCount = null
-    @offset = null
-    @links = []
+module.exports = class List extends Array
+	constructor: () ->
+		this.totalCount = null;
+		this.offset     = null;
+		this.links      = [];

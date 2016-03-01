@@ -1,7 +1,7 @@
 ###
   Example 4 - How to prepare an iDEAL payment with the Mollie API.
 ###
-Mollie = require "../lib/mollie"
+mollie = require("./mollie");
 querystring = require "querystring"
 fs = require "fs"
 _ = require "underscore"
@@ -13,13 +13,6 @@ class example
     request.on "data", (data) => @body += data
     request.on "end", () =>
       @body = querystring.parse(@body)
-
-      ###
-        Initialize the Mollie API library with your API key.
-        See: https://www.mollie.nl/beheer/account/profielen/
-      ###
-      mollie = new Mollie.API.Client
-      mollie.setApiKey "test_b93kfaAsnngIAT3NysojhYvKEJ5YbP"
 
       ###
         First, let the customer pick the bank in a simple HTML form. This step is actually optional.

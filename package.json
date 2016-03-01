@@ -1,6 +1,8 @@
 {
   "name": "mollie-api-node",
-  "version": "1.0.7",
+  "version": "1.1.0",
+  "license": "BSD-3-Clause",
+  "repository": "git://github.com/mollie/mollie-api-node",
   "description": "Official Mollie API client for Node (by Mollie B.V.)",
   "homepage": "https://github.com/mollie/mollie-api-node",
   "author": "Mollie B.V. <info@mollie.nl>",
@@ -16,9 +18,11 @@
     "coffee-script": "~1.8.0"
   },
   "main": "./lib/mollie",
-  "repository": "git://github.com/mollie/mollie-api-node",
   "scripts": {
-    "prepublish": "npm prune"
+    "prepublish": "npm prune",
+    "start": "node examples/app.js",
+    "watch": "./node_modules/.bin/coffee -c -w -o . src",
+    "build": "./node_modules/.bin/coffee -c -o . src"
   },
   "engines": {
     "node": ">= 0.8.0"

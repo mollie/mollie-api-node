@@ -5,22 +5,14 @@
  */
 
 (function() {
-  var Mollie, example, _;
+  var example, mollie, _;
 
-  Mollie = require("../lib/mollie");
+  mollie = require("./mollie");
 
   _ = require("underscore");
 
   example = (function() {
     function example(request, response) {
-
-      /*
-        Initialize the Mollie API library with your API key.
-        See: https://www.mollie.nl/beheer/account/profielen/
-       */
-      var mollie;
-      mollie = new Mollie.API.Client;
-      mollie.setApiKey("test_b93kfaAsnngIAT3NysojhYvKEJ5YbP");
 
       /*
         Get the all payments for this API key ordered by newest.

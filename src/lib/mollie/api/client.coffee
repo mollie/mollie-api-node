@@ -28,56 +28,67 @@
   @copyright   Mollie B.V.
   @link        https://www.mollie.nl
 ###
-Mollie = API: {}
-url = require "url"
-fs = require "fs"
-https = require "https"
-os = require "os"
-Payments = require "./resource/payments"
-Methods = require "./resource/methods"
-Issuers = require "./resource/issuers"
+url   = require("url");
+fs    = require("fs");
+https = require("https");
+os    = require("os");
 
-module.exports = class Mollie.API.Client
-  @version = "1.0.7"
+Payments          = require("./resource/payments");
+PaymentsRefunds   = require("./resource/payments/refunds");
+Methods           = require("./resource/methods");
+Issuers           = require("./resource/issuers");
+Customers         = require("./resource/customers");
+CustomersPayments = require("./resource/customers/payments");
 
-  constructor: ->
-    @config =
-      endpoint: "https://api.mollie.nl"
-      version: "v1"
-      key: ""
+module.exports = class Client
+	this.version = "1.1.0";
 
-    @payments = new Payments @
-    @methods = new Methods @
-    @issuers = new Issuers @
+	constructor: () ->
+		this.config = {
+			endpoint: "https://api.mollie.nl",
+			version: "v1",
+			key: "",
+		};
 
-  setApiEndpoint: (endpoint) ->
-    @config.endpoint = endpoint
+		this.payments           = new Payments(this);
+		this.payments_refunds   = new PaymentsRefunds(this);
+		this.methods            = new Methods(this);
+		this.issuers            = new Issuers(this);
+		this.customers          = new Customers(this);
+		this.customers_payments = new CustomersPayments(this);
 
-  setApiKey: (key) ->
-    @config.key = key
+	setApiEndpoint: (endpoint) ->
+		this.config.endpoint = endpoint;
 
-  callRest: (method, resource, id, data, callback) ->
-    id = id || ''
-    uname = [os.type(), os.release(), os.platform(), os.arch(), os.hostname()].join(" ")
+	setApiKey: (key) ->
+		this.config.key = key;
 
-    parsedUrl = url.parse "#{@config.endpoint}/#{@config.version}/#{resource}/#{id}"
-    parsedUrl.method = method
-    parsedUrl.rejectUnauthorized = true
-    parsedUrl.cert = fs.readFileSync __dirname + "/cacert.pem"
-    parsedUrl.headers =
-      Authorization: "Bearer #{@config.key}"
-      Accept: "application/json"
-      'User-Agent': "Mollie/#{@constructor.version} Node/#{process.version}"
-      'X-Mollie-Client-Info': uname
+	callRest: (method, resource, id, data, callback) ->
+		id = id || '';
+		uname = [os.type(), os.release(), os.platform(), os.arch(), os.hostname()].join(" ");
 
-    request = https.request parsedUrl
+		parsedUrl = url.parse("#{@config.endpoint}/#{@config.version}/#{resource}/#{id}");
+		parsedUrl.method             = method;
+		parsedUrl.rejectUnauthorized = true;
+		parsedUrl.cert               = fs.readFileSync(__dirname + "/cacert.pem");
+		parsedUrl.headers            = {
+			Authorization: "Bearer #{@config.key}",
+			Accept: "application/json",
+			'User-Agent': "Mollie/#{@constructor.version} Node/#{process.version}",
+			'X-Mollie-Client-Info': uname
+		};
 
-    request.on "response", (response) ->
-      body = ""
-      response.on "data", (data) ->
-        body += data.toString()
-      response.on "end", ->
-        callback JSON.parse(body)
+		request = https.request(parsedUrl);
 
-    request.write JSON.stringify(data)
-    request.end()
+		request.on("response", (response) ->
+			body = "";
+			response.on("data", (data) ->
+				body += data.toString();
+			);
+			response.on("end", ->
+				callback(JSON.parse(body))
+			);
+		);
+
+		request.write(JSON.stringify(data));
+		request.end();

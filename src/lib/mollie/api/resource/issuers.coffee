@@ -28,10 +28,9 @@
   @copyright   Mollie B.V.
   @link        https://www.mollie.nl
 ###
-Mollie = API: Resource: {}
-Base = require "./base"
-Issuer = require "../object/issuer"
+Base   = require("./base");
+Issuer = require("../object/issuer");
 
-module.exports = class Mollie.API.Resource.Issuers extends Base
-  @resource = "issuers"
-  @object = Issuer
+module.exports = class Issuers extends Base
+	this.resource = "issuers";
+	this.object   = Issuer;

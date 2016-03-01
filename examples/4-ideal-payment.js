@@ -5,9 +5,9 @@
  */
 
 (function() {
-  var Mollie, example, fs, querystring, _;
+  var example, fs, mollie, querystring, _;
 
-  Mollie = require("../lib/mollie");
+  mollie = require("./mollie");
 
   querystring = require("querystring");
 
@@ -25,15 +25,8 @@
       })(this));
       request.on("end", (function(_this) {
         return function() {
-          var issuers, mollie, orderId;
+          var issuers, orderId;
           _this.body = querystring.parse(_this.body);
-
-          /*
-            Initialize the Mollie API library with your API key.
-            See: https://www.mollie.nl/beheer/account/profielen/
-           */
-          mollie = new Mollie.API.Client;
-          mollie.setApiKey("test_b93kfaAsnngIAT3NysojhYvKEJ5YbP");
 
           /*
             First, let the customer pick the bank in a simple HTML form. This step is actually optional.

@@ -1,19 +1,11 @@
 ###
   Example 1 - How to prepare a new payment with the Mollie API.
 ###
-Mollie = require "../lib/mollie"
+mollie = require("./mollie");
 fs = require "fs"
 
 class example
   constructor: (request, response) ->
-
-    ###
-      Initialize the Mollie API library with your API key.
-      See: https://www.mollie.nl/beheer/account/profielen/
-    ###
-    mollie = new Mollie.API.Client
-    mollie.setApiKey "test_b93kfaAsnngIAT3NysojhYvKEJ5YbP"
-
     ###
       Generate a unique order id for this example. It is important to include this unique attribute
       in the redirectUrl (below) so a proper return page can be shown to the customer.

@@ -28,10 +28,9 @@
   @copyright   Mollie B.V.
   @link        https://www.mollie.nl
 ###
-Mollie = API: Resource: {}
-Base = require "./base"
-Method = require "../object/method"
+Base   = require("./base");
+Method = require("../object/method");
 
-module.exports = class Mollie.API.Resource.Methods extends Base
-  @resource = "methods"
-  @object = Method
+module.exports = class Methods extends Base
+	this.resource = "methods";
+	this.object   = Method;

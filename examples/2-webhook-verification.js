@@ -5,9 +5,9 @@
  */
 
 (function() {
-  var Mollie, example, fs, querystring;
+  var example, fs, mollie, querystring;
 
-  Mollie = require("../lib/mollie");
+  mollie = require("./mollie");
 
   querystring = require("querystring");
 
@@ -23,18 +23,11 @@
       })(this));
       request.on("end", (function(_this) {
         return function() {
-          var mollie, _ref;
+          var _ref;
           _this.body = querystring.parse(_this.body);
           if (!((_ref = _this.body) != null ? _ref.id : void 0)) {
             return response.end();
           }
-
-          /*
-            Initialize the Mollie API library with your API key.
-            See: https://www.mollie.nl/beheer/account/profielen/
-           */
-          mollie = new Mollie.API.Client;
-          mollie.setApiKey("test_b93kfaAsnngIAT3NysojhYvKEJ5YbP");
 
           /*
             Retrieve the payment's current state.

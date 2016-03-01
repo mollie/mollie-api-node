@@ -28,36 +28,43 @@
   @copyright   Mollie B.V.
   @link        https://www.mollie.nl
 ###
-Mollie = API: Object: {}
+module.exports = class Payment
+	this.STATUS_OPEN      = "open";
+	this.STATUS_CANCELLED = "cancelled";
+	this.STATUS_EXPIRED   = "expired";
+	this.STATUS_PAID      = "paid";
 
-module.exports = class Mollie.API.Object.Payment
-  @STATUS_OPEN      = "open"
-  @STATUS_CANCELLED = "cancelled"
-  @STATUS_EXPIRED   = "expired"
-  @STATUS_PAID      = "paid"
+	constructor: () ->
+		this.resource          = "payment";
+		this.id                = null;
+		this.mode              = null;
+		this.amount            = null;
+		this.amountRefunded    = null;
+		this.amountRemaining   = null;
+		this.description       = null;
+		this.method            = null;
+		this.status            = null;
+		this.createdDatetime   = null;
+		this.paidDatetime      = null;
+		this.cancelledDatetime = null;
+		this.expiredDatetime   = null;
+		this.expiryPeriod      = null;
+		this.metadata          = null;
+		this.details           = null;
+		this.locale            = null;
+		this.profileId         = null;
+		this.customerId        = null;
+		this.settlementId      = null;
+		this.links             = {
+			paymentUrl: null,
+			redirectUrl: null,
+		};
 
-  constructor: ->
-    @id = null
-    @mode = null
-    @amount = null
-    @description = null
-    @method = null
-    @status = null
-    @createdDatetime = null
-    @paidDatetime = null
-    @cancelledDatetime = null
-    @expiredDatetime = null
-    @metadata = null
-    @details = null
-    @links =
-      paymentUrl: null
-      redirectUrl: null
+	isOpen: () ->
+		return this.status == this.constructor.STATUS_OPEN;
 
-  isOpen: ->
-    @status == @constructor.STATUS_OPEN
+	isPaid: () ->
+		return !!this.paidDatetime;
 
-  isPaid: ->
-    !!@paidDatetime
-
-  getPaymentUrl: ->
-    @links && @links.paymentUrl
+	getPaymentUrl: () ->
+		return this.links && this.links.paymentUrl;
