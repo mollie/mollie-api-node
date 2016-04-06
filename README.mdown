@@ -20,7 +20,7 @@ By far the easiest way to install the Mollie API client is to install it with [n
 
     {
         "dependencies": {
-            "mollie-api-node": "^1.1.0"
+            "mollie-api-node": "^1.1.1"
         }
     }
 
@@ -41,37 +41,37 @@ To successfully receive a payment, these steps should be implemented:
 Requiring the library.
 
 ```javascript
-    Mollie = require("mollie-api-node");
+Mollie = require("mollie-api-node");
 ```
 
 Initializing the Mollie API client, and setting your API key.
 
 ```javascript
-    mollie = new Mollie.API.Client;
-    mollie.setApiKey("test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM");
+mollie = new Mollie.API.Client;
+mollie.setApiKey("test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM");
 ```
 
 Creating a new payment.
 
 ```javascript
-    mollie.payments.create({
-        amount:      10.00,
-        description: "My first API payment",
-        redirectUrl: "https://webshop.example.org/order/12345/"
-    },  function (payment) {
-        response.writeHead(302, { Location: payment.getPaymentUrl() })
-    });
+mollie.payments.create({
+    amount:      10.00,
+    description: "My first API payment",
+    redirectUrl: "https://webshop.example.org/order/12345/"
+},  function (payment) {
+    response.writeHead(302, { Location: payment.getPaymentUrl() })
+});
 ```
 
 Retrieving a payment.
 
 ```javascript
-    mollie.payments.get(
-        payment.id
-    ,   function (payment) {
-        if (payment.isPaid())
-            console.log("Payment received.");
-    });
+mollie.payments.get(
+    payment.id
+,   function (payment) {
+    if (payment.isPaid())
+        console.log("Payment received.");
+});
 ```
 
 ## Want to help us make our API client even better? ##
