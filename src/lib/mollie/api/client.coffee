@@ -41,7 +41,7 @@ Customers         = require("./resource/customers");
 CustomersPayments = require("./resource/customers/payments");
 
 module.exports = class Client
-	this.version = "1.1.0";
+	this.version = "1.0.8";
 
 	constructor: () ->
 		this.config = {
