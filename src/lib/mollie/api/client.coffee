@@ -79,16 +79,14 @@ module.exports = class Client
 		};
 
 		request = https.request(parsedUrl);
-		request.on("error", (error) ->
-			callback(error);
-		);
+
 		request.on("response", (response) ->
 			body = "";
 			response.on("data", (data) ->
 				body += data.toString();
 			);
 			response.on("end", ->
-				callback(null, JSON.parse(body));
+				callback(JSON.parse(body))
 			);
 		);
 

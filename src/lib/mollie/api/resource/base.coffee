@@ -49,39 +49,39 @@ module.exports = class Base
 		this.api.callRest(
 			"POST", this.getResourceName(), null, data, (body) =>
 				if (body.error)
-					return callback(null, body);
-				callback(null, this.copy(body, new this.constructor.object));
+					return callback(body);
+				callback(this.copy(body, new this.constructor.object));
 		);
 
 	get: (id, callback) ->
 		this.api.callRest(
 			"GET", this.getResourceName(), id, null, (body) =>
 				if (body.error)
-					return callback(null, body);
-				callback(null, this.copy(body, new this.constructor.object));
+					return callback(body);
+				callback(this.copy(body, new this.constructor.object));
 		);
 
 	update: (id, data, callback) ->
 		this.api.callRest(
 			"POST", this.getResourceName(), id, data, (body) =>
 				if (body.error)
-					return callback(null, body);
-				callback(null, this.copy(body, new this.constructor.object));
+					return callback(body);
+				callback(this.copy(body, new this.constructor.object));
 		);
 
 	delete: (id, callback) ->
 		this.api.callRest(
 			"DELETE", this.getResourceName(), id, null, (body) =>
 				if (body.error)
-					return callback(null, body);
-				callback(null, this.copy(body, new this.constructor.object));
+					return callback(body);
+				callback(this.copy(body, new this.constructor.object));
 		);
 
 	all: (callback) ->
 		this.api.callRest(
 			"GET", this.getResourceName(), null, null, (body) =>
 				if (body.error)
-					return callback(null, body);
+					return callback(body);
 
 				list = new List;
 				list.totalCount = body.totalCount;
@@ -91,7 +91,7 @@ module.exports = class Base
 				for item of body.data
 					list.push(this.copy(body.data[item], new this.constructor.object));
 
-				callback(null, list);
+				callback(list);
 		);
 
 	getResourceName: () ->
