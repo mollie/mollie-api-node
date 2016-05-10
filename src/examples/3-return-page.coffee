@@ -19,6 +19,9 @@ class example
     response.write "<p>"
     response.write "<a href=\"http://#{request.headers.host}/1-new-payment\">Retry example 1</a><br>";
     response.write "<a href=\"http://#{request.headers.host}/4-ideal-payment\">Retry example 4</a><br>";
+    response.write "<a href=\"http://#{request.headers.host}/10-oauth-new-payment\">Retry example 10</a><br>";
+    response.write "<a href=\"http://#{request.headers.host}/12-new-customer-payment\">Retry example 12</a><br>";
+    response.write "<a href=\"http://#{request.headers.host}/14-recurring-first-payment\">Retry example 14</a><br>";
     response.write "</p>"
     response.end()
 

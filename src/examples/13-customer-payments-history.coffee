@@ -1,5 +1,5 @@
 ###
-  Example 13 - How to list all Customer Payments.
+	Example 13 - How to list all Customer Payments.
 ###
 mollie = require("./mollie");
 
@@ -17,7 +17,7 @@ class example
 			customer = customers[0];
 
 			###
-			  Get the all payments for this API key ordered by newest.
+				Get the all payments for this API key ordered by newest.
 			###
 			mollie.customers_payments.withParent(customer).all((payments) ->
 				if (payments.error)

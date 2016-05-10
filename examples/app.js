@@ -37,6 +37,8 @@
       response.write('<a href="./11-new-customer">Try example 11</a><br>');
       response.write('<a href="./12-new-customer-payment">Try example 12</a><br>');
       response.write('<a href="./13-customer-payments-history">Try example 13</a><br>');
+      response.write('<a href="./14-recurring-first-payment">Try example 14</a><br>');
+      response.write('<a href="./15-recurring-payment">Try example 15</a><br>');
       return response.end();
     }
   });

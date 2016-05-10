@@ -24,55 +24,22 @@
   DAMAGE.
 
   @license     Berkeley Software Distribution License (BSD-License 2) http://www.opensource.org/licenses/bsd-license.php
-  @author      Mollie B.V. <info@mollie.nl>
+  @author      Mollie B.V. <info@mollie.com>
   @copyright   Mollie B.V.
-  @link        https://www.mollie.nl
+  @link        https://www.mollie.com
 ###
-module.exports = class Payment
-	this.STATUS_OPEN      = "open";
-	this.STATUS_PENDING   = "pending";
-	this.STATUS_CANCELLED = "cancelled";
-	this.STATUS_EXPIRED   = "expired";
-	this.STATUS_PAID      = "paid";
-	this.STATUS_FAILED    = "failed";
-
-	this.RECURRINGTYPE_NONE      = null;
-	this.RECURRINGTYPE_FIRST     = "first";
-	this.RECURRINGTYPE_RECURRING = "recurring";
+module.exports = class Mandate
+	this.STATUS_VALID   = "valid";
+	this.STATUS_INVALID = "invalid";
 
 	constructor: () ->
-		this.resource          = "payment";
-		this.id                = null;
-		this.mode              = null;
-		this.amount            = null;
-		this.amountRefunded    = null;
-		this.amountRemaining   = null;
-		this.description       = null;
-		this.method            = null;
-		this.status            = null;
-		this.createdDatetime   = null;
-		this.paidDatetime      = null;
-		this.cancelledDatetime = null;
-		this.expiredDatetime   = null;
-		this.expiryPeriod      = null;
-		this.metadata          = null;
-		this.details           = null;
-		this.locale            = null;
-		this.profileId         = null;
-		this.customerId        = null;
-		this.recurringType     = null;
-		this.mandateId         = null;
-		this.settlementId      = null;
-		this.links             = {
-			paymentUrl: null,
-			redirectUrl: null,
-		};
+		this.resource        = "mandate";
+		this.id              = null;
+		this.status          = null;
+		this.method          = null;
+		this.customerId      = null;
+		this.details         = null;
+		this.createdDatetime = null;
 
-	isOpen: () ->
-		return this.status == this.constructor.STATUS_OPEN;
-
-	isPaid: () ->
-		return !!this.paidDatetime;
-
-	getPaymentUrl: () ->
-		return this.links && this.links.paymentUrl;
+	isValid: () ->
+		return this.status == this.STATUS_VALID;

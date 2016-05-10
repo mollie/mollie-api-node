@@ -20,7 +20,7 @@ By far the easiest way to install the Mollie API client is to install it with [n
 
     {
         "dependencies": {
-            "mollie-api-node": "^1.1.1"
+            "mollie-api-node": "^1.2.0"
         }
     }
 

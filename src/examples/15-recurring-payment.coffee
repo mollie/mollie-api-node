@@ -1,5 +1,5 @@
 ###
-	Example 12 - How to create a new Customer Payment.
+  Example 15 - How to create an on-demand recurring payment.
 ###
 mollie = require("./mollie");
 fs     = require("fs");
@@ -14,8 +14,8 @@ class example
 			customer = customers[0];
 
 			###
-				Generate a unique order id for this example. It is important to include this unique attribute
-				in the redirectUrl (below) so a proper return page can be shown to the customer.
+			  Generate a unique order id for this example. It is important to include this unique attribute
+			  in the redirectUrl (below) so a proper return page can be shown to the customer.
 			###
 			orderId = new Date().getTime()
 
@@ -25,31 +25,30 @@ class example
 			###
 			mollie.customers_payments.withParent(customer).create({
 					amount: 10.00,
-					description: "My first API payment",
-					redirectUrl: "http://#{request.headers.host}/3-return-page?orderId=#{orderId}",
-					metadata: {
-						orderId: orderId,
-					},
+					description: "An on-demand recurring payment",
+					# Flag this payment as a recurring payment.
+					recurringType: "recurring"
 				}, (payment) =>
 					if (payment.error)
 						console.error(payment.error);
 						return response.end();
 
 					###
-						In this example we store the order with its payment status in a database.
+					  In this example we store the order with its payment status in a database.
 					###
 					@databaseWrite(orderId, payment.status);
 
 					###
-						Send the customer off to complete the payment.
+					  Send the customer off to complete the payment.
 					###
-					response.writeHead(302, {Location: payment.getPaymentUrl()});
+					response.writeHead(200, {'Content-Type': "text/html; charset=utf-8"});
+					response.write("<p>Your payment status is '#{_.escape(payment.status)}'.</p>");
 					response.end();
 			);
 		);
 
 	###
-		NOTE: This example uses a text file as a database. Please use a real database like MySQL in production code.
+	  NOTE: This example uses a text file as a database. Please use a real database like MySQL in production code.
 	###
 	databaseWrite: (orderId, paymentStatus) ->
 		orderId = parseInt(orderId);

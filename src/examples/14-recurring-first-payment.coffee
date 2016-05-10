@@ -1,5 +1,5 @@
 ###
-	Example 12 - How to create a new Customer Payment.
+	Example 14 - How to create a first payment to allow recurring payments later.
 ###
 mollie = require("./mollie");
 fs     = require("fs");
@@ -24,12 +24,11 @@ class example
 				See: https://www.mollie.com/en/docs/reference/customers/create-payment
 			###
 			mollie.customers_payments.withParent(customer).create({
-					amount: 10.00,
-					description: "My first API payment",
+					amount: 0.01,
+					description: "A first payment for recurring",
 					redirectUrl: "http://#{request.headers.host}/3-return-page?orderId=#{orderId}",
-					metadata: {
-						orderId: orderId,
-					},
+					# Flag this payment as a first payment to allow recurring payments later.
+					recurringType: "first"
 				}, (payment) =>
 					if (payment.error)
 						console.error(payment.error);
@@ -49,7 +48,7 @@ class example
 		);
 
 	###
-		NOTE: This example uses a text file as a database. Please use a real database like MySQL in production code.
+	  NOTE: This example uses a text file as a database. Please use a real database like MySQL in production code.
 	###
 	databaseWrite: (orderId, paymentStatus) ->
 		orderId = parseInt(orderId);
