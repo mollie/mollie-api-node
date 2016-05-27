@@ -31,7 +31,6 @@
 url   = require("url");
 fs    = require("fs");
 https = require("https");
-os    = require("os");
 
 Payments          = require("./resource/payments");
 PaymentsRefunds   = require("./resource/payments/refunds");
@@ -42,7 +41,7 @@ CustomersPayments = require("./resource/customers/payments");
 CustomersMandates = require("./resource/customers/mandates");
 
 module.exports = class Client
-	this.version = "1.2.0";
+	this.version = "1.2.1";
 
 	constructor: () ->
 		this.config = {
@@ -67,7 +66,6 @@ module.exports = class Client
 
 	callRest: (method, resource, id, data, callback) ->
 		id = id || '';
-		uname = [os.type(), os.release(), os.platform(), os.arch(), os.hostname()].join(" ");
 
 		parsedUrl = url.parse("#{@config.endpoint}/#{@config.version}/#{resource}/#{id}");
 		parsedUrl.method             = method;
@@ -76,8 +74,7 @@ module.exports = class Client
 		parsedUrl.headers            = {
 			Authorization: "Bearer #{@config.key}",
 			Accept: "application/json",
-			'User-Agent': "Mollie/#{@constructor.version} Node/#{process.version}",
-			'X-Mollie-Client-Info': uname
+			'User-Agent': "Mollie/#{@constructor.version} Node/#{process.version}"
 		};
 
 		request = https.request(parsedUrl);
