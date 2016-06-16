@@ -8,6 +8,8 @@ module.exports = {
 			Issuer: require("./mollie/api/object/issuer"),
 			Customer: require("./mollie/api/object/customer"),
 			Refund: require("./mollie/api/object/refund"),
+			Mandate: require("./mollie/api/object/mandate"),
+			Subscription: require("./mollie/api/object/subscription"),
 		},
 		Resource: {
 			Base: require("./mollie/api/resource/base"),
@@ -17,6 +19,8 @@ module.exports = {
 			Issuers: require("./mollie/api/resource/issuers"),
 			Customers: require("./mollie/api/resource/customers"),
 			CustomersPayments: require("./mollie/api/resource/customers/payments"),
+			CustomersMandates: require("./mollie/api/resource/customers/mandates"),
+			CustomersSubscriptions: require("./mollie/api/resource/customers/subscriptions"),
 		},
 	},
 };

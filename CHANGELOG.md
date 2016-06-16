@@ -4,6 +4,9 @@
 
 All notable changes to this project will be documented in this file.
 
+#### v1.3.0 - 2016-06-16
+  - Added Subscriptions API.
+
 #### v1.2.1 - 2016-05-27
   - Removed `X-Mollie-Client-Info` from requests.
   - Update bundled cacert.pem file. Follows Mozilla's recommendations on invalid certificates.

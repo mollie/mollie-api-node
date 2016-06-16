@@ -32,16 +32,17 @@ url   = require("url");
 fs    = require("fs");
 https = require("https");
 
-Payments          = require("./resource/payments");
-PaymentsRefunds   = require("./resource/payments/refunds");
-Methods           = require("./resource/methods");
-Issuers           = require("./resource/issuers");
-Customers         = require("./resource/customers");
-CustomersPayments = require("./resource/customers/payments");
-CustomersMandates = require("./resource/customers/mandates");
+Payments               = require("./resource/payments");
+PaymentsRefunds        = require("./resource/payments/refunds");
+Methods                = require("./resource/methods");
+Issuers                = require("./resource/issuers");
+Customers              = require("./resource/customers");
+CustomersPayments      = require("./resource/customers/payments");
+CustomersMandates      = require("./resource/customers/mandates");
+CustomersSubscriptions = require("./resource/customers/subscriptions");
 
 module.exports = class Client
-	this.version = "1.2.1";
+	this.version = "1.3.0";
 
 	constructor: () ->
 		this.config = {
@@ -50,13 +51,14 @@ module.exports = class Client
 			key: "",
 		};
 
-		this.payments           = new Payments(this);
-		this.payments_refunds   = new PaymentsRefunds(this);
-		this.methods            = new Methods(this);
-		this.issuers            = new Issuers(this);
-		this.customers          = new Customers(this);
-		this.customers_payments = new CustomersPayments(this);
-		this.customers_mandates = new CustomersMandates(this);
+		this.payments                = new Payments(this);
+		this.payments_refunds        = new PaymentsRefunds(this);
+		this.methods                 = new Methods(this);
+		this.issuers                 = new Issuers(this);
+		this.customers               = new Customers(this);
+		this.customers_payments      = new CustomersPayments(this);
+		this.customers_mandates      = new CustomersMandates(this);
+		this.customers_subscriptions = new CustomersSubscriptions(this);
 
 	setApiEndpoint: (endpoint) ->
 		this.config.endpoint = endpoint;
