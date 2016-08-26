@@ -93,3 +93,5 @@ module.exports = class Client
 
 		request.write(JSON.stringify(data));
 		request.end();
+
+		return request;

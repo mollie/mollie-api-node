@@ -51,7 +51,9 @@ module.exports = class Base
 				if (body.error)
 					return callback(body);
 				callback(this.copy(body, new this.constructor.object));
-		);
+		).on("error", (error) => 
+            callback(error: error)
+        );
 
 	get: (id, callback) ->
 		this.api.callRest(
@@ -59,7 +61,9 @@ module.exports = class Base
 				if (body.error)
 					return callback(body);
 				callback(this.copy(body, new this.constructor.object));
-		);
+		).on("error", (error) => 
+            callback(error: error)
+        );
 
 	update: (id, data, callback) ->
 		this.api.callRest(
@@ -67,7 +71,9 @@ module.exports = class Base
 				if (body.error)
 					return callback(body);
 				callback(this.copy(body, new this.constructor.object));
-		);
+		).on("error", (error) => 
+            callback(error: error)
+        );
 
 	delete: (id, callback) ->
 		this.api.callRest(
@@ -75,7 +81,9 @@ module.exports = class Base
 				if (body.error)
 					return callback(body);
 				callback(this.copy(body, new this.constructor.object));
-		);
+		).on("error", (error) => 
+            callback(error: error)
+        );
 
 	all: (callback) ->
 		this.api.callRest(
@@ -92,7 +100,9 @@ module.exports = class Base
 					list.push(this.copy(body.data[item], new this.constructor.object));
 
 				callback(list);
-		);
+		).on("error", (error) => 
+            callback(error: error)
+        );
 
 	getResourceName: () ->
 		if (this.constructor.resource.indexOf("_") >= 0)
