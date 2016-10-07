@@ -79,7 +79,7 @@ module.exports = class Base
 
 	all: (callback) ->
 		this.api.callRest(
-			"GET", this.getResourceName(), null, null, (body) =>
+			"GET", this.getResourceName(), null, data, (body) =>
 				if (body.error)
 					return callback(body);
 
