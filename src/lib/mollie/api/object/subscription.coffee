@@ -48,3 +48,6 @@ module.exports = class Subscription
 		this.description       = null;
 		this.method            = null;
 		this.cancelledDatetime = null;
+
+	isCanceled: () ->
+		return this.status == this.constructor.STATUS_CANCELLED;

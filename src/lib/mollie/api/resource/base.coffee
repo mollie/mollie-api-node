@@ -77,6 +77,9 @@ module.exports = class Base
 				callback(this.copy(body, new this.constructor.object));
 		);
 
+	cancel: (id, callback) ->
+		this.delete(id, callback);
+
 	all: (callback) ->
 		this.api.callRest(
 			"GET", this.getResourceName(), null, null, (body) =>

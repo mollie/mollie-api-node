@@ -40,6 +40,7 @@ module.exports = class Method
 	this.BELFIUS           = "belfius";
 	this.PAYSAFECARD       = "paysafecard";
 	this.PODIUMCADEAUKAART = "podiumcadeaukaart";
+	this.KBC               = "kbc";
 
 	constructor: () ->
 		this.resource    = "method";
