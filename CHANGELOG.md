@@ -4,6 +4,12 @@
 
 All notable changes to this project will be documented in this file.
 
+#### v1.3.2 - 2016-10-17
+  - Allow parameters 'count' and 'offset' to be passed to methods.all
+
+#### v1.3.1 - 2016-10-12
+  - Add KBC method constant
+
 #### v1.3.0 - 2016-06-16
   - Added Subscriptions API.
 

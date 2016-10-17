@@ -80,7 +80,7 @@ module.exports = class Base
 	cancel: (id, callback) ->
 		this.delete(id, callback);
 
-	all: (callback) ->
+	all: (callback, data) ->
 		this.api.callRest(
 			"GET", this.getResourceName(), null, data, (body) =>
 				if (body.error)
