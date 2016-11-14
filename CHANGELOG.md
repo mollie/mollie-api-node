@@ -4,6 +4,9 @@
 
 All notable changes to this project will be documented in this file.
 
+#### v1.3.3 - 2016-11-14
+  - Fix an issue where the API client would crash if no data is passed to the resource.all() method.
+
 #### v1.3.2 - 2016-10-17
   - Allow parameters 'count' and 'offset' to be passed to methods.all
 
