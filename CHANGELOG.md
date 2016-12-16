@@ -4,6 +4,9 @@
 
 All notable changes to this project will be documented in this file.
 
+#### v1.3.4 - 2016-12-16
+  - Update bundled cacert.pem file. Follows Mozilla's recommendations on invalid certificates.
+
 #### v1.3.3 - 2016-11-14
   - Fix an issue where the API client would crash if no data is passed to the resource.all() method.
 
