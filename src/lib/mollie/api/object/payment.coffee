@@ -63,6 +63,7 @@ module.exports = class Payment
 		this.recurringType     = null;
 		this.mandateId         = null;
 		this.settlementId      = null;
+		this.subscriptionId    = null;
 		this.links             = {
 			paymentUrl: null,
 			redirectUrl: null,

@@ -42,7 +42,7 @@ CustomersMandates      = require("./resource/customers/mandates");
 CustomersSubscriptions = require("./resource/customers/subscriptions");
 
 module.exports = class Client
-	this.version = "1.3.4";
+	this.version = "1.3.5";
 
 	constructor: () ->
 		this.config = {
