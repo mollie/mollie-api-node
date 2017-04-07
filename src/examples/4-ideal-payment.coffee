@@ -43,14 +43,16 @@ class example
           method        Payment method "ideal".
           description   Description of the payment.
           redirectUrl   Redirect location. The customer will be redirected there after the payment.
+          webhookUrl    Webhook location, used to report when the payment changes state.
           metadata      Custom metadata that is stored with the payment.
           issuer        The customer's bank. If empty the customer can select it later.
       ###
       mollie.payments.create
-        amount: 25.00
-        method: Mollie.API.Object.Method.IDEAL
+        amount:      25.00
+        method:      Mollie.API.Object.Method.IDEAL
         description: "My first iDEAL payment"
         redirectUrl: "http://#{request.headers.host}/3-return-page?orderId=#{orderId}"
+        webhookUrl:  "http://#{request.headers.host}/2-webhook-verification?orderId=#{orderId}"
         metadata:
           orderId: orderId
         issuer: @body.issuer || null

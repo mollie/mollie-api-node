@@ -17,12 +17,14 @@ class example
         amount        Amount in EUROs. This example creates a € 10,- payment.
         description   Description of the payment.
         redirectUrl   Redirect location. The customer will be redirected there after the payment.
+        webhookUrl    Webhook location, used to report when the payment changes state.
         metadata      Custom metadata that is stored with the payment.
     ###
     mollie.payments.create
-      amount: 10.00
+      amount:      10.00
       description: "My first API payment"
       redirectUrl: "http://#{request.headers.host}/3-return-page?orderId=#{orderId}"
+      webhookUrl:  "http://#{request.headers.host}/2-webhook-verification?orderId=#{orderId}"
       metadata:
         orderId: orderId
     , (payment) =>

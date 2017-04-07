@@ -67,6 +67,7 @@ module.exports = class Payment
 		this.links             = {
 			paymentUrl: null,
 			redirectUrl: null,
+			webhookUrl: null,
 		};
 
 	isOpen: () ->
