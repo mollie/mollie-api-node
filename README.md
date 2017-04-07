@@ -1,4 +1,4 @@
-![Mollie](http://www.mollie.nl/files/Mollie-Logo-Style-Small.png)
+![Mollie](https://www.mollie.nl/files/Mollie-Logo-Style-Small.png)
 
 # Mollie API client for Node #
 
@@ -57,8 +57,9 @@ Creating a new payment.
 mollie.payments.create({
     amount:      10.00,
     description: "My first API payment",
-    redirectUrl: "https://webshop.example.org/order/12345/"
-},  function (payment) {
+    redirectUrl: "https://webshop.example.org/order/12345/",
+    webhookUrl:  "https://webshop.example.org/mollie-webhook/"
+}, function (payment) {
     response.writeHead(302, { Location: payment.getPaymentUrl() })
 });
 ```
@@ -68,22 +69,23 @@ Retrieving a payment.
 ```javascript
 mollie.payments.get(
     payment.id
-,   function (payment) {
-    if (payment.isPaid())
+, function (payment) {
+    if (payment.isPaid()) {
         console.log("Payment received.");
+    }
 });
 ```
 
 ## Want to help us make our API client even better? ##
-	
+
 Want to help us make our API client even better? We take [pull requests](https://github.com/mollie/mollie-api-node/pulls?utf8=%E2%9C%93&q=is%3Apr), sure. But how would you like to contribute to a [technology oriented organization](https://www.mollie.com/nl/blog/post/werken-bij-mollie-sfeer-kansen-en-mogelijkheden/)? Mollie is hiring developers and system engineers. [Check out our vacancies](https://www.mollie.com/nl/jobs) or [get in touch](mailto:personeel@mollie.com).
 
 ## License ##
-[BSD (Berkeley Software Distribution) License](http://www.opensource.org/licenses/bsd-license.php).
-Copyright (c) 2013, Mollie B.V.
+[BSD (Berkeley Software Distribution) License](https://opensource.org/licenses/bsd-license.php).
+Copyright (c) 2013-2017, Mollie B.V.
 
 ## Support ##
-Contact: [www.mollie.com](http://www.mollie.com) — info@mollie.com — +31 20-612 88 55
+Contact: [www.mollie.com](https://www.mollie.com) — info@mollie.com — +31 20-612 88 55
 
 + [More information about iDEAL via Mollie](https://www.mollie.com/ideal/)
 + [More information about credit card via Mollie](https://www.mollie.com/creditcard/)
@@ -95,5 +97,3 @@ Contact: [www.mollie.com](http://www.mollie.com) — info@mollie.com — +31 20-
 + [More information about PayPal via Mollie](https://www.mollie.com/paypal/)
 + [More information about Belfius Direct Net via Mollie](https://www.mollie.com/belfiusdirectnet/)
 + [More information about paysafecard via Mollie](https://www.mollie.com/paysafecard/)
-
-![Powered By Mollie](https://www.mollie.com/images/badge-betaling-medium.png)

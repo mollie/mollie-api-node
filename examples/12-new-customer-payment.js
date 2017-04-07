@@ -37,6 +37,7 @@
             amount: 10.00,
             description: "My first API payment",
             redirectUrl: "http://" + request.headers.host + "/3-return-page?orderId=" + orderId,
+            webhookUrl: "http://" + request.headers.host + "/2-webhook-verification?orderId=" + orderId,
             metadata: {
               orderId: orderId
             }
