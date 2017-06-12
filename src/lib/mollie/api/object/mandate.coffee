@@ -42,4 +42,4 @@ module.exports = class Mandate
 		this.createdDatetime = null;
 
 	isValid: () ->
-		return this.status == this.STATUS_VALID;
+		return this.status == Mandate.STATUS_VALID;
