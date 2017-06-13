@@ -21,8 +21,11 @@
     	  Load requested example.
      */
     try {
-      example = require("." + path);
-      return new example(request, response);
+      if (path.indexOf('favicon') == -1)
+      {
+          example = require("." + path);
+          return new example(request, response);
+      }
     } catch (_error) {
       error = _error;
       console.error(error);
@@ -39,6 +42,7 @@
       response.write('<a href="./13-customer-payments-history">Try example 13</a><br>');
       response.write('<a href="./14-recurring-first-payment">Try example 14</a><br>');
       response.write('<a href="./15-recurring-payment">Try example 15</a><br>');
+      response.write('<a href="./16-invoices">Try example 16</a><br>');
       return response.end();
     }
   });
