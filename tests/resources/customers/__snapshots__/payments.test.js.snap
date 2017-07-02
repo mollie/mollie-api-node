@@ -1,0 +1,295 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`customers_payments .all() should return a list of all customer payments 1`] = `
+Array [
+  Payment {
+    "amount": "10.00",
+    "amountRefunded": null,
+    "amountRemaining": null,
+    "cancelledDatetime": null,
+    "createdDatetime": "2017-05-06T13:45:19.0Z",
+    "customerId": "cst_c24gk2t3G6",
+    "description": "Test customer payment of €10.00",
+    "details": null,
+    "expiredDatetime": null,
+    "expiryPeriod": "PT15M",
+    "id": "tr_McVBfE9Ceq",
+    "links": Object {
+      "paymentUrl": "https://www.mollie.com/payscreen/select-method/McVBfE9Ceq",
+      "redirectUrl": "https://www.example.org/",
+    },
+    "locale": null,
+    "mandateId": null,
+    "metadata": null,
+    "method": null,
+    "mode": "test",
+    "paidDatetime": null,
+    "profileId": "pfl_3nnfepufdN",
+    "recurringType": null,
+    "resource": "payment",
+    "settlementId": null,
+    "status": "open",
+    "subscriptionId": null,
+  },
+]
+`;
+
+exports[`customers_payments .all() should work with a callback 1`] = `
+Array [
+  Payment {
+    "amount": "10.00",
+    "amountRefunded": null,
+    "amountRemaining": null,
+    "cancelledDatetime": null,
+    "createdDatetime": "2017-05-06T13:45:19.0Z",
+    "customerId": "cst_c24gk2t3G6",
+    "description": "Test customer payment of €10.00",
+    "details": null,
+    "expiredDatetime": null,
+    "expiryPeriod": "PT15M",
+    "id": "tr_McVBfE9Ceq",
+    "links": Object {
+      "paymentUrl": "https://www.mollie.com/payscreen/select-method/McVBfE9Ceq",
+      "redirectUrl": "https://www.example.org/",
+    },
+    "locale": null,
+    "mandateId": null,
+    "metadata": null,
+    "method": null,
+    "mode": "test",
+    "paidDatetime": null,
+    "profileId": "pfl_3nnfepufdN",
+    "recurringType": null,
+    "resource": "payment",
+    "settlementId": null,
+    "status": "open",
+    "subscriptionId": null,
+  },
+]
+`;
+
+exports[`customers_payments .all() should work with withParent 1`] = `
+Array [
+  Payment {
+    "amount": "10.00",
+    "amountRefunded": null,
+    "amountRemaining": null,
+    "cancelledDatetime": null,
+    "createdDatetime": "2017-05-06T13:45:19.0Z",
+    "customerId": "cst_c24gk2t3G6",
+    "description": "Test customer payment of €10.00",
+    "details": null,
+    "expiredDatetime": null,
+    "expiryPeriod": "PT15M",
+    "id": "tr_McVBfE9Ceq",
+    "links": Object {
+      "paymentUrl": "https://www.mollie.com/payscreen/select-method/McVBfE9Ceq",
+      "redirectUrl": "https://www.example.org/",
+    },
+    "locale": null,
+    "mandateId": null,
+    "metadata": null,
+    "method": null,
+    "mode": "test",
+    "paidDatetime": null,
+    "profileId": "pfl_3nnfepufdN",
+    "recurringType": null,
+    "resource": "payment",
+    "settlementId": null,
+    "status": "open",
+    "subscriptionId": null,
+  },
+]
+`;
+
+exports[`customers_payments .create() should return a payment instance 1`] = `
+Payment {
+  "amount": "10.00",
+  "amountRefunded": null,
+  "amountRemaining": null,
+  "cancelledDatetime": null,
+  "createdDatetime": "2017-05-06T13:45:19.0Z",
+  "customerId": "cst_c24gk2t3G6",
+  "description": "Test customer payment of €10.00",
+  "details": null,
+  "expiredDatetime": null,
+  "expiryPeriod": "PT15M",
+  "id": "tr_McVBfE9Ceq",
+  "links": Object {
+    "paymentUrl": "https://www.mollie.com/payscreen/select-method/McVBfE9Ceq",
+    "redirectUrl": "https://www.example.org/",
+  },
+  "locale": null,
+  "mandateId": null,
+  "metadata": null,
+  "method": null,
+  "mode": "test",
+  "paidDatetime": null,
+  "profileId": "pfl_3nnfepufdN",
+  "recurringType": null,
+  "resource": "payment",
+  "settlementId": null,
+  "status": "open",
+  "subscriptionId": null,
+}
+`;
+
+exports[`customers_payments .create() should work with a callback 1`] = `
+Payment {
+  "amount": "10.00",
+  "amountRefunded": null,
+  "amountRemaining": null,
+  "cancelledDatetime": null,
+  "createdDatetime": "2017-05-06T13:45:19.0Z",
+  "customerId": "cst_c24gk2t3G6",
+  "description": "Test customer payment of €10.00",
+  "details": null,
+  "expiredDatetime": null,
+  "expiryPeriod": "PT15M",
+  "id": "tr_McVBfE9Ceq",
+  "links": Object {
+    "paymentUrl": "https://www.mollie.com/payscreen/select-method/McVBfE9Ceq",
+    "redirectUrl": "https://www.example.org/",
+  },
+  "locale": null,
+  "mandateId": null,
+  "metadata": null,
+  "method": null,
+  "mode": "test",
+  "paidDatetime": null,
+  "profileId": "pfl_3nnfepufdN",
+  "recurringType": null,
+  "resource": "payment",
+  "settlementId": null,
+  "status": "open",
+  "subscriptionId": null,
+}
+`;
+
+exports[`customers_payments .create() should work with withParent 1`] = `
+Payment {
+  "amount": "10.00",
+  "amountRefunded": null,
+  "amountRemaining": null,
+  "cancelledDatetime": null,
+  "createdDatetime": "2017-05-06T13:45:19.0Z",
+  "customerId": "cst_c24gk2t3G6",
+  "description": "Test customer payment of €10.00",
+  "details": null,
+  "expiredDatetime": null,
+  "expiryPeriod": "PT15M",
+  "id": "tr_McVBfE9Ceq",
+  "links": Object {
+    "paymentUrl": "https://www.mollie.com/payscreen/select-method/McVBfE9Ceq",
+    "redirectUrl": "https://www.example.org/",
+  },
+  "locale": null,
+  "mandateId": null,
+  "metadata": null,
+  "method": null,
+  "mode": "test",
+  "paidDatetime": null,
+  "profileId": "pfl_3nnfepufdN",
+  "recurringType": null,
+  "resource": "payment",
+  "settlementId": null,
+  "status": "open",
+  "subscriptionId": null,
+}
+`;
+
+exports[`customers_payments .get() should return a payment instance 1`] = `
+Payment {
+  "amount": "10.00",
+  "amountRefunded": null,
+  "amountRemaining": null,
+  "cancelledDatetime": null,
+  "createdDatetime": "2017-05-06T13:45:19.0Z",
+  "customerId": "cst_c24gk2t3G6",
+  "description": "Test customer payment of €10.00",
+  "details": null,
+  "expiredDatetime": null,
+  "expiryPeriod": "PT15M",
+  "id": "tr_McVBfE9Ceq",
+  "links": Object {
+    "paymentUrl": "https://www.mollie.com/payscreen/select-method/McVBfE9Ceq",
+    "redirectUrl": "https://www.example.org/",
+  },
+  "locale": null,
+  "mandateId": null,
+  "metadata": null,
+  "method": null,
+  "mode": "test",
+  "paidDatetime": null,
+  "profileId": "pfl_3nnfepufdN",
+  "recurringType": null,
+  "resource": "payment",
+  "settlementId": null,
+  "status": "open",
+  "subscriptionId": null,
+}
+`;
+
+exports[`customers_payments .get() should work with a callback 1`] = `
+Payment {
+  "amount": "10.00",
+  "amountRefunded": null,
+  "amountRemaining": null,
+  "cancelledDatetime": null,
+  "createdDatetime": "2017-05-06T13:45:19.0Z",
+  "customerId": "cst_c24gk2t3G6",
+  "description": "Test customer payment of €10.00",
+  "details": null,
+  "expiredDatetime": null,
+  "expiryPeriod": "PT15M",
+  "id": "tr_McVBfE9Ceq",
+  "links": Object {
+    "paymentUrl": "https://www.mollie.com/payscreen/select-method/McVBfE9Ceq",
+    "redirectUrl": "https://www.example.org/",
+  },
+  "locale": null,
+  "mandateId": null,
+  "metadata": null,
+  "method": null,
+  "mode": "test",
+  "paidDatetime": null,
+  "profileId": "pfl_3nnfepufdN",
+  "recurringType": null,
+  "resource": "payment",
+  "settlementId": null,
+  "status": "open",
+  "subscriptionId": null,
+}
+`;
+
+exports[`customers_payments .get() should work with withParent 1`] = `
+Payment {
+  "amount": "10.00",
+  "amountRefunded": null,
+  "amountRemaining": null,
+  "cancelledDatetime": null,
+  "createdDatetime": "2017-05-06T13:45:19.0Z",
+  "customerId": "cst_c24gk2t3G6",
+  "description": "Test customer payment of €10.00",
+  "details": null,
+  "expiredDatetime": null,
+  "expiryPeriod": "PT15M",
+  "id": "tr_McVBfE9Ceq",
+  "links": Object {
+    "paymentUrl": "https://www.mollie.com/payscreen/select-method/McVBfE9Ceq",
+    "redirectUrl": "https://www.example.org/",
+  },
+  "locale": null,
+  "mandateId": null,
+  "metadata": null,
+  "method": null,
+  "mode": "test",
+  "paidDatetime": null,
+  "profileId": "pfl_3nnfepufdN",
+  "recurringType": null,
+  "resource": "payment",
+  "settlementId": null,
+  "status": "open",
+  "subscriptionId": null,
+}
+`;

@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`method model should instantiate with default values 1`] = `
+Object {
+  "amount": Object {
+    "maximum": null,
+    "minimum": null,
+  },
+  "description": null,
+  "id": null,
+  "image": Object {
+    "bigger": null,
+    "normal": null,
+  },
+  "resource": "method",
+}
+`;
+
+exports[`method model should instantiate with given values 1`] = `
+Object {
+  "amount": Object {
+    "maximum": 1000,
+    "minimum": 10,
+  },
+  "description": null,
+  "id": "ideal",
+  "image": Object {
+    "bigger": null,
+    "normal": null,
+  },
+  "resource": "method",
+}
+`;

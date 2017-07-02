@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`issuer model should instantiate with default values 1`] = `
+Object {
+  "id": null,
+  "method": null,
+  "name": null,
+  "resource": "issuer",
+}
+`;
+
+exports[`issuer model should instantiate with given values 1`] = `
+Object {
+  "id": "ideal_TESTNL99",
+  "method": "ideal",
+  "name": "TBM Bank",
+  "resource": "issuer",
+}
+`;

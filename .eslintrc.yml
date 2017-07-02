@@ -1,0 +1,26 @@
+extends: airbnb-base
+env:
+  node: true
+  jest: true
+
+plugins:
+  - import
+
+parser: babel-eslint
+parserOptions:
+  ecmaVersion: 6
+
+rules:
+  no-use-before-define:
+    - error
+    - functions: false
+  no-param-reassign:
+    - error
+    - props: false
+
+settings:
+  import/resolver:
+    node:
+      moduleDirectory:
+        - node_modules
+        - src

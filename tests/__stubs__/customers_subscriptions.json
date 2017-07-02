@@ -1,0 +1,24 @@
+{
+  "totalCount": 1,
+  "offset": 0,
+  "count": 1,
+  "data": [
+    {
+      "resource": "subscription",
+      "id": "sub_rVKGtNd6s3",
+      "customerId": "cst_stTC2WHAuS",
+      "mode": "live",
+      "createdDatetime": "2017-02-01T12:23:34.0Z",
+      "status": "active",
+      "amount": "25.00",
+      "times": 4,
+      "interval": "3 months",
+      "description": "Quarterly payment",
+      "method": null,
+      "cancelledDatetime": null,
+      "links": {
+        "webhookUrl": "https://example.org/payments/webhook"
+      }
+    }
+  ]
+}

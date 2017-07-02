@@ -1,0 +1,26 @@
+{
+  "totalCount": 1,
+  "offset": 0,
+  "count": 1,
+  "data": [
+    {
+      "resource": "payment",
+      "id": "tr_McVBfE9Ceq",
+      "mode": "test",
+      "createdDatetime": "2017-05-06T13:45:19.0Z",
+      "status": "open",
+      "expiryPeriod": "PT15M",
+      "amount": "10.00",
+      "description": "Test customer payment of \u20ac10.00",
+      "method": null,
+      "metadata": null,
+      "details": null,
+      "profileId": "pfl_3nnfepufdN",
+      "customerId": "cst_c24gk2t3G6",
+      "links": {
+        "paymentUrl": "https://www.mollie.com/payscreen/select-method/McVBfE9Ceq",
+        "redirectUrl": "https://www.example.org/"
+      }
+    }
+  ]
+}

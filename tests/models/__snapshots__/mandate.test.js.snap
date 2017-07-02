@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mandate model should instantiate with default values 1`] = `
+Object {
+  "createdDatetime": null,
+  "customerId": null,
+  "details": null,
+  "id": null,
+  "method": null,
+  "resource": "mandate",
+  "status": null,
+}
+`;
+
+exports[`mandate model should instantiate with given values 1`] = `
+Object {
+  "createdDatetime": "2017-04-13T11:32:38.0Z",
+  "customerId": "cst_R6JLAuqEgm",
+  "details": Object {
+    "cardExpiryDate": "2017-03-31",
+    "cardFingerprint": "fHB3CCKx9REkz8fPplT8N4nq",
+    "cardHolder": "John Doe",
+    "cardLabel": "Mastercard",
+    "cardNumber": "1234",
+  },
+  "id": "mdt_pO2m5jVgMa",
+  "method": "creditcard",
+  "resource": "mandate",
+  "status": "valid",
+}
+`;

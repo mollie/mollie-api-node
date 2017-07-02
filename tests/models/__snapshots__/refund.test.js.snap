@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refund model should instantiate with default values 1`] = `
+Object {
+  "amount": null,
+  "id": null,
+  "payment": null,
+  "refundedDatetime": null,
+  "resource": "refund",
+  "status": null,
+}
+`;
+
+exports[`refund model should instantiate with given values 1`] = `
+Object {
+  "amount": null,
+  "id": null,
+  "payment": null,
+  "refundedDatetime": "2017-05-05T14:01:07.0Z",
+  "resource": "refund",
+  "status": "refunded",
+}
+`;

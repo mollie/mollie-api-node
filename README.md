@@ -1,32 +1,68 @@
 ![Mollie](https://www.mollie.nl/files/Mollie-Logo-Style-Small.png)
 
-# Mollie API client for Node #
+JavaScript client for Mollie's API.
 
-Accepting [iDEAL](https://www.mollie.com/ideal/), [Bancontact/Mister Cash](https://www.mollie.com/mistercash/), [SOFORT Banking](https://www.mollie.com/sofort/), [Creditcard](https://www.mollie.com/creditcard/), [SEPA Bank transfer](https://www.mollie.com/overboeking/), [SEPA Direct debit](https://www.mollie.com/directdebit/), [Bitcoin](https://www.mollie.com/bitcoin/), [PayPal](https://www.mollie.com/paypal/), [Belfius Direct Net](https://www.mollie.com/belfiusdirectnet/) and [paysafecard](https://www.mollie.com/paysafecard/) online payments without fixed monthly costs or any punishing registration procedures. Just use the Mollie API to receive payments directly on your website or easily refund transactions to your customers.
+# About
 
-## Requirements ##
+[Mollie](https://www.mollie.com/) builds payment products, commerce solutions and APIs that let you accept online and mobile payments, for small online stores and Fortune 500s alike. Accepting [iDEAL](https://www.mollie.com/payments/ideal/), [Bancontact/Mister Cash](https://www.mollie.com/payments/bancontact), [SOFORT Banking](https://www.mollie.com/payments/sofort/), [Creditcard](https://www.mollie.com/payments/credit-card/), [SEPA Bank transfer](https://www.mollie.com/payments/bank-transfer), [SEPA Direct debit](https://www.mollie.com/payments/direct-debit/), [Bitcoin](https://www.mollie.com/payments/bitcoin/), [PayPal](https://www.mollie.com/payments/paypal/), [Belfius Direct Net](https://www.mollie.com/payments/belfius/) and [paysafecard](https://www.mollie.com/payments/paysafecard/) online payments without fixed monthly costs or any punishing registration procedures. Just use the Mollie API to receive payments directly on your website or easily refund transactions to your customers.
+
+## Features
+
+- [Payments](https://www.mollie.com/en/docs/reference/payments/create): are the heart of the Mollie API: this is where most implementations start off. 
+- [Methods](https://www.mollie.com/en/docs/reference/methods/list): shows all the payment methods activated on the payment profile.
+- [Issuers](https://www.mollie.com/en/docs/reference/issuers/list): allow you to integrate iDEAL's bank selection screen into your own payment flow.
+- [Refunds](https://www.mollie.com/en/docs/reference/refunds/list-all): allow you to make refunds in relation to a payment.
+- [Customers](https://www.mollie.com/en/docs/reference/customers/create): allow you to manage your customer's details.
+- [Mandates](https://www.mollie.com/en/docs/reference/mandates/create): allow you to charge a customer's credit card or bank account recurrently.
+- [Subscriptions](https://www.mollie.com/en/docs/reference/subscriptions/create): allow you to schedule recurring payments to take place at regular intervals.
+
+# Getting started
+
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Importing the client](#importing-the-client)
+- [Authentication](#authentication)
+- [Making your first request](#making-your-first-request)
+- [Documentation](#documentation)
+
+## Requirements
+
 To use the Mollie API client, the following things are required:
 
-+ Get yourself a free [Mollie account](https://www.mollie.nl/aanmelden). No sign up costs.
-+ Create a new [Website profile](https://www.mollie.nl/beheer/account/profielen/) to generate API keys (live and test mode) and setup your webhook.
++ Get yourself a free [Mollie account](https://www.mollie.com/signup). No sign up costs.
++ Create a new [website profile](https://www.mollie.com/dashboard/settings/profiles) to generate API keys (live and test mode) and setup your webhook.
 + Now you're ready to use the Mollie API client in test mode.
-+ In order to accept payments in live mode, payment methods must be activated in your account. Follow [a few of steps](https://www.mollie.nl/beheer/diensten), and let us handle the rest.
++ In order to accept payments in live mode, payment methods must be activated in your account. Follow [a few of steps](https://www.mollie.com/dashboard/?modal=onboarding), and let us handle the rest.
 
-## Installation ##
+## Installation
 
-By far the easiest way to install the Mollie API client is to install it with [npm](https://npmjs.org/).
+Using [npm](https://npmjs.org/):
 
-    $ npm install mollie-api-node --save
+```sh
+npm install mollie-api-node --save
+```
 
-    {
-        "dependencies": {
-            "mollie-api-node": "^1.3.5"
-        }
-    }
+Or using [yarn](https://yarnpkg.com/):
+    
+```sh
+yarn add mollie-api-node
+```
+
+This will add `mollie-api-node` to your project's dependencies, listed in `package.json` like so:
+
+```json
+{
+  "dependencies": {
+    "mollie-api-node": "^2.0.0"
+  }
+}
+```
 
 You may also git checkout or [download all the files](https://github.com/mollie/mollie-api-node/archive/master.zip), and include the Mollie API client manually.
 
-## How to receive payments ##
+Check the [releases](https://github.com/mollie/mollie-api-node/releases) page to know which versions are available.
+
+## How to receive payments
 
 To successfully receive a payment, these steps should be implemented:
 
@@ -36,64 +72,123 @@ To successfully receive a payment, these steps should be implemented:
 
 3. The customer returns, and should be satisfied to see that the order was paid and is now being processed.
 
-## Getting started ##
+## Importing the client
 
-Requiring the library.
+Require or import the library:
 
 ```javascript
-Mollie = require("mollie-api-node");
+const mollie = require("mollie-api-node");
 ```
 
-Initializing the Mollie API client, and setting your API key.
+Or when you are using ES6 imports:
 
 ```javascript
-mollie = new Mollie.API.Client;
-mollie.setApiKey("test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM");
+import mollie from 'mollie-api-node';
 ```
 
-Creating a new payment.
+## Authentication
+
+To be able to receive data from the API, an app should authenticate with a bearer token, referred to as API keys.
+
+We've already prepared this step by creating a `test` and `live` key for you in our [Dashboard](https://www.mollie.com/dashboard/).
+
+Now create the Mollie client, and set your API key:
 
 ```javascript
-mollie.payments.create({
-    amount:      10.00,
-    description: "My first API payment",
-    redirectUrl: "https://webshop.example.org/order/12345/",
-    webhookUrl:  "https://webshop.example.org/mollie-webhook/"
-}, function (payment) {
-    response.writeHead(302, { Location: payment.getPaymentUrl() })
+const mollieClient = mollie.createClient({
+  apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM', 
 });
 ```
 
-Retrieving a payment.
+## Making your first request
+
+Create a new payment with a promise
 
 ```javascript
-mollie.payments.get(
-    payment.id
-, function (payment) {
+mollieClient.payments.create({
+  amount:      10.00,
+  description: 'My first API payment',
+  redirectUrl: 'https://webshop.example.org/order/12345/',
+  webhookUrl:  'https://webshop.example.org/mollie-webhook/'
+})
+  .then(payment => res.writeHead(302, { Location: payment.getPaymentUrl() }))
+  .catch(err => res.writeHead(500));
+```
+
+... or a callback
+
+
+```javascript
+mollieClient.payments.create({
+  amount: 10.00,
+  description: 'My first API payment',
+  redirectUrl: 'https://webshop.example.org/order/12345/',
+  webhookUrl: 'https://webshop.example.org/mollie-webhook/'
+}, (err, payment) => {
+  if (err) {
+    return res.writeHead(500);
+  }
+
+  return res.writeHead(302, { Location: payment.getPaymentUrl() })
+});
+```
+
+Retrieve a payment with a promise
+
+```javascript
+mollieClient.payments.get(payment.id)
+ .then((payment) => {
     if (payment.isPaid()) {
-        console.log("Payment received.");
+      console.log('Payment is paid.');
     }
+  })
+  .catch((err) => { /* handle error */ });
+```
+... or a callback
+
+```javascript
+mollieClient.payments.get(payment.id, (err, payment) => {
+  if (err) {
+    // handle error
+  }
+
+  if (payment.isPaid()) {
+    console.log('Hooray! The payment is paid.');
+  } else {
+    console.log(`Payment is ${payment.status}.`)
+  }
 });
 ```
 
-## Want to help us make our API client even better? ##
+That's it!
 
-Want to help us make our API client even better? We take [pull requests](https://github.com/mollie/mollie-api-node/pulls?utf8=%E2%9C%93&q=is%3Apr), sure. But how would you like to contribute to a [technology oriented organization](https://www.mollie.com/nl/blog/post/werken-bij-mollie-sfeer-kansen-en-mogelijkheden/)? Mollie is hiring developers and system engineers. [Check out our vacancies](https://www.mollie.com/nl/jobs) or [get in touch](mailto:personeel@mollie.com).
+## Documentation
 
-## License ##
-[BSD (Berkeley Software Distribution) License](https://opensource.org/licenses/bsd-license.php).
-Copyright (c) 2013-2017, Mollie B.V.
+To help you get the most out of this client, we've prepared reference documentation, tutorials and other examples that will help you learn and understand how to use this library.
 
-## Support ##
-Contact: [www.mollie.com](https://www.mollie.com) — info@mollie.com — +31 20-612 88 55
+### Guides
 
-+ [More information about iDEAL via Mollie](https://www.mollie.com/ideal/)
-+ [More information about credit card via Mollie](https://www.mollie.com/creditcard/)
-+ [More information about Bancontact/Mister Cash via Mollie](https://www.mollie.com/mistercash/)
-+ [More information about SOFORT Banking via Mollie](https://www.mollie.com/sofort/)
-+ [More information about SEPA Bank transfer via Mollie](https://www.mollie.com/banktransfer/)
-+ [More information about SEPA Direct debit via Mollie](https://www.mollie.com/directdebit/)
-+ [More information about Bitcoin via Mollie](https://www.mollie.com/bitcoin/)
-+ [More information about PayPal via Mollie](https://www.mollie.com/paypal/)
-+ [More information about Belfius Direct Net via Mollie](https://www.mollie.com/belfiusdirectnet/)
-+ [More information about paysafecard via Mollie](https://www.mollie.com/paysafecard/)
+For a deep dive in how our systems function we refer to our excellent [guides](https://www.mollie.com/en/docs/overview). These guides provide a complete overview of the Mollie API and cover specific topics dealing with a number of important aspects of the API.
+
+### API reference
+
+This library is a wrapper around our Mollie API. Some more specific details such as query parameters and pagination are better explained in our [API reference](https://www.mollie.com/en/docs/reference), and you can also get a better understanding of how the requests look under the hood.
+
+## Migrating from v1.x
+
+The API client v2.0 was a major rewrite, with some breaking changes. While the basic functionality stayed the same and the method names did not change, some function signatures have changed.
+ 
+See the [migration guide](MIGRATION.md) for more information.
+
+## Contributing
+
+Want to help us make our API client even better? We take [pull requests](https://github.com/mollie/mollie-api-node/pulls), sure. But how would you like to contribute to a [technology oriented organization](https://www.mollie.com/nl/blog/post/werken-bij-mollie-sfeer-kansen-en-mogelijkheden/)? Mollie is hiring developers and system engineers. [Check out our vacancies](https://mollie.homerun.co/) or [get in touch](mailto:personeel@mollie.com).
+
+## License
+
+[New BSD (Berkeley Software Distribution) License](https://opensource.org/licenses/BSD-3-Clause).
+Copyright 2013-2017, Mollie B.V.
+
+## Support
+
+Contact: [www.mollie.com](https://www.mollie.com) — info@mollie.com — +31 20 - 612 88 55

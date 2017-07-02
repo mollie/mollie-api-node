@@ -1,0 +1,35 @@
+{
+  "totalCount": 2,
+  "offset": 0,
+  "count": 2,
+  "data": [
+    {
+      "resource": "mandate",
+      "id": "mdt_pO2m5jVgMa",
+      "status": "valid",
+      "method": "directdebit",
+      "customerId": "cst_R6JLAuqEgm",
+      "details": {
+        "consumerName": "Hr E G H K\u00fcppers en\/of MW M.J. K\u00fcppers-Veeneman",
+        "consumerAccount": "NL53INGB0618365937",
+        "consumerBic": "INGBNL2A"
+      },
+      "createdDatetime": "2017-04-13T11:32:38.0Z"
+    },
+    {
+      "resource": "mandate",
+      "id": "mdt_qtUgejVgMN",
+      "status": "valid",
+      "method": "creditcard",
+      "customerId": "cst_R6JLAuqEgm",
+      "details": {
+        "cardHolder": "John Doe",
+        "cardNumber": "1234",
+        "cardLabel": "Mastercard",
+        "cardFingerprint": "fHB3CCKx9REkz8fPplT8N4nq",
+        "cardExpiryDate": "2017-03-31"
+      },
+      "createdDatetime": "2017-04-13T11:32:38.0Z"
+    }
+  ]
+}

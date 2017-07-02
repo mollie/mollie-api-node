@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`payment model should instantiate with default values 1`] = `
+Object {
+  "amount": null,
+  "amountRefunded": null,
+  "amountRemaining": null,
+  "cancelledDatetime": null,
+  "createdDatetime": null,
+  "customerId": null,
+  "description": null,
+  "details": null,
+  "expiredDatetime": null,
+  "expiryPeriod": null,
+  "id": null,
+  "links": Object {
+    "paymentUrl": null,
+    "redirectUrl": null,
+    "webhookUrl": null,
+  },
+  "locale": null,
+  "mandateId": null,
+  "metadata": null,
+  "method": null,
+  "mode": null,
+  "paidDatetime": null,
+  "profileId": null,
+  "recurringType": null,
+  "resource": "payment",
+  "settlementId": null,
+  "status": null,
+  "subscriptionId": null,
+}
+`;
+
+exports[`payment model should instantiate with given values 1`] = `
+Object {
+  "amount": null,
+  "amountRefunded": null,
+  "amountRemaining": null,
+  "cancelledDatetime": null,
+  "createdDatetime": "2017-05-06T21:53:21.561Z",
+  "customerId": null,
+  "description": null,
+  "details": null,
+  "expiredDatetime": null,
+  "expiryPeriod": null,
+  "id": "tr_7UhSN1zuXS",
+  "links": Object {
+    "paymentUrl": "https://www.mollie.com/payscreen/select-method/7UhSN1zuXS",
+  },
+  "locale": null,
+  "mandateId": null,
+  "metadata": Object {
+    "orderId": "12345",
+  },
+  "method": null,
+  "mode": "test",
+  "paidDatetime": null,
+  "profileId": null,
+  "recurringType": null,
+  "resource": "payment",
+  "settlementId": null,
+  "status": "open",
+  "subscriptionId": null,
+}
+`;

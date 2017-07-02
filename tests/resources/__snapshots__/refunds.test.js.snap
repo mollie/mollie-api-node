@@ -1,0 +1,250 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refunds .all() should return a list of all payment refunds 1`] = `
+Array [
+  Refund {
+    "amount": "5.95",
+    "id": "re_4qqhO89gsT",
+    "payment": Object {
+      "amount": "35.07",
+      "amountRefunded": "5.95",
+      "amountRemaining": "54.12",
+      "createdDatetime": "2017-05-03T08:00:59.0Z",
+      "description": "Order",
+      "details": Object {
+        "consumerAccount": "NL53INGB0654422370",
+        "consumerBic": "INGBNL2A",
+        "consumerName": "Hr E G H Küppers en/of MW M.J. Küppers-Veeneman",
+      },
+      "id": "tr_WDqYK6vllg",
+      "links": Object {
+        "redirectUrl": "https://www.example.org/order/33/",
+        "refunds": "https://api.mollie.nl/v1/payments/tr_WDqYK6vllg/refunds",
+        "webhookUrl": "https://www.example.org/payments/webhook",
+      },
+      "locale": "nl",
+      "metadata": Object {
+        "order_id": "33",
+      },
+      "method": "ideal",
+      "mode": "test",
+      "status": "refunded",
+    },
+    "refundedDatetime": "2017-05-05T14:01:07.0Z",
+    "resource": "refund",
+    "status": null,
+  },
+]
+`;
+
+exports[`refunds .all() should work with a callback 1`] = `
+Array [
+  Refund {
+    "amount": "5.95",
+    "id": "re_4qqhO89gsT",
+    "payment": Object {
+      "amount": "35.07",
+      "amountRefunded": "5.95",
+      "amountRemaining": "54.12",
+      "createdDatetime": "2017-05-03T08:00:59.0Z",
+      "description": "Order",
+      "details": Object {
+        "consumerAccount": "NL53INGB0654422370",
+        "consumerBic": "INGBNL2A",
+        "consumerName": "Hr E G H Küppers en/of MW M.J. Küppers-Veeneman",
+      },
+      "id": "tr_WDqYK6vllg",
+      "links": Object {
+        "redirectUrl": "https://www.example.org/order/33/",
+        "refunds": "https://api.mollie.nl/v1/payments/tr_WDqYK6vllg/refunds",
+        "webhookUrl": "https://www.example.org/payments/webhook",
+      },
+      "locale": "nl",
+      "metadata": Object {
+        "order_id": "33",
+      },
+      "method": "ideal",
+      "mode": "test",
+      "status": "refunded",
+    },
+    "refundedDatetime": "2017-05-05T14:01:07.0Z",
+    "resource": "refund",
+    "status": null,
+  },
+]
+`;
+
+exports[`refunds .create() should return a refund instance 1`] = `
+Refund {
+  "amount": "5.95",
+  "id": "re_4qqhO89gsT",
+  "payment": Object {
+    "amount": "35.07",
+    "amountRefunded": "5.95",
+    "amountRemaining": "54.12",
+    "createdDatetime": "2017-05-03T08:00:59.0Z",
+    "description": "Order",
+    "details": Object {
+      "consumerAccount": "NL53INGB0654422370",
+      "consumerBic": "INGBNL2A",
+      "consumerName": "Hr E G H Küppers en/of MW M.J. Küppers-Veeneman",
+    },
+    "id": "tr_WDqYK6vllg",
+    "links": Object {
+      "redirectUrl": "https://www.example.org/order/33/",
+      "refunds": "https://api.mollie.nl/v1/payments/tr_WDqYK6vllg/refunds",
+      "webhookUrl": "https://www.example.org/payments/webhook",
+    },
+    "locale": "nl",
+    "metadata": Object {
+      "order_id": "33",
+    },
+    "method": "ideal",
+    "mode": "test",
+    "status": "refunded",
+  },
+  "refundedDatetime": "2017-05-05T14:01:07.0Z",
+  "resource": "refund",
+  "status": null,
+}
+`;
+
+exports[`refunds .create() should work with a callback 1`] = `
+Refund {
+  "amount": "5.95",
+  "id": "re_4qqhO89gsT",
+  "payment": Object {
+    "amount": "35.07",
+    "amountRefunded": "5.95",
+    "amountRemaining": "54.12",
+    "createdDatetime": "2017-05-03T08:00:59.0Z",
+    "description": "Order",
+    "details": Object {
+      "consumerAccount": "NL53INGB0654422370",
+      "consumerBic": "INGBNL2A",
+      "consumerName": "Hr E G H Küppers en/of MW M.J. Küppers-Veeneman",
+    },
+    "id": "tr_WDqYK6vllg",
+    "links": Object {
+      "redirectUrl": "https://www.example.org/order/33/",
+      "refunds": "https://api.mollie.nl/v1/payments/tr_WDqYK6vllg/refunds",
+      "webhookUrl": "https://www.example.org/payments/webhook",
+    },
+    "locale": "nl",
+    "metadata": Object {
+      "order_id": "33",
+    },
+    "method": "ideal",
+    "mode": "test",
+    "status": "refunded",
+  },
+  "refundedDatetime": "2017-05-05T14:01:07.0Z",
+  "resource": "refund",
+  "status": null,
+}
+`;
+
+exports[`refunds .delete() should return a refund instance 1`] = `
+Refund {
+  "amount": "5.95",
+  "id": "re_4qqhO89gsT",
+  "payment": Object {
+    "amount": "35.07",
+    "amountRefunded": "5.95",
+    "amountRemaining": "54.12",
+    "createdDatetime": "2017-05-03T08:00:59.0Z",
+    "description": "Order",
+    "details": Object {
+      "consumerAccount": "NL53INGB0654422370",
+      "consumerBic": "INGBNL2A",
+      "consumerName": "Hr E G H Küppers en/of MW M.J. Küppers-Veeneman",
+    },
+    "id": "tr_WDqYK6vllg",
+    "links": Object {
+      "redirectUrl": "https://www.example.org/order/33/",
+      "refunds": "https://api.mollie.nl/v1/payments/tr_WDqYK6vllg/refunds",
+      "webhookUrl": "https://www.example.org/payments/webhook",
+    },
+    "locale": "nl",
+    "metadata": Object {
+      "order_id": "33",
+    },
+    "method": "ideal",
+    "mode": "test",
+    "status": "refunded",
+  },
+  "refundedDatetime": "2017-05-05T14:01:07.0Z",
+  "resource": "refund",
+  "status": null,
+}
+`;
+
+exports[`refunds .delete() should work with a callback and legacy delete 1`] = `
+Refund {
+  "amount": "5.95",
+  "id": "re_4qqhO89gsT",
+  "payment": Object {
+    "amount": "35.07",
+    "amountRefunded": "5.95",
+    "amountRemaining": "54.12",
+    "createdDatetime": "2017-05-03T08:00:59.0Z",
+    "description": "Order",
+    "details": Object {
+      "consumerAccount": "NL53INGB0654422370",
+      "consumerBic": "INGBNL2A",
+      "consumerName": "Hr E G H Küppers en/of MW M.J. Küppers-Veeneman",
+    },
+    "id": "tr_WDqYK6vllg",
+    "links": Object {
+      "redirectUrl": "https://www.example.org/order/33/",
+      "refunds": "https://api.mollie.nl/v1/payments/tr_WDqYK6vllg/refunds",
+      "webhookUrl": "https://www.example.org/payments/webhook",
+    },
+    "locale": "nl",
+    "metadata": Object {
+      "order_id": "33",
+    },
+    "method": "ideal",
+    "mode": "test",
+    "status": "refunded",
+  },
+  "refundedDatetime": "2017-05-05T14:01:07.0Z",
+  "resource": "refund",
+  "status": null,
+}
+`;
+
+exports[`refunds .get() should return a refund instance 1`] = `
+Refund {
+  "amount": "5.95",
+  "id": "re_4qqhO89gsT",
+  "payment": Object {
+    "amount": "35.07",
+    "amountRefunded": "5.95",
+    "amountRemaining": "54.12",
+    "createdDatetime": "2017-05-03T08:00:59.0Z",
+    "description": "Order",
+    "details": Object {
+      "consumerAccount": "NL53INGB0654422370",
+      "consumerBic": "INGBNL2A",
+      "consumerName": "Hr E G H Küppers en/of MW M.J. Küppers-Veeneman",
+    },
+    "id": "tr_WDqYK6vllg",
+    "links": Object {
+      "redirectUrl": "https://www.example.org/order/33/",
+      "refunds": "https://api.mollie.nl/v1/payments/tr_WDqYK6vllg/refunds",
+      "webhookUrl": "https://www.example.org/payments/webhook",
+    },
+    "locale": "nl",
+    "metadata": Object {
+      "order_id": "33",
+    },
+    "method": "ideal",
+    "mode": "test",
+    "status": "refunded",
+  },
+  "refundedDatetime": "2017-05-05T14:01:07.0Z",
+  "resource": "refund",
+  "status": null,
+}
+`;
