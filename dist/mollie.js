@@ -1,5 +1,7 @@
 'use strict';
 
+Object.defineProperty(exports, '__esModule', { value: true });
+
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
 var axios = _interopDefault(require('axios'));
@@ -1591,7 +1593,7 @@ function createMollieApi(_ref) {
 
 var cert = "dc70e60c16aaac11.pem";
 
-var version = "2.0.0";
+var version = "2.0.0-alpha.1";
 
 /**
  * Create Mollie client.
@@ -1622,26 +1624,31 @@ function mollie(httpVendor) {
   return createMollieApi({ httpClient: httpClient });
 }
 
-var index = {
-  /**
-   * Create a new Mollie client with the default http vendor.
-   * @param params
-   * @returns {Object}
-   */
-  createClient: function createClient(params) {
-    return mollie(axios, params);
-  },
+/**
+ * Create a new Mollie client with the default http vendor.
+ * @param params
+ * @returns {Object}
+ */
+function createClient(params) {
+  return mollie(axios, params);
+}
 
-  /**
-   * Create a new mollie client with a custom http vendor.
-   * Note: If you want to use a different vendor than axios, make sure it uses promises!
-   * @param httpVendor
-   * @param params
-   * @returns {Object}
-   */
-  createClientWithCustomHttpVendor: function createClientWithCustomHttpVendor(httpVendor, params) {
-    return mollie(httpVendor, params);
-  }
+/**
+ * Create a new mollie client with a custom http vendor.
+ * Note: If you want to use a different vendor than axios, make sure it uses promises!
+ * @param httpVendor
+ * @param params
+ * @returns {Object}
+ */
+function createClientWithCustomHttpVendor(httpVendor, params) {
+  return mollie(httpVendor, params);
+}
+
+var index = {
+  createClient: createClient,
+  createClientWithCustomHttpVendor: createClientWithCustomHttpVendor
 };
 
-module.exports = index;
+exports.createClient = createClient;
+exports.createClientWithCustomHttpVendor = createClientWithCustomHttpVendor;
+exports['default'] = index;
