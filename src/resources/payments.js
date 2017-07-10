@@ -1,4 +1,4 @@
-import Base from './base';
+import Resource from './base';
 import Payment from '../models/payment';
 
 /**
@@ -7,7 +7,7 @@ import Payment from '../models/payment';
  * @static {Object} model
  * @since 1.0.0
  */
-export default class Payments extends Base {
+export default class Payments extends Resource {
   static resource = 'payments';
   static model = Payment;
 }

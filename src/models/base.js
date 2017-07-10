@@ -3,7 +3,7 @@ import toPlainObject from 'lodash/toPlainObject';
 /**
  * Base model
  */
-export default class Base {
+export default class Model {
   /**
    * Converts a model into a plain object
    * @returns {Object}

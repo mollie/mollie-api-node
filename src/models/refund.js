@@ -1,9 +1,9 @@
-import Base from './base';
+import Model from './base';
 
 /**
  * The `Refund` model
  */
-export default class Refund extends Base {
+export default class Refund extends Model {
   static STATUS_PENDING = 'pending';
   static STATUS_PROCESSING = 'processing';
   static STATUS_REFUNDED = 'refunded';

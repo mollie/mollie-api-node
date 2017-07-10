@@ -1,9 +1,9 @@
-import Base from './base';
+import Model from './base';
 
 /**
  * The `Mandate` model
  */
-export default class Mandate extends Base {
+export default class Mandate extends Model {
   static STATUS_VALID = 'valid';
   static STATUS_INVALID = 'invalid';
 

@@ -6,7 +6,7 @@ import List from '../models/list';
  * @param {Object} httpClient
  * @private
  */
-export default class Base {
+export default class Resource {
   /**
    * Constructor
    * @param httpClient
@@ -110,7 +110,7 @@ export default class Base {
         }
         return model;
       })
-      .catch(error => Base.errorHandler(error.response, cb));
+      .catch(error => Resource.errorHandler(error.response, cb));
   }
 
   /**
@@ -136,7 +136,7 @@ export default class Base {
         }
         return model;
       })
-      .catch(error => Base.errorHandler(error.response, cb));
+      .catch(error => Resource.errorHandler(error.response, cb));
   }
 
   /**
@@ -168,7 +168,7 @@ export default class Base {
         }
         return list;
       })
-      .catch(error => Base.errorHandler(error.response, cb));
+      .catch(error => Resource.errorHandler(error.response, cb));
   }
 
   /**
@@ -194,7 +194,7 @@ export default class Base {
         }
         return model;
       })
-      .catch(error => Base.errorHandler(error.response, cb));
+      .catch(error => Resource.errorHandler(error.response, cb));
   }
 
   /**
@@ -215,6 +215,6 @@ export default class Base {
         }
         return model;
       })
-      .catch(error => Base.errorHandler(error.response, cb));
+      .catch(error => Resource.errorHandler(error.response, cb));
   }
 }

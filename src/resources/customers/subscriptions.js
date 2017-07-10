@@ -1,4 +1,4 @@
-import CustomersBase from './base';
+import CustomersResource from './base';
 import Subscription from '../../models/subscription';
 
 /**
@@ -7,7 +7,7 @@ import Subscription from '../../models/subscription';
  * @static {Object} model
  * @since 1.3.2
  */
-export default class CustomersSubscriptions extends CustomersBase {
+export default class CustomersSubscriptions extends CustomersResource {
   static resource = 'customers_subscriptions';
   static model = Subscription;
 

@@ -1,10 +1,10 @@
-import Base from '../base';
+import Resource from '../base';
 
 /**
  * Payments base resource
  * @private
  */
-export default class PaymentsBase extends Base {
+export default class PaymentsResource extends Resource {
   /**
    * Set the parent
    * @param {Object} params

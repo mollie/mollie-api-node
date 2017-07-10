@@ -1,9 +1,9 @@
-import Base from './base';
+import Model from './base';
 
 /**
  * The `Payment` model
  */
-export default class Payment extends Base {
+export default class Payment extends Model {
   static STATUS_OPEN = 'open';
   static STATUS_PENDING = 'pending';
   static STATUS_CANCELLED = 'cancelled';

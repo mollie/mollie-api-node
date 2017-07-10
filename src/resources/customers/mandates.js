@@ -1,4 +1,4 @@
-import CustomersBase from './base';
+import CustomersResource from './base';
 import Mandate from '../../models/mandate';
 
 /**
@@ -7,7 +7,7 @@ import Mandate from '../../models/mandate';
  * @static {Object} model
  * @since 1.2.0
  */
-export default class CustomersMandates extends CustomersBase {
+export default class CustomersMandates extends CustomersResource {
   static resource = 'customers_mandates';
   static model = Mandate;
 

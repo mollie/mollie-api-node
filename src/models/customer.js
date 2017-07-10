@@ -1,9 +1,9 @@
-import Base from './base';
+import Model from './base';
 
 /**
  * The `Customer` model
  */
-export default class Customer extends Base {
+export default class Customer extends Model {
   constructor(props) {
     super(props);
 

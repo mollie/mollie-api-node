@@ -1,4 +1,4 @@
-import Base from './base';
+import Resource from './base';
 import Issuer from '../models/issuer';
 
 /**
@@ -7,7 +7,7 @@ import Issuer from '../models/issuer';
  * @static {Object} model
  * @since 1.0.0
  */
-export default class Issuers extends Base {
+export default class Issuers extends Resource {
   static resource = 'issuers';
   static model = Issuer;
 }

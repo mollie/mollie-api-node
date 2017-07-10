@@ -1,4 +1,4 @@
-import PaymentsBase from './base';
+import PaymentsResource from './base';
 import Refund from '../../models/refund';
 
 /**
@@ -7,7 +7,7 @@ import Refund from '../../models/refund';
  * @static {Object} model
  * @since 1.1.1
  */
-export default class PaymentsRefunds extends PaymentsBase {
+export default class PaymentsRefunds extends PaymentsResource {
   static resource = 'payments_refunds';
   static model = Refund;
 

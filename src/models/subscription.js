@@ -1,9 +1,9 @@
-import Base from './base';
+import Model from './base';
 
 /**
  * The `Subscription` model
  */
-export default class Subscription extends Base {
+export default class Subscription extends Model {
   static STATUS_ACTIVE = 'active';
   static STATUS_PENDING = 'pending'; // Waiting for a valid mandate.
   static STATUS_CANCELLED = 'cancelled';

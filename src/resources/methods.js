@@ -1,4 +1,4 @@
-import Base from './base';
+import Resource from './base';
 import Method from '../models/method';
 
 /**
@@ -7,7 +7,7 @@ import Method from '../models/method';
  * @static {Object} model
  * @since 1.0.0
  */
-export default class Methods extends Base {
+export default class Methods extends Resource {
   static resource = 'methods';
   static model = Method;
 }

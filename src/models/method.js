@@ -1,9 +1,9 @@
-import Base from './base';
+import Model from './base';
 
 /**
  * The `Method` model
  */
-export default class Method extends Base {
+export default class Method extends Model {
   static IDEAL = 'ideal';
   static CREDITCARD = 'creditcard';
   static MISTERCASH = 'mistercash';
