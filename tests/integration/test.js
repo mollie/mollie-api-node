@@ -113,41 +113,24 @@ describe('methods', () => {
 });
 
 describe('payments', () => {
-  it.skip('should integrate', (done) => {
+  it('should integrate', (done) => {
     mollieClient.payments.all()
-      .then(payments => {
+      .then((payments) => {
         if (!payments.length) {
           mollieClient.payments.create({
-            'amount': 5.00,
-            'description': 'invalid',
-            'redirectUrl': 'https://example.com/redirect'
+            amount: 5.00,
+            description: 'invalid',
+            redirectUrl: 'https://example.com/redirect'
           })
             .then(payment => expect(payment).toBeDefined())
-            .catch(err => expect(err).toBeNull())
+            .catch((err) => {
+              expect(err).toBeNull();
+              done();
+            })
         } else {
-          expect(payments).toBeDefined();
+          expect(payments.length).toBeGreaterThan(0);
         }
-
-        mollieClient.payments_refunds.all({ paymentId: payments[0].id })
-          .then(paymentRefunds => {
-            console.log(paymentRefunds);
-            expect(paymentRefunds).toBeDefined();
-
-            mollieClient.payments_refunds.get(paymentRefunds[0].id, { paymentId: payments[0].id })
-              .then(paymentRefund => {
-                expect(paymentRefund).toBeDefined();
-                done();
-              })
-              .catch((err) => {
-                expect(err).toBeNull();
-                done();
-              });
-
-          })
-          .catch((err) => {
-            expect(err).toBeNull();
-            done();
-          })
+        done();
       })
       .catch((err) => {
         expect(err).toBeNull();
@@ -160,6 +143,9 @@ describe('refunds', () => {
   it('should integrate', () =>
     mollieClient.refunds.all()
       .then(refunds => expect(refunds).toBeDefined())
-      .catch(err => expect(err).toBeNull())
+      .catch((err) => {
+        expect(err).toBeNull();
+        done();
+      })
   );
 });

@@ -26,7 +26,7 @@ describe('payments_refunds', () => {
   });
 
   describe('.create()', () => {
-    mock.onPost(`/payments/${props.paymentId}/refunds`, props).reply(200, response.data[0]);
+    mock.onPost(`/payments/${props.paymentId}/refunds`).reply(200, response.data[0]);
 
     it('should return a refund instance', () =>
       paymentsRefunds.create(props).then((result) => {

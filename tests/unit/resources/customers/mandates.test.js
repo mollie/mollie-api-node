@@ -33,7 +33,7 @@ describe('customers_mandates', () => {
   });
 
   describe('.create()', () => {
-    mock.onPost(`/customers/${props.customerId}/mandates`, props).reply(200, response.data[0]);
+    mock.onPost(`/customers/${props.customerId}/mandates`).reply(200, response.data[0]);
 
     it('should return a mandate instance', () =>
       customersMandates.create(props).then((result) => {

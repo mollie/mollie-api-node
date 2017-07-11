@@ -31,7 +31,7 @@ describe('customers_subscriptions', () => {
   });
 
   describe('.create()', () => {
-    mock.onPost(`/customers/${props.customerId}/subscriptions`, props).reply(200, response.data[0]);
+    mock.onPost(`/customers/${props.customerId}/subscriptions`).reply(200, response.data[0]);
 
     it('should return a subscription instance', () =>
       customersSubscriptions.create(props).then((result) => {
