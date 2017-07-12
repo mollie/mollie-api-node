@@ -1,9 +1,9 @@
-import Model from './base';
+import MollieModel from 'MollieModel';
 
 /**
  * The `Refund` model
  */
-export default class Refund extends Model {
+export default class Refund extends MollieModel {
   static STATUS_PENDING = 'pending';
   static STATUS_PROCESSING = 'processing';
   static STATUS_REFUNDED = 'refunded';

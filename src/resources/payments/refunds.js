@@ -1,5 +1,5 @@
+import Refund from 'models/refund';
 import PaymentsResource from './base';
-import Refund from '../../models/refund';
 
 /**
  * The `payments_refunds` resource

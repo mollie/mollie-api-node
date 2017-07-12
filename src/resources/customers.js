@@ -1,5 +1,5 @@
-import Resource from './base';
-import Customer from '../models/customer';
+import MollieResource from 'MollieResource';
+import Customer from 'models/customer';
 
 /**
  * The `customers` resource
@@ -7,7 +7,7 @@ import Customer from '../models/customer';
  * @static {Object} model
  * @since 1.1.1
  */
-export default class Customers extends Resource {
+export default class Customers extends MollieResource {
   static resource = 'customers';
   static model = Customer;
 }

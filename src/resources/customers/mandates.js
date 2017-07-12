@@ -1,5 +1,5 @@
+import Mandate from 'models/mandate';
 import CustomersResource from './base';
-import Mandate from '../../models/mandate';
 
 /**
  * The `customers_mandates` resource

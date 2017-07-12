@@ -1,12 +1,12 @@
 /* eslint-disable new-cap */
-import List from '../models/list';
+import List from 'models/list';
 
 /**
  * The base resource
  * @param {Object} httpClient
  * @private
  */
-export default class Resource {
+export default class MollieResource {
   /**
    * Constructor
    * @param httpClient
@@ -110,7 +110,7 @@ export default class Resource {
         }
         return model;
       })
-      .catch(error => Resource.errorHandler(error.response, cb));
+      .catch(error => MollieResource.errorHandler(error.response, cb));
   }
 
   /**
@@ -136,7 +136,7 @@ export default class Resource {
         }
         return model;
       })
-      .catch(error => Resource.errorHandler(error.response, cb));
+      .catch(error => MollieResource.errorHandler(error.response, cb));
   }
 
   /**
@@ -168,7 +168,7 @@ export default class Resource {
         }
         return list;
       })
-      .catch(error => Resource.errorHandler(error.response, cb));
+      .catch(error => MollieResource.errorHandler(error.response, cb));
   }
 
   /**
@@ -194,7 +194,7 @@ export default class Resource {
         }
         return model;
       })
-      .catch(error => Resource.errorHandler(error.response, cb));
+      .catch(error => MollieResource.errorHandler(error.response, cb));
   }
 
   /**
@@ -215,6 +215,6 @@ export default class Resource {
         }
         return model;
       })
-      .catch(error => Resource.errorHandler(error.response, cb));
+      .catch(error => MollieResource.errorHandler(error.response, cb));
   }
 }

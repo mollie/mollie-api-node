@@ -1,9 +1,9 @@
-import Model from './base';
+import MollieModel from 'MollieModel';
 
 /**
  * The `Mandate` model
  */
-export default class Mandate extends Model {
+export default class Mandate extends MollieModel {
   static STATUS_VALID = 'valid';
   static STATUS_INVALID = 'invalid';
 

@@ -1,5 +1,5 @@
+import Subscription from 'models/subscription';
 import CustomersResource from './base';
-import Subscription from '../../models/subscription';
 
 /**
  * The `customers_subscriptions` resource

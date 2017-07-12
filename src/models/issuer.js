@@ -1,9 +1,9 @@
-import Model from './base';
+import MollieModel from 'MollieModel';
 
 /**
  * The `Issuer` model
  */
-export default class Issuer extends Model {
+export default class Issuer extends MollieModel {
   constructor(props) {
     super(props);
 

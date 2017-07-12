@@ -1,5 +1,5 @@
+import Payment from 'models/payment';
 import CustomersResource from './base';
-import Payment from '../../models/payment';
 
 /**
  * The `customers_payments` resource
