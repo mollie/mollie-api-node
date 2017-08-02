@@ -1,0 +1,6 @@
+coverage/
+src/
+tests/
+.idea/
+.env
+*.log
