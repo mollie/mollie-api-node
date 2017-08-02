@@ -51,7 +51,7 @@ describe('customers_payments', () => {
           resource: 'customer',
           id: props.customerId,
         })
-        .create((err, result) => {
+        .create(props, (err, result) => {
           expect(err).toBeNull();
           expect(result).toBeInstanceOf(Payment);
           expect(result).toMatchSnapshot();

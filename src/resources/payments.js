@@ -1,5 +1,5 @@
-import Resource from './base';
-import Payment from '../models/payment';
+import MollieResource from 'MollieResource';
+import Payment from 'models/payment';
 
 /**
  * The `payments` resource
@@ -7,7 +7,7 @@ import Payment from '../models/payment';
  * @static {Object} model
  * @since 1.0.0
  */
-export default class Payments extends Resource {
+export default class Payments extends MollieResource {
   static resource = 'payments';
   static model = Payment;
 }

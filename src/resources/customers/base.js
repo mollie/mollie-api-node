@@ -1,10 +1,10 @@
-import Resource from '../base';
+import MollieResource from 'MollieResource';
 
 /**
  * Customers base resource
  * @private
  */
-export default class CustomersResource extends Resource {
+export default class CustomersResource extends MollieResource {
   /**
    * Set the parent
    * @param {Object} params

@@ -1,9 +1,9 @@
-import Model from './base';
+import MollieModel from 'MollieModel';
 
 /**
  * The `Subscription` model
  */
-export default class Subscription extends Model {
+export default class Subscription extends MollieModel {
   static STATUS_ACTIVE = 'active';
   static STATUS_PENDING = 'pending'; // Waiting for a valid mandate.
   static STATUS_CANCELLED = 'cancelled';

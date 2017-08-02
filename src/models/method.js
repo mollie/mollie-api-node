@@ -1,9 +1,9 @@
-import Model from './base';
+import MollieModel from 'MollieModel';
 
 /**
  * The `Method` model
  */
-export default class Method extends Model {
+export default class Method extends MollieModel {
   static IDEAL = 'ideal';
   static CREDITCARD = 'creditcard';
   static MISTERCASH = 'mistercash';
@@ -16,6 +16,7 @@ export default class Method extends Model {
   static PAYSAFECARD = 'paysafecard';
   static PODIUMCADEAUKAART = 'podiumcadeaukaart';
   static KBC = 'kbc';
+  static GIFTCARD = 'giftcard';
 
   constructor(props) {
     super(props);
