@@ -1,4 +1,4 @@
-import MollieModel from 'MollieModel';
+import MollieModel from 'mollie-model';
 
 /**
  * The `Method` model

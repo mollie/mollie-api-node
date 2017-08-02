@@ -1,4 +1,4 @@
-import MollieResource from 'MollieResource';
+import MollieResource from 'mollie-resource';
 
 /**
  * Customers base resource
