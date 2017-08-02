@@ -23,9 +23,9 @@
     "commit": "git-cz",
     "prepush": "npm test",
     "lint": "eslint {src,test}/**/*.js",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:cov": "jest --coverage",
+    "test": "yarn run build && jest",
+    "test:watch": "yarn run build && jest --watch",
+    "test:cov": "yarn run build && jest --coverage",
     "build": "rollup -c",
     "prettier": "prettier --single-quote --trailing-comma all --write \"{src,tests,dist}/**/*.js\""
   },
