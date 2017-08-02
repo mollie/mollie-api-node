@@ -44,6 +44,6 @@ export default class Refund extends Model {
    * @returns {boolean}
    */
   isRefunded() {
-    return !!this.refundedDatetime;
+    return this.status === Refund.STATUS_REFUNDED;
   }
 }
