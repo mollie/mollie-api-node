@@ -7,15 +7,39 @@
   "homepage": "https://github.com/mollie/mollie-api-node",
   "author": "Mollie B.V. <info@mollie.nl>",
   "keywords": [
-    "mollie", "payment", "service", "ideal", "creditcard", "mistercash", "bancontact", "sofort", "sofortbanking",
-    "sepa", "bitcoin", "paypal", "paysafecard", "podiumcadeaukaart", "banktransfer", "direct debit", "belfius",
-    "belfius direct net", "kbc", "cbc", "refunds", "api", "payments", "gateway", "subscriptions", "recurring", "charges"
+    "mollie",
+    "payment",
+    "service",
+    "ideal",
+    "creditcard",
+    "mistercash",
+    "bancontact",
+    "sofort",
+    "sofortbanking",
+    "sepa",
+    "bitcoin",
+    "paypal",
+    "paysafecard",
+    "podiumcadeaukaart",
+    "banktransfer",
+    "direct debit",
+    "belfius",
+    "belfius direct net",
+    "kbc",
+    "cbc",
+    "refunds",
+    "api",
+    "payments",
+    "gateway",
+    "subscriptions",
+    "recurring",
+    "charges"
   ],
   "dependencies": {
-    "underscore": "~1.7.0"
+    "underscore": "^1.7.0"
   },
   "devDependencies": {
-    "coffee-script": "~1.8.0"
+    "coffee-script": "^1.12.7"
   },
   "main": "./lib/mollie",
   "scripts": {
