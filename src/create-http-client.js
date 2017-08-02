@@ -1,5 +1,4 @@
 import qs from 'qs';
-import assign from 'lodash/assign';
 
 /**
  * Create pre-configured httpClient instance
@@ -14,13 +13,16 @@ export default function createHttpClient(httpClient, httpClientParams) {
     httpsAgent,
     proxy,
   } = httpClientParams;
+
   // prettier-ignore
   const [
     hostname = defaultHostname,
     port = insecure ? 80 : 443,
   ] = (host && host.split(':')) || [];
+
   const baseURL = `${insecure ? 'http' : 'https'}://${hostname}:${port}/v1/`;
-  const headers = assign(httpClientParams.headers, {
+
+  const headers = Object.assign({}, httpClientParams.headers, {
     'user-agent': `node.js/${process.version}`,
     'Accept-Encoding': 'gzip',
   });

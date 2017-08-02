@@ -1,6 +1,6 @@
 ![Mollie](https://www.mollie.nl/files/Mollie-Logo-Style-Small.png)
 
-JavaScript client for Mollie's API.
+Node client for Mollie's API.
 
 # About
 
@@ -9,7 +9,7 @@ JavaScript client for Mollie's API.
 ## Features
 
 - [Payments](https://www.mollie.com/en/docs/reference/payments/create): are the heart of the Mollie API: this is where most implementations start off. 
-- [Methods](https://www.mollie.com/en/docs/reference/methods/list): shows all the payment methods activated on the payment profile.
+- [Methods](https://www.mollie.com/en/docs/reference/methods/list): show all the payment methods activated on the website profile.
 - [Issuers](https://www.mollie.com/en/docs/reference/issuers/list): allow you to integrate iDEAL's bank selection screen into your own payment flow.
 - [Refunds](https://www.mollie.com/en/docs/reference/refunds/list-all): allow you to make refunds in relation to a payment.
 - [Customers](https://www.mollie.com/en/docs/reference/customers/create): allow you to manage your customer's details.
@@ -29,10 +29,10 @@ JavaScript client for Mollie's API.
 
 To use the Mollie API client, the following things are required:
 
-+ Get yourself a free [Mollie account](https://www.mollie.com/signup). No sign up costs.
-+ Create a new [website profile](https://www.mollie.com/dashboard/settings/profiles) to generate API keys (live and test mode) and setup your webhook.
++ Get yourself a free [Mollie account](https://www.mollie.com/dashboard/signup). No sign up costs.
++ Login to your [Dashboard](https://www.mollie.com/dashboard) to get your API keys (live and test mode).
 + Now you're ready to use the Mollie API client in test mode.
-+ In order to accept payments in live mode, payment methods must be activated in your account. Follow [a few of steps](https://www.mollie.com/dashboard/?modal=onboarding), and let us handle the rest.
++ In order to accept payments in live mode, payment methods must be activated in your account. Just follow [a few steps](https://www.mollie.com/dashboard/?modal=onboarding) and let us handle the rest.
 
 ## Installation
 
@@ -48,15 +48,7 @@ Or using [yarn](https://yarnpkg.com/):
 yarn add mollie-api-node
 ```
 
-This will add `mollie-api-node` to your project's dependencies, listed in `package.json` like so:
-
-```json
-{
-  "dependencies": {
-    "mollie-api-node": "^2.0.0"
-  }
-}
-```
+This will add `mollie-api-node` to your project's dependencies.
 
 You may also git checkout or [download all the files](https://github.com/mollie/mollie-api-node/archive/master.zip), and include the Mollie API client manually.
 
@@ -72,92 +64,47 @@ To successfully receive a payment, these steps should be implemented:
 
 3. The customer returns, and should be satisfied to see that the order was paid and is now being processed.
 
-## Importing the client
-
-Require or import the library:
-
-```javascript
-const mollie = require("mollie-api-node");
-```
-
-Or when you are using ES6 imports:
-
-```javascript
-import mollie from 'mollie-api-node';
-```
-
 ## Authentication
 
 To be able to receive data from the API, an app should authenticate with a bearer token, referred to as API keys.
 
-We've already prepared this step by creating a `test` and `live` key for you in our [Dashboard](https://www.mollie.com/dashboard/).
-
-Now create the Mollie client, and set your API key:
-
-```javascript
-const mollieClient = mollie.createClient({
-  apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM', 
-});
-```
+We've already prepared this step by creating a `test` and `live` key for you in your [Dashboard](https://www.mollie.com/dashboard/).
 
 ## Making your first request
 
-Create a new payment with a promise
+Import the client and set your API key
 
 ```javascript
-mollieClient.payments.create({
+const mollie = require('mollie-api-node')({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+```
+
+Create a new payment
+
+```javascript
+mollie.payments.create({
   amount:      10.00,
   description: 'My first API payment',
-  redirectUrl: 'https://webshop.example.org/order/12345/',
-  webhookUrl:  'https://webshop.example.org/mollie-webhook/'
+  redirectUrl: 'https://yourwebshop.example.org/order/123456/',
+  webhookUrl:  'https://yourwebshop.example.org/webhook/'
 })
-  .then(payment => res.writeHead(302, { Location: payment.getPaymentUrl() }))
-  .catch(err => res.writeHead(500));
-```
-
-... or a callback
-
-
-```javascript
-mollieClient.payments.create({
-  amount: 10.00,
-  description: 'My first API payment',
-  redirectUrl: 'https://webshop.example.org/order/12345/',
-  webhookUrl: 'https://webshop.example.org/mollie-webhook/'
-}, (err, payment) => {
-  if (err) {
-    return res.writeHead(500);
-  }
-
-  return res.writeHead(302, { Location: payment.getPaymentUrl() })
-});
-```
-
-Retrieve a payment with a promise
-
-```javascript
-mollieClient.payments.get(payment.id)
- .then((payment) => {
-    if (payment.isPaid()) {
-      console.log('Payment is paid.');
-    }
+  .then((payment) => {
+    // Forward the customer to the payment.getPaymentUrl()
   })
-  .catch((err) => { /* handle error */ });
+  .catch((err) => {
+    // Handle the error
+  });
 ```
-... or a callback
+
+Retrieve a payment
 
 ```javascript
-mollieClient.payments.get(payment.id, (err, payment) => {
-  if (err) {
-    // handle error
-  }
-
-  if (payment.isPaid()) {
-    console.log('Hooray! The payment is paid.');
-  } else {
-    console.log(`Payment is ${payment.status}.`)
-  }
-});
+mollie.payments.get(payment.id)
+ .then((payment) => {
+    // E.g. check if the payment.isPaid()
+  })
+  .catch((err) => {
+    // Handle the error
+  });
 ```
 
 That's it!
@@ -182,13 +129,13 @@ See the [migration guide](MIGRATION.md) for more information.
 
 ## Contributing
 
-Want to help us make our API client even better? We take [pull requests](https://github.com/mollie/mollie-api-node/pulls), sure. But how would you like to contribute to a [technology oriented organization](https://www.mollie.com/nl/blog/post/werken-bij-mollie-sfeer-kansen-en-mogelijkheden/)? Mollie is hiring developers and system engineers. [Check out our vacancies](https://mollie.homerun.co/) or [get in touch](mailto:personeel@mollie.com).
+Want to help us make our API client even better? We take [pull requests](https://github.com/mollie/mollie-api-node/pulls).
+
+## Working at Mollie
+
+Mollie is always looking for new talent to join our teams. We’re looking for inquisitive minds with good ideas and strong opinions, and, most importantly, who know how to ship great products. Want to join the future of payments? [Check out our vacancies](https://mollie.homerun.co/).
 
 ## License
 
 [New BSD (Berkeley Software Distribution) License](https://opensource.org/licenses/BSD-3-Clause).
 Copyright 2013-2017, Mollie B.V.
-
-## Support
-
-Contact: [www.mollie.com](https://www.mollie.com) — info@mollie.com — +31 20 - 612 88 55

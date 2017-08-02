@@ -5,9 +5,10 @@
 Changed the initialisation of the client to a factory method: 
 
 ```diff
--mollie = new Mollie.API.Client;
+-var Mollie = require('mollie-api-node');
+-var mollie = new Mollie.API.Client;
 -mollie.setApiKey("test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM");
-+const mollieClient = mollie.createClient({
++const mollie = require('mollie-api-node')({
 +  apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM',
 +});
 ```
@@ -18,7 +19,7 @@ Changed the initialisation of the client to a factory method:
 -(response) => {
 -  if (response.error) {
 -    throw response.error;
-+(error, response) {
++(error, response) => {
 +  if (error) {
 +    throw error;
   }

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import createHttpClient from 'utils/create-http-client';
+import createHttpClient from 'create-http-client';
 
 describe('create-http-client', () => {
   it('should have a secure option', () => {

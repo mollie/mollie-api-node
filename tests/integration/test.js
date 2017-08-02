@@ -2,7 +2,7 @@ import axios from 'axios';
 import httpAdapter from 'axios/lib/adapters/http';
 import dotenv from 'dotenv';
 
-import mollie from '../..';
+import mollie from '../../dist/mollie';
 
 /**
  * Overwrite the default XMLHttpRequestAdapter
@@ -14,7 +14,7 @@ axios.defaults.adapter = httpAdapter;
  */
 dotenv.config();
 
-const mollieClient = mollie.createClient({ apiKey: process.env.API_KEY });
+const mollieClient = mollie({ apiKey: process.env.API_KEY });
 
 describe('customers', () => {
   it('should integrate', (done) =>
