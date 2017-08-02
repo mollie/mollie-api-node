@@ -1,3 +1,5 @@
+import omit from 'lodash/omit';
+
 import PaymentsResource from './base';
 import Refund from '../../models/refund';
 
@@ -20,6 +22,11 @@ export default class PaymentsRefunds extends PaymentsResource {
    */
   create(data, cb) {
     this.setParent(data);
+
+    if (typeof data === 'object') {
+      data = omit(data, 'paymentId'); // eslint-disable-line no-param-reassign
+    }
+
     return super.create(data, cb);
   }
 
@@ -33,6 +40,11 @@ export default class PaymentsRefunds extends PaymentsResource {
    */
   get(id, params, cb) {
     this.setParent(params);
+
+    if (typeof params === 'object') {
+      params = omit(params, 'paymentId'); // eslint-disable-line no-param-reassign
+    }
+
     return super.get(id, params, cb);
   }
 
@@ -45,6 +57,11 @@ export default class PaymentsRefunds extends PaymentsResource {
    */
   all(params, cb) {
     this.setParent(params);
+
+    if (typeof params === 'object') {
+      params = omit(params, 'paymentId'); // eslint-disable-line no-param-reassign
+    }
+
     return super.all(params, cb);
   }
 
@@ -62,6 +79,7 @@ export default class PaymentsRefunds extends PaymentsResource {
     }
 
     this.setParent(params);
+
     return super.delete(id, cb);
   }
 

@@ -25,7 +25,7 @@ describe('refunds', () => {
   });
 
   describe('.create()', () => {
-    mock.onPost(`/refunds`, props).reply(200, response.data[0]);
+    mock.onPost('/refunds', props).reply(200, response.data[0]);
 
     it('should return a refund instance', () =>
       refunds.create(props).then((result) => {
@@ -43,10 +43,10 @@ describe('refunds', () => {
   });
 
   describe('.get()', () => {
-    const error = { error: { message: 'The payments_refund id is invalid' } };
+    const error = { error: { message: 'The refund id is invalid' } };
 
     mock.onGet(`/refunds/${props.id}`).reply(200, response.data[0]);
-    mock.onGet(`/refunds/foo`).reply(500, error);
+    mock.onGet('/refunds/foo').reply(500, error);
 
     it('should return a refund instance', () =>
       refunds

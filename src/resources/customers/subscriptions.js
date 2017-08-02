@@ -1,3 +1,5 @@
+import omit from 'lodash/omit';
+
 import CustomersResource from './base';
 import Subscription from '../../models/subscription';
 
@@ -20,6 +22,11 @@ export default class CustomersSubscriptions extends CustomersResource {
    */
   create(data, cb) {
     this.setParent(data);
+
+    if (typeof data === 'object') {
+      data = omit(data, 'customerId'); // eslint-disable-line no-param-reassign
+    }
+
     return super.create(data, cb);
   }
 
@@ -33,6 +40,11 @@ export default class CustomersSubscriptions extends CustomersResource {
    */
   get(id, params, cb) {
     this.setParent(params);
+
+    if (typeof params === 'object') {
+      params = omit(params, 'customerId'); // eslint-disable-line no-param-reassign
+    }
+
     return super.get(id, params, cb);
   }
 
@@ -45,6 +57,11 @@ export default class CustomersSubscriptions extends CustomersResource {
    */
   all(params, cb) {
     this.setParent(params);
+
+    if (typeof params === 'object') {
+      params = omit(params, 'customerId'); // eslint-disable-line no-param-reassign
+    }
+
     return super.all(params, cb);
   }
 

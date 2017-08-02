@@ -10,8 +10,24 @@ var path = _interopDefault(require('path'));
 var https = _interopDefault(require('https'));
 var assign = _interopDefault(require('lodash/assign'));
 var qs = _interopDefault(require('qs'));
-var camelCase = _interopDefault(require('lodash/camelCase'));
 var _toPlainObject = _interopDefault(require('lodash/toPlainObject'));
+var omit = _interopDefault(require('lodash/omit'));
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
+
+
+
+
+
+
+
+
+
 
 var classCallCheck = function (instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -41,34 +57,7 @@ var createClass = function () {
 
 
 
-var defineProperty = function (obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
 
-  return obj;
-};
-
-var _extends = Object.assign || function (target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i];
-
-    for (var key in source) {
-      if (Object.prototype.hasOwnProperty.call(source, key)) {
-        target[key] = source[key];
-      }
-    }
-  }
-
-  return target;
-};
 
 var get = function get(object, property, receiver) {
   if (object === null) object = Function.prototype;
@@ -256,13 +245,13 @@ var List = function (_Array) {
  * @private
  */
 
-var Base = function () {
+var Resource = function () {
   /**
    * Constructor
    * @param httpClient
    */
-  function Base(httpClient) {
-    classCallCheck(this, Base);
+  function Resource(httpClient) {
+    classCallCheck(this, Resource);
 
     this.httpClient = httpClient;
   }
@@ -276,7 +265,7 @@ var Base = function () {
    */
 
 
-  createClass(Base, [{
+  createClass(Resource, [{
     key: 'getClient',
 
 
@@ -374,7 +363,7 @@ var Base = function () {
         }
         return model;
       }).catch(function (error) {
-        return Base.errorHandler(error.response, cb);
+        return Resource.errorHandler(error.response, cb);
       });
     }
 
@@ -404,7 +393,7 @@ var Base = function () {
         }
         return model;
       }).catch(function (error) {
-        return Base.errorHandler(error.response, cb);
+        return Resource.errorHandler(error.response, cb);
       });
     }
 
@@ -447,7 +436,7 @@ var Base = function () {
         }
         return list;
       }).catch(function (error) {
-        return Base.errorHandler(error.response, cb);
+        return Resource.errorHandler(error.response, cb);
       });
     }
 
@@ -477,7 +466,7 @@ var Base = function () {
         }
         return model;
       }).catch(function (error) {
-        return Base.errorHandler(error.response, cb);
+        return Resource.errorHandler(error.response, cb);
       });
     }
 
@@ -502,7 +491,7 @@ var Base = function () {
         }
         return model;
       }).catch(function (error) {
-        return Base.errorHandler(error.response, cb);
+        return Resource.errorHandler(error.response, cb);
       });
     }
   }], [{
@@ -516,19 +505,19 @@ var Base = function () {
       throw error;
     }
   }]);
-  return Base;
+  return Resource;
 }();
 
 /**
  * Base model
  */
 
-var Base$2 = function () {
-  function Base() {
-    classCallCheck(this, Base);
+var Model = function () {
+  function Model() {
+    classCallCheck(this, Model);
   }
 
-  createClass(Base, [{
+  createClass(Model, [{
     key: 'toPlainObject',
 
     /**
@@ -539,15 +528,15 @@ var Base$2 = function () {
       return _toPlainObject(this);
     }
   }]);
-  return Base;
+  return Model;
 }();
 
 /**
  * The `Payment` model
  */
 
-var Payment = function (_Base) {
-  inherits(Payment, _Base);
+var Payment = function (_Model) {
+  inherits(Payment, _Model);
 
   function Payment(props) {
     classCallCheck(this, Payment);
@@ -646,7 +635,7 @@ var Payment = function (_Base) {
     }
   }]);
   return Payment;
-}(Base$2);
+}(Model);
 
 Payment.STATUS_OPEN = 'open';
 Payment.STATUS_PENDING = 'pending';
@@ -665,8 +654,8 @@ Payment.RECURRINGTYPE_RECURRING = 'recurring';
  * @since 1.0.0
  */
 
-var Payments = function (_Base) {
-  inherits(Payments, _Base);
+var Payments = function (_Resource) {
+  inherits(Payments, _Resource);
 
   function Payments() {
     classCallCheck(this, Payments);
@@ -674,7 +663,7 @@ var Payments = function (_Base) {
   }
 
   return Payments;
-}(Base);
+}(Resource);
 
 Payments.resource = 'payments';
 Payments.model = Payment;
@@ -684,15 +673,15 @@ Payments.model = Payment;
  * @private
  */
 
-var PaymentsBase = function (_Base) {
-  inherits(PaymentsBase, _Base);
+var PaymentsResource = function (_Resource) {
+  inherits(PaymentsResource, _Resource);
 
-  function PaymentsBase() {
-    classCallCheck(this, PaymentsBase);
-    return possibleConstructorReturn(this, (PaymentsBase.__proto__ || Object.getPrototypeOf(PaymentsBase)).apply(this, arguments));
+  function PaymentsResource() {
+    classCallCheck(this, PaymentsResource);
+    return possibleConstructorReturn(this, (PaymentsResource.__proto__ || Object.getPrototypeOf(PaymentsResource)).apply(this, arguments));
   }
 
-  createClass(PaymentsBase, [{
+  createClass(PaymentsResource, [{
     key: 'setParent',
 
     /**
@@ -710,15 +699,15 @@ var PaymentsBase = function (_Base) {
       }
     }
   }]);
-  return PaymentsBase;
-}(Base);
+  return PaymentsResource;
+}(Resource);
 
 /**
  * The `Refund` model
  */
 
-var Refund = function (_Base) {
-  inherits(Refund, _Base);
+var Refund = function (_Model) {
+  inherits(Refund, _Model);
 
   function Refund(props) {
     classCallCheck(this, Refund);
@@ -773,7 +762,7 @@ var Refund = function (_Base) {
     }
   }]);
   return Refund;
-}(Base$2);
+}(Model);
 
 Refund.STATUS_PENDING = 'pending';
 Refund.STATUS_PROCESSING = 'processing';
@@ -786,8 +775,8 @@ Refund.STATUS_REFUNDED = 'refunded';
  * @since 1.1.1
  */
 
-var PaymentsRefunds = function (_PaymentsBase) {
-  inherits(PaymentsRefunds, _PaymentsBase);
+var PaymentsRefunds = function (_PaymentsResource) {
+  inherits(PaymentsRefunds, _PaymentsResource);
 
   function PaymentsRefunds() {
     classCallCheck(this, PaymentsRefunds);
@@ -807,6 +796,11 @@ var PaymentsRefunds = function (_PaymentsBase) {
      */
     value: function create(data, cb) {
       this.setParent(data);
+
+      if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) === 'object') {
+        data = omit(data, 'paymentId'); // eslint-disable-line no-param-reassign
+      }
+
       return get(PaymentsRefunds.prototype.__proto__ || Object.getPrototypeOf(PaymentsRefunds.prototype), 'create', this).call(this, data, cb);
     }
 
@@ -823,6 +817,11 @@ var PaymentsRefunds = function (_PaymentsBase) {
     key: 'get',
     value: function get$$1(id, params, cb) {
       this.setParent(params);
+
+      if ((typeof params === 'undefined' ? 'undefined' : _typeof(params)) === 'object') {
+        params = omit(params, 'paymentId'); // eslint-disable-line no-param-reassign
+      }
+
       return get(PaymentsRefunds.prototype.__proto__ || Object.getPrototypeOf(PaymentsRefunds.prototype), 'get', this).call(this, id, params, cb);
     }
 
@@ -838,6 +837,11 @@ var PaymentsRefunds = function (_PaymentsBase) {
     key: 'all',
     value: function all(params, cb) {
       this.setParent(params);
+
+      if ((typeof params === 'undefined' ? 'undefined' : _typeof(params)) === 'object') {
+        params = omit(params, 'paymentId'); // eslint-disable-line no-param-reassign
+      }
+
       return get(PaymentsRefunds.prototype.__proto__ || Object.getPrototypeOf(PaymentsRefunds.prototype), 'all', this).call(this, params, cb);
     }
 
@@ -858,6 +862,7 @@ var PaymentsRefunds = function (_PaymentsBase) {
       }
 
       this.setParent(params);
+
       return get(PaymentsRefunds.prototype.__proto__ || Object.getPrototypeOf(PaymentsRefunds.prototype), 'delete', this).call(this, id, cb);
     }
 
@@ -873,7 +878,7 @@ var PaymentsRefunds = function (_PaymentsBase) {
     }
   }]);
   return PaymentsRefunds;
-}(PaymentsBase);
+}(PaymentsResource);
 
 PaymentsRefunds.resource = 'payments_refunds';
 PaymentsRefunds.model = Refund;
@@ -882,8 +887,8 @@ PaymentsRefunds.model = Refund;
  * The `Method` model
  */
 
-var Method = function (_Base) {
-  inherits(Method, _Base);
+var Method = function (_Model) {
+  inherits(Method, _Model);
 
   function Method(props) {
     classCallCheck(this, Method);
@@ -932,7 +937,7 @@ var Method = function (_Base) {
     }
   }]);
   return Method;
-}(Base$2);
+}(Model);
 
 Method.IDEAL = 'ideal';
 Method.CREDITCARD = 'creditcard';
@@ -954,8 +959,8 @@ Method.KBC = 'kbc';
  * @since 1.0.0
  */
 
-var Methods = function (_Base) {
-  inherits(Methods, _Base);
+var Methods = function (_Resource) {
+  inherits(Methods, _Resource);
 
   function Methods() {
     classCallCheck(this, Methods);
@@ -963,7 +968,7 @@ var Methods = function (_Base) {
   }
 
   return Methods;
-}(Base);
+}(Resource);
 
 Methods.resource = 'methods';
 Methods.model = Method;
@@ -972,8 +977,8 @@ Methods.model = Method;
  * The `Issuer` model
  */
 
-var Issuer = function (_Base) {
-  inherits(Issuer, _Base);
+var Issuer = function (_Model) {
+  inherits(Issuer, _Model);
 
   function Issuer(props) {
     classCallCheck(this, Issuer);
@@ -992,7 +997,7 @@ var Issuer = function (_Base) {
   }
 
   return Issuer;
-}(Base$2);
+}(Model);
 
 /**
  * The `issuers` resource
@@ -1001,8 +1006,8 @@ var Issuer = function (_Base) {
  * @since 1.0.0
  */
 
-var Issuers = function (_Base) {
-  inherits(Issuers, _Base);
+var Issuers = function (_Resource) {
+  inherits(Issuers, _Resource);
 
   function Issuers() {
     classCallCheck(this, Issuers);
@@ -1010,7 +1015,7 @@ var Issuers = function (_Base) {
   }
 
   return Issuers;
-}(Base);
+}(Resource);
 
 Issuers.resource = 'issuers';
 Issuers.model = Issuer;
@@ -1022,8 +1027,8 @@ Issuers.model = Issuer;
  * @since 2.0.0
  */
 
-var Refunds = function (_Base) {
-  inherits(Refunds, _Base);
+var Refunds = function (_Resource) {
+  inherits(Refunds, _Resource);
 
   function Refunds() {
     classCallCheck(this, Refunds);
@@ -1031,7 +1036,7 @@ var Refunds = function (_Base) {
   }
 
   return Refunds;
-}(Base);
+}(Resource);
 
 Refunds.resource = 'refunds';
 Refunds.model = Refund;
@@ -1040,8 +1045,8 @@ Refunds.model = Refund;
  * The `Customer` model
  */
 
-var Customer = function (_Base) {
-  inherits(Customer, _Base);
+var Customer = function (_Model) {
+  inherits(Customer, _Model);
 
   function Customer(props) {
     classCallCheck(this, Customer);
@@ -1064,7 +1069,7 @@ var Customer = function (_Base) {
   }
 
   return Customer;
-}(Base$2);
+}(Model);
 
 /**
  * The `customers` resource
@@ -1073,8 +1078,8 @@ var Customer = function (_Base) {
  * @since 1.1.1
  */
 
-var Customers = function (_Base) {
-  inherits(Customers, _Base);
+var Customers = function (_Resource) {
+  inherits(Customers, _Resource);
 
   function Customers() {
     classCallCheck(this, Customers);
@@ -1082,7 +1087,7 @@ var Customers = function (_Base) {
   }
 
   return Customers;
-}(Base);
+}(Resource);
 
 Customers.resource = 'customers';
 Customers.model = Customer;
@@ -1092,15 +1097,15 @@ Customers.model = Customer;
  * @private
  */
 
-var CustomersBase = function (_Base) {
-  inherits(CustomersBase, _Base);
+var CustomersResource = function (_Resource) {
+  inherits(CustomersResource, _Resource);
 
-  function CustomersBase() {
-    classCallCheck(this, CustomersBase);
-    return possibleConstructorReturn(this, (CustomersBase.__proto__ || Object.getPrototypeOf(CustomersBase)).apply(this, arguments));
+  function CustomersResource() {
+    classCallCheck(this, CustomersResource);
+    return possibleConstructorReturn(this, (CustomersResource.__proto__ || Object.getPrototypeOf(CustomersResource)).apply(this, arguments));
   }
 
-  createClass(CustomersBase, [{
+  createClass(CustomersResource, [{
     key: 'setParent',
 
     /**
@@ -1118,8 +1123,8 @@ var CustomersBase = function (_Base) {
       }
     }
   }]);
-  return CustomersBase;
-}(Base);
+  return CustomersResource;
+}(Resource);
 
 /**
  * The `customers_payments` resource
@@ -1128,8 +1133,8 @@ var CustomersBase = function (_Base) {
  * @since 1.1.1
  */
 
-var CustomersPayments = function (_CustomersBase) {
-  inherits(CustomersPayments, _CustomersBase);
+var CustomersPayments = function (_CustomersResource) {
+  inherits(CustomersPayments, _CustomersResource);
 
   function CustomersPayments() {
     classCallCheck(this, CustomersPayments);
@@ -1149,6 +1154,11 @@ var CustomersPayments = function (_CustomersBase) {
      */
     value: function create(data, cb) {
       this.setParent(data);
+
+      if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) === 'object') {
+        data = omit(data, 'customerId'); // eslint-disable-line no-param-reassign
+      }
+
       return get(CustomersPayments.prototype.__proto__ || Object.getPrototypeOf(CustomersPayments.prototype), 'create', this).call(this, data, cb);
     }
 
@@ -1165,6 +1175,11 @@ var CustomersPayments = function (_CustomersBase) {
     key: 'get',
     value: function get$$1(id, params, cb) {
       this.setParent(params);
+
+      if ((typeof params === 'undefined' ? 'undefined' : _typeof(params)) === 'object') {
+        params = omit(params, 'customerId'); // eslint-disable-line no-param-reassign
+      }
+
       return get(CustomersPayments.prototype.__proto__ || Object.getPrototypeOf(CustomersPayments.prototype), 'get', this).call(this, id, params, cb);
     }
 
@@ -1180,11 +1195,16 @@ var CustomersPayments = function (_CustomersBase) {
     key: 'all',
     value: function all(params, cb) {
       this.setParent(params);
+
+      if ((typeof params === 'undefined' ? 'undefined' : _typeof(params)) === 'object') {
+        params = omit(params, 'customerId'); // eslint-disable-line no-param-reassign
+      }
+
       return get(CustomersPayments.prototype.__proto__ || Object.getPrototypeOf(CustomersPayments.prototype), 'all', this).call(this, params, cb);
     }
   }]);
   return CustomersPayments;
-}(CustomersBase);
+}(CustomersResource);
 
 CustomersPayments.resource = 'customers_payments';
 CustomersPayments.model = Payment;
@@ -1193,8 +1213,8 @@ CustomersPayments.model = Payment;
  * The `Mandate` model
  */
 
-var Mandate = function (_Base) {
-  inherits(Mandate, _Base);
+var Mandate = function (_Model) {
+  inherits(Mandate, _Model);
 
   function Mandate(props) {
     classCallCheck(this, Mandate);
@@ -1228,7 +1248,7 @@ var Mandate = function (_Base) {
     }
   }]);
   return Mandate;
-}(Base$2);
+}(Model);
 
 Mandate.STATUS_VALID = 'valid';
 Mandate.STATUS_INVALID = 'invalid';
@@ -1240,8 +1260,8 @@ Mandate.STATUS_INVALID = 'invalid';
  * @since 1.2.0
  */
 
-var CustomersMandates = function (_CustomersBase) {
-  inherits(CustomersMandates, _CustomersBase);
+var CustomersMandates = function (_CustomersResource) {
+  inherits(CustomersMandates, _CustomersResource);
 
   function CustomersMandates() {
     classCallCheck(this, CustomersMandates);
@@ -1261,6 +1281,11 @@ var CustomersMandates = function (_CustomersBase) {
      */
     value: function create(data, cb) {
       this.setParent(data);
+
+      if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) === 'object') {
+        data = omit(data, 'customerId'); // eslint-disable-line no-param-reassign
+      }
+
       return get(CustomersMandates.prototype.__proto__ || Object.getPrototypeOf(CustomersMandates.prototype), 'create', this).call(this, data, cb);
     }
 
@@ -1277,6 +1302,11 @@ var CustomersMandates = function (_CustomersBase) {
     key: 'get',
     value: function get$$1(id, params, cb) {
       this.setParent(params);
+
+      if ((typeof params === 'undefined' ? 'undefined' : _typeof(params)) === 'object') {
+        params = omit(params, 'customerId'); // eslint-disable-line no-param-reassign
+      }
+
       return get(CustomersMandates.prototype.__proto__ || Object.getPrototypeOf(CustomersMandates.prototype), 'get', this).call(this, id, params, cb);
     }
 
@@ -1292,6 +1322,11 @@ var CustomersMandates = function (_CustomersBase) {
     key: 'all',
     value: function all(params, cb) {
       this.setParent(params);
+
+      if ((typeof params === 'undefined' ? 'undefined' : _typeof(params)) === 'object') {
+        params = omit(params, 'customerId'); // eslint-disable-line no-param-reassign
+      }
+
       return get(CustomersMandates.prototype.__proto__ || Object.getPrototypeOf(CustomersMandates.prototype), 'all', this).call(this, params, cb);
     }
 
@@ -1338,7 +1373,7 @@ var CustomersMandates = function (_CustomersBase) {
     }
   }]);
   return CustomersMandates;
-}(CustomersBase);
+}(CustomersResource);
 
 CustomersMandates.resource = 'customers_mandates';
 CustomersMandates.model = Mandate;
@@ -1347,8 +1382,8 @@ CustomersMandates.model = Mandate;
  * The `Subscription` model
  */
 
-var Subscription = function (_Base) {
-  inherits(Subscription, _Base);
+var Subscription = function (_Model) {
+  inherits(Subscription, _Model);
 
   function Subscription(props) {
     classCallCheck(this, Subscription);
@@ -1447,7 +1482,7 @@ var Subscription = function (_Base) {
     }
   }]);
   return Subscription;
-}(Base$2);
+}(Model);
 
 Subscription.STATUS_ACTIVE = 'active';
 Subscription.STATUS_PENDING = 'pending';
@@ -1462,8 +1497,8 @@ Subscription.STATUS_COMPLETED = 'completed';
  * @since 1.3.2
  */
 
-var CustomersSubscriptions = function (_CustomersBase) {
-  inherits(CustomersSubscriptions, _CustomersBase);
+var CustomersSubscriptions = function (_CustomersResource) {
+  inherits(CustomersSubscriptions, _CustomersResource);
 
   function CustomersSubscriptions() {
     classCallCheck(this, CustomersSubscriptions);
@@ -1483,6 +1518,11 @@ var CustomersSubscriptions = function (_CustomersBase) {
      */
     value: function create(data, cb) {
       this.setParent(data);
+
+      if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) === 'object') {
+        data = omit(data, 'customerId'); // eslint-disable-line no-param-reassign
+      }
+
       return get(CustomersSubscriptions.prototype.__proto__ || Object.getPrototypeOf(CustomersSubscriptions.prototype), 'create', this).call(this, data, cb);
     }
 
@@ -1499,6 +1539,11 @@ var CustomersSubscriptions = function (_CustomersBase) {
     key: 'get',
     value: function get$$1(id, params, cb) {
       this.setParent(params);
+
+      if ((typeof params === 'undefined' ? 'undefined' : _typeof(params)) === 'object') {
+        params = omit(params, 'customerId'); // eslint-disable-line no-param-reassign
+      }
+
       return get(CustomersSubscriptions.prototype.__proto__ || Object.getPrototypeOf(CustomersSubscriptions.prototype), 'get', this).call(this, id, params, cb);
     }
 
@@ -1514,6 +1559,11 @@ var CustomersSubscriptions = function (_CustomersBase) {
     key: 'all',
     value: function all(params, cb) {
       this.setParent(params);
+
+      if ((typeof params === 'undefined' ? 'undefined' : _typeof(params)) === 'object') {
+        params = omit(params, 'customerId'); // eslint-disable-line no-param-reassign
+      }
+
       return get(CustomersSubscriptions.prototype.__proto__ || Object.getPrototypeOf(CustomersSubscriptions.prototype), 'all', this).call(this, params, cb);
     }
 
@@ -1549,14 +1599,10 @@ var CustomersSubscriptions = function (_CustomersBase) {
     }
   }]);
   return CustomersSubscriptions;
-}(CustomersBase);
+}(CustomersResource);
 
 CustomersSubscriptions.resource = 'customers_subscriptions';
 CustomersSubscriptions.model = Subscription;
-
-var toSingular = function toSingular(resource) {
-  return resource.replace(/s$/, '');
-};
 
 /**
  * Create Mollie API
@@ -1567,7 +1613,7 @@ var toSingular = function toSingular(resource) {
 function createMollieApi(_ref) {
   var httpClient = _ref.httpClient;
 
-  var legacyAPI = {
+  return {
     payments: new Payments(httpClient),
     payments_refunds: new PaymentsRefunds(httpClient),
     methods: new Methods(httpClient),
@@ -1578,17 +1624,6 @@ function createMollieApi(_ref) {
     customers_mandates: new CustomersMandates(httpClient),
     customers_subscriptions: new CustomersSubscriptions(httpClient)
   };
-
-  var simpleAPI = Object.keys(legacyAPI).reduce(function (carry, resource) {
-    var _babelHelpers$extends;
-
-    var resName = resource.split('_').map(toSingular).join('_');
-    var resClass = legacyAPI[resource];
-
-    return _extends({}, carry, (_babelHelpers$extends = {}, defineProperty(_babelHelpers$extends, camelCase('create_' + resName), resClass.create.bind(resClass)), defineProperty(_babelHelpers$extends, camelCase('list_' + resName + 's'), resClass.all.bind(resClass)), defineProperty(_babelHelpers$extends, camelCase('get_' + resName), resClass.get.bind(resClass)), defineProperty(_babelHelpers$extends, camelCase('update_' + resName), resClass.update.bind(resClass)), defineProperty(_babelHelpers$extends, camelCase('delete_' + resName), resClass.delete.bind(resClass)), _babelHelpers$extends));
-  }, {});
-
-  return _extends({}, legacyAPI, simpleAPI);
 }
 
 var cert = "dc70e60c16aaac11.pem";

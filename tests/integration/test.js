@@ -69,15 +69,15 @@ describe('customers', () => {
 describe('issuers', () => {
   it('should integrate', (done) => {
     mollieClient.issuers.all()
-      .then(issuers => {
+      .then((issuers) => {
         expect(issuers).toBeDefined();
 
         mollieClient.issuers.get(issuers[0].id)
-          .then(issuer => {
+          .then((issuer) => {
             expect(issuer).toBeDefined();
             done();
           })
-          .catch(err => {
+          .catch((err) => {
             expect(err).toBeNull();
             done();
           });
@@ -92,20 +92,20 @@ describe('issuers', () => {
 describe('methods', () => {
   it('should integrate', (done) => {
     mollieClient.methods.all()
-      .then(methods => {
+      .then((methods) => {
         expect(methods).toBeDefined();
 
         mollieClient.methods.get(methods[0].id)
-          .then(method => {
+          .then((method) => {
             expect(method).toBeDefined();
             done();
           })
-          .catch(err => {
+          .catch((err) => {
             expect(err).toBeNull();
             done();
           });
       })
-      .catch(err => {
+      .catch((err) => {
         expect(err).toBeNull();
         done();
       })
@@ -113,41 +113,54 @@ describe('methods', () => {
 });
 
 describe('payments', () => {
-  it.skip('should integrate', (done) => {
+  it('should integrate', (done) => {
     mollieClient.payments.all()
-      .then(payments => {
+      .then((payments) => {
+        let paymentExists = Promise.resolve();
+
         if (!payments.length) {
-          mollieClient.payments.create({
-            'amount': 5.00,
-            'description': 'invalid',
-            'redirectUrl': 'https://example.com/redirect'
+          paymentExists = mollieClient.payments.create({
+            amount: 10.00,
+            description: 'Integration test payment',
+            redirectUrl: 'https://example.com/redirect',
           })
             .then(payment => expect(payment).toBeDefined())
-            .catch(err => expect(err).toBeNull())
-        } else {
-          expect(payments).toBeDefined();
+            .catch(err => expect(err).toBeNull());
         }
 
-        mollieClient.payments_refunds.all({ paymentId: payments[0].id })
-          .then(paymentRefunds => {
-            console.log(paymentRefunds);
-            expect(paymentRefunds).toBeDefined();
+        paymentExists.then(() => {
+          mollieClient.payments_refunds.all({ paymentId: payments[0].id })
+            .then((paymentRefunds) => {
+              let refundExists = Promise.resolve();
 
-            mollieClient.payments_refunds.get(paymentRefunds[0].id, { paymentId: payments[0].id })
-              .then(paymentRefund => {
-                expect(paymentRefund).toBeDefined();
-                done();
-              })
-              .catch((err) => {
-                expect(err).toBeNull();
-                done();
+              if (!paymentRefunds.length) {
+                refundExists = mollieClient.payments_refunds.create({
+                  paymentId: payments[0].id,
+                  amount: 5.00,
+                }).then((paymentRefund) => {
+                  expect(paymentRefund).toBeDefined();
+                }).catch((err) => {
+                  expect(err).toBeNull();
+                });
+              }
+
+              refundExists.then(() => {
+                mollieClient.payments_refunds.get(paymentRefunds[0].id, {
+                  paymentId: payments[0].id,
+                }).then((paymentRefund) => {
+                  expect(paymentRefund).toBeDefined();
+                  done();
+                }).catch((err) => {
+                  expect(err).toBeNull();
+                  done();
+                });
               });
-
-          })
-          .catch((err) => {
-            expect(err).toBeNull();
-            done();
-          })
+            })
+            .catch((err) => {
+              expect(err).toBeNull();
+              done();
+            });
+        });
       })
       .catch((err) => {
         expect(err).toBeNull();
