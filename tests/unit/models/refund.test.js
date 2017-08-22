@@ -6,6 +6,7 @@ describe('refund model', () => {
   it('should instantiate with default values', () => {
     const refund = new Refund();
 
+    expect(refund.isQueued()).toBe(false);
     expect(refund.isPending()).toBe(false);
     expect(refund.isProcessing()).toBe(false);
     expect(refund.isRefunded()).toBe(false);
