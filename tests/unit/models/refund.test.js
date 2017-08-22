@@ -20,6 +20,7 @@ describe('refund model', () => {
     };
     const refund = new Refund(refundProps);
 
+    expect(refund.isQueued()).toBe(false);
     expect(refund.isPending()).toBe(false);
     expect(refund.isProcessing()).toBe(false);
     expect(refund.isRefunded()).toBe(true);
