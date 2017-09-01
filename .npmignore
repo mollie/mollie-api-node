@@ -1,6 +1,8 @@
 coverage/
 src/
 tests/
+rollup.config.js
 .idea/
 .env
 *.log
+.*

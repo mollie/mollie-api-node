@@ -19,9 +19,10 @@
   ],
   "main": "dist/mollie.js",
   "scripts": {
+    "prepublish": "yarn run build",
     "precommit": "lint-staged",
     "commit": "git-cz",
-    "prepush": "npm test",
+    "prepush": "yarn test",
     "lint": "eslint {src,test}/**/*.js",
     "test": "yarn run build && jest",
     "test:watch": "yarn run build && jest --watch",
