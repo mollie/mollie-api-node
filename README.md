@@ -1,6 +1,10 @@
+> **Note:**
+>
+> This is the README of the v2 Node client. If you are looking for the README of v1 you should look [here](https://github.com/mollie/mollie-api-node/blob/b5873dffdfc84fd8a9347cfda623fea78497405b/README.md).
+
 ![Mollie](https://www.mollie.nl/files/Mollie-Logo-Style-Small.png)
 
-Node client for Mollie's API.
+Node client for Mollie's API.  
 
 # About
 
@@ -58,9 +62,9 @@ Check the [releases](https://github.com/mollie/mollie-api-node/releases) page to
 
 To successfully receive a payment, these steps should be implemented:
 
-1. Use the Mollie API client to create a payment with the requested amount, description and optionally, a payment method. It is important to specify a unique redirect URL where the customer is supposed to return to after the payment is completed.
+1. Use the client to create a payment with the requested `amount`, `description`, `redirectUrl` and `webhookUrl` and optionally, a payment `method`. It is important to specify a unique `redirectUrl` where the customer is supposed to return to after the payment is completed.
 
-2. Immediately after the payment is completed, our platform will send an asynchronous request to the configured webhook to allow the payment details to be retrieved, so you know when exactly to start processing the customer's order.
+2. After the payment is completed, our platform will send a request to the provided `webhookUrl` to allow the payment details to be retrieved, so you know exactly when to start processing the customer's order.
 
 3. The customer returns, and should be satisfied to see that the order was paid and is now being processed.
 
@@ -78,14 +82,14 @@ Import the client and set your API key
 const mollie = require('mollie-api-node')({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
 ```
 
-Create a new payment
+### Create a new payment
 
 ```javascript
 mollie.payments.create({
   amount:      10.00,
   description: 'My first API payment',
-  redirectUrl: 'https://yourwebshop.example.org/order/123456/',
-  webhookUrl:  'https://yourwebshop.example.org/webhook/'
+  redirectUrl: 'https://yourwebshop.example.org/order/123456',
+  webhookUrl:  'https://yourwebshop.example.org/webhook'
 })
   .then((payment) => {
     // Forward the customer to the payment.getPaymentUrl()
@@ -95,11 +99,11 @@ mollie.payments.create({
   });
 ```
 
-Retrieve a payment
+### Retrieve a payment
 
 ```javascript
 mollie.payments.get(payment.id)
- .then((payment) => {
+  .then((payment) => {
     // E.g. check if the payment.isPaid()
   })
   .catch((err) => {
@@ -137,5 +141,4 @@ Mollie is always looking for new talent to join our teams. We’re looking for i
 
 ## License
 
-[New BSD (Berkeley Software Distribution) License](https://opensource.org/licenses/BSD-3-Clause).
-Copyright 2013-2017, Mollie B.V.
+[New BSD (Berkeley Software Distribution) License](https://opensource.org/licenses/BSD-3-Clause). Copyright 2013-2017, Mollie B.V.
