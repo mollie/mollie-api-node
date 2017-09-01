@@ -1,21 +1,25 @@
-import axios from 'axios';
 import createHttpClient from 'create-http-client';
 
 describe('create-http-client', () => {
-  it('should have a secure option', () => {
-    const httpClient = createHttpClient(axios, {
-      defaultHostname: 'api.mollie.com',
-    });
+  const httpClient = createHttpClient();
 
+  it('should have a secure baseURL set', () => {
     expect(httpClient.defaults.baseURL).toBe('https://api.mollie.com:443/v1/');
   });
 
-  it('should have a insecure option', () => {
-    const httpClient = createHttpClient(axios, {
-      insecure: true,
-      host: 'api.mollie.com',
-    });
+  it('should have some default headers set', () => {
+    expect(httpClient.defaults.headers).toHaveProperty('Authorization');
+    expect(httpClient.defaults.headers).toHaveProperty('User-Agent');
+    expect(httpClient.defaults.headers).toHaveProperty('X-Mollie-User-Agent');
+    expect(httpClient.defaults.headers).toHaveProperty('Accept-Encoding');
+    expect(httpClient.defaults.headers).toHaveProperty('Content-Type');
+  });
 
-    expect(httpClient.defaults.baseURL).toBe('http://api.mollie.com:80/v1/');
+  it('should have a custom httpsAgent with cert loaded', () => {
+    expect(httpClient.defaults.httpsAgent).toBeDefined();
+  });
+
+  it('should have a default params serializer', () => {
+    expect(httpClient.defaults.paramsSerializer).toBeDefined();
   });
 });

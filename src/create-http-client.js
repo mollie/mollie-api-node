@@ -1,38 +1,33 @@
+import fs from 'fs';
+import https from 'https';
+import path from 'path';
+import axios from 'axios';
 import qs from 'qs';
+
+import cert from './cacert.pem';
+
+import { version } from '../package.json';
 
 /**
  * Create pre-configured httpClient instance
  * @private
  */
-export default function createHttpClient(httpClient, httpClientParams) {
-  const {
-    insecure,
-    host,
-    defaultHostname,
-    httpAgent,
-    httpsAgent,
-    proxy,
-  } = httpClientParams;
+export default function createHttpClient(options = {}) {
+  options.baseURL = 'https://api.mollie.com:443/v1/';
 
-  // prettier-ignore
-  const [
-    hostname = defaultHostname,
-    port = insecure ? 80 : 443,
-  ] = (host && host.split(':')) || [];
-
-  const baseURL = `${insecure ? 'http' : 'https'}://${hostname}:${port}/v1/`;
-
-  const headers = Object.assign({}, httpClientParams.headers, {
-    'user-agent': `node.js/${process.version}`,
+  options.headers = Object.assign({}, options.headers, {
+    Authorization: `Bearer ${options.apiKey}`,
     'Accept-Encoding': 'gzip',
+    'Content-Type': 'application/vnd.mollie.api.v1+json',
+    'User-Agent': `node.js/${process.version}`,
+    'X-Mollie-User-Agent': `mollie/${version}`,
   });
 
-  return httpClient.create({
-    baseURL,
-    headers,
-    httpAgent,
-    httpsAgent,
-    proxy,
-    paramsSerializer: qs.stringify,
+  options.httpsAgent = new https.Agent({
+    cert: fs.readFileSync(path.resolve(__dirname, cert)),
   });
+
+  options.paramsSerializer = options.paramsSerializer || qs.stringify;
+
+  return axios.create(options);
 }
