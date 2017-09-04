@@ -78,7 +78,7 @@ export default class Subscription extends MollieModel {
    * If the subscription is cancelled
    * @returns {boolean}
    */
-  isCanceled() {
+  isCancelled() {
     return !!this.cancelledDatetime;
   }
 }

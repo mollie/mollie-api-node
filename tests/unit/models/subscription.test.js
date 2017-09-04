@@ -6,7 +6,7 @@ describe('subscription model', () => {
 
     expect(subscription.isActive()).toBe(false);
     expect(subscription.isPending()).toBe(false);
-    expect(subscription.isCanceled()).toBe(false);
+    expect(subscription.isCancelled()).toBe(false);
     expect(subscription.isSuspended()).toBe(false);
     expect(subscription.isCompleted()).toBe(false);
     expect(subscription.getWebhookUrl()).toBeNull();
@@ -35,7 +35,7 @@ describe('subscription model', () => {
 
     expect(subscription.isActive()).toBe(true);
     expect(subscription.isPending()).toBe(false);
-    expect(subscription.isCanceled()).toBe(true);
+    expect(subscription.isCancelled()).toBe(true);
     expect(subscription.isSuspended()).toBe(false);
     expect(subscription.isCompleted()).toBe(false);
     expect(subscription.getWebhookUrl()).toBe(
