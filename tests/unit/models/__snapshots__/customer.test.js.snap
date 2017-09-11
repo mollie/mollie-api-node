@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`customer model should instantiate with default values 1`] = `
+Object {
+  "createdDatetime": null,
+  "email": null,
+  "id": null,
+  "locale": null,
+  "metadata": null,
+  "name": null,
+  "recentlyUsedMethods": null,
+  "resource": "customer",
+}
+`;
+
+exports[`customer model should instantiate with given values 1`] = `
+Object {
+  "createdDatetime": "2017-05-06T22:01:32.480Z",
+  "email": "john.doe@example.com",
+  "id": "cst_c24gk2t3G6",
+  "locale": "en",
+  "metadata": Object {
+    "customerId": "12345",
+  },
+  "name": "John Doe",
+  "recentlyUsedMethods": Array [],
+  "resource": "customer",
+}
+`;

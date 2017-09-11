@@ -1,0 +1,131 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`customers_mandates .all() should return a list of all customer mandates 1`] = `
+Array [
+  Mandate {
+    "createdDatetime": "2017-04-13T11:32:38.0Z",
+    "customerId": "cst_R6JLAuqEgm",
+    "details": Object {
+      "consumerAccount": "NL53INGB0618365937",
+      "consumerBic": "INGBNL2A",
+      "consumerName": "Hr E G H Küppers en/of MW M.J. Küppers-Veeneman",
+    },
+    "id": "mdt_pO2m5jVgMa",
+    "method": "directdebit",
+    "resource": "mandate",
+    "status": "valid",
+  },
+  Mandate {
+    "createdDatetime": "2017-04-13T11:32:38.0Z",
+    "customerId": "cst_R6JLAuqEgm",
+    "details": Object {
+      "cardExpiryDate": "2017-03-31",
+      "cardFingerprint": "fHB3CCKx9REkz8fPplT8N4nq",
+      "cardHolder": "John Doe",
+      "cardLabel": "Mastercard",
+      "cardNumber": "1234",
+    },
+    "id": "mdt_qtUgejVgMN",
+    "method": "creditcard",
+    "resource": "mandate",
+    "status": "valid",
+  },
+]
+`;
+
+exports[`customers_mandates .all() should work with a callback 1`] = `
+Array [
+  Mandate {
+    "createdDatetime": "2017-04-13T11:32:38.0Z",
+    "customerId": "cst_R6JLAuqEgm",
+    "details": Object {
+      "consumerAccount": "NL53INGB0618365937",
+      "consumerBic": "INGBNL2A",
+      "consumerName": "Hr E G H Küppers en/of MW M.J. Küppers-Veeneman",
+    },
+    "id": "mdt_pO2m5jVgMa",
+    "method": "directdebit",
+    "resource": "mandate",
+    "status": "valid",
+  },
+  Mandate {
+    "createdDatetime": "2017-04-13T11:32:38.0Z",
+    "customerId": "cst_R6JLAuqEgm",
+    "details": Object {
+      "cardExpiryDate": "2017-03-31",
+      "cardFingerprint": "fHB3CCKx9REkz8fPplT8N4nq",
+      "cardHolder": "John Doe",
+      "cardLabel": "Mastercard",
+      "cardNumber": "1234",
+    },
+    "id": "mdt_qtUgejVgMN",
+    "method": "creditcard",
+    "resource": "mandate",
+    "status": "valid",
+  },
+]
+`;
+
+exports[`customers_mandates .create() should return a mandate instance 1`] = `
+Mandate {
+  "createdDatetime": "2017-04-13T11:32:38.0Z",
+  "customerId": "cst_R6JLAuqEgm",
+  "details": Object {
+    "consumerAccount": "NL53INGB0618365937",
+    "consumerBic": "INGBNL2A",
+    "consumerName": "Hr E G H Küppers en/of MW M.J. Küppers-Veeneman",
+  },
+  "id": "mdt_pO2m5jVgMa",
+  "method": "directdebit",
+  "resource": "mandate",
+  "status": "valid",
+}
+`;
+
+exports[`customers_mandates .create() should work with a callback 1`] = `
+Mandate {
+  "createdDatetime": "2017-04-13T11:32:38.0Z",
+  "customerId": "cst_R6JLAuqEgm",
+  "details": Object {
+    "consumerAccount": "NL53INGB0618365937",
+    "consumerBic": "INGBNL2A",
+    "consumerName": "Hr E G H Küppers en/of MW M.J. Küppers-Veeneman",
+  },
+  "id": "mdt_pO2m5jVgMa",
+  "method": "directdebit",
+  "resource": "mandate",
+  "status": "valid",
+}
+`;
+
+exports[`customers_mandates .revoke() should return a mandate instance 1`] = `
+Mandate {
+  "createdDatetime": "2017-04-13T11:32:38.0Z",
+  "customerId": "cst_R6JLAuqEgm",
+  "details": Object {
+    "consumerAccount": "NL53INGB0618365937",
+    "consumerBic": "INGBNL2A",
+    "consumerName": "Hr E G H Küppers en/of MW M.J. Küppers-Veeneman",
+  },
+  "id": "mdt_pO2m5jVgMa",
+  "method": "directdebit",
+  "resource": "mandate",
+  "status": "valid",
+}
+`;
+
+exports[`customers_mandates .revoke() should work with cancel alias and a callback 1`] = `
+Mandate {
+  "createdDatetime": "2017-04-13T11:32:38.0Z",
+  "customerId": "cst_R6JLAuqEgm",
+  "details": Object {
+    "consumerAccount": "NL53INGB0618365937",
+    "consumerBic": "INGBNL2A",
+    "consumerName": "Hr E G H Küppers en/of MW M.J. Küppers-Veeneman",
+  },
+  "id": "mdt_pO2m5jVgMa",
+  "method": "directdebit",
+  "resource": "mandate",
+  "status": "valid",
+}
+`;

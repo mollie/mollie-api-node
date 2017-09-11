@@ -1,54 +1,89 @@
 {
   "name": "mollie-api-node",
-  "version": "1.3.6",
+  "version": "2.0.0-alpha.1",
   "license": "BSD-3-Clause",
-  "repository": "git://github.com/mollie/mollie-api-node",
-  "description": "Official Mollie API client for Node (by Mollie B.V.)",
-  "homepage": "https://github.com/mollie/mollie-api-node",
-  "author": "Mollie B.V. <info@mollie.nl>",
+  "description": "Official Mollie API client for Node",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mollie/mollie-api-node"
+  },
   "keywords": [
     "mollie",
     "payment",
     "service",
-    "ideal",
-    "creditcard",
-    "mistercash",
-    "bancontact",
-    "sofort",
-    "sofortbanking",
-    "sepa",
-    "bitcoin",
-    "paypal",
-    "paysafecard",
-    "podiumcadeaukaart",
-    "banktransfer",
-    "direct debit",
-    "belfius",
-    "belfius direct net",
-    "kbc",
-    "cbc",
-    "refunds",
+    "provider",
     "api",
+    "client",
     "payments",
-    "gateway",
-    "subscriptions",
-    "recurring",
-    "charges"
+    "gateway"
   ],
+  "main": "dist/mollie.js",
+  "scripts": {
+    "prepublish": "yarn run build",
+    "precommit": "lint-staged",
+    "commit": "git-cz",
+    "prepush": "yarn test",
+    "lint": "eslint {src,test}/**/*.js",
+    "test": "yarn run build && jest",
+    "test:watch": "yarn run build && jest --watch",
+    "test:cov": "yarn run build && jest --coverage",
+    "build": "rollup -c",
+    "prettier": "prettier --single-quote --trailing-comma all --write \"{src,tests,dist}/**/*.js\""
+  },
   "dependencies": {
-    "underscore": "^1.7.0"
+    "axios": "^0.16.1",
+    "lodash": "^4.17.4",
+    "qs": "^6.4.0"
   },
   "devDependencies": {
-    "coffee-script": "^1.12.7"
+    "axios-mock-adapter": "^1.8.1",
+    "babel-core": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-jest": "^19.0.0",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "commitizen": "^2.9.6",
+    "cz-conventional-changelog": "^2.0.0",
+    "dotenv": "^4.0.0",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.1.3",
+    "eslint-import-resolver-node": "^0.3.0",
+    "eslint-plugin-import": "^2.2.0",
+    "husky": "^0.13.3",
+    "jest-cli": "^19.0.2",
+    "lint-staged": "^3.4.1",
+    "prettier": "^1.3.1",
+    "rollup": "^0.41.6",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-includepaths": "^0.2.2",
+    "rollup-plugin-json": "^2.1.1",
+    "rollup-plugin-url": "^1.1.0"
   },
-  "main": "./lib/mollie",
-  "scripts": {
-    "prepublish": "npm prune",
-    "start": "node examples/app.js",
-    "watch": "./node_modules/.bin/coffee -c -w -o . src",
-    "build": "./node_modules/.bin/coffee -c -o . src"
+  "lint-staged": {
+    "{src,test}/**/*.js": [
+      "prettier --single-quote --trailing-comma all --write",
+      "eslint --fix",
+      "git add"
+    ]
   },
-  "engines": {
-    "node": ">= 0.8.0"
+  "jest": {
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest",
+      "^.+\\.pem$": "<rootDir>/tests/unit/__stubs__/fileTransformer.js"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "publishConfig": {
+    "tag": "next"
   }
 }

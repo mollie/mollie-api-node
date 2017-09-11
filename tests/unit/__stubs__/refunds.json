@@ -1,0 +1,37 @@
+{
+  "totalCount": 1,
+  "offset": 0,
+  "count": 1,
+  "data": [
+    {
+      "id": "re_4qqhO89gsT",
+      "payment": {
+        "id": "tr_WDqYK6vllg",
+        "mode": "test",
+        "createdDatetime": "2017-05-03T08:00:59.0Z",
+        "status": "refunded",
+        "amount": "35.07",
+        "amountRefunded": "5.95",
+        "amountRemaining": "54.12",
+        "description": "Order",
+        "method": "ideal",
+        "metadata": {
+          "order_id": "33"
+        },
+        "details": {
+          "consumerName": "Hr E G H K\u00fcppers en\/of MW M.J. K\u00fcppers-Veeneman",
+          "consumerAccount": "NL53INGB0654422370",
+          "consumerBic": "INGBNL2A"
+        },
+        "locale": "nl",
+        "links": {
+          "webhookUrl": "https://www.example.org/payments/webhook",
+          "redirectUrl": "https://www.example.org/order/33/",
+          "refunds": "https://api.mollie.nl/v1/payments/tr_WDqYK6vllg/refunds"
+        }
+      },
+      "amount": "5.95",
+      "refundedDatetime": "2017-05-05T14:01:07.0Z"
+    }
+  ]
+}

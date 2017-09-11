@@ -1,8 +1,8 @@
-/.git*
-/.idea
-.DS_Store
-/examples
-/src
-/node_modules
-*.map
-*.sh
+coverage/
+src/
+tests/
+rollup.config.js
+.idea/
+.env
+*.log
+.*

@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`subscription model should instantiate with default values 1`] = `
+Object {
+  "amount": null,
+  "cancelledDatetime": null,
+  "createdDatetime": null,
+  "customerId": null,
+  "description": null,
+  "id": null,
+  "interval": null,
+  "links": Object {
+    "webhookUrl": null,
+  },
+  "method": null,
+  "mode": null,
+  "resource": "subscription",
+  "status": null,
+  "times": null,
+}
+`;
+
+exports[`subscription model should instantiate with given values 1`] = `
+Object {
+  "amount": "25.00",
+  "cancelledDatetime": "2017-03-21T07:36:12.0Z",
+  "createdDatetime": "2017-03-01T12:23:34.0Z",
+  "customerId": "cst_stTC2WHAuS",
+  "description": "Quarterly payment",
+  "id": "sub_rVKGtNd6s3",
+  "interval": "3 months",
+  "links": Object {
+    "webhookUrl": "https://example.org/payments/webhook",
+  },
+  "method": null,
+  "mode": "live",
+  "resource": "subscription",
+  "status": "active",
+  "times": 4,
+}
+`;

@@ -1,0 +1,18 @@
+{
+  "totalCount": 1,
+  "offset": 0,
+  "count": 1,
+  "data": [
+    {
+      "resource": "customer",
+      "id": "cst_c24gk2t3G6",
+      "mode": "test",
+      "name": "John Doe",
+      "email": "john.doe@example.org",
+      "locale": null,
+      "metadata": null,
+      "recentlyUsedMethods": [],
+      "createdDatetime": "2017-02-13T13:21:58.0Z"
+    }
+  ]
+}
