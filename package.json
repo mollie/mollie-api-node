@@ -82,5 +82,8 @@
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
+  },
+  "publishConfig": {
+    "tag": "next"
   }
 }
