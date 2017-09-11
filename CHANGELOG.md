@@ -4,6 +4,9 @@
 
 All notable changes to this project will be documented in this file.
 
+#### v1.3.6 - 2017-08-02
+  - Fixed `isValid()` helper method of the Mandate model.
+
 #### v1.3.5 - 2017-02-02
   - Added missing 'subscriptionId' to Payments API.
 
