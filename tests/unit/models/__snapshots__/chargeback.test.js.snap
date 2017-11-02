@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`customer model should instantiate with default values 1`] = `
+Object {
+  "amount": null,
+  "chargebackDatetime": null,
+  "id": null,
+  "payment": null,
+  "resource": "chargeback",
+  "reversedDatetime": null,
+}
+`;
+
+exports[`customer model should instantiate with given values 1`] = `
+Object {
+  "amount": 35.07,
+  "chargebackDatetime": "2017-11-02T11:41:23.0Z",
+  "id": "chb_n9z0tp",
+  "payment": "tr_WDqYK6vllg",
+  "resource": "chargeback",
+  "reversedDatetime": null,
+}
+`;
