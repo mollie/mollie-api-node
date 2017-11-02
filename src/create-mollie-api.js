@@ -7,6 +7,7 @@ import Customers from './resources/customers';
 import CustomersPayments from './resources/customers/payments';
 import CustomersMandates from './resources/customers/mandates';
 import CustomersSubscriptions from './resources/customers/subscriptions';
+import Chargebacks from './resources/chargebacks';
 
 /**
  * Create Mollie API
@@ -25,5 +26,6 @@ export default function createMollieApi({ httpClient }) {
     customers_payments: new CustomersPayments(httpClient),
     customers_mandates: new CustomersMandates(httpClient),
     customers_subscriptions: new CustomersSubscriptions(httpClient),
+    chargebacks: new Chargebacks(httpClient),
   };
 }
