@@ -1,6 +1,6 @@
 import Chargeback from 'models/chargeback';
 
-describe('customer model', () => {
+describe('chargeback model', () => {
   it('should instantiate with default values', () => {
     const chargeback = new Chargeback();
 
