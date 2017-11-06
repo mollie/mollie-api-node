@@ -16,7 +16,7 @@ dotenv.config();
 
 const mollieClient = mollie({ apiKey: process.env.API_KEY });
 
-describe('customers', () => {
+describe('chargebacks', () => {
   it('should integrate', done =>
     mollieClient.chargebacks.all()
       .then((chargebacks) => {
