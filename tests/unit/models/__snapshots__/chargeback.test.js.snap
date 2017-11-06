@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`customer model should instantiate with default values 1`] = `
+exports[`chargeback model should instantiate with default values 1`] = `
 Object {
   "amount": null,
   "chargebackDatetime": null,
@@ -11,7 +11,7 @@ Object {
 }
 `;
 
-exports[`customer model should instantiate with given values 1`] = `
+exports[`chargeback model should instantiate with given values 1`] = `
 Object {
   "amount": 35.07,
   "chargebackDatetime": "2017-11-02T11:41:23.0Z",
