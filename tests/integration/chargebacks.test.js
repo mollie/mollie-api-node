@@ -4,6 +4,10 @@ import dotenv from 'dotenv';
 
 import mollie from '../../dist/mollie';
 
+console.log = function(msg) {
+  process.stdout.write(`${msg}\n`);
+};
+
 /**
  * Overwrite the default XMLHttpRequestAdapter
  */
