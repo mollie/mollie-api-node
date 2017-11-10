@@ -4,10 +4,6 @@ import dotenv from 'dotenv';
 
 import mollie from '../../dist/mollie';
 
-console.log = function(msg) {
-  process.stdout.write(`${msg}\n`);
-};
-
 /**
  * Overwrite the default XMLHttpRequestAdapter
  */
@@ -19,9 +15,6 @@ axios.defaults.adapter = httpAdapter;
 dotenv.config();
 
 const mollieClient = mollie({ apiKey: process.env.API_KEY });
-
-console.log('process.env', process.env);
-console.log('mollieClient', mollieClient);
 
 describe('chargebacks', () => {
   it('should integrate', done =>
