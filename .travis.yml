@@ -4,3 +4,6 @@ node_js:
   - "node"
   - "4.6"
 script: yarn run build && yarn run test:cov
+env:
+  global:
+    secure: IauW7TWtbQxlvdNzRGMkMYPHYvJ+JWQqKXXCIbzk5Eps3d93lXRtt60wZiO1n9GxjfYvmZKX8x+Pxdz4yAey5IQGgkNzeJsj/w2eKwnRUkHDdcLpqY/ByWbS9QYn2RAV0dud82rkvCOfWQG1mQ94sOgT7NgL8cVz5wMuFI98JwY=
