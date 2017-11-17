@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`chargebacks .all() should return a list of all chargebacks 1`] = `
+Array [
+  Chargeback {
+    "amount": "35.07",
+    "chargebackDatetime": "2017-11-02T11:41:23.0Z",
+    "id": "chb_n9z0tp",
+    "payment": "tr_WDqYK6vllg",
+    "resource": "chargeback",
+    "reversedDatetime": null,
+  },
+]
+`;
+
+exports[`chargebacks .all() should work with a callback 1`] = `
+Array [
+  Chargeback {
+    "amount": "35.07",
+    "chargebackDatetime": "2017-11-02T11:41:23.0Z",
+    "id": "chb_n9z0tp",
+    "payment": "tr_WDqYK6vllg",
+    "resource": "chargeback",
+    "reversedDatetime": null,
+  },
+]
+`;

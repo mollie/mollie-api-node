@@ -3,4 +3,6 @@ language: node_js
 node_js:
   - "node"
   - "4.6"
-script: yarn run build && yarn run test:cov
+script:
+   - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then yarn run test:unit:cov; fi'
+   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then yarn run test:cov; fi'
