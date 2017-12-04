@@ -43,13 +43,13 @@ To use the Mollie API client, the following things are required:
 Using [npm](https://npmjs.org/):
 
 ```sh
-npm install mollie-api-node --save
+npm install mollie-api-node@next --save
 ```
 
 Or using [yarn](https://yarnpkg.com/):
     
 ```sh
-yarn add mollie-api-node
+yarn add mollie-api-node@next
 ```
 
 This will add `mollie-api-node` to your project's dependencies.
