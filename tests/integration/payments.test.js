@@ -28,7 +28,11 @@ describe('payments', () => {
             description: 'Integration test payment',
             redirectUrl: 'https://example.com/redirect',
           })
-            .then(payment => expect(payment).toBeDefined())
+            .then((payment) => {
+              expect(payment).toBeDefined();
+
+              return payment;
+            })
             .catch(err => expect(err).toBeNull());
         } else {
           paymentExists = Promise.resolve(payments[0]);
@@ -40,7 +44,9 @@ describe('payments', () => {
            * manually set this payment to paid.
            */
           if (!payment.isPaid()) {
+            console.log('If you want to test the full flow, set the payment to paid:', payment.links.paymentUrl);
             done();
+            return;
           }
 
           mollieClient.payments_refunds.all({ paymentId: payment.id })
@@ -51,12 +57,11 @@ describe('payments', () => {
                 refundExists = mollieClient.payments_refunds.create({
                   paymentId: payments[0].id,
                   amount: 5.00,
-                }).then((result) => {
-                  expect(result).toBeDefined();
-                  return result;
-                }).catch((err) => {
-                  expect(err).toBeNull();
-                });
+                }).then((refund) => {
+                  expect(refund).toBeDefined();
+
+                  return refund;
+                }).catch(err => expect(err).toBeNull());
               } else {
                 refundExists = Promise.resolve(paymentRefunds[0]);
               }
