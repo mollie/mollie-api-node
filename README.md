@@ -2,7 +2,7 @@
 
 # Mollie API client for Node #
 
-Accepting [iDEAL](https://www.mollie.com/ideal/), [Bancontact/Mister Cash](https://www.mollie.com/mistercash/), [SOFORT Banking](https://www.mollie.com/sofort/), [Creditcard](https://www.mollie.com/creditcard/), [SEPA Bank transfer](https://www.mollie.com/overboeking/), [SEPA Direct debit](https://www.mollie.com/directdebit/), [Bitcoin](https://www.mollie.com/bitcoin/), [PayPal](https://www.mollie.com/paypal/), [Belfius Direct Net](https://www.mollie.com/belfiusdirectnet/) and [paysafecard](https://www.mollie.com/paysafecard/) online payments without fixed monthly costs or any punishing registration procedures. Just use the Mollie API to receive payments directly on your website or easily refund transactions to your customers.
+Accepting [iDEAL](https://www.mollie.com/ideal/), [Bancontact/Mister Cash](https://www.mollie.com/mistercash/), [SOFORT Banking](https://www.mollie.com/sofort/), [Creditcard](https://www.mollie.com/creditcard/), [SEPA Bank transfer](https://www.mollie.com/overboeking/), [SEPA Direct debit](https://www.mollie.com/directdebit/), [Bitcoin](https://www.mollie.com/bitcoin/), [PayPal](https://www.mollie.com/paypal/), [Belfius Direct Net](https://www.mollie.com/belfiusdirectnet/), [paysafecard](https://www.mollie.com/paysafecard/) and [ING Home’Pay](https://www.mollie.com/en/payments/ing-homepay) online payments without fixed monthly costs or any punishing registration procedures. Just use the Mollie API to receive payments directly on your website or easily refund transactions to your customers.
 
 ## Requirements ##
 To use the Mollie API client, the following things are required:
@@ -97,3 +97,4 @@ Contact: [www.mollie.com](https://www.mollie.com) — info@mollie.com — +31 20
 + [More information about PayPal via Mollie](https://www.mollie.com/paypal/)
 + [More information about Belfius Direct Net via Mollie](https://www.mollie.com/belfiusdirectnet/)
 + [More information about paysafecard via Mollie](https://www.mollie.com/paysafecard/)
++ [More information about ING Home’Pay via Mollie](https://www.mollie.com/en/payments/ing-homepay)
