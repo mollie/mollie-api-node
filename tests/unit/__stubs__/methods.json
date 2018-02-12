@@ -145,6 +145,19 @@
         "normal": "https://www.mollie.com/images/payscreen/methods/belfius.png",
         "bigger": "https://www.mollie.com/images/payscreen/methods/belfius@2x.png"
       }
+    },
+    {
+      "resource": "method",
+      "id": "inghomepay",
+      "description": "ING Home'Pay",
+      "amount": {
+        "minimum": "0.01",
+        "maximum": "50000.00"
+      },
+      "image": {
+        "normal": "https://www.mollie.com/images/payscreen/methods/inghomepay.png",
+        "bigger": "https://www.mollie.com/images/payscreen/methods/inghomepay@2x.png"
+      }
     }
   ]
 }
