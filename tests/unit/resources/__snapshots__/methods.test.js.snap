@@ -157,7 +157,7 @@ Array [
       "normal": "https://www.mollie.com/images/payscreen/methods/inghomepay.png",
     },
     "resource": "method",
-   },
+  },
 ]
 `;
 
@@ -307,18 +307,18 @@ Array [
     "resource": "method",
   },
   Method {
-      "amount": Object {
-        "maximum": "50000.00",
-        "minimum": "0.01",
-      },
-      "description": "ING Home'Pay",
-      "id": "inghomepay",
-      "image": Object {
-        "bigger": "https://www.mollie.com/images/payscreen/methods/inghomepay@2x.png",
-        "normal": "https://www.mollie.com/images/payscreen/methods/inghomepay.png",
-      },
-      "resource": "method",
-   },
+    "amount": Object {
+      "maximum": "50000.00",
+      "minimum": "0.01",
+    },
+    "description": "ING Home'Pay",
+    "id": "inghomepay",
+    "image": Object {
+      "bigger": "https://www.mollie.com/images/payscreen/methods/inghomepay@2x.png",
+      "normal": "https://www.mollie.com/images/payscreen/methods/inghomepay.png",
+    },
+    "resource": "method",
+  },
 ]
 `;
 
