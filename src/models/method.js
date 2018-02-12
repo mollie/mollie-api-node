@@ -17,6 +17,7 @@ export default class Method extends MollieModel {
   static PODIUMCADEAUKAART = 'podiumcadeaukaart';
   static KBC = 'kbc';
   static GIFTCARD = 'giftcard';
+  static INGHOMEPAY = 'inghomepay';
 
   constructor(props) {
     super(props);
