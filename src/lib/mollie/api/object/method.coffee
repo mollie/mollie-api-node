@@ -41,6 +41,7 @@ module.exports = class Method
 	this.PAYSAFECARD       = "paysafecard";
 	this.PODIUMCADEAUKAART = "podiumcadeaukaart";
 	this.KBC               = "kbc";
+	this.INGHOMEPAY        = "inghomepay";
 
 	constructor: () ->
 		this.resource    = "method";

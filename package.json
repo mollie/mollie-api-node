@@ -33,7 +33,8 @@
     "gateway",
     "subscriptions",
     "recurring",
-    "charges"
+    "charges",
+    "inghomepay"
   ],
   "dependencies": {
     "underscore": "^1.7.0"
