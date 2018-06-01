@@ -4,6 +4,9 @@
 
 All notable changes to this project will be documented in this file.
 
+#### v1.3.7 - 2018-06-01
+  - Update bundled cacert.pem file.
+
 #### v1.3.6 - 2017-08-02
   - Fixed `isValid()` helper method of the Mandate model.
 
