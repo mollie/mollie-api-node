@@ -9,21 +9,34 @@ describe('mandate model', () => {
   });
 
   it('should instantiate with given values', () => {
-    const mandateProps = {
-      resource: 'mandate',
-      id: 'mdt_pO2m5jVgMa',
-      status: 'valid',
-      method: 'creditcard',
-      customerId: 'cst_R6JLAuqEgm',
-      details: {
-        cardHolder: 'John Doe',
-        cardNumber: '1234',
-        cardLabel: 'Mastercard',
-        cardFingerprint: 'fHB3CCKx9REkz8fPplT8N4nq',
-        cardExpiryDate: '2017-03-31',
-      },
-      createdDatetime: '2017-04-13T11:32:38.0Z',
-    };
+    const mandateProps = JSON.parse(`{
+        "resource": "mandate",
+        "id": "mdt_h3gAaD5zP",
+        "status": "valid",
+        "method": "directdebit",
+        "details": {
+            "consumerName": "John Doe",
+            "consumerAccount": "NL55INGB0000000000",
+            "consumerBic": "INGBNL2A"
+        },
+        "mandateReference": "YOUR-COMPANY-MD1380",
+        "signatureDate": "2018-05-07",
+        "createdAt": "2018-05-07T10:49:08+00:00",
+        "_links": {
+            "self": {
+                "href": "https://api.mollie.com/v2/customers/cst_4qqhO89gsT/mandates/mdt_h3gAaD5zP",
+                "type": "application/hal+json"
+            },
+            "customer": {
+                "href": "https://api.mollie.com/v2/customers/cst_4qqhO89gsT",
+                "type": "application/hal+json"
+            },
+            "documentation": {
+                "href": "https://docs.mollie.com/reference/v2/mandates-api/get-mandate",
+                "type": "text/html"
+            }
+        }
+    }`);
     const mandate = new Mandate(mandateProps);
 
     expect(mandate.isValid()).toBe(true);

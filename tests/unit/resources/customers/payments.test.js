@@ -10,7 +10,10 @@ const mock = new MockAdapter(axios);
 
 const props = {
   id: 'tr_McVBfE9Ceq',
-  amount: 10.00,
+  amount: {
+    currency: 'EUR',
+    value: '10.00',
+  },
   description: 'Test customer payment of €10.00',
   customerId: 'cst_c24gk2t3G6',
   redirectUrl: 'https://www.example.org/',
@@ -28,7 +31,7 @@ describe('customers_payments', () => {
   });
 
   describe('.create()', () => {
-    mock.onPost(`/customers/${props.customerId}/payments`).reply(200, response.data[0]);
+    mock.onPost(`/customers/${props.customerId}/payments`).reply(200, response._embedded.payments[0]);
 
     it('should return a payment instance', () =>
       customersPayments.create(props).then((result) => {
@@ -63,7 +66,7 @@ describe('customers_payments', () => {
   describe('.get()', () => {
     const error = { error: { message: 'The customers_mandate id is invalid' } };
 
-    mock.onGet(`/customers/${props.customerId}/payments/${props.id}`).reply(200, response.data[0]);
+    mock.onGet(`/customers/${props.customerId}/payments/${props.id}`).reply(200, response._embedded.payments[0]);
     mock.onGet(`/customers/${props.customerId}/payments/foo`).reply(500, error);
 
     it('should return a payment instance', () =>
@@ -102,8 +105,6 @@ describe('customers_payments', () => {
     it('should return a list of all customer payments', () =>
       customersPayments.all({ customerId: props.customerId }).then((result) => {
         expect(result).toBeInstanceOf(Array);
-        expect(result).toHaveProperty('totalCount');
-        expect(result).toHaveProperty('offset');
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
       }));
@@ -118,8 +119,6 @@ describe('customers_payments', () => {
       customersPayments.all(props, (err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Array);
-        expect(result).toHaveProperty('totalCount');
-        expect(result).toHaveProperty('offset');
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
         done();
@@ -135,8 +134,6 @@ describe('customers_payments', () => {
         .all()
         .then((result) => {
           expect(result).toBeInstanceOf(Array);
-          expect(result).toHaveProperty('totalCount');
-          expect(result).toHaveProperty('offset');
           expect(result).toHaveProperty('links');
           expect(result).toMatchSnapshot();
         }));

@@ -1,9 +1,9 @@
-import MollieModel from 'mollie-model';
+import Model from 'model';
 
 /**
  * The `Mandate` model
  */
-export default class Mandate extends MollieModel {
+export default class Mandate extends Model {
   static STATUS_VALID = 'valid';
   static STATUS_INVALID = 'invalid';
 
@@ -15,9 +15,13 @@ export default class Mandate extends MollieModel {
       id: null,
       status: null,
       method: null,
-      customerId: null,
       details: null,
-      createdDatetime: null,
+      mandateReference: null,
+      signatureDate: null,
+      createdAt: null,
+      _links: {
+        customer: null,
+      },
     };
 
     Object.assign(this, defaults, props);

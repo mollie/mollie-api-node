@@ -1,4 +1,4 @@
-import MollieResource from 'mollie-resource';
+import Resource from 'resource';
 import Method from 'models/method';
 
 /**
@@ -7,7 +7,7 @@ import Method from 'models/method';
  * @static {Object} model
  * @since 1.0.0
  */
-export default class Methods extends MollieResource {
+export default class Methods extends Resource {
   static resource = 'methods';
   static model = Method;
 }

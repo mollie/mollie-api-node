@@ -2,40 +2,59 @@
 
 exports[`subscription model should instantiate with default values 1`] = `
 Object {
-  "amount": null,
-  "cancelledDatetime": null,
-  "createdDatetime": null,
-  "customerId": null,
+  "_links": Object {
+    "customer": null,
+  },
+  "amount": Object {
+    "currency": null,
+    "value": null,
+  },
+  "canceledAt": null,
+  "createdAt": null,
   "description": null,
   "id": null,
   "interval": null,
-  "links": Object {
-    "webhookUrl": null,
-  },
   "method": null,
   "mode": null,
   "resource": "subscription",
+  "startDate": null,
   "status": null,
   "times": null,
+  "webhookUrl": null,
 }
 `;
 
 exports[`subscription model should instantiate with given values 1`] = `
 Object {
-  "amount": "25.00",
-  "cancelledDatetime": "2017-03-21T07:36:12.0Z",
-  "createdDatetime": "2017-03-01T12:23:34.0Z",
-  "customerId": "cst_stTC2WHAuS",
+  "_links": Object {
+    "customer": Object {
+      "href": "https://api.mollie.com/v2/customers/cst_stTC2WHAuS",
+      "type": "application/hal+json",
+    },
+    "documentation": Object {
+      "href": "https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription",
+      "type": "text/html",
+    },
+    "self": Object {
+      "href": "https://api.mollie.com/v2/customers/cst_stTC2WHAuS/subscriptions/sub_rVKGtNd6s3",
+      "type": "application/hal+json",
+    },
+  },
+  "amount": Object {
+    "currency": "EUR",
+    "value": "25.00",
+  },
+  "canceledAt": null,
+  "createdAt": "2016-06-01T12:23:34+00:00",
   "description": "Quarterly payment",
   "id": "sub_rVKGtNd6s3",
   "interval": "3 months",
-  "links": Object {
-    "webhookUrl": "https://example.org/payments/webhook",
-  },
   "method": null,
   "mode": "live",
   "resource": "subscription",
+  "startDate": null,
   "status": "active",
   "times": 4,
+  "webhookUrl": "https://webshop.example.org/payments/webhook",
 }
 `;

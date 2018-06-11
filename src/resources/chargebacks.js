@@ -1,4 +1,4 @@
-import MollieResource from 'mollie-resource';
+import Resource from 'resource';
 import Chargeback from 'models/chargeback';
 
 /**
@@ -7,7 +7,7 @@ import Chargeback from 'models/chargeback';
  * @static {Object} model
  * @since 2.0.0-rc.1
  */
-export default class Chargebacks extends MollieResource {
+export default class Chargebacks extends Resource {
   static resource = 'chargebacks';
   static model = Chargeback;
 }

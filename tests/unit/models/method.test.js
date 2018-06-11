@@ -4,24 +4,29 @@ describe('method model', () => {
   it('should instantiate with default values', () => {
     const method = new Method();
 
-    expect(method.getMinimumAmount()).toBe(0);
-    expect(method.getMaximumAmount()).toBe(0);
+    expect(method.getImage()).toBeNull();
     expect(method.toPlainObject()).toMatchSnapshot();
   });
 
   it('should instantiate with given values', () => {
-    const methodProps = {
-      resource: 'method',
-      id: 'ideal',
-      amount: {
-        minimum: 10,
-        maximum: 1000,
-      },
-    };
+    const methodProps = JSON.parse(`{
+        "resource": "method",
+        "id": "ideal",
+        "description": "iDEAL",
+        "image": {
+            "size1x": "https://www.mollie.com/images/payscreen/methods/ideal.png",
+            "size2x": "https://www.mollie.com/images/payscreen/methods/ideal%402x.png"
+        },
+        "_links": {
+            "self": {
+                "href": "https://api.mollie.com/v2/methods/ideal",
+                "type": "application/hal+json"
+            }
+        }
+    }`);
     const method = new Method(methodProps);
 
-    expect(method.getMinimumAmount()).toBe(methodProps.amount.minimum);
-    expect(method.getMaximumAmount()).toBe(methodProps.amount.maximum);
+    expect(method.getImage('1x')).toBe(methodProps.image.size1x);
     expect(method.toPlainObject()).toMatchSnapshot();
   });
 });

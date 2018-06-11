@@ -1,12 +1,12 @@
-import MollieModel from 'mollie-model';
+import Model from 'model';
 
 /**
  * The `Subscription` model
  */
-export default class Subscription extends MollieModel {
+export default class Subscription extends Model {
   static STATUS_ACTIVE = 'active';
   static STATUS_PENDING = 'pending'; // Waiting for a valid mandate.
-  static STATUS_CANCELLED = 'cancelled';
+  static STATUS_CANCELED = 'canceled';
   static STATUS_SUSPENDED = 'suspended'; // Active, but mandate became invalid.
   static STATUS_COMPLETED = 'completed';
 
@@ -16,18 +16,22 @@ export default class Subscription extends MollieModel {
     const defaults = {
       resource: 'subscription',
       id: null,
-      customerId: null,
       mode: null,
-      createdDatetime: null,
+      createdAt: null,
       status: null,
-      amount: null,
+      amount: {
+        currency: null,
+        value: null,
+      },
       times: null,
       interval: null,
+      startDate: null,
       description: null,
       method: null,
-      cancelledDatetime: null,
-      links: {
-        webhookUrl: null,
+      canceledAt: null,
+      webhookUrl: null,
+      _links: {
+        customer: null,
       },
     };
 
@@ -39,7 +43,7 @@ export default class Subscription extends MollieModel {
    * @returns {boolean|string}
    */
   getWebhookUrl() {
-    return this.links && this.links.webhookUrl;
+    return this.webhookUrl;
   }
 
   /**
@@ -75,10 +79,10 @@ export default class Subscription extends MollieModel {
   }
 
   /**
-   * If the subscription is cancelled
+   * If the subscription is canceled
    * @returns {boolean}
    */
-  isCancelled() {
-    return !!this.cancelledDatetime;
+  isCanceled() {
+    return !!this.canceledAt;
   }
 }

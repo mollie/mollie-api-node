@@ -24,7 +24,7 @@ describe('payments', () => {
 
         if (!payments.length || payments[0].isExpired()) {
           paymentExists = mollieClient.payments.create({
-            amount: 10.00,
+            amount: { value: '10.00', currency: 'EUR' },
             description: 'Integration test payment',
             redirectUrl: 'https://example.com/redirect',
           })
@@ -39,12 +39,14 @@ describe('payments', () => {
         }
 
         paymentExists.then((payment) => {
-          /**
-           * If you want to test the rest of this flow you have to
-           * manually set this payment to paid.
-           */
           if (!payment.isPaid()) {
-            console.log('If you want to test the full flow, set the payment to paid:', payment.links.paymentUrl);
+            console.log('If you want to test the full flow, set the payment to paid:', payment.getPaymentUrl());
+            done();
+            return;
+          }
+
+          if (!payment.isRefundable()) {
+            console.log('This payment is not refundable, you cannot test the full flow.');
             done();
             return;
           }
@@ -56,7 +58,7 @@ describe('payments', () => {
               if (!paymentRefunds.length) {
                 refundExists = mollieClient.payments_refunds.create({
                   paymentId: payments[0].id,
-                  amount: 5.00,
+                  amount: { value: '5.00', currency: 'EUR' },
                 }).then((refund) => {
                   expect(refund).toBeDefined();
 

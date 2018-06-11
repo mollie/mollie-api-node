@@ -2,11 +2,12 @@
 
 exports[`customer model should instantiate with default values 1`] = `
 Object {
-  "createdDatetime": null,
+  "createdAt": null,
   "email": null,
   "id": null,
   "locale": null,
   "metadata": null,
+  "mode": null,
   "name": null,
   "recentlyUsedMethods": null,
   "resource": "customer",
@@ -15,15 +16,27 @@ Object {
 
 exports[`customer model should instantiate with given values 1`] = `
 Object {
-  "createdDatetime": "2017-05-06T22:01:32.480Z",
-  "email": "john.doe@example.com",
-  "id": "cst_c24gk2t3G6",
-  "locale": "en",
-  "metadata": Object {
-    "customerId": "12345",
+  "_links": Object {
+    "documentation": Object {
+      "href": "https://docs.mollie.com/reference/v2/customers-api/get-customer",
+      "type": "text/html",
+    },
+    "self": Object {
+      "href": "https://api.mollie.com/v2/customers/cst_kEn1PlbGa",
+      "type": "application/hal+json",
+    },
   },
-  "name": "John Doe",
-  "recentlyUsedMethods": Array [],
+  "createdAt": "2018-04-06T13:23:21.0Z",
+  "email": "customer@example.org",
+  "id": "cst_kEn1PlbGa",
+  "locale": "nl_NL",
+  "metadata": null,
+  "mode": "test",
+  "name": "Customer A",
+  "recentlyUsedMethods": Array [
+    "creditcard",
+    "ideal",
+  ],
   "resource": "customer",
 }
 `;

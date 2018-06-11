@@ -3,158 +3,77 @@
 exports[`methods .all() should return a list of all methods 1`] = `
 Array [
   Method {
-    "amount": Object {
-      "maximum": "50000.00",
-      "minimum": "0.36",
+    "_links": Object {
+      "self": Object {
+        "href": "https://api.mollie.com/v2/methods/ideal",
+        "type": "application/hal+json",
+      },
     },
     "description": "iDEAL",
     "id": "ideal",
     "image": Object {
-      "bigger": "https://www.mollie.com/images/payscreen/methods/ideal@2x.png",
-      "normal": "https://www.mollie.com/images/payscreen/methods/ideal.png",
+      "size1x": "https://www.mollie.com/images/payscreen/methods/ideal.png",
+      "size2x": "https://www.mollie.com/images/payscreen/methods/ideal%402x.png",
     },
     "resource": "method",
   },
   Method {
-    "amount": Object {
-      "maximum": "1000.00",
-      "minimum": "0.32",
+    "_links": Object {
+      "self": Object {
+        "href": "https://api.mollie.com/v2/methods/creditcard",
+        "type": "application/hal+json",
+      },
     },
-    "description": "Creditcard",
+    "description": "Credit card",
     "id": "creditcard",
     "image": Object {
-      "bigger": "https://www.mollie.com/images/payscreen/methods/creditcard@2x.png",
-      "normal": "https://www.mollie.com/images/payscreen/methods/creditcard.png",
+      "size1x": "https://www.mollie.com/images/payscreen/methods/creditcard.png",
+      "size2x": "https://www.mollie.com/images/payscreen/methods/creditcard%402x.png",
     },
     "resource": "method",
   },
   Method {
-    "amount": Object {
-      "maximum": "50000.00",
-      "minimum": "0.31",
-    },
-    "description": "Bancontact",
-    "id": "mistercash",
-    "image": Object {
-      "bigger": "https://www.mollie.com/images/payscreen/methods/mistercash@2x.png",
-      "normal": "https://www.mollie.com/images/payscreen/methods/mistercash.png",
-    },
-    "resource": "method",
-  },
-  Method {
-    "amount": Object {
-      "maximum": "5000.00",
-      "minimum": "0.31",
-    },
-    "description": "SOFORT Banking",
-    "id": "sofort",
-    "image": Object {
-      "bigger": "https://www.mollie.com/images/payscreen/methods/sofort@2x.png",
-      "normal": "https://www.mollie.com/images/payscreen/methods/sofort.png",
-    },
-    "resource": "method",
-  },
-  Method {
-    "amount": Object {
-      "maximum": "1000000.00",
-      "minimum": "0.31",
+    "_links": Object {
+      "self": Object {
+        "href": "https://api.mollie.com/v2/methods/banktransfer",
+        "type": "application/hal+json",
+      },
     },
     "description": "Bank transfer",
     "id": "banktransfer",
     "image": Object {
-      "bigger": "https://www.mollie.com/images/payscreen/methods/banktransfer@2x.png",
-      "normal": "https://www.mollie.com/images/payscreen/methods/banktransfer.png",
+      "size1x": "https://www.mollie.com/images/payscreen/methods/banktransfer.png",
+      "size2x": "https://www.mollie.com/images/payscreen/methods/banktransfer%402x.png",
     },
     "resource": "method",
   },
   Method {
-    "amount": Object {
-      "maximum": "8000.00",
-      "minimum": "0.01",
-    },
-    "description": "PayPal",
-    "id": "paypal",
-    "image": Object {
-      "bigger": "https://www.mollie.com/images/payscreen/methods/paypal@2x.png",
-      "normal": "https://www.mollie.com/images/payscreen/methods/paypal.png",
-    },
-    "resource": "method",
-  },
-  Method {
-    "amount": Object {
-      "maximum": "15000.00",
-      "minimum": "1.00",
+    "_links": Object {
+      "self": Object {
+        "href": "https://api.mollie.com/v2/methods/bitcoin",
+        "type": "application/hal+json",
+      },
     },
     "description": "Bitcoin",
     "id": "bitcoin",
     "image": Object {
-      "bigger": "https://www.mollie.com/images/payscreen/methods/bitcoin@2x.png",
-      "normal": "https://www.mollie.com/images/payscreen/methods/bitcoin.png",
+      "size1x": "https://www.mollie.com/images/payscreen/methods/bitcoin.png",
+      "size2x": "https://www.mollie.com/images/payscreen/methods/bitcoin%402x.png",
     },
     "resource": "method",
   },
   Method {
-    "amount": Object {
-      "maximum": "150.00",
-      "minimum": "0.79",
-    },
-    "description": "PODIUM Cadeaukaart",
-    "id": "podiumcadeaukaart",
-    "image": Object {
-      "bigger": "https://www.mollie.com/images/payscreen/methods/podiumcadeaukaart@2x.png",
-      "normal": "https://www.mollie.com/images/payscreen/methods/podiumcadeaukaart.png",
-    },
-    "resource": "method",
-  },
-  Method {
-    "amount": Object {
-      "maximum": "999.99",
-      "minimum": "1.00",
-    },
-    "description": "paysafecard",
-    "id": "paysafecard",
-    "image": Object {
-      "bigger": "https://www.mollie.com/images/payscreen/methods/paysafecard@2x.png",
-      "normal": "https://www.mollie.com/images/payscreen/methods/paysafecard.png",
-    },
-    "resource": "method",
-  },
-  Method {
-    "amount": Object {
-      "maximum": "50000.00",
-      "minimum": "0.31",
-    },
-    "description": "KBC/CBC Payment Button",
-    "id": "kbc",
-    "image": Object {
-      "bigger": "https://www.mollie.com/images/payscreen/methods/kbc@2x.png",
-      "normal": "https://www.mollie.com/images/payscreen/methods/kbc.png",
-    },
-    "resource": "method",
-  },
-  Method {
-    "amount": Object {
-      "maximum": "50000.00",
-      "minimum": "0.31",
-    },
-    "description": "Belfius Direct Net",
-    "id": "belfius",
-    "image": Object {
-      "bigger": "https://www.mollie.com/images/payscreen/methods/belfius@2x.png",
-      "normal": "https://www.mollie.com/images/payscreen/methods/belfius.png",
-    },
-    "resource": "method",
-  },
-  Method {
-    "amount": Object {
-      "maximum": "50000.00",
-      "minimum": "0.01",
+    "_links": Object {
+      "self": Object {
+        "href": "https://api.mollie.com/v2/methods/inghomepay",
+        "type": "application/hal+json",
+      },
     },
     "description": "ING Home'Pay",
     "id": "inghomepay",
     "image": Object {
-      "bigger": "https://www.mollie.com/images/payscreen/methods/inghomepay@2x.png",
-      "normal": "https://www.mollie.com/images/payscreen/methods/inghomepay.png",
+      "size1x": "https://www.mollie.com/images/payscreen/methods/inghomepay.png",
+      "size2x": "https://www.mollie.com/images/payscreen/methods/inghomepay%402x.png",
     },
     "resource": "method",
   },
@@ -164,158 +83,77 @@ Array [
 exports[`methods .all() should work with a callback 1`] = `
 Array [
   Method {
-    "amount": Object {
-      "maximum": "50000.00",
-      "minimum": "0.36",
+    "_links": Object {
+      "self": Object {
+        "href": "https://api.mollie.com/v2/methods/ideal",
+        "type": "application/hal+json",
+      },
     },
     "description": "iDEAL",
     "id": "ideal",
     "image": Object {
-      "bigger": "https://www.mollie.com/images/payscreen/methods/ideal@2x.png",
-      "normal": "https://www.mollie.com/images/payscreen/methods/ideal.png",
+      "size1x": "https://www.mollie.com/images/payscreen/methods/ideal.png",
+      "size2x": "https://www.mollie.com/images/payscreen/methods/ideal%402x.png",
     },
     "resource": "method",
   },
   Method {
-    "amount": Object {
-      "maximum": "1000.00",
-      "minimum": "0.32",
+    "_links": Object {
+      "self": Object {
+        "href": "https://api.mollie.com/v2/methods/creditcard",
+        "type": "application/hal+json",
+      },
     },
-    "description": "Creditcard",
+    "description": "Credit card",
     "id": "creditcard",
     "image": Object {
-      "bigger": "https://www.mollie.com/images/payscreen/methods/creditcard@2x.png",
-      "normal": "https://www.mollie.com/images/payscreen/methods/creditcard.png",
+      "size1x": "https://www.mollie.com/images/payscreen/methods/creditcard.png",
+      "size2x": "https://www.mollie.com/images/payscreen/methods/creditcard%402x.png",
     },
     "resource": "method",
   },
   Method {
-    "amount": Object {
-      "maximum": "50000.00",
-      "minimum": "0.31",
-    },
-    "description": "Bancontact",
-    "id": "mistercash",
-    "image": Object {
-      "bigger": "https://www.mollie.com/images/payscreen/methods/mistercash@2x.png",
-      "normal": "https://www.mollie.com/images/payscreen/methods/mistercash.png",
-    },
-    "resource": "method",
-  },
-  Method {
-    "amount": Object {
-      "maximum": "5000.00",
-      "minimum": "0.31",
-    },
-    "description": "SOFORT Banking",
-    "id": "sofort",
-    "image": Object {
-      "bigger": "https://www.mollie.com/images/payscreen/methods/sofort@2x.png",
-      "normal": "https://www.mollie.com/images/payscreen/methods/sofort.png",
-    },
-    "resource": "method",
-  },
-  Method {
-    "amount": Object {
-      "maximum": "1000000.00",
-      "minimum": "0.31",
+    "_links": Object {
+      "self": Object {
+        "href": "https://api.mollie.com/v2/methods/banktransfer",
+        "type": "application/hal+json",
+      },
     },
     "description": "Bank transfer",
     "id": "banktransfer",
     "image": Object {
-      "bigger": "https://www.mollie.com/images/payscreen/methods/banktransfer@2x.png",
-      "normal": "https://www.mollie.com/images/payscreen/methods/banktransfer.png",
+      "size1x": "https://www.mollie.com/images/payscreen/methods/banktransfer.png",
+      "size2x": "https://www.mollie.com/images/payscreen/methods/banktransfer%402x.png",
     },
     "resource": "method",
   },
   Method {
-    "amount": Object {
-      "maximum": "8000.00",
-      "minimum": "0.01",
-    },
-    "description": "PayPal",
-    "id": "paypal",
-    "image": Object {
-      "bigger": "https://www.mollie.com/images/payscreen/methods/paypal@2x.png",
-      "normal": "https://www.mollie.com/images/payscreen/methods/paypal.png",
-    },
-    "resource": "method",
-  },
-  Method {
-    "amount": Object {
-      "maximum": "15000.00",
-      "minimum": "1.00",
+    "_links": Object {
+      "self": Object {
+        "href": "https://api.mollie.com/v2/methods/bitcoin",
+        "type": "application/hal+json",
+      },
     },
     "description": "Bitcoin",
     "id": "bitcoin",
     "image": Object {
-      "bigger": "https://www.mollie.com/images/payscreen/methods/bitcoin@2x.png",
-      "normal": "https://www.mollie.com/images/payscreen/methods/bitcoin.png",
+      "size1x": "https://www.mollie.com/images/payscreen/methods/bitcoin.png",
+      "size2x": "https://www.mollie.com/images/payscreen/methods/bitcoin%402x.png",
     },
     "resource": "method",
   },
   Method {
-    "amount": Object {
-      "maximum": "150.00",
-      "minimum": "0.79",
-    },
-    "description": "PODIUM Cadeaukaart",
-    "id": "podiumcadeaukaart",
-    "image": Object {
-      "bigger": "https://www.mollie.com/images/payscreen/methods/podiumcadeaukaart@2x.png",
-      "normal": "https://www.mollie.com/images/payscreen/methods/podiumcadeaukaart.png",
-    },
-    "resource": "method",
-  },
-  Method {
-    "amount": Object {
-      "maximum": "999.99",
-      "minimum": "1.00",
-    },
-    "description": "paysafecard",
-    "id": "paysafecard",
-    "image": Object {
-      "bigger": "https://www.mollie.com/images/payscreen/methods/paysafecard@2x.png",
-      "normal": "https://www.mollie.com/images/payscreen/methods/paysafecard.png",
-    },
-    "resource": "method",
-  },
-  Method {
-    "amount": Object {
-      "maximum": "50000.00",
-      "minimum": "0.31",
-    },
-    "description": "KBC/CBC Payment Button",
-    "id": "kbc",
-    "image": Object {
-      "bigger": "https://www.mollie.com/images/payscreen/methods/kbc@2x.png",
-      "normal": "https://www.mollie.com/images/payscreen/methods/kbc.png",
-    },
-    "resource": "method",
-  },
-  Method {
-    "amount": Object {
-      "maximum": "50000.00",
-      "minimum": "0.31",
-    },
-    "description": "Belfius Direct Net",
-    "id": "belfius",
-    "image": Object {
-      "bigger": "https://www.mollie.com/images/payscreen/methods/belfius@2x.png",
-      "normal": "https://www.mollie.com/images/payscreen/methods/belfius.png",
-    },
-    "resource": "method",
-  },
-  Method {
-    "amount": Object {
-      "maximum": "50000.00",
-      "minimum": "0.01",
+    "_links": Object {
+      "self": Object {
+        "href": "https://api.mollie.com/v2/methods/inghomepay",
+        "type": "application/hal+json",
+      },
     },
     "description": "ING Home'Pay",
     "id": "inghomepay",
     "image": Object {
-      "bigger": "https://www.mollie.com/images/payscreen/methods/inghomepay@2x.png",
-      "normal": "https://www.mollie.com/images/payscreen/methods/inghomepay.png",
+      "size1x": "https://www.mollie.com/images/payscreen/methods/inghomepay.png",
+      "size2x": "https://www.mollie.com/images/payscreen/methods/inghomepay%402x.png",
     },
     "resource": "method",
   },
@@ -324,15 +162,17 @@ Array [
 
 exports[`methods .get() should return a method instance 1`] = `
 Method {
-  "amount": Object {
-    "maximum": "50000.00",
-    "minimum": "0.36",
+  "_links": Object {
+    "self": Object {
+      "href": "https://api.mollie.com/v2/methods/ideal",
+      "type": "application/hal+json",
+    },
   },
   "description": "iDEAL",
   "id": "ideal",
   "image": Object {
-    "bigger": "https://www.mollie.com/images/payscreen/methods/ideal@2x.png",
-    "normal": "https://www.mollie.com/images/payscreen/methods/ideal.png",
+    "size1x": "https://www.mollie.com/images/payscreen/methods/ideal.png",
+    "size2x": "https://www.mollie.com/images/payscreen/methods/ideal%402x.png",
   },
   "resource": "method",
 }
@@ -340,15 +180,17 @@ Method {
 
 exports[`methods .get() should work with a callback 1`] = `
 Method {
-  "amount": Object {
-    "maximum": "50000.00",
-    "minimum": "0.36",
+  "_links": Object {
+    "self": Object {
+      "href": "https://api.mollie.com/v2/methods/ideal",
+      "type": "application/hal+json",
+    },
   },
   "description": "iDEAL",
   "id": "ideal",
   "image": Object {
-    "bigger": "https://www.mollie.com/images/payscreen/methods/ideal@2x.png",
-    "normal": "https://www.mollie.com/images/payscreen/methods/ideal.png",
+    "size1x": "https://www.mollie.com/images/payscreen/methods/ideal.png",
+    "size2x": "https://www.mollie.com/images/payscreen/methods/ideal%402x.png",
   },
   "resource": "method",
 }

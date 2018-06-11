@@ -9,9 +9,9 @@ import response from '../__stubs__/customers.json';
 const mock = new MockAdapter(axios);
 
 const props = {
-  id: 'cst_c24gk2t3G6',
-  name: 'John Doe',
-  email: 'john.doe@example.org',
+  id: 'cst_kEn1PlbGa',
+  name: 'Customer A',
+  email: 'customer@example.org',
 };
 
 describe('customers', () => {
@@ -26,7 +26,7 @@ describe('customers', () => {
   });
 
   describe('.create()', () => {
-    mock.onPost('/customers').reply(200, response.data[0]);
+    mock.onPost('/customers').reply(200, response._embedded.customers[0]);
 
     it('should return a customer instance', () =>
       customers.create(props).then((result) => {
@@ -49,7 +49,7 @@ describe('customers', () => {
   describe('.get()', () => {
     const error = { error: { message: 'The customer id is invalid' } };
 
-    mock.onGet(`/customers/${props.id}`).reply(200, response.data[0]);
+    mock.onGet(`/customers/${props.id}`).reply(200, response._embedded.customers[0]);
     mock.onGet('/customers/foo').reply(500, error);
 
     it('should return a customer instance', () =>
@@ -89,7 +89,7 @@ describe('customers', () => {
   describe('.update()', () => {
     const error = { error: { message: 'The customer id is invalid' } };
 
-    mock.onPost(`/customers/${props.id}`).reply(200, response.data[0]);
+    mock.onPost(`/customers/${props.id}`).reply(200, response._embedded.customers[0]);
     mock.onPost('/customers/foo').reply(500, error);
 
     it('should return a customer instance', () =>
@@ -132,8 +132,6 @@ describe('customers', () => {
     it('should return a list of all customers', () =>
       customers.all().then((result) => {
         expect(result).toBeInstanceOf(Array);
-        expect(result).toHaveProperty('totalCount');
-        expect(result).toHaveProperty('offset');
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
       }));
@@ -142,8 +140,6 @@ describe('customers', () => {
       customers.all((err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Array);
-        expect(result).toHaveProperty('totalCount');
-        expect(result).toHaveProperty('offset');
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
         done();
