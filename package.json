@@ -79,12 +79,6 @@
       "^.+\\.pem$": "<rootDir>/tests/unit/__stubs__/fileTransformer.js"
     }
   },
-  "prettier": {
-    "printWidth": 100,
-    "singleQuote": true,
-    "trailingComma": "all",
-    "bracketSpacing": true
-  },
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
