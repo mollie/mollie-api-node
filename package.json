@@ -50,6 +50,7 @@
     "dotenv": "^4.0.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.1.3",
+    "eslint-config-mollie-node": "0.0.1-alpha.2",
     "eslint-import-resolver-node": "^0.3.0",
     "eslint-plugin-import": "^2.2.0",
     "husky": "^0.13.3",
@@ -64,8 +65,8 @@
   },
   "lint-staged": {
     "{src,test}/**/*.js": [
-      "prettier --single-quote --trailing-comma all --write",
-      "eslint --fix",
+      "eslint",
+      "prettier --write",
       "git add"
     ]
   },
@@ -78,6 +79,13 @@
       "^.+\\.jsx?$": "babel-jest",
       "^.+\\.pem$": "<rootDir>/tests/unit/__stubs__/fileTransformer.js"
     }
+  },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "bracketSpacing": true,
+    "jsxBracketSameLine": true
   },
   "config": {
     "commitizen": {
