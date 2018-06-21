@@ -34,7 +34,9 @@
     "subscriptions",
     "recurring",
     "charges",
-    "inghomepay"
+    "inghomepay",
+    "giropay","
+    "eps"
   ],
   "dependencies": {
     "underscore": "^1.7.0"
