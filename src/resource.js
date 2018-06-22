@@ -1,5 +1,5 @@
 /* eslint-disable new-cap */
-import List from 'models/list';
+import List from "models/list";
 
 /**
  * The base resource
@@ -80,8 +80,8 @@ export default class Resource {
    * @private
    */
   getResourceUrl() {
-    if (this.constructor.resource.indexOf('_') !== -1) {
-      const parts = this.constructor.resource.split('_');
+    if (this.constructor.resource.indexOf("_") !== -1) {
+      const parts = this.constructor.resource.split("_");
       return `${parts[0]}/${this.parentId}/${parts[1]}`;
     }
 
@@ -95,8 +95,8 @@ export default class Resource {
    * @private
    */
   getResourceName() {
-    if (this.constructor.resource.includes('_')) {
-      return this.constructor.resource.split('_')[1];
+    if (this.constructor.resource.includes("_")) {
+      return this.constructor.resource.split("_")[1];
     }
 
     return this.constructor.resource;
@@ -110,13 +110,13 @@ export default class Resource {
    * @since 1.0.0
    */
   create(data, cb) {
-    if (typeof data === 'function') {
+    if (typeof data === "function") {
       cb = data; // eslint-disable-line no-param-reassign
     }
 
     return this.getClient()
       .post(this.getResourceUrl(), data)
-      .then((response) => {
+      .then(response => {
         const model = new this.constructor.model(response.data);
 
         if (cb) {
@@ -136,13 +136,13 @@ export default class Resource {
    * @since 1.0.0
    */
   get(id, params, cb) {
-    if (typeof params === 'function') {
+    if (typeof params === "function") {
       cb = params; // eslint-disable-line no-param-reassign
     }
 
     return this.getClient()
       .get(`${this.getResourceUrl()}/${id}`, { params })
-      .then((response) => {
+      .then(response => {
         const model = new this.constructor.model(response.data);
 
         if (cb) {
@@ -161,19 +161,19 @@ export default class Resource {
    * @since 1.0.0
    */
   all(params, cb) {
-    if (typeof params === 'function') {
+    if (typeof params === "function") {
       cb = params; // eslint-disable-line no-param-reassign
     }
 
     return this.getClient()
       .get(this.getResourceUrl(), { params })
-      .then((response) => {
+      .then(response => {
         const { _embedded, _links = [] } = response.data;
         const resources = _embedded[this.getResourceName()];
         const list = new List();
         list.links = _links;
         list.push(
-          ...resources.map(resource => new this.constructor.model(resource)),
+          ...resources.map(resource => new this.constructor.model(resource))
         );
 
         if (cb) {
@@ -193,13 +193,13 @@ export default class Resource {
    * @since 1.0.0
    */
   update(id, data, cb) {
-    if (typeof data === 'function') {
+    if (typeof data === "function") {
       cb = data; // eslint-disable-line no-param-reassign
     }
 
     return this.getClient()
       .post(`${this.getResourceUrl()}/${id}`, data)
-      .then((response) => {
+      .then(response => {
         const model = new this.constructor.model(response.data);
 
         if (cb) {
@@ -220,7 +220,7 @@ export default class Resource {
   delete(id, cb) {
     return this.getClient()
       .delete(`${this.getResourceUrl()}/${id}`)
-      .then((response) => {
+      .then(response => {
         const model = new this.constructor.model(response.data);
 
         if (cb) {
