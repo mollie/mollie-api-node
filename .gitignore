@@ -3,4 +3,5 @@
 /node_modules
 *.map
 /mk-ca-bundle.pl
-
+/*.tgz
+package/*
