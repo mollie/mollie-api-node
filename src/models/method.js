@@ -18,6 +18,8 @@ export default class Method extends Model {
   static KBC = 'kbc';
   static GIFTCARD = 'giftcard';
   static INGHOMEPAY = 'inghomepay';
+  static GIROPAY = 'giropay';
+  static EPS = 'eps';
 
   constructor(props) {
     super(props);
