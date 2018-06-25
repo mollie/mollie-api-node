@@ -29,19 +29,22 @@
   @link        https://www.mollie.nl
 ###
 module.exports = class Method
-	this.IDEAL             = "ideal";
-	this.CREDITCARD        = "creditcard";
-	this.MISTERCASH        = "mistercash";
-	this.SOFORT            = "sofort";
 	this.BANKTRANSFER      = "banktransfer";
-	this.DIRECTDEBIT       = "directdebit";
-	this.BITCOIN           = "bitcoin";
-	this.PAYPAL            = "paypal";
 	this.BELFIUS           = "belfius";
+	this.BITCOIN           = "bitcoin";
+	this.CREDITCARD        = "creditcard";
+	this.DIRECTDEBIT       = "directdebit";
+	this.EPS               = "eps";
+	this.GIFTCARD          = "giftcard";
+	this.GIROPAY           = "giropay";
+	this.IDEAL             = "ideal";
+	this.INGHOMEPAY        = "inghomepay";
+	this.KBC               = "kbc";
+	this.MISTERCASH        = "mistercash";
+	this.PAYPAL            = "paypal";
 	this.PAYSAFECARD       = "paysafecard";
 	this.PODIUMCADEAUKAART = "podiumcadeaukaart";
-	this.KBC               = "kbc";
-	this.INGHOMEPAY        = "inghomepay";
+	this.SOFORT            = "sofort";
 
 	constructor: () ->
 		this.resource    = "method";
