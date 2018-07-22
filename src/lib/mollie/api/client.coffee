@@ -87,9 +87,21 @@ module.exports = class Client
 				body += data.toString();
 			);
 			response.on("end", ->
-				callback(JSON.parse(body))
+        if body.length
+          parsedBody = {}
+          try
+              parsedBody = JSON.parse(body)
+          catch e
+              console.log(e)
+
+          callback(parsedBody)
+        else
+          callback({})
+
 			);
 		);
 
 		request.write(JSON.stringify(data));
 		request.end();
+
+		return request;
