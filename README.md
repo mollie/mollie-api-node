@@ -43,16 +43,16 @@ To use the Mollie API client, the following things are required:
 Using [npm](https://npmjs.org/):
 
 ```sh
-npm install mollie-api-node@next --save
+npm install @mollie/api-client --save
 ```
 
 Or using [yarn](https://yarnpkg.com/):
     
 ```sh
-yarn add mollie-api-node@next
+yarn add @mollie/api-client
 ```
 
-This will add `mollie-api-node` to your project's dependencies.
+This will add `@mollie/api-client` to your project's dependencies.
 
 You may also git checkout or [download all the files](https://github.com/mollie/mollie-api-node/archive/master.zip), and include the Mollie API client manually.
 
@@ -79,7 +79,7 @@ We've already prepared this step by creating a `test` and `live` key for you in 
 Import the client and set your API key
 
 ```javascript
-const mollie = require('mollie-api-node')({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+const mollie = require('@mollie/api-client')({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
 ```
 
 ### Create a new payment

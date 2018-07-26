@@ -1,5 +1,19 @@
 # Migrating from v1.x to v2.0
 
+## Package renamed
+We've renamed our NPM package to `@mollie/api-client`. To install:
+
+```sh
+npm install @mollie/api-client --save
+```
+
+Or using [yarn](https://yarnpkg.com/):
+    
+```sh
+yarn add @mollie/api-client
+```
+
+
 ## Initialisation change
 
 Changed the initialisation of the client to a factory method: 
@@ -8,7 +22,7 @@ Changed the initialisation of the client to a factory method:
 -var Mollie = require('mollie-api-node');
 -var mollie = new Mollie.API.Client;
 -mollie.setApiKey("test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM");
-+const mollie = require('mollie-api-node')({
++const mollie = require('@mollie/api-client')({
 +  apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM',
 +});
 ```
