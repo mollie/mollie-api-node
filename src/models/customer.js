@@ -17,6 +17,12 @@ export default class Customer extends Model {
       metadata: null,
       recentlyUsedMethods: null,
       createdAt: null,
+      _links: {
+        mandates: null,
+        subscriptions: null,
+        payments: null,
+        
+      }
     };
 
     Object.assign(this, defaults, props);
