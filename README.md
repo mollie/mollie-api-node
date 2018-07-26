@@ -4,7 +4,7 @@
 
 ![Mollie](https://www.mollie.nl/files/Mollie-Logo-Style-Small.png)
 
-Node client for Mollie's API.  
+Node client for Mollie's API.
 
 # About
 
@@ -86,7 +86,10 @@ const mollie = require('mollie-api-node')({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNV
 
 ```javascript
 mollie.payments.create({
-  amount:      10.00,
+  amount: {
+    value:    10.00,
+    currency: 'EUR'
+  },
   description: 'My first API payment',
   redirectUrl: 'https://yourwebshop.example.org/order/123456',
   webhookUrl:  'https://yourwebshop.example.org/webhook'
@@ -137,7 +140,7 @@ Want to help us make our API client even better? We take [pull requests](https:/
 
 ## Working at Mollie
 
-Mollie is always looking for new talent to join our teams. We’re looking for inquisitive minds with good ideas and strong opinions, and, most importantly, who know how to ship great products. Want to join the future of payments? [Check out our vacancies](https://mollie.homerun.co/).
+Mollie is always looking for new talent to join our teams. We’re looking for inquisitive minds with good ideas and strong opinions, and, most importantly, who know how to ship great products. Want to join the future of payments? [Check out our vacancies](https://jobs.mollie.com/).
 
 ## License
 
