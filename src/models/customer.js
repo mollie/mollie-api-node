@@ -21,8 +21,7 @@ export default class Customer extends Model {
         mandates: null,
         subscriptions: null,
         payments: null,
-        
-      }
+      },
     };
 
     Object.assign(this, defaults, props);
