@@ -168,13 +168,15 @@ export default class Resource {
     return this.getClient()
       .get(this.getResourceUrl(), { params })
       .then(response => {
-        const { _embedded, _links = [] } = response.data;
-        const resources = _embedded[this.getResourceName()];
-        const list = new List();
-        list.links = _links;
-        list.push(
-          ...resources.map(resource => new this.constructor.model(resource))
-        );
+        const resourceName = this.getResourceName();
+        const list = List.buildResourceList({
+          response: response.data,
+          resourceName,
+          params,
+          callback: cb,
+          getResources: this.all,
+          Model: this.constructor.model
+        });
 
         if (cb) {
           return cb(null, list);

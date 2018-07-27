@@ -1,5 +1,5 @@
 {
-  "name": "mollie-api-node",
+  "name": "@mollie/api-client",
   "version": "2.0.0-rc.2",
   "license": "BSD-3-Clause",
   "description": "Official Mollie API client for Node",

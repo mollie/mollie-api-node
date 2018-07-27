@@ -4,7 +4,7 @@
 
 ![Mollie](https://www.mollie.nl/files/Mollie-Logo-Style-Small.png)
 
-Node client for Mollie's API.  
+Node client for Mollie's API.
 
 # About
 
@@ -43,16 +43,16 @@ To use the Mollie API client, the following things are required:
 Using [npm](https://npmjs.org/):
 
 ```sh
-npm install mollie-api-node@next --save
+npm install @mollie/api-client --save
 ```
 
 Or using [yarn](https://yarnpkg.com/):
     
 ```sh
-yarn add mollie-api-node@next
+yarn add @mollie/api-client
 ```
 
-This will add `mollie-api-node` to your project's dependencies.
+This will add `@mollie/api-client` to your project's dependencies.
 
 You may also git checkout or [download all the files](https://github.com/mollie/mollie-api-node/archive/master.zip), and include the Mollie API client manually.
 
@@ -79,14 +79,17 @@ We've already prepared this step by creating a `test` and `live` key for you in 
 Import the client and set your API key
 
 ```javascript
-const mollie = require('mollie-api-node')({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+const mollie = require('@mollie/api-client')({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
 ```
 
 ### Create a new payment
 
 ```javascript
 mollie.payments.create({
-  amount:      10.00,
+  amount: {
+    value:    10.00,
+    currency: 'EUR'
+  },
   description: 'My first API payment',
   redirectUrl: 'https://yourwebshop.example.org/order/123456',
   webhookUrl:  'https://yourwebshop.example.org/webhook'
@@ -113,6 +116,40 @@ mollie.payments.get(payment.id)
 
 That's it!
 
+## Pagination
+
+Fetching all objects of a resource can be convenient. At the same time, returning too many objects at once can be unpractical from a performance perspective. Doing so might be too much work for the Mollie API to generate, or for your website to process. The maximum number of objects returned is 250.
+
+If you want to programmatically browse through a list of objects, use the `nextPage` and `previousPage` methods.
+
+```javascript
+mollie.payments
+  .all({
+    limit: 15
+  })
+  .then((payments) => {
+    // Returns the first 15 payments
+
+    payments.nextPage().then((nextPayments) => {
+      // Returns the next 15 payments
+    })
+  }
+```
+
+To retrieve a list of 15 payments, starting with `{ id: 'tr_8WhJKGmgBy' }`, add the first payment ID with the `from` parameter.
+
+```javascript
+mollie.payments
+  .all({
+    limit: 15,
+    from: 'tr_8WhJKGmgBy'
+  })
+  .then((payments) => {
+    // Returns the list of payments
+    console.log(`First payment on next page will be: ${payments.nextPageCursor}`);
+  }
+```
+
 ## Documentation
 
 To help you get the most out of this client, we've prepared reference documentation, tutorials and other examples that will help you learn and understand how to use this library.
@@ -137,7 +174,7 @@ Want to help us make our API client even better? We take [pull requests](https:/
 
 ## Working at Mollie
 
-Mollie is always looking for new talent to join our teams. We’re looking for inquisitive minds with good ideas and strong opinions, and, most importantly, who know how to ship great products. Want to join the future of payments? [Check out our vacancies](https://mollie.homerun.co/).
+Mollie is always looking for new talent to join our teams. We’re looking for inquisitive minds with good ideas and strong opinions, and, most importantly, who know how to ship great products. Want to join the future of payments? [Check out our vacancies](https://jobs.mollie.com/).
 
 ## License
 
