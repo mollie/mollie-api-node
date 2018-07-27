@@ -7,10 +7,10 @@ const mollie = require('@mollie/api-client');
 const mollieClient = mollie({ apiKey: 'test_buC3bBQfSQhd4dDUeMctJjDCn3GhP4' });
 
 mollieClient.customers.all().then((customers) => {
-  mollie.customers_subscriptions
+  mollieClient.customers_subscriptions
     .create({
       customerId: customers[0].id,
-      amount: 24.00,
+      amount: { value: '24.00', currency: 'EUR' },
       times: 4,
       interval: '3 months',
       description: 'Quarterly payment',
@@ -18,9 +18,8 @@ mollieClient.customers.all().then((customers) => {
     })
     .then(({ id }) => {
       // i.e. send confirmation email
-      notifyCustomer(id);
     })
     .catch((error) => {
-      console.error(error);
+      // Do some proper error handling
     });
 });

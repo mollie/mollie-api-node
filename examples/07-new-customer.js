@@ -6,13 +6,14 @@ const mollie = require('@mollie/api-client');
 
 const mollieClient = mollie({ apiKey: 'test_buC3bBQfSQhd4dDUeMctJjDCn3GhP4' });
 
-mollieClient.customers.create({
-  name: 'Luke Skywalker',
-  email: 'luke@example.org',
-  metadata: {
-    isJedi: true,
-  },
-})
+mollieClient.customers
+  .create({
+    name: 'Luke Skywalker',
+    email: 'luke@example.org',
+    metadata: {
+      isJedi: true,
+    },
+  })
   .then((customer) => {
     // New customer created with ID `customer.id` and name `customer.name`.
   })
