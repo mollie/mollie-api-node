@@ -8,19 +8,18 @@ const mollie = require('@mollie/api-client');
 const app = express();
 const mollieClient = mollie({ apiKey: 'test_buC3bBQfSQhd4dDUeMctJjDCn3GhP4' });
 
-const getOrder = (orderId) => {
-  // Fetch the order from your database.
-  return {
-    orderId,
-    paymentId: 'tr_7r4n54c710n',
-  };
-};
+// Fetch the order from your database.
+const getOrder = orderId => ({
+  orderId,
+  paymentId: 'tr_7r4n54c710n',
+});
 
 app.get('/return-page', (req, res) => {
   // If you included an order ID in the redirectUrl you can use it to get the payment ID.
   const order = getOrder(req.query.orderId);
 
-  mollieClient.payments.get(order.paymentId)
+  mollieClient.payments
+    .get(order.paymentId)
     .then((payment) => {
       // Show the consumer the status of the payment using `payment.status`.
       res.send(payment.status);

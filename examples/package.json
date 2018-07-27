@@ -1,0 +1,7 @@
+{
+  "scripts": {},
+  "dependencies": {
+    "@mollie/api-client": "./..",
+    "express": "4.16.3"
+  }
+}

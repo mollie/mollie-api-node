@@ -13,11 +13,16 @@ app.get('/', (req, res) => {
 
   // Show a payment screen where the consumer can choose its issuing bank.
   if (!selectedIssuer) {
-    mollieClient.issuers.all()
-      .then((issuers) => {
+    mollieClient.methods
+      .all({ include: 'issuers' })
+      .then(methods => methods.filter(({ id }) => id === 'ideal'))
+      .then((methods) => {
         res.send(`<form>
-          <select name="issuer">${issuers.map(issuer => `<option value="${issuer.id}">${issuer.name}</option>`)}</select>
-          <button>Select</button>
+        ${methods.map(method => `
+          <h2>Select ${method.description} issuer</h2>
+          <select name="issuer">${method.issuers.map(issuer => `<option value="${issuer.id}">${issuer.name}</option>`)}</select>
+        `)}
+        <button>Select issuer</button>
         </form>`);
       })
       .catch((error) => {
@@ -31,15 +36,16 @@ app.get('/', (req, res) => {
   const orderId = new Date().getTime();
 
   // After which you can create an iDEAL payment with the selected issuer.
-  mollieClient.payments.create({
-    amount: 10.00,
-    description: 'Integration test payment',
-    redirectUrl: `https://example.org/redirect?orderId=${orderId}`,
-    webhookUrl: `http://example.org/webhook?orderId=${orderId}`,
-    metadata: { orderId },
-    method: 'ideal',
-    issuer: selectedIssuer,
-  })
+  mollieClient.payments
+    .create({
+      amount: { value: '10.00', currency: 'EUR' },
+      description: 'Test payment',
+      redirectUrl: `https://example.org/redirect?orderId=${orderId}`,
+      webhookUrl: `http://example.org/webhook?orderId=${orderId}`,
+      metadata: { orderId },
+      method: 'ideal',
+      issuer: selectedIssuer,
+    })
     .then((payment) => {
       // Redirect the consumer to complete the payment using `payment.getPaymentUrl()`.
       res.redirect(payment.getPaymentUrl());

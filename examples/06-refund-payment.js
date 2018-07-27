@@ -8,9 +8,14 @@ const mollie = require('@mollie/api-client');
 
 const mollieClient = mollie({ apiKey: 'test_buC3bBQfSQhd4dDUeMctJjDCn3GhP4' });
 
-mollieClient.payments_refunds.create({
-  paymentId: 'tr_7r4n54c710n',
-})
+mollieClient.payments_refunds
+  .create({
+    paymentId: 'tr_Vw3BTrxd9C',
+    amount: {
+      value: '5.00',
+      currency: 'EUR',
+    },
+  })
   .then((refund) => {
     // New refund (#`refund.id`) created with amount: `refund.amount`.
   })
