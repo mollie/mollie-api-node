@@ -4,7 +4,7 @@
  * @see https://www.mollie.com/en/docs/reference/refunds/create
  */
 
-const mollie = require('mollie-api-node');
+const mollie = require('@mollie/api-client');
 
 const mollieClient = mollie({ apiKey: 'test_buC3bBQfSQhd4dDUeMctJjDCn3GhP4' });
 

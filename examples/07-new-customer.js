@@ -2,7 +2,7 @@
  * Example 07 - How to create a new customer.
  */
 
-const mollie = require('mollie-api-node');
+const mollie = require('@mollie/api-client');
 
 const mollieClient = mollie({ apiKey: 'test_buC3bBQfSQhd4dDUeMctJjDCn3GhP4' });
 

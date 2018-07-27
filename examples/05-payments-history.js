@@ -3,7 +3,7 @@
  */
 
 const express = require('express');
-const mollie = require('mollie-api-node');
+const mollie = require('@mollie/api-client');
 
 const app = express();
 const mollieClient = mollie({ apiKey: 'test_buC3bBQfSQhd4dDUeMctJjDCn3GhP4' });

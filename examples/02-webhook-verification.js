@@ -5,7 +5,7 @@
  */
 
 const express = require('express');
-const mollie = require('mollie-api-node');
+const mollie = require('@mollie/api-client');
 
 const app = express();
 const mollieClient = mollie({ apiKey: 'test_buC3bBQfSQhd4dDUeMctJjDCn3GhP4' });
@@ -27,6 +27,6 @@ app.get('/webhook', (req, res) => {
     .catch((error) => {
       // Do some proper error handling.
     });
-};
+});
 
 app.listen(8000, () => console.log('Example app listening on port 8000.'));
