@@ -116,6 +116,40 @@ mollie.payments.get(payment.id)
 
 That's it!
 
+## Pagination
+
+Fetching all objects of a resource can be convenient. At the same time, returning too many objects at once can be unpractical from a performance perspective. Doing so might be too much work for the Mollie API to generate, or for your website to process. The maximum number of objects returned is 250.
+
+If you want to programmatically browse through a list of objects, use the `nextPage` and `previousPage` methods.
+
+```javascript
+mollie.payments
+  .all({
+    limit: 15
+  })
+  .then((payments) => {
+    // Returns the first 15 payments
+
+    payments.nextPage().then((nextPayments) => {
+      // Returns the next 15 payments
+    })
+  }
+```
+
+To retrieve a list of 15 payments, starting with `{ id: 'tr_8WhJKGmgBy' }`, add the first payment ID with the `from` parameter.
+
+```javascript
+mollie.payments
+  .all({
+    limit: 15,
+    from: 'tr_8WhJKGmgBy'
+  })
+  .then((payments) => {
+    // Returns the list of payments
+    console.log(`First payment on next page will be: ${payments.nextPageCursor}`);
+  }
+```
+
 ## Documentation
 
 To help you get the most out of this client, we've prepared reference documentation, tutorials and other examples that will help you learn and understand how to use this library.
