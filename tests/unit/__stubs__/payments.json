@@ -1,45 +1,51 @@
 {
-  "totalCount": 2,
-  "offset": 0,
-  "count": 2,
-  "data": [
-    {
-      "resource": "payment",
-      "id": "tr_nBeryjMVjr",
-      "mode": "test",
-      "createdDatetime": "2017-04-29T21:48:33.0Z",
-      "status": "expired",
-      "expiredDatetime": "2017-04-29T22:05:01.0Z",
-      "amount": "100.00",
-      "description": "Test payment",
-      "method": "ideal",
-      "metadata": null,
-      "details": null,
-      "locale": "nl",
-      "profileId": "pfl_3nnfepufdN",
-      "links": {
-        "webhookUrl": "http://requestb.in/",
-        "redirectUrl": "https://www.example.org/"
+  "count": 5,
+  "_embedded": {
+    "payments": [
+      {
+        "resource": "payment",
+        "id": "tr_7UhSN1zuXS",
+        "mode": "test",
+        "createdAt": "2018-02-12T11:58:35.0Z",
+        "expiresAt": "2018-02-12T12:13:35.0Z",
+        "status": "open",
+        "isCancelable": false,
+        "amount": {
+          "value": "75.00",
+          "currency": "GBP"
+        },
+        "description": "test",
+        "method": "ideal",
+        "metadata": null,
+        "details": null,
+        "profileId": "pfl_QkEhN94Ba",
+        "redirectUrl": "https://webshop.example.org/order/12345/",
+        "_links": {
+          "checkout": {
+            "href": "https://www.mollie.com/paymentscreen/issuer/select/ideal/7UhSN1zuXS",
+            "type": "text/html"
+          },
+          "self": {
+            "href": "https://api.mollie.com/v2/payments/tr_7UhSN1zuXS",
+            "type": "application/hal+json"
+          }
+        }
       }
+    ]
+  },
+  "_links": {
+    "self": {
+      "href": "https://api.mollie.com/v2/payments?limit=5",
+      "type": "application/hal+json"
     },
-    {
-      "resource": "payment",
-      "id": "tr_ryejpPmqv9",
-      "mode": "test",
-      "createdDatetime": "2017-04-29T15:13:24.0Z",
-      "status": "expired",
-      "expiredDatetime": "2017-04-29T15:30:01.0Z",
-      "amount": "100.00",
-      "description": "Test payment",
-      "method": "ideal",
-      "metadata": null,
-      "details": null,
-      "locale": "nl",
-      "profileId": "pfl_3nnfepufdN",
-      "links": {
-        "webhookUrl": "http://requestb.in/",
-        "redirectUrl": "https://www.example.org/"
-      }
+    "previous": null,
+    "next": {
+      "href": "https://api.mollie.com/v2/payments?from=tr_SDkzMggpvx&limit=5",
+      "type": "application/hal+json"
+    },
+    "documentation": {
+      "href": "https://docs.mollie.com/reference/v2/payments-api/list-payments",
+      "type": "text/html"
     }
-  ]
+  }
 }

@@ -23,7 +23,7 @@ describe('methods', () => {
     const methodId = 'ideal';
     const error = { error: { message: 'The method id is invalid' } };
 
-    mock.onGet(`/methods/${methodId}`).reply(200, response.data[0]);
+    mock.onGet(`/methods/${methodId}`).reply(200, response._embedded.methods[0]);
     mock.onGet('/methods/foo').reply(500, error);
 
     it('should return a method instance', () =>
@@ -66,8 +66,6 @@ describe('methods', () => {
     it('should return a list of all methods', () =>
       methods.all().then((result) => {
         expect(result).toBeInstanceOf(Array);
-        expect(result).toHaveProperty('totalCount');
-        expect(result).toHaveProperty('offset');
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
       }));
@@ -76,8 +74,6 @@ describe('methods', () => {
       methods.all((err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Array);
-        expect(result).toHaveProperty('totalCount');
-        expect(result).toHaveProperty('offset');
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
         done();

@@ -2,15 +2,11 @@
 
 exports[`method model should instantiate with default values 1`] = `
 Object {
-  "amount": Object {
-    "maximum": null,
-    "minimum": null,
-  },
   "description": null,
   "id": null,
   "image": Object {
-    "bigger": null,
-    "normal": null,
+    "size1x": null,
+    "size2x": null,
   },
   "resource": "method",
 }
@@ -18,15 +14,17 @@ Object {
 
 exports[`method model should instantiate with given values 1`] = `
 Object {
-  "amount": Object {
-    "maximum": 1000,
-    "minimum": 10,
+  "_links": Object {
+    "self": Object {
+      "href": "https://api.mollie.com/v2/methods/ideal",
+      "type": "application/hal+json",
+    },
   },
-  "description": null,
+  "description": "iDEAL",
   "id": "ideal",
   "image": Object {
-    "bigger": null,
-    "normal": null,
+    "size1x": "https://www.mollie.com/images/payscreen/methods/ideal.png",
+    "size2x": "https://www.mollie.com/images/payscreen/methods/ideal%402x.png",
   },
   "resource": "method",
 }

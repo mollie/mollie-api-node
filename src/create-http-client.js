@@ -13,12 +13,12 @@ import { version } from '../package.json';
  * @private
  */
 export default function createHttpClient(options = {}) {
-  options.baseURL = 'https://api.mollie.com:443/v1/';
+  options.baseURL = 'https://api.mollie.com:443/v2/';
 
   options.headers = Object.assign({}, options.headers, {
     Authorization: `Bearer ${options.apiKey}`,
     'Accept-Encoding': 'gzip',
-    'Content-Type': 'application/vnd.mollie.api.v1+json',
+    'Content-Type': 'application/json',
     'User-Agent': `node.js/${process.version}`,
     'X-Mollie-User-Agent': `mollie/${version}`,
   });

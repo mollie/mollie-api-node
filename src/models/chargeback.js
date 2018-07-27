@@ -1,19 +1,24 @@
-import MollieModel from 'mollie-model';
+import Model from 'model';
 
 /**
  * The `Chargeback` model
  */
-export default class Chargeback extends MollieModel {
+export default class Chargeback extends Model {
   constructor(props) {
     super(props);
 
     const defaults = {
       resource: 'chargeback',
       id: null,
-      payment: null,
       amount: null,
-      chargebackDatetime: null,
-      reversedDatetime: null,
+      settlementAmount: null,
+      createdAt: null,
+      reversedAt: null,
+      paymentId: null,
+      _links: {
+        payment: null,
+        settlement: null,
+      },
     };
 
     Object.assign(this, defaults, props);
