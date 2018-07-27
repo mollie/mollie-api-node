@@ -1,9 +1,9 @@
-import MollieModel from 'mollie-model';
+import Model from 'model';
 
 /**
  * The `Method` model
  */
-export default class Method extends MollieModel {
+export default class Method extends Model {
   constructor(props) {
     super(props);
 
@@ -11,13 +11,9 @@ export default class Method extends MollieModel {
       resource: 'method',
       id: null,
       description: null,
-      amount: {
-        minimum: null,
-        maximum: null,
-      },
       image: {
-        normal: null,
-        bigger: null,
+        size1x: null,
+        size2x: null,
       },
     };
 
@@ -25,22 +21,12 @@ export default class Method extends MollieModel {
   }
 
   /**
-   * Get minimum amount of payment method
-   * @returns {Number}
+   * @param size
+   * @returns {string|null}
    */
-  getMinimumAmount() {
-    return parseFloat(
-      this.amount && this.amount.minimum ? this.amount.minimum : '0',
-    );
-  }
-
-  /**
-   * Get maximum amount of payment method
-   * @returns {Number}
-   */
-  getMaximumAmount() {
-    return parseFloat(
-      this.amount && this.amount.maximum ? this.amount.maximum : '0',
+  getImage(size = '2x') {
+    return (
+      this.image && (size === '1x' ? this.image.size1x : this.image.size2x)
     );
   }
 }

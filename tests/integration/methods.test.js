@@ -35,6 +35,6 @@ describe('methods', () => {
       .catch((err) => {
         expect(err).toBeNull();
         done();
-      })
+      });
   });
 });

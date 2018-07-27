@@ -4,7 +4,7 @@ describe('create-http-client', () => {
   const httpClient = createHttpClient();
 
   it('should have a secure baseURL set', () => {
-    expect(httpClient.defaults.baseURL).toBe('https://api.mollie.com:443/v1/');
+    expect(httpClient.defaults.baseURL).toBe('https://api.mollie.com:443/v2/');
   });
 
   it('should have some default headers set', () => {

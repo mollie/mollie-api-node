@@ -1,19 +1,19 @@
-import MollieModel from 'mollie-model';
+import Model from 'model';
 
 /**
  * The `Payment` model
  */
-export default class Payment extends MollieModel {
+export default class Payment extends Model {
   static STATUS_OPEN = 'open';
   static STATUS_PENDING = 'pending';
-  static STATUS_CANCELLED = 'cancelled';
+  static STATUS_CANCELED = 'canceled';
   static STATUS_EXPIRED = 'expired';
   static STATUS_PAID = 'paid';
   static STATUS_FAILED = 'failed';
 
-  static RECURRINGTYPE_NONE = null;
-  static RECURRINGTYPE_FIRST = 'first';
-  static RECURRINGTYPE_RECURRING = 'recurring';
+  static SEQUENCETYPE_ONEOFF = 'oneoff';
+  static SEQUENCETYPE_FIRST = 'first';
+  static SEQUENCETYPE_RECURRING = 'recurring';
 
   constructor(props) {
     super(props);
@@ -22,30 +22,50 @@ export default class Payment extends MollieModel {
       resource: 'payment',
       id: null,
       mode: null,
-      amount: null,
+      createdAt: null,
+      status: null,
+      isCancelable: null,
+      paidAt: null,
+      canceledAt: null,
+      expiresAt: null,
+      expiredAt: null,
+      failedAt: null,
+      amount: {
+        value: null,
+        currency: null,
+      },
       amountRefunded: null,
       amountRemaining: null,
       description: null,
+      redirectUrl: null,
+      webhookUrl: null,
       method: null,
-      status: null,
-      createdDatetime: null,
-      paidDatetime: null,
-      cancelledDatetime: null,
-      expiredDatetime: null,
-      expiryPeriod: null,
       metadata: null,
-      details: null,
       locale: null,
+      countryCode: null,
       profileId: null,
-      customerId: null,
-      recurringType: null,
-      mandateId: null,
+      settlementAmount: null,
       settlementId: null,
+      customerId: null,
+      sequenceType: null,
+      mandateId: null,
       subscriptionId: null,
-      links: {
-        paymentUrl: null,
-        webhookUrl: null,
-        redirectUrl: null,
+      applicationFee: {
+        amount: {
+          value: null,
+          currency: null,
+        },
+        description: null,
+      },
+      details: null,
+      _links: {
+        checkout: null,
+        refunds: null,
+        chargebacks: null,
+        settlement: null,
+        mandate: null,
+        subscription: null,
+        customer: null,
       },
     };
 
@@ -65,15 +85,15 @@ export default class Payment extends MollieModel {
    * @returns {boolean}
    */
   isPaid() {
-    return !!this.paidDatetime;
+    return !!this.paidAt;
   }
 
   /**
-   * If the payment is cancelled
+   * If the payment is canceled
    * @returns {boolean}
    */
-  isCancelled() {
-    return !!this.cancelledDatetime;
+  isCanceled() {
+    return !!this.canceledAt;
   }
 
   /**
@@ -81,14 +101,23 @@ export default class Payment extends MollieModel {
    * @returns {boolean}
    */
   isExpired() {
-    return !!this.expiredDatetime;
+    return !!this.expiredAt;
+  }
+
+  /**
+   * If the payment is refundable
+   * @returns {boolean}
+   * @since 2.0.0-rc.2
+   */
+  isRefundable() {
+    return this.amountRemaining !== null;
   }
 
   /**
    * Get the payment URL
-   * @returns {links|{paymentUrl, webhookUrl, redirectUrl}|Array|HTMLCollection|*|null}
+   * @returns {string|null}
    */
   getPaymentUrl() {
-    return this.links && this.links.paymentUrl;
+    return this._links && this._links.checkout && this._links.checkout.href;
   }
 }

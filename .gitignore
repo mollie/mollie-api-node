@@ -6,3 +6,4 @@ node_modules/
 *.log
 .DS_Store
 /mk-ca-bundle.pl
+examples/package-lock.json

@@ -1,163 +1,92 @@
 {
-  "totalCount": 11,
-  "offset": 0,
-  "count": 11,
-  "data": [
-    {
-      "resource": "method",
-      "id": "ideal",
-      "description": "iDEAL",
-      "amount": {
-        "minimum": "0.36",
-        "maximum": "50000.00"
+  "count": 5,
+  "_embedded": {
+    "methods": [
+      {
+        "resource": "method",
+        "id": "ideal",
+        "description": "iDEAL",
+        "image": {
+          "size1x": "https://www.mollie.com/images/payscreen/methods/ideal.png",
+          "size2x": "https://www.mollie.com/images/payscreen/methods/ideal%402x.png"
+        },
+        "_links": {
+          "self": {
+            "href": "https://api.mollie.com/v2/methods/ideal",
+            "type": "application/hal+json"
+          }
+        }
       },
-      "image": {
-        "normal": "https://www.mollie.com/images/payscreen/methods/ideal.png",
-        "bigger": "https://www.mollie.com/images/payscreen/methods/ideal@2x.png"
+      {
+        "resource": "method",
+        "id": "creditcard",
+        "description": "Credit card",
+        "image": {
+          "size1x": "https://www.mollie.com/images/payscreen/methods/creditcard.png",
+          "size2x": "https://www.mollie.com/images/payscreen/methods/creditcard%402x.png"
+        },
+        "_links": {
+          "self": {
+            "href": "https://api.mollie.com/v2/methods/creditcard",
+            "type": "application/hal+json"
+          }
+        }
+      },
+      {
+        "resource": "method",
+        "id": "banktransfer",
+        "description": "Bank transfer",
+        "image": {
+          "size1x": "https://www.mollie.com/images/payscreen/methods/banktransfer.png",
+          "size2x": "https://www.mollie.com/images/payscreen/methods/banktransfer%402x.png"
+        },
+        "_links": {
+          "self": {
+            "href": "https://api.mollie.com/v2/methods/banktransfer",
+            "type": "application/hal+json"
+          }
+        }
+      },
+      {
+        "resource": "method",
+        "id": "bitcoin",
+        "description": "Bitcoin",
+        "image": {
+          "size1x": "https://www.mollie.com/images/payscreen/methods/bitcoin.png",
+          "size2x": "https://www.mollie.com/images/payscreen/methods/bitcoin%402x.png"
+        },
+        "_links": {
+          "self": {
+            "href": "https://api.mollie.com/v2/methods/bitcoin",
+            "type": "application/hal+json"
+          }
+        }
+      },
+      {
+        "resource": "method",
+        "id": "inghomepay",
+        "description": "ING Home'Pay",
+        "image": {
+          "size1x": "https://www.mollie.com/images/payscreen/methods/inghomepay.png",
+          "size2x": "https://www.mollie.com/images/payscreen/methods/inghomepay%402x.png"
+        },
+        "_links": {
+          "self": {
+            "href": "https://api.mollie.com/v2/methods/inghomepay",
+            "type": "application/hal+json"
+          }
+        }
       }
+    ]
+  },
+  "_links": {
+    "documentation": {
+      "href": "https://docs.mollie.com/reference/v2/methods-api/list-methods",
+      "type": "text/html"
     },
-    {
-      "resource": "method",
-      "id": "creditcard",
-      "description": "Creditcard",
-      "amount": {
-        "minimum": "0.32",
-        "maximum": "1000.00"
-      },
-      "image": {
-        "normal": "https://www.mollie.com/images/payscreen/methods/creditcard.png",
-        "bigger": "https://www.mollie.com/images/payscreen/methods/creditcard@2x.png"
-      }
-    },
-    {
-      "resource": "method",
-      "id": "mistercash",
-      "description": "Bancontact",
-      "amount": {
-        "minimum": "0.31",
-        "maximum": "50000.00"
-      },
-      "image": {
-        "normal": "https://www.mollie.com/images/payscreen/methods/mistercash.png",
-        "bigger": "https://www.mollie.com/images/payscreen/methods/mistercash@2x.png"
-      }
-    },
-    {
-      "resource": "method",
-      "id": "sofort",
-      "description": "SOFORT Banking",
-      "amount": {
-        "minimum": "0.31",
-        "maximum": "5000.00"
-      },
-      "image": {
-        "normal": "https://www.mollie.com/images/payscreen/methods/sofort.png",
-        "bigger": "https://www.mollie.com/images/payscreen/methods/sofort@2x.png"
-      }
-    },
-    {
-      "resource": "method",
-      "id": "banktransfer",
-      "description": "Bank transfer",
-      "amount": {
-        "minimum": "0.31",
-        "maximum": "1000000.00"
-      },
-      "image": {
-        "normal": "https://www.mollie.com/images/payscreen/methods/banktransfer.png",
-        "bigger": "https://www.mollie.com/images/payscreen/methods/banktransfer@2x.png"
-      }
-    },
-    {
-      "resource": "method",
-      "id": "paypal",
-      "description": "PayPal",
-      "amount": {
-        "minimum": "0.01",
-        "maximum": "8000.00"
-      },
-      "image": {
-        "normal": "https://www.mollie.com/images/payscreen/methods/paypal.png",
-        "bigger": "https://www.mollie.com/images/payscreen/methods/paypal@2x.png"
-      }
-    },
-    {
-      "resource": "method",
-      "id": "bitcoin",
-      "description": "Bitcoin",
-      "amount": {
-        "minimum": "1.00",
-        "maximum": "15000.00"
-      },
-      "image": {
-        "normal": "https://www.mollie.com/images/payscreen/methods/bitcoin.png",
-        "bigger": "https://www.mollie.com/images/payscreen/methods/bitcoin@2x.png"
-      }
-    },
-    {
-      "resource": "method",
-      "id": "podiumcadeaukaart",
-      "description": "PODIUM Cadeaukaart",
-      "amount": {
-        "minimum": "0.79",
-        "maximum": "150.00"
-      },
-      "image": {
-        "normal": "https://www.mollie.com/images/payscreen/methods/podiumcadeaukaart.png",
-        "bigger": "https://www.mollie.com/images/payscreen/methods/podiumcadeaukaart@2x.png"
-      }
-    },
-    {
-      "resource": "method",
-      "id": "paysafecard",
-      "description": "paysafecard",
-      "amount": {
-        "minimum": "1.00",
-        "maximum": "999.99"
-      },
-      "image": {
-        "normal": "https://www.mollie.com/images/payscreen/methods/paysafecard.png",
-        "bigger": "https://www.mollie.com/images/payscreen/methods/paysafecard@2x.png"
-      }
-    },
-    {
-      "resource": "method",
-      "id": "kbc",
-      "description": "KBC/CBC Payment Button",
-      "amount": {
-        "minimum": "0.31",
-        "maximum": "50000.00"
-      },
-      "image": {
-        "normal": "https://www.mollie.com/images/payscreen/methods/kbc.png",
-        "bigger": "https://www.mollie.com/images/payscreen/methods/kbc@2x.png"
-      }
-    },
-    {
-      "resource": "method",
-      "id": "belfius",
-      "description": "Belfius Direct Net",
-      "amount": {
-        "minimum": "0.31",
-        "maximum": "50000.00"
-      },
-      "image": {
-        "normal": "https://www.mollie.com/images/payscreen/methods/belfius.png",
-        "bigger": "https://www.mollie.com/images/payscreen/methods/belfius@2x.png"
-      }
-    },
-    {
-      "resource": "method",
-      "id": "inghomepay",
-      "description": "ING Home'Pay",
-      "amount": {
-        "minimum": "0.01",
-        "maximum": "50000.00"
-      },
-      "image": {
-        "normal": "https://www.mollie.com/images/payscreen/methods/inghomepay.png",
-        "bigger": "https://www.mollie.com/images/payscreen/methods/inghomepay@2x.png"
-      }
+    "self": {
+      "href": "https://api.mollie.com/v2/methods",
+      "type": "application/hal+json"
     }
-  ]
+  }
 }

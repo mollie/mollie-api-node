@@ -1,37 +1,48 @@
 {
-  "totalCount": 1,
-  "offset": 0,
-  "count": 1,
-  "data": [
-    {
-      "id": "re_4qqhO89gsT",
-      "payment": {
-        "id": "tr_WDqYK6vllg",
-        "mode": "test",
-        "createdDatetime": "2017-05-03T08:00:59.0Z",
-        "status": "refunded",
-        "amount": "35.07",
-        "amountRefunded": "5.95",
-        "amountRemaining": "54.12",
+  "count": 5,
+  "_embedded": {
+    "refunds": [
+      {
+        "resource": "refund",
+        "id": "re_4qqhO89gsT",
+        "amount": {
+          "currency": "EUR",
+          "value": "5.95"
+        },
+        "status": "pending",
+        "createdAt": "2018-03-14T17:09:02.0Z",
         "description": "Order",
-        "method": "ideal",
-        "metadata": {
-          "order_id": "33"
-        },
-        "details": {
-          "consumerName": "Hr E G H K\u00fcppers en\/of MW M.J. K\u00fcppers-Veeneman",
-          "consumerAccount": "NL53INGB0654422370",
-          "consumerBic": "INGBNL2A"
-        },
-        "locale": "nl",
-        "links": {
-          "webhookUrl": "https://www.example.org/payments/webhook",
-          "redirectUrl": "https://www.example.org/order/33/",
-          "refunds": "https://api.mollie.nl/v1/payments/tr_WDqYK6vllg/refunds"
+        "paymentId": "tr_WDqYK6vllg",
+        "_links": {
+          "self": {
+            "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT",
+            "type": "application/hal+json"
+          },
+          "payment": {
+            "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg",
+            "type": "application/hal+json"
+          },
+          "documentation": {
+            "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
+            "type": "text/html"
+          }
         }
-      },
-      "amount": "5.95",
-      "refundedDatetime": "2017-05-05T14:01:07.0Z"
+      }
+    ]
+  },
+  "_links": {
+    "self": {
+      "href": "https://api.mollie.com/v2/payments/tr_7UhSN1zuXS/refunds?limit=5",
+      "type": "application/hal+json"
+    },
+    "previous": null,
+    "next": {
+      "href": "https://api.mollie.com/v2/payments/tr_7UhSN1zuXS/refunds?from=re_APBiGPH2vV&limit=5",
+      "type": "application/hal+json"
+    },
+    "documentation": {
+      "href": "https://docs.mollie.com/reference/v2/refunds-api/list-refunds",
+      "type": "text/html"
     }
-  ]
+  }
 }

@@ -11,7 +11,10 @@ const mock = new MockAdapter(axios);
 const props = {
   id: 'sub_rVKGtNd6s3',
   customerId: 'cst_stTC2WHAuS',
-  amount: 25.00,
+  amount: {
+    currency: 'EUR',
+    value: '25.00',
+  },
   times: 4,
   interval: '3 months',
   description: 'Quarterly payment',
@@ -31,7 +34,7 @@ describe('customers_subscriptions', () => {
   });
 
   describe('.create()', () => {
-    mock.onPost(`/customers/${props.customerId}/subscriptions`).reply(200, response.data[0]);
+    mock.onPost(`/customers/${props.customerId}/subscriptions`).reply(200, response._embedded.subscriptions[0]);
 
     it('should return a subscription instance', () =>
       customersSubscriptions.create(props).then((result) => {
@@ -43,7 +46,7 @@ describe('customers_subscriptions', () => {
   describe('.get()', () => {
     const error = { error: { message: 'The customers_subscription id is invalid' } };
 
-    mock.onGet(`/customers/${props.customerId}/subscriptions/${props.id}`).reply(200, response.data[0]);
+    mock.onGet(`/customers/${props.customerId}/subscriptions/${props.id}`).reply(200, response._embedded.subscriptions[0]);
     mock.onGet(`/customers/${props.customerId}/subscriptions/foo`).reply(500, error);
 
     it('should return a subscription instance', () =>
@@ -63,8 +66,6 @@ describe('customers_subscriptions', () => {
         .all({ customerId: props.customerId })
         .then((result) => {
           expect(result).toBeInstanceOf(Array);
-          expect(result).toHaveProperty('totalCount');
-          expect(result).toHaveProperty('offset');
           expect(result).toHaveProperty('links');
           expect(result).toMatchSnapshot();
         }));
@@ -78,8 +79,6 @@ describe('customers_subscriptions', () => {
         .all((err, result) => {
           expect(err).toBeNull();
           expect(result).toBeInstanceOf(Array);
-          expect(result).toHaveProperty('totalCount');
-          expect(result).toHaveProperty('offset');
           expect(result).toHaveProperty('links');
           expect(result).toMatchSnapshot();
           done();
@@ -88,7 +87,7 @@ describe('customers_subscriptions', () => {
   });
 
   describe('.cancel()', () => {
-    mock.onDelete(`/customers/${props.customerId}/subscriptions/${props.id}`).reply(200, response.data[0]);
+    mock.onDelete(`/customers/${props.customerId}/subscriptions/${props.id}`).reply(200, response._embedded.subscriptions[0]);
 
     it('should return a subscription instance', () =>
       customersSubscriptions

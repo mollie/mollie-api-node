@@ -1,35 +1,50 @@
 {
-  "totalCount": 2,
-  "offset": 0,
-  "count": 2,
-  "data": [
-    {
-      "resource": "mandate",
-      "id": "mdt_pO2m5jVgMa",
-      "status": "valid",
-      "method": "directdebit",
-      "customerId": "cst_R6JLAuqEgm",
-      "details": {
-        "consumerName": "Hr E G H K\u00fcppers en\/of MW M.J. K\u00fcppers-Veeneman",
-        "consumerAccount": "NL53INGB0618365937",
-        "consumerBic": "INGBNL2A"
-      },
-      "createdDatetime": "2017-04-13T11:32:38.0Z"
+  "count": 1,
+  "_embedded": {
+    "mandates": [
+      {
+        "resource": "mandate",
+        "id": "mdt_AcQl5fdL4h",
+        "status": "valid",
+        "method": "directdebit",
+        "details": {
+          "consumerName": "John Doe",
+          "consumerAccount": "NL55INGB0000000000",
+          "consumerBic": "INGBNL2A"
+        },
+        "mandateReference": null,
+        "signatureDate": "2018-05-07",
+        "createdAt": "2018-05-07T10:49:08+00:00",
+        "_links": {
+          "self": {
+            "href": "https://api.mollie.com/v2/customers/cst_8wmqcHMN4U/mandates/mdt_AcQl5fdL4h",
+            "type": "application/hal+json"
+          },
+          "customer": {
+            "href": "https://api.mollie.com/v2/customers/cst_8wmqcHMN4U",
+            "type": "application/hal+json"
+          },
+          "documentation": {
+            "href": "https://mollie.com/en/docs/reference/customers/create-mandate",
+            "type": "text/html"
+          }
+        }
+      }
+    ]
+  },
+  "_links": {
+    "self": {
+      "href": "https://api.mollie.com/v2/customers/cst_8wmqcHMN4U/mandates?limit=5",
+      "type": "application/hal+json"
     },
-    {
-      "resource": "mandate",
-      "id": "mdt_qtUgejVgMN",
-      "status": "valid",
-      "method": "creditcard",
-      "customerId": "cst_R6JLAuqEgm",
-      "details": {
-        "cardHolder": "John Doe",
-        "cardNumber": "1234",
-        "cardLabel": "Mastercard",
-        "cardFingerprint": "fHB3CCKx9REkz8fPplT8N4nq",
-        "cardExpiryDate": "2017-03-31"
-      },
-      "createdDatetime": "2017-04-13T11:32:38.0Z"
+    "previous": null,
+    "next": {
+      "href": "https://api.mollie.com/v2/customers/cst_8wmqcHMN4U/mandates?from=mdt_AcQl5fdL4h&limit=5",
+      "type": "application/hal+json"
+    },
+    "documentation": {
+      "href": "https://docs.mollie.com/reference/v2/mandates-api/revoke-mandate",
+      "type": "text/html"
     }
-  ]
+  }
 }

@@ -6,7 +6,7 @@ import List from 'models/list';
  * @param {Object} httpClient
  * @private
  */
-export default class MollieResource {
+export default class Resource {
   /**
    * Constructor
    * @param httpClient
@@ -89,6 +89,20 @@ export default class MollieResource {
   }
 
   /**
+   * Get the resource name from the resource identifier
+   * @returns {string} resourceUrl
+   * @since 2.0.0-rc.2
+   * @private
+   */
+  getResourceName() {
+    if (this.constructor.resource.includes('_')) {
+      return this.constructor.resource.split('_')[1];
+    }
+
+    return this.constructor.resource;
+  }
+
+  /**
    * Create a resource by ID
    * @param {Object} [data]
    * @param {function} [cb]
@@ -110,7 +124,7 @@ export default class MollieResource {
         }
         return model;
       })
-      .catch(error => MollieResource.errorHandler(error.response, cb));
+      .catch(error => Resource.errorHandler(error.response, cb));
   }
 
   /**
@@ -136,7 +150,7 @@ export default class MollieResource {
         }
         return model;
       })
-      .catch(error => MollieResource.errorHandler(error.response, cb));
+      .catch(error => Resource.errorHandler(error.response, cb));
   }
 
   /**
@@ -154,21 +168,22 @@ export default class MollieResource {
     return this.getClient()
       .get(this.getResourceUrl(), { params })
       .then((response) => {
-        const { totalCount, offset, links = [], data = [] } = response.data;
-        const list = new List();
-        list.totalCount = totalCount;
-        list.offset = offset;
-        list.links = links;
-        list.push(
-          ...data.map(resource => new this.constructor.model(resource)),
-        );
+        const resourceName = this.getResourceName();
+        const list = List.buildResourceList({
+          response: response.data,
+          resourceName,
+          params,
+          callback: cb,
+          getResources: this.all,
+          Model: this.constructor.model,
+        });
 
         if (cb) {
           return cb(null, list);
         }
         return list;
       })
-      .catch(error => MollieResource.errorHandler(error.response, cb));
+      .catch(error => Resource.errorHandler(error.response, cb));
   }
 
   /**
@@ -194,7 +209,7 @@ export default class MollieResource {
         }
         return model;
       })
-      .catch(error => MollieResource.errorHandler(error.response, cb));
+      .catch(error => Resource.errorHandler(error.response, cb));
   }
 
   /**
@@ -215,6 +230,6 @@ export default class MollieResource {
         }
         return model;
       })
-      .catch(error => MollieResource.errorHandler(error.response, cb));
+      .catch(error => Resource.errorHandler(error.response, cb));
   }
 }
