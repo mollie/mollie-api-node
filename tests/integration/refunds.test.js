@@ -20,6 +20,6 @@ describe('refunds', () => {
   it('should integrate', () =>
     mollieClient.refunds.all()
       .then(refunds => expect(refunds).toBeDefined())
-      .catch(err => expect(err).toBeNull())
+      .catch(err => expect(err).toBeNull()),
   );
 });
