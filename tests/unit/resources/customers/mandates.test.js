@@ -36,15 +36,17 @@ describe('customers_mandates', () => {
   });
 
   describe('.create()', () => {
-    mock.onPost(`/customers/${props.customerId}/mandates`).reply(200, response._embedded.mandates[0]);
+    mock
+      .onPost(`/customers/${props.customerId}/mandates`)
+      .reply(200, response._embedded.mandates[0]);
 
     it('should return a mandate instance', () =>
-      customersMandates.create(props).then((result) => {
+      customersMandates.create(props).then(result => {
         expect(result).toBeInstanceOf(Mandate);
         expect(result).toMatchSnapshot();
       }));
 
-    it('should work with a callback', (done) => {
+    it('should work with a callback', done => {
       customersMandates.create(props, (err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Mandate);
@@ -57,18 +59,20 @@ describe('customers_mandates', () => {
   describe('.get()', () => {
     const error = { error: { message: 'The customers_mandate id is invalid' } };
 
-    mock.onGet(`/customers/${props.customerId}/mandates/${props.id}`).reply(200, response._embedded.mandates[0]);
+    mock
+      .onGet(`/customers/${props.customerId}/mandates/${props.id}`)
+      .reply(200, response._embedded.mandates[0]);
     mock.onGet(`/customers/${props.customerId}/mandates/foo`).reply(500, error);
 
     it('should return a mandate instance', () =>
       customersMandates
         .get(props.id, { customerId: props.customerId })
-        .then((result) => {
+        .then(result => {
           expect(result).toBeInstanceOf(Mandate);
           expect(result.id).toBe(props.id);
         }));
 
-    it('should work with a callback', (done) => {
+    it('should work with a callback', done => {
       customersMandates.get(
         props.id,
         { customerId: props.customerId },
@@ -87,11 +91,11 @@ describe('customers_mandates', () => {
         .then(() => {
           throw new Error('Should reject');
         })
-        .catch((err) => {
+        .catch(err => {
           expect(err).toBe(error);
         }));
 
-    it('should return an error with a callback for non-existing IDs', (done) => {
+    it('should return an error with a callback for non-existing IDs', done => {
       customersMandates.get(
         'foo',
         { customerId: props.customerId },
@@ -108,13 +112,13 @@ describe('customers_mandates', () => {
     mock.onGet(`/customers/${props.customerId}/mandates`).reply(200, response);
 
     it('should return a list of all customer mandates', () =>
-      customersMandates.all({ customerId: props.customerId }).then((result) => {
+      customersMandates.all({ customerId: props.customerId }).then(result => {
         expect(result).toBeInstanceOf(Array);
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
       }));
 
-    it('should work with a callback', (done) => {
+    it('should work with a callback', done => {
       customersMandates.all({ customerId: props.customerId }, (err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Array);
@@ -126,17 +130,19 @@ describe('customers_mandates', () => {
   });
 
   describe('.revoke()', () => {
-    mock.onDelete(`/customers/${props.customerId}/mandates/${props.id}`).reply(200, response._embedded.mandates[0]);
+    mock
+      .onDelete(`/customers/${props.customerId}/mandates/${props.id}`)
+      .reply(200, response._embedded.mandates[0]);
 
     it('should return a mandate instance', () =>
       customersMandates
         .revoke(props.id, { customerId: props.customerId })
-        .then((result) => {
+        .then(result => {
           expect(result).toBeInstanceOf(Mandate);
           expect(result).toMatchSnapshot();
         }));
 
-    it('should work with cancel alias and a callback', (done) => {
+    it('should work with cancel alias and a callback', done => {
       customersMandates
         .withParent({
           resource: 'customer',

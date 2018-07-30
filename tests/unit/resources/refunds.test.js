@@ -31,12 +31,12 @@ describe('refunds', () => {
     mock.onPost('/refunds', props).reply(200, response._embedded.refunds[0]);
 
     it('should return a refund instance', () =>
-      refunds.create(props).then((result) => {
+      refunds.create(props).then(result => {
         expect(result).toBeInstanceOf(Refund);
         expect(result).toMatchSnapshot();
       }));
 
-    it('should work with a callback', (done) => {
+    it('should work with a callback', done => {
       refunds.create(props, (err, result) => {
         expect(result).toBeInstanceOf(Refund);
         expect(result).toMatchSnapshot();
@@ -48,16 +48,16 @@ describe('refunds', () => {
   describe('.get()', () => {
     const error = { error: { message: 'The refund id is invalid' } };
 
-    mock.onGet(`/refunds/${props.id}`).reply(200, response._embedded.refunds[0]);
+    mock
+      .onGet(`/refunds/${props.id}`)
+      .reply(200, response._embedded.refunds[0]);
     mock.onGet('/refunds/foo').reply(500, error);
 
     it('should return a refund instance', () =>
-      refunds
-        .get(props.id)
-        .then((result) => {
-          expect(result).toBeInstanceOf(Refund);
-          expect(result).toMatchSnapshot();
-        }));
+      refunds.get(props.id).then(result => {
+        expect(result).toBeInstanceOf(Refund);
+        expect(result).toMatchSnapshot();
+      }));
 
     it('should return an error for non-existing IDs', () =>
       refunds
@@ -65,7 +65,7 @@ describe('refunds', () => {
         .then(() => {
           throw new Error('Should reject');
         })
-        .catch((err) => {
+        .catch(err => {
           expect(err).toBe(error);
         }));
   });
@@ -74,13 +74,13 @@ describe('refunds', () => {
     mock.onGet(`/refunds`).reply(200, response);
 
     it('should return a list of all payment refunds', () =>
-      refunds.all().then((result) => {
+      refunds.all().then(result => {
         expect(result).toBeInstanceOf(Array);
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
       }));
 
-    it('should work with a callback', (done) => {
+    it('should work with a callback', done => {
       refunds
         .withParent({
           resource: 'payment',
@@ -97,17 +97,17 @@ describe('refunds', () => {
   });
 
   describe('.delete()', () => {
-    mock.onDelete(`/refunds/${props.id}`).reply(200, response._embedded.refunds[0]);
+    mock
+      .onDelete(`/refunds/${props.id}`)
+      .reply(200, response._embedded.refunds[0]);
 
     it('should return a refund instance', () =>
-      refunds
-        .delete(props.id)
-        .then((result) => {
-          expect(result).toBeInstanceOf(Refund);
-          expect(result).toMatchSnapshot();
-        }));
+      refunds.delete(props.id).then(result => {
+        expect(result).toBeInstanceOf(Refund);
+        expect(result).toMatchSnapshot();
+      }));
 
-    it('should work with a callback and legacy delete', (done) => {
+    it('should work with a callback and legacy delete', done => {
       refunds
         .withParent({
           resource: 'payment',

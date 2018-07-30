@@ -18,14 +18,14 @@ const mollieClient = mollie({ apiKey: process.env.API_KEY });
 
 describe('chargebacks', () => {
   it('should integrate', done =>
-    mollieClient.chargebacks.all()
-      .then((chargebacks) => {
+    mollieClient.chargebacks
+      .all()
+      .then(chargebacks => {
         expect(chargebacks).toBeDefined();
         done();
       })
-      .catch((err) => {
+      .catch(err => {
         expect(err).toBeNull();
         done();
-      }),
-  );
+      }));
 });

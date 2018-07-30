@@ -34,43 +34,53 @@ describe('customers_subscriptions', () => {
   });
 
   describe('.create()', () => {
-    mock.onPost(`/customers/${props.customerId}/subscriptions`).reply(200, response._embedded.subscriptions[0]);
+    mock
+      .onPost(`/customers/${props.customerId}/subscriptions`)
+      .reply(200, response._embedded.subscriptions[0]);
 
     it('should return a subscription instance', () =>
-      customersSubscriptions.create(props).then((result) => {
+      customersSubscriptions.create(props).then(result => {
         expect(result).toBeInstanceOf(Subscription);
         expect(result).toMatchSnapshot();
       }));
   });
 
   describe('.get()', () => {
-    const error = { error: { message: 'The customers_subscription id is invalid' } };
+    const error = {
+      error: { message: 'The customers_subscription id is invalid' },
+    };
 
-    mock.onGet(`/customers/${props.customerId}/subscriptions/${props.id}`).reply(200, response._embedded.subscriptions[0]);
-    mock.onGet(`/customers/${props.customerId}/subscriptions/foo`).reply(500, error);
+    mock
+      .onGet(`/customers/${props.customerId}/subscriptions/${props.id}`)
+      .reply(200, response._embedded.subscriptions[0]);
+    mock
+      .onGet(`/customers/${props.customerId}/subscriptions/foo`)
+      .reply(500, error);
 
     it('should return a subscription instance', () =>
       customersSubscriptions
         .get(props.id, { customerId: props.customerId })
-        .then((result) => {
+        .then(result => {
           expect(result).toBeInstanceOf(Subscription);
           expect(result).toMatchSnapshot();
         }));
   });
 
   describe('.all()', () => {
-    mock.onGet(`/customers/${props.customerId}/subscriptions`).reply(200, response);
+    mock
+      .onGet(`/customers/${props.customerId}/subscriptions`)
+      .reply(200, response);
 
     it('should return a list of all customer subscriptions', () =>
       customersSubscriptions
         .all({ customerId: props.customerId })
-        .then((result) => {
+        .then(result => {
           expect(result).toBeInstanceOf(Array);
           expect(result).toHaveProperty('links');
           expect(result).toMatchSnapshot();
         }));
 
-    it('should work with a callback', (done) => {
+    it('should work with a callback', done => {
       customersSubscriptions
         .withParent({
           resource: 'customer',
@@ -87,17 +97,19 @@ describe('customers_subscriptions', () => {
   });
 
   describe('.cancel()', () => {
-    mock.onDelete(`/customers/${props.customerId}/subscriptions/${props.id}`).reply(200, response._embedded.subscriptions[0]);
+    mock
+      .onDelete(`/customers/${props.customerId}/subscriptions/${props.id}`)
+      .reply(200, response._embedded.subscriptions[0]);
 
     it('should return a subscription instance', () =>
       customersSubscriptions
         .delete(props.id, { customerId: props.customerId })
-        .then((result) => {
+        .then(result => {
           expect(result).toBeInstanceOf(Subscription);
           expect(result).toMatchSnapshot();
         }));
 
-    it('should work with a callback', (done) => {
+    it('should work with a callback', done => {
       customersSubscriptions
         .withParent({
           resource: 'customer',

@@ -4,22 +4,22 @@ import Model from "model";
  * The `Method` model
  */
 export default class Method extends Model {
-  static IDEAL = 'ideal';
-  static CREDITCARD = 'creditcard';
-  static BANCONTACT = 'bancontact';
-  static SOFORT = 'sofort';
-  static BANKTRANSFER = 'banktransfer';
-  static DIRECTDEBIT = 'directdebit';
-  static BITCOIN = 'bitcoin';
-  static PAYPAL = 'paypal';
-  static BELFIUS = 'belfius';
-  static PAYSAFECARD = 'paysafecard';
-  static PODIUMCADEAUKAART = 'podiumcadeaukaart';
-  static KBC = 'kbc';
-  static GIFTCARD = 'giftcard';
-  static INGHOMEPAY = 'inghomepay';
-  static GIROPAY = 'giropay';
-  static EPS = 'eps';
+  static IDEAL = "ideal";
+  static CREDITCARD = "creditcard";
+  static BANCONTACT = "bancontact";
+  static SOFORT = "sofort";
+  static BANKTRANSFER = "banktransfer";
+  static DIRECTDEBIT = "directdebit";
+  static BITCOIN = "bitcoin";
+  static PAYPAL = "paypal";
+  static BELFIUS = "belfius";
+  static PAYSAFECARD = "paysafecard";
+  static PODIUMCADEAUKAART = "podiumcadeaukaart";
+  static KBC = "kbc";
+  static GIFTCARD = "giftcard";
+  static INGHOMEPAY = "inghomepay";
+  static GIROPAY = "giropay";
+  static EPS = "eps";
 
   constructor(props) {
     super(props);
