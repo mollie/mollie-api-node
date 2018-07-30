@@ -17,6 +17,8 @@ rules:
   no-param-reassign:
     - error
     - props: false
+  no-underscore-dangle:
+    - off
 
 settings:
   import/resolver:

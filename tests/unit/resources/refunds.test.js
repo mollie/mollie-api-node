@@ -10,7 +10,10 @@ const mock = new MockAdapter(axios);
 
 const props = {
   id: 're_4qqhO89gsT',
-  amount: 5.95,
+  amount: {
+    currency: 'EUR',
+    value: '5.95',
+  },
 };
 
 describe('refunds', () => {
@@ -25,7 +28,7 @@ describe('refunds', () => {
   });
 
   describe('.create()', () => {
-    mock.onPost('/refunds', props).reply(200, response.data[0]);
+    mock.onPost('/refunds', props).reply(200, response._embedded.refunds[0]);
 
     it('should return a refund instance', () =>
       refunds.create(props).then((result) => {
@@ -45,7 +48,7 @@ describe('refunds', () => {
   describe('.get()', () => {
     const error = { error: { message: 'The refund id is invalid' } };
 
-    mock.onGet(`/refunds/${props.id}`).reply(200, response.data[0]);
+    mock.onGet(`/refunds/${props.id}`).reply(200, response._embedded.refunds[0]);
     mock.onGet('/refunds/foo').reply(500, error);
 
     it('should return a refund instance', () =>
@@ -73,8 +76,6 @@ describe('refunds', () => {
     it('should return a list of all payment refunds', () =>
       refunds.all().then((result) => {
         expect(result).toBeInstanceOf(Array);
-        expect(result).toHaveProperty('totalCount');
-        expect(result).toHaveProperty('offset');
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
       }));
@@ -88,8 +89,6 @@ describe('refunds', () => {
         .all((err, result) => {
           expect(err).toBeNull();
           expect(result).toBeInstanceOf(Array);
-          expect(result).toHaveProperty('totalCount');
-          expect(result).toHaveProperty('offset');
           expect(result).toHaveProperty('links');
           expect(result).toMatchSnapshot();
           done();
@@ -98,7 +97,7 @@ describe('refunds', () => {
   });
 
   describe('.delete()', () => {
-    mock.onDelete(`/refunds/${props.id}`).reply(200, response.data[0]);
+    mock.onDelete(`/refunds/${props.id}`).reply(200, response._embedded.refunds[0]);
 
     it('should return a refund instance', () =>
       refunds

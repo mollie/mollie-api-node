@@ -1,4 +1,4 @@
-import MollieResource from 'mollie-resource';
+import Resource from 'resource';
 import Payment from 'models/payment';
 
 /**
@@ -7,7 +7,7 @@ import Payment from 'models/payment';
  * @static {Object} model
  * @since 1.0.0
  */
-export default class Payments extends MollieResource {
+export default class Payments extends Resource {
   static resource = 'payments';
   static model = Payment;
 }

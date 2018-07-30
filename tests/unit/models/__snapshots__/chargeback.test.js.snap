@@ -2,22 +2,48 @@
 
 exports[`chargeback model should instantiate with default values 1`] = `
 Object {
+  "_links": Object {
+    "payment": null,
+    "settlement": null,
+  },
   "amount": null,
-  "chargebackDatetime": null,
+  "createdAt": null,
   "id": null,
-  "payment": null,
+  "paymentId": null,
   "resource": "chargeback",
-  "reversedDatetime": null,
+  "reversedAt": null,
+  "settlementAmount": null,
 }
 `;
 
 exports[`chargeback model should instantiate with given values 1`] = `
 Object {
-  "amount": 35.07,
-  "chargebackDatetime": "2017-11-02T11:41:23.0Z",
+  "_links": Object {
+    "documentation": Object {
+      "href": "https://docs.mollie.com/reference/v2/chargebacks-api/get-chargeback",
+      "type": "text/html",
+    },
+    "payment": Object {
+      "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg",
+      "type": "application/hal+json",
+    },
+    "self": Object {
+      "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/chargebacks/chb_n9z0tp",
+      "type": "application/hal+json",
+    },
+  },
+  "amount": Object {
+    "currency": "USD",
+    "value": "43.38",
+  },
+  "createdAt": "2018-03-14T17:00:52.0Z",
   "id": "chb_n9z0tp",
-  "payment": "tr_WDqYK6vllg",
+  "paymentId": "tr_WDqYK6vllg",
   "resource": "chargeback",
-  "reversedDatetime": null,
+  "reversedAt": null,
+  "settlementAmount": Object {
+    "currency": "EUR",
+    "value": "-35.07",
+  },
 }
 `;

@@ -9,8 +9,11 @@ import response from '../../__stubs__/customers_mandates.json';
 const mock = new MockAdapter(axios);
 
 const props = {
-  amount: 10.00,
-  id: 'mdt_pO2m5jVgMa',
+  amount: {
+    currency: 'EUR',
+    value: '10.00',
+  },
+  id: 'mdt_AcQl5fdL4h',
   status: 'valid',
   method: 'directdebit',
   customerId: 'cst_R6JLAuqEgm',
@@ -33,7 +36,7 @@ describe('customers_mandates', () => {
   });
 
   describe('.create()', () => {
-    mock.onPost(`/customers/${props.customerId}/mandates`).reply(200, response.data[0]);
+    mock.onPost(`/customers/${props.customerId}/mandates`).reply(200, response._embedded.mandates[0]);
 
     it('should return a mandate instance', () =>
       customersMandates.create(props).then((result) => {
@@ -54,7 +57,7 @@ describe('customers_mandates', () => {
   describe('.get()', () => {
     const error = { error: { message: 'The customers_mandate id is invalid' } };
 
-    mock.onGet(`/customers/${props.customerId}/mandates/${props.id}`).reply(200, response.data[0]);
+    mock.onGet(`/customers/${props.customerId}/mandates/${props.id}`).reply(200, response._embedded.mandates[0]);
     mock.onGet(`/customers/${props.customerId}/mandates/foo`).reply(500, error);
 
     it('should return a mandate instance', () =>
@@ -107,8 +110,6 @@ describe('customers_mandates', () => {
     it('should return a list of all customer mandates', () =>
       customersMandates.all({ customerId: props.customerId }).then((result) => {
         expect(result).toBeInstanceOf(Array);
-        expect(result).toHaveProperty('totalCount');
-        expect(result).toHaveProperty('offset');
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
       }));
@@ -117,8 +118,6 @@ describe('customers_mandates', () => {
       customersMandates.all({ customerId: props.customerId }, (err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Array);
-        expect(result).toHaveProperty('totalCount');
-        expect(result).toHaveProperty('offset');
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
         done();
@@ -127,7 +126,7 @@ describe('customers_mandates', () => {
   });
 
   describe('.revoke()', () => {
-    mock.onDelete(`/customers/${props.customerId}/mandates/${props.id}`).reply(200, response.data[0]);
+    mock.onDelete(`/customers/${props.customerId}/mandates/${props.id}`).reply(200, response._embedded.mandates[0]);
 
     it('should return a mandate instance', () =>
       customersMandates

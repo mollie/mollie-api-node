@@ -11,7 +11,10 @@ const mock = new MockAdapter(axios);
 const props = {
   id: 're_4qqhO89gsT',
   paymentId: 'tr_WDqYK6vllg',
-  amount: 5.95,
+  amount: {
+    currency: 'EUR',
+    value: '5.95',
+  },
 };
 
 describe('payments_refunds', () => {
@@ -26,7 +29,7 @@ describe('payments_refunds', () => {
   });
 
   describe('.create()', () => {
-    mock.onPost(`/payments/${props.paymentId}/refunds`).reply(200, response.data[0]);
+    mock.onPost(`/payments/${props.paymentId}/refunds`).reply(200, response._embedded.refunds[0]);
 
     it('should return a refund instance', () =>
       paymentsRefunds.create(props).then((result) => {
@@ -46,7 +49,7 @@ describe('payments_refunds', () => {
   describe('.get()', () => {
     const error = { error: { message: 'The payments_refund id is invalid' } };
 
-    mock.onGet(`/payments/${props.paymentId}/refunds/${props.id}`).reply(200, response.data[0]);
+    mock.onGet(`/payments/${props.paymentId}/refunds/${props.id}`).reply(200, response._embedded.refunds[0]);
     mock.onGet(`/payments/${props.paymentId}/refunds/foo`).reply(500, error);
 
     it('should return a refund instance', () =>
@@ -74,8 +77,6 @@ describe('payments_refunds', () => {
     it('should return a list of all payment refunds', () =>
       paymentsRefunds.all({ paymentId: props.paymentId }).then((result) => {
         expect(result).toBeInstanceOf(Array);
-        expect(result).toHaveProperty('totalCount');
-        expect(result).toHaveProperty('offset');
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
       }));
@@ -95,8 +96,6 @@ describe('payments_refunds', () => {
         .all((err, result) => {
           expect(err).toBeNull();
           expect(result).toBeInstanceOf(Array);
-          expect(result).toHaveProperty('totalCount');
-          expect(result).toHaveProperty('offset');
           expect(result).toHaveProperty('links');
           expect(result).toMatchSnapshot();
           done();
@@ -105,7 +104,7 @@ describe('payments_refunds', () => {
   });
 
   describe('.cancel()', () => {
-    mock.onDelete(`/payments/${props.paymentId}/refunds/${props.id}`).reply(200, response.data[0]);
+    mock.onDelete(`/payments/${props.paymentId}/refunds/${props.id}`).reply(200, response._embedded.refunds[0]);
 
     it('should return a refund instance', () =>
       paymentsRefunds

@@ -1,18 +1,46 @@
 {
-  "totalCount": 1,
-  "offset": 0,
   "count": 1,
-  "data": [
-    {
-      "resource": "customer",
-      "id": "cst_c24gk2t3G6",
-      "mode": "test",
-      "name": "John Doe",
-      "email": "john.doe@example.org",
-      "locale": null,
-      "metadata": null,
-      "recentlyUsedMethods": [],
-      "createdDatetime": "2017-02-13T13:21:58.0Z"
+  "_embedded": {
+    "customers": [
+      {
+        "resource": "customer",
+        "id": "cst_kEn1PlbGa",
+        "mode": "test",
+        "name": "Customer A",
+        "email": "customer@example.org",
+        "locale": "nl_NL",
+        "metadata": null,
+        "recentlyUsedMethods": [
+          "creditcard",
+          "ideal"
+        ],
+        "createdAt": "2018-04-06T13:23:21.0Z",
+        "_links": {
+          "self": {
+            "href": "https://api.mollie.com/v2/customers/cst_kEn1PlbGa",
+            "type": "application/hal+json"
+          },
+          "documentation": {
+            "href": "https://docs.mollie.com/reference/v2/customers-api/get-customer",
+            "type": "text/html"
+          }
+        }
+      }
+    ]
+  },
+  "_links": {
+    "self": {
+      "href": "https://api.mollie.com/v2/customers",
+      "type": "application/hal+json"
+    },
+    "previous": null,
+    "next": {
+      "href": "https://api.mollie.com/v2/customers?from=cst_stTC2WHAuS",
+      "type": "application/hal+json"
+    },
+    "documentation": {
+      "href": "https://docs.mollie.com/reference/v2/customers-api/list-customers",
+      "type": "text/html"
     }
-  ]
+  }
 }

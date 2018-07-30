@@ -1,7 +1,6 @@
 import Payments from './resources/payments';
 import PaymentsRefunds from './resources/payments/refunds';
 import Methods from './resources/methods';
-import Issuers from './resources/issuers';
 import Refunds from './resources/refunds';
 import Customers from './resources/customers';
 import CustomersPayments from './resources/customers/payments';
@@ -20,7 +19,6 @@ export default function createMollieApi({ httpClient }) {
     payments: new Payments(httpClient),
     payments_refunds: new PaymentsRefunds(httpClient),
     methods: new Methods(httpClient),
-    issuers: new Issuers(httpClient),
     refunds: new Refunds(httpClient),
     customers: new Customers(httpClient),
     customers_payments: new CustomersPayments(httpClient),

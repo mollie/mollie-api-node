@@ -10,7 +10,10 @@ const mock = new MockAdapter(axios);
 
 const props = {
   id: 'tr_nBeryjMVjr',
-  amount: 100.00,
+  amount: {
+    currency: 'GBP',
+    value: '75.00',
+  },
   description: 'Test payment',
   method: 'ideal',
   metadata: {
@@ -32,13 +35,13 @@ describe('payments', () => {
   describe('.create()', () => {
     const error = { error: { field: 'amount', message: 'The amount is lower than the minimum' }};
 
-    mock.onPost('/payments', Object.assign({}, props, { amount: 0.05 })).reply(500, error);
-    mock.onPost('/payments').reply(200, response.data[0]);
+    mock.onPost('/payments', Object.assign({}, props, { amount: { value: '0.05', currency: 'EUR' } })).reply(500, error);
+    mock.onPost('/payments').reply(200, response._embedded.payments[0]);
 
     it('should return a payment instance', () =>
       payments.create(props).then((result) => {
         expect(result).toBeInstanceOf(Payment);
-        expect(result.amount).toBe(props.amount.toFixed(2).toString());
+        expect(result.amount.value).toBe(props.amount.value);
         expect(result).toMatchSnapshot();
       }));
 
@@ -46,7 +49,7 @@ describe('payments', () => {
       payments.create(props, (err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Payment);
-        expect(result.amount).toBe(props.amount.toFixed(2).toString());
+        expect(result.amount.value).toBe(props.amount.value);
         expect(result).toMatchSnapshot();
         done();
       });
@@ -54,7 +57,7 @@ describe('payments', () => {
 
     it('should fail with a unsupported amount', () =>
       payments
-        .create(Object.assign({}, props, { amount: 0.05 }))
+        .create(Object.assign({}, props, { amount: { value: '0.05', currency: 'EUR' } }))
         .then(() => {
           throw new Error('Should reject');
         })
@@ -67,7 +70,7 @@ describe('payments', () => {
   describe('.get()', () => {
     const error = { error: { message: 'The payment id is invalid' } };
 
-    mock.onGet(`/payments/${props.id}`).reply(200, response.data[0]);
+    mock.onGet(`/payments/${props.id}`).reply(200, response._embedded.payments[0]);
     mock.onGet('/payments/foo').reply(500, error);
 
     it('should return a payment instance', () =>
@@ -110,8 +113,6 @@ describe('payments', () => {
     it('should return a list of all payments', () =>
       payments.all().then((result) => {
         expect(result).toBeInstanceOf(Array);
-        expect(result).toHaveProperty('totalCount');
-        expect(result).toHaveProperty('offset');
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
       }));
@@ -120,8 +121,6 @@ describe('payments', () => {
       payments.all((err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Array);
-        expect(result).toHaveProperty('totalCount');
-        expect(result).toHaveProperty('offset');
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
         done();
