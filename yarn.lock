@@ -2,6 +2,18 @@
 # yarn lockfile v1
 
 
+"@mollie/eslint-config-base@^0.0.1-alpha.2":
+  version "0.0.1-alpha.2"
+  resolved "https://registry.yarnpkg.com/@mollie/eslint-config-base/-/eslint-config-base-0.0.1-alpha.2.tgz#0985e1588d991d054d317a193b4e194316e66418"
+  dependencies:
+    eslint-plugin-import "^2.8.0"
+
+"@mollie/eslint-config-node@0.0.1-alpha.2":
+  version "0.0.1-alpha.2"
+  resolved "https://registry.yarnpkg.com/@mollie/eslint-config-node/-/eslint-config-node-0.0.1-alpha.2.tgz#bf34a9de2e0adb31f55115a9d04f09aa8ae82e50"
+  dependencies:
+    "@mollie/eslint-config-base" "^0.0.1-alpha.2"
+
 abab@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/abab/-/abab-1.0.3.tgz#b81de5f7274ec4e756d797cd834f303642724e5d"
@@ -1268,18 +1280,6 @@ escope@^3.6.0:
     es6-weak-map "^2.0.1"
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
-
-eslint-config-mollie-base@^0.0.1-alpha.2:
-  version "0.0.1-alpha.2"
-  resolved "https://registry.yarnpkg.com/eslint-config-mollie-base/-/eslint-config-mollie-base-0.0.1-alpha.2.tgz#263544a054d019919637488f26f84be45502d504"
-  dependencies:
-    eslint-plugin-import "^2.8.0"
-
-eslint-config-mollie-node@0.0.1-alpha.2:
-  version "0.0.1-alpha.2"
-  resolved "https://registry.yarnpkg.com/eslint-config-mollie-node/-/eslint-config-mollie-node-0.0.1-alpha.2.tgz#a775d90e012cad349d687fd9c9e7d07bbe5c0f42"
-  dependencies:
-    eslint-config-mollie-base "^0.0.1-alpha.2"
 
 eslint-import-resolver-node@^0.2.0:
   version "0.2.3"
