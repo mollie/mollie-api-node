@@ -30,14 +30,7 @@ export default class List extends Array {
     return {};
   }
 
-  static buildResourceList({
-    response,
-    resourceName,
-    params,
-    callback,
-    getResources,
-    Model,
-  }) {
+  static buildResourceList({ response, resourceName, params, callback, getResources, Model }) {
     const { _embedded, count = 0, _links = [] } = response;
     const resources = _embedded[resourceName];
     const list = new List();

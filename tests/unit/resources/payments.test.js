@@ -33,19 +33,31 @@ describe('payments', () => {
   });
 
   describe('.create()', () => {
-    const error = { error: { field: 'amount', message: 'The amount is lower than the minimum' }};
+    const error = {
+      error: {
+        field: 'amount',
+        message: 'The amount is lower than the minimum',
+      },
+    };
 
-    mock.onPost('/payments', Object.assign({}, props, { amount: { value: '0.05', currency: 'EUR' } })).reply(500, error);
+    mock
+      .onPost(
+        '/payments',
+        Object.assign({}, props, {
+          amount: { value: '0.05', currency: 'EUR' },
+        }),
+      )
+      .reply(500, error);
     mock.onPost('/payments').reply(200, response._embedded.payments[0]);
 
     it('should return a payment instance', () =>
-      payments.create(props).then((result) => {
+      payments.create(props).then(result => {
         expect(result).toBeInstanceOf(Payment);
         expect(result.amount.value).toBe(props.amount.value);
         expect(result).toMatchSnapshot();
       }));
 
-    it('should work with a callback', (done) => {
+    it('should work with a callback', done => {
       payments.create(props, (err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Payment);
@@ -57,11 +69,15 @@ describe('payments', () => {
 
     it('should fail with a unsupported amount', () =>
       payments
-        .create(Object.assign({}, props, { amount: { value: '0.05', currency: 'EUR' } }))
+        .create(
+          Object.assign({}, props, {
+            amount: { value: '0.05', currency: 'EUR' },
+          }),
+        )
         .then(() => {
           throw new Error('Should reject');
         })
-        .catch((err) => {
+        .catch(err => {
           expect(err).toBe(error);
           expect(err.error.field).toBe('amount');
         }));
@@ -74,12 +90,12 @@ describe('payments', () => {
     mock.onGet('/payments/foo').reply(500, error);
 
     it('should return a payment instance', () =>
-      payments.get(props.id).then((result) => {
+      payments.get(props.id).then(result => {
         expect(result).toBeInstanceOf(Payment);
         expect(result).toMatchSnapshot();
       }));
 
-    it('should work with a callback', (done) => {
+    it('should work with a callback', done => {
       payments.get(props.id, (err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Payment);
@@ -94,11 +110,11 @@ describe('payments', () => {
         .then(() => {
           throw new Error('Should reject');
         })
-        .catch((err) => {
+        .catch(err => {
           expect(err).toBe(error);
         }));
 
-    it('should return an error with a callback for non-existing IDs', (done) => {
+    it('should return an error with a callback for non-existing IDs', done => {
       payments.get('foo', (err, result) => {
         expect(err).toBe(error);
         expect(result).toBeUndefined();
@@ -111,13 +127,13 @@ describe('payments', () => {
     mock.onGet('/payments').reply(200, response);
 
     it('should return a list of all payments', () =>
-      payments.all().then((result) => {
+      payments.all().then(result => {
         expect(result).toBeInstanceOf(Array);
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
       }));
 
-    it('should work with a callback', (done) => {
+    it('should work with a callback', done => {
       payments.all((err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Array);
@@ -129,7 +145,7 @@ describe('payments', () => {
   });
 
   describe('.delete()', () => {
-    const error = { error: { message: 'Method not allowed' }};
+    const error = { error: { message: 'Method not allowed' } };
 
     mock.onDelete(`/payments/${props.id}`).reply(500, error);
 
@@ -139,7 +155,7 @@ describe('payments', () => {
         .then(() => {
           throw new Error('Should reject');
         })
-        .catch((err) => {
+        .catch(err => {
           expect(err).toBe(error);
         }));
   });

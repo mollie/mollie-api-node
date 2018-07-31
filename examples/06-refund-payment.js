@@ -16,9 +16,9 @@ mollieClient.payments_refunds
       currency: 'EUR',
     },
   })
-  .then((refund) => {
+  .then(refund => {
     // New refund (#`refund.id`) created with amount: `refund.amount`.
   })
-  .catch((error) => {
+  .catch(error => {
     // Do some proper error handling.
   });

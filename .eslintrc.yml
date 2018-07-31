@@ -1,4 +1,4 @@
-extends: airbnb-base
+extends: "@mollie/eslint-config-node"
 env:
   node: true
   jest: true

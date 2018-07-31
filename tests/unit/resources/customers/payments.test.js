@@ -31,15 +31,17 @@ describe('customers_payments', () => {
   });
 
   describe('.create()', () => {
-    mock.onPost(`/customers/${props.customerId}/payments`).reply(200, response._embedded.payments[0]);
+    mock
+      .onPost(`/customers/${props.customerId}/payments`)
+      .reply(200, response._embedded.payments[0]);
 
     it('should return a payment instance', () =>
-      customersPayments.create(props).then((result) => {
+      customersPayments.create(props).then(result => {
         expect(result).toBeInstanceOf(Payment);
         expect(result).toMatchSnapshot();
       }));
 
-    it('should work with a callback', (done) => {
+    it('should work with a callback', done => {
       customersPayments.create(props, (err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Payment);
@@ -48,7 +50,7 @@ describe('customers_payments', () => {
       });
     });
 
-    it('should work with withParent', (done) => {
+    it('should work with withParent', done => {
       customersPayments
         .withParent({
           resource: 'customer',
@@ -66,16 +68,18 @@ describe('customers_payments', () => {
   describe('.get()', () => {
     const error = { error: { message: 'The customers_mandate id is invalid' } };
 
-    mock.onGet(`/customers/${props.customerId}/payments/${props.id}`).reply(200, response._embedded.payments[0]);
+    mock
+      .onGet(`/customers/${props.customerId}/payments/${props.id}`)
+      .reply(200, response._embedded.payments[0]);
     mock.onGet(`/customers/${props.customerId}/payments/foo`).reply(500, error);
 
     it('should return a payment instance', () =>
-      customersPayments.get(props.id, props).then((result) => {
+      customersPayments.get(props.id, props).then(result => {
         expect(result).toBeInstanceOf(Payment);
         expect(result).toMatchSnapshot();
       }));
 
-    it('should work with a callback', (done) => {
+    it('should work with a callback', done => {
       customersPayments.get(props.id, props, (err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Payment);
@@ -84,7 +88,7 @@ describe('customers_payments', () => {
       });
     });
 
-    it('should work with withParent', (done) => {
+    it('should work with withParent', done => {
       customersPayments
         .withParent({
           resource: 'customer',
@@ -103,7 +107,7 @@ describe('customers_payments', () => {
     mock.onGet(`/customers/${props.customerId}/payments`).reply(200, response);
 
     it('should return a list of all customer payments', () =>
-      customersPayments.all({ customerId: props.customerId }).then((result) => {
+      customersPayments.all({ customerId: props.customerId }).then(result => {
         expect(result).toBeInstanceOf(Array);
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
@@ -115,7 +119,7 @@ describe('customers_payments', () => {
       expect(getPayments).toThrowError(TypeError);
     });
 
-    it('should work with a callback', (done) => {
+    it('should work with a callback', done => {
       customersPayments.all(props, (err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Array);
@@ -132,7 +136,7 @@ describe('customers_payments', () => {
           id: props.customerId,
         })
         .all()
-        .then((result) => {
+        .then(result => {
           expect(result).toBeInstanceOf(Array);
           expect(result).toHaveProperty('links');
           expect(result).toMatchSnapshot();

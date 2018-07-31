@@ -18,13 +18,13 @@ describe('chargebacks', () => {
     mock.onGet('/chargebacks').reply(200, response);
 
     it('should return a list of all chargebacks', () =>
-      chargebacks.all().then((result) => {
+      chargebacks.all().then(result => {
         expect(result).toBeInstanceOf(Array);
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
       }));
 
-    it('should work with a callback', (done) => {
+    it('should work with a callback', done => {
       chargebacks.all((err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Array);

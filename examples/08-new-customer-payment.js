@@ -10,7 +10,7 @@ const mollieClient = mollie({ apiKey: 'test_buC3bBQfSQhd4dDUeMctJjDCn3GhP4' });
 
 mollieClient.customers
   .all()
-  .then((customers) => {
+  .then(customers => {
     const customerId = customers[0].id; // Select one of your customers.
     const orderId = new Date().getTime();
 
@@ -23,13 +23,13 @@ mollieClient.customers
         metadata: { orderId },
         customerId,
       })
-      .then((payment) => {
+      .then(payment => {
         // Redirect customer to payment screen with `payment.getPaymentUrl()`.
       })
-      .catch((error) => {
+      .catch(error => {
         // Do some proper error handling.
       });
   })
-  .catch((error) => {
+  .catch(error => {
     // Do some proper error handling.
   });

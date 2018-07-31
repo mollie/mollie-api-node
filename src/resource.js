@@ -116,7 +116,7 @@ export default class Resource {
 
     return this.getClient()
       .post(this.getResourceUrl(), data)
-      .then((response) => {
+      .then(response => {
         const model = new this.constructor.model(response.data);
 
         if (cb) {
@@ -142,7 +142,7 @@ export default class Resource {
 
     return this.getClient()
       .get(`${this.getResourceUrl()}/${id}`, { params })
-      .then((response) => {
+      .then(response => {
         const model = new this.constructor.model(response.data);
 
         if (cb) {
@@ -167,7 +167,7 @@ export default class Resource {
 
     return this.getClient()
       .get(this.getResourceUrl(), { params })
-      .then((response) => {
+      .then(response => {
         const resourceName = this.getResourceName();
         const list = List.buildResourceList({
           response: response.data,
@@ -201,7 +201,7 @@ export default class Resource {
 
     return this.getClient()
       .post(`${this.getResourceUrl()}/${id}`, data)
-      .then((response) => {
+      .then(response => {
         const model = new this.constructor.model(response.data);
 
         if (cb) {
@@ -222,7 +222,7 @@ export default class Resource {
   delete(id, cb) {
     return this.getClient()
       .delete(`${this.getResourceUrl()}/${id}`)
-      .then((response) => {
+      .then(response => {
         const model = new this.constructor.model(response.data);
 
         if (cb) {

@@ -27,12 +27,12 @@ describe('methods', () => {
     mock.onGet('/methods/foo').reply(500, error);
 
     it('should return a method instance', () =>
-      methods.get(methodId).then((result) => {
+      methods.get(methodId).then(result => {
         expect(result).toBeInstanceOf(Method);
         expect(result).toMatchSnapshot();
       }));
 
-    it('should work with a callback', (done) => {
+    it('should work with a callback', done => {
       methods.get(methodId, (err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Method);
@@ -47,11 +47,11 @@ describe('methods', () => {
         .then(() => {
           throw new Error('Should reject');
         })
-        .catch((err) => {
+        .catch(err => {
           expect(err).toBe(error);
         }));
 
-    it('should return an error with a callback for non-existing IDs', (done) => {
+    it('should return an error with a callback for non-existing IDs', done => {
       methods.get('foo', (err, result) => {
         expect(err).toBe(error);
         expect(result).toBeUndefined();
@@ -64,13 +64,13 @@ describe('methods', () => {
     mock.onGet('/methods').reply(200, response);
 
     it('should return a list of all methods', () =>
-      methods.all().then((result) => {
+      methods.all().then(result => {
         expect(result).toBeInstanceOf(Array);
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
       }));
 
-    it('should work with a callback', (done) => {
+    it('should work with a callback', done => {
       methods.all((err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Array);
