@@ -29,7 +29,7 @@
     "test:unit:cov": "jest ./tests/unit --coverage",
     "build": "rollup -c",
     "lint:prettier": "prettier --write \"{src,tests,examples}/**/*.js\"",
-    "lint:eslint": "eslint {src,test}/**/*.js",
+    "lint:eslint": "eslint {src,test,examples}/**/*.js",
     "lint": "yarn run lint:eslint && yarn run lint:prettier"
   },
   "dependencies": {
@@ -66,6 +66,10 @@
   "lint-staged": {
     "{src,test}/**/*.js": [
       "eslint",
+      "prettier --write",
+      "git add"
+    ],
+    "examples/**/*.js": [
       "prettier --write",
       "git add"
     ]
