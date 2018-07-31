@@ -20,11 +20,11 @@ app.get('/return-page', (req, res) => {
 
   mollieClient.payments
     .get(order.paymentId)
-    .then((payment) => {
+    .then(payment => {
       // Show the consumer the status of the payment using `payment.status`.
       res.send(payment.status);
     })
-    .catch((error) => {
+    .catch(error => {
       // Do some proper error handling.
       res.send(error);
     });

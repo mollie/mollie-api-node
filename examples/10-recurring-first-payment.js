@@ -17,9 +17,9 @@ mollieClient.customers_payments
     sequenceType: 'first',
     customerId: 'cst_2mVdVmuVq2',
   })
-  .then((payment) => {
+  .then(payment => {
     // Redirect the customer to complete the payment using `payment.getPaymentUrl()`.
   })
-  .catch((error) => {
+  .catch(error => {
     // Do some proper error handling.
   });

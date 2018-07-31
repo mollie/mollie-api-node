@@ -23,13 +23,14 @@
     "precommit": "lint-staged",
     "commit": "git-cz",
     "prepush": "yarn test",
-    "lint": "eslint {src,test}/**/*.js",
     "test": "yarn run build && jest",
     "test:watch": "yarn run build && jest --watch",
     "test:cov": "yarn run build && jest --coverage",
     "test:unit:cov": "jest ./tests/unit --coverage",
     "build": "rollup -c",
-    "prettier": "prettier --write \"{src,tests,dist}/**/*.js\""
+    "lint:prettier": "prettier --write \"{src,tests,examples}/**/*.js\"",
+    "lint:eslint": "eslint {src,test}/**/*.js",
+    "lint": "yarn run lint:eslint && yarn run lint:prettier"
   },
   "dependencies": {
     "axios": "^0.16.1",
