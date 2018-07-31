@@ -65,24 +65,18 @@ describe('customers_mandates', () => {
     mock.onGet(`/customers/${props.customerId}/mandates/foo`).reply(500, error);
 
     it('should return a mandate instance', () =>
-      customersMandates
-        .get(props.id, { customerId: props.customerId })
-        .then(result => {
-          expect(result).toBeInstanceOf(Mandate);
-          expect(result.id).toBe(props.id);
-        }));
+      customersMandates.get(props.id, { customerId: props.customerId }).then(result => {
+        expect(result).toBeInstanceOf(Mandate);
+        expect(result.id).toBe(props.id);
+      }));
 
     it('should work with a callback', done => {
-      customersMandates.get(
-        props.id,
-        { customerId: props.customerId },
-        (err, result) => {
-          expect(err).toBeNull();
-          expect(result).toBeInstanceOf(Mandate);
-          expect(result.id).toBe(props.id);
-          done();
-        },
-      );
+      customersMandates.get(props.id, { customerId: props.customerId }, (err, result) => {
+        expect(err).toBeNull();
+        expect(result).toBeInstanceOf(Mandate);
+        expect(result.id).toBe(props.id);
+        done();
+      });
     });
 
     it('should return an error for non-existing IDs', () =>
@@ -96,15 +90,11 @@ describe('customers_mandates', () => {
         }));
 
     it('should return an error with a callback for non-existing IDs', done => {
-      customersMandates.get(
-        'foo',
-        { customerId: props.customerId },
-        (err, result) => {
-          expect(err).toBe(error);
-          expect(result).toBeUndefined();
-          done();
-        },
-      );
+      customersMandates.get('foo', { customerId: props.customerId }, (err, result) => {
+        expect(err).toBe(error);
+        expect(result).toBeUndefined();
+        done();
+      });
     });
   });
 
@@ -135,12 +125,10 @@ describe('customers_mandates', () => {
       .reply(200, response._embedded.mandates[0]);
 
     it('should return a mandate instance', () =>
-      customersMandates
-        .revoke(props.id, { customerId: props.customerId })
-        .then(result => {
-          expect(result).toBeInstanceOf(Mandate);
-          expect(result).toMatchSnapshot();
-        }));
+      customersMandates.revoke(props.id, { customerId: props.customerId }).then(result => {
+        expect(result).toBeInstanceOf(Mandate);
+        expect(result).toMatchSnapshot();
+      }));
 
     it('should work with cancel alias and a callback', done => {
       customersMandates

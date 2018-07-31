@@ -1,4 +1,4 @@
-import Model from "model";
+import Model from 'model';
 
 /**
  * The `Method` model
@@ -8,13 +8,13 @@ export default class Method extends Model {
     super(props);
 
     const defaults = {
-      resource: "method",
+      resource: 'method',
       id: null,
       description: null,
       image: {
         size1x: null,
-        size2x: null
-      }
+        size2x: null,
+      },
     };
 
     Object.assign(this, defaults, props);
@@ -24,9 +24,7 @@ export default class Method extends Model {
    * @param size
    * @returns {string|null}
    */
-  getImage(size = "2x") {
-    return (
-      this.image && (size === "1x" ? this.image.size1x : this.image.size2x)
-    );
+  getImage(size = '2x') {
+    return this.image && (size === '1x' ? this.image.size1x : this.image.size2x);
   }
 }

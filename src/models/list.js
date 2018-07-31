@@ -1,4 +1,4 @@
-import { parseCursorUrl } from "./../utils";
+import { parseCursorUrl } from './../utils';
 
 /**
  * A list helper class
@@ -30,14 +30,7 @@ export default class List extends Array {
     return {};
   }
 
-  static buildResourceList({
-    response,
-    resourceName,
-    params,
-    callback,
-    getResources,
-    Model
-  }) {
+  static buildResourceList({ response, resourceName, params, callback, getResources, Model }) {
     const { _embedded, count = 0, _links = [] } = response;
     const resources = _embedded[resourceName];
     const list = new List();
@@ -47,17 +40,17 @@ export default class List extends Array {
       getResources(
         {
           ...params,
-          ...List.getNextPageParams(_links)
+          ...List.getNextPageParams(_links),
         },
-        callback
+        callback,
       );
     list.previousPage = () =>
       getResources(
         {
           ...params,
-          ...List.getPreviousPageParams(_links)
+          ...List.getPreviousPageParams(_links),
         },
-        callback
+        callback,
       );
     list.nextPageCursor = List.getNextPageParams(_links).from;
     list.previousPageCursor = List.getPreviousPageParams(_links).from;

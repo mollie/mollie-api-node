@@ -51,9 +51,7 @@ describe('payments', () => {
           }
 
           if (!payment.isRefundable()) {
-            console.log(
-              'This payment is not refundable, you cannot test the full flow.',
-            );
+            console.log('This payment is not refundable, you cannot test the full flow.');
             done();
             return;
           }

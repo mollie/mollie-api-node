@@ -48,9 +48,7 @@ describe('refunds', () => {
   describe('.get()', () => {
     const error = { error: { message: 'The refund id is invalid' } };
 
-    mock
-      .onGet(`/refunds/${props.id}`)
-      .reply(200, response._embedded.refunds[0]);
+    mock.onGet(`/refunds/${props.id}`).reply(200, response._embedded.refunds[0]);
     mock.onGet('/refunds/foo').reply(500, error);
 
     it('should return a refund instance', () =>
@@ -97,9 +95,7 @@ describe('refunds', () => {
   });
 
   describe('.delete()', () => {
-    mock
-      .onDelete(`/refunds/${props.id}`)
-      .reply(200, response._embedded.refunds[0]);
+    mock.onDelete(`/refunds/${props.id}`).reply(200, response._embedded.refunds[0]);
 
     it('should return a refund instance', () =>
       refunds.delete(props.id).then(result => {

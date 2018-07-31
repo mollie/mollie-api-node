@@ -1,4 +1,4 @@
-import Model from "model";
+import Model from 'model';
 
 /**
  * The `Customer` model
@@ -8,7 +8,7 @@ export default class Customer extends Model {
     super(props);
 
     const defaults = {
-      resource: "customer",
+      resource: 'customer',
       id: null,
       mode: null,
       name: null,
@@ -20,8 +20,8 @@ export default class Customer extends Model {
       _links: {
         mandates: null,
         subscriptions: null,
-        payments: null
-      }
+        payments: null,
+      },
     };
 
     Object.assign(this, defaults, props);

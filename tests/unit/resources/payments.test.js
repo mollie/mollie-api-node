@@ -86,9 +86,7 @@ describe('payments', () => {
   describe('.get()', () => {
     const error = { error: { message: 'The payment id is invalid' } };
 
-    mock
-      .onGet(`/payments/${props.id}`)
-      .reply(200, response._embedded.payments[0]);
+    mock.onGet(`/payments/${props.id}`).reply(200, response._embedded.payments[0]);
     mock.onGet('/payments/foo').reply(500, error);
 
     it('should return a payment instance', () =>

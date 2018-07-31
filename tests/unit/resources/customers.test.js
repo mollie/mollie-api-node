@@ -49,9 +49,7 @@ describe('customers', () => {
   describe('.get()', () => {
     const error = { error: { message: 'The customer id is invalid' } };
 
-    mock
-      .onGet(`/customers/${props.id}`)
-      .reply(200, response._embedded.customers[0]);
+    mock.onGet(`/customers/${props.id}`).reply(200, response._embedded.customers[0]);
     mock.onGet('/customers/foo').reply(500, error);
 
     it('should return a customer instance', () =>
@@ -91,9 +89,7 @@ describe('customers', () => {
   describe('.update()', () => {
     const error = { error: { message: 'The customer id is invalid' } };
 
-    mock
-      .onPost(`/customers/${props.id}`)
-      .reply(200, response._embedded.customers[0]);
+    mock.onPost(`/customers/${props.id}`).reply(200, response._embedded.customers[0]);
     mock.onPost('/customers/foo').reply(500, error);
 
     it('should return a customer instance', () =>

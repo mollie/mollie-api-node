@@ -23,9 +23,7 @@ describe('methods', () => {
     const methodId = 'ideal';
     const error = { error: { message: 'The method id is invalid' } };
 
-    mock
-      .onGet(`/methods/${methodId}`)
-      .reply(200, response._embedded.methods[0]);
+    mock.onGet(`/methods/${methodId}`).reply(200, response._embedded.methods[0]);
     mock.onGet('/methods/foo').reply(500, error);
 
     it('should return a method instance', () =>

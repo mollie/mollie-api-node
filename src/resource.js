@@ -1,5 +1,5 @@
 /* eslint-disable new-cap */
-import List from "models/list";
+import List from 'models/list';
 
 /**
  * The base resource
@@ -80,8 +80,8 @@ export default class Resource {
    * @private
    */
   getResourceUrl() {
-    if (this.constructor.resource.indexOf("_") !== -1) {
-      const parts = this.constructor.resource.split("_");
+    if (this.constructor.resource.indexOf('_') !== -1) {
+      const parts = this.constructor.resource.split('_');
       return `${parts[0]}/${this.parentId}/${parts[1]}`;
     }
 
@@ -95,8 +95,8 @@ export default class Resource {
    * @private
    */
   getResourceName() {
-    if (this.constructor.resource.includes("_")) {
-      return this.constructor.resource.split("_")[1];
+    if (this.constructor.resource.includes('_')) {
+      return this.constructor.resource.split('_')[1];
     }
 
     return this.constructor.resource;
@@ -110,7 +110,7 @@ export default class Resource {
    * @since 1.0.0
    */
   create(data, cb) {
-    if (typeof data === "function") {
+    if (typeof data === 'function') {
       cb = data; // eslint-disable-line no-param-reassign
     }
 
@@ -136,7 +136,7 @@ export default class Resource {
    * @since 1.0.0
    */
   get(id, params, cb) {
-    if (typeof params === "function") {
+    if (typeof params === 'function') {
       cb = params; // eslint-disable-line no-param-reassign
     }
 
@@ -161,7 +161,7 @@ export default class Resource {
    * @since 1.0.0
    */
   all(params, cb) {
-    if (typeof params === "function") {
+    if (typeof params === 'function') {
       cb = params; // eslint-disable-line no-param-reassign
     }
 
@@ -175,7 +175,7 @@ export default class Resource {
           params,
           callback: cb,
           getResources: this.all,
-          Model: this.constructor.model
+          Model: this.constructor.model,
         });
 
         if (cb) {
@@ -195,7 +195,7 @@ export default class Resource {
    * @since 1.0.0
    */
   update(id, data, cb) {
-    if (typeof data === "function") {
+    if (typeof data === 'function') {
       cb = data; // eslint-disable-line no-param-reassign
     }
 
