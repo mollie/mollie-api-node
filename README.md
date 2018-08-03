@@ -34,9 +34,9 @@ Node client for Mollie's API.
 To use the Mollie API client, the following things are required:
 
 + Get yourself a free [Mollie account](https://www.mollie.com/dashboard/signup). No sign up costs.
-+ Login to your [Dashboard](https://www.mollie.com/dashboard) to get your API keys (live and test mode).
++ Login to your [Dashboard](https://www.mollie.com/dashboard/developers/api-keys) to get your API keys (live and test mode).
 + Now you're ready to use the Mollie API client in test mode.
-+ In order to accept payments in live mode, payment methods must be activated in your account. Just follow [a few steps](https://www.mollie.com/dashboard/?modal=onboarding) and let us handle the rest.
++ In order to accept payments in live mode, payment methods must be activated in your account. Just follow [a few steps](https://www.mollie.com/dashboard/onboarding) and let us handle the rest.
 
 ## Installation
 
@@ -178,4 +178,4 @@ Mollie is always looking for new talent to join our teams. We’re looking for i
 
 ## License
 
-[New BSD (Berkeley Software Distribution) License](https://opensource.org/licenses/BSD-3-Clause). Copyright 2013-2017, Mollie B.V.
+[New BSD (Berkeley Software Distribution) License](https://opensource.org/licenses/BSD-3-Clause). Copyright 2013-2018, Mollie B.V.
