@@ -12,13 +12,12 @@ Node client for Mollie's API.
 
 ## Features
 
-- [Payments](https://www.mollie.com/en/docs/reference/payments/create): are the heart of the Mollie API: this is where most implementations start off. 
-- [Methods](https://www.mollie.com/en/docs/reference/methods/list): show all the payment methods activated on the website profile.
-- [Issuers](https://www.mollie.com/en/docs/reference/issuers/list): allow you to integrate iDEAL's bank selection screen into your own payment flow.
-- [Refunds](https://www.mollie.com/en/docs/reference/refunds/list-all): allow you to make refunds in relation to a payment.
-- [Customers](https://www.mollie.com/en/docs/reference/customers/create): allow you to manage your customer's details.
-- [Mandates](https://www.mollie.com/en/docs/reference/mandates/create): allow you to charge a customer's credit card or bank account recurrently.
-- [Subscriptions](https://www.mollie.com/en/docs/reference/subscriptions/create): allow you to schedule recurring payments to take place at regular intervals.
+- [Payments](https://docs.mollie.com/reference/v2/payments-api/create-payment): are the heart of the Mollie API: this is where most implementations start off. 
+- [Methods](https://docs.mollie.com/reference/v2/methods-api/list-methods): show all the payment methods activated on the website profile. Also allows you to integrate iDEAL's bank selection screen into your own payment flow.
+- [Refunds](https://docs.mollie.com/reference/v2/refunds-api/create-refund): allow you to make refunds in relation to a payment.
+- [Customers](https://docs.mollie.com/reference/v2/customers-api/create-customer): allow you to manage your customer's details.
+- [Mandates](https://docs.mollie.com/reference/v2/mandates-api/create-mandate): allow you to charge a customer's credit card or bank account recurrently.
+- [Subscriptions](https://docs.mollie.com/reference/v2/subscriptions-api/create-subscription): allow you to schedule recurring payments to take place at regular intervals.
 
 # Getting started
 
@@ -160,7 +159,7 @@ For a deep dive in how our systems function we refer to our excellent [guides](h
 
 ### API reference
 
-This library is a wrapper around our Mollie API. Some more specific details such as query parameters and pagination are better explained in our [API reference](https://www.mollie.com/en/docs/reference), and you can also get a better understanding of how the requests look under the hood.
+This library is a wrapper around our Mollie API. Some more specific details such as query parameters and pagination are better explained in our [API reference](https://docs.mollie.com/reference/v2/payments-api/create-payment), and you can also get a better understanding of how the requests look under the hood.
 
 ## Migrating from v1.x
 
