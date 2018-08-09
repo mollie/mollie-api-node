@@ -1,5 +1,5 @@
-lib/mollie/api/cacert.pem: certdata.txt
-	mv ca-bundle.crt lib/mollie/api/cacert.pem
+src/cacert.pem: certdata.txt
+	mv ca-bundle.crt src/cacert.pem
 	rm certdata.txt
 
 mk-ca-bundle.pl:

@@ -1,7 +1,9 @@
-/.idea
+coverage/
+dist/
+node_modules/
+.idea/
+.env
+*.log
 .DS_Store
-/node_modules
-*.map
 /mk-ca-bundle.pl
-/*.tgz
-package/*
+examples/package-lock.json

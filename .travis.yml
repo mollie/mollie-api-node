@@ -1,0 +1,9 @@
+sudo: false
+cache: yarn
+language: node_js
+node_js:
+  - "node"
+  - "4.8"
+script:
+   - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then yarn run test:unit:cov; fi'
+   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then yarn run test:cov; fi'

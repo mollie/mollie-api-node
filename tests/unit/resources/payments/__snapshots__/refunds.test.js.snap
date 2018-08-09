@@ -1,0 +1,215 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`payments_refunds .all() should return a list of all payment refunds 1`] = `
+Array [
+  Refund {
+    "_links": Object {
+      "documentation": Object {
+        "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
+        "type": "text/html",
+      },
+      "payment": Object {
+        "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg",
+        "type": "application/hal+json",
+      },
+      "self": Object {
+        "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT",
+        "type": "application/hal+json",
+      },
+    },
+    "amount": Object {
+      "currency": "EUR",
+      "value": "5.95",
+    },
+    "createdAt": "2018-03-14T17:09:02.0Z",
+    "description": "Order",
+    "id": "re_4qqhO89gsT",
+    "paymentId": "tr_WDqYK6vllg",
+    "resource": "refund",
+    "settlementAmount": null,
+    "status": "pending",
+  },
+]
+`;
+
+exports[`payments_refunds .all() should work with a callback 1`] = `
+Array [
+  Refund {
+    "_links": Object {
+      "documentation": Object {
+        "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
+        "type": "text/html",
+      },
+      "payment": Object {
+        "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg",
+        "type": "application/hal+json",
+      },
+      "self": Object {
+        "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT",
+        "type": "application/hal+json",
+      },
+    },
+    "amount": Object {
+      "currency": "EUR",
+      "value": "5.95",
+    },
+    "createdAt": "2018-03-14T17:09:02.0Z",
+    "description": "Order",
+    "id": "re_4qqhO89gsT",
+    "paymentId": "tr_WDqYK6vllg",
+    "resource": "refund",
+    "settlementAmount": null,
+    "status": "pending",
+  },
+]
+`;
+
+exports[`payments_refunds .cancel() should return a refund instance 1`] = `
+Refund {
+  "_links": Object {
+    "documentation": Object {
+      "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
+      "type": "text/html",
+    },
+    "payment": Object {
+      "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg",
+      "type": "application/hal+json",
+    },
+    "self": Object {
+      "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT",
+      "type": "application/hal+json",
+    },
+  },
+  "amount": Object {
+    "currency": "EUR",
+    "value": "5.95",
+  },
+  "createdAt": "2018-03-14T17:09:02.0Z",
+  "description": "Order",
+  "id": "re_4qqhO89gsT",
+  "paymentId": "tr_WDqYK6vllg",
+  "resource": "refund",
+  "settlementAmount": null,
+  "status": "pending",
+}
+`;
+
+exports[`payments_refunds .cancel() should work with a callback and legacy delete 1`] = `
+Refund {
+  "_links": Object {
+    "documentation": Object {
+      "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
+      "type": "text/html",
+    },
+    "payment": Object {
+      "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg",
+      "type": "application/hal+json",
+    },
+    "self": Object {
+      "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT",
+      "type": "application/hal+json",
+    },
+  },
+  "amount": Object {
+    "currency": "EUR",
+    "value": "5.95",
+  },
+  "createdAt": "2018-03-14T17:09:02.0Z",
+  "description": "Order",
+  "id": "re_4qqhO89gsT",
+  "paymentId": "tr_WDqYK6vllg",
+  "resource": "refund",
+  "settlementAmount": null,
+  "status": "pending",
+}
+`;
+
+exports[`payments_refunds .create() should return a refund instance 1`] = `
+Refund {
+  "_links": Object {
+    "documentation": Object {
+      "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
+      "type": "text/html",
+    },
+    "payment": Object {
+      "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg",
+      "type": "application/hal+json",
+    },
+    "self": Object {
+      "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT",
+      "type": "application/hal+json",
+    },
+  },
+  "amount": Object {
+    "currency": "EUR",
+    "value": "5.95",
+  },
+  "createdAt": "2018-03-14T17:09:02.0Z",
+  "description": "Order",
+  "id": "re_4qqhO89gsT",
+  "paymentId": "tr_WDqYK6vllg",
+  "resource": "refund",
+  "settlementAmount": null,
+  "status": "pending",
+}
+`;
+
+exports[`payments_refunds .create() should work with a callback 1`] = `
+Refund {
+  "_links": Object {
+    "documentation": Object {
+      "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
+      "type": "text/html",
+    },
+    "payment": Object {
+      "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg",
+      "type": "application/hal+json",
+    },
+    "self": Object {
+      "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT",
+      "type": "application/hal+json",
+    },
+  },
+  "amount": Object {
+    "currency": "EUR",
+    "value": "5.95",
+  },
+  "createdAt": "2018-03-14T17:09:02.0Z",
+  "description": "Order",
+  "id": "re_4qqhO89gsT",
+  "paymentId": "tr_WDqYK6vllg",
+  "resource": "refund",
+  "settlementAmount": null,
+  "status": "pending",
+}
+`;
+
+exports[`payments_refunds .get() should return a refund instance 1`] = `
+Refund {
+  "_links": Object {
+    "documentation": Object {
+      "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
+      "type": "text/html",
+    },
+    "payment": Object {
+      "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg",
+      "type": "application/hal+json",
+    },
+    "self": Object {
+      "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT",
+      "type": "application/hal+json",
+    },
+  },
+  "amount": Object {
+    "currency": "EUR",
+    "value": "5.95",
+  },
+  "createdAt": "2018-03-14T17:09:02.0Z",
+  "description": "Order",
+  "id": "re_4qqhO89gsT",
+  "paymentId": "tr_WDqYK6vllg",
+  "resource": "refund",
+  "settlementAmount": null,
+  "status": "pending",
+}
+`;
