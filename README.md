@@ -31,7 +31,7 @@ Node client for Mollie's API.
 
 ## Prerequisites
 
-Mollie API client requires Node 4.x or higher to be installed.
+Mollie API client requires Node 4.8.x or higher to be installed.
 
 ## Requirements
 
