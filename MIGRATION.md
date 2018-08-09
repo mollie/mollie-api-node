@@ -119,10 +119,10 @@ mollie.customers.all(function(err, customers) {
 to:
 
 ```javascript
-mollieClient.customers.all()
+mollie.customers.all()
   .then(customers => (
-    customers.forEach(customer => 
-      mollieClient.payments.get({
+    customers.forEach(customer =>
+      mollie.customers_payments.all({
         customerId: customer.id,
       })
         .then(payments => console.log(payments))

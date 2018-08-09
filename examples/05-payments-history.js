@@ -35,16 +35,13 @@ app.get('/', (req, res) => {
                 </li>`,
             )
             .join('')}
-
-            <br /><br />
-
-            ${
-              payments.previousPageCursor
-                ? `<a href="?from=${payments.previousPageCursor}">Previous</a> | `
-                : ''
-            }
-            ${payments.nextPageCursor ? `<a href="?from=${payments.nextPageCursor}">Next</a>` : ''}
         </ul>
+        ${
+          payments.previousPageCursor
+            ? `<a href="?from=${payments.previousPageCursor}">Previous</a> | `
+            : ''
+        }
+        ${payments.nextPageCursor ? `<a href="?from=${payments.nextPageCursor}">Next</a>` : ''}
       `);
     })
     .catch(error => {
