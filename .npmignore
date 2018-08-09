@@ -1,8 +1,11 @@
-coverage/
-src/
-tests/
-rollup.config.js
-.idea/
-.env
 *.log
 .*
+.env
+.idea/
+coverage/
+examples/
+Makefile
+mk-ca-bundle.pl
+rollup.config.js
+src/
+tests/
