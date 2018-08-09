@@ -22,11 +22,16 @@ Node client for Mollie's API.
 # Getting started
 
 - [Requirements](#requirements)
+- [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Importing the client](#importing-the-client)
 - [Authentication](#authentication)
 - [Making your first request](#making-your-first-request)
 - [Documentation](#documentation)
+
+## Prerequisites
+
+Mollie API client requires Node 4.x or higher to be installed.
 
 ## Requirements
 

@@ -1,6 +1,6 @@
 {
   "name": "@mollie/api-client",
-  "version": "2.0.0-rc.2",
+  "version": "2.0.0",
   "license": "BSD-3-Clause",
   "description": "Official Mollie API client for Node",
   "repository": {
@@ -18,6 +18,9 @@
     "gateway"
   ],
   "main": "dist/mollie.js",
+  "engines": {
+    "node" : ">=4.0.0"
+  },
   "scripts": {
     "prepublish": "yarn run build",
     "precommit": "lint-staged",
