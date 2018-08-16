@@ -174,7 +174,7 @@ export default class Resource {
           resourceName,
           params,
           callback: cb,
-          getResources: this.all,
+          getResources: this.all.bind(this),
           Model: this.constructor.model,
         });
 

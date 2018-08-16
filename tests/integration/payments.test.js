@@ -103,4 +103,46 @@ describe('payments', () => {
         done();
       });
   });
+
+  it('should paginate', done => {
+    let nextPaymentCursor;
+
+    mollieClient.payments
+      .all({
+        limit: 2,
+      })
+      .then(payments => {
+        expect(payments.length).toEqual(2);
+        expect(payments.nextPageCursor).toBeDefined();
+        expect(payments.previousPageCursor).toBeUndefined();
+
+        nextPaymentCursor = payments.nextPageCursor;
+
+        // Second page
+        payments
+          .nextPage()
+          .then(nextPaymentsList => {
+            expect(nextPaymentsList.length).toEqual(2);
+            expect(nextPaymentsList[0].id).toEqual(nextPaymentCursor);
+            expect(nextPaymentsList.nextPageCursor).toBeDefined();
+            expect(nextPaymentsList.previousPageCursor).toBeDefined();
+
+            // Third (and last) page
+            nextPaymentsList.nextPage().then(lastPaymentsList => {
+              expect(lastPaymentsList.length).toEqual(2);
+              expect(nextPaymentsList.nextPageCursor).toEqual(lastPaymentsList[0].id);
+
+              done();
+            });
+          })
+          .catch(err => {
+            expect(err).toBeNull();
+            done();
+          });
+      })
+      .catch(err => {
+        expect(err).toBeNull();
+        done();
+      });
+  });
 });
