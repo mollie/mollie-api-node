@@ -4,7 +4,10 @@
 
 All notable changes to this project will be documented in this file.
 
-#### v2.00 - 2018-08-09
+#### v2.0.1 - 2018-08-17
+  - Fixes #69.
+
+#### v2.0.0 - 2018-08-09
   - Migrated to the v2 API. Refer to the [migration guide](/docs/migration_v3_x.md) for a complete list of changes
 
 #### v1.3.7 - 2018-06-01
