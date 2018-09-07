@@ -164,9 +164,15 @@ export default class Resource {
     if (typeof params === 'function') {
       cb = params; // eslint-disable-line no-param-reassign
     }
-
+    
+    // offset and count parameters should be passed as queryParameters, so they have a special treatment.
+    var idOverride = "", tempParams = [];
+    if (params && params.offset>=0) tempParams.push("offset=" + params.offset);
+    if (params && params.count>=0) tempParams.push("count=" + params.count);
+    if (tempParams.length>0) idOverride = '?' + tempParams.join('&');
+    
     return this.getClient()
-      .get(this.getResourceUrl(), { params })
+      .get(this.getResourceUrl() + idOverride, { params })
       .then(response => {
         const resourceName = this.getResourceName();
         const list = List.buildResourceList({
