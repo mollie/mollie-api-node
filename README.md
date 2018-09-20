@@ -91,7 +91,7 @@ const mollie = require('@mollie/api-client')({ apiKey: 'test_dHar4XY7LxsDOtmnkVt
 ```javascript
 mollie.payments.create({
   amount: {
-    value:    10.00,
+    value:    "10.00",
     currency: 'EUR'
   },
   description: 'My first API payment',
