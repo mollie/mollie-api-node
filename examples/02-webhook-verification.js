@@ -15,7 +15,7 @@ const mollieClient = mollie({ apiKey: 'test_buC3bBQfSQhd4dDUeMctJjDCn3GhP4' });
  * contain the value tr_7r4n54c710n. You should use that id to actively fetch the payment to
  * find out about its status.
  */
-app.get('/webhook', (req, res) => {
+app.post('/webhook', (req, res) => {
   mollieClient.payments
     .get(req.body.id)
     .then(payment => {
