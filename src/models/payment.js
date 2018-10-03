@@ -10,6 +10,7 @@ export default class Payment extends Model {
   static STATUS_EXPIRED = 'expired';
   static STATUS_PAID = 'paid';
   static STATUS_FAILED = 'failed';
+  static STATUS_AUTHORIZED = 'authorized';
 
   static SEQUENCETYPE_ONEOFF = 'oneoff';
   static SEQUENCETYPE_FIRST = 'first';
@@ -78,6 +79,14 @@ export default class Payment extends Model {
    */
   isOpen() {
     return this.status === Payment.STATUS_OPEN;
+  }
+
+  /**
+   * If the payment is authorized
+   * @returns {boolean}
+   */
+  isAuthorized() {
+    return this.status === Payment.STATUS_AUTHORIZED;
   }
 
   /**
