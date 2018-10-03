@@ -56,6 +56,7 @@ describe('payment model', () => {
     expect(payment.isPaid()).toBe(false);
     expect(payment.isCanceled()).toBe(false);
     expect(payment.isExpired()).toBe(false);
+    expect(payment.isAuthorized()).toBe(false);
     expect(payment.getPaymentUrl()).toBe(paymentProps._links.checkout.href);
     expect(payment.toPlainObject()).toMatchSnapshot();
   });
