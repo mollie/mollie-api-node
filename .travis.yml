@@ -7,3 +7,12 @@ node_js:
 script:
    - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then yarn run test:unit:cov; fi'
    - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then yarn run test:cov; fi'
+deploy:
+  provider: npm
+  api_key: mollienl
+    secure:
+      "fpsIqEZNvzcS2g91vwuR8UJo+4Ok6xGuVV/uL5nNia+8cnA+cSfQEmPm4w+0gB3F1UIOGs9ItuMqcBlZOMe7oZxr9Wi+J05LfZGL4cibRXU+ydpnQ0d5Si7/p4W3vskA+SnolDjHPCHAVxZiyRUXswuhMnajbrAejeBvS2n0WF4="
+  email:
+  skip_cleanup: true
+  on:
+    tags: true
