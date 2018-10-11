@@ -6,11 +6,11 @@
   const mollieClient = mollie({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
 
   try {
-    const methods = await mollieClient.methods.get('ideal', {
+    const method = await mollieClient.methods.get('ideal', {
       include: 'issuers',
     });
 
-    console.log(methods);
+    console.log(method);
   } catch (e) {
     console.log(e);
   }

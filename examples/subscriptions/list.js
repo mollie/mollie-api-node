@@ -6,11 +6,11 @@
   const mollieClient = mollie({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
 
   try {
-    const subscription = await mollieClient.customers_subscriptions.all({
+    const subscriptions = await mollieClient.customers_subscriptions.all({
       customerId: 'cst_pzhEvnttJ2',
     });
 
-    console.log(subscription);
+    console.log(subscriptions);
   } catch (e) {
     console.log(e);
   }

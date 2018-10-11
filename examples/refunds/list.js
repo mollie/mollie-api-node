@@ -6,11 +6,11 @@
   const mollieClient = mollie({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
 
   try {
-    const refund = await mollieClient.payments_refunds.get('re_dSRbKFhEcx', {
+    const refunds = await mollieClient.payments_refunds.get('re_dSRbKFhEcx', {
       paymentId: 'tr_x5Sj9HU83J',
     });
 
-    console.log(refund);
+    console.log(refunds);
   } catch (e) {
     console.log(e);
   }

@@ -6,9 +6,9 @@
   const mollieClient = mollie({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
 
   try {
-    const payment = await mollieClient.payments.all();
+    const payments = await mollieClient.payments.all();
 
-    console.log(payment);
+    console.log(payments);
   } catch (e) {
     console.log(e);
   }
