@@ -1,0 +1,6 @@
+{
+  "name": "examples",
+  "dependencies": {
+    "@mollie/api-client": "../"
+  }
+}
