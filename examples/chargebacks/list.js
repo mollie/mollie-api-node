@@ -9,6 +9,6 @@
     const chargebacks = await mollieClient.chargebacks.all();
     console.log(chargebacks);
   } catch (error) {
-    console.error('Someting went wrong', error);
+    console.error('Something went wrong', error);
   }
 })();
