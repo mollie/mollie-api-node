@@ -8,4 +8,4 @@ node_modules/
 /mk-ca-bundle.pl
 examples/package-lock.json
 examples/yarn.lock
-examples/package.json
+examples/package-lock.json

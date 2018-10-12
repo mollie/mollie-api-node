@@ -1,5 +1,5 @@
 {
-  "name": "examples",
+  "private": true,
   "dependencies": {
     "@mollie/api-client": "../"
   }
