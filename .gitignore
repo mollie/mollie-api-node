@@ -7,3 +7,5 @@ node_modules/
 .DS_Store
 /mk-ca-bundle.pl
 examples/package-lock.json
+examples/yarn.lock
+examples/package-lock.json
