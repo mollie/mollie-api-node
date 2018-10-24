@@ -3,7 +3,7 @@
 </p>
 <h1 align="center">Node.JS</h1>
 
-<img src="https://info.mollie.com/hubfs/github/nodejs/editor-1.png" />
+<img src="https://info.mollie.com/hubfs/github/nodejs/editor-2.png" />
 
 > **Note:**
 >
