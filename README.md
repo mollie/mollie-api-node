@@ -2,9 +2,9 @@
   <img src="https://info.mollie.com/hubfs/github/nodejs/logo.png" width="128" height="128"/>
 </p>
 <h1 align="center">Node.JS</h1>
-<p align="center" style="color:#222222; align:center; font-size:28px; font-weight:500;">A custom built node client tailed for Mollie's API.</p>
+<p color="#222222" align="center" font-size="28px" font-weight="500">A custom built node client tailed for Mollie's API.</p>
 
-<img src="https://info.mollie.com/hubfs/github/nodejs/editor.png" />
+<img src="https://info.mollie.com/hubfs/github/nodejs/editor-1.png" />
 
 
 > **Note:**
