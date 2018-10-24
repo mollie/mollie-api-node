@@ -2,10 +2,8 @@
   <img src="https://info.mollie.com/hubfs/github/nodejs/logo.png" width="128" height="128"/>
 </p>
 <h1 align="center">Node.JS</h1>
-<h5 align="center">A custom built node client tailed for Mollie's API.</h5>
 
 <img src="https://info.mollie.com/hubfs/github/nodejs/editor-1.png" />
-
 
 > **Note:**
 >
