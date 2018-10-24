@@ -1,10 +1,15 @@
+<p align="center">
+  <img src="https://info.mollie.com/hubfs/github/nodejs/logo.png" width="128" height="128"/>
+</p>
+<h1 align="center">Node.JS</h1>
+<p align="center" style="color:#222222; align:center; font-size:28px; font-weight:500;">A custom built node client tailed for Mollie's API.</p>
+
+<img src="https://info.mollie.com/hubfs/github/nodejs/editor.png" />
+
+
 > **Note:**
 >
 > This is the README of the v2 Node client. If you are looking for the README of v1 you should look [here](https://github.com/mollie/mollie-api-node/blob/b5873dffdfc84fd8a9347cfda623fea78497405b/README.md).
-
-![Mollie](https://www.mollie.nl/files/Mollie-Logo-Style-Small.png)
-
-Node client for Mollie's API.
 
 # About
 
