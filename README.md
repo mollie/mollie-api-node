@@ -1,7 +1,7 @@
 <p align="center">
   <img src="https://info.mollie.com/hubfs/github/nodejs/logo.png" width="128" height="128"/>
 </p>
-<h1 align="center">Node.JS</h1>
+<h1 align="center">Node.js</h1>
 
 <img src="https://info.mollie.com/hubfs/github/nodejs/editor-2.png" />
 
