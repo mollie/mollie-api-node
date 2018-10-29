@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://info.mollie.com/hubfs/github/nodejs/logo.png" width="128" height="128"/>
+  <img src="https://info.mollie.com/hubfs/github/nodejs/logo-1.png" width="128" height="128"/>
 </p>
 <h1 align="center">Node.js API client for Mollie</h1>
 
