@@ -1,24 +1,32 @@
 {
+  "plugins": [
+    "@babel/plugin-proposal-class-properties"
+  ],
   "presets": [
     [
-      "es2015",
+      "@babel/preset-env",
       {
-        "modules": false
+        "targets": {
+          "node": "4.8"
+        }
       }
     ],
-    "stage-2"
-  ],
-  "plugins": [
-    "external-helpers"
+    "@babel/typescript"
   ],
   "env": {
     "test": {
       "presets": [
-        "es2015",
-        "stage-2"
+        [
+          "@babel/preset-env",
+          {
+            "targets": {
+              "node": "4.8"
+            }
+          }
+        ]
       ],
       "plugins": [
-        "transform-runtime"
+        "@babel/plugin-proposal-class-properties"
       ]
     }
   }

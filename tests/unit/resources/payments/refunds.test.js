@@ -67,7 +67,7 @@ describe('payments_refunds', () => {
           throw new Error('Should reject');
         })
         .catch(err => {
-          expect(err).toBe(error);
+          expect(err).toEqual(error);
         }));
   });
 

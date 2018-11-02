@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`methods .all() should return a list of all methods 1`] = `
-Array [
+List [
   Method {
     "_links": Object {
       "self": Object {
@@ -81,7 +81,7 @@ Array [
 `;
 
 exports[`methods .all() should work with a callback 1`] = `
-Array [
+List [
   Method {
     "_links": Object {
       "self": Object {

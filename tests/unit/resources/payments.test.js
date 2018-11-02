@@ -78,7 +78,7 @@ describe('payments', () => {
           throw new Error('Should reject');
         })
         .catch(err => {
-          expect(err).toBe(error);
+          expect(err).toEqual(error);
           expect(err.error.field).toBe('amount');
         }));
   });
@@ -111,12 +111,12 @@ describe('payments', () => {
           throw new Error('Should reject');
         })
         .catch(err => {
-          expect(err).toBe(error);
+          expect(err).toEqual(error);
         }));
 
     it('should return an error with a callback for non-existing IDs', done => {
       payments.get('foo', (err, result) => {
-        expect(err).toBe(error);
+        expect(err).toEqual(error);
         expect(result).toBeUndefined();
         done();
       });
@@ -156,7 +156,7 @@ describe('payments', () => {
           throw new Error('Should reject');
         })
         .catch(err => {
-          expect(err).toBe(error);
+          expect(err).toEqual(error);
         }));
   });
 });

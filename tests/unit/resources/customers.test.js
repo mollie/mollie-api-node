@@ -74,12 +74,12 @@ describe('customers', () => {
           throw new Error('Should reject');
         })
         .catch(err => {
-          expect(err).toBe(error);
+          expect(err).toEqual(error);
         }));
 
     it('should return an error with a callback for non-existing IDs', done => {
       customers.get('foo', (err, result) => {
-        expect(err).toBe(error);
+        expect(err).toEqual(error);
         expect(result).toBeUndefined();
         done();
       });
@@ -114,12 +114,12 @@ describe('customers', () => {
           throw new Error('Should reject');
         })
         .catch(err => {
-          expect(err).toBe(error);
+          expect(err).toEqual(error);
         }));
 
     it('should return an error with a callback for non-existing IDs', done => {
       customers.update('foo', (err, result) => {
-        expect(err).toBe(error);
+        expect(err).toEqual(error);
         expect(result).toBeUndefined();
         done();
       });
