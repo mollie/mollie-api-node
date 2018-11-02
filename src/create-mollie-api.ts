@@ -1,5 +1,6 @@
 import Payments from './resources/payments';
 import PaymentsRefunds from './resources/payments/refunds';
+import PaymentsChargebacks from './resources/payments/chargebacks';
 import Methods from './resources/methods';
 import Refunds from './resources/refunds';
 import Customers from './resources/customers';
@@ -29,5 +30,6 @@ export default function createMollieApi({ httpClient }: ICreateMollieApi) {
     customers_mandates: new CustomersMandates(httpClient),
     customers_subscriptions: new CustomersSubscriptions(httpClient),
     chargebacks: new Chargebacks(httpClient),
+    payments_chargebacks: new PaymentsChargebacks(httpClient),
   };
 }
