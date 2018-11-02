@@ -3,8 +3,6 @@ import createMollieApi from './create-mollie-api';
 
 /**
  * Create Mollie client.
- * @param options
- * @returns {Object} available resources
  * @since 2.0.0
  */
 export default function mollie(options: any = {}) {

@@ -15,9 +15,6 @@ export default class PaymentsRefunds extends PaymentsResource {
 
   /**
    * Create a payment refund
-   * @param {Object} [data]
-   * @param {function} [cb]
-   * @returns {Promise.<T>}
    * @since 1.1.1
    */
   create(data: any, cb?: Function) {
@@ -32,13 +29,9 @@ export default class PaymentsRefunds extends PaymentsResource {
 
   /**
    * Get a payment refund by ID
-   * @param {number} id
-   * @param {Object} [params]
-   * @param {function} [cb]
-   * @returns {Promise.<T>}
    * @since 1.1.1
    */
-  get(id: string, params: any, cb?: Function) {
+  get(id: string, params?: any, cb?: Function) {
     this.setParent(params);
 
     if (typeof params === 'object') {
@@ -50,12 +43,9 @@ export default class PaymentsRefunds extends PaymentsResource {
 
   /**
    * Get all payment refunds
-   * @param {Object} [params]
-   * @param {function} [cb]
-   * @returns {Promise.<T>}
    * @since 1.1.1
    */
-  all(params: any, cb?: Function) {
+  all(params?: any, cb?: Function) {
     this.setParent(params);
 
     if (typeof params === 'object') {
@@ -67,13 +57,9 @@ export default class PaymentsRefunds extends PaymentsResource {
 
   /**
    * Delete a payment_refund by ID
-   * @param {number} id
-   * @param {Object} [params]
-   * @param {function} [cb]
-   * @returns {Promise.<T>}
    * @since 1.1.1
    */
-  delete(id: string, params: any, cb?: Function) {
+  delete(id: string, params?: any, cb?: Function) {
     if (typeof params === 'function') {
       cb = params; // eslint-disable-line no-param-reassign
     }

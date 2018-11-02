@@ -15,9 +15,6 @@ export default class CustomersMandates extends CustomersResource {
 
   /**
    * Create a customer mandate
-   * @param {Object} [data]
-   * @param {function} [cb]
-   * @returns {Promise.<T>}
    * @since 1.2.0
    */
   create(data: any, cb?: Function) {
@@ -32,13 +29,9 @@ export default class CustomersMandates extends CustomersResource {
 
   /**
    * Get a customer mandate by ID
-   * @param id
-   * @param {Object} [params]
-   * @param {function} [cb]
-   * @returns {Promise.<T>}
    * @since 1.2.0
    */
-  get(id: string, params: any, cb?: Function) {
+  get(id: string, params?: any, cb?: Function) {
     this.setParent(params);
 
     if (typeof params === 'object') {
@@ -50,12 +43,9 @@ export default class CustomersMandates extends CustomersResource {
 
   /**
    * Get all of a customer's mandates
-   * @param {Object} [params]
-   * @param {function} [cb]
-   * @returns {Promise.<T>}
    * @since 1.2.0
    */
-  all(params: any, cb?: Function) {
+  all(params?: any, cb?: Function) {
     this.setParent(params);
 
     if (typeof params === 'object') {
@@ -67,13 +57,9 @@ export default class CustomersMandates extends CustomersResource {
 
   /**
    * Delete a customer subscription
-   * @param id
-   * @param {Object} [params]
-   * @param {function} [cb]
-   * @returns {Promise.<T>}
    * @since 2.0.0
    */
-  delete(id: string, params: any, cb?: Function) {
+  delete(id: string, params?: any, cb?: Function) {
     if (typeof params === 'function') {
       cb = params; // eslint-disable-line no-param-reassign
     }

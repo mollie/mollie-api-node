@@ -15,9 +15,6 @@ export default class CustomersPayments extends CustomersResource {
 
   /**
    * Create a customer payment
-   * @param {Object} [data]
-   * @param {function} [cb]
-   * @returns {Promise.<T>}
    * @since 1.1.1
    */
   create(data: any, cb?: Function) {
@@ -32,13 +29,9 @@ export default class CustomersPayments extends CustomersResource {
 
   /**
    * Get a customer payment
-   * @param {number} id
-   * @param {Object} [params]
-   * @param {function} [cb]
-   * @returns {Promise.<T>}
    * @since 1.1.1
    */
-  get(id: string, params: any, cb?: Function) {
+  get(id: string, params?: any, cb?: Function) {
     this.setParent(params);
 
     if (typeof params === 'object') {
@@ -50,12 +43,9 @@ export default class CustomersPayments extends CustomersResource {
 
   /**
    * Get all of a customer's payments
-   * @param {Object} [params]
-   * @param {function} [cb]
-   * @returns {Promise.<T>}
    * @since 1.1.1
    */
-  all(params: any, cb?: Function) {
+  all(params?: any, cb?: Function) {
     this.setParent(params);
 
     if (typeof params === 'object') {

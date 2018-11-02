@@ -15,9 +15,6 @@ export default class CustomersSubscriptions extends CustomersResource {
 
   /**
    * Create a customer subscription
-   * @param {Object} [data]
-   * @param {function} [cb]
-   * @returns {Promise.<T>}
    * @since 1.3.2
    */
   create(data: any, cb?: Function) {
@@ -32,13 +29,9 @@ export default class CustomersSubscriptions extends CustomersResource {
 
   /**
    * Get a customer subscription
-   * @param id
-   * @param {Object} [params]
-   * @param {function} [cb]
-   * @returns {Promise.<T>}
    * @since 1.3.2
    */
-  get(id: string, params: any, cb?: Function) {
+  get(id: string, params?: any, cb?: Function) {
     this.setParent(params);
 
     if (typeof params === 'object') {
@@ -50,12 +43,9 @@ export default class CustomersSubscriptions extends CustomersResource {
 
   /**
    * Get all customer's subscriptions
-   * @param {Object} [params]
-   * @param {function} [cb]
-   * @returns {Promise.<T>}
    * @since 1.3.2
    */
-  all(params: any, cb?: Function) {
+  all(params?: any, cb?: Function) {
     this.setParent(params);
 
     if (typeof params === 'object') {
@@ -67,13 +57,9 @@ export default class CustomersSubscriptions extends CustomersResource {
 
   /**
    * Delete a customer subscription
-   * @param id
-   * @param {Object} [params]
-   * @param {function} [cb]
-   * @returns {Promise.<T>}
    * @since 1.3.2
    */
-  delete(id: string, params: any, cb?: Function) {
+  delete(id: string, params?: any, cb?: Function) {
     if (typeof params === 'function') {
       cb = params; // eslint-disable-line no-param-reassign
     }
@@ -86,7 +72,7 @@ export default class CustomersSubscriptions extends CustomersResource {
    * Alias for delete
    * @since 1.3.2
    */
-  cancel(id: string, params: any, cb?: Function) {
+  cancel(id: string, params?: any, cb?: Function) {
     return this.delete(id, params, cb);
   }
 }

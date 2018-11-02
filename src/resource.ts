@@ -4,7 +4,6 @@ import { AxiosInstance, AxiosResponse } from 'axios';
 
 /**
  * The base resource
- * @param {Object} httpClient
  * @private
  */
 export default class Resource {
@@ -14,7 +13,6 @@ export default class Resource {
   public static model: any;
   /**
    * Constructor
-   * @param httpClient
    */
   constructor(httpClient: AxiosInstance) {
     this.httpClient = httpClient;
@@ -22,12 +20,8 @@ export default class Resource {
 
   /**
    * Error handler
-   * @param {*} response
-   * @param {function} [cb]
-   * @since 2.0.0
-   * @private
    */
-  static errorHandler(response: AxiosResponse, cb?: Function) {
+  private static errorHandler(response: AxiosResponse, cb?: Function) {
     const error = (response && response.data) || response;
 
     if (cb) {
@@ -62,9 +56,8 @@ export default class Resource {
    * Set the parent ID
    *
    * @since 2.0.0
-   * @protected
    */
-  setParentId(parentId: number) {
+  protected setParentId(parentId: number) {
     this.parentId = parentId;
   }
 
@@ -105,9 +98,6 @@ export default class Resource {
 
   /**
    * Create a resource by ID
-   * @param {Object} [data]
-   * @param {function} [cb]
-   * @returns {Promise.<T>}
    * @since 1.0.0
    */
   create(data: any, cb?: Function): Promise<any> {
@@ -130,10 +120,6 @@ export default class Resource {
 
   /**
    * Get a resource by ID
-   * @param {number} id
-   * @param {Object} [params]
-   * @param {function} [cb]
-   * @returns {Promise.<T>}
    * @since 1.0.0
    */
   get(id: string, params?: any, cb?: Function) {
@@ -188,10 +174,6 @@ export default class Resource {
 
   /**
    * Update a resource by ID
-   * @param {number} id
-   * @param {Object} [data]
-   * @param {function} [cb]
-   * @returns {Promise.<T>}
    * @since 1.0.0
    */
   update(id: string, data: any, cb?: Function) {
@@ -214,9 +196,6 @@ export default class Resource {
 
   /**
    * Delete a resource by ID
-   * @param {number} id
-   * @param {function} [cb]
-   * @returns {Promise.<T>}
    * @since 1.0.0
    */
   delete(id: string, cb?: Function) {
