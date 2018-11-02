@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "noEmit": false,
+    "pretty": true,
+    "lib": [ "es2015", "es2016", "es2017" ],
+    "suppressImplicitAnyIndexErrors": true
+  },
+  "include": [
+    "./@types/**/*",
+    "./src/**/*"
+  ]
+}
