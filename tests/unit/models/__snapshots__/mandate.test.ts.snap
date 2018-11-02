@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mandate model should instantiate with default values 1`] = `
+Object {
+  "_links": Object {
+    "customer": null,
+  },
+  "createdAt": null,
+  "data": undefined,
+  "details": null,
+  "id": null,
+  "isValid": [Function],
+  "mandateReference": null,
+  "method": null,
+  "mode": null,
+  "resource": "mandate",
+  "signatureDate": null,
+  "status": null,
+  "toPlainObject": [Function],
+}
+`;
+
+exports[`mandate model should instantiate with given values 1`] = `
+Object {
+  "_links": Object {
+    "customer": Object {
+      "href": "https://api.mollie.com/v2/customers/cst_4qqhO89gsT",
+      "type": "application/hal+json",
+    },
+    "documentation": Object {
+      "href": "https://docs.mollie.com/reference/v2/mandates-api/get-mandate",
+      "type": "text/html",
+    },
+    "self": Object {
+      "href": "https://api.mollie.com/v2/customers/cst_4qqhO89gsT/mandates/mdt_h3gAaD5zP",
+      "type": "application/hal+json",
+    },
+  },
+  "createdAt": "2018-05-07T10:49:08+00:00",
+  "data": Object {
+    "_links": Object {
+      "customer": Object {
+        "href": "https://api.mollie.com/v2/customers/cst_4qqhO89gsT",
+        "type": "application/hal+json",
+      },
+      "documentation": Object {
+        "href": "https://docs.mollie.com/reference/v2/mandates-api/get-mandate",
+        "type": "text/html",
+      },
+      "self": Object {
+        "href": "https://api.mollie.com/v2/customers/cst_4qqhO89gsT/mandates/mdt_h3gAaD5zP",
+        "type": "application/hal+json",
+      },
+    },
+    "createdAt": "2018-05-07T10:49:08+00:00",
+    "details": Object {
+      "consumerAccount": "NL55INGB0000000000",
+      "consumerBic": "INGBNL2A",
+      "consumerName": "John Doe",
+    },
+    "id": "mdt_h3gAaD5zP",
+    "mandateReference": "YOUR-COMPANY-MD1380",
+    "method": "directdebit",
+    "resource": "mandate",
+    "signatureDate": "2018-05-07",
+    "status": "valid",
+  },
+  "details": Object {
+    "consumerAccount": "NL55INGB0000000000",
+    "consumerBic": "INGBNL2A",
+    "consumerName": "John Doe",
+  },
+  "id": "mdt_h3gAaD5zP",
+  "isValid": [Function],
+  "mandateReference": "YOUR-COMPANY-MD1380",
+  "method": "directdebit",
+  "mode": null,
+  "resource": "mandate",
+  "signatureDate": "2018-05-07",
+  "status": "valid",
+  "toPlainObject": [Function],
+}
+`;

@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`subscription model should instantiate with default values 1`] = `
+Object {
+  "_links": Object {
+    "customer": null,
+  },
+  "amount": Object {
+    "currency": null,
+    "value": null,
+  },
+  "canceledAt": null,
+  "createdAt": null,
+  "data": undefined,
+  "description": null,
+  "getWebhookUrl": [Function],
+  "id": null,
+  "interval": null,
+  "isActive": [Function],
+  "isCanceled": [Function],
+  "isCompleted": [Function],
+  "isPending": [Function],
+  "isSuspended": [Function],
+  "metadata": null,
+  "method": null,
+  "mode": null,
+  "resource": "subscription",
+  "startDate": null,
+  "status": null,
+  "times": null,
+  "timesRemaining": null,
+  "toPlainObject": [Function],
+  "webhookUrl": null,
+}
+`;
+
+exports[`subscription model should instantiate with given values 1`] = `
+Object {
+  "_links": Object {
+    "customer": Object {
+      "href": "https://api.mollie.com/v2/customers/cst_stTC2WHAuS",
+      "type": "application/hal+json",
+    },
+    "documentation": Object {
+      "href": "https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription",
+      "type": "text/html",
+    },
+    "self": Object {
+      "href": "https://api.mollie.com/v2/customers/cst_stTC2WHAuS/subscriptions/sub_rVKGtNd6s3",
+      "type": "application/hal+json",
+    },
+  },
+  "amount": Object {
+    "currency": "EUR",
+    "value": "25.00",
+  },
+  "canceledAt": null,
+  "createdAt": "2016-06-01T12:23:34+00:00",
+  "data": Object {
+    "_links": Object {
+      "customer": Object {
+        "href": "https://api.mollie.com/v2/customers/cst_stTC2WHAuS",
+        "type": "application/hal+json",
+      },
+      "documentation": Object {
+        "href": "https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription",
+        "type": "text/html",
+      },
+      "self": Object {
+        "href": "https://api.mollie.com/v2/customers/cst_stTC2WHAuS/subscriptions/sub_rVKGtNd6s3",
+        "type": "application/hal+json",
+      },
+    },
+    "amount": Object {
+      "currency": "EUR",
+      "value": "25.00",
+    },
+    "createdAt": "2016-06-01T12:23:34+00:00",
+    "description": "Quarterly payment",
+    "id": "sub_rVKGtNd6s3",
+    "interval": "3 months",
+    "method": null,
+    "mode": "live",
+    "resource": "subscription",
+    "status": "active",
+    "times": 4,
+    "webhookUrl": "https://webshop.example.org/payments/webhook",
+  },
+  "description": "Quarterly payment",
+  "getWebhookUrl": [Function],
+  "id": "sub_rVKGtNd6s3",
+  "interval": "3 months",
+  "isActive": [Function],
+  "isCanceled": [Function],
+  "isCompleted": [Function],
+  "isPending": [Function],
+  "isSuspended": [Function],
+  "metadata": null,
+  "method": null,
+  "mode": "live",
+  "resource": "subscription",
+  "startDate": null,
+  "status": "active",
+  "times": 4,
+  "timesRemaining": null,
+  "toPlainObject": [Function],
+  "webhookUrl": "https://webshop.example.org/payments/webhook",
+}
+`;

@@ -1,15 +1,15 @@
 declare namespace Mollie {
   interface Shipment {
-    lines: Array<OrderLine>,
-    tracking?: Tracking,
+    lines: Array<OrderLine>;
+    tracking?: Tracking;
 
     // Access token parameters
-    testmode?: boolean,
+    testmode?: boolean;
   }
 
   interface Tracking {
-    carrier: string,
-    code: string,
-    url?: string,
+    carrier: string;
+    code: string;
+    url?: string;
   }
 }

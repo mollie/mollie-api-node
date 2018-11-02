@@ -11,7 +11,8 @@
         }
       }
     ],
-    "@babel/typescript"
+    "@babel/typescript",
+    "@babel/plugin-proposal-class-properties"
   ],
   "env": {
     "test": {
@@ -26,6 +27,7 @@
         ]
       ],
       "plugins": [
+        "@babel/typescript",
         "@babel/plugin-proposal-class-properties"
       ]
     }

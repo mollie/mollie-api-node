@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`customer model should instantiate with default values 1`] = `
+Object {
+  "_links": Object {
+    "mandates": null,
+    "payments": null,
+    "subscriptions": null,
+  },
+  "createdAt": null,
+  "data": undefined,
+  "email": null,
+  "id": null,
+  "locale": null,
+  "metadata": null,
+  "mode": null,
+  "name": null,
+  "recentlyUsedMethods": null,
+  "resource": "customer",
+  "toPlainObject": [Function],
+}
+`;
+
+exports[`customer model should instantiate with given values 1`] = `
+Object {
+  "_links": Object {
+    "documentation": Object {
+      "href": "https://docs.mollie.com/reference/v2/customers-api/get-customer",
+      "type": "text/html",
+    },
+    "self": Object {
+      "href": "https://api.mollie.com/v2/customers/cst_kEn1PlbGa",
+      "type": "application/hal+json",
+    },
+  },
+  "createdAt": "2018-04-06T13:23:21.0Z",
+  "data": Object {
+    "_links": Object {
+      "documentation": Object {
+        "href": "https://docs.mollie.com/reference/v2/customers-api/get-customer",
+        "type": "text/html",
+      },
+      "self": Object {
+        "href": "https://api.mollie.com/v2/customers/cst_kEn1PlbGa",
+        "type": "application/hal+json",
+      },
+    },
+    "createdAt": "2018-04-06T13:23:21.0Z",
+    "email": "customer@example.org",
+    "id": "cst_kEn1PlbGa",
+    "locale": "nl_NL",
+    "metadata": null,
+    "mode": "test",
+    "name": "Customer A",
+    "recentlyUsedMethods": Array [
+      "creditcard",
+      "ideal",
+    ],
+    "resource": "customer",
+  },
+  "email": "customer@example.org",
+  "id": "cst_kEn1PlbGa",
+  "locale": "nl_NL",
+  "metadata": null,
+  "mode": "test",
+  "name": "Customer A",
+  "recentlyUsedMethods": Array [
+    "creditcard",
+    "ideal",
+  ],
+  "resource": "customer",
+  "toPlainObject": [Function],
+}
+`;

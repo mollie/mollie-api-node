@@ -1,17 +1,16 @@
 {
   "compilerOptions": {
     "outDir": "./dist/",
-    "sourceMap": true,
-    "esModuleInterop": true,
+    "resolveJsonModule": true,
     "module": "commonjs",
-    "noImplicitAny": true,
-    "noEmit": false,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
     "pretty": true,
-    "lib": [ "es2015", "es2016", "es2017" ],
-    "suppressImplicitAnyIndexErrors": true
+    "lib": [ "es2015", "es2016", "es2017" ]
   },
   "include": [
     "./@types/**/*",
-    "./src/**/*"
+    "./src/**/*",
+    "./tests/**/*"
   ]
 }
