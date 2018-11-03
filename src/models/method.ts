@@ -4,6 +4,22 @@ import Model from '../model';
  * The `Method` model
  */
 export default class Method extends Model {
+  static IDEAL = 'ideal';
+  static CREDITCARD = 'creditcard';
+  static MISTERCASH = 'mistercash';
+  static SOFORT = 'sofort';
+  static BANKTRANSFER = 'banktransfer';
+  static DIRECTDEBIT = 'directdebit';
+  static BITCOIN = 'bitcoin';
+  static PAYPAL = 'paypal';
+  static BELFIUS = 'belfius';
+  static PAYSAFECARD = 'paysafecard';
+  static PODIUMCADEAUKAART = 'podiumcadeaukaart';
+  static KBC = 'kbc';
+  static INGHOMEPAY = 'inghomepay';
+  static KLARNAPAYLATER = 'klarnapaylater';
+  static KLARNASLICEIT = 'klarnasliceit';
+
   image: Mollie.Image;
   constructor(props?: Partial<Mollie.MethodResponse>) {
     super(props);

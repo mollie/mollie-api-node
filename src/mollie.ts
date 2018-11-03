@@ -14,3 +14,5 @@ export default function mollie(options: any = {}) {
 
   return createMollieApi({ httpClient });
 }
+
+export * from './models';
