@@ -9,16 +9,6 @@ import * as MethodModel from './models/method';
 import * as PaymentModel from './models/payment';
 import * as RefundModel from './models/refund';
 import * as SubscriptionModel from './models/subscription';
-const Model = {
-  Chargeback: ChargebackModel,
-  Customer: CustomerModel,
-  Mandate: MandateModel,
-  Method: MethodModel,
-  Payment: PaymentModel,
-  Refund: RefundModel,
-  Subscription: SubscriptionModel,
-};
-export { Model };
 
 /**
  * Create Mollie client.
@@ -30,6 +20,16 @@ export default function mollie(options: any = {}) {
   }
 
   const httpClient = createHttpClient(options);
+
+  this.Models = {
+    Chargeback: ChargebackModel,
+    Customer: CustomerModel,
+    Mandate: MandateModel,
+    Method: MethodModel,
+    Payment: PaymentModel,
+    Refund: RefundModel,
+    Subscription: SubscriptionModel,
+  };
 
   return createMollieApi({ httpClient });
 }
