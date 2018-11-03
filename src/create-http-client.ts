@@ -1,3 +1,5 @@
+import path from 'path';
+import fs from 'fs';
 import https from 'https';
 import axios, { AxiosRequestConfig } from 'axios';
 import qs from 'qs';
@@ -30,7 +32,7 @@ export default function createHttpClient(options: MollieRequestConfig = {}) {
 
   if (typeof window !== 'undefined') {
     options.httpsAgent = new https.Agent({
-      cert: require(cert),
+      cert: fs.readFileSync(path.resolve(__dirname, cert), 'utf8'),
     });
   }
 
