@@ -101,12 +101,16 @@ export default class Resource {
    * @since 1.0.0
    */
   create(data: any, cb?: Function): Promise<any> {
+    let query = '';
     if (typeof data === 'function') {
       cb = data; // eslint-disable-line no-param-reassign
+    } else if (typeof data === 'object' && typeof data.include === 'string') {
+      query = `?include=${data.include}`;
+      delete data.include;
     }
 
     return this.getClient()
-      .post(this.getResourceUrl(), data)
+      .post(`${this.getResourceUrl()}${query}`, data)
       .then(response => {
         const model = new (this.constructor as typeof Resource).model(response.data);
 
