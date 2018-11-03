@@ -30,7 +30,7 @@ export default function createHttpClient(options: MollieRequestConfig = {}) {
     'X-Mollie-User-Agent': `mollie/${version}`,
   });
 
-  if (typeof window !== 'undefined') {
+  if (typeof window === 'undefined') {
     options.httpsAgent = new https.Agent({
       cert: fs.readFileSync(path.resolve(__dirname, cert), 'utf8'),
     });
