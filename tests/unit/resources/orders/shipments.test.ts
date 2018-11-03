@@ -1,45 +1,46 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import PaymentsRefunds from '../../../../src/resources/payments/refunds';
-import Refund from '../../../../src/models/refund';
+import OrdersShipments from '../../../../src/resources/orders/shipments';
+import Shipment from '../../../../src/models/shipment';
 
-import response from '../../__stubs__/refunds.json';
+import response from '../../__stubs__/shipments.json';
 
 const mock = new MockAdapter(axios);
 
 const props = {
-  id: 're_4qqhO89gsT',
-  paymentId: 'tr_WDqYK6vllg',
-  amount: {
-    currency: 'EUR',
-    value: '5.95',
+  id: 'shp_3wmsgCJN4U',
+  orderId: 'ord_kEn1PlbGa',
+  tracking: {
+    carrier: 'PostNL',
+    code: '3SKABA000000000',
+    url: 'http://postnl.nl/tracktrace/?B=3SKABA000000000&P=1016EE&D=NL&T=C'
   },
 };
 
-describe('payments_refunds', () => {
-  let paymentsRefunds;
+describe('orders_shipments', () => {
+  let ordersShipments;
   beforeEach(() => {
-    paymentsRefunds = new PaymentsRefunds(axios.create());
+    ordersShipments = new OrdersShipments(axios.create());
   });
 
   it('should have a resource name and model', () => {
-    expect(PaymentsRefunds.resource).toBe('payments_refunds');
-    expect(PaymentsRefunds.model).toBe(Refund);
+    expect(OrdersShipments.resource).toBe('orders_shipments');
+    expect(OrdersShipments.model).toBe(Shipment);
   });
 
   describe('.create()', () => {
-    mock.onPost(`/payments/${props.paymentId}/refunds`).reply(200, response._embedded.refunds[0]);
+    mock.onPost(`/orders/${props.orderId}/shipments`).reply(200, response._embedded.shipments[0]);
 
-    it('should return a refund instance', () =>
-      paymentsRefunds.create(props).then(result => {
-        expect(result).toBeInstanceOf(Refund);
+    it('should return a shipment instance', () =>
+      ordersShipments.create(props).then(result => {
+        expect(result).toBeInstanceOf(Shipment);
         expect(result).toMatchSnapshot();
       }));
 
     it('should work with a callback', done => {
-      paymentsRefunds.create(props, (err, result) => {
-        expect(result).toBeInstanceOf(Refund);
+      ordersShipments.create(props, (err, result) => {
+        expect(result).toBeInstanceOf(Shipment);
         expect(result).toMatchSnapshot();
         done();
       });
@@ -47,22 +48,22 @@ describe('payments_refunds', () => {
   });
 
   describe('.get()', () => {
-    const error = { error: { message: 'The payments_refund id is invalid' } };
+    const error = { error: { message: 'The orders_shipments id is invalid' } };
 
     mock
-      .onGet(`/payments/${props.paymentId}/refunds/${props.id}`)
-      .reply(200, response._embedded.refunds[0]);
-    mock.onGet(`/payments/${props.paymentId}/refunds/foo`).reply(500, error);
+      .onGet(`/orders/${props.orderId}/shipments/${props.id}`)
+      .reply(200, response._embedded.shipments[0]);
+    mock.onGet(`/orders/${props.orderId}/shipments/foo`).reply(500, error);
 
-    it('should return a refund instance', () =>
-      paymentsRefunds.get(props.id, { paymentId: props.paymentId }).then(result => {
-        expect(result).toBeInstanceOf(Refund);
+    it('should return a shipment instance', () =>
+      ordersShipments.get(props.id, { orderId: props.orderId }).then(result => {
+        expect(result).toBeInstanceOf(Shipment);
         expect(result).toMatchSnapshot();
       }));
 
     it('should return an error for non-existing IDs', () =>
-      paymentsRefunds
-        .get('foo', { paymentId: props.paymentId })
+      ordersShipments
+        .get('foo', { orderId: props.orderId })
         .then(() => {
           throw new Error('Should reject');
         })
@@ -72,57 +73,31 @@ describe('payments_refunds', () => {
   });
 
   describe('.all()', () => {
-    mock.onGet(`/payments/${props.paymentId}/refunds`).reply(200, response);
+    mock.onGet(`/orders/${props.orderId}/shipments`).reply(200, response);
 
     it('should return a list of all payment refunds', () =>
-      paymentsRefunds.all({ paymentId: props.paymentId }).then(result => {
+      ordersShipments.all({ orderId: props.orderId }).then(result => {
         expect(result).toBeInstanceOf(Array);
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
       }));
 
     it('should throw an error if "paymentId" is not set', () => {
-      const getRefunds = () => paymentsRefunds.all();
+      const getRefunds = () => ordersShipments.all();
 
       expect(getRefunds).toThrowError(TypeError);
     });
 
     it('should work with a callback', done => {
-      paymentsRefunds
+      ordersShipments
         .withParent({
-          resource: 'payment',
-          id: props.paymentId,
+          resource: 'order',
+          id: props.orderId,
         })
         .all((err, result) => {
           expect(err).toBeNull();
           expect(result).toBeInstanceOf(Array);
           expect(result).toHaveProperty('links');
-          expect(result).toMatchSnapshot();
-          done();
-        });
-    });
-  });
-
-  describe('.cancel()', () => {
-    mock
-      .onDelete(`/payments/${props.paymentId}/refunds/${props.id}`)
-      .reply(200, response._embedded.refunds[0]);
-
-    it('should return a refund instance', () =>
-      paymentsRefunds.cancel(props.id, { paymentId: props.paymentId }).then(result => {
-        expect(result).toBeInstanceOf(Refund);
-        expect(result).toMatchSnapshot();
-      }));
-
-    it('should work with a callback and legacy delete', done => {
-      paymentsRefunds
-        .withParent({
-          resource: 'payment',
-          id: props.paymentId,
-        })
-        .delete(props.id, (err, result) => {
-          expect(err).toBeNull();
-          expect(result).toBeInstanceOf(Refund);
           expect(result).toMatchSnapshot();
           done();
         });

@@ -1,40 +1,57 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`orders_shipments .all() should return a list of all payment refunds 1`] = `
+exports[`orders_refunds .all() should return a list of all order refunds 1`] = `
 Array [
-  Shipment {
+  Refund {
     "_links": Object {
       "documentation": Object {
-        "href": "https://docs.mollie.com/reference/v2/shipments-api/get-shipment",
+        "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
         "type": "text/html",
       },
       "order": Object {
-        "href": "https://api.mollie.com/v2/orders/ord_kEn1PlbGa",
+        "href": "https://api.mollie.com/v2/orders/ord_stTC2WHAuS",
+        "type": "application/hal+json",
+      },
+      "payment": Object {
+        "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg",
         "type": "application/hal+json",
       },
       "self": Object {
-        "href": "https://api.mollie.com/v2/order/ord_kEn1PlbGa/shipments/shp_3wmsgCJN4U",
+        "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT",
         "type": "application/hal+json",
       },
     },
-    "createdAt": "2018-08-09T14:33:54+00:00",
+    "amount": Object {
+      "currency": "EUR",
+      "value": "698.00",
+    },
+    "createdAt": "2018-03-14T17:09:02.0Z",
     "data": Object {
       "_links": Object {
         "documentation": Object {
-          "href": "https://docs.mollie.com/reference/v2/shipments-api/get-shipment",
+          "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
           "type": "text/html",
         },
         "order": Object {
-          "href": "https://api.mollie.com/v2/orders/ord_kEn1PlbGa",
+          "href": "https://api.mollie.com/v2/orders/ord_stTC2WHAuS",
+          "type": "application/hal+json",
+        },
+        "payment": Object {
+          "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg",
           "type": "application/hal+json",
         },
         "self": Object {
-          "href": "https://api.mollie.com/v2/order/ord_kEn1PlbGa/shipments/shp_3wmsgCJN4U",
+          "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT",
           "type": "application/hal+json",
         },
       },
-      "createdAt": "2018-08-09T14:33:54+00:00",
-      "id": "shp_3wmsgCJN4U",
+      "amount": Object {
+        "currency": "EUR",
+        "value": "698.00",
+      },
+      "createdAt": "2018-03-14T17:09:02.0Z",
+      "description": "Required quantity not in stock, refunding one photo book.",
+      "id": "re_4qqhO89gsT",
       "lines": Array [
         Object {
           "_links": Object {
@@ -53,13 +70,12 @@ Array [
             "value": "100.00",
           },
           "id": "odl_dgtxyl",
-          "isCancelable": true,
           "name": "LEGO 42083 Bugatti Chiron",
-          "orderId": "ord_pbjz8x",
+          "orderId": "ord_stTC2WHAuS",
           "quantity": 1,
           "resource": "orderline",
           "sku": "5702016116977",
-          "status": "shipping",
+          "status": "paid",
           "totalAmount": Object {
             "currency": "EUR",
             "value": "299.00",
@@ -75,17 +91,14 @@ Array [
           },
           "vatRate": "21.00",
         },
-        Object {},
       ],
-      "orderId": "ord_kEn1PlbGa",
-      "resource": "shipment",
-      "tracking": Object {
-        "carrier": "PostNL",
-        "code": "3SKABA000000000",
-        "url": "http://postnl.nl/tracktrace/?B=3SKABA000000000&P=1016EE&D=NL&T=C",
-      },
+      "orderId": "ord_stTC2WHAuS",
+      "paymentId": "tr_WDqYK6vllg",
+      "resource": "refund",
+      "status": "processing",
     },
-    "id": "shp_3wmsgCJN4U",
+    "description": "Required quantity not in stock, refunding one photo book.",
+    "id": "re_4qqhO89gsT",
     "lines": Array [
       Object {
         "_links": Object {
@@ -104,13 +117,12 @@ Array [
           "value": "100.00",
         },
         "id": "odl_dgtxyl",
-        "isCancelable": true,
         "name": "LEGO 42083 Bugatti Chiron",
-        "orderId": "ord_pbjz8x",
+        "orderId": "ord_stTC2WHAuS",
         "quantity": 1,
         "resource": "orderline",
         "sku": "5702016116977",
-        "status": "shipping",
+        "status": "paid",
         "totalAmount": Object {
           "currency": "EUR",
           "value": "299.00",
@@ -126,54 +138,68 @@ Array [
         },
         "vatRate": "21.00",
       },
-      Object {},
     ],
-    "orderId": "ord_kEn1PlbGa",
-    "resource": "shipment",
-    "tracking": Object {
-      "carrier": "PostNL",
-      "code": "3SKABA000000000",
-      "url": "http://postnl.nl/tracktrace/?B=3SKABA000000000&P=1016EE&D=NL&T=C",
-    },
+    "orderId": "ord_stTC2WHAuS",
+    "paymentId": "tr_WDqYK6vllg",
+    "resource": "refund",
+    "settlementAmount": null,
+    "status": "processing",
   },
 ]
 `;
 
-exports[`orders_shipments .all() should work with a callback 1`] = `
+exports[`orders_refunds .all() should work with a callback 1`] = `
 Array [
-  Shipment {
+  Refund {
     "_links": Object {
       "documentation": Object {
-        "href": "https://docs.mollie.com/reference/v2/shipments-api/get-shipment",
+        "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
         "type": "text/html",
       },
       "order": Object {
-        "href": "https://api.mollie.com/v2/orders/ord_kEn1PlbGa",
+        "href": "https://api.mollie.com/v2/orders/ord_stTC2WHAuS",
+        "type": "application/hal+json",
+      },
+      "payment": Object {
+        "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg",
         "type": "application/hal+json",
       },
       "self": Object {
-        "href": "https://api.mollie.com/v2/order/ord_kEn1PlbGa/shipments/shp_3wmsgCJN4U",
+        "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT",
         "type": "application/hal+json",
       },
     },
-    "createdAt": "2018-08-09T14:33:54+00:00",
+    "amount": Object {
+      "currency": "EUR",
+      "value": "698.00",
+    },
+    "createdAt": "2018-03-14T17:09:02.0Z",
     "data": Object {
       "_links": Object {
         "documentation": Object {
-          "href": "https://docs.mollie.com/reference/v2/shipments-api/get-shipment",
+          "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
           "type": "text/html",
         },
         "order": Object {
-          "href": "https://api.mollie.com/v2/orders/ord_kEn1PlbGa",
+          "href": "https://api.mollie.com/v2/orders/ord_stTC2WHAuS",
+          "type": "application/hal+json",
+        },
+        "payment": Object {
+          "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg",
           "type": "application/hal+json",
         },
         "self": Object {
-          "href": "https://api.mollie.com/v2/order/ord_kEn1PlbGa/shipments/shp_3wmsgCJN4U",
+          "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT",
           "type": "application/hal+json",
         },
       },
-      "createdAt": "2018-08-09T14:33:54+00:00",
-      "id": "shp_3wmsgCJN4U",
+      "amount": Object {
+        "currency": "EUR",
+        "value": "698.00",
+      },
+      "createdAt": "2018-03-14T17:09:02.0Z",
+      "description": "Required quantity not in stock, refunding one photo book.",
+      "id": "re_4qqhO89gsT",
       "lines": Array [
         Object {
           "_links": Object {
@@ -192,13 +218,12 @@ Array [
             "value": "100.00",
           },
           "id": "odl_dgtxyl",
-          "isCancelable": true,
           "name": "LEGO 42083 Bugatti Chiron",
-          "orderId": "ord_pbjz8x",
+          "orderId": "ord_stTC2WHAuS",
           "quantity": 1,
           "resource": "orderline",
           "sku": "5702016116977",
-          "status": "shipping",
+          "status": "paid",
           "totalAmount": Object {
             "currency": "EUR",
             "value": "299.00",
@@ -214,17 +239,14 @@ Array [
           },
           "vatRate": "21.00",
         },
-        Object {},
       ],
-      "orderId": "ord_kEn1PlbGa",
-      "resource": "shipment",
-      "tracking": Object {
-        "carrier": "PostNL",
-        "code": "3SKABA000000000",
-        "url": "http://postnl.nl/tracktrace/?B=3SKABA000000000&P=1016EE&D=NL&T=C",
-      },
+      "orderId": "ord_stTC2WHAuS",
+      "paymentId": "tr_WDqYK6vllg",
+      "resource": "refund",
+      "status": "processing",
     },
-    "id": "shp_3wmsgCJN4U",
+    "description": "Required quantity not in stock, refunding one photo book.",
+    "id": "re_4qqhO89gsT",
     "lines": Array [
       Object {
         "_links": Object {
@@ -243,13 +265,12 @@ Array [
           "value": "100.00",
         },
         "id": "odl_dgtxyl",
-        "isCancelable": true,
         "name": "LEGO 42083 Bugatti Chiron",
-        "orderId": "ord_pbjz8x",
+        "orderId": "ord_stTC2WHAuS",
         "quantity": 1,
         "resource": "orderline",
         "sku": "5702016116977",
-        "status": "shipping",
+        "status": "paid",
         "totalAmount": Object {
           "currency": "EUR",
           "value": "299.00",
@@ -265,53 +286,67 @@ Array [
         },
         "vatRate": "21.00",
       },
-      Object {},
     ],
-    "orderId": "ord_kEn1PlbGa",
-    "resource": "shipment",
-    "tracking": Object {
-      "carrier": "PostNL",
-      "code": "3SKABA000000000",
-      "url": "http://postnl.nl/tracktrace/?B=3SKABA000000000&P=1016EE&D=NL&T=C",
-    },
+    "orderId": "ord_stTC2WHAuS",
+    "paymentId": "tr_WDqYK6vllg",
+    "resource": "refund",
+    "settlementAmount": null,
+    "status": "processing",
   },
 ]
 `;
 
-exports[`orders_shipments .create() should return a shipment instance 1`] = `
-Shipment {
+exports[`orders_refunds .create() should return a refund instance 1`] = `
+Refund {
   "_links": Object {
     "documentation": Object {
-      "href": "https://docs.mollie.com/reference/v2/shipments-api/get-shipment",
+      "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
       "type": "text/html",
     },
     "order": Object {
-      "href": "https://api.mollie.com/v2/orders/ord_kEn1PlbGa",
+      "href": "https://api.mollie.com/v2/orders/ord_stTC2WHAuS",
+      "type": "application/hal+json",
+    },
+    "payment": Object {
+      "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg",
       "type": "application/hal+json",
     },
     "self": Object {
-      "href": "https://api.mollie.com/v2/order/ord_kEn1PlbGa/shipments/shp_3wmsgCJN4U",
+      "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT",
       "type": "application/hal+json",
     },
   },
-  "createdAt": "2018-08-09T14:33:54+00:00",
+  "amount": Object {
+    "currency": "EUR",
+    "value": "698.00",
+  },
+  "createdAt": "2018-03-14T17:09:02.0Z",
   "data": Object {
     "_links": Object {
       "documentation": Object {
-        "href": "https://docs.mollie.com/reference/v2/shipments-api/get-shipment",
+        "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
         "type": "text/html",
       },
       "order": Object {
-        "href": "https://api.mollie.com/v2/orders/ord_kEn1PlbGa",
+        "href": "https://api.mollie.com/v2/orders/ord_stTC2WHAuS",
+        "type": "application/hal+json",
+      },
+      "payment": Object {
+        "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg",
         "type": "application/hal+json",
       },
       "self": Object {
-        "href": "https://api.mollie.com/v2/order/ord_kEn1PlbGa/shipments/shp_3wmsgCJN4U",
+        "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT",
         "type": "application/hal+json",
       },
     },
-    "createdAt": "2018-08-09T14:33:54+00:00",
-    "id": "shp_3wmsgCJN4U",
+    "amount": Object {
+      "currency": "EUR",
+      "value": "698.00",
+    },
+    "createdAt": "2018-03-14T17:09:02.0Z",
+    "description": "Required quantity not in stock, refunding one photo book.",
+    "id": "re_4qqhO89gsT",
     "lines": Array [
       Object {
         "_links": Object {
@@ -330,13 +365,12 @@ Shipment {
           "value": "100.00",
         },
         "id": "odl_dgtxyl",
-        "isCancelable": true,
         "name": "LEGO 42083 Bugatti Chiron",
-        "orderId": "ord_pbjz8x",
+        "orderId": "ord_stTC2WHAuS",
         "quantity": 1,
         "resource": "orderline",
         "sku": "5702016116977",
-        "status": "shipping",
+        "status": "paid",
         "totalAmount": Object {
           "currency": "EUR",
           "value": "299.00",
@@ -352,17 +386,14 @@ Shipment {
         },
         "vatRate": "21.00",
       },
-      Object {},
     ],
-    "orderId": "ord_kEn1PlbGa",
-    "resource": "shipment",
-    "tracking": Object {
-      "carrier": "PostNL",
-      "code": "3SKABA000000000",
-      "url": "http://postnl.nl/tracktrace/?B=3SKABA000000000&P=1016EE&D=NL&T=C",
-    },
+    "orderId": "ord_stTC2WHAuS",
+    "paymentId": "tr_WDqYK6vllg",
+    "resource": "refund",
+    "status": "processing",
   },
-  "id": "shp_3wmsgCJN4U",
+  "description": "Required quantity not in stock, refunding one photo book.",
+  "id": "re_4qqhO89gsT",
   "lines": Array [
     Object {
       "_links": Object {
@@ -381,13 +412,12 @@ Shipment {
         "value": "100.00",
       },
       "id": "odl_dgtxyl",
-      "isCancelable": true,
       "name": "LEGO 42083 Bugatti Chiron",
-      "orderId": "ord_pbjz8x",
+      "orderId": "ord_stTC2WHAuS",
       "quantity": 1,
       "resource": "orderline",
       "sku": "5702016116977",
-      "status": "shipping",
+      "status": "paid",
       "totalAmount": Object {
         "currency": "EUR",
         "value": "299.00",
@@ -403,52 +433,66 @@ Shipment {
       },
       "vatRate": "21.00",
     },
-    Object {},
   ],
-  "orderId": "ord_kEn1PlbGa",
-  "resource": "shipment",
-  "tracking": Object {
-    "carrier": "PostNL",
-    "code": "3SKABA000000000",
-    "url": "http://postnl.nl/tracktrace/?B=3SKABA000000000&P=1016EE&D=NL&T=C",
-  },
+  "orderId": "ord_stTC2WHAuS",
+  "paymentId": "tr_WDqYK6vllg",
+  "resource": "refund",
+  "settlementAmount": null,
+  "status": "processing",
 }
 `;
 
-exports[`orders_shipments .create() should work with a callback 1`] = `
-Shipment {
+exports[`orders_refunds .create() should work with a callback 1`] = `
+Refund {
   "_links": Object {
     "documentation": Object {
-      "href": "https://docs.mollie.com/reference/v2/shipments-api/get-shipment",
+      "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
       "type": "text/html",
     },
     "order": Object {
-      "href": "https://api.mollie.com/v2/orders/ord_kEn1PlbGa",
+      "href": "https://api.mollie.com/v2/orders/ord_stTC2WHAuS",
+      "type": "application/hal+json",
+    },
+    "payment": Object {
+      "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg",
       "type": "application/hal+json",
     },
     "self": Object {
-      "href": "https://api.mollie.com/v2/order/ord_kEn1PlbGa/shipments/shp_3wmsgCJN4U",
+      "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT",
       "type": "application/hal+json",
     },
   },
-  "createdAt": "2018-08-09T14:33:54+00:00",
+  "amount": Object {
+    "currency": "EUR",
+    "value": "698.00",
+  },
+  "createdAt": "2018-03-14T17:09:02.0Z",
   "data": Object {
     "_links": Object {
       "documentation": Object {
-        "href": "https://docs.mollie.com/reference/v2/shipments-api/get-shipment",
+        "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
         "type": "text/html",
       },
       "order": Object {
-        "href": "https://api.mollie.com/v2/orders/ord_kEn1PlbGa",
+        "href": "https://api.mollie.com/v2/orders/ord_stTC2WHAuS",
+        "type": "application/hal+json",
+      },
+      "payment": Object {
+        "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg",
         "type": "application/hal+json",
       },
       "self": Object {
-        "href": "https://api.mollie.com/v2/order/ord_kEn1PlbGa/shipments/shp_3wmsgCJN4U",
+        "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT",
         "type": "application/hal+json",
       },
     },
-    "createdAt": "2018-08-09T14:33:54+00:00",
-    "id": "shp_3wmsgCJN4U",
+    "amount": Object {
+      "currency": "EUR",
+      "value": "698.00",
+    },
+    "createdAt": "2018-03-14T17:09:02.0Z",
+    "description": "Required quantity not in stock, refunding one photo book.",
+    "id": "re_4qqhO89gsT",
     "lines": Array [
       Object {
         "_links": Object {
@@ -467,13 +511,12 @@ Shipment {
           "value": "100.00",
         },
         "id": "odl_dgtxyl",
-        "isCancelable": true,
         "name": "LEGO 42083 Bugatti Chiron",
-        "orderId": "ord_pbjz8x",
+        "orderId": "ord_stTC2WHAuS",
         "quantity": 1,
         "resource": "orderline",
         "sku": "5702016116977",
-        "status": "shipping",
+        "status": "paid",
         "totalAmount": Object {
           "currency": "EUR",
           "value": "299.00",
@@ -489,17 +532,14 @@ Shipment {
         },
         "vatRate": "21.00",
       },
-      Object {},
     ],
-    "orderId": "ord_kEn1PlbGa",
-    "resource": "shipment",
-    "tracking": Object {
-      "carrier": "PostNL",
-      "code": "3SKABA000000000",
-      "url": "http://postnl.nl/tracktrace/?B=3SKABA000000000&P=1016EE&D=NL&T=C",
-    },
+    "orderId": "ord_stTC2WHAuS",
+    "paymentId": "tr_WDqYK6vllg",
+    "resource": "refund",
+    "status": "processing",
   },
-  "id": "shp_3wmsgCJN4U",
+  "description": "Required quantity not in stock, refunding one photo book.",
+  "id": "re_4qqhO89gsT",
   "lines": Array [
     Object {
       "_links": Object {
@@ -518,13 +558,12 @@ Shipment {
         "value": "100.00",
       },
       "id": "odl_dgtxyl",
-      "isCancelable": true,
       "name": "LEGO 42083 Bugatti Chiron",
-      "orderId": "ord_pbjz8x",
+      "orderId": "ord_stTC2WHAuS",
       "quantity": 1,
       "resource": "orderline",
       "sku": "5702016116977",
-      "status": "shipping",
+      "status": "paid",
       "totalAmount": Object {
         "currency": "EUR",
         "value": "299.00",
@@ -540,151 +579,11 @@ Shipment {
       },
       "vatRate": "21.00",
     },
-    Object {},
   ],
-  "orderId": "ord_kEn1PlbGa",
-  "resource": "shipment",
-  "tracking": Object {
-    "carrier": "PostNL",
-    "code": "3SKABA000000000",
-    "url": "http://postnl.nl/tracktrace/?B=3SKABA000000000&P=1016EE&D=NL&T=C",
-  },
-}
-`;
-
-exports[`orders_shipments .get() should return a shipment instance 1`] = `
-Shipment {
-  "_links": Object {
-    "documentation": Object {
-      "href": "https://docs.mollie.com/reference/v2/shipments-api/get-shipment",
-      "type": "text/html",
-    },
-    "order": Object {
-      "href": "https://api.mollie.com/v2/orders/ord_kEn1PlbGa",
-      "type": "application/hal+json",
-    },
-    "self": Object {
-      "href": "https://api.mollie.com/v2/order/ord_kEn1PlbGa/shipments/shp_3wmsgCJN4U",
-      "type": "application/hal+json",
-    },
-  },
-  "createdAt": "2018-08-09T14:33:54+00:00",
-  "data": Object {
-    "_links": Object {
-      "documentation": Object {
-        "href": "https://docs.mollie.com/reference/v2/shipments-api/get-shipment",
-        "type": "text/html",
-      },
-      "order": Object {
-        "href": "https://api.mollie.com/v2/orders/ord_kEn1PlbGa",
-        "type": "application/hal+json",
-      },
-      "self": Object {
-        "href": "https://api.mollie.com/v2/order/ord_kEn1PlbGa/shipments/shp_3wmsgCJN4U",
-        "type": "application/hal+json",
-      },
-    },
-    "createdAt": "2018-08-09T14:33:54+00:00",
-    "id": "shp_3wmsgCJN4U",
-    "lines": Array [
-      Object {
-        "_links": Object {
-          "imageUrl": Object {
-            "href": "https://sh-s7-live-s.legocdn.com/is/image//LEGO/42083_alt1?$main$",
-            "type": "text/html",
-          },
-          "productUrl": Object {
-            "href": "https://shop.lego.com/nl-NL/Bugatti-Chiron-42083",
-            "type": "text/html",
-          },
-        },
-        "createdAt": "2018-08-02T09:29:56+00:00",
-        "discountAmount": Object {
-          "currency": "EUR",
-          "value": "100.00",
-        },
-        "id": "odl_dgtxyl",
-        "isCancelable": true,
-        "name": "LEGO 42083 Bugatti Chiron",
-        "orderId": "ord_pbjz8x",
-        "quantity": 1,
-        "resource": "orderline",
-        "sku": "5702016116977",
-        "status": "shipping",
-        "totalAmount": Object {
-          "currency": "EUR",
-          "value": "299.00",
-        },
-        "type": "physical",
-        "unitPrice": Object {
-          "currency": "EUR",
-          "value": "399.00",
-        },
-        "vatAmount": Object {
-          "currency": "EUR",
-          "value": "51.89",
-        },
-        "vatRate": "21.00",
-      },
-      Object {},
-    ],
-    "orderId": "ord_kEn1PlbGa",
-    "resource": "shipment",
-    "tracking": Object {
-      "carrier": "PostNL",
-      "code": "3SKABA000000000",
-      "url": "http://postnl.nl/tracktrace/?B=3SKABA000000000&P=1016EE&D=NL&T=C",
-    },
-  },
-  "id": "shp_3wmsgCJN4U",
-  "lines": Array [
-    Object {
-      "_links": Object {
-        "imageUrl": Object {
-          "href": "https://sh-s7-live-s.legocdn.com/is/image//LEGO/42083_alt1?$main$",
-          "type": "text/html",
-        },
-        "productUrl": Object {
-          "href": "https://shop.lego.com/nl-NL/Bugatti-Chiron-42083",
-          "type": "text/html",
-        },
-      },
-      "createdAt": "2018-08-02T09:29:56+00:00",
-      "discountAmount": Object {
-        "currency": "EUR",
-        "value": "100.00",
-      },
-      "id": "odl_dgtxyl",
-      "isCancelable": true,
-      "name": "LEGO 42083 Bugatti Chiron",
-      "orderId": "ord_pbjz8x",
-      "quantity": 1,
-      "resource": "orderline",
-      "sku": "5702016116977",
-      "status": "shipping",
-      "totalAmount": Object {
-        "currency": "EUR",
-        "value": "299.00",
-      },
-      "type": "physical",
-      "unitPrice": Object {
-        "currency": "EUR",
-        "value": "399.00",
-      },
-      "vatAmount": Object {
-        "currency": "EUR",
-        "value": "51.89",
-      },
-      "vatRate": "21.00",
-    },
-    Object {},
-  ],
-  "orderId": "ord_kEn1PlbGa",
-  "resource": "shipment",
-  "tracking": Object {
-    "carrier": "PostNL",
-    "code": "3SKABA000000000",
-    "url": "http://postnl.nl/tracktrace/?B=3SKABA000000000&P=1016EE&D=NL&T=C",
-  },
+  "orderId": "ord_stTC2WHAuS",
+  "paymentId": "tr_WDqYK6vllg",
+  "resource": "refund",
+  "settlementAmount": null,
+  "status": "processing",
 }
 `;

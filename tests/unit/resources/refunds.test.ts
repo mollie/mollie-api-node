@@ -4,7 +4,7 @@ import MockAdapter from 'axios-mock-adapter';
 import Refunds from '../../../src/resources/refunds';
 import Refund from '../../../src/models/refund';
 
-import response from '../__stubs__/refunds.json';
+import response from '../__stubs__/payments_refunds.json';
 
 const mock = new MockAdapter(axios);
 
