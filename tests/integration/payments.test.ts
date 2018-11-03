@@ -3,6 +3,7 @@ import httpAdapter from 'axios/lib/adapters/http';
 import dotenv from 'dotenv';
 
 import mollie from '../../src/mollie';
+import Payment from '../../src/models/payment';
 
 /**
  * Overwrite the default XMLHttpRequestAdapter
@@ -20,7 +21,7 @@ describe('payments', () => {
   it('should integrate', done => {
     mollieClient.payments
       .all()
-      .then(payments => {
+      .then((payments: Array<Payment>) => {
         let paymentExists;
 
         if (!payments.length || payments[0].isExpired()) {
@@ -65,7 +66,7 @@ describe('payments', () => {
                 refundExists = mollieClient.payments_refunds
                   .create({
                     paymentId: payments[0].id,
-                    amount: { value: '5.00', currency: 'EUR' },
+                    amount: { value: '5.00', currency: payments[0].amount.currency },
                   })
                   .then(refund => {
                     expect(refund).toBeDefined();
