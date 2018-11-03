@@ -1,3 +1,5 @@
+import { AxiosInstance } from 'axios';
+
 import Payments from './resources/payments';
 import PaymentsRefunds from './resources/payments/refunds';
 import PaymentsChargebacks from './resources/payments/chargebacks';
@@ -8,7 +10,6 @@ import CustomersPayments from './resources/customers/payments';
 import CustomersMandates from './resources/customers/mandates';
 import CustomersSubscriptions from './resources/customers/subscriptions';
 import Chargebacks from './resources/chargebacks';
-import { AxiosInstance } from 'axios';
 
 interface ICreateMollieApi {
   httpClient: AxiosInstance;
