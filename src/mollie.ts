@@ -20,15 +20,5 @@ export default function mollie(options: any = {}) {
 
   const httpClient = createHttpClient(options);
 
-  return Object.assign({}, createMollieApi({ httpClient }), {
-    models: {
-      Chargeback: ChargebackModel,
-      Customer: CustomerModel,
-      Mandate: MandateModel,
-      Method: MethodModel,
-      Payment: PaymentModel,
-      Refund: RefundModel,
-      Subscription: SubscriptionModel,
-    },
-  });
+  return createMollieApi({ httpClient });
 }
