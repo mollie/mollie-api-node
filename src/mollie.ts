@@ -1,13 +1,5 @@
 import createHttpClient from './create-http-client';
 import createMollieApi from './create-mollie-api';
-// Expose models
-import * as ChargebackModel from './models/chargeback';
-import * as CustomerModel from './models/customer';
-import * as MandateModel from './models/mandate';
-import * as MethodModel from './models/method';
-import * as PaymentModel from './models/payment';
-import * as RefundModel from './models/refund';
-import * as SubscriptionModel from './models/subscription';
 
 /**
  * Create Mollie client.
