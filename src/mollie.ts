@@ -2,14 +2,23 @@ import createHttpClient from './create-http-client';
 import createMollieApi from './create-mollie-api';
 
 // Expose models
-import * as chargeback from './models/chargeback';
-import * as customer from './models/customer';
-import * as mandate from './models/mandate';
-import * as method from './models/method';
-import * as payment from './models/payment';
-import * as refund from './models/refund';
-import * as subscription from './models/subscription';
-export { chargeback, customer, mandate, method, payment, refund, subscription };
+import * as ChargebackModel from './models/chargeback';
+import * as CustomerModel from './models/customer';
+import * as MandateModel from './models/mandate';
+import * as MethodModel from './models/method';
+import * as PaymentModel from './models/payment';
+import * as RefundModel from './models/refund';
+import * as SubscriptionModel from './models/subscription';
+const Model = {
+  Chargeback: ChargebackModel,
+  Customer: CustomerModel,
+  Mandate: MandateModel,
+  Method: MethodModel,
+  Payment: PaymentModel,
+  Refund: RefundModel,
+  Subscription: SubscriptionModel,
+};
+export { Model };
 
 /**
  * Create Mollie client.
