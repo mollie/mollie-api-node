@@ -1,6 +1,5 @@
 import createHttpClient from './create-http-client';
 import createMollieApi from './create-mollie-api';
-
 // Expose models
 import * as ChargebackModel from './models/chargeback';
 import * as CustomerModel from './models/customer';
@@ -21,15 +20,15 @@ export default function mollie(options: any = {}) {
 
   const httpClient = createHttpClient(options);
 
-  this.Models = {
-    Chargeback: ChargebackModel,
-    Customer: CustomerModel,
-    Mandate: MandateModel,
-    Method: MethodModel,
-    Payment: PaymentModel,
-    Refund: RefundModel,
-    Subscription: SubscriptionModel,
-  };
-
-  return createMollieApi({ httpClient });
+  return Object.assign({}, createMollieApi({ httpClient }), {
+    models: {
+      Chargeback: ChargebackModel,
+      Customer: CustomerModel,
+      Mandate: MandateModel,
+      Method: MethodModel,
+      Payment: PaymentModel,
+      Refund: RefundModel,
+      Subscription: SubscriptionModel,
+    },
+  });
 }
