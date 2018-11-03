@@ -1,8 +1,9 @@
-import fs from 'fs';
 import https from 'https';
-import path from 'path';
 import axios, { AxiosRequestConfig } from 'axios';
 import qs from 'qs';
+
+// @ts-ignore
+import cert from './cacert.pem';
 
 // @ts-ignore
 import { version } from '../package.json';
@@ -29,7 +30,7 @@ export default function createHttpClient(options: MollieRequestConfig = {}) {
 
   if (typeof window !== 'undefined') {
     options.httpsAgent = new https.Agent({
-      cert: fs.readFileSync(path.resolve(__dirname, './cacert.pem')),
+      cert: require(cert),
     });
   }
 
