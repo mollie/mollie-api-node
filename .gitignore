@@ -4,6 +4,7 @@ node_modules/
 .idea/
 .env
 *.log
+.rpt2*/
 .DS_Store
 /mk-ca-bundle.pl
 package-lock.json

@@ -65,7 +65,7 @@
     "rollup-plugin-includepaths": "^0.2.3",
     "rollup-plugin-json": "^3.1.0",
     "rollup-plugin-node-resolve": "^3.4.0",
-    "rollup-plugin-typescript": "^1.0.0",
+    "rollup-plugin-typescript2": "^0.17.2",
     "rollup-plugin-url": "^2.0.1",
     "ts-jest": "^23.10.4",
     "tslib": "^1.9.3",
