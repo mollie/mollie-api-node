@@ -1,3 +1,4 @@
+import path from 'path';
 import fs from 'fs';
 import https from 'https';
 import axios, { AxiosRequestConfig } from 'axios';
@@ -29,10 +30,12 @@ export default function createHttpClient(options: MollieRequestConfig = {}) {
     'X-Mollie-User-Agent': `mollie/${version}`,
   });
 
-  if (typeof window === 'undefined') {
+  try {
     options.httpsAgent = new https.Agent({
-      cert: fs.readFileSync(cert, 'utf8'),
+      cert: fs.readFileSync(path.resolve(__dirname, cert), 'utf8'),
     });
+  } catch (e) {
+    // We could be in a browser environment
   }
 
   options.paramsSerializer = options.paramsSerializer || qs.stringify;
