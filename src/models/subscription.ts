@@ -3,10 +3,29 @@ import Model from '../model';
 /**
  * The `Subscription` model
  */
-export default class Subscription extends Model {
-  webhookUrl: string;
+export default class Subscription extends Model implements Mollie.SubscriptionResponse {
+  resource: string;
+  id: string;
+  mode: Mollie.ApiMode;
   status: Mollie.SubscriptionStatus;
+  amount: Mollie.Amount;
+  times: number;
+  timesRemaining: number;
+  interval: string;
+  startDate: string;
+  nextPaymentDate?: string;
+  description: string;
+  method: string;
+  mandateId?: string;
+  createdAt?: string;
   canceledAt: string;
+  webhookUrl: string;
+  metadata: any;
+  _links: Mollie.Links;
+
+  // Access token parameters
+  testmode?: boolean;
+
   static STATUS_ACTIVE = 'active';
   static STATUS_PENDING = 'pending'; // Waiting for a valid mandate.
   static STATUS_CANCELED = 'canceled';

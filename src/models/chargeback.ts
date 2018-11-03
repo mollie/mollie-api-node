@@ -3,7 +3,16 @@ import Model from '../model';
 /**
  * The `Chargeback` model
  */
-export default class Chargeback extends Model {
+export default class Chargeback extends Model implements Mollie.ChargebackResponse {
+  resource: string;
+  id: string;
+  amount: Mollie.Amount;
+  settlementAmount: Mollie.Amount;
+  createdAt: string;
+  reversedAt: string;
+  paymentId: string;
+  _links: Mollie.Links;
+
   constructor(props?: Partial<Mollie.ChargebackResponse>) {
     super(props);
 

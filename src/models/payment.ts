@@ -3,13 +3,45 @@ import Model from '../model';
 /**
  * The `Payment` model
  */
-export default class Payment extends Model {
+export default class Payment extends Model implements Mollie.PaymentResponse {
+  resource: string;
+  id: string;
+  mode: Mollie.ApiMode;
+  createdAt: string;
   status: Mollie.PaymentStatus;
-  paidAt: string;
-  expiredAt: string;
-  canceledAt: string;
-  amountRemaining: Mollie.Amount;
+  isCancelable: boolean;
+  authorizedAt?: string;
+  paidAt?: string;
+  canceledAt?: string;
+  expiresAt: string;
+  expiredAt?: string;
+  failedAt?: string;
+  amount: Mollie.Amount;
+  amountRefunded?: Mollie.Amount;
+  amountRemaining?: Mollie.Amount;
+  amountCaptured?: Mollie.Amount;
+  description: string;
+  redirectUrl: string | null;
+  webhookUrl?: string;
+  method: Mollie.Method;
+  metadata: any;
+  locale: Mollie.Locale;
+  countryCode?: string;
+  profileId: string;
+  settlementAmount?: Mollie.Amount;
+  settlementId?: string;
+  customerId?: string;
+  sequenceType: string;
+  mandateId?: string;
+  subscriptionId?: string;
+  orderId?: string;
+  details?: any;
+  applicationFee?: {
+    amount: Mollie.Amount;
+    description: string;
+  };
   _links: Mollie.Links;
+
   static STATUS_OPEN = 'open';
   static STATUS_PENDING = 'pending';
   static STATUS_CANCELED = 'canceled';
@@ -25,7 +57,7 @@ export default class Payment extends Model {
   constructor(props?: Partial<Mollie.PaymentResponse>) {
     super(props);
 
-    const defaults: Mollie.PaymentResponse = {
+    const defaults: Partial<Mollie.PaymentResponse> = {
       resource: 'payment',
       id: null,
       mode: null,

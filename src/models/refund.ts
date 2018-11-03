@@ -3,8 +3,17 @@ import Model from '../model';
 /**
  * The `Refund` model
  */
-export default class Refund extends Model {
-  status: Mollie.RefundStatus;
+export default class Refund extends Model implements Mollie.RefundResponse {
+  resource: string;
+  id: string;
+  amount: Mollie.Amount;
+  status: string;
+  createdAt: string;
+  description: string;
+  paymentId: string;
+  settlementAmount?: Mollie.Amount;
+  _links: Mollie.Links;
+
   static STATUS_QUEUED = 'queued';
   static STATUS_PENDING = 'pending';
   static STATUS_PROCESSING = 'processing';

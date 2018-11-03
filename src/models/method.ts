@@ -3,7 +3,13 @@ import Model from '../model';
 /**
  * The `Method` model
  */
-export default class Method extends Model {
+export default class Method extends Model implements Mollie.MethodResponse {
+  resource: string;
+  id: string;
+  description: string;
+  image: Mollie.Image;
+  _links: Mollie.Links;
+
   static IDEAL = 'ideal';
   static CREDITCARD = 'creditcard';
   static MISTERCASH = 'mistercash';
@@ -19,8 +25,6 @@ export default class Method extends Model {
   static INGHOMEPAY = 'inghomepay';
   static KLARNAPAYLATER = 'klarnapaylater';
   static KLARNASLICEIT = 'klarnasliceit';
-
-  image: Mollie.Image;
   constructor(props?: Partial<Mollie.MethodResponse>) {
     super(props);
 

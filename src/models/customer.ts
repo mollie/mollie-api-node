@@ -3,7 +3,21 @@ import Model from '../model';
 /**
  * The `Customer` model
  */
-export default class Customer extends Model {
+export default class Customer extends Model implements Mollie.CustomerResponse {
+  resource: string;
+  id: string;
+  mode: Mollie.ApiMode;
+  name: string;
+  email: string;
+  locale: Mollie.Locale;
+  recentlyUsedMethods: Array<Mollie.Method>;
+  metadata: any;
+  createdAt: string;
+  _links: Mollie.Links;
+
+  // Access token parameters
+  testmode?: boolean;
+
   constructor(props?: Partial<Mollie.CustomerResponse>) {
     super(props);
 

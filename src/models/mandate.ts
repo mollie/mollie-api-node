@@ -1,12 +1,24 @@
 import Model from '../model';
-
 /**
  * The `Mandate` model
  */
-export default class Mandate extends Model {
+export default class Mandate extends Model implements Mollie.MandateResponse {
+  resource: string;
+  id: string;
+  mode: Mollie.ApiMode;
+  status: Mollie.MandateStatus;
+  method: 'directdebit' | 'creditcard';
+  details: Mollie.MandateDetails;
+  mandateReference: string;
+  signatureDate: string;
+  createdAt: string;
+  _links: Mollie.Links;
+
+  // Access token parameters
+  testmode?: boolean;
+
   static STATUS_VALID = 'valid';
   static STATUS_INVALID = 'invalid';
-  status: Mollie.MandateStatus;
 
   constructor(props?: Partial<Mollie.MandateResponse>) {
     super(props);
