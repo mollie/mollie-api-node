@@ -10,6 +10,10 @@ import CustomersPayments from './resources/customers/payments';
 import CustomersMandates from './resources/customers/mandates';
 import CustomersSubscriptions from './resources/customers/subscriptions';
 import Chargebacks from './resources/chargebacks';
+import OrdersShipments from './resources/orders/shipments';
+import OrdersRefunds from './resources/orders/refunds';
+import Orders from './resources/orders';
+import OrdersLines from './resources/orders/lines';
 
 interface ICreateMollieApi {
   httpClient: AxiosInstance;
@@ -32,5 +36,9 @@ export default function createMollieApi({ httpClient }: ICreateMollieApi) {
     customers_subscriptions: new CustomersSubscriptions(httpClient),
     chargebacks: new Chargebacks(httpClient),
     payments_chargebacks: new PaymentsChargebacks(httpClient),
+    orders: new Orders(httpClient),
+    orders_shipments: new OrdersShipments(httpClient),
+    orders_refunds: new OrdersRefunds(httpClient),
+    orders_lines: new OrdersLines(httpClient),
   };
 }

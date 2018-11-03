@@ -7,6 +7,10 @@ declare namespace Mollie {
     testmode?: boolean;
   }
 
+  interface OrderShipment extends Shipment {
+    orderId?: string,
+  }
+
   interface Tracking {
     carrier: string;
     code: string;

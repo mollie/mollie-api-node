@@ -33,6 +33,7 @@ declare namespace Mollie {
   }
 
   interface FullOrderLine {
+    resource?: string,
     id?: string;
     type?: OrderLineType;
     name: string;
@@ -45,6 +46,7 @@ declare namespace Mollie {
     sku: string;
     imageUrl: string;
     productUrl: string;
+    _links?: Links,
   }
 
   interface OrderAddress extends Address {

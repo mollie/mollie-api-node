@@ -15,9 +15,10 @@ export default class PaymentsRefunds extends PaymentsResource {
 
   /**
    * Create a payment refund
+   *
    * @since 1.1.1
    */
-  create(data: any, cb?: Function) {
+  create(data: Mollie.PaymentRefund, cb?: Function) {
     this.setParent(data);
 
     if (typeof data === 'object') {
@@ -29,6 +30,7 @@ export default class PaymentsRefunds extends PaymentsResource {
 
   /**
    * Get a payment refund by ID
+   *
    * @since 1.1.1
    */
   get(id: string, params?: any, cb?: Function) {
@@ -43,6 +45,7 @@ export default class PaymentsRefunds extends PaymentsResource {
 
   /**
    * Get all payment refunds
+   *
    * @since 1.1.1
    */
   all(params?: any, cb?: Function) {
@@ -57,6 +60,7 @@ export default class PaymentsRefunds extends PaymentsResource {
 
   /**
    * Delete a payment_refund by ID
+   *
    * @since 1.1.1
    */
   delete(id: string, params?: any, cb?: Function) {
@@ -71,6 +75,7 @@ export default class PaymentsRefunds extends PaymentsResource {
 
   /**
    * Alias for delete
+   *
    * @since 1.3.2
    */
   cancel() {

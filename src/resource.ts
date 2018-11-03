@@ -7,8 +7,8 @@ import { AxiosInstance, AxiosResponse } from 'axios';
  * @private
  */
 export default class Resource {
-  private readonly httpClient: AxiosInstance;
-  private parentId: number;
+  protected readonly httpClient: AxiosInstance;
+  protected parentId: number;
   public static resource: string;
   public static model: any;
   /**
@@ -21,7 +21,7 @@ export default class Resource {
   /**
    * Error handler
    */
-  private static errorHandler(response: AxiosResponse, cb?: Function) {
+  protected static errorHandler(response: AxiosResponse, cb?: Function) {
     const error = (response && response.data) || response;
 
     if (cb) {
@@ -35,7 +35,7 @@ export default class Resource {
    *
    * @since 2.0.0
    */
-  private getClient() {
+  protected getClient() {
     return this.httpClient;
   }
 
@@ -75,7 +75,7 @@ export default class Resource {
    *
    * @since 2.0.0
    */
-  private getResourceUrl(): string {
+  protected getResourceUrl(): string {
     if ((this.constructor as typeof Resource).resource.indexOf('_') !== -1) {
       const parts = (this.constructor as typeof Resource).resource.split('_');
       return `${parts[0]}/${this.parentId}/${parts[1]}`;
@@ -88,7 +88,7 @@ export default class Resource {
    * Get the resource name from the resource identifier
    * @since 2.0.0-rc.2
    */
-  private getResourceName(): string {
+  protected getResourceName(): string {
     if ((this.constructor as typeof Resource).resource.includes('_')) {
       return (this.constructor as typeof Resource).resource.split('_')[1];
     }
