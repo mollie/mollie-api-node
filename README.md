@@ -3,7 +3,7 @@
 </p>
 <h1 align="center">Node.js API client for Mollie</h1>
 
-<img src="https://info.mollie.com/hubfs/github/nodejs/editor-2.png" />
+<img src="https://info.mollie.com/hubfs/github/nodejs/editor-3.png" />
 
 > **Note:**
 >
