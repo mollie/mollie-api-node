@@ -11,6 +11,8 @@
 
 # About
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/mollie/mollie-api-node.svg)](https://greenkeeper.io/)
+
 [Mollie](https://www.mollie.com/) builds payment products, commerce solutions and APIs that let you accept online and mobile payments, for small online stores and Fortune 500s alike. Accepting [iDEAL](https://www.mollie.com/payments/ideal), [Bancontact/Mister Cash](https://www.mollie.com/payments/bancontact), [SOFORT Banking](https://www.mollie.com/payments/sofort), [Credit Card](https://www.mollie.com/payments/credit-card), [SEPA Bank transfer](https://www.mollie.com/payments/bank-transfer), [SEPA Direct debit](https://www.mollie.com/payments/direct-debit), [Bitcoin](https://www.mollie.com/payments/bitcoin), [PayPal](https://www.mollie.com/payments/paypal), [Belfius Direct Net](https://www.mollie.com/payments/belfius), [paysafecard](https://www.mollie.com/payments/paysafecard), [Gift Cards](https://www.mollie.com/payments/gift-cards), and [ING Home’Pay](https://www.mollie.com/payments/ing-homepay), [Giropay](https://www.mollie.com/en/payments/giropay/) and [EPS](https://www.mollie.com/en/payments/eps/) online payments without fixed monthly costs or any punishing registration procedures. Just use the Mollie API to receive payments directly on your website or easily refund transactions to your customers.
 
 ## Features
