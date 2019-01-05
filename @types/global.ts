@@ -90,3 +90,11 @@ declare namespace Mollie {
     | 'Visa'
     | null;
 }
+
+interface ConstructableModel<T> {
+  new(data: any) : T;
+  data: any;
+  id: string;
+  mode: Mollie.ApiMode;
+  resource: string;
+}

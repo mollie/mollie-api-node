@@ -7,6 +7,7 @@ export default class Capture extends Model implements Mollie.CaptureResponse {
   resource: string;
   id: string;
   mode: Mollie.ApiMode;
+
   amount: Mollie.Amount;
   settlementAmount: Mollie.Amount;
   paymentId: string;

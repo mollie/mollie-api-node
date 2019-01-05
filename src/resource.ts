@@ -1,16 +1,19 @@
-/* eslint-disable new-cap */
 import List from './models/list';
+import Model from './model';
 import { AxiosInstance, AxiosResponse } from 'axios';
+import qs from 'qs';
 
 /**
  * The base resource
- * @private
  */
 export default class Resource {
   protected readonly httpClient: AxiosInstance;
+  public readonly apiName: string;
+  public readonly resourcePrefix: string;
   protected parentId: number;
   public static resource: string;
-  public static model: any;
+  public static model: ConstructableModel<Model>;
+
   /**
    * Constructor
    */
@@ -43,9 +46,10 @@ export default class Resource {
    * Set the parent ID by providing the parent
    *
    * @since 1.1.1
+   *
    * @deprecated
    */
-  withParent(parent: any) {
+  protected withParent(parent: any) {
     if (parent && parent.id) {
       this.setParentId(parent.id);
     }
@@ -76,143 +80,175 @@ export default class Resource {
    * @since 2.0.0
    */
   protected getResourceUrl(): string {
-    if ((this.constructor as typeof Resource).resource.indexOf('_') !== -1) {
-      const parts = (this.constructor as typeof Resource).resource.split('_');
+    if ((this.constructor as typeof Resource).model.resource.indexOf('_') !== -1) {
+      const parts = (this.constructor as typeof Resource).model.resource.split('_');
       return `${parts[0]}/${this.parentId}/${parts[1]}`;
     }
 
-    return (this.constructor as typeof Resource).resource;
+    return (this.constructor as typeof Resource).model.resource;
   }
 
   /**
    * Get the resource name from the resource identifier
+   *
    * @since 2.0.0-rc.2
    */
   protected getResourceName(): string {
-    if ((this.constructor as typeof Resource).resource.includes('_')) {
-      return (this.constructor as typeof Resource).resource.split('_')[1];
+    if ((this.constructor as typeof Resource).model.resource.includes('_')) {
+      return (this.constructor as typeof Resource).model.resource.split('_')[1];
     }
 
-    return (this.constructor as typeof Resource).resource;
+    return (this.constructor as typeof Resource).model.resource;
   }
+
+  // CREATE
 
   /**
    * Create a resource by ID
+   *
    * @since 1.0.0
    */
-  create(data: any, cb?: Function): Promise<any> {
-    let query = '';
-    if (typeof data === 'function') {
-      cb = data; // eslint-disable-line no-param-reassign
-    } else if (typeof data === 'object' && typeof data.include === 'string') {
-      query = `?include=${data.include}`;
+  public async create(data: any, cb?: Function): Promise<Model> {
+    const callback = typeof data === 'function' ? data : cb;
+    let query: any = {};
+    if (typeof data === 'object' && typeof data.include === 'string') {
+      query.include = data.include;
       delete data.include;
     }
 
-    return this.getClient()
-      .post(`${this.getResourceUrl()}${query}`, data)
-      .then(response => {
-        const model = new (this.constructor as typeof Resource).model(response.data);
+    try {
+      const response: AxiosResponse = await this.getClient().post(
+        `${this.getResourceUrl()}${qs.stringify(query, { addQueryPrefix: true })}`,
+        data,
+      );
+      const model = new (this.constructor as typeof Resource).model(response.data);
 
-        if (cb) {
-          return cb(null, model);
-        }
-        return model;
-      })
-      .catch(error => Resource.errorHandler(error.response, cb));
+      if (callback) {
+        return callback(null, model);
+      }
+      return model;
+    } catch (error) {
+      Resource.errorHandler(error.response, callback);
+    }
   }
+
+  // READ: consists of get (one) and list (many)
 
   /**
    * Get a resource by ID
+   *
    * @since 1.0.0
    */
-  get(id: string, params?: any, cb?: Function) {
-    if (typeof params === 'function') {
-      cb = params; // eslint-disable-line no-param-reassign
+  public async get(id: string, params?: any, cb?: Function): Promise<Model> {
+    const callback = typeof params === 'function' ? params : cb;
+
+    try {
+      const response: AxiosResponse = await this.getClient().get(`${this.getResourceUrl()}/${id}`, {
+        params,
+      });
+
+      const model = new (this.constructor as typeof Resource).model(response.data);
+
+      if (callback) {
+        return callback(null, model);
+      }
+
+      return model;
+    } catch (error) {
+      Resource.errorHandler(error.response, callback);
     }
-
-    return this.getClient()
-      .get(`${this.getResourceUrl()}/${id}`, { params })
-      .then(response => {
-        const model = new (this.constructor as typeof Resource).model(response.data);
-
-        if (cb) {
-          return cb(null, model);
-        }
-        return model;
-      })
-      .catch((error: any) => Resource.errorHandler(error.response, cb));
   }
 
   /**
-   * Get all resources
+   * List resources
+   *
    * @since 1.0.0
    */
-  all(params?: any, cb?: Function) {
-    if (typeof params === 'function') {
-      cb = params; // eslint-disable-line no-param-reassign
+  public async list(params?: any, cb?: Function): Promise<List<Model>> {
+    const callback = typeof params === 'function' ? params : cb;
+
+    try {
+      const response: AxiosResponse = await this.getClient().get(this.getResourceUrl(), { params });
+      const resourceName = this.getResourceName();
+      const list = List.buildResourceList({
+        response: response.data,
+        resourceName,
+        params,
+        callback,
+        getResources: this.list.bind(this),
+        Model: Resource.model,
+      });
+
+      if (callback) {
+        return callback(null, list);
+      }
+
+      return list;
+    } catch (error) {
+      Resource.errorHandler(error.response, callback);
     }
-
-    return this.getClient()
-      .get(this.getResourceUrl(), { params })
-      .then(response => {
-        const resourceName = this.getResourceName();
-        const list = List.buildResourceList({
-          response: response.data,
-          resourceName,
-          params,
-          callback: cb,
-          getResources: this.all.bind(this),
-          Model: (this.constructor as typeof Resource).model,
-        });
-
-        if (cb) {
-          return cb(null, list);
-        }
-        return list;
-      })
-      .catch((error: any) =>
-        (this.constructor as typeof Resource).errorHandler(error.response, cb),
-      );
   }
 
+  // UPDATE
+
   /**
+   *
    * Update a resource by ID
+   *
+   * @param {string} id
+   * @param data
+   * @param {Function} cb
+   *
+   * @returns {Promise<AxiosResponse>}
+   *
    * @since 1.0.0
    */
-  update(id: string, data: any, cb?: Function) {
-    if (typeof data === 'function') {
-      cb = data; // eslint-disable-line no-param-reassign
+  public async update(id: string, data: any, cb?: Function): Promise<Model> {
+    const callback = typeof data === 'function' ? data : cb;
+
+    try {
+      const response: AxiosResponse = await this.getClient().post(
+        `${this.getResourceUrl()}/${id}`,
+        data,
+      );
+      const model = new (this.constructor as typeof Resource).model(response.data);
+
+      if (callback) {
+        return callback(null, model);
+      }
+
+      return model;
+    } catch (error) {
+      Resource.errorHandler(error.response, callback);
     }
-
-    return this.getClient()
-      .post(`${this.getResourceUrl()}/${id}`, data)
-      .then(response => {
-        const model = new (this.constructor as typeof Resource).model(response.data);
-
-        if (cb) {
-          return cb(null, model);
-        }
-        return model;
-      })
-      .catch(error => (this.constructor as typeof Resource).errorHandler(error.response, cb));
   }
+
+  // DELETE
 
   /**
    * Delete a resource by ID
+   *
+   * @param {string}   id       Resource ID
+   * @param {Function} callback Optional callback function
+   *
+   * @returns {Promise<AxiosResponse>}
+   *
    * @since 1.0.0
    */
-  delete(id: string, cb?: Function) {
-    return this.getClient()
-      .delete(`${this.getResourceUrl()}/${id}`)
-      .then(response => {
-        const model = new (this.constructor as typeof Resource).model(response.data);
+  public async delete(id: string, callback?: Function): Promise<Model> {
+    try {
+      const response: AxiosResponse = await this.getClient().delete(
+        `${this.getResourceUrl()}/${id}`,
+      );
+      const model = new (this.constructor as typeof Resource).model(response.data);
 
-        if (cb) {
-          return cb(null, model);
-        }
-        return model;
-      })
-      .catch(error => (this.constructor as typeof Resource).errorHandler(error.response, cb));
+      if (callback) {
+        return callback(null, model);
+      }
+
+      return model;
+    } catch (error) {
+      Resource.errorHandler(error.response, callback);
+    }
   }
 }

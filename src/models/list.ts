@@ -3,7 +3,7 @@ import { parseCursorUrl } from '../utils';
 /**
  * A list helper class
  */
-export default class List extends Array {
+export default class List<T> extends Array {
   links: Mollie.Links = null;
   count: number = null;
   nextPage: any = null;

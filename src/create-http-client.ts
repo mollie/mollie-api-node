@@ -30,12 +30,11 @@ export default function createHttpClient(options: MollieRequestConfig = {}) {
     'X-Mollie-User-Agent': `mollie/${version}`,
   });
 
-  try {
+  // Setting the root CA certificate will fail in a browser environment
+  if (typeof window !== 'undefined') {
     options.httpsAgent = new https.Agent({
       cert: fs.readFileSync(path.resolve(__dirname, cert), 'utf8'),
     });
-  } catch (e) {
-    // We could be in a browser environment
   }
 
   options.paramsSerializer = options.paramsSerializer || qs.stringify;

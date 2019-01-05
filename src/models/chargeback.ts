@@ -4,7 +4,7 @@ import Model from '../model';
  * The `Chargeback` model
  */
 export default class Chargeback extends Model implements Mollie.ChargebackResponse {
-  resource: string;
+  public resource: string;
   id: string;
   amount: Mollie.Amount;
   settlementAmount: Mollie.Amount;
