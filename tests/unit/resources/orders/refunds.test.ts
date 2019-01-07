@@ -2,7 +2,7 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import OrdersRefunds from '../../../../src/resources/orders/refunds';
-import Refund from '../../../../src/models/refund';
+import PaymentRefund from '../../../../src/models/paymentRefund';
 
 import response from '../../__stubs__/orders_refunds.json';
 
@@ -27,7 +27,7 @@ describe('orders_refunds', () => {
 
   it('should have a resource name and model', () => {
     expect(OrdersRefunds.resource).toBe('orders_refunds');
-    expect(OrdersRefunds.model).toBe(Refund);
+    expect(OrdersRefunds.model).toBe(PaymentRefund);
   });
 
   describe('.create()', () => {
@@ -35,13 +35,13 @@ describe('orders_refunds', () => {
 
     it('should return a refund instance', () =>
       ordersRefunds.create(props).then(result => {
-        expect(result).toBeInstanceOf(Refund);
+        expect(result).toBeInstanceOf(PaymentRefund);
         expect(result).toMatchSnapshot();
       }));
 
     it('should work with a callback', done => {
       ordersRefunds.create(props, (err, result) => {
-        expect(result).toBeInstanceOf(Refund);
+        expect(result).toBeInstanceOf(PaymentRefund);
         expect(result).toMatchSnapshot();
         done();
       });

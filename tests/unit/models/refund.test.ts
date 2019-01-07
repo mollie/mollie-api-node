@@ -1,8 +1,8 @@
-import Refund from '../../../src/models/refund';
+import PaymentRefund from '../../../src/models/paymentRefund';
 
 describe('refund model', () => {
   it('should instantiate with default values', () => {
-    const refund = new Refund();
+    const refund = new PaymentRefund();
 
     expect(refund.isQueued()).toBe(false);
     expect(refund.isPending()).toBe(false);
@@ -38,7 +38,7 @@ describe('refund model', () => {
             }
         }
     }`);
-    const refund = new Refund(refundProps);
+    const refund = new PaymentRefund(refundProps);
 
     expect(refund.isQueued()).toBe(false);
     expect(refund.isPending()).toBe(true);

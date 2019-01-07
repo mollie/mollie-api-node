@@ -1,8 +1,8 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import PaymentsRefunds from '../../../../src/resources/payments/refunds';
-import Refund from '../../../../src/models/refund';
+import PaymentsRefundsResource from '../../../../src/resources/payments/refunds';
+import PaymentRefund from '../../../../src/models/paymentRefund';
 
 import response from '../../__stubs__/payments_refunds.json';
 
@@ -20,12 +20,12 @@ const props = {
 describe('payments_refunds', () => {
   let paymentsRefunds;
   beforeEach(() => {
-    paymentsRefunds = new PaymentsRefunds(axios.create());
+    paymentsRefunds = new PaymentsRefundsResource(axios.create());
   });
 
   it('should have a resource name and model', () => {
-    expect(PaymentsRefunds.resource).toBe('payments_refunds');
-    expect(PaymentsRefunds.model).toBe(Refund);
+    expect(PaymentsRefundsResource.resource).toBe('payments_refunds');
+    expect(PaymentsRefundsResource.model).toBe(PaymentRefund);
   });
 
   describe('.create()', () => {
@@ -33,13 +33,13 @@ describe('payments_refunds', () => {
 
     it('should return a refund instance', () =>
       paymentsRefunds.create(props).then(result => {
-        expect(result).toBeInstanceOf(Refund);
+        expect(result).toBeInstanceOf(PaymentRefund);
         expect(result).toMatchSnapshot();
       }));
 
     it('should work with a callback', done => {
       paymentsRefunds.create(props, (err, result) => {
-        expect(result).toBeInstanceOf(Refund);
+        expect(result).toBeInstanceOf(PaymentRefund);
         expect(result).toMatchSnapshot();
         done();
       });
@@ -56,7 +56,7 @@ describe('payments_refunds', () => {
 
     it('should return a refund instance', () =>
       paymentsRefunds.get(props.id, { paymentId: props.paymentId }).then(result => {
-        expect(result).toBeInstanceOf(Refund);
+        expect(result).toBeInstanceOf(PaymentRefund);
         expect(result).toMatchSnapshot();
       }));
 
@@ -110,7 +110,7 @@ describe('payments_refunds', () => {
 
     it('should return a refund instance', () =>
       paymentsRefunds.cancel(props.id, { paymentId: props.paymentId }).then(result => {
-        expect(result).toBeInstanceOf(Refund);
+        expect(result).toBeInstanceOf(PaymentRefund);
         expect(result).toMatchSnapshot();
       }));
 
@@ -122,7 +122,7 @@ describe('payments_refunds', () => {
         })
         .delete(props.id, (err, result) => {
           expect(err).toBeNull();
-          expect(result).toBeInstanceOf(Refund);
+          expect(result).toBeInstanceOf(PaymentRefund);
           expect(result).toMatchSnapshot();
           done();
         });

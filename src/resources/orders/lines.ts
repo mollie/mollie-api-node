@@ -1,5 +1,6 @@
-import Line from '../../models/line';
+import Line from '../../models/Line';
 import OrdersResource from './base';
+import Order from '../../models/Order';
 
 /**
  * The `orders_lines` resource
@@ -11,26 +12,65 @@ export default class OrdersLines extends OrdersResource {
   static model = Line;
 
   /**
-   * Delete a order_line by ID
+   * Update order lines
+   *
+   * @param {string} id
+   * @param {Mollie.OrderLine.Params.IUpdate} params
+   * @param {Mollie.OrderLine.Callback.Update} cb
+   *
+   * @returns {Promise<Order>}
    *
    * @since 2.2.0
+   *
+   * @see
+   * @api
    */
-  delete(id: string, params?: any, cb?: Function) {
-    if (typeof params === 'function') {
-      cb = params; // eslint-disable-line no-param-reassign
-    }
+  public async update(
+    id: string,
+    params: Mollie.OrderLine.Params.IUpdate,
+    cb?: Mollie.OrderLine.Callback.Update,
+  ): Promise<Order> {
+    const { orderId, ...parameters } = params;
+    this.setParentId(orderId);
 
-    this.setParent(params);
-
-    return super.delete(id, cb);
+    return super.update(id, parameters, cb) as Promise<Order>;
   }
 
   /**
-   * Alias for delete
+   * Cancel an order line by ID or multiple order lines
+   *
+   * @param {string} id
+   * @param {Mollie.OrderLine.Params.ICancel}  params
+   * @param {Mollie.OrderLine.Callback.Cancel} cb     Callback function, can be used instead of the returned `Promise` object
+   *
+   * @returns {Promise<boolean>}
    *
    * @since 2.2.0
+   *
+   * @see
+   * @api
    */
-  cancel() {
-    return this.delete(arguments[0], arguments[1], arguments[2]);
+  public async cancel(
+    id: string,
+    params?: Mollie.OrderLine.Params.ICancel,
+    cb?: Mollie.OrderLine.Callback.Cancel,
+  ): Promise<boolean> {
+    const { orderId, ...parameters } = params;
+    this.setParentId(orderId);
+
+    // TODO: check return type
+    return super.delete(id, parameters, cb) as Promise<boolean>;
   }
+
+  // ALIASES
+
+  /**
+   * Cancel an order line by ID or multiple order lines
+   *
+   * @since 2.2.0
+   *
+   * @see
+   * @api
+   */
+  delete = this.cancel;
 }

@@ -2,7 +2,7 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import Refunds from '../../../src/resources/refunds';
-import Refund from '../../../src/models/refund';
+import PaymentRefund from '../../../src/models/paymentRefund';
 
 import response from '../__stubs__/payments_refunds.json';
 
@@ -24,7 +24,7 @@ describe('refunds', () => {
 
   it('should have a resource name and model', () => {
     expect(Refunds.resource).toBe('refunds');
-    expect(Refunds.model).toBe(Refund);
+    expect(Refunds.model).toBe(PaymentRefund);
   });
 
   describe('.create()', () => {
@@ -32,13 +32,13 @@ describe('refunds', () => {
 
     it('should return a refund instance', () =>
       refunds.create(props).then(result => {
-        expect(result).toBeInstanceOf(Refund);
+        expect(result).toBeInstanceOf(PaymentRefund);
         expect(result).toMatchSnapshot();
       }));
 
     it('should work with a callback', done => {
       refunds.create(props, (err, result) => {
-        expect(result).toBeInstanceOf(Refund);
+        expect(result).toBeInstanceOf(PaymentRefund);
         expect(result).toMatchSnapshot();
         done();
       });
@@ -53,7 +53,7 @@ describe('refunds', () => {
 
     it('should return a refund instance', () =>
       refunds.get(props.id).then(result => {
-        expect(result).toBeInstanceOf(Refund);
+        expect(result).toBeInstanceOf(PaymentRefund);
         expect(result).toMatchSnapshot();
       }));
 
@@ -99,7 +99,7 @@ describe('refunds', () => {
 
     it('should return a refund instance', () =>
       refunds.delete(props.id).then(result => {
-        expect(result).toBeInstanceOf(Refund);
+        expect(result).toBeInstanceOf(PaymentRefund);
         expect(result).toMatchSnapshot();
       }));
 
@@ -111,7 +111,7 @@ describe('refunds', () => {
         })
         .delete(props.id, (err, result) => {
           expect(err).toBeNull();
-          expect(result).toBeInstanceOf(Refund);
+          expect(result).toBeInstanceOf(PaymentRefund);
           expect(result).toMatchSnapshot();
           done();
         });

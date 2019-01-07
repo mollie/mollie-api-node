@@ -1,67 +1,61 @@
-import Shipment from '../../models/shipment';
-import omit from 'lodash/omit';
-import OrdersResource from './base';
-import Resource from '../../resource';
+import Shipment from '../../models/Shipment';
+import List from '../../models/List';
+import ApiException from '../../exceptions/ApiException';
+import OrdersBaseResource from './base';
 
 /**
  * The `order_shipments` resource
  *
  * @since 2.2.0
  */
-export default class OrdersShipments extends OrdersResource {
-  static resource = 'orders_shipments';
-  static model = Shipment;
+export default class OrdersShipmentsResource extends OrdersBaseResource {
+  public static resource = 'orders_shipments';
+  public static model = Shipment;
+  public static apiName = 'Shipments API';
 
-  /**
-   * Create an order shipment
-   *
-   * @since 2.2.0
-   */
-  create(data: Partial<Mollie.OrderShipment>, cb?: Function) {
-    this.setParent(data);
+  public async create(params: Mollie.Shipment.Params.ICreate, cb?: Function): Promise<Shipment> {
+    const { orderId, ...parameters } = params;
+    this.setParentId(orderId);
 
-    if (typeof data === 'object') {
-      data = omit(data, 'orderId'); // eslint-disable-line no-param-reassign
-    }
-
-    return super.create(data, cb);
+    return super.create(parameters, cb) as Promise<Shipment>;
   }
 
   /**
    * Update a resource by ID
    * @since 1.0.0
    */
-  update(id: string, data: Partial<Mollie.OrderShipment>, cb?: Function) {
-    if (typeof data === 'function') {
-      cb = data; // eslint-disable-line no-param-reassign
-    }
+  public async update(
+    id: string,
+    params: Mollie.Shipment.Params.IUpdate,
+    cb?: Mollie.Shipment.Callback.Update,
+  ): Promise<Shipment> {
+    const { orderId, ...parameters } = params;
+    this.setParentId(orderId);
 
-    return this.getClient()
-      .post(`${this.getResourceUrl()}/${id}`, data)
-      .then(response => {
-        const model = new (this.constructor as typeof Resource).model(response.data);
-
-        if (cb) {
-          return cb(null, model);
-        }
-        return model;
-      })
-      .catch(error => (this.constructor as typeof Resource).errorHandler(error.response, cb));
+    return super.update(id, parameters, cb) as Promise<Shipment>;
   }
 
   /**
    * Get a shipment by ID
    *
+   * @param {string}                      id      Shipment ID
+   * @param {Mollie.Shipment.Params.IGet}  params
+   * @param {Mollie.Shipment.Callback.Get} cb     Callback function, can be used instead of the returned `Promise` object
+   *
    * @since 2.2.0
+   *
+   * @see
+   * @api
    */
-  get(id: string, params?: any, cb?: Function) {
-    this.setParent(params);
+  public async get(
+    id: string,
+    params?: Mollie.Shipment.Params.IGet,
+    cb?: Mollie.Shipment.Callback.Get,
+  ): Promise<Shipment> {
+    const { orderId, ...parameters } = params;
+    this.setParentId(orderId);
 
-    if (typeof params === 'object') {
-      params = omit(params, 'orderId'); // eslint-disable-line no-param-reassign
-    }
-
-    return super.get(id, params, cb);
+    return super.get(id, parameters, cb) as Promise<Shipment>;
   }
 
   /**
@@ -69,13 +63,37 @@ export default class OrdersShipments extends OrdersResource {
    *
    * @since 2.2.0
    */
-  all(params?: any, cb?: Function) {
-    this.setParent(params);
+  public async list(
+    params?: Mollie.Shipment.Params.IList,
+    cb?: Mollie.Shipment.Callback.List,
+  ): Promise<List<Shipment>> {
+    const { orderId, ...parameters } = params;
+    this.setParentId(orderId);
 
-    if (typeof params === 'object') {
-      params = omit(params, 'orderId'); // eslint-disable-line no-param-reassign
-    }
+    return super.list(parameters, cb) as Promise<List<Shipment>>;
+  }
 
-    return super.all(params, cb);
+  // NOT AVAILABLE
+
+  /**
+   * @deprecated This method is not available
+   */
+  public async cancel(): Promise<boolean> {
+    throw new ApiException(
+      `The method "${this.cancel.name}" does not exist on the "${
+        OrdersShipmentsResource.resourcePrefix
+      }"`,
+    );
+  }
+
+  /**
+   * @deprecated This method is not available
+   */
+  public async delete(): Promise<boolean> {
+    throw new ApiException(
+      `The method "${this.delete.name}" does not exist on the "${
+        OrdersShipmentsResource.resourcePrefix
+      }"`,
+    );
   }
 }

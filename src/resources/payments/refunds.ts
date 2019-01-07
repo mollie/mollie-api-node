@@ -1,84 +1,144 @@
-import omit from 'lodash/omit';
-
 import PaymentsResource from './base';
-import Refund from '../../models/refund';
+import Refund from '../../models/Refund';
+import List from '../../models/List';
+import ApiException from '../../exceptions/ApiException';
 
 /**
  * The `payments_refunds` resource
+ *
  * @static {string} resource
  * @static {Object} model
+ * @static {string} apiName
+ *
  * @since 1.1.1
  */
-export default class PaymentsRefunds extends PaymentsResource {
-  static resource = 'payments_refunds';
-  static model = Refund;
+export default class PaymentsRefundsResource extends PaymentsResource {
+  public static resource = 'payments_refunds';
+  public static model = Refund;
+  public static apiName = 'Refunds API';
+
+  // API METHODS
 
   /**
    * Create a payment refund
    *
+   * @param {Mollie.PaymentRefund.Params.ICreate}  data
+   * @param {Mollie.PaymentRefund.Callback.Create} cb   Callback function, can be used instead of the returned `Promise` object
+   *
+   * @returns {Promise<Refund>}
+   *
    * @since 1.1.1
+   *
+   * @see https://docs.mollie.com/reference/v2/refunds-api/create-refund#
+   * @api ✓ This method is part of the public API
    */
-  create(data: Mollie.PaymentRefund, cb?: Function) {
-    this.setParent(data);
+  public async create(
+    data: Mollie.PaymentRefund.Params.ICreate,
+    cb?: Mollie.PaymentRefund.Callback.Create,
+  ): Promise<Refund> {
+    const { paymentId, ...params } = data;
+    this.setParentId(paymentId);
 
-    if (typeof data === 'object') {
-      data = omit(data, 'paymentId'); // eslint-disable-line no-param-reassign
-    }
-
-    return super.create(data, cb);
+    return super.create(params, cb) as Promise<Refund>;
   }
 
   /**
    * Get a payment refund by ID
    *
+   * @param {string}                            id     Refund ID
+   * @param {Mollie.PaymentRefund.Params.IGet}  params
+   * @param {Mollie.PaymentRefund.Callback.Get} cb     Callback function, can be used instead of the returned `Promise` object
+   *
    * @since 1.1.1
+   *
+   * @see https://docs.mollie.com/reference/v2/refunds-api/get-refund
+   * @api ✓ This method is part of the public API
    */
-  get(id: string, params?: any, cb?: Function) {
-    this.setParent(params);
+  public async get(
+    id: string,
+    params?: Mollie.PaymentRefund.Params.IGet,
+    cb?: Mollie.PaymentRefund.Callback.Get,
+  ): Promise<Refund> {
+    const { paymentId, ...parameters } = params;
+    this.setParentId(paymentId);
 
-    if (typeof params === 'object') {
-      params = omit(params, 'paymentId'); // eslint-disable-line no-param-reassign
-    }
-
-    return super.get(id, params, cb);
+    return super.get(id, parameters, cb) as Promise<Refund>;
   }
 
   /**
-   * Get all payment refunds
+   * Get all payment refunds. Alias of list.
+   *
+   * @param {Mollie.PaymentRefund.Params.IList}  params
+   * @param {Mollie.PaymentRefund.Callback.List} cb     Callback function, can be used instead of the returned `Promise` object
    *
    * @since 1.1.1
+   *
+   * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
+   * @api ✓ This method is part of the public API
    */
-  all(params?: any, cb?: Function) {
-    this.setParent(params);
-
-    if (typeof params === 'object') {
-      params = omit(params, 'paymentId'); // eslint-disable-line no-param-reassign
-    }
-
-    return super.all(params, cb);
+  public async list(
+    params?: Mollie.PaymentRefund.Params.IList,
+    cb?: Mollie.PaymentRefund.Callback.List,
+  ): Promise<List<Refund>> {
+    return super.list(params, cb) as Promise<List<Refund>>;
   }
 
   /**
    * Delete a payment_refund by ID
    *
+   * @param {string}                               id     Refund ID
+   * @param {Mollie.PaymentRefund.Params.ICancel}  params
+   * @param {Mollie.PaymentRefund.Callback.Cancel} cb     Callback function, can be used instead of the returned `Promise` object
+   *
+   * @return {Promise<boolean>} Status
+   *
    * @since 1.1.1
+   *
+   * @see https://docs.mollie.com/reference/v2/refunds-api/cancel-refund
+   * @api ✓ This method is part of the public API
    */
-  delete(id: string, params?: any, cb?: Function) {
-    if (typeof params === 'function') {
-      cb = params; // eslint-disable-line no-param-reassign
-    }
+  cancel(
+    id: string,
+    params?: Mollie.PaymentRefund.Params.ICancel,
+    cb?: Mollie.PaymentRefund.Callback.Cancel,
+  ): Promise<boolean> {
+    const { paymentId, ...parameters } = params;
+    this.setParentId(paymentId);
 
-    this.setParent(params);
-
-    return super.delete(id, cb);
+    // TODO: double-check if super actually returns a boolean status
+    return super.delete(id, parameters, cb) as Promise<boolean>;
   }
 
+  // ALIASES
+
   /**
-   * Alias for delete
+   * Get all payment refunds. Alias of list.
    *
-   * @since 1.3.2
+   * @since 1.1.1
+   *
+   * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
+   * @api ✓ This method is part of the public API
+   * @alias list
    */
-  cancel() {
-    return this.delete(arguments[0], arguments[1], arguments[2]);
+  all = this.list;
+
+  /**
+   * Cancel a Payment Refund by ID
+   *
+   * @see https://docs.mollie.com/reference/v2/refunds-api/cancel-refund
+   * @api ✓ This method is part of the public API
+   * @alias cancel
+   */
+  delete = this.cancel;
+
+  // UNAVAILABLE
+
+  /**
+   * @deprecated This method is not available
+   */
+  async update(): Promise<Refund> {
+    throw new ApiException(
+      `The method "${this.update.name}" does not exist on the "${PaymentsRefundsResource.apiName}"`,
+    );
   }
 }

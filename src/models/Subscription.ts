@@ -3,12 +3,13 @@ import Model from '../model';
 /**
  * The `Subscription` model
  */
-export default class Subscription extends Model implements Mollie.SubscriptionResponse {
+export default class Subscription extends Model implements Mollie.ISubscription {
+  public static resourcePrefix = 'sub_';
   resource: string;
   id: string;
   mode: Mollie.ApiMode;
   status: Mollie.SubscriptionStatus;
-  amount: Mollie.Amount;
+  amount: Mollie.IAmount;
   times: number;
   timesRemaining: number;
   interval: string;
@@ -21,21 +22,15 @@ export default class Subscription extends Model implements Mollie.SubscriptionRe
   canceledAt: string;
   webhookUrl: string;
   metadata: any;
-  _links: Mollie.Links;
+  _links: Mollie.ILinks;
 
   // Access token parameters
   testmode?: boolean;
 
-  static STATUS_ACTIVE = 'active';
-  static STATUS_PENDING = 'pending'; // Waiting for a valid mandate.
-  static STATUS_CANCELED = 'canceled';
-  static STATUS_SUSPENDED = 'suspended'; // Active, but mandate became invalid.
-  static STATUS_COMPLETED = 'completed';
-
-  constructor(props?: Partial<Mollie.SubscriptionResponse>) {
+  constructor(props?: Partial<Mollie.ISubscription>) {
     super(props);
 
-    const defaults: Mollie.SubscriptionResponse = {
+    const defaults: Mollie.ISubscription = {
       resource: 'subscription',
       id: null,
       mode: null,
@@ -75,7 +70,7 @@ export default class Subscription extends Model implements Mollie.SubscriptionRe
    * @returns {boolean}
    */
   isActive() {
-    return this.status === Subscription.STATUS_ACTIVE;
+    return this.status === Mollie.SubscriptionStatus.active;
   }
 
   /**
@@ -83,7 +78,7 @@ export default class Subscription extends Model implements Mollie.SubscriptionRe
    * @returns {boolean}
    */
   isPending() {
-    return this.status === Subscription.STATUS_PENDING;
+    return this.status === Mollie.SubscriptionStatus.pending;
   }
 
   /**
@@ -91,7 +86,7 @@ export default class Subscription extends Model implements Mollie.SubscriptionRe
    * @returns {boolean}
    */
   isCompleted() {
-    return this.status === Subscription.STATUS_COMPLETED;
+    return this.status === Mollie.SubscriptionStatus.completed;
   }
 
   /**
@@ -99,7 +94,7 @@ export default class Subscription extends Model implements Mollie.SubscriptionRe
    * @returns {boolean}
    */
   isSuspended() {
-    return this.status === Subscription.STATUS_SUSPENDED;
+    return this.status === Mollie.SubscriptionStatus.suspended;
   }
 
   /**

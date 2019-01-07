@@ -1,5 +1,5 @@
 import Resource from '../resource';
-import Line from '../models/line';
+import Line from '../models/Line';
 
 /**
  * The `orders` resource

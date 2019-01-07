@@ -41,29 +41,29 @@ declare namespace Mollie {
 
   type ApiMode = 'test' | 'live';
 
-  interface Image {
+  interface IImage {
     size1x: string;
     size2x: string;
     svg: string;
   }
 
-  interface Url {
+  interface IUrl {
     href: string;
     type: string;
   }
 
-  interface Links {
-    self?: Url;
-    documentation?: Url;
+  interface ILinks {
+    self?: IUrl;
+    documentation?: IUrl;
     [link: string]: any;
   }
 
-  interface Amount {
+  interface IAmount {
     currency: string;
     value: string;
   }
 
-  interface Address {
+  interface IAddress {
     streetAndNumber?: string;
     postalCode?: string;
     city?: string;
@@ -74,10 +74,8 @@ declare namespace Mollie {
   type CardLabel =
     | 'American'
     | 'Express'
-    | 'Carta'
-    | 'Si'
-    | 'Carte'
-    | 'Bleue'
+    | 'Carta Si'
+    | 'Carte Bleue'
     | 'Dankort'
     | 'Diners'
     | 'Club'
@@ -88,5 +86,11 @@ declare namespace Mollie {
     | 'Mastercard'
     | 'Unionpay'
     | 'Visa'
-    | null;
+    | null
+
+  enum SequenceType {
+    oneoff = 'oneoff',
+    first = 'first',
+    recurring = 'recurring',
+  }
 }

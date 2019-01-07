@@ -2,28 +2,26 @@ import Model from '../model';
 /**
  * The `Mandate` model
  */
-export default class Mandate extends Model implements Mollie.MandateResponse {
+export default class Mandate extends Model implements Mollie.IMandate {
+  public static resourcePrefix = 'mdt_';
   resource: string;
   id: string;
   mode: Mollie.ApiMode;
-  status: Mollie.MandateStatus;
-  method: 'directdebit' | 'creditcard';
-  details: Mollie.MandateDetails;
+  status: Mollie.Mandate.Status;
+  method: Mollie.Mandate.Method;
+  details: Mollie.Mandate.IDetails;
   mandateReference: string;
   signatureDate: string;
   createdAt: string;
-  _links: Mollie.Links;
+  _links: Mollie.ILinks;
 
   // Access token parameters
   testmode?: boolean;
 
-  static STATUS_VALID = 'valid';
-  static STATUS_INVALID = 'invalid';
-
-  constructor(props?: Partial<Mollie.MandateResponse>) {
+  constructor(props?: Partial<Mollie.IMandate>) {
     super(props);
 
-    const defaults: Mollie.MandateResponse = {
+    const defaults: Mollie.IMandate = {
       resource: 'mandate',
       id: null,
       status: null,
@@ -46,6 +44,6 @@ export default class Mandate extends Model implements Mollie.MandateResponse {
    * @returns {boolean}
    */
   isValid() {
-    return this.status === Mandate.STATUS_VALID;
+    return this.status === Mollie.Mandate.Status.valid;
   }
 }

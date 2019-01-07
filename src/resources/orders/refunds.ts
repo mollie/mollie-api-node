@@ -1,6 +1,6 @@
 import omit from 'lodash/omit';
 
-import Refund from '../../models/refund';
+import PaymentRefund from '../../models/paymentRefund';
 import OrdersResource from './base';
 
 /**
@@ -10,7 +10,7 @@ import OrdersResource from './base';
  */
 export default class OrdersRefunds extends OrdersResource {
   static resource = 'orders_refunds';
-  static model = Refund;
+  static model = PaymentRefund;
 
   /**
    * Create an order refund

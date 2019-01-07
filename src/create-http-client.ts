@@ -11,7 +11,7 @@ import cert from './cacert.pem';
 import { version } from '../package.json';
 
 interface MollieRequestConfig extends AxiosRequestConfig {
-  apiKey?: string;
+  apiKey: string;
 }
 declare let window: any;
 
@@ -19,7 +19,7 @@ declare let window: any;
  * Create pre-configured httpClient instance
  * @private
  */
-export default function createHttpClient(options: MollieRequestConfig = {}) {
+export default function createHttpClient(options: MollieRequestConfig) {
   options.baseURL = 'https://api.mollie.com:443/v2/';
 
   options.headers = Object.assign({}, options.headers, {

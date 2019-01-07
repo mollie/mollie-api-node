@@ -1,21 +1,23 @@
 declare namespace Mollie {
-  interface PaymentRefund {
-    amount: Amount;
-    description?: string;
-    paymentId?: string,
+  type IRefund = IPaymentRefund | IOrderRefund;
 
-    // Access token parameters
-    testmode?: boolean;
+  namespace Refund {
+    enum Status {
+      queued = 'queued',
+      pending = 'pending',
+      processing = 'processing',
+      refunded = 'refunded',
+      failed = 'failed',
+    }
+
+    namespace Params {
+      interface IList {
+
+      }
+    }
+
+    namespace Callback {
+      type List = (error: any, refunds: Mollie.List<IRefund>) => void;
+    }
   }
-
-  interface OrderRefund {
-    description?: string;
-    orderId?: string,
-    lines: Array<OrderLine>,
-
-    // Access token parameters
-    testmode?: boolean;
-  }
-
-  type RefundStatus = 'queued' | 'pending' | 'processing' | 'refunded' | 'failed';
 }

@@ -3,19 +3,19 @@ import Model from '../model';
 /**
  * The `shipment` model
  */
-export default class Shipment extends Model implements Mollie.ShipmentResponse {
+export default class Shipment extends Model implements Mollie.IShipment {
   resource: string;
   id: string;
   orderId: string;
   createdAt: string;
-  tracking: Mollie.Tracking | null;
-  lines: Array<Mollie.FullOrderLine>;
-  _links: Mollie.Links;
+  tracking: Mollie.Shipment.ITracking | null;
+  lines: Array<Mollie.IOrderLine>;
+  _links: Mollie.ILinks;
 
-  constructor(props?: Partial<Mollie.ShipmentResponse>) {
+  constructor(props?: Partial<Mollie.IShipment>) {
     super(props);
 
-    const defaults: Mollie.ShipmentResponse = {
+    const defaults: Mollie.IShipment = {
       resource: null,
       id: null,
       orderId: null,

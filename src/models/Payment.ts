@@ -3,61 +3,51 @@ import Model from '../model';
 /**
  * The `Payment` model
  */
-export default class Payment extends Model implements Mollie.PaymentResponse {
-  resource: string;
-  id: string;
-  mode: Mollie.ApiMode;
-  createdAt: string;
-  status: Mollie.PaymentStatus;
-  isCancelable: boolean;
-  authorizedAt?: string;
-  paidAt?: string;
-  canceledAt?: string;
-  expiresAt: string;
-  expiredAt?: string;
-  failedAt?: string;
-  amount: Mollie.Amount;
-  amountRefunded?: Mollie.Amount;
-  amountRemaining?: Mollie.Amount;
-  amountCaptured?: Mollie.Amount;
-  description: string;
-  redirectUrl: string | null;
-  webhookUrl?: string;
-  method: Mollie.Method;
-  metadata: any;
-  locale: Mollie.Locale;
-  countryCode?: string;
-  profileId: string;
-  settlementAmount?: Mollie.Amount;
-  settlementId?: string;
-  customerId?: string;
-  sequenceType: string;
-  mandateId?: string;
-  subscriptionId?: string;
-  orderId?: string;
-  details?: any;
-  applicationFee?: {
-    amount: Mollie.Amount;
+export default class Payment extends Model implements Mollie.IPayment {
+  public static readonly resourcePrefix = 'tr_';
+  public resource: string;
+  public id: string;
+
+  public mode: Mollie.ApiMode;
+  public createdAt: string;
+  public status: Mollie.Payment.Status;
+  public isCancelable: boolean;
+  public authorizedAt?: string;
+  public paidAt?: string;
+  public canceledAt?: string;
+  public expiresAt: string;
+  public expiredAt?: string;
+  public failedAt?: string;
+  public amount: Mollie.IAmount;
+  public amountRefunded?: Mollie.IAmount;
+  public amountRemaining?: Mollie.IAmount;
+  public amountCaptured?: Mollie.IAmount;
+  public description: string;
+  public redirectUrl: string | null;
+  public webhookUrl?: string;
+  public method: Mollie.Method;
+  public metadata: any;
+  public locale: Mollie.Locale;
+  public countryCode?: string;
+  public profileId: string;
+  public settlementAmount?: Mollie.IAmount;
+  public settlementId?: string;
+  public customerId?: string;
+  public sequenceType: string;
+  public mandateId?: string;
+  public subscriptionId?: string;
+  public orderId?: string;
+  public details?: any;
+  public applicationFee?: {
+    amount: Mollie.IAmount;
     description: string;
   };
-  _links: Mollie.Links;
+  public _links: Mollie.ILinks;
 
-  static STATUS_OPEN = 'open';
-  static STATUS_PENDING = 'pending';
-  static STATUS_CANCELED = 'canceled';
-  static STATUS_EXPIRED = 'expired';
-  static STATUS_PAID = 'paid';
-  static STATUS_FAILED = 'failed';
-  static STATUS_AUTHORIZED = 'authorized';
-
-  static SEQUENCETYPE_ONEOFF = 'oneoff';
-  static SEQUENCETYPE_FIRST = 'first';
-  static SEQUENCETYPE_RECURRING = 'recurring';
-
-  constructor(props?: Partial<Mollie.PaymentResponse>) {
+  constructor(props?: Partial<Mollie.IPayment>) {
     super(props);
 
-    const defaults: Partial<Mollie.PaymentResponse> = {
+    const defaults: Partial<Mollie.IPayment> = {
       resource: 'payment',
       id: null,
       mode: null,
@@ -113,22 +103,25 @@ export default class Payment extends Model implements Mollie.PaymentResponse {
 
   /**
    * If the payment is open
+   *
    * @returns {boolean}
    */
   isOpen() {
-    return this.status === Payment.STATUS_OPEN;
+    return this.status === Mollie.Payment.Status.open;
   }
 
   /**
    * If the payment is authorized
+   *
    * @returns {boolean}
    */
   isAuthorized() {
-    return this.status === Payment.STATUS_AUTHORIZED;
+    return this.status === Mollie.Payment.Status.authorized;
   }
 
   /**
    * If the payment is paid
+   *
    * @returns {boolean}
    */
   isPaid() {
@@ -137,6 +130,7 @@ export default class Payment extends Model implements Mollie.PaymentResponse {
 
   /**
    * If the payment is canceled
+   *
    * @returns {boolean}
    */
   isCanceled() {
@@ -145,6 +139,7 @@ export default class Payment extends Model implements Mollie.PaymentResponse {
 
   /**
    * If the payment is expired
+   *
    * @returns {boolean}
    */
   isExpired() {
@@ -153,7 +148,9 @@ export default class Payment extends Model implements Mollie.PaymentResponse {
 
   /**
    * If the payment is refundable
+   *
    * @returns {boolean}
+   *
    * @since 2.0.0-rc.2
    */
   isRefundable() {
@@ -162,6 +159,7 @@ export default class Payment extends Model implements Mollie.PaymentResponse {
 
   /**
    * Get the payment URL
+   *
    * @returns {string|null}
    */
   getPaymentUrl() {

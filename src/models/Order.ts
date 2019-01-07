@@ -3,25 +3,26 @@ import Model from '../model';
 /**
  * The `order` model
  */
-export default class Order extends Model implements Mollie.OrderResponse {
+export default class Order extends Model implements Mollie.IOrder {
+  public static resourcePrefix = 'ord_';
   resource: string;
   id: string;
   profileId: string;
   method: string | null;
   mode: Mollie.ApiMode;
-  amount: Mollie.Amount;
-  amountCaptured: Mollie.Amount | null;
-  amountRefunded: Mollie.Amount | null;
-  status: Mollie.OrderStatus;
+  amount: Mollie.IAmount;
+  amountCaptured: Mollie.IAmount | null;
+  amountRefunded: Mollie.IAmount | null;
+  status: Mollie.Order.Status;
   isCancelable: boolean;
-  billingAddress: Mollie.OrderAddress;
+  billingAddress: Mollie.Order.IAddress;
   consumerDateOfBirth?: string;
   orderNumber: string;
-  shippingAddress: Mollie.OrderAddress;
+  shippingAddress: Mollie.Order.IAddress;
   locale: string;
   metadata: any;
   redirectUrl: string | null;
-  lines: Array<Mollie.OrderLineResponse>;
+  lines: Array<Mollie.IOrderLine>;
   webhookUrl?: string;
   createdAt: string;
   expiresAt?: string;
@@ -30,12 +31,12 @@ export default class Order extends Model implements Mollie.OrderResponse {
   authorizedAt?: string;
   canceledAt?: string;
   completedAt?: string;
-  _links: Mollie.Links;
+  _links: Mollie.ILinks;
 
-  constructor(props?: Partial<Mollie.ChargebackResponse>) {
+  constructor(props?: Partial<Mollie.IOrder>) {
     super(props);
 
-    const defaults: Mollie.OrderResponse = {
+    const defaults: Mollie.IOrder = {
       resource: 'order',
       id: null,
       amount: null,

@@ -1,86 +1,151 @@
-import omit from 'lodash/omit';
-
-import CustomersResource from './base';
-import Mandate from '../../models/mandate';
+import CustomersBaseResource from './base';
+import List from '../../models/List';
+import Mandate from '../../models/Mandate';
+import ApiException from '../../exceptions/ApiException';
 
 /**
  * The `customers_mandates` resource
+ *
  * @static {string} resource
  * @static {Object} model
+ * @static {string} apiName
+ *
  * @since 1.2.0
  */
-export default class CustomersMandates extends CustomersResource {
-  static resource = 'customers_mandates';
-  static model = Mandate;
+export default class CustomersMandatesResource extends CustomersBaseResource {
+  public static resource = 'customers_mandates';
+  public static model = Mandate;
+  public static apiName = 'Mandates API';
+
+  // API METHODS
 
   /**
    * Create a customer mandate
+   *
+   * @param {Mollie.Mandate.Params.ICreate}  params
+   * @param {Mollie.Mandate.Callback.Create} cb     Callback function, can be used instead of the returned `Promise` object
+   *
+   * @returns {Promise<Mandate>>}
+   *
    * @since 1.2.0
+   *
+   * @see https://docs.mollie.com/reference/v2/mandates-api/create-mandate
+   * @api ✓ This method is part of the public API
    */
-  create(data: any, cb?: Function) {
-    this.setParent(data);
+  public async create(
+    params: Mollie.Mandate.Params.ICreate,
+    cb?: Mollie.Mandate.Callback.Create,
+  ): Promise<Mandate> {
+    const { customerId, ...parameters } = params;
+    this.setParentId(customerId);
 
-    if (typeof data === 'object') {
-      data = omit(data, 'customerId'); // eslint-disable-line no-param-reassign
-    }
-
-    return super.create(data, cb);
+    return super.create(parameters, cb) as Promise<Mandate>;
   }
 
   /**
    * Get a customer mandate by ID
+   *
+   * @param {string}                      id     Mandate ID
+   * @param {Mollie.Mandate.Params.IGet}  params
+   * @param {Mollie.Mandate.Callback.Get} cb     Callback function, can be used instead of the returned `Promise` object
+   *
+   * @returns {Promise<Mandate>}
+   *
    * @since 1.2.0
+   *
+   * @see https://docs.mollie.com/reference/v2/mandates-api/get-mandate
+   * @api ✓ This method is part of the public API
    */
-  get(id: string, params?: any, cb?: Function) {
-    this.setParent(params);
+  public async get(
+    id: string,
+    params?: Mollie.Mandate.Params.IGet,
+    cb?: Mollie.Mandate.Callback.Get,
+  ): Promise<Mandate> {
+    const { customerId, ...parameters } = params;
+    this.setParentId(customerId);
 
-    if (typeof params === 'object') {
-      params = omit(params, 'customerId'); // eslint-disable-line no-param-reassign
-    }
-
-    return super.get(id, params, cb);
+    return super.get(id, parameters, cb) as Promise<Mandate>;
   }
 
   /**
    * Get all of a customer's mandates
+   *
+   * @param {Mollie.Mandate.Params.IList}  params
+   * @param {Mollie.Mandate.Callback.List} cb     Callback function, can be used instead of the returned `Promise` object
+   *
+   * @returns {Promise<List<Mandate>>}
+   *
    * @since 1.2.0
+   *
+   * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
+   * @api ✓ This method is part of the public API
    */
-  all(params?: any, cb?: Function) {
-    this.setParent(params);
+  public async list(
+    params?: Mollie.Mandate.Params.IList,
+    cb?: Mollie.Mandate.Callback.List,
+  ): Promise<List<Mandate>> {
+    const { customerId, ...parameters } = params;
+    this.setParentId(customerId);
 
-    if (typeof params === 'object') {
-      params = omit(params, 'customerId'); // eslint-disable-line no-param-reassign
-    }
-
-    return super.all(params, cb);
+    return super.list(parameters, cb);
   }
 
   /**
    * Delete a customer subscription
+   *
+   * @param {string}                         id     Mandate ID
+   * @param {Mollie.Mandate.Params.IRevoke}  params
+   * @param {Mollie.Mandate.Callback.Revoke} cb     Callback function, can be used instead of the returned `Promise` object
+   *
+   * @returns {Promise<boolean>}
+   *
    * @since 2.0.0
+   *
+   * @see https://docs.mollie.com/reference/v2/mandates-api/revoke-mandate
+   * @api ✓ This method is part of the public API
    */
-  delete(id: string, params?: any, cb?: Function) {
-    if (typeof params === 'function') {
-      cb = params; // eslint-disable-line no-param-reassign
-    }
+  public async revoke(id: string, params?: any, cb?: Function): Promise<boolean> {
+    const { customerId } = params;
+    this.setParentId(customerId);
 
-    this.setParent(params);
-    return super.delete(id, cb);
+    // TODO: check parent return type
+    return super.delete(id, cb) as Promise<boolean>;
   }
 
+  // ALIASES
+
   /**
-   * Alias for delete
+   * Alias for revoke
+   *
    * @since 1.3.2
+   *
+   * @see https://docs.mollie.com/reference/v2/mandates-api/revoke-mandate
+   * @api ✓ This method is part of the public API
+   * @alias delete
    */
-  cancel() {
-    return this.delete(arguments[0], arguments[1], arguments[2]);
-  }
+  cancel = this.revoke;
 
   /**
-   * Alias of delete
+   * Alias for revoke
+   *
    * @since 2.0.0
+   *
+   * @see https://docs.mollie.com/reference/v2/mandates-api/revoke-mandate
+   * @api ✓ This method is part of the public API
+   * @alias delete
    */
-  revoke() {
-    return this.delete(arguments[0], arguments[1], arguments[2]);
+  delete = this.revoke;
+
+  // NOT AVAILABLE
+
+  /**
+   * @deprecated This method is not available
+   */
+  public async update(): Promise<Mandate> {
+    throw new ApiException(
+      `The method "${this.update.name}" is not available on the "${
+        CustomersMandatesResource.apiName
+      }"`,
+    );
   }
 }

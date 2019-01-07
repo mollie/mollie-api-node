@@ -1,5 +1,6 @@
 declare namespace Mollie {
   type IdealIssuer = string;
+
   type GiftcardIssuer =
     | 'nationalebioscoopbon'
     | 'nationaleentertainmentcard'
@@ -9,4 +10,6 @@ declare namespace Mollie {
     | 'webshopgiftcard'
     | 'yourgift';
   type KbcIssuer = 'kbc' | 'cbc';
+
+  type Issuer = IdealIssuer | GiftcardIssuer | KbcIssuer;
 }
