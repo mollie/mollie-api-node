@@ -5,14 +5,14 @@ import PaymentsRefundsResource from './resources/payments/refunds';
 import PaymentsChargebacksResource from './resources/payments/chargebacks';
 import Methods from './resources/methods';
 import Refunds from './resources/refunds';
-import Customers from './resources/customers';
+import Customers from './resources/customers/customers';
 import CustomersPayments from './resources/customers/payments';
 import CustomersMandates from './resources/customers/mandates';
-import CustomersSubscriptions from './resources/customers/subscriptions';
+import CustomersSubscriptions from './resources/customers/subscriptions/subscriptions';
 import Chargebacks from './resources/chargebacks';
 import OrdersShipments from './resources/orders/shipments';
 import OrdersRefunds from './resources/orders/refunds';
-import Orders from './resources/orders';
+import Orders from './resources/orders/orders';
 import OrdersLines from './resources/orders/lines';
 
 interface ICreateMollieApi {
