@@ -21,8 +21,18 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
   }
 
   /**
-   * Update a resource by ID
-   * @since 1.0.0
+   * Update a Shipment
+   *
+   * @param {string}                          id     Shipment ID
+   * @param {Mollie.Shipment.Params.IUpdate}  params
+   * @param {Mollie.Shipment.Callback.Update} cb     Callback function, can be used instead of the returned `Promise` object
+   *
+   * @returns {Promise<Shipment>}
+   *
+   * @since 2.2.0
+   *
+   * @see
+   * @public ✓ This method is part of the public API
    */
   public async update(
     id: string,
@@ -36,16 +46,16 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
   }
 
   /**
-   * Get a shipment by ID
+   * Get a Shipment by ID
    *
-   * @param {string}                      id      Shipment ID
+   * @param {string}                       id     Shipment ID
    * @param {Mollie.Shipment.Params.IGet}  params
    * @param {Mollie.Shipment.Callback.Get} cb     Callback function, can be used instead of the returned `Promise` object
    *
    * @since 2.2.0
    *
    * @see
-   * @api
+   * @public ✓ This method is part of the public API
    */
   public async get(
     id: string,
@@ -59,7 +69,9 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
   }
 
   /**
-   * Get all order shipments
+   * List order shipments
+   *
+   *
    *
    * @since 2.2.0
    */

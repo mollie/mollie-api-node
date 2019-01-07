@@ -6,7 +6,7 @@ import CustomersBaseResource from '../../../resources/customers/base';
 import Resource from '../../../resource';
 
 /**
- * Customers base resource
+ * Customers base resource.
  */
 export default class CustomersSubscriptionsBaseResource extends CustomersBaseResource {
   protected subscriptionId: string;
@@ -20,7 +20,7 @@ export default class CustomersSubscriptionsBaseResource extends CustomersBaseRes
   }
 
   /**
-   * Create a resource URL with the parent ID
+   * Create a resource URL with the parent ID.
    *
    * @since 2.0.0
    */

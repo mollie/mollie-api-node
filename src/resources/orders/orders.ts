@@ -29,7 +29,7 @@ export default class Orders extends Resource {
    * @since 2.2.0
    *
    * @see
-   * @api
+   * @public ✓ This method is part of the public API
    */
   public async create(
     params: Mollie.Order.Params.ICreate,
@@ -50,7 +50,7 @@ export default class Orders extends Resource {
    * @since 2.2.0
    *
    * @see
-   * @api
+   * @public ✓ This method is part of the public API
    */
   public async get(
     id: string,
@@ -71,7 +71,7 @@ export default class Orders extends Resource {
    * @since 2.2.0
    *
    * @see
-   * @api
+   * @public ✓ This method is part of the public API
    */
   public async list(
     params?: Mollie.Order.Params.IGet,
@@ -92,7 +92,7 @@ export default class Orders extends Resource {
    * @since 2.2.0
    *
    * @see
-   * @api
+   * @public ✓ This method is part of the public API
    */
   public async update(
     id: string,
@@ -114,7 +114,7 @@ export default class Orders extends Resource {
    * @since 2.2.0
    *
    * @see
-   * @api
+   * @public ✓ This method is part of the public API
    */
   public async cancel(
     id: string,
@@ -132,7 +132,7 @@ export default class Orders extends Resource {
    * @since 2.2.0
    *
    * @see
-   * @api
+   * @public ✓ This method is part of the public API
    * @alias cancel
    */
   delete = this.cancel;
@@ -143,7 +143,7 @@ export default class Orders extends Resource {
    * @since 2.2.0
    *
    * @see
-   * @api
+   * @public ✓ This method is part of the public API
    * @alias list
    */
   all = this.list;

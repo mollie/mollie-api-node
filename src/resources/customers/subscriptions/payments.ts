@@ -5,7 +5,7 @@ import Payment from '../../../models/Payment';
 import ApiException from '../../../exceptions/ApiException';
 
 /**
- * The `customers_subscriptions` resource
+ * The `customers_subscriptions` resource.
  *
  * @static {string} resource
  * @static {Object} model
@@ -21,19 +21,22 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
   // API METHODS
 
   /**
-   * Get all customer's subscriptions
+   * Get all customer's subscriptions.
    *
-   * @param {Mollie.ISubscriptionPaymentListParams}  params
-   * @param {Mollie.SubscriptionPaymentListCallback} cb     Callback function, can be used instead of the returned `Promise` object
+   * @param {Mollie.Subscription.Payment.Params.IList}  params
+   * @param {Mollie.Subscription.Payment.Callback.List} cb     Callback function, can be used instead of the returned `Promise` object
    *
    * @returns {Promise<List<Payment>>}
    *
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions-payments
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    */
-  public async list(params?: any, cb?: Function): Promise<List<Payment>> {
+  public async list(
+    params?: Mollie.Subscription.Payment.Params.IList,
+    cb?: Mollie.Subscription.Payment.Callback.List,
+  ): Promise<List<Payment>> {
     const { customerId, subscriptionId, ...parameters } = params;
     this.setParentId(customerId);
     this.setSubscriptionId(subscriptionId);
@@ -44,12 +47,12 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
   // ALIASES
 
   /**
-   * Get all customer's subscriptions
+   * Get all customer's subscriptions.
    *
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions-payments
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    */
   all = this.list;
 

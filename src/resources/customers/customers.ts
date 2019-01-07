@@ -17,7 +17,11 @@ export default class CustomersResource extends CustomersBaseResource {
   // API METHODS
 
   /**
-   * Create a Customer.
+   * Creates a simple minimal representation of a customer in the Mollie API
+   * to use for the Mollie Checkout and Recurring features.
+   * These customers will appear in your Mollie Dashboard
+   * where you can manage their details,
+   * and also see their payments and subscriptions.
    *
    * @param {Mollie.Customer.Params.ICreate}  params
    * @param {Mollie.Customer.Callback.Create} cb     Callback function, can be used instead of the returned `Promise` object
@@ -27,7 +31,7 @@ export default class CustomersResource extends CustomersBaseResource {
    * @since 2.0.0
    *
    * @see
-   * @api
+   * @public ✓ This method is part of the public API
    */
   public async create(
     params: Mollie.Customer.Params.ICreate,
@@ -48,7 +52,7 @@ export default class CustomersResource extends CustomersBaseResource {
    * @since 2.0.0
    *
    * @see
-   * @api
+   * @public ✓ This method is part of the public API
    */
   public async get(
     id: string,
@@ -69,7 +73,7 @@ export default class CustomersResource extends CustomersBaseResource {
    * @since 2.0.0
    *
    * @see
-   * @api
+   * @public ✓ This method is part of the public API
    */
   public async list(
     params?: Mollie.Customer.Params.IList,
@@ -90,7 +94,7 @@ export default class CustomersResource extends CustomersBaseResource {
    * @since 2.0.0
    *
    * @see
-   * @api
+   * @public ✓ This method is part of the public API
    */
   public async update(
     id: string,
@@ -112,7 +116,7 @@ export default class CustomersResource extends CustomersBaseResource {
    * @since 2.0.0
    *
    * @see
-   * @api
+   * @public ✓ This method is part of the public API
    */
   public async delete(
     id: string,
@@ -131,7 +135,7 @@ export default class CustomersResource extends CustomersBaseResource {
    * @since 2.0.0
    *
    * @see
-   * @api
+   * @public ✓ This method is part of the public API
    * @alias list
    */
   all = this.list;
@@ -142,7 +146,7 @@ export default class CustomersResource extends CustomersBaseResource {
    * @since 2.0.0
    *
    * @see
-   * @api
+   * @public ✓ This method is part of the public API
    * @alias delete
    */
   cancel = this.delete;

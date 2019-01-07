@@ -38,7 +38,7 @@ export default class Method extends Model implements Mollie.IMethod {
    * @since 2.0.0
    * @since 2.2.0 SVG support
    *
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    */
   public getImage(
     size: Mollie.Method.ImageSize | '1x' | '2x' = Mollie.Method.ImageSize.size2x,

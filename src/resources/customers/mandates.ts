@@ -30,7 +30,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    * @since 1.2.0
    *
    * @see https://docs.mollie.com/reference/v2/mandates-api/create-mandate
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    */
   public async create(
     params: Mollie.Mandate.Params.ICreate,
@@ -54,7 +54,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    * @since 1.2.0
    *
    * @see https://docs.mollie.com/reference/v2/mandates-api/get-mandate
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    */
   public async get(
     id: string,
@@ -78,7 +78,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    * @since 1.2.0
    *
    * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    */
   public async list(
     params?: Mollie.Mandate.Params.IList,
@@ -102,7 +102,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/mandates-api/revoke-mandate
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    */
   public async revoke(id: string, params?: any, cb?: Function): Promise<boolean> {
     const { customerId } = params;
@@ -120,7 +120,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    * @since 1.3.2
    *
    * @see https://docs.mollie.com/reference/v2/mandates-api/revoke-mandate
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    * @alias delete
    */
   cancel = this.revoke;
@@ -131,7 +131,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/mandates-api/revoke-mandate
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    * @alias delete
    */
   delete = this.revoke;

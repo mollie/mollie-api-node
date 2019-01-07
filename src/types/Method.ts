@@ -20,14 +20,13 @@ declare namespace Mollie {
     }
 
     namespace Params {
-
       interface IGet {
         locale?: Locale;
 
         // Access token parameters
         profileId?: string;
         testmode?: boolean;
-        include?: Array<Include>,
+        include?: Array<Include>;
       }
 
       interface IList {
@@ -40,7 +39,7 @@ declare namespace Mollie {
         // Access token parameters
         profileId?: string;
         testmode?: boolean;
-        include?: Array<Include>,
+        include?: Array<Include>;
       }
     }
 

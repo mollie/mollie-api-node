@@ -8,7 +8,7 @@ export default class Subscription extends Model implements Mollie.ISubscription 
   resource: string;
   id: string;
   mode: Mollie.ApiMode;
-  status: Mollie.SubscriptionStatus;
+  status: Mollie.Subscription.Status;
   amount: Mollie.IAmount;
   times: number;
   timesRemaining: number;
@@ -70,7 +70,7 @@ export default class Subscription extends Model implements Mollie.ISubscription 
    * @returns {boolean}
    */
   isActive() {
-    return this.status === Mollie.SubscriptionStatus.active;
+    return this.status === Mollie.Subscription.Status.active;
   }
 
   /**
@@ -78,7 +78,7 @@ export default class Subscription extends Model implements Mollie.ISubscription 
    * @returns {boolean}
    */
   isPending() {
-    return this.status === Mollie.SubscriptionStatus.pending;
+    return this.status === Mollie.Subscription.Status.pending;
   }
 
   /**
@@ -86,7 +86,7 @@ export default class Subscription extends Model implements Mollie.ISubscription 
    * @returns {boolean}
    */
   isCompleted() {
-    return this.status === Mollie.SubscriptionStatus.completed;
+    return this.status === Mollie.Subscription.Status.completed;
   }
 
   /**
@@ -94,7 +94,7 @@ export default class Subscription extends Model implements Mollie.ISubscription 
    * @returns {boolean}
    */
   isSuspended() {
-    return this.status === Mollie.SubscriptionStatus.suspended;
+    return this.status === Mollie.Subscription.Status.suspended;
   }
 
   /**

@@ -36,7 +36,7 @@ declare namespace Mollie {
       | 'shipping_fee'
       | 'store_credit'
       | 'gift_card'
-      | 'surcharge'
+      | 'surcharge';
 
     namespace Params {
       interface IUpdate {

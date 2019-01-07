@@ -20,7 +20,7 @@ declare namespace Mollie {
     | 'hu_HU'
     | 'pl_PL'
     | 'lv_LV'
-    | 'lt_LT'
+    | 'lt_LT';
 
   type Method =
     | 'bancontact'
@@ -37,7 +37,7 @@ declare namespace Mollie {
     | 'kbc'
     | 'paypal'
     | 'paysafecard'
-    | 'sofort'
+    | 'sofort';
 
   type ApiMode = 'test' | 'live';
 
@@ -86,7 +86,7 @@ declare namespace Mollie {
     | 'Mastercard'
     | 'Unionpay'
     | 'Visa'
-    | null
+    | null;
 
   enum SequenceType {
     oneoff = 'oneoff',

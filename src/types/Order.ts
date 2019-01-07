@@ -37,7 +37,7 @@ declare namespace Mollie {
       | 'canceled'
       | 'shipping'
       | 'completed'
-      | 'expired'
+      | 'expired';
 
     interface IAddress extends Mollie.IAddress {
       title?: string;
@@ -67,21 +67,13 @@ declare namespace Mollie {
         testmode: boolean;
       }
 
-      interface IGet {
+      interface IGet {}
 
-      }
+      interface IList {}
 
-      interface IList {
+      interface IUpdate {}
 
-      }
-
-      interface IUpdate {
-
-      }
-
-      interface ICancel {
-
-      }
+      interface ICancel {}
     }
 
     namespace Callback {

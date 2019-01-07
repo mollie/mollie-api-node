@@ -18,12 +18,30 @@ declare namespace Mollie {
   namespace Customer {
     namespace Params {
       interface ICreate {
+        /** @param name - The full name of the customer.  */
         name?: string;
+        /** @param email - The email address of the customer. */
         email?: string;
-        locale: Locale;
+        /** @param locale - Allows you to preset the language
+         *                  to be used in the hosted payment
+         *                  pages shown to the consumer.
+         *                  When this parameter is not provided,
+         *                  the browser language will be used
+         *                  instead in the payment flow
+         *                  (which is usually more accurate).
+         */
+        locale?: Locale;
+        /** @param metadata - Provide any data you like,
+         *                    and we will save the data alongside
+         *                    the customer.
+         *                    Whenever you fetch the customer with
+         *                    our API, we’ll also include the metadata.
+         *                    You can use up to 1kB of JSON.
+         */
         metadata?: any;
 
         // Access token parameters
+        /** @param testmode - Set this to true to create a test mode customer. */
         testmode?: boolean;
       }
 

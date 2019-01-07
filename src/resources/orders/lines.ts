@@ -23,7 +23,7 @@ export default class OrdersLines extends OrdersResource {
    * @since 2.2.0
    *
    * @see
-   * @api
+   * @public ✓ This method is part of the public API
    */
   public async update(
     id: string,
@@ -48,7 +48,7 @@ export default class OrdersLines extends OrdersResource {
    * @since 2.2.0
    *
    * @see
-   * @api
+   * @public ✓ This method is part of the public API
    */
   public async cancel(
     id: string,
@@ -70,7 +70,7 @@ export default class OrdersLines extends OrdersResource {
    * @since 2.2.0
    *
    * @see
-   * @api
+   * @public ✓ This method is part of the public API
    */
   delete = this.cancel;
 }

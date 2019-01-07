@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
+    "outDir": "dist/",
     "declaration": true,
     "resolveJsonModule": true,
     "module": "ESNext",
@@ -10,8 +10,7 @@
     "lib": [ "es2015", "es2016", "es2017" ]
   },
   "include": [
-    "./@types/**/*",
-    "./src/**/*",
-    "./tests/**/*"
-  ]
+    "src/"
+  ],
+  "files": ["dist/**/*"]
 }

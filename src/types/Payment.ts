@@ -17,7 +17,7 @@ declare namespace Mollie {
     amountRemaining?: IAmount;
     amountCaptured?: IAmount;
     description: string;
-    redirectUrl: string|null;
+    redirectUrl: string | null;
     webhookUrl?: string;
     method: Method;
     metadata: any;
@@ -50,8 +50,7 @@ declare namespace Mollie {
       paid = 'paid',
     }
 
-    type Include =
-      | 'details.qrCode'
+    type Include = 'details.qrCode';
 
     enum Embed {
       refunds = 'refunds',
@@ -73,7 +72,7 @@ declare namespace Mollie {
         billingEmail?: string;
         billingAddress?: IAddress;
         shippingAddress?: IAddress;
-        issuer: GiftcardIssuer|IdealIssuer|KbcIssuer;
+        issuer: GiftcardIssuer | IdealIssuer | KbcIssuer;
         dueDate?: string;
         customerReference?: string;
         consumerName?: string;
@@ -94,11 +93,9 @@ declare namespace Mollie {
         testmode?: boolean;
       }
 
-      interface IList {
-      }
+      interface IList {}
 
-      interface IUpdate extends Partial<IPayment> {
-      }
+      interface IUpdate extends Partial<IPayment> {}
 
       interface ICancel {
         // Access token parameters

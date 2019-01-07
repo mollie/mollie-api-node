@@ -30,7 +30,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    * @since 1.1.1
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/create-refund#
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    */
   public async create(
     data: Mollie.PaymentRefund.Params.ICreate,
@@ -52,7 +52,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    * @since 1.1.1
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/get-refund
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    */
   public async get(
     id: string,
@@ -74,7 +74,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    * @since 1.1.1
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    */
   public async list(
     params?: Mollie.PaymentRefund.Params.IList,
@@ -95,7 +95,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    * @since 1.1.1
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/cancel-refund
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    */
   cancel(
     id: string,
@@ -117,7 +117,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    * @since 1.1.1
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    * @alias list
    */
   all = this.list;
@@ -126,7 +126,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    * Cancel a Payment Refund by ID
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/cancel-refund
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    * @alias cancel
    */
   delete = this.cancel;

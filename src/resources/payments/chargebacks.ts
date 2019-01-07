@@ -34,7 +34,7 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
    * @since 1.1.1
    *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-chargeback
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    */
   public async get(
     id: string,
@@ -61,7 +61,7 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
    * @since 1.1.1
    *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    */
   public async list(
     params: Mollie.PaymentChargeback.Params.IList,
@@ -81,7 +81,7 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
    * @since 1.1.1
    *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    * @alias list
    */
   all = this.list;

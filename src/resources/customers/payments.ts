@@ -4,7 +4,7 @@ import List from '../../models/List';
 import ApiException from '../../exceptions/ApiException';
 
 /**
- * The `customers_payments` resource
+ * The `customers_payments` resource.
  *
  * @static {string} resource
  * @static {Object} model
@@ -18,7 +18,7 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
   public static apiName = 'Customers API (Payments section)';
 
   /**
-   * Create a customer payment
+   * Create a customer payment.
    *
    * @param {Mollie.CustomerPayment.Params.ICreate}  params
    * @param {Mollie.CustomerPayment.Callback.Create} cb     Callback function, can be used instead of the returned `Promise` object
@@ -26,7 +26,7 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
    * @since 1.1.1
    *
    * @see
-   * @api
+   * @public ✓ This method is part of the public API
    */
   public async create(
     params: Mollie.CustomerPayment.Params.ICreate,
@@ -39,7 +39,7 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
   }
 
   /**
-   * Get all of a customer's payments
+   * Get all of a customer's payments.
    *
    * @param {Mollie.CustomerPayment.Params.IList}  params
    * @param {Mollie.CustomerPayment.Callback.List} cb     Callback function, can be used instead of the returned `Promise` object
@@ -49,7 +49,7 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
    * @since 2.2.0
    *
    * @see
-   * @api
+   * @public ✓ This method is part of the public API
    */
   public async list(
     params?: Mollie.CustomerPayment.Params.IList,
@@ -64,12 +64,12 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
   // ALIASES
 
   /**
-   * Get all of a customer's payments
+   * Get all of a customer's payments.
    *
    * @since 1.1.1
    *
    * @see
-   * @api
+   * @public ✓ This method is part of the public API
    */
   all = this.list;
 

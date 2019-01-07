@@ -1,57 +1,77 @@
 import { AxiosInstance } from 'axios';
 
-import Payments from './resources/payments/payments';
+import PaymentsResource from './resources/payments/payments';
 import PaymentsRefundsResource from './resources/payments/refunds';
 import PaymentsChargebacksResource from './resources/payments/chargebacks';
-import Methods from './resources/methods';
-import Refunds from './resources/refunds';
-import Customers from './resources/customers/customers';
-import CustomersPayments from './resources/customers/payments';
-import CustomersMandates from './resources/customers/mandates';
-import CustomersSubscriptions from './resources/customers/subscriptions/subscriptions';
-import Chargebacks from './resources/chargebacks';
-import OrdersShipments from './resources/orders/shipments';
-import OrdersRefunds from './resources/orders/refunds';
-import Orders from './resources/orders/orders';
-import OrdersLines from './resources/orders/lines';
+import MethodsResource from './resources/methods';
+import RefundsResource from './resources/refunds';
+import CustomersResource from './resources/customers/customers';
+import CustomersPaymentsResource from './resources/customers/payments';
+import CustomersMandatesResource from './resources/customers/mandates';
+import CustomersSubscriptionsResource from './resources/customers/subscriptions/subscriptions';
+import ChargebacksResource from './resources/chargebacks';
+import OrdersShipmentsResource from './resources/orders/shipments';
+import OrdersRefundsResource from './resources/orders/refunds';
+import OrdersResource from './resources/orders/orders';
+import OrdersLinesResource from './resources/orders/lines';
 
 interface ICreateMollieApi {
   httpClient: AxiosInstance;
+}
+
+export interface IMollieApiClient {
+  payments: PaymentsResource;
+  methods: MethodsResource;
+  payments_refunds: PaymentsRefundsResource;
+  refunds: RefundsResource;
+  payments_chargebacks: PaymentsChargebacksResource;
+  chargebacks: ChargebacksResource;
+  payments_captures: null; // TODO: implement
+  customers: CustomersResource;
+  customers_payments: CustomersPaymentsResource;
+  customers_mandates: CustomersMandatesResource;
+  customers_subscriptions: CustomersSubscriptionsResource;
+  orders: OrdersResource;
+  orders_refunds: OrdersRefundsResource;
+  orders_lines: OrdersLinesResource;
+  orders_shipments: OrdersShipmentsResource;
 }
 
 /**
  * Create Mollie API
  *
  * @since 2.0.0
+ *
+ * @private
  */
-export default function createMollieApi({ httpClient }: ICreateMollieApi) {
+export default function createMollieApi({ httpClient }: ICreateMollieApi): IMollieApiClient {
   return {
     // Payments API
-    payments: new Payments(httpClient),
+    payments: new PaymentsResource(httpClient),
     // Methods API
-    methods: new Methods(httpClient),
+    methods: new MethodsResource(httpClient),
     // Refunds API
     payments_refunds: new PaymentsRefundsResource(httpClient),
-    refunds: new Refunds(httpClient),
+    refunds: new RefundsResource(httpClient),
     // Chargebacks API
     payments_chargebacks: new PaymentsChargebacksResource(httpClient),
-    chargebacks: new Chargebacks(httpClient),
+    chargebacks: new ChargebacksResource(httpClient),
     // Captures API
     payments_captures: null, // TODO: implement the Captures API
 
     // Customers API
-    customers: new Customers(httpClient),
-    customers_payments: new CustomersPayments(httpClient),
+    customers: new CustomersResource(httpClient),
+    customers_payments: new CustomersPaymentsResource(httpClient),
     // Mandates API
-    customers_mandates: new CustomersMandates(httpClient),
+    customers_mandates: new CustomersMandatesResource(httpClient),
     // Subscriptions API
-    customers_subscriptions: new CustomersSubscriptions(httpClient),
+    customers_subscriptions: new CustomersSubscriptionsResource(httpClient),
 
     // Orders API
-    orders: new Orders(httpClient),
-    orders_refunds: new OrdersRefunds(httpClient),
-    orders_lines: new OrdersLines(httpClient),
+    orders: new OrdersResource(httpClient),
+    orders_refunds: new OrdersRefundsResource(httpClient),
+    orders_lines: new OrdersLinesResource(httpClient),
     // Shipments API
-    orders_shipments: new OrdersShipments(httpClient),
+    orders_shipments: new OrdersShipmentsResource(httpClient),
   };
 }

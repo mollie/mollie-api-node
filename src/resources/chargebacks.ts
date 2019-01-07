@@ -27,7 +27,7 @@ export default class ChargebacksResource extends Resource {
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    */
   public async list(
     params: Mollie.Chargeback.Params.IList,

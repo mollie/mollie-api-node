@@ -29,7 +29,7 @@ export default class MethodsResource extends Resource {
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/methods-api/get-method
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    */
   public async get(
     id: string,
@@ -50,7 +50,7 @@ export default class MethodsResource extends Resource {
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/methods-api/list-methods
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    */
   public async list(
     params?: Mollie.Method.Params.IList,

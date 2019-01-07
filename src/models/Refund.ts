@@ -45,7 +45,7 @@ export default class Refund extends Model implements Mollie.IPaymentRefund {
    *
    * @returns {boolean}
    *
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    */
   public isQueued(): boolean {
     return this.status === Mollie.Refund.Status.queued;
@@ -56,7 +56,7 @@ export default class Refund extends Model implements Mollie.IPaymentRefund {
    *
    * @returns {boolean}
    *
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    */
   public isPending(): boolean {
     return this.status === Mollie.Refund.Status.pending;
@@ -68,7 +68,7 @@ export default class Refund extends Model implements Mollie.IPaymentRefund {
    *
    * @returns {boolean}
    *
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    */
   public isProcessing(): boolean {
     return this.status === Mollie.Refund.Status.processing;
@@ -79,7 +79,7 @@ export default class Refund extends Model implements Mollie.IPaymentRefund {
    *
    * @returns {boolean}
    *
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    */
   public isRefunded(): boolean {
     return this.status === Mollie.Refund.Status.refunded;
@@ -90,7 +90,7 @@ export default class Refund extends Model implements Mollie.IPaymentRefund {
    *
    * @returns {boolean}
    *
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    */
   public isFailed(): boolean {
     return this.status === Mollie.Refund.Status.failed;

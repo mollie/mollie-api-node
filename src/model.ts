@@ -31,7 +31,7 @@ export default class Model {
    * Converts a model into a plain object
    *
    * @returns {Object}
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    */
   public toPlainObject() {
     return toPlainObject(this);

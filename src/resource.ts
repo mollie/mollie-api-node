@@ -133,7 +133,7 @@ export default class Resource {
    *
    * @since 1.0.0
    *
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    */
   public async create(params: any, cb?: Function): Promise<Model> {
     const callback = typeof params === 'function' ? params : cb;

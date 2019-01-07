@@ -32,7 +32,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/create-payment
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    */
   public async create(
     data: Mollie.Payment.Params.ICreate,
@@ -53,7 +53,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    */
   public async get(
     id: string,
@@ -78,7 +78,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    */
   public async list(
     params?: Mollie.Payment.Params.IList,
@@ -102,7 +102,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/cancel-payment
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    */
   public async cancel(
     id: string,
@@ -126,7 +126,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    * @alias list
    */
   all = this.list;
@@ -139,7 +139,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/cancel-payment
-   * @api ✓ This method is part of the public API
+   * @public ✓ This method is part of the public API
    * @alias cancel
    */
   delete = this.cancel;

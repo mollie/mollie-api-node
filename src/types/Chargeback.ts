@@ -13,8 +13,8 @@ declare namespace Mollie {
   namespace Chargeback {
     namespace Params {
       interface IList {
-        from: string,
-        limit: number,
+        from: string;
+        limit: number;
       }
     }
 

@@ -2,8 +2,8 @@ declare namespace Mollie {
   // FIXME: check props
   interface IOrderRefund {
     description?: string;
-    orderId?: string,
-    lines: Array<IOrderLine>,
+    orderId?: string;
+    lines: Array<IOrderLine>;
 
     // Access token parameters
     testmode?: boolean;
@@ -12,9 +12,17 @@ declare namespace Mollie {
   namespace OrderRefund {
     namespace Params {
       interface ICreate {
+        orderId: string;
+
         description?: string;
-        orderId?: string,
-        lines: Array<IOrderLine>,
+        lines: Array<IOrderLine>;
+
+        // Access token parameters
+        testmode?: boolean;
+      }
+
+      interface IList {
+        orderId: string;
 
         // Access token parameters
         testmode?: boolean;

@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 import https from 'https';
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import qs from 'qs';
 
 // @ts-ignore
@@ -10,16 +10,17 @@ import cert from './cacert.pem';
 // @ts-ignore
 import { version } from '../package.json';
 
-interface MollieRequestConfig extends AxiosRequestConfig {
+export interface MollieRequestConfig extends AxiosRequestConfig {
   apiKey: string;
 }
 declare let window: any;
 
 /**
  * Create pre-configured httpClient instance
+ *
  * @private
  */
-export default function createHttpClient(options: MollieRequestConfig) {
+export default function createHttpClient(options: MollieRequestConfig): AxiosInstance {
   options.baseURL = 'https://api.mollie.com:443/v2/';
 
   options.headers = {

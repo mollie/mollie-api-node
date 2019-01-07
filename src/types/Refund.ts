@@ -11,9 +11,7 @@ declare namespace Mollie {
     }
 
     namespace Params {
-      interface IList {
-
-      }
+      interface IList {}
     }
 
     namespace Callback {

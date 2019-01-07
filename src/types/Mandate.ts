@@ -74,7 +74,7 @@ declare namespace Mollie {
       }
 
       interface IRevoke {
-        customerId: string,
+        customerId: string;
 
         // Access token parameters
         testmode?: boolean;
@@ -89,4 +89,3 @@ declare namespace Mollie {
     }
   }
 }
-
