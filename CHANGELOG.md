@@ -4,6 +4,9 @@
 
 All notable changes to this project will be documented in this file.
 
+#### v2.1.1 - 2018-12-04
+  - Updated cacert.pem (#99)
+
 #### v2.0.1 - 2018-08-17
   - Fixes #69.
 
