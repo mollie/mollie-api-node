@@ -1,6 +1,20 @@
 import CustomersBaseResource from './base';
 import Subscription from '../../../models/Subscription';
 import List from '../../../models/List';
+import {
+  ICancelParams,
+  ICreateParams,
+  IGetParams,
+  IListParams,
+  IUpdateParams,
+} from '../../../types/subscription/params';
+import {
+  CancelCallback,
+  CreateCallback,
+  GetCallback,
+  ListCallback,
+  UpdateCallback,
+} from '../../../types/subscription/callback';
 
 /**
  * The `customers_subscriptions` resource.
@@ -19,20 +33,17 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
   /**
    * Create a customer subscription.
    *
-   * @param {Mollie.Subscription.Params.ICreate}  params
-   * @param {Mollie.Subscription.Callback.Create} cb     Callback function, can be used instead of the returned `Promise` object
+   * @param params
+   * @param cb     Callback function, can be used instead of the returned `Promise` object
    *
-   * @returns {Promise<Subscription>}
+   * @returns
    *
    * @since 1.3.2
    *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/create-subscription
    * @public ✓ This method is part of the public API
    */
-  public async create(
-    params: Mollie.Subscription.Params.ICreate,
-    cb?: Mollie.Subscription.Callback.Create,
-  ): Promise<Subscription> {
+  public async create(params: ICreateParams, cb?: CreateCallback): Promise<Subscription> {
     const { customerId, ...parameters } = params;
     this.setParentId(customerId);
 
@@ -42,22 +53,18 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
   /**
    * Get a customer subscription.
    *
-   * @param {string}                           id     Subscription ID
-   * @param {Mollie.Subscription.Params.IGet}  params
-   * @param {Mollie.Subscription.Callback.Get} cb     Callback function, can be used instead of the returned `Promise` object
+   * @param id     Subscription ID
+   * @param params
+   * @param cb     Callback function, can be used instead of the returned `Promise` object
    *
-   * @return {Promise<Customer>}
+   * @return
    *
    * @since 1.3.2
    *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription
    * @public ✓ This method is part of the public API
    */
-  public async get(
-    id: string,
-    params: Mollie.Subscription.Params.IGet,
-    cb?: Mollie.Subscription.Callback.Get,
-  ): Promise<Subscription> {
+  public async get(id: string, params: IGetParams, cb?: GetCallback): Promise<Subscription> {
     const { customerId, ...parameters } = params;
     this.setParentId(customerId);
 
@@ -67,20 +74,17 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
   /**
    * Get all customer's subscriptions.
    *
-   * @param {Mollie.Subscription.Params.IList}  params
-   * @param {Mollie.Subscription.Callback.List} cb     Callback function, can be used instead of the returned `Promise` object
+   * @param params - List Customer's Subscriptions parameters
+   * @param cb - Callback function, can be used instead of the returned `Promise` object
    *
-   * @returns {Promise<List<Subscription>>}
+   * @returns
    *
    * @since 1.3.2
    *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions
    * @public ✓ This method is part of the public API
    */
-  public async list(
-    params?: Mollie.Subscription.Params.IList,
-    cb?: Mollie.Subscription.Callback.List,
-  ): Promise<List<Subscription>> {
+  public async list(params?: IListParams, cb?: ListCallback): Promise<List<Subscription>> {
     const { customerId, ...parameters } = params;
     this.setParentId(customerId);
 
@@ -90,10 +94,11 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
   /**
    * Update a Customer's Subscription.
    *
-   * @param {string}                              id     Subscription ID
-   * @param {Mollie.Subscription.Params.IUpdate}  params
-   * @param {Mollie.Subscription.Callback.Update} cb     Callback function, can be used instead of the returned `Promise` object
-   * @returns {Promise<Model>}
+   * @param id - Subscription ID
+   * @param params - Update Customer Subscription parameters
+   * @param cb - Callback function, can be used instead of the returned `Promise` object
+   *
+   * @returns The updated Customer Subscription object
    *
    * @since 2.0.0
    *
@@ -102,8 +107,8 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
    */
   public async update(
     id: string,
-    params: Mollie.Subscription.Params.IUpdate,
-    cb?: Mollie.Subscription.Callback.Update,
+    params: IUpdateParams,
+    cb?: UpdateCallback,
   ): Promise<Subscription> {
     const { customerId, ...parameters } = params;
     this.setParentId(customerId);
@@ -114,20 +119,18 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
   /**
    * Alias for delete.
    *
-   * @param {string}                              id     Subscription ID
-   * @param {Mollie.Subscription.Params.ICancel}  params
-   * @param {Mollie.Subscription.Callback.Cancel} cb     Callback function, can be used instead of the returned `Promise` object
+   * @param id - Subscription ID
+   * @param params - Delete Subscription parameters
+   * @param cb - Callback function, can be used instead of the returned `Promise` object
+   *
+   * @returns Success status
    *
    * @since 1.3.2
    *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/cancel-subscription
    * @public ✓ This method is part of the public API
    */
-  public async cancel(
-    id: string,
-    params?: Mollie.Subscription.Params.ICancel,
-    cb?: Mollie.Subscription.Callback.Cancel,
-  ): Promise<boolean> {
+  public async cancel(id: string, params?: ICancelParams, cb?: CancelCallback): Promise<boolean> {
     const { customerId, ...parameters } = params;
     this.setParentId(customerId);
 

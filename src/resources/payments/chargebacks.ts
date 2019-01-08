@@ -6,6 +6,8 @@ import Chargeback from '../../models/Chargeback';
 import List from '../../models/List';
 import InvalidArgumentException from '../../exceptions/InvalidArgumentException';
 import Payment from '../../models/Payment';
+import { IGetParams, IListParams } from '../../types/payment/chargeback/params';
+import { GetCallback, ListCallback } from '../../types/payment/chargeback/callback';
 
 /**
  * The `payments_chargebacks` resource
@@ -25,22 +27,18 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
   /**
    * Get a Payment Chargeback by ID
    *
-   * @param {string}                                id     Chargeback ID
-   * @param {Mollie.PaymentChargeback.Params.IGet}  params
-   * @param {Mollie.PaymentChargeback.Callback.Get} cb     Callback function, can be used instead of the returned `Promise` object
+   * @param id - Chargeback ID
+   * @param params - Get Payment Chargeback parameters
+   * @param cb - Callback function, can be used instead of the returned `Promise` object
    *
-   * @returns {Promise<Chargeback>}
+   * @returns The found Payment Chargeback object
    *
    * @since 1.1.1
    *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-chargeback
    * @public ✓ This method is part of the public API
    */
-  public async get(
-    id: string,
-    params: Mollie.PaymentChargeback.Params.IGet,
-    cb?: Mollie.PaymentChargeback.Callback.Get,
-  ): Promise<Chargeback> {
+  public async get(id: string, params: IGetParams, cb?: GetCallback): Promise<Chargeback> {
     const { paymentId, ...parameters } = params;
     if (!startsWith(id, Payment.resourcePrefix)) {
       throw new InvalidArgumentException('Invalid Payment ID given');
@@ -53,20 +51,17 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
   /**
    * Retrieve a list of Payment Chargebacks
    *
-   * @param {Mollie.PaymentChargeback.Params.IList}  params
-   * @param {Mollie.PaymentChargeback.Callback.List} cb     Callback function, can be used instead of the returned `Promise` object
+   * @param params - Retrieve Payment Chargebacks list parameters
+   * @param cb - Callback function, can be used instead of the returned `Promise` object
    *
-   * @returns {Promise<List<Chargeback>>}
+   * @returns A list of found Payment Chargebacks
    *
    * @since 1.1.1
    *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
    * @public ✓ This method is part of the public API
    */
-  public async list(
-    params: Mollie.PaymentChargeback.Params.IList,
-    cb?: Mollie.PaymentChargeback.Callback.List,
-  ): Promise<List<Chargeback>> {
+  public async list(params: IListParams, cb?: ListCallback): Promise<List<Chargeback>> {
     const { paymentId, ...parameters } = params;
     this.setParentId(paymentId);
 

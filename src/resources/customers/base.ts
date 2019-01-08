@@ -29,6 +29,8 @@ export default class CustomersBaseResource extends Resource {
    * @param {string} parentId
    *
    * @returns {void}
+   *
+   * @since 2.2.0
    */
   protected setParentId(parentId: string): void {
     if (!startsWith(parentId, Customer.resourcePrefix)) {

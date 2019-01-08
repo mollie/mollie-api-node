@@ -11,6 +11,11 @@ import Resource from '../../../resource';
 export default class CustomersSubscriptionsBaseResource extends CustomersBaseResource {
   protected subscriptionId: string;
 
+  /**
+   * @param subscriptionId - Subscription ID
+   *
+   * @since 2.2.0
+   */
   protected setSubscriptionId(subscriptionId: string) {
     if (!startsWith(subscriptionId, Subscription.resourcePrefix)) {
       throw new InvalidArgumentException('Invalid Subscription ID given');

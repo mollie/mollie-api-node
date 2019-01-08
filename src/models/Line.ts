@@ -1,26 +1,29 @@
 import Model from '../model';
+import { IOrderLine, OrderLineType } from '../types/orderline';
+import { IAmount, ILinks } from '../types/global';
+import { OrderStatus } from '../types/order';
 
 /**
  * The `line` model
  */
-export default class Line extends Model implements Mollie.IOrderLine {
+export default class Line extends Model implements IOrderLine {
   public static resourcePrefix = 'odl_';
   id: string;
-  type: Mollie.OrderLine.Type;
+  type: OrderLineType;
   name: string;
   quantity: number;
-  unitPrice: Mollie.IAmount;
-  discountAmount?: Mollie.IAmount;
-  totalAmount: Mollie.IAmount;
+  unitPrice: IAmount;
+  discountAmount?: IAmount;
+  totalAmount: IAmount;
   vatRate: string;
-  vatAmount: Mollie.IAmount;
+  vatAmount: IAmount;
 
   imageUrl: string;
   productUrl: string;
-  _links: Mollie.ILinks;
+  _links: ILinks;
   resource: string;
   orderId?: string;
-  status: Mollie.Order.Status;
+  status: OrderStatus;
   isCancelable: boolean;
   quantityShipped: number;
   amountShipped: number;
@@ -33,10 +36,10 @@ export default class Line extends Model implements Mollie.IOrderLine {
   sku?: string;
   createdAt: string;
 
-  constructor(props?: Partial<Mollie.IOrderLine>) {
+  constructor(props?: Partial<IOrderLine>) {
     super(props);
 
-    const defaults: Mollie.IOrderLine = {
+    const defaults: IOrderLine = {
       resource: null,
       id: null,
       name: null,

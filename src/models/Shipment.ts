@@ -1,21 +1,24 @@
 import Model from '../model';
+import { IShipment, IShipmentTracking } from '../types/shipment';
+import { IOrderLine } from '../types/orderline';
+import { ILinks } from '../types/global';
 
 /**
  * The `shipment` model
  */
-export default class Shipment extends Model implements Mollie.IShipment {
+export default class Shipment extends Model implements IShipment {
   resource: string;
   id: string;
   orderId: string;
   createdAt: string;
-  tracking: Mollie.Shipment.ITracking | null;
-  lines: Array<Mollie.IOrderLine>;
-  _links: Mollie.ILinks;
+  tracking: IShipmentTracking | null;
+  lines: Array<IOrderLine>;
+  _links: ILinks;
 
-  constructor(props?: Partial<Mollie.IShipment>) {
+  constructor(props?: Partial<IShipment>) {
     super(props);
 
-    const defaults: Mollie.IShipment = {
+    const defaults: IShipment = {
       resource: null,
       id: null,
       orderId: null,

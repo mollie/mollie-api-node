@@ -1,6 +1,20 @@
 import Resource from '../../resource';
 import Order from '../../models/Order';
 import List from '../../models/List';
+import {
+  ICancelParams,
+  ICreateParams,
+  IGetParams,
+  IListParams,
+  IUpdateParams,
+} from '../../types/order/params';
+import {
+  CancelCallback,
+  CreateCallback,
+  GetCallback,
+  ListCallback,
+  UpdateCallback,
+} from '../../types/order/callback';
 
 /**
  * The `orders` resource
@@ -19,108 +33,104 @@ export default class Orders extends Resource {
   // API METHODS
 
   /**
-   * Create an Order.
+   * Using the Orders API is the preferred approach when integrating
+   * the Mollie API into e-commerce applications such as webshops.
+   * If you want to use pay after delivery methods such as Klarna Pay later,
+   * using the Orders API is mandatory.
    *
-   * @param {Mollie.Order.Params.ICreate} params
-   * @param {Mollie.Order.Callback.Create} cb
+   * Creating an order will automatically create the required payment to allow
+   * your customer to pay for the order.
    *
-   * @returns {Promise<Order>}
+   * Once you have created an order, you should redirect your customer to the
+   * URL in the _links.checkout property from the response.
+   *
+   * Note that when the payment fails, expires or is canceled, you can create
+   * a new payment using the Create order payment API. This is only possible
+   * for orders that have a created status.
+   *
+   * @param params - Create Order parameters
+   * @param cb - Callback function, can be used instead of
+   *             the returned `Promise` object
+   *
+   * @returns The newly created Order
    *
    * @since 2.2.0
    *
-   * @see
+   * @see https://docs.mollie.com/reference/v2/orders-api/create-order
    * @public ✓ This method is part of the public API
    */
-  public async create(
-    params: Mollie.Order.Params.ICreate,
-    cb?: Mollie.Order.Callback.Create,
-  ): Promise<Order> {
+  public async create(params: ICreateParams, cb?: CreateCallback): Promise<Order> {
     return super.create(params, cb) as Promise<Order>;
   }
 
   /**
    * Retrieve an Order.
    *
-   * @param {string} id
-   * @param {Mollie.Order.Params.IGet} params
-   * @param {Mollie.Order.Callback.Get} cb
+   * @param id - Order ID
+   * @param params - Get Order parameters
+   * @param cb - Callback function, can be used instead of the returned `Promise` object
    *
-   * @returns {Promise<Order>}
+   * @returns The Order
    *
    * @since 2.2.0
    *
-   * @see
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order
    * @public ✓ This method is part of the public API
    */
-  public async get(
-    id: string,
-    params: Mollie.Order.Params.IGet,
-    cb?: Mollie.Order.Callback.Get,
-  ): Promise<Order> {
+  public async get(id: string, params: IGetParams, cb?: GetCallback): Promise<Order> {
     return super.get(id, params, cb) as Promise<Order>;
   }
 
   /**
    * List Orders.
    *
-   * @param {Mollie.Order.Params.IGet} params
-   * @param {Mollie.Order.Callback.Get} cb
+   * @param params - List Order parameters
+   * @param cb - Callback function, can be used instead of the returned `Promise` object
    *
-   * @returns {Promise<List<Order>>}
+   * @returns A list of the Orders found
    *
    * @since 2.2.0
    *
-   * @see
+   * @see https://docs.mollie.com/reference/v2/orders-api/list-orders
    * @public ✓ This method is part of the public API
    */
-  public async list(
-    params?: Mollie.Order.Params.IGet,
-    cb?: Mollie.Order.Callback.Get,
-  ): Promise<List<Order>> {
+  public async list(params?: IListParams, cb?: ListCallback): Promise<List<Order>> {
     return super.list(params, cb) as Promise<List<Order>>;
   }
 
   /**
    * Update an Order.
    *
-   * @param {string} id
-   * @param {Mollie.Order.Params.IUpdate} data
-   * @param {Mollie.Order.Callback.Update} cb
+   * @param id - Order ID
+   * @param data - Update Order parameters
+   * @param cb - Callback function, can be used instead of the returned `Promise` object
    *
-   * @returns {Promise<Order>}
+   * @returns The updated Order
    *
    * @since 2.2.0
    *
-   * @see
+   * @see https://docs.mollie.com/reference/v2/orders-api/update-order
    * @public ✓ This method is part of the public API
    */
-  public async update(
-    id: string,
-    data: Mollie.Order.Params.IUpdate,
-    cb?: Mollie.Order.Callback.Update,
-  ): Promise<Order> {
+  public async update(id: string, data: IUpdateParams, cb?: UpdateCallback): Promise<Order> {
     return super.update(id, data, cb) as Promise<Order>;
   }
 
   /**
    * Cancel an Order.
    *
-   * @param {string} id
-   * @param {Mollie.Order.Params.ICancel} params
-   * @param {Mollie.Order.Callback.Cancel} cb
+   * @param id - Order ID
+   * @param params - Cancel Order parameters
+   * @param cb - Callback object, can be used instead of the returned `Promise` object
    *
-   * @returns {Promise<Order>}
+   * @returns Updated Order object
    *
    * @since 2.2.0
    *
-   * @see
+   * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order
    * @public ✓ This method is part of the public API
    */
-  public async cancel(
-    id: string,
-    params?: Mollie.Order.Params.ICancel,
-    cb?: Mollie.Order.Callback.Cancel,
-  ): Promise<Order> {
+  public async cancel(id: string, params?: ICancelParams, cb?: CancelCallback): Promise<Order> {
     return super.delete(id, params, cb) as Promise<Order>;
   }
 
@@ -131,7 +141,7 @@ export default class Orders extends Resource {
    *
    * @since 2.2.0
    *
-   * @see
+   * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order
    * @public ✓ This method is part of the public API
    * @alias cancel
    */
@@ -142,7 +152,7 @@ export default class Orders extends Resource {
    *
    * @since 2.2.0
    *
-   * @see
+   * @see https://docs.mollie.com/reference/v2/orders-api/list-orders
    * @public ✓ This method is part of the public API
    * @alias list
    */

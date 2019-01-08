@@ -1,35 +1,34 @@
 import Line from '../../models/Line';
 import OrdersResource from './base';
 import Order from '../../models/Order';
+import { ICancelParams, IUpdateParams } from '../../types/orderline/params';
+import { CancelCallback, UpdateCallback } from '../../types/orderline/callback';
 
 /**
  * The `orders_lines` resource
  *
  * @since 2.2.0
  */
-export default class OrdersLines extends OrdersResource {
+export default class OrdersLinesResource extends OrdersResource {
   static resource = 'orders_lines';
   static model = Line;
+  static apiName = 'Orders API (Order Lines section)';
 
   /**
    * Update order lines
    *
-   * @param {string} id
-   * @param {Mollie.OrderLine.Params.IUpdate} params
-   * @param {Mollie.OrderLine.Callback.Update} cb
+   * @param id - Order ID
+   * @param params -
+   * @param cb -
    *
-   * @returns {Promise<Order>}
+   * @returns The updated Order object
    *
    * @since 2.2.0
    *
-   * @see
+   * @see https://docs.mollie.com/reference/v2/orders-api/update-orderline
    * @public ✓ This method is part of the public API
    */
-  public async update(
-    id: string,
-    params: Mollie.OrderLine.Params.IUpdate,
-    cb?: Mollie.OrderLine.Callback.Update,
-  ): Promise<Order> {
+  public async update(id: string, params: IUpdateParams, cb?: UpdateCallback): Promise<Order> {
     const { orderId, ...parameters } = params;
     this.setParentId(orderId);
 
@@ -39,22 +38,18 @@ export default class OrdersLines extends OrdersResource {
   /**
    * Cancel an order line by ID or multiple order lines
    *
-   * @param {string} id
-   * @param {Mollie.OrderLine.Params.ICancel}  params
-   * @param {Mollie.OrderLine.Callback.Cancel} cb     Callback function, can be used instead of the returned `Promise` object
+   * @param id -
+   * @param params -
+   * @param cb - Callback function, can be used instead of the returned `Promise` object
    *
-   * @returns {Promise<boolean>}
+   * @returns Success status
    *
    * @since 2.2.0
    *
-   * @see
+   * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order-lines
    * @public ✓ This method is part of the public API
    */
-  public async cancel(
-    id: string,
-    params?: Mollie.OrderLine.Params.ICancel,
-    cb?: Mollie.OrderLine.Callback.Cancel,
-  ): Promise<boolean> {
+  public async cancel(id: string, params?: ICancelParams, cb?: CancelCallback): Promise<boolean> {
     const { orderId, ...parameters } = params;
     this.setParentId(orderId);
 
@@ -69,7 +64,7 @@ export default class OrdersLines extends OrdersResource {
    *
    * @since 2.2.0
    *
-   * @see
+   * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order-lines
    * @public ✓ This method is part of the public API
    */
   delete = this.cancel;

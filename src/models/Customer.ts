@@ -1,28 +1,30 @@
 import Model from '../model';
+import { ICustomer } from '../types/customer';
+import { ApiMode, ILinks, Locale, PaymentMethod } from '../types/global';
 
 /**
  * The `Customer` model
  */
-export default class Customer extends Model implements Mollie.ICustomer {
+export default class Customer extends Model implements ICustomer {
   public static resourcePrefix = 'cst_';
   public resource: string;
   public id: string;
-  public mode: Mollie.ApiMode;
+  public mode: ApiMode;
   public name: string;
   public email: string;
-  public locale: Mollie.Locale;
-  public recentlyUsedMethods: Array<Mollie.Method>;
+  public locale: Locale;
+  public recentlyUsedMethods: Array<PaymentMethod>;
   public metadata: any;
   public createdAt: string;
-  public _links: Mollie.ILinks;
+  public _links: ILinks;
 
   // Access token parameters
   public testmode?: boolean;
 
-  constructor(props?: Partial<Mollie.ICustomer>) {
+  constructor(props?: Partial<ICustomer>) {
     super(props);
 
-    const defaults: Mollie.ICustomer = {
+    const defaults: ICustomer = {
       resource: 'customer',
       id: null,
       mode: null,

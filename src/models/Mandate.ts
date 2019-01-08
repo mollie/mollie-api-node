@@ -1,27 +1,30 @@
 import Model from '../model';
+import { ApiMode, ILinks } from '../types/global';
+import { IMandate, IMandateDetails, MandateMethod, MandateStatus } from '../types/mandate';
+
 /**
  * The `Mandate` model
  */
-export default class Mandate extends Model implements Mollie.IMandate {
+export default class Mandate extends Model implements IMandate {
   public static resourcePrefix = 'mdt_';
   resource: string;
   id: string;
-  mode: Mollie.ApiMode;
-  status: Mollie.Mandate.Status;
-  method: Mollie.Mandate.Method;
-  details: Mollie.Mandate.IDetails;
+  mode: ApiMode;
+  status: MandateStatus;
+  method: MandateMethod;
+  details: IMandateDetails;
   mandateReference: string;
   signatureDate: string;
   createdAt: string;
-  _links: Mollie.ILinks;
+  _links: ILinks;
 
   // Access token parameters
   testmode?: boolean;
 
-  constructor(props?: Partial<Mollie.IMandate>) {
+  constructor(props?: Partial<IMandate>) {
     super(props);
 
-    const defaults: Mollie.IMandate = {
+    const defaults: IMandate = {
       resource: 'mandate',
       id: null,
       status: null,
@@ -44,6 +47,6 @@ export default class Mandate extends Model implements Mollie.IMandate {
    * @returns {boolean}
    */
   isValid() {
-    return this.status === Mollie.Mandate.Status.valid;
+    return this.status === MandateStatus.valid;
   }
 }

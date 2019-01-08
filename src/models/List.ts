@@ -1,17 +1,18 @@
 import { parseCursorUrl } from '../utils';
+import { ILinks } from '../types/global';
 
 /**
  * A list helper class
  */
 export default class List<T> extends Array {
-  links: Mollie.ILinks = null;
+  links: ILinks = null;
   count: number = null;
   nextPage: any = null;
   previousPage: any = null;
   nextPageCursor: any = null;
   previousPageCursor: any = null;
 
-  static getNextPageParams(links: Mollie.ILinks) {
+  static getNextPageParams(links: ILinks) {
     if (links.next && links.next.href) {
       return parseCursorUrl(links.next.href).query;
     }
@@ -19,7 +20,7 @@ export default class List<T> extends Array {
     return {};
   }
 
-  static getPreviousPageParams(links: Mollie.ILinks) {
+  static getPreviousPageParams(links: ILinks) {
     if (links.previous && links.previous.href) {
       return parseCursorUrl(links.previous.href).query;
     }

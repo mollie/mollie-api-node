@@ -2,6 +2,18 @@ import PaymentsResource from './base';
 import Refund from '../../models/Refund';
 import List from '../../models/List';
 import ApiException from '../../exceptions/ApiException';
+import {
+  ICancelParams,
+  ICreateParams,
+  IGetParams,
+  IListParams,
+} from '../../types/paymentrefund/params';
+import {
+  CancelCallback,
+  CreateCallback,
+  GetCallback,
+  ListCallback,
+} from '../../types/paymentrefund/callback';
 
 /**
  * The `payments_refunds` resource
@@ -22,43 +34,36 @@ export default class PaymentsRefundsResource extends PaymentsResource {
   /**
    * Create a payment refund
    *
-   * @param {Mollie.PaymentRefund.Params.ICreate}  data
-   * @param {Mollie.PaymentRefund.Callback.Create} cb   Callback function, can be used instead of the returned `Promise` object
+   * @param params - Create Payment Refund parameters
+   * @param cb - Callback function, can be used instead of the returned `Promise` object
    *
-   * @returns {Promise<Refund>}
+   * @returns The newly create Payment Refund
    *
    * @since 1.1.1
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/create-refund#
    * @public ✓ This method is part of the public API
    */
-  public async create(
-    data: Mollie.PaymentRefund.Params.ICreate,
-    cb?: Mollie.PaymentRefund.Callback.Create,
-  ): Promise<Refund> {
-    const { paymentId, ...params } = data;
+  public async create(params: ICreateParams, cb?: CreateCallback): Promise<Refund> {
+    const { paymentId, ...parameters } = params;
     this.setParentId(paymentId);
 
-    return super.create(params, cb) as Promise<Refund>;
+    return super.create(parameters, cb) as Promise<Refund>;
   }
 
   /**
    * Get a payment refund by ID
    *
-   * @param {string}                            id     Refund ID
-   * @param {Mollie.PaymentRefund.Params.IGet}  params
-   * @param {Mollie.PaymentRefund.Callback.Get} cb     Callback function, can be used instead of the returned `Promise` object
+   * @param id - Refund ID
+   * @param params - Retrieve Payment Refund parameters
+   * @param cb - Callback function, can be used instead of the returned `Promise` object
    *
    * @since 1.1.1
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/get-refund
    * @public ✓ This method is part of the public API
    */
-  public async get(
-    id: string,
-    params?: Mollie.PaymentRefund.Params.IGet,
-    cb?: Mollie.PaymentRefund.Callback.Get,
-  ): Promise<Refund> {
+  public async get(id: string, params?: IGetParams, cb?: GetCallback): Promise<Refund> {
     const { paymentId, ...parameters } = params;
     this.setParentId(paymentId);
 
@@ -68,40 +73,33 @@ export default class PaymentsRefundsResource extends PaymentsResource {
   /**
    * Get all payment refunds. Alias of list.
    *
-   * @param {Mollie.PaymentRefund.Params.IList}  params
-   * @param {Mollie.PaymentRefund.Callback.List} cb     Callback function, can be used instead of the returned `Promise` object
+   * @param params - List Payment Refunds parameters
+   * @param cb - Callback function, can be used instead of the returned `Promise` object
    *
    * @since 1.1.1
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
    * @public ✓ This method is part of the public API
    */
-  public async list(
-    params?: Mollie.PaymentRefund.Params.IList,
-    cb?: Mollie.PaymentRefund.Callback.List,
-  ): Promise<List<Refund>> {
+  public async list(params?: IListParams, cb?: ListCallback): Promise<List<Refund>> {
     return super.list(params, cb) as Promise<List<Refund>>;
   }
 
   /**
    * Delete a payment_refund by ID
    *
-   * @param {string}                               id     Refund ID
-   * @param {Mollie.PaymentRefund.Params.ICancel}  params
-   * @param {Mollie.PaymentRefund.Callback.Cancel} cb     Callback function, can be used instead of the returned `Promise` object
+   * @param id - Refund ID
+   * @param params - Delete Payment Refund parameters
+   * @param cb - Callback function, can be used instead of the returned `Promise` object
    *
-   * @return {Promise<boolean>} Status
+   * @return Success status
    *
    * @since 1.1.1
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/cancel-refund
    * @public ✓ This method is part of the public API
    */
-  cancel(
-    id: string,
-    params?: Mollie.PaymentRefund.Params.ICancel,
-    cb?: Mollie.PaymentRefund.Callback.Cancel,
-  ): Promise<boolean> {
+  cancel(id: string, params?: ICancelParams, cb?: CancelCallback): Promise<boolean> {
     const { paymentId, ...parameters } = params;
     this.setParentId(paymentId);
 

@@ -1,12 +1,13 @@
 import { toPlainObject } from 'lodash';
 import { AxiosResponse } from 'axios';
+import { ApiMode } from './types/global';
 
 /**
  * Base model
  */
 export default class Model {
   public id: string;
-  public mode: Mollie.ApiMode;
+  public mode: ApiMode;
   public resource: string;
 
   private data: any;

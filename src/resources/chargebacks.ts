@@ -2,14 +2,19 @@ import { startsWith } from 'lodash';
 
 import Resource from '../resource';
 import Chargeback from '../models/Chargeback';
-import List from '../models/List';
-
+import { default as MollieList } from '../models/List';
 import ApiException from '../exceptions/ApiException';
+
+import { IListParams } from '../types/chargeback/params';
+import { ListCallback } from '../types/chargeback/callback';
 
 /**
  * The `chargebacks` resource
+ *
  * @static {string} resource
  * @static {Object} model
+ * @static {string} apiName
+ *
  * @since 2.0.0-rc.1
  */
 export default class ChargebacksResource extends Resource {
@@ -18,26 +23,24 @@ export default class ChargebacksResource extends Resource {
   static apiName = 'Chargebacks API';
 
   /**
+   * List Chargebacks.
    *
-   * @param {Mollie.Chargeback.Params.IList}  params
-   * @param {Mollie.Chargeback.Callback.List} cb
+   * @param params - List Chargebacks parameters
+   * @param cb - Callback function, can be used instead of the returned `Promise` object
    *
-   * @returns {Promise<List<Chargeback>>}
+   * @returns A list of found Chargebacks
    *
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
    * @public ✓ This method is part of the public API
    */
-  public async list(
-    params: Mollie.Chargeback.Params.IList,
-    cb: Mollie.Chargeback.Callback.List,
-  ): Promise<List<Chargeback>> {
+  public async list(params: IListParams, cb: ListCallback): Promise<MollieList<Chargeback>> {
     if (params.from && !startsWith(params.from, ChargebacksResource.resourcePrefix)) {
       throw new ApiException('Invalid Chargeback ID given');
     }
 
-    return super.list(params, cb) as Promise<List<Chargeback>>;
+    return super.list(params, cb) as Promise<MollieList<Chargeback>>;
   }
 
   // UNAVAILABLE

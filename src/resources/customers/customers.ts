@@ -1,6 +1,20 @@
 import CustomersBaseResource from './base';
 import Customer from '../../models/Customer';
 import List from '../../models/List';
+import {
+  ICreateParams,
+  IGetParams,
+  IListParams,
+  IUpdateParams,
+  IDeleteParams,
+} from '../../types/customer/params';
+import {
+  CreateCallback,
+  GetCallback,
+  ListCallback,
+  UpdateCallback,
+  DeleteCallback,
+} from '../../types/customer/callback';
 
 /**
  * The `customers` resource
@@ -18,111 +32,95 @@ export default class CustomersResource extends CustomersBaseResource {
 
   /**
    * Creates a simple minimal representation of a customer in the Mollie API
-   * to use for the Mollie Checkout and Recurring features.
-   * These customers will appear in your Mollie Dashboard
+   * to use for the {@link https://www.mollie.com/en/checkout Mollie Checkout}
+   * and Recurring features.
+   * These customers will appear in your
+   * {@link https://www.mollie.com/dashboard/ Mollie Dashboard}
    * where you can manage their details,
    * and also see their payments and subscriptions.
    *
-   * @param {Mollie.Customer.Params.ICreate}  params
-   * @param {Mollie.Customer.Callback.Create} cb     Callback function, can be used instead of the returned `Promise` object
+   * @param {ICreateParams}  params Create Customer parameters
+   * @param {CreateCallback} cb     Callback function, can be used instead of the returned `Promise` object
    *
    * @returns {Promise<Customer>}
    *
    * @since 2.0.0
    *
-   * @see
+   * @see https://docs.mollie.com/reference/v2/customers-api/create-customer
    * @public ✓ This method is part of the public API
    */
-  public async create(
-    params: Mollie.Customer.Params.ICreate,
-    cb?: Mollie.Customer.Callback.Create,
-  ): Promise<Customer> {
+  public async create(params: ICreateParams, cb?: CreateCallback): Promise<Customer> {
     return super.create(params, cb) as Promise<Customer>;
   }
 
   /**
-   * Retrieve a Customer.
+   * Retrieve a single customer by its ID.
    *
-   * @param {string}                       id     Customer ID
-   * @param {Mollie.Customer.Params.IGet}  params
-   * @param {Mollie.Customer.Callback.Get} cb     Callback function, can be used instead of the returned `Promise` object
+   * @param id - Customer ID
+   * @param params - Retrieve Customer parameters
+   * @param cb - Callback function, can be used instead of the returned `Promise` object
    *
-   * @returns {Promise<Customer>}
+   * @returns
    *
    * @since 2.0.0
    *
-   * @see
+   * @see https://docs.mollie.com/reference/v2/customers-api/get-customer
    * @public ✓ This method is part of the public API
    */
-  public async get(
-    id: string,
-    params?: Mollie.Customer.Params.IGet,
-    cb?: Mollie.Customer.Callback.Get,
-  ): Promise<Customer> {
+  public async get(id: string, params?: IGetParams, cb?: GetCallback): Promise<Customer> {
     return super.get(id, params, cb) as Promise<Customer>;
   }
 
   /**
    * List Customers.
    *
-   * @param {Mollie.Customer.Params.IList}  params
-   * @param {Mollie.Customer.Callback.List} cb     Callback function, can be used instead of the returned `Promise` object
+   * @param params - List Customers parameters
+   * @param cb - Callback function, can be used instead of the returned `Promise` object
    *
-   * @returns {Promise<List<Customer>>}.
+   * @returns
    *
    * @since 2.0.0
    *
-   * @see
+   * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
    * @public ✓ This method is part of the public API
    */
-  public async list(
-    params?: Mollie.Customer.Params.IList,
-    cb?: Mollie.Customer.Callback.List,
-  ): Promise<List<Customer>> {
+  public async list(params?: IListParams, cb?: ListCallback): Promise<List<Customer>> {
     return super.list(params, cb) as Promise<List<Customer>>;
   }
 
   /**
    * Update a Customer.
    *
-   * @param {string} id
-   * @param {Mollie.Customer.Params.IUpdate}  params
-   * @param {Mollie.Customer.Callback.Update} cb     Callback function, can be used instead of the returned `Promise` object
+   * @param id - Customer ID
+   * @param params - Update Customer parameters
+   * @param cb - Callback function, can be used instead of the returned `Promise` object
    *
-   * @returns {Promise<Customer>}
+   * @returns The updated Customer object
    *
    * @since 2.0.0
    *
-   * @see
+   * @see https://docs.mollie.com/reference/v2/customers-api/update-customer
    * @public ✓ This method is part of the public API
    */
-  public async update(
-    id: string,
-    params: Mollie.Customer.Params.IUpdate,
-    cb?: Mollie.Customer.Callback.Update,
-  ): Promise<Customer> {
+  public async update(id: string, params: IUpdateParams, cb?: UpdateCallback): Promise<Customer> {
     return super.update(id, params, cb) as Promise<Customer>;
   }
 
   /**
    * Delete a Customer.
    *
-   * @param {string}                          id     Customer ID
-   * @param {Mollie.Customer.Params.IDelete}  params
-   * @param {Mollie.Customer.Callback.Delete} cb     Callback function, can be used instead of the returned `Promise` object
+   * @param id - Customer ID
+   * @param params - Delete Customer parameters
+   * @param cb - Callback function, can be used instead of the returned `Promise` object
    *
-   * @returns {Promise<boolean>}
+   * @returns Success status
    *
    * @since 2.0.0
    *
-   * @see
+   * @see https://docs.mollie.com/reference/v2/customers-api/delete-customer
    * @public ✓ This method is part of the public API
    */
-  public async delete(
-    id: string,
-    params?: Mollie.Customer.Params.IDelete,
-    cb?: Mollie.Customer.Callback.Delete,
-  ): Promise<boolean> {
+  public async delete(id: string, params?: IDeleteParams, cb?: DeleteCallback): Promise<boolean> {
     // TODO: check return type
     return super.delete(id, params, cb) as Promise<boolean>;
   }
@@ -134,7 +132,7 @@ export default class CustomersResource extends CustomersBaseResource {
    *
    * @since 2.0.0
    *
-   * @see
+   * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
    * @public ✓ This method is part of the public API
    * @alias list
    */
@@ -145,7 +143,7 @@ export default class CustomersResource extends CustomersBaseResource {
    *
    * @since 2.0.0
    *
-   * @see
+   * @see https://docs.mollie.com/reference/v2/customers-api/delete-customer
    * @public ✓ This method is part of the public API
    * @alias delete
    */

@@ -2,6 +2,8 @@ import Resource from '../resource';
 import Method from '../models/Method';
 import List from '../models/List';
 import ApiException from '../exceptions/ApiException';
+import { IGetParams, IListParams } from '../types/method/params';
+import { GetCallback, ListCallback } from '../types/method/callback';
 
 /**
  * The `methods` resource
@@ -20,42 +22,35 @@ export default class MethodsResource extends Resource {
   /**
    * Retrieve a single Payment Method
    *
-   * @param {string}                     id     Method ID
-   * @param {Mollie.Method.Params.IGet}  params
-   * @param {Mollie.Method.Callback.Get} cb     Callback function, can be used instead of the returned `Promise` object
+   * @param id - Method ID
+   * @param params - Retrieve Payment Method parameters
+   * @param cb - Callback function, can be used instead of the returned `Promise` object
    *
-   * @returns {Promise<Method>}
+   * @returns The Payment Method object
    *
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/methods-api/get-method
    * @public ✓ This method is part of the public API
    */
-  public async get(
-    id: string,
-    params?: Mollie.Method.Params.IGet,
-    cb?: Mollie.Method.Callback.Get,
-  ): Promise<Method> {
+  public async get(id: string, params?: IGetParams, cb?: GetCallback): Promise<Method> {
     return super.get(id, params, cb) as Promise<Method>;
   }
 
   /**
    * Retrieve a list of Payment Methods
    *
-   * @param {Mollie.Method.Params.IList}  params
-   * @param {Mollie.Method.Callback.List} cb     Callback function, can be used instead of the returned `Promise` object
+   * @param params - Retrieve Payment Method parameters
+   * @param cb - Callback function, can be used instead of the returned `Promise` object
    *
-   * @returns {Promise<List<Method>>}
+   * @returns A list of found Payment Methods
    *
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/methods-api/list-methods
    * @public ✓ This method is part of the public API
    */
-  public async list(
-    params?: Mollie.Method.Params.IList,
-    cb?: Mollie.Method.Callback.List,
-  ): Promise<List<Method>> {
+  public async list(params?: IListParams, cb?: ListCallback): Promise<List<Method>> {
     return super.list(params, cb) as Promise<List<Method>>;
   }
 

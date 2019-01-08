@@ -2,6 +2,8 @@ import CustomersBaseResource from './base';
 import Payment from '../../models/Payment';
 import List from '../../models/List';
 import ApiException from '../../exceptions/ApiException';
+import { ICreateParams, IListParams } from '../../types/customer/payment/params';
+import { CreateCallback, ListCallback } from '../../types/customer/payment/callback';
 
 /**
  * The `customers_payments` resource.
@@ -20,18 +22,17 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
   /**
    * Create a customer payment.
    *
-   * @param {Mollie.CustomerPayment.Params.ICreate}  params
-   * @param {Mollie.CustomerPayment.Callback.Create} cb     Callback function, can be used instead of the returned `Promise` object
+   * @param params - Create Customer Payment parameters
+   * @param cb - Callback function, can be used instead of the returned `Promise` object
+   *
+   * @returns The newly created Payment object
    *
    * @since 1.1.1
    *
-   * @see
+   * @see https://docs.mollie.com/reference/v2/customers-api/create-customer-payment
    * @public ✓ This method is part of the public API
    */
-  public async create(
-    params: Mollie.CustomerPayment.Params.ICreate,
-    cb?: Mollie.CustomerPayment.Callback.Create,
-  ): Promise<Payment> {
+  public async create(params: ICreateParams, cb?: CreateCallback): Promise<Payment> {
     const { customerId, ...parameters } = params;
     this.setParentId(customerId);
 
@@ -41,20 +42,17 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
   /**
    * Get all of a customer's payments.
    *
-   * @param {Mollie.CustomerPayment.Params.IList}  params
-   * @param {Mollie.CustomerPayment.Callback.List} cb     Callback function, can be used instead of the returned `Promise` object
+   * @param params - List Customer Payments parameters
+   * @param cb - Callback function, can be used instead of the returned `Promise` object
    *
-   * @returns {Promise<List<Payment>>}
+   * @returns A list of found Customer Payments
    *
    * @since 2.2.0
    *
-   * @see
+   * @see https://docs.mollie.com/reference/v2/customers-api/list-customer-payments
    * @public ✓ This method is part of the public API
    */
-  public async list(
-    params?: Mollie.CustomerPayment.Params.IList,
-    cb?: Mollie.CustomerPayment.Callback.List,
-  ): Promise<List<Payment>> {
+  public async list(params?: IListParams, cb?: ListCallback): Promise<List<Payment>> {
     const { customerId, ...parameters } = params;
     this.setParentId(customerId);
 
@@ -68,7 +66,7 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
    *
    * @since 1.1.1
    *
-   * @see
+   * @see https://docs.mollie.com/reference/v2/customers-api/list-customer-payments
    * @public ✓ This method is part of the public API
    */
   all = this.list;

@@ -1,19 +1,21 @@
 import Model from '../model';
+import { IImage, ILinks } from '../types/global';
+import { IMethod, MethodImageSize } from '../types/method';
 
 /**
  * The `Method` model
  */
-export default class Method extends Model implements Mollie.IMethod {
+export default class Method extends Model implements IMethod {
   resource: string;
   id: string;
   description: string;
-  image: Mollie.IImage;
-  _links: Mollie.ILinks;
+  image: IImage;
+  _links: ILinks;
 
-  constructor(props?: Partial<Mollie.IMethod>) {
+  constructor(props?: Partial<IMethod>) {
     super(props);
 
-    const defaults: Mollie.IMethod = {
+    const defaults: IMethod = {
       resource: 'method',
       id: null,
       description: null,
@@ -31,27 +33,25 @@ export default class Method extends Model implements Mollie.IMethod {
   /**
    * Method image URL
    *
-   * @param {Mollie.ImageSize|'1x'|'2x'} size
+   * @param size
    *
-   * @returns {string}
+   * @returns Url string
    *
    * @since 2.0.0
    * @since 2.2.0 SVG support
    *
    * @public ✓ This method is part of the public API
    */
-  public getImage(
-    size: Mollie.Method.ImageSize | '1x' | '2x' = Mollie.Method.ImageSize.size2x,
-  ): string {
+  public getImage(size: MethodImageSize | '1x' | '2x' = MethodImageSize.size2x): string {
     switch (size) {
       case '1x':
-      case Mollie.Method.ImageSize.size1x:
-        return this.image[Mollie.Method.ImageSize.size1x];
+      case MethodImageSize.size1x:
+        return this.image[MethodImageSize.size1x];
       case '2x':
-      case Mollie.Method.ImageSize.size2x:
-        return this.image[Mollie.Method.ImageSize.size2x];
-      case Mollie.Method.ImageSize.svg:
-        return this.image[Mollie.Method.ImageSize.svg];
+      case MethodImageSize.size2x:
+        return this.image[MethodImageSize.size2x];
+      case MethodImageSize.svg:
+        return this.image[MethodImageSize.svg];
     }
   }
 }

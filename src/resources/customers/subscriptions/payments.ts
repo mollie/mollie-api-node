@@ -3,6 +3,8 @@ import Subscription from '../../../models/Subscription';
 import List from '../../../models/List';
 import Payment from '../../../models/Payment';
 import ApiException from '../../../exceptions/ApiException';
+import { IListParams } from '../../../types/subscription/payment/params';
+import { ListCallback } from '../../../types/subscription/payment/callback';
 
 /**
  * The `customers_subscriptions` resource.
@@ -23,20 +25,17 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
   /**
    * Get all customer's subscriptions.
    *
-   * @param {Mollie.Subscription.Payment.Params.IList}  params
-   * @param {Mollie.Subscription.Payment.Callback.List} cb     Callback function, can be used instead of the returned `Promise` object
+   * @param params - List Customer's Subscriptions parameters
+   * @param cb - Callback function, can be used instead of the returned `Promise` object
    *
-   * @returns {Promise<List<Payment>>}
+   * @returns A list of found Subscriptions
    *
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions-payments
    * @public ✓ This method is part of the public API
    */
-  public async list(
-    params?: Mollie.Subscription.Payment.Params.IList,
-    cb?: Mollie.Subscription.Payment.Callback.List,
-  ): Promise<List<Payment>> {
+  public async list(params?: IListParams, cb?: ListCallback): Promise<List<Payment>> {
     const { customerId, subscriptionId, ...parameters } = params;
     this.setParentId(customerId);
     this.setSubscriptionId(subscriptionId);

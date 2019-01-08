@@ -1,11 +1,18 @@
 import { startsWith } from 'lodash';
 
 import Payment from '../../models/Payment';
-import List from '../../models/List';
 import PaymentsBaseResource from '../../resources/payments/base';
 
 import ApiException from '../../exceptions/ApiException';
 import InvalidArgumentException from '../../exceptions/InvalidArgumentException';
+import { ICancelParams, ICreateParams, IGetParams, IListParams } from '../../types/payment/params';
+import {
+  CancelCallback,
+  CreateCallback,
+  GetCallback,
+  ListCallback,
+} from '../..//types/payment/callback';
+import List from '../../models/List';
 
 /**
  * The `payments` resource
@@ -24,8 +31,8 @@ export default class PaymentsResource extends PaymentsBaseResource {
   /**
    * Create a payment in Mollie.
    *
-   * @param {Mollie.Payment.Params.ICreate}  data
-   * @param {Mollie.Payment.Callback.Create} cb   Callback function, can be used instead of the returned `Promise` object
+   * @param params - Create Payment parameters
+   * @param cb - Callback function, can be used instead of the returned `Promise` object
    *
    * @returns {Promise<Payment>}
    *
@@ -34,32 +41,25 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * @see https://docs.mollie.com/reference/v2/payments-api/create-payment
    * @public ✓ This method is part of the public API
    */
-  public async create(
-    data: Mollie.Payment.Params.ICreate,
-    cb?: Mollie.Payment.Callback.Create,
-  ): Promise<Payment> {
-    return super.create(data, cb) as Promise<Payment>;
+  public async create(params: ICreateParams, cb?: CreateCallback): Promise<Payment> {
+    return super.create(params, cb) as Promise<Payment>;
   }
 
   /**
    * Retrieve a single payment from Mollie.
    *
-   * @param {string}                      id     Payment ID
-   * @param {Mollie.Payment.Params.IGet}  params
-   * @param {Mollie.Payment.Callback.Get} cb     Callback function, can be used instead of the returned `Promise` object
+   * @param id - Payment ID
+   * @param params - Retrieve Payment parameters
+   * @param cb - Callback function, can be used instead of the returned `Promise` object
    *
-   * @returns {Promise<Payment>}
+   * @returns The found Payment object
    *
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment
    * @public ✓ This method is part of the public API
    */
-  public async get(
-    id: string,
-    params?: Mollie.Payment.Params.IGet,
-    cb?: Mollie.Payment.Callback.Get,
-  ): Promise<Payment> {
+  public async get(id: string, params?: IGetParams, cb?: GetCallback): Promise<Payment> {
     if (!startsWith(id, Payment.resourcePrefix)) {
       throw new InvalidArgumentException('Invalid Payment ID given');
     }
@@ -70,20 +70,17 @@ export default class PaymentsResource extends PaymentsBaseResource {
   /**
    * Retrieve all payments created with the current website profile, ordered from newest to oldest.
    *
-   * @param {Mollie.Payment.Params.IList}  params List parameters
-   * @param {Mollie.Payment.Callback.List} cb     Callback function, can be used instead of the returned `Promise` object
+   * @param params - List parameters
+   * @param cb - Callback function, can be used instead of the returned `Promise` object
    *
-   * @returns {Promise<List<Payment>>}
+   * @returns A list of found Payments
    *
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
    * @public ✓ This method is part of the public API
    */
-  public async list(
-    params?: Mollie.Payment.Params.IList,
-    cb?: Mollie.Payment.Callback.List,
-  ): Promise<List<Payment>> {
+  public async list(params?: IListParams, cb?: ListCallback): Promise<List<Payment>> {
     return super.list(params, cb);
   }
 
@@ -93,22 +90,18 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * Will throw a ApiException if the payment id is invalid or the resource cannot be found.
    * Returns with HTTP status No Content (204) if successful.
    *
-   * @param {string}                         id     Payment Id
-   * @param {Mollie.Payment.Params.ICancel}  params
-   * @param {Mollie.Payment.Callback.Cancel} cb     Callback function, can be used instead of the returned `Promise` object
+   * @param id - Payment Id
+   * @param params - Cancel Payment parameters
+   * @param cb - Callback function, can be used instead of the returned `Promise` object
    *
-   * @returns {Promise<Payment>}
+   * @returns The updated Payment object
    *
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/cancel-payment
    * @public ✓ This method is part of the public API
    */
-  public async cancel(
-    id: string,
-    params?: Mollie.Payment.Params.ICancel,
-    cb?: Mollie.Payment.Callback.Cancel,
-  ): Promise<Payment> {
+  public async cancel(id: string, params?: ICancelParams, cb?: CancelCallback): Promise<Payment> {
     if (!startsWith(id, Payment.resourcePrefix)) {
       throw new InvalidArgumentException('Invalid Payment ID given');
     }

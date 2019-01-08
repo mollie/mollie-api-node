@@ -3,6 +3,8 @@ import Refund from '../models/Refund';
 import List from '../models/List';
 
 import ApiException from '../exceptions/ApiException';
+import { IListParams } from '../types/refund/params';
+import { ListCallback } from '../types/refund/callback';
 
 /**
  * The `refunds` resource
@@ -19,10 +21,20 @@ export default class RefundsResource extends Resource {
 
   // API METHODS
 
-  public async list(
-    params?: Mollie.Refund.Params.IList,
-    cb?: Mollie.Refund.Callback.List,
-  ): Promise<List<Refund>> {
+  /**
+   * List Refunds
+   *
+   * @param params - List Refunds parameters
+   * @param cb - Callback function, can be used instead of the returned `Promise` object
+   *
+   * @returns A list of found Refunds
+   *
+   * @since 2.0.0
+   *
+   * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
+   * @public
+   */
+  public async list(params?: IListParams, cb?: ListCallback): Promise<List<Refund>> {
     return super.list(params, cb);
   }
 

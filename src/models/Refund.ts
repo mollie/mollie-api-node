@@ -1,24 +1,27 @@
 import Model from '../model';
+import { IAmount, ILinks } from '../types/global';
+import { IPaymentRefund } from '../types/paymentrefund';
+import { RefundStatus } from '../types/refund';
 
 /**
  * The `Refund` model
  */
-export default class Refund extends Model implements Mollie.IPaymentRefund {
+export default class Refund extends Model implements IPaymentRefund {
   public static resourcePrefix = '';
   resource: string;
   id: string;
-  amount: Mollie.IAmount;
-  status: Mollie.Refund.Status;
+  amount: IAmount;
+  status: RefundStatus;
   createdAt: string;
   description: string;
   paymentId: string;
-  settlementAmount?: Mollie.IAmount;
-  _links: Mollie.ILinks;
+  settlementAmount?: IAmount;
+  _links: ILinks;
 
-  constructor(props?: Partial<Mollie.IPaymentRefund>) {
+  constructor(props?: Partial<IPaymentRefund>) {
     super(props);
 
-    const defaults: Mollie.IPaymentRefund = {
+    const defaults: IPaymentRefund = {
       resource: 'refund',
       id: null,
       amount: {
@@ -48,7 +51,7 @@ export default class Refund extends Model implements Mollie.IPaymentRefund {
    * @public ✓ This method is part of the public API
    */
   public isQueued(): boolean {
-    return this.status === Mollie.Refund.Status.queued;
+    return this.status === RefundStatus.queued;
   }
 
   /**
@@ -59,7 +62,7 @@ export default class Refund extends Model implements Mollie.IPaymentRefund {
    * @public ✓ This method is part of the public API
    */
   public isPending(): boolean {
-    return this.status === Mollie.Refund.Status.pending;
+    return this.status === RefundStatus.pending;
   }
 
   /**
@@ -71,7 +74,7 @@ export default class Refund extends Model implements Mollie.IPaymentRefund {
    * @public ✓ This method is part of the public API
    */
   public isProcessing(): boolean {
-    return this.status === Mollie.Refund.Status.processing;
+    return this.status === RefundStatus.processing;
   }
 
   /**
@@ -82,7 +85,7 @@ export default class Refund extends Model implements Mollie.IPaymentRefund {
    * @public ✓ This method is part of the public API
    */
   public isRefunded(): boolean {
-    return this.status === Mollie.Refund.Status.refunded;
+    return this.status === RefundStatus.refunded;
   }
 
   /**
@@ -93,6 +96,6 @@ export default class Refund extends Model implements Mollie.IPaymentRefund {
    * @public ✓ This method is part of the public API
    */
   public isFailed(): boolean {
-    return this.status === Mollie.Refund.Status.failed;
+    return this.status === RefundStatus.failed;
   }
 }

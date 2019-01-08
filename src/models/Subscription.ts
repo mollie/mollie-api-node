@@ -1,15 +1,17 @@
 import Model from '../model';
+import { ApiMode, IAmount, ILinks } from '../types/global';
+import { ISubscription, SubscriptionStatus } from '../types/subscription';
 
 /**
  * The `Subscription` model
  */
-export default class Subscription extends Model implements Mollie.ISubscription {
+export default class Subscription extends Model implements ISubscription {
   public static resourcePrefix = 'sub_';
   resource: string;
   id: string;
-  mode: Mollie.ApiMode;
-  status: Mollie.Subscription.Status;
-  amount: Mollie.IAmount;
+  mode: ApiMode;
+  status: SubscriptionStatus;
+  amount: IAmount;
   times: number;
   timesRemaining: number;
   interval: string;
@@ -22,15 +24,15 @@ export default class Subscription extends Model implements Mollie.ISubscription 
   canceledAt: string;
   webhookUrl: string;
   metadata: any;
-  _links: Mollie.ILinks;
+  _links: ILinks;
 
   // Access token parameters
   testmode?: boolean;
 
-  constructor(props?: Partial<Mollie.ISubscription>) {
+  constructor(props?: Partial<ISubscription>) {
     super(props);
 
-    const defaults: Mollie.ISubscription = {
+    const defaults: ISubscription = {
       resource: 'subscription',
       id: null,
       mode: null,
@@ -59,9 +61,8 @@ export default class Subscription extends Model implements Mollie.ISubscription 
 
   /**
    * Get the webhook url
-   * @returns {boolean|string}
    */
-  getWebhookUrl() {
+  getWebhookUrl(): string | boolean {
     return this.webhookUrl;
   }
 
@@ -69,39 +70,35 @@ export default class Subscription extends Model implements Mollie.ISubscription 
    * If the subscription is active
    * @returns {boolean}
    */
-  isActive() {
-    return this.status === Mollie.Subscription.Status.active;
+  isActive(): boolean {
+    return this.status === SubscriptionStatus.active;
   }
 
   /**
    * If the subscription is pending
-   * @returns {boolean}
    */
-  isPending() {
-    return this.status === Mollie.Subscription.Status.pending;
+  isPending(): boolean {
+    return this.status === SubscriptionStatus.pending;
   }
 
   /**
    * If the subscription is completed
-   * @returns {boolean}
    */
-  isCompleted() {
-    return this.status === Mollie.Subscription.Status.completed;
+  isCompleted(): boolean {
+    return this.status === SubscriptionStatus.completed;
   }
 
   /**
    * If the subscription is suspended
-   * @returns {boolean}
    */
-  isSuspended() {
-    return this.status === Mollie.Subscription.Status.suspended;
+  isSuspended(): boolean {
+    return this.status === SubscriptionStatus.suspended;
   }
 
   /**
    * If the subscription is canceled
-   * @returns {boolean}
    */
-  isCanceled() {
+  isCanceled(): boolean {
     return !!this.canceledAt;
   }
 }

@@ -1,23 +1,25 @@
 import Model from '../model';
+import { IChargeback } from '../types/chargeback';
+import { IAmount, ILinks } from '../types/global';
 
 /**
  * The `Chargeback` model
  */
-export default class Chargeback extends Model implements Mollie.IChargeback {
+export default class Chargeback extends Model implements IChargeback {
   public static resourcePrefix = 'chb_';
   public resource: string;
   public id: string;
-  public amount: Mollie.IAmount;
-  public settlementAmount: Mollie.IAmount;
+  public amount: IAmount;
+  public settlementAmount: IAmount;
   public createdAt: string;
   public reversedAt: string;
   public paymentId: string;
-  public _links: Mollie.ILinks;
+  public _links: ILinks;
 
-  constructor(props?: Partial<Mollie.IChargeback>) {
+  constructor(props?: Partial<IChargeback>) {
     super(props);
 
-    const defaults: Mollie.IChargeback = {
+    const defaults: IChargeback = {
       resource: 'chargeback',
       id: null,
       amount: null,

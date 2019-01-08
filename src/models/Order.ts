@@ -1,28 +1,31 @@
 import Model from '../model';
+import { IOrder, IOrderAddress, OrderStatus } from '../types/order';
+import { IOrderLine } from '../types/orderline';
+import { ApiMode, IAmount, ILinks } from '../types/global';
 
 /**
  * The `order` model
  */
-export default class Order extends Model implements Mollie.IOrder {
+export default class Order extends Model implements IOrder {
   public static resourcePrefix = 'ord_';
   resource: string;
   id: string;
   profileId: string;
   method: string | null;
-  mode: Mollie.ApiMode;
-  amount: Mollie.IAmount;
-  amountCaptured: Mollie.IAmount | null;
-  amountRefunded: Mollie.IAmount | null;
-  status: Mollie.Order.Status;
+  mode: ApiMode;
+  amount: IAmount;
+  amountCaptured: IAmount | null;
+  amountRefunded: IAmount | null;
+  status: OrderStatus;
   isCancelable: boolean;
-  billingAddress: Mollie.Order.IAddress;
+  billingAddress: IOrderAddress;
   consumerDateOfBirth?: string;
   orderNumber: string;
-  shippingAddress: Mollie.Order.IAddress;
+  shippingAddress: IOrderAddress;
   locale: string;
   metadata: any;
   redirectUrl: string | null;
-  lines: Array<Mollie.IOrderLine>;
+  lines: Array<IOrderLine>;
   webhookUrl?: string;
   createdAt: string;
   expiresAt?: string;
@@ -31,12 +34,12 @@ export default class Order extends Model implements Mollie.IOrder {
   authorizedAt?: string;
   canceledAt?: string;
   completedAt?: string;
-  _links: Mollie.ILinks;
+  _links: ILinks;
 
-  constructor(props?: Partial<Mollie.IOrder>) {
+  constructor(props?: Partial<IOrder>) {
     super(props);
 
-    const defaults: Mollie.IOrder = {
+    const defaults: IOrder = {
       resource: 'order',
       id: null,
       amount: null,

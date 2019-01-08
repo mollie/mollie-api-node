@@ -1,16 +1,18 @@
 import Model from '../model';
+import { IPayment, PaymentStatus } from '../types/payment';
+import { ApiMode, IAmount, ILinks, Locale, PaymentMethod } from '../types/global';
 
 /**
  * The `Payment` model
  */
-export default class Payment extends Model implements Mollie.IPayment {
+export default class Payment extends Model implements IPayment {
   public static readonly resourcePrefix = 'tr_';
   public resource: string;
   public id: string;
 
-  public mode: Mollie.ApiMode;
+  public mode: ApiMode;
   public createdAt: string;
-  public status: Mollie.Payment.Status;
+  public status: PaymentStatus;
   public isCancelable: boolean;
   public authorizedAt?: string;
   public paidAt?: string;
@@ -18,19 +20,19 @@ export default class Payment extends Model implements Mollie.IPayment {
   public expiresAt: string;
   public expiredAt?: string;
   public failedAt?: string;
-  public amount: Mollie.IAmount;
-  public amountRefunded?: Mollie.IAmount;
-  public amountRemaining?: Mollie.IAmount;
-  public amountCaptured?: Mollie.IAmount;
+  public amount: IAmount;
+  public amountRefunded?: IAmount;
+  public amountRemaining?: IAmount;
+  public amountCaptured?: IAmount;
   public description: string;
   public redirectUrl: string | null;
   public webhookUrl?: string;
-  public method: Mollie.Method;
+  public method: PaymentMethod;
   public metadata: any;
-  public locale: Mollie.Locale;
+  public locale: Locale;
   public countryCode?: string;
   public profileId: string;
-  public settlementAmount?: Mollie.IAmount;
+  public settlementAmount?: IAmount;
   public settlementId?: string;
   public customerId?: string;
   public sequenceType: string;
@@ -39,15 +41,15 @@ export default class Payment extends Model implements Mollie.IPayment {
   public orderId?: string;
   public details?: any;
   public applicationFee?: {
-    amount: Mollie.IAmount;
+    amount: IAmount;
     description: string;
   };
-  public _links: Mollie.ILinks;
+  public _links: ILinks;
 
-  constructor(props?: Partial<Mollie.IPayment>) {
+  constructor(props?: Partial<IPayment>) {
     super(props);
 
-    const defaults: Partial<Mollie.IPayment> = {
+    const defaults: Partial<IPayment> = {
       resource: 'payment',
       id: null,
       mode: null,
@@ -107,7 +109,7 @@ export default class Payment extends Model implements Mollie.IPayment {
    * @returns {boolean}
    */
   isOpen() {
-    return this.status === Mollie.Payment.Status.open;
+    return this.status === PaymentStatus.open;
   }
 
   /**
@@ -116,7 +118,7 @@ export default class Payment extends Model implements Mollie.IPayment {
    * @returns {boolean}
    */
   isAuthorized() {
-    return this.status === Mollie.Payment.Status.authorized;
+    return this.status === PaymentStatus.authorized;
   }
 
   /**
