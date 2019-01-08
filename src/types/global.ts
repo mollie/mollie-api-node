@@ -88,6 +88,20 @@ export type CardLabel =
   | 'Visa'
   | null;
 
+export type CardFailureReason =
+  | 'invalid_card_number'
+  | 'invalid_cvv'
+  | 'invalid_card_holder_name'
+  | 'card_expired'
+  | 'invalid_card_type'
+  | 'refused_by_issuer'
+  | 'insufficient_funds'
+  | 'inactive_card';
+
+export type CardAudience = 'consumer' | 'business' | null;
+
+export type FeeRegion = 'intra-eu' | 'other';
+
 export enum SequenceType {
   oneoff = 'oneoff',
   first = 'first',
