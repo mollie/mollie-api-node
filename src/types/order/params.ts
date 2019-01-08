@@ -1,6 +1,7 @@
 import { IAddress, IAmount, Locale, PaymentMethod } from '../global';
 import { IOrderLine } from '../orderline';
 import { IPayment } from '../payment';
+import { IOrderAddress } from './index';
 
 /**
  * Create Order parameters.
@@ -111,11 +112,20 @@ export interface IListParams {
  *
  * @param billingAddress - The billing person and address for the order.
  *                         See {@link https://docs.mollie.com/reference/v2/orders-api/create-order#order-address-details | Order address details} for the exact fields needed.
+ * @param shippingAddress - The shipping address for the order.
+ *                          See {@link https://docs.mollie.com/reference/v2/orders-api/create-order#order-address-details Order address details}
+ *                          for the exact fields needed.
  *
  * @since 2.2.0
  *
  * @see https://docs.mollie.com/reference/v2/orders-api/update-order
  */
-export interface IUpdateParams {}
+export interface IUpdateParams {
+  billingAddress?: IOrderAddress;
+  shippingAddress?: IOrderAddress;
+
+  // Access token parameters
+  testmode?: boolean;
+}
 
 export interface ICancelParams {}

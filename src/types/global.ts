@@ -52,10 +52,8 @@ export interface IUrl {
 }
 
 export interface ILinks {
-  self?: IUrl;
-  documentation?: IUrl;
-
-  [link: string]: IUrl;
+  self: IUrl;
+  documentation: IUrl;
 }
 
 export interface IAmount {

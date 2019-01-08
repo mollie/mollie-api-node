@@ -140,8 +140,51 @@ export interface IPayment {
     amount: IAmount;
     description: string;
   };
-  _links: ILinks;
+  _links: IPaymentLinks;
   details: IDetails;
+}
+
+/**
+ * Payment _links object
+ *
+ * @param checkout - The URL your customer should visit to make the payment.
+ *                   This is where you should redirect the consumer to.
+ *                   Recurring payments don’t have a checkout URL.
+ * @param changePaymentState - Recurring payments do not have a checkout URL,
+ *                             because these payments are executed without any
+ *                             user interaction. This link is only included for
+ *                             test mode recurring payments, and allows you to
+ *                             set the final payment state for such payments.
+ * @param refunds - The API resource URL of the refunds that belong to this payment.
+ * @param chargebacks - The API resource URL of the chargebacks that belong to
+ *                      this payment.
+ * @param captures - The API resource URL of the captures that belong to this payment.
+ * @param settlement - The API resource URL of the settlement this payment has been
+ *                     settled with. Not present if not yet settled.
+ * @param documentation - The URL to the payment retrieval endpoint documentation.
+ * @param mandate - The API resource URL of the mandate linked to this payment.
+ *                  Not present if a one-off payment.
+ * @param subscription - The API resource URL of the subscription this payment is
+ *                       part of. Not present if not a subscription payment.
+ * @param customer - The API resource URL of the customer this payment belongs to.
+ *                   Not present if not linked to a customer.
+ * @param order - The API resource URL of the order this payment was created for.
+ *                Not present if not created for an order.
+ *
+ * @see https://docs.mollie.com/reference/v2/payments-api/get-payment
+ */
+interface IPaymentLinks extends ILinks {
+  checkout?: IUrl;
+  changePaymentState?: IUrl;
+  refunds?: IUrl;
+  chargebacks?: IUrl;
+  captures: IUrl;
+  settlement: IUrl;
+  documentation: IUrl;
+  mandate: IUrl;
+  subscription: IUrl;
+  customer: IUrl;
+  order: IUrl;
 }
 
 export type IDetails =
