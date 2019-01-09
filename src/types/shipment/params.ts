@@ -44,6 +44,8 @@ export interface IGetParams {
  * @param orderId - Corresponding Order ID
  *
  * @param testmode - Set this to `true` to list all shipments available in test mode.
+ *
+ * @see https://docs.mollie.com/reference/v2/shipments-api/list-shipments
  */
 export interface IListParams {
   orderId: string;
@@ -59,6 +61,8 @@ export interface IListParams {
  * @param tracking - Updated shipment tracking
  *
  * @param testmode - Set this to `true` to update a test mode shipment.
+ *
+ * @see https://docs.mollie.com/reference/v2/shipments-api/update-shipment
  */
 export interface IUpdateParams {
   orderId: string;

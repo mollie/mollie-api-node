@@ -11,6 +11,8 @@ import { MethodInclude } from '../method';
  * @param profileId - The website profile’s unique identifier, for example
  *                    `pfl_3RkSN1zuPE`. This field is mandatory.
  * @param testmode -Set this to true to list all methods available in testmode.
+ *
+ * @see https://docs.mollie.com/reference/v2/methods-api/get-method
  */
 export interface IGetParams {
   locale?: Locale;
@@ -51,6 +53,8 @@ export interface IGetParams {
  * @param profileId - The website profile’s unique identifier, for example `pfl_3RkSN1zuPE`.
  *                    This field is mandatory.
  * @param testmode - Set this to `true` to list all payment methods available in testmode.
+ *
+ * @see https://docs.mollie.com/reference/v2/methods-api/list-methods
  */
 export interface IListParams {
   sequenceType?: SequenceType;

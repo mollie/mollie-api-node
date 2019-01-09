@@ -6,6 +6,8 @@ import { PaymentChargebackEmbed } from '../chargeback';
  * @param paymentId - Corresponding Payment ID
  *
  * @param embed - This endpoint allows for embedding additional information by appending the following values via the embed query string parameter.
+ *
+ * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-chargeback
  */
 export interface IGetParams {
   paymentId: string;
@@ -22,6 +24,8 @@ export interface IGetParams {
  * @param limit - The number of chargebacks to return (with a maximum of 250).
  *
  * @param embed - This endpoint allows for embedding additional information by appending the following values via the `embed` query string parameter.
+ *
+ * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
  */
 export interface IListParams {
   paymentId: string;

@@ -5,6 +5,8 @@
  * @param limit - The number of chargebacks to return (with a maximum of 250).
  *
  * @param embed - This endpoint allows for embedding additional information by appending the following values via the embed query string parameter.
+ *
+ * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
  */
 import { PaymentChargebackEmbed } from '../payment/chargeback';
 

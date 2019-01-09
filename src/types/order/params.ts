@@ -136,6 +136,8 @@ export interface IUpdateParams {
  * Cancel Order parameters
  *
  * @param testmode - Set this to `true` to cancel a test mode order.
+ *
+ * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order
  */
 export interface ICancelParams {
   // Access token parameters

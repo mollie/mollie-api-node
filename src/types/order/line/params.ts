@@ -10,6 +10,8 @@
  * @param productUrl - A link pointing to the product page in your web shop of the product sold.
  *
  * @param testmode - Set this to `true` to update a test mode order line.
+ *
+ * @see https://docs.mollie.com/reference/v2/orders-api/update-orderline
  */
 import { IOrderLine } from './index';
 
@@ -32,6 +34,8 @@ export interface IUpdateParams {
  * @param lines - An array of objects containing the order line details you want to cancel.
  *
  * @param testmode - Set this to `true` to cancel test mode order lines.
+ *
+ * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order-lines
  */
 export interface ICancelParams {
   orderId: string;
