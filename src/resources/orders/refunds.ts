@@ -89,7 +89,7 @@ export default class OrdersRefundsResource extends OrdersResource {
   /**
    * @deprecated This method is not available
    */
-  async delete(id: string, params?: any, cb?: Function): Promise<boolean> {
+  async delete(): Promise<boolean> {
     throw new ApiException(
       `The method "${this.delete.name}" does not exist on the "${OrdersRefundsResource.apiName}"`,
     );
@@ -98,7 +98,7 @@ export default class OrdersRefundsResource extends OrdersResource {
   /**
    * @deprecated This method is not available
    */
-  async cancel(id: string, params?: any, cb?: Function): Promise<boolean> {
+  async cancel(): Promise<boolean> {
     throw new ApiException(
       `The method "${this.cancel.name}" does not exist on the "${OrdersRefundsResource.apiName}"`,
     );
