@@ -30,6 +30,8 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
   public static model = Subscription;
   public static apiName = 'Subscriptions API';
 
+  // API METHODS
+
   /**
    * Create a customer subscription.
    *
@@ -117,7 +119,7 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
   }
 
   /**
-   * Alias for delete.
+   * Cancel a Subscription
    *
    * @param id - Subscription ID
    * @param params - Delete Subscription parameters

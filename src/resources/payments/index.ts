@@ -122,8 +122,8 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * @public ✓ This method is part of the public API
    * @alias list
    */
-  all = this.list;
 
+  all = this.list;
   /**
    * Delete the given Payment. This is just an alias of the 'cancel' method.
    *

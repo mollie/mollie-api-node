@@ -3,17 +3,17 @@ import Customer from '../../models/Customer';
 import List from '../../models/List';
 import {
   ICreateParams,
+  IDeleteParams,
   IGetParams,
   IListParams,
   IUpdateParams,
-  IDeleteParams,
 } from '../../types/customer/params';
 import {
   CreateCallback,
+  DeleteCallback,
   GetCallback,
   ListCallback,
   UpdateCallback,
-  DeleteCallback,
 } from '../../types/customer/callback';
 
 /**
@@ -136,8 +136,8 @@ export default class CustomersResource extends CustomersBaseResource {
    * @public ✓ This method is part of the public API
    * @alias list
    */
-  all = this.list;
 
+  all = this.list;
   /**
    * Delete a Customer.
    *
