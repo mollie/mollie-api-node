@@ -1,170 +1,140 @@
+import { get } from 'lodash';
+
 import Model from '../model';
 import { IPayment, PaymentStatus } from '../types/payment';
-import { ApiMode, IAmount, ILinks, Locale, PaymentMethod } from '../types/global';
 
 /**
  * The `Payment` model
  */
 export default class Payment extends Model implements IPayment {
   public static readonly resourcePrefix = 'tr_';
-  public resource: string;
-  public id: string;
 
-  public mode: ApiMode;
-  public createdAt: string;
-  public status: PaymentStatus;
-  public isCancelable: boolean;
-  public authorizedAt?: string;
-  public paidAt?: string;
-  public canceledAt?: string;
-  public expiresAt: string;
-  public expiredAt?: string;
-  public failedAt?: string;
-  public amount: IAmount;
-  public amountRefunded?: IAmount;
-  public amountRemaining?: IAmount;
-  public amountCaptured?: IAmount;
-  public description: string;
-  public redirectUrl: string | null;
-  public webhookUrl?: string;
-  public method: PaymentMethod;
-  public metadata: any;
-  public locale: Locale;
-  public countryCode?: string;
-  public profileId: string;
-  public settlementAmount?: IAmount;
-  public settlementId?: string;
-  public customerId?: string;
-  public sequenceType: string;
-  public mandateId?: string;
-  public subscriptionId?: string;
-  public orderId?: string;
-  public details?: any;
-  public applicationFee?: {
-    amount: IAmount;
-    description: string;
+  public resource: 'payment';
+  public id: null;
+  public mode: null;
+  public createdAt: null;
+  public status: null;
+  public isCancelable: null;
+  public paidAt: null;
+  public canceledAt: null;
+  public expiresAt: null;
+  public expiredAt: null;
+  public failedAt: null;
+  public amount: {
+    value: null;
+    currency: null;
   };
-  public _links: ILinks;
+  public amountRefunded: null;
+  public amountRemaining: null;
+  public description: null;
+  public redirectUrl: null;
+  public webhookUrl: null;
+  public method: null;
+  public metadata: null;
+  public locale: null;
+  public countryCode: null;
+  public profileId: null;
+  public settlementAmount: null;
+  public settlementId: null;
+  public customerId: null;
+  public sequenceType: null;
+  public mandateId: null;
+  public subscriptionId: null;
+  public applicationFee: {
+    amount: {
+      value: null;
+      currency: null;
+    };
+    description: null;
+  };
+  public details: null;
+  public _links: {
+    self: null;
+    documentation: null;
+    checkout: null;
+    refunds: null;
+    chargebacks: null;
+    captures: null;
+    order: null;
+    settlement: null;
+    mandate: null;
+    subscription: null;
+    customer: null;
+  };
 
-  constructor(props?: Partial<IPayment>) {
+  /**
+   * Payment constructor
+   *
+   * @public ✓ This method is part of the public API
+   */
+  public constructor(props?: Partial<IPayment>) {
     super(props);
 
-    const defaults: Partial<IPayment> = {
-      resource: 'payment',
-      id: null,
-      mode: null,
-      createdAt: null,
-      status: null,
-      isCancelable: null,
-      paidAt: null,
-      canceledAt: null,
-      expiresAt: null,
-      expiredAt: null,
-      failedAt: null,
-      amount: {
-        value: null,
-        currency: null,
-      },
-      amountRefunded: null,
-      amountRemaining: null,
-      description: null,
-      redirectUrl: null,
-      webhookUrl: null,
-      method: null,
-      metadata: null,
-      locale: null,
-      countryCode: null,
-      profileId: null,
-      settlementAmount: null,
-      settlementId: null,
-      customerId: null,
-      sequenceType: null,
-      mandateId: null,
-      subscriptionId: null,
-      applicationFee: {
-        amount: {
-          value: null,
-          currency: null,
-        },
-        description: null,
-      },
-      details: null,
-      _links: {
-        checkout: null,
-        refunds: null,
-        chargebacks: null,
-        settlement: null,
-        mandate: null,
-        subscription: null,
-        customer: null,
-      },
-    };
-
-    Object.assign(this, defaults, props);
+    Object.assign(this, props);
   }
 
   /**
    * If the payment is open
    *
-   * @returns {boolean}
+   * @public ✓ This method is part of the public API
    */
-  isOpen() {
+  public isOpen(): boolean {
     return this.status === PaymentStatus.open;
   }
 
   /**
    * If the payment is authorized
    *
-   * @returns {boolean}
+   * @public ✓ This method is part of the public API
    */
-  isAuthorized() {
+  public isAuthorized(): boolean {
     return this.status === PaymentStatus.authorized;
   }
 
   /**
    * If the payment is paid
    *
-   * @returns {boolean}
+   * @public ✓ This method is part of the public API
    */
-  isPaid() {
+  public isPaid(): boolean {
     return !!this.paidAt;
   }
 
   /**
    * If the payment is canceled
    *
-   * @returns {boolean}
+   * @public ✓ This method is part of the public API
    */
-  isCanceled() {
+  public isCanceled(): boolean {
     return !!this.canceledAt;
   }
 
   /**
    * If the payment is expired
    *
-   * @returns {boolean}
+   * @public ✓ This method is part of the public API
    */
-  isExpired() {
+  public isExpired(): boolean {
     return !!this.expiredAt;
   }
 
   /**
    * If the payment is refundable
    *
-   * @returns {boolean}
+   * @public ✓ This method is part of the public API
    *
    * @since 2.0.0-rc.2
    */
-  isRefundable() {
+  public isRefundable(): boolean {
     return this.amountRemaining !== null;
   }
 
   /**
    * Get the payment URL
    *
-   * @returns {string|null}
+   * @public ✓ This method is part of the public API
    */
-  getPaymentUrl() {
-    return this._links && this._links.checkout && this._links.checkout.href;
+  public getPaymentUrl(): string {
+    return get(this._links, 'checkout.href', '');
   }
 }

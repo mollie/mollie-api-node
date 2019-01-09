@@ -1,5 +1,4 @@
 import Model from '../model';
-import { ApiMode, IAmount, ILinks } from '../types/global';
 import { ISubscription, SubscriptionStatus } from '../types/subscription';
 
 /**
@@ -7,98 +6,96 @@ import { ISubscription, SubscriptionStatus } from '../types/subscription';
  */
 export default class Subscription extends Model implements ISubscription {
   public static resourcePrefix = 'sub_';
-  resource: string;
-  id: string;
-  mode: ApiMode;
-  status: SubscriptionStatus;
-  amount: IAmount;
-  times: number;
-  timesRemaining: number;
-  interval: string;
-  startDate: string;
-  nextPaymentDate?: string;
-  description: string;
-  method: string;
-  mandateId?: string;
-  createdAt?: string;
-  canceledAt: string;
-  webhookUrl: string;
-  metadata: any;
-  _links: ILinks;
+
+  public resource = 'subscription';
+  public id = null;
+  public mode = null;
+  public createdAt = null;
+  public status = null;
+  public amount = {
+    currency: null,
+    value: null,
+  };
+  public times: null;
+  public interval = null;
+  public startDate = null;
+  public description = null;
+  public method = null;
+  public canceledAt = null;
+  public webhookUrl = null;
+  public timesRemaining = null;
+  public metadata = null;
+  public _links = {
+    self: null,
+    documentation: null,
+    customer: null,
+  };
 
   // Access token parameters
-  testmode?: boolean;
+  public testmode?: boolean;
 
-  constructor(props?: Partial<ISubscription>) {
+  /**
+   * Subscription constructor
+   *
+   * @public ✓ This method is part of the public API
+   */
+  public constructor(props?: Partial<ISubscription>) {
     super(props);
 
-    const defaults: ISubscription = {
-      resource: 'subscription',
-      id: null,
-      mode: null,
-      createdAt: null,
-      status: null,
-      amount: {
-        currency: null,
-        value: null,
-      },
-      times: null,
-      interval: null,
-      startDate: null,
-      description: null,
-      method: null,
-      canceledAt: null,
-      webhookUrl: null,
-      timesRemaining: null,
-      metadata: null,
-      _links: {
-        customer: null,
-      },
-    };
-
-    Object.assign(this, defaults, props);
+    Object.assign(this, props);
   }
 
   /**
    * Get the webhook url
+   *
+   * @public ✓ This method is part of the public API
    */
-  getWebhookUrl(): string | boolean {
+  public getWebhookUrl(): string {
     return this.webhookUrl;
   }
 
   /**
    * If the subscription is active
-   * @returns {boolean}
+   *
+   * @public ✓ This method is part of the public API
    */
-  isActive(): boolean {
+  public isActive(): boolean {
     return this.status === SubscriptionStatus.active;
   }
 
   /**
    * If the subscription is pending
+   *
+   * @public ✓ This method is part of the public API
    */
-  isPending(): boolean {
+  public isPending(): boolean {
     return this.status === SubscriptionStatus.pending;
   }
 
   /**
    * If the subscription is completed
+   *
+   * @public ✓ This method is part of the public API
    */
-  isCompleted(): boolean {
+  public isCompleted(): boolean {
     return this.status === SubscriptionStatus.completed;
   }
 
   /**
    * If the subscription is suspended
+   *
+   * @public ✓ This method is part of the public API
    */
-  isSuspended(): boolean {
+  public isSuspended(): boolean {
     return this.status === SubscriptionStatus.suspended;
   }
 
   /**
    * If the subscription is canceled
+   *
+   * @public ✓ This method is part of the public API
    */
-  isCanceled(): boolean {
+  public isCanceled(): boolean {
     return !!this.canceledAt;
   }
 }

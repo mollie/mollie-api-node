@@ -1,37 +1,32 @@
 import Model from '../model';
-import { IShipment, IShipmentTracking } from '../types/shipment';
-import { IOrderLine } from '../types/orderline';
-import { ILinks } from '../types/global';
+import { IShipment } from '../types/shipment';
 
 /**
  * The `shipment` model
  */
 export default class Shipment extends Model implements IShipment {
-  resource: string;
-  id: string;
-  orderId: string;
-  createdAt: string;
-  tracking: IShipmentTracking | null;
-  lines: Array<IOrderLine>;
-  _links: ILinks;
+  public static resourcePrefix = 'shp_';
 
-  constructor(props?: Partial<IShipment>) {
+  public resource = null;
+  public id = null;
+  public orderId = null;
+  public createdAt = null;
+  public tracking = null;
+  public lines = null;
+  public _links = {
+    self: null,
+    order: null,
+    documentation: null,
+  };
+
+  /**
+   * Shipment constructor
+   *
+   * @public ✓ This method is part of the public API
+   */
+  public constructor(props?: Partial<IShipment>) {
     super(props);
 
-    const defaults: IShipment = {
-      resource: null,
-      id: null,
-      orderId: null,
-      createdAt: null,
-      tracking: null,
-      lines: [],
-      _links: {
-        self: null,
-        order: null,
-        documentation: null,
-      },
-    };
-
-    Object.assign(this, defaults, props);
+    Object.assign(this, props);
   }
 }

@@ -1,4 +1,4 @@
-import Line from '../../models/Line';
+import OrderLine from '../../models/OrderLine';
 import OrdersResource from './base';
 import Order from '../../models/Order';
 import { ICancelParams, IUpdateParams } from '../../types/orderline/params';
@@ -11,7 +11,7 @@ import { CancelCallback, UpdateCallback } from '../../types/orderline/callback';
  */
 export default class OrdersLinesResource extends OrdersResource {
   static resource = 'orders_lines';
-  static model = Line;
+  static model = OrderLine;
   static apiName = 'Orders API (Order Lines section)';
 
   /**

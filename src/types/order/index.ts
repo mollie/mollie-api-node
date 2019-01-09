@@ -1,6 +1,11 @@
 import { ApiMode, IAddress, IAmount, ILinks } from '../global';
 import { IOrderLine } from '../orderline';
 
+/**
+ * Order Response object.
+ *
+ * @see
+ */
 export interface IOrder {
   resource: string;
   id: string;

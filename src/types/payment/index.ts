@@ -12,7 +12,7 @@ import {
 } from '../global';
 
 /**
- * Payment Response Object
+ * Payment Response Object.
  *
  * @param resource - Indicates the response contains a payment object.
  *                   Will always contain `payment` for this endpoint.

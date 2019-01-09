@@ -1,6 +1,11 @@
 import { IAmount, ILinks } from '../global';
 import { OrderStatus } from '../order';
 
+/**
+ * OrderLine Response object.
+ *
+ * @see
+ */
 export interface IOrderLine {
   resource: string;
   id: string;

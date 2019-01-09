@@ -1,33 +1,32 @@
 import Model from '../model';
-import { IImage, ILinks } from '../types/global';
 import { IMethod, MethodImageSize } from '../types/method';
 
 /**
  * The `Method` model
  */
 export default class Method extends Model implements IMethod {
-  resource: string;
-  id: string;
-  description: string;
-  image: IImage;
-  _links: ILinks;
+  public resource = 'method';
+  public id = null;
+  public description = null;
+  public image = {
+    size1x: null,
+    size2x: null,
+    svg: null,
+  };
+  public _links: {
+    self: null;
+    documentation: null;
+  };
 
-  constructor(props?: Partial<IMethod>) {
+  /**
+   * Method constructor
+   *
+   * @public ✓ This method is part of the public API
+   */
+  public constructor(props?: Partial<IMethod>) {
     super(props);
 
-    const defaults: IMethod = {
-      resource: 'method',
-      id: null,
-      description: null,
-      image: {
-        size1x: null,
-        size2x: null,
-        svg: null,
-      },
-      _links: {},
-    };
-
-    Object.assign(this, defaults, props);
+    Object.assign(this, props);
   }
 
   /**

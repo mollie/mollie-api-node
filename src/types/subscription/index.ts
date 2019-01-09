@@ -1,5 +1,10 @@
-import { ApiMode, IAmount, ILinks } from '../../types/global';
+import { ApiMode, IAmount, ILinks, IUrl } from '../../types/global';
 
+/**
+ * Subscription Response object.
+ *
+ * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription
+ */
 export interface ISubscription {
   resource: string;
   id: string;
@@ -18,10 +23,19 @@ export interface ISubscription {
   canceledAt: string;
   webhookUrl: string;
   metadata: any;
-  _links: ILinks;
+  _links: ISubscriptionLinks;
 
   // Access token parameters
   testmode?: boolean;
+}
+
+/**
+ * Subscription _links object
+ *
+ * @param customer - The API resource URL of the customer the subscription is for.
+ */
+export interface ISubscriptionLinks extends ILinks {
+  customer: IUrl;
 }
 
 export enum SubscriptionStatus {

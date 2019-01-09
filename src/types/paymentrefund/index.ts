@@ -3,7 +3,7 @@ import { RefundStatus } from '../refund';
 import { IOrderLine } from '../orderline';
 
 /**
- * Payment Refund object
+ * Payment Refund object.
  *
  * @param resource - Indicates the response contains a refund object.
  *                   Will always contain refund for this endpoint.
@@ -54,7 +54,7 @@ export interface IPaymentRefund {
   paymentId: string;
   orderId?: string;
   createdAt: string;
-  _links: ILinks;
+  _links: IPaymentRefundLinks;
 }
 
 /**

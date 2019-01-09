@@ -1,5 +1,10 @@
-import { ApiMode, CardLabel, ILinks } from '../global';
+import { ApiMode, CardLabel, ILinks, IUrl } from '../global';
 
+/**
+ * Mandate Response object
+ *
+ * @see
+ */
 export interface IMandate {
   resource: string;
   id: string;
@@ -10,10 +15,14 @@ export interface IMandate {
   mandateReference: string;
   signatureDate: string;
   createdAt: string;
-  _links: ILinks;
+  _links: IMandateLinks;
 
   // Access token parameters
   testmode?: boolean;
+}
+
+export interface IMandateLinks extends ILinks {
+  customer: IUrl;
 }
 
 export type IMandateDetails = IMandateDetailsCreditCard | IMandateDetailsDirectDebit;

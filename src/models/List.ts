@@ -1,18 +1,18 @@
 import { parseCursorUrl } from '../utils';
-import { ILinks } from '../types/global';
+import { ILinks, IListLinks } from '../types/global';
 
 /**
  * A list helper class
  */
 export default class List<T> extends Array {
-  links: ILinks = null;
+  links: IListLinks = null;
   count: number = null;
   nextPage: any = null;
   previousPage: any = null;
   nextPageCursor: any = null;
   previousPageCursor: any = null;
 
-  static getNextPageParams(links: ILinks) {
+  public static getNextPageParams(links: IListLinks) {
     if (links.next && links.next.href) {
       return parseCursorUrl(links.next.href).query;
     }
@@ -20,7 +20,7 @@ export default class List<T> extends Array {
     return {};
   }
 
-  static getPreviousPageParams(links: ILinks) {
+  public static getPreviousPageParams(links: IListLinks) {
     if (links.previous && links.previous.href) {
       return parseCursorUrl(links.previous.href).query;
     }
@@ -28,7 +28,14 @@ export default class List<T> extends Array {
     return {};
   }
 
-  static buildResourceList({ response, resourceName, params, callback, getResources, Model }: any) {
+  public static buildResourceList({
+    response,
+    resourceName,
+    params,
+    callback,
+    getResources,
+    Model,
+  }: any) {
     const { _embedded, count = 0, _links = [] } = response;
     const resources = _embedded[resourceName];
     const list = new List();

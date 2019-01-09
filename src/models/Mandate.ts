@@ -1,52 +1,47 @@
 import Model from '../model';
-import { ApiMode, ILinks } from '../types/global';
-import { IMandate, IMandateDetails, MandateMethod, MandateStatus } from '../types/mandate';
+import { IMandate, MandateStatus } from '../types/mandate';
 
 /**
  * The `Mandate` model
  */
 export default class Mandate extends Model implements IMandate {
   public static resourcePrefix = 'mdt_';
-  resource: string;
-  id: string;
-  mode: ApiMode;
-  status: MandateStatus;
-  method: MandateMethod;
-  details: IMandateDetails;
-  mandateReference: string;
-  signatureDate: string;
-  createdAt: string;
-  _links: ILinks;
+
+  public resource = 'mandate';
+  public id = null;
+  public status = null;
+  public method = null;
+  public details = null;
+  public mode = null;
+  public mandateReference = null;
+  public signatureDate = null;
+  public createdAt = null;
+  public _links = {
+    self: null,
+    documentation: null,
+    customer: null,
+  };
 
   // Access token parameters
-  testmode?: boolean;
+  public testmode?: boolean;
 
-  constructor(props?: Partial<IMandate>) {
+  /**
+   * Mandate constructor
+   *
+   * @public ✓ This method is part of the public API
+   */
+  public constructor(props?: Partial<IMandate>) {
     super(props);
 
-    const defaults: IMandate = {
-      resource: 'mandate',
-      id: null,
-      status: null,
-      method: null,
-      details: null,
-      mode: null,
-      mandateReference: null,
-      signatureDate: null,
-      createdAt: null,
-      _links: {
-        customer: null,
-      },
-    };
-
-    Object.assign(this, defaults, props);
+    Object.assign(this, props);
   }
 
   /**
    * If the mandate is valid
-   * @returns {boolean}
+   *
+   * @public ✓ This method is part of the public API
    */
-  isValid() {
+  public isValid(): boolean {
     return this.status === MandateStatus.valid;
   }
 }

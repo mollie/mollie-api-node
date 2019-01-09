@@ -17,8 +17,9 @@ import { IAmount } from '../global';
  * @see https://docs.mollie.com/reference/v2/refunds-api/create-refund
  */
 export interface ICreateParams {
-  amount: IAmount;
   paymentId: string;
+
+  amount: IAmount;
   description?: string;
 
   // Access token parameters

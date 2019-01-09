@@ -56,6 +56,11 @@ export interface ILinks {
   documentation: IUrl;
 }
 
+export interface IListLinks extends ILinks {
+  next: IUrl;
+  previous: IUrl;
+}
+
 export interface IAmount {
   currency: string;
   value: string;

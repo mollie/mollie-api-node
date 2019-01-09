@@ -1,5 +1,10 @@
 import { ApiMode, IAmount, ILinks } from '../../types/global';
 
+/**
+ * Capture Response object.
+ *
+ * @see
+ */
 export interface ICapture {
   resource: string;
   id: string;

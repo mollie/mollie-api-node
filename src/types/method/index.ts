@@ -1,7 +1,7 @@
 import { IAmount, IImage, ILinks } from '../global';
 
 /**
- * Payment method
+ * Method Response object.
  *
  * @param resource - Indicates the response contains a method object. Will always contain `method` for this endpoint.
  * @param id - The unique identifier of the payment method. When used during payment creation, the payment method selection screen will be skipped.

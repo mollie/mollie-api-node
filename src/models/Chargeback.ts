@@ -1,38 +1,34 @@
 import Model from '../model';
 import { IChargeback } from '../types/chargeback';
-import { IAmount, ILinks } from '../types/global';
 
 /**
  * The `Chargeback` model
  */
 export default class Chargeback extends Model implements IChargeback {
   public static resourcePrefix = 'chb_';
-  public resource: string;
-  public id: string;
-  public amount: IAmount;
-  public settlementAmount: IAmount;
-  public createdAt: string;
-  public reversedAt: string;
-  public paymentId: string;
-  public _links: ILinks;
 
+  public resource = 'chargeback';
+  public id = null;
+  public amount = null;
+  public settlementAmount = null;
+  public createdAt = null;
+  public reversedAt = null;
+  public paymentId = null;
+  public _links = {
+    self: null,
+    documentation: null,
+    payment: null,
+    settlement: null,
+  };
+
+  /**
+   * Chargeback constructor
+   *
+   * @public ✓ This method is part of the public API
+   */
   constructor(props?: Partial<IChargeback>) {
     super(props);
 
-    const defaults: IChargeback = {
-      resource: 'chargeback',
-      id: null,
-      amount: null,
-      settlementAmount: null,
-      createdAt: null,
-      reversedAt: null,
-      paymentId: null,
-      _links: {
-        payment: null,
-        settlement: null,
-      },
-    };
-
-    Object.assign(this, defaults, props);
+    Object.assign(this, props);
   }
 }

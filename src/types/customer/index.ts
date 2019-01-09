@@ -1,5 +1,10 @@
 import { ApiMode, ILinks, Locale, PaymentMethod } from '../global';
 
+/**
+ * Customer Response object.
+ *
+ * @see
+ */
 export interface ICustomer {
   resource: string;
   id: string;

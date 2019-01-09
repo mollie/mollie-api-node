@@ -1,5 +1,4 @@
 import Model from '../model';
-import { IAmount, ILinks } from '../types/global';
 import { IPaymentRefund } from '../types/paymentrefund';
 import { RefundStatus } from '../types/refund';
 
@@ -8,38 +7,36 @@ import { RefundStatus } from '../types/refund';
  */
 export default class Refund extends Model implements IPaymentRefund {
   public static resourcePrefix = '';
-  resource: string;
-  id: string;
-  amount: IAmount;
-  status: RefundStatus;
-  createdAt: string;
-  description: string;
-  paymentId: string;
-  settlementAmount?: IAmount;
-  _links: ILinks;
 
+  public resource = 'refund';
+  public id: null;
+  public amount: {
+    currency: null;
+    value: null;
+  };
+  public settlementAmount: null;
+  public description: null;
+  public status: null;
+  public createdAt: null;
+  public paymentId: null;
+  public _links: {
+    payment: null;
+    settlement: null;
+    order: null;
+    self: null;
+    documentation: null;
+  };
+  public lines: null;
+
+  /**
+   * Refund constructor
+   *
+   * @public ✓ This method is part of the public API
+   */
   constructor(props?: Partial<IPaymentRefund>) {
     super(props);
 
-    const defaults: IPaymentRefund = {
-      resource: 'refund',
-      id: null,
-      amount: {
-        currency: null,
-        value: null,
-      },
-      settlementAmount: null,
-      description: null,
-      status: null,
-      createdAt: null,
-      paymentId: null,
-      _links: {
-        payment: null,
-        settlement: null,
-      },
-    };
-
-    Object.assign(this, defaults, props);
+    Object.assign(this, props);
   }
 
   /**
@@ -57,8 +54,6 @@ export default class Refund extends Model implements IPaymentRefund {
   /**
    * The refund will be sent to the bank on the next business day. You can still cancel the refund.
    *
-   * @returns {boolean}
-   *
    * @public ✓ This method is part of the public API
    */
   public isPending(): boolean {
@@ -69,8 +64,6 @@ export default class Refund extends Model implements IPaymentRefund {
    * The refund has been sent to the bank. The refund amount will be transferred to the consumer
    * account as soon as possible.
    *
-   * @returns {boolean}
-   *
    * @public ✓ This method is part of the public API
    */
   public isProcessing(): boolean {
@@ -80,8 +73,6 @@ export default class Refund extends Model implements IPaymentRefund {
   /**
    * The refund amount has been transferred to the consumer.
    *
-   * @returns {boolean}
-   *
    * @public ✓ This method is part of the public API
    */
   public isRefunded(): boolean {
@@ -90,8 +81,6 @@ export default class Refund extends Model implements IPaymentRefund {
 
   /**
    * The refund has failed during processing.
-   *
-   * @returns {boolean}
    *
    * @public ✓ This method is part of the public API
    */
