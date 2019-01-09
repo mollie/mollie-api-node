@@ -1,5 +1,5 @@
-import { IOrderLine } from '../orderline';
 import { ILinks, IUrl } from '../global';
+import { IOrderLine } from '../order/line';
 
 /**
  * Shipment Response object.

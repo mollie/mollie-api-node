@@ -1,10 +1,10 @@
 import { ApiMode, IAddress, IAmount, ILinks } from '../global';
-import { IOrderLine } from '../orderline';
+import { IOrderLine } from './line';
 
 /**
  * Order Response object.
  *
- * @see
+ * @see https://docs.mollie.com/reference/v2/orders-api/get-order
  */
 export interface IOrder {
   resource: string;
@@ -51,4 +51,8 @@ export interface IOrderAddress extends IAddress {
   familyName: string;
   email: string;
   phone?: string;
+}
+
+export enum OrderEmbed {
+  payments = 'payments',
 }

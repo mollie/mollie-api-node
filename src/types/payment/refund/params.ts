@@ -1,4 +1,5 @@
-import { IAmount } from '../global';
+import { IAmount } from '../../global';
+import { RefundEmbed } from '../../refund';
 
 /**
  * Create Payment Refund parameters.
@@ -30,11 +31,18 @@ export interface ICreateParams {
  * Retrieve Payment Refund parameters.
  *
  * @param paymentId - The corresponding Payment ID
+ * @param embed - This endpoint allows for embedding additional information by appending the following values via the embed query string parameter.
+ *
+ * @param testmode - Set this to `true` to get a refund made in test mode. If you omit this parameter, you can only retrieve live mode refunds.
  *
  * @see https://docs.mollie.com/reference/v2/refunds-api/get-refund
  */
 export interface IGetParams {
   paymentId: string;
+  embed: Array<RefundEmbed>;
+
+  // Access token parameters
+  testmode?: boolean;
 }
 
 /**
@@ -42,10 +50,27 @@ export interface IGetParams {
  *
  * @param paymentId - The corresponding Payment ID
  *
+ * @param from - Offset the result set to the refund with this ID. The refund with this ID is included in the result set as well.
+ * @param limit - The number of refunds to return (with a maximum of 250).
+ *
+ * @param embed - This endpoint allows for embedding additional information by appending the following values via the embed query string parameter.
+ *
+ * @param profileId - The website profile’s unique identifier, for example `pfl_3RkSN1zuPE`.
+ * @param testmode - Set this to true to only retrieve refunds made in test mode. By default, only live payments are returned.
+ *
  * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
  */
 export interface IListParams {
   paymentId: string;
+
+  from?: string;
+  limit?: number;
+
+  embed?: Array<RefundEmbed>;
+
+  // Access token parameters
+  profileId?: string;
+  testmode?: boolean;
 }
 
 /**
@@ -53,8 +78,13 @@ export interface IListParams {
  *
  * @param paymentId - The corresponding Payment ID
  *
+ * @param testmode - Set this to true to cancel a test mode refund.
+ *
  * @see https://docs.mollie.com/reference/v2/refunds-api/cancel-refund
  */
 export interface ICancelParams {
   paymentId: string;
+
+  // Access token parameters
+  testmode?: boolean;
 }

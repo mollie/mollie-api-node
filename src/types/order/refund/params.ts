@@ -1,5 +1,3 @@
-import { IOrderLine } from '../orderline';
-
 /**
  * Create Order Refund parameters.
  *
@@ -11,6 +9,8 @@ import { IOrderLine } from '../orderline';
  *
  * @see https://docs.mollie.com/reference/v2/orders-api/create-order-refund
  */
+import { IOrderLine } from '../line';
+
 export interface ICreateParams {
   orderId: string;
 

@@ -1,8 +1,8 @@
 import OrderLine from '../../models/OrderLine';
 import OrdersResource from './base';
 import Order from '../../models/Order';
-import { ICancelParams, IUpdateParams } from '../../types/orderline/params';
-import { CancelCallback, UpdateCallback } from '../../types/orderline/callback';
+import { ICancelParams, IUpdateParams } from '../../types/order/line/params';
+import { CancelCallback, UpdateCallback } from '../../types/order/line/callback';
 
 /**
  * The `orders_lines` resource

@@ -1,7 +1,7 @@
 import { IAddress, IAmount, Locale, PaymentMethod } from '../global';
-import { IOrderLine } from '../orderline';
 import { IPayment } from '../payment';
-import { IOrderAddress } from './index';
+import { IOrderAddress, OrderEmbed } from './index';
+import { IOrderLine } from './line';
 
 /**
  * Create Order parameters.
@@ -76,6 +76,8 @@ export interface ICreateParams {
  *
  * @param testmode - Set this to true to retrieve a test mode order.
  *
+ * @param embed - This endpoint also allows for embedding additional information by appending the following values via the `embed` query string parameter.
+ *
  * @since 2.2.0
  *
  * @see https://docs.mollie.com/reference/v2/orders-api/get-order
@@ -83,6 +85,8 @@ export interface ICreateParams {
 export interface IGetParams {
   // Access token parameters
   testmode?: boolean;
+
+  embed?: Array<OrderEmbed>;
 }
 
 /**
@@ -128,4 +132,12 @@ export interface IUpdateParams {
   testmode?: boolean;
 }
 
-export interface ICancelParams {}
+/**
+ * Cancel Order parameters
+ *
+ * @param testmode - Set this to `true` to cancel a test mode order.
+ */
+export interface ICancelParams {
+  // Access token parameters
+  testmode?: boolean;
+}

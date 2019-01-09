@@ -1,5 +1,5 @@
 import Model from '../model';
-import { ICapture } from '../types/capture';
+import { ICapture } from '../types/payment/capture';
 
 /**
  * The `capture` model

@@ -1,6 +1,6 @@
-import { IAmount, ILinks, IUrl } from '../global';
-import { RefundStatus } from '../refund';
-import { IOrderLine } from '../orderline';
+import { IAmount, ILinks, IUrl } from '../../global';
+import { RefundStatus } from '../../refund';
+import { IOrderLine } from '../../order/line';
 
 /**
  * Payment Refund object.

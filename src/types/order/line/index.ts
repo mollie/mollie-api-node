@@ -1,5 +1,5 @@
-import { IAmount, ILinks } from '../global';
-import { OrderStatus } from '../order';
+import { IAmount, ILinks } from '../../global';
+import { OrderStatus } from '../../order';
 
 /**
  * OrderLine Response object.

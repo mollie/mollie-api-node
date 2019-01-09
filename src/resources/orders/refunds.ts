@@ -1,9 +1,9 @@
 import Refund from '../../models/Refund';
 import OrdersResource from './base';
 import List from '../../models/List';
-import { ICreateParams, IListParams } from '../../types/orderrefund/params';
-import { CreateCallback, ListCallback } from '../../types/orderrefund/callback';
+import { CreateCallback, ListCallback } from '../../types/order/refund/callback';
 import ApiException from '../../exceptions/ApiException';
+import { ICreateParams, IListParams } from '../../types/order/refund/params';
 
 /**
  * The `orders_refunds` resource

@@ -1,6 +1,6 @@
 import Model from '../model';
-import { IPaymentRefund } from '../types/paymentrefund';
 import { RefundStatus } from '../types/refund';
+import { IPaymentRefund } from '../types/payment/refund';
 
 /**
  * The `Refund` model

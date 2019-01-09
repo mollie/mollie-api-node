@@ -7,13 +7,13 @@ import {
   ICreateParams,
   IGetParams,
   IListParams,
-} from '../../types/paymentrefund/params';
+} from '../../types/payment/refund/params';
 import {
   CancelCallback,
   CreateCallback,
   GetCallback,
   ListCallback,
-} from '../../types/paymentrefund/callback';
+} from '../../types/payment/refund/callback';
 
 /**
  * The `payments_refunds` resource

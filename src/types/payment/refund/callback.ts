@@ -1,5 +1,5 @@
-import { List as MollieList } from '../list';
-import { IPaymentRefund } from '../paymentrefund';
+import { List as MollieList } from '../../list';
+import { IPaymentRefund } from '../refund';
 
 export type CreateCallback = (err: any, refund: IPaymentRefund) => void;
 export type GetCallback = (err: any, refund: IPaymentRefund) => void;

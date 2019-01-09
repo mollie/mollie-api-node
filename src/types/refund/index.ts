@@ -1,5 +1,4 @@
-import { IPaymentRefund } from '../paymentrefund';
-
+import { IPaymentRefund } from '../payment/refund';
 export type IRefund = IPaymentRefund;
 
 /**
@@ -17,4 +16,8 @@ export enum RefundStatus {
   processing = 'processing',
   refunded = 'refunded',
   failed = 'failed',
+}
+
+export enum RefundEmbed {
+  payment = 'payment',
 }

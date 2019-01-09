@@ -1,5 +1,5 @@
-import { IOrderLine } from '../orderline';
 import { IShipmentTracking } from '../shipment';
+import { IOrderLine } from '../order/line';
 
 export interface ICreateParams {
   orderId: string;
