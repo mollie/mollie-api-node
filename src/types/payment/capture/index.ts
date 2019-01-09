@@ -1,4 +1,4 @@
-import { ApiMode, IAmount, ILinks } from '../../types/global';
+import { ApiMode, IAmount, ILinks } from '../../../types/global';
 
 /**
  * Capture Response object.
