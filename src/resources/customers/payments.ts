@@ -15,8 +15,8 @@ import Resource from '../../resource';
  * @since 1.1.1
  */
 export default class CustomersPaymentsResource extends CustomersBaseResource {
-  public resource = 'customers_payments';
-  public model = Payment;
+  public static resource = 'customers_payments';
+  public static model = Payment;
   public apiName = 'Customers API (Payments section)';
   /**
    * Get all of a customer's payments.

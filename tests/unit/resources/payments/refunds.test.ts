@@ -24,9 +24,8 @@ describe('payments_refunds', () => {
   });
 
   it('should have a resource name and model', () => {
-    const payment = new PaymentsRefundsResource(null);
-    expect(payment.resource).toBe('payments_refunds');
-    expect(payment.model).toBe(PaymentRefund);
+    expect(PaymentsRefundsResource.resource).toBe('payments_refunds');
+    expect(PaymentsRefundsResource.model).toBe(PaymentRefund);
   });
 
   describe('.create()', () => {

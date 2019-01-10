@@ -15,9 +15,8 @@ describe('methods', () => {
   });
 
   it('should have a resource name and model', () => {
-    const method = new Methods(null);
-    expect(method.resource).toBe('methods');
-    expect(method.model).toBe(Method);
+    expect(Methods.resource).toBe('methods');
+    expect(Methods.model).toBe(Method);
   });
 
   describe('.get()', () => {

@@ -33,9 +33,8 @@ describe('customers_mandates', () => {
   });
 
   it('should have a resource name and model', () => {
-    const mandate = new CustomersMandates(null);
-    expect(mandate.resource).toBe('customers_mandates');
-    expect(mandate.model).toBe(Mandate);
+    expect(CustomersMandates.resource).toBe('customers_mandates');
+    expect(CustomersMandates.model).toBe(Mandate);
   });
 
   describe('.create()', () => {

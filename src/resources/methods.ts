@@ -11,8 +11,8 @@ import { GetCallback, ListCallback } from '../types/method/callback';
  * @since 1.0.0
  */
 export default class MethodsResource extends Resource {
-  public resource = 'methods';
-  public model = Method;
+  public static resource = 'methods';
+  public static model = Method;
   public apiName = 'Methods API';
 
   /**

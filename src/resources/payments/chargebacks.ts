@@ -15,8 +15,8 @@ import Resource from '../../resource';
  * @since 1.1.1
  */
 export default class PaymentsChargebacksResource extends PaymentsBaseResource {
-  public resource = 'payments_chargebacks';
-  public model = Chargeback;
+  public static resource = 'payments_chargebacks';
+  public static model = Chargeback;
   public apiName = 'Chargebacks API';
 
   // AVAILABLE API METHODS

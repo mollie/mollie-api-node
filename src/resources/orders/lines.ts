@@ -13,8 +13,8 @@ import Resource from '../../resource';
  * @since 2.2.0
  */
 export default class OrdersLinesResource extends OrdersResource {
-  public resource = 'orders_lines';
-  public model = OrderLine;
+  public static resource = 'orders_lines';
+  public static model = OrderLine;
   public apiName = 'Orders API (Order Lines section)';
 
   /**

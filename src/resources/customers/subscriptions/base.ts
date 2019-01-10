@@ -4,7 +4,7 @@ import CustomersBaseResource from '../../../resources/customers/base';
  * Customers base resource.
  */
 export default class CustomersSubscriptionsBaseResource extends CustomersBaseResource {
-  public resource = 'customers_subscriptions';
+  public static resource = 'customers_subscriptions';
   protected subscriptionId: string;
 
   /**
@@ -31,8 +31,8 @@ export default class CustomersSubscriptionsBaseResource extends CustomersBaseRes
    * @since 2.0.0
    */
   protected getResourceUrl(): string {
-    if (this.resource.indexOf('_') !== -1) {
-      const parts = this.resource.split('_');
+    if ((this.constructor as any).resource.indexOf('_') !== -1) {
+      const parts = (this.constructor as any).resource.split('_');
 
       if (parts.length >= 3) {
         return `${parts[0]}/${this.parentId}/${parts[1]}/${this.subscriptionId}/${parts[2]}`;
@@ -41,6 +41,6 @@ export default class CustomersSubscriptionsBaseResource extends CustomersBaseRes
       return `${parts[0]}/${this.parentId}/${parts[1]}`;
     }
 
-    return this.resource;
+    return (this.constructor as any).resource;
   }
 }

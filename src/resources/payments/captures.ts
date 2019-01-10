@@ -15,8 +15,8 @@ import Resource from '../../resource';
  * @since 1.1.1
  */
 export default class PaymentsCapturesResource extends PaymentsBaseResource {
-  public resource = 'payments_captures';
-  public model = Capture;
+  public static resource = 'payments_captures';
+  public static model = Capture;
   public apiName = 'Captures API';
 
   /**

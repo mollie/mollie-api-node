@@ -15,8 +15,8 @@ import Resource from '../../resource';
  * @since 1.1.1
  */
 export default class PaymentsRefundsResource extends PaymentsResource {
-  public resource = 'payments_refunds';
-  public model = Refund;
+  public static resource = 'payments_refunds';
+  public static model = Refund;
   public apiName = 'Refunds API';
 
   /**

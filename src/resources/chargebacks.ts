@@ -12,8 +12,8 @@ import { ListCallback } from '../types/chargeback/callback';
  * @since 2.0.0-rc.1
  */
 export default class ChargebacksResource extends Resource {
-  public resource = 'chargebacks';
-  public model = Chargeback;
+  public static resource = 'chargebacks';
+  public static model = Chargeback;
   public apiName = 'Chargebacks API';
 
   /**

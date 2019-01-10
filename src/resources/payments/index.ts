@@ -14,8 +14,8 @@ import Chargeback from '../../models/Chargeback';
  * The `payments` resource
  */
 export default class PaymentsResource extends PaymentsBaseResource {
-  public resource = 'payments';
-  public model = Payment;
+  public static resource = 'payments';
+  public static model = Payment;
   public apiName = 'Payments API';
 
   /**

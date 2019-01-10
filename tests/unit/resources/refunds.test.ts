@@ -23,9 +23,8 @@ describe('refunds', () => {
   });
 
   it('should have a resource name and model', () => {
-    const refund = new Refunds(null);
-    expect(refund.resource).toBe('refunds');
-    expect(refund.model).toBe(PaymentRefund);
+    expect(Refunds.resource).toBe('refunds');
+    expect(Refunds.model).toBe(PaymentRefund);
   });
 
   describe('.all()', () => {

@@ -16,12 +16,12 @@ export default class Resource {
    * Resource code such as `payments`
    * @var {string} resource
    */
-  public resource: string;
+  public static resource: string;
   /**
    * Refers to a Model class
    * @var {Model} model
    */
-  public model: any;
+  public static model: any;
   /**
    * @var {string} apiName
    */
@@ -98,7 +98,8 @@ export default class Resource {
         params,
       );
 
-      const model = new this.model(response.data);
+      // @ts-ignore
+      const model = new this.constructor.model(response.data);
 
       if (callback) {
         return callback(null, model);
@@ -128,7 +129,7 @@ export default class Resource {
         params,
       });
 
-      const model = new this.model(response.data);
+      const model = new (this.constructor as any).model(response.data);
 
       if (callback) {
         return callback(null, model);
@@ -160,7 +161,7 @@ export default class Resource {
         params,
         cb,
         getResources: this.list.bind(this),
-        Model: this.model,
+        Model: (this.constructor as any).model,
       });
 
       if (typeof cb === 'function') {
@@ -188,7 +189,7 @@ export default class Resource {
     try {
       const response: AxiosResponse = await this.getClient().post(`${this.getResourceUrl()}/${id}`, params);
 
-      const model = new this.model(response.data);
+      const model = new (this.constructor as any).model(response.data);
 
       if (typeof cb === 'function') {
         cb(null, model);
@@ -217,7 +218,7 @@ export default class Resource {
     try {
       const response: AxiosResponse = await this.getClient().delete(`${this.getResourceUrl()}/${id}`);
 
-      const model = new this.model(response.data);
+      const model = new (this.constructor as any).model(response.data);
 
       if (cb) {
         cb(null, model);
@@ -268,12 +269,12 @@ export default class Resource {
    * @since 2.0.0
    */
   protected getResourceUrl(): string {
-    if (this.resource.indexOf('_') !== -1) {
-      const parts = this.resource.split('_');
+    if ((this.constructor as any).resource.indexOf('_') !== -1) {
+      const parts = (this.constructor as any).resource.split('_');
       return `${parts[0]}/${this.parentId}/${parts[1]}`;
     }
 
-    return this.resource;
+    return (this.constructor as any).resource;
   }
 
   // DELETE
@@ -285,10 +286,10 @@ export default class Resource {
    */
   protected getResourceName(): string {
     // Instantiate the model to get the defaults
-    if (this.resource.includes('_')) {
-      return this.resource.split('_')[1];
+    if ((this.constructor as any).resource.includes('_')) {
+      return (this.constructor as any).resource.split('_')[1];
     }
 
-    return this.resource;
+    return (this.constructor as any).resource;
   }
 }

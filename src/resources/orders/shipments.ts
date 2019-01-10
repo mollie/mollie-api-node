@@ -15,8 +15,8 @@ import Resource from '../../resource';
  * @since 2.2.0
  */
 export default class OrdersShipmentsResource extends OrdersBaseResource {
-  public resource = 'orders_shipments';
-  public model = Shipment;
+  public static resource = 'orders_shipments';
+  public static model = Shipment;
   public apiName = 'Shipments API';
   /**
    * List order shipments

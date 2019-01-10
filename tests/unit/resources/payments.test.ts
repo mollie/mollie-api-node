@@ -28,9 +28,8 @@ describe('payments', () => {
   });
 
   it('should have a resource name and model', () => {
-    const payment = new Payments(null);
-    expect(payment.resource).toBe('payments');
-    expect(payment.model).toBe(Payment);
+    expect(Payments.resource).toBe('payments');
+    expect(Payments.model).toBe(Payment);
   });
 
   describe('.create()', () => {

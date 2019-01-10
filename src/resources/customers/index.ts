@@ -17,8 +17,8 @@ import Resource from '../../resource';
  * The `customers` resource
  */
 export default class CustomersResource extends CustomersBaseResource {
-  public resource = 'customers';
-  public model = Customer;
+  public static resource = 'customers';
+  public static model = Customer;
   public apiName = 'Customers API';
 
   /**

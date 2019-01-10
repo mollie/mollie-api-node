@@ -15,8 +15,8 @@ import Resource from '../../resource';
  * @since 1.2.0
  */
 export default class CustomersMandatesResource extends CustomersBaseResource {
-  public resource = 'customers_mandates';
-  public model = Mandate;
+  public static resource = 'customers_mandates';
+  public static model = Mandate;
   public apiName = 'Mandates API';
 
   /**

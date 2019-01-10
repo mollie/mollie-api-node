@@ -22,9 +22,8 @@ describe('customers', () => {
   });
 
   it('should have a resource name and model', () => {
-    const customer = new Customers(null);
-    expect(customer.resource).toBe('customers');
-    expect(customer.model).toBe(Customer);
+    expect(Customers.resource).toBe('customers');
+    expect(Customers.model).toBe(Customer);
   });
 
   describe('.create()', () => {

@@ -27,9 +27,8 @@ describe('orders_shipments', () => {
   });
 
   it('should have a resource name and model', () => {
-    const shipment = new OrdersShipments(null);
-    expect(shipment.resource).toBe('orders_shipments');
-    expect(shipment.model).toBe(Shipment);
+    expect(OrdersShipments.resource).toBe('orders_shipments');
+    expect(OrdersShipments.model).toBe(Shipment);
   });
 
   describe('.create()', () => {

@@ -13,8 +13,8 @@ import { AxiosInstance } from 'axios';
  * @since 2.0.0
  */
 export default class RefundsResource extends Resource {
-  public resource = 'refunds';
-  public model = Refund;
+  public static resource = 'refunds';
+  public static model = Refund;
   public apiName = 'Refunds API';
   /**
    * List Refunds

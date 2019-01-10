@@ -26,8 +26,8 @@ import Resource from '../../../resource';
  * @since 1.3.2
  */
 export default class CustomersSubscriptionsResource extends CustomersBaseResource {
-  public resource = 'customers_subscriptions';
-  public model = Subscription;
+  public static resource = 'customers_subscriptions';
+  public static model = Subscription;
   public apiName = 'Subscriptions API';
 
   /**

@@ -12,8 +12,8 @@ import { CancelCallback, CreateCallback, GetCallback, ListCallback, UpdateCallba
  * @since 2.2.0
  */
 export default class Orders extends Resource {
-  public resource = 'orders';
-  public model = Order;
+  public static resource = 'orders';
+  public static model = Order;
   public apiName = 'Orders API';
 
   /**
