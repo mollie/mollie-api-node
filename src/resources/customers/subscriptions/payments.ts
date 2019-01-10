@@ -20,7 +20,6 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
   public model = Subscription;
   public apiName = 'Subscriptions API (Payments section)';
 
-  // API METHODS
   /**
    * Get all customer's subscriptions.
    *
@@ -30,8 +29,6 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
    * @public ✓ This method is part of the public API
    */
   all = this.list;
-
-  // ALIASES
 
   /**
    * Get all customer's subscriptions.
@@ -85,8 +82,6 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
 
     return super.list(parameters, cb) as Promise<List<Payment>>;
   }
-
-  // NOT AVAILABLE
 
   /**
    * @deprecated This method is not available

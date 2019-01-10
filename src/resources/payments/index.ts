@@ -18,7 +18,6 @@ export default class PaymentsResource extends PaymentsBaseResource {
   public model = Payment;
   public apiName = 'Payments API';
 
-  // API METHODS
   /**
    * Retrieve all payments created with the current website profile, ordered from newest to oldest.
    * This is just an alias of the `list` method.
@@ -99,8 +98,6 @@ export default class PaymentsResource extends PaymentsBaseResource {
     return super.get(id, params, cb) as Promise<Payment>;
   }
 
-  // ALIASES
-
   /**
    * Retrieve all payments created with the current website profile, ordered from newest to oldest.
    *
@@ -155,7 +152,6 @@ export default class PaymentsResource extends PaymentsBaseResource {
     return super.delete(id, typeof params === 'function' ? params : cb) as Promise<Payment>;
   }
 
-  // NOT AVAILABLE
   /**
    * @deprecated This method is not available
    */

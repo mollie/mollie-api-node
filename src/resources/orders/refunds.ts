@@ -19,7 +19,6 @@ export default class OrdersRefundsResource extends OrdersResource {
   public model = Refund;
   public apiName = 'Refunds API';
 
-  // API METHODS
   /**
    * Get all order refunds
    *
@@ -70,8 +69,6 @@ export default class OrdersRefundsResource extends OrdersResource {
     return super.create(parameters, cb) as Promise<Refund>;
   }
 
-  // ALIASES
-
   /**
    * Get all order refunds
    *
@@ -109,8 +106,6 @@ export default class OrdersRefundsResource extends OrdersResource {
 
     return super.list(parameters, cb);
   }
-
-  // NOT AVAILABLE
 
   /**
    * @deprecated This method is not available

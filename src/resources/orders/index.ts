@@ -16,7 +16,6 @@ export default class Orders extends Resource {
   public model = Order;
   public apiName = 'Orders API';
 
-  // API METHODS
   /**
    * Cancel an Order.
    *
@@ -133,8 +132,6 @@ export default class Orders extends Resource {
 
     return super.list(params) as Promise<List<Order>>;
   }
-
-  // ALIASES
 
   /**
    * Update an Order.

@@ -19,7 +19,6 @@ export default class PaymentsRefundsResource extends PaymentsResource {
   public model = Refund;
   public apiName = 'Refunds API';
 
-  // API METHODS
   /**
    * Get all payment refunds. Alias of list.
    *
@@ -112,8 +111,6 @@ export default class PaymentsRefundsResource extends PaymentsResource {
     return super.get(id, parameters, cb) as Promise<Refund>;
   }
 
-  // ALIASES
-
   /**
    * Get all payment refunds.
    *
@@ -204,8 +201,6 @@ export default class PaymentsRefundsResource extends PaymentsResource {
     // TODO: double-check if super actually returns a boolean status
     return super.delete(id, parameters, cb) as Promise<boolean>;
   }
-
-  // UNAVAILABLE
 
   /**
    * @deprecated This method is not available

@@ -21,7 +21,6 @@ export default class CustomersResource extends CustomersBaseResource {
   public model = Customer;
   public apiName = 'Customers API';
 
-  // API METHODS
   /**
    * List Customers.
    *
@@ -129,8 +128,6 @@ export default class CustomersResource extends CustomersBaseResource {
 
     return super.list(params, cb) as Promise<List<Customer>>;
   }
-
-  // ALIASES
 
   /**
    * Update a customer

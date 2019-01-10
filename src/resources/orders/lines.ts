@@ -17,7 +17,6 @@ export default class OrdersLinesResource extends OrdersResource {
   public model = OrderLine;
   public apiName = 'Orders API (Order Lines section)';
 
-  // API METHODS
   /**
    * Cancel an order line by ID or multiple order lines
    *
@@ -70,8 +69,6 @@ export default class OrdersLinesResource extends OrdersResource {
 
     return super.update(id, parameters) as Promise<Order>;
   }
-
-  // ALIASES
 
   /**
    * Cancel an order line by ID or multiple order lines

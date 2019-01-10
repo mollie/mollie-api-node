@@ -16,7 +16,6 @@ export default class ChargebacksResource extends Resource {
   public model = Chargeback;
   public apiName = 'Chargebacks API';
 
-  // API METHODS
   /**
    * List chargebacks
    *
@@ -26,8 +25,6 @@ export default class ChargebacksResource extends Resource {
    * @public ✓ This method is part of the public API
    */
   all = this.list;
-
-  // ALIASES
 
   /**
    * List chargebacks

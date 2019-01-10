@@ -19,7 +19,6 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
   public model = Mandate;
   public apiName = 'Mandates API';
 
-  // API METHODS
   /**
    * Get all of a customer's mandates
    *
@@ -69,8 +68,6 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
 
     return super.create(parameters, cb) as Promise<Mandate>;
   }
-
-  // ALIASES
 
   /**
    * Get a customer mandate by ID
@@ -218,8 +215,6 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
     // TODO: check parent return type
     return super.delete(id, cb) as Promise<boolean>;
   }
-
-  // NOT AVAILABLE
 
   /**
    * @deprecated This method is not available

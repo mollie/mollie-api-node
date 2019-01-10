@@ -65,8 +65,6 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
     return super.create(parameters, cb) as Promise<Payment>;
   }
 
-  // ALIASES
-
   /**
    * Get all of a customer's payments.
    *

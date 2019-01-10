@@ -26,13 +26,9 @@ export default class RefundsResource extends Resource {
    */
   all = this.list;
 
-  // API METHODS
-
   public constructor(httpClient: AxiosInstance) {
     super(httpClient);
   }
-
-  // ALIASES
 
   /**
    * List Refunds
@@ -59,8 +55,6 @@ export default class RefundsResource extends Resource {
 
     return super.list(params, cb);
   }
-
-  // NOT AVAILABLE
 
   /**
    * @deprecated This method is not available

@@ -179,8 +179,6 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
     return super.get(id, parameters) as Promise<Shipment>;
   }
 
-  // ALIASES
-
   /**
    * List order shipments
    *
@@ -224,8 +222,6 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
 
     return super.list(parameters) as Promise<List<Shipment>>;
   }
-
-  // NOT AVAILABLE
 
   /**
    * @deprecated This method is not available

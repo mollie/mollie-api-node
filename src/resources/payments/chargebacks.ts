@@ -83,8 +83,6 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
     return (super.get(id, parameters, cb) as unknown) as Promise<Chargeback>;
   }
 
-  // ALIASES
-
   /**
    * Retrieve a list of Payment Chargebacks
    *
@@ -124,8 +122,6 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
 
     return super.list(parameters, cb);
   }
-
-  // UNAVAILABLE
 
   /**
    * @deprecated This method is not available

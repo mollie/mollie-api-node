@@ -30,7 +30,6 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
   public model = Subscription;
   public apiName = 'Subscriptions API';
 
-  // API METHODS
   /**
    * Delete a customer subscription.
    *
@@ -162,8 +161,6 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
 
     return super.list(parameters, cb) as Promise<List<Subscription>>;
   }
-
-  // ALIASES
 
   /**
    * Update a customer's subscription.
