@@ -1,30 +1,32 @@
 import Model from '../model';
 import { RefundStatus } from '../types/refund';
-import { IPaymentRefund } from '../types/payment/refund';
+import { IRefund } from '../types/payment/refund';
 
 /**
  * The `Refund` model
+ *
+ * {@link IRefund}
  */
-export default class Refund extends Model implements IPaymentRefund {
+export default class Refund extends Model implements IRefund {
   public static resourcePrefix = '';
 
   public resource = 'refund';
-  public id: null;
-  public amount: {
-    currency: null;
-    value: null;
+  public id = null;
+  public amount = {
+    currency: null,
+    value: null,
   };
-  public settlementAmount: null;
-  public description: null;
-  public status: null;
-  public createdAt: null;
-  public paymentId: null;
-  public _links: {
-    payment: null;
-    settlement: null;
-    order: null;
-    self: null;
-    documentation: null;
+  public settlementAmount = null;
+  public description = null;
+  public status = null;
+  public createdAt = null;
+  public paymentId = null;
+  public _links = {
+    payment: null,
+    settlement: null,
+    order: null,
+    self: null,
+    documentation: null,
   };
   public lines: null;
 
@@ -33,7 +35,7 @@ export default class Refund extends Model implements IPaymentRefund {
    *
    * @public ✓ This method is part of the public API
    */
-  constructor(props?: Partial<IPaymentRefund>) {
+  constructor(props?: Partial<IRefund>) {
     super(props);
 
     Object.assign(this, props);

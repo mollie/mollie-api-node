@@ -4,6 +4,8 @@ exports[`subscription model should instantiate with default values 1`] = `
 Object {
   "_links": Object {
     "customer": null,
+    "documentation": null,
+    "self": null,
   },
   "amount": Object {
     "currency": null,

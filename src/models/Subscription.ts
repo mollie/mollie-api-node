@@ -3,6 +3,8 @@ import { ISubscription, SubscriptionStatus } from '../types/subscription';
 
 /**
  * The `Subscription` model
+ *
+ * {@link ISubscription}
  */
 export default class Subscription extends Model implements ISubscription {
   public static resourcePrefix = 'sub_';
@@ -16,7 +18,7 @@ export default class Subscription extends Model implements ISubscription {
     currency: null,
     value: null,
   };
-  public times: null;
+  public times = null;
   public interval = null;
   public startDate = null;
   public description = null;

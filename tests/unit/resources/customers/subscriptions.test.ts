@@ -2,7 +2,7 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import CustomersSubscriptions from '../../../../src/resources/customers/subscriptions';
-import Subscription from '../../../../src/models/subscription';
+import Subscription from '../../../../src/models/Subscription';
 
 import response from '../../__stubs__/customers_subscriptions.json';
 
@@ -29,8 +29,9 @@ describe('customers_subscriptions', () => {
   });
 
   it('should have a resource name and model', () => {
-    expect(CustomersSubscriptions.resource).toBe('customers_subscriptions');
-    expect(CustomersSubscriptions.model).toBe(Subscription);
+    const subscription = new CustomersSubscriptions(null);
+    expect(subscription.resource).toBe('customers_subscriptions');
+    expect(subscription.model).toBe(Subscription);
   });
 
   describe('.create()', () => {
@@ -62,7 +63,7 @@ describe('customers_subscriptions', () => {
       }));
   });
 
-  describe('.all()', () => {
+  describe('.list()', () => {
     mock.onGet(`/customers/${props.customerId}/subscriptions`).reply(200, response);
 
     it('should return a list of all customer subscriptions', () =>

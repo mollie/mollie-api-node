@@ -38,7 +38,10 @@ export type PaymentMethod =
   | 'paysafecard'
   | 'sofort';
 
-export type ApiMode = 'test' | 'live';
+export enum ApiMode {
+  test = 'test',
+  live = 'live',
+}
 
 export interface IImage {
   size1x: string;

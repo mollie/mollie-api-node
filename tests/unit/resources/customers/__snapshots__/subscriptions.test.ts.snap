@@ -1,187 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`customers_subscriptions .all() should return a list of all customer subscriptions 1`] = `
-Array [
-  Subscription {
-    "_links": Object {
-      "customer": Object {
-        "href": "https://api.mollie.com/v2/customers/cst_stTC2WHAuS",
-        "type": "application/hal+json",
-      },
-      "self": Object {
-        "href": "https://api.mollie.com/v2/customers/cst_stTC2WHAuS/subscriptions/sub_rVKGtNd6s3",
-        "type": "application/hal+json",
-      },
-    },
-    "amount": Object {
-      "currency": "EUR",
-      "value": "25.00",
-    },
-    "canceledAt": null,
-    "createdAt": "2018-06-01T12:23:34+00:00",
-    "data": Object {
-      "_links": Object {
-        "customer": Object {
-          "href": "https://api.mollie.com/v2/customers/cst_stTC2WHAuS",
-          "type": "application/hal+json",
-        },
-        "self": Object {
-          "href": "https://api.mollie.com/v2/customers/cst_stTC2WHAuS/subscriptions/sub_rVKGtNd6s3",
-          "type": "application/hal+json",
-        },
-      },
-      "amount": Object {
-        "currency": "EUR",
-        "value": "25.00",
-      },
-      "createdAt": "2018-06-01T12:23:34+00:00",
-      "description": "Quarterly payment",
-      "id": "sub_rVKGtNd6s3",
-      "interval": "3 months",
-      "method": null,
-      "mode": "live",
-      "resource": "subscription",
-      "status": "active",
-      "times": 4,
-      "webhookUrl": "https://webshop.example.org/subscriptions/webhook",
-    },
-    "description": "Quarterly payment",
-    "id": "sub_rVKGtNd6s3",
-    "interval": "3 months",
-    "metadata": null,
-    "method": null,
-    "mode": "live",
-    "resource": "subscription",
-    "startDate": null,
-    "status": "active",
-    "times": 4,
-    "timesRemaining": null,
-    "webhookUrl": "https://webshop.example.org/subscriptions/webhook",
-  },
-]
-`;
-
-exports[`customers_subscriptions .all() should work with a callback 1`] = `
-Array [
-  Subscription {
-    "_links": Object {
-      "customer": Object {
-        "href": "https://api.mollie.com/v2/customers/cst_stTC2WHAuS",
-        "type": "application/hal+json",
-      },
-      "self": Object {
-        "href": "https://api.mollie.com/v2/customers/cst_stTC2WHAuS/subscriptions/sub_rVKGtNd6s3",
-        "type": "application/hal+json",
-      },
-    },
-    "amount": Object {
-      "currency": "EUR",
-      "value": "25.00",
-    },
-    "canceledAt": null,
-    "createdAt": "2018-06-01T12:23:34+00:00",
-    "data": Object {
-      "_links": Object {
-        "customer": Object {
-          "href": "https://api.mollie.com/v2/customers/cst_stTC2WHAuS",
-          "type": "application/hal+json",
-        },
-        "self": Object {
-          "href": "https://api.mollie.com/v2/customers/cst_stTC2WHAuS/subscriptions/sub_rVKGtNd6s3",
-          "type": "application/hal+json",
-        },
-      },
-      "amount": Object {
-        "currency": "EUR",
-        "value": "25.00",
-      },
-      "createdAt": "2018-06-01T12:23:34+00:00",
-      "description": "Quarterly payment",
-      "id": "sub_rVKGtNd6s3",
-      "interval": "3 months",
-      "method": null,
-      "mode": "live",
-      "resource": "subscription",
-      "status": "active",
-      "times": 4,
-      "webhookUrl": "https://webshop.example.org/subscriptions/webhook",
-    },
-    "description": "Quarterly payment",
-    "id": "sub_rVKGtNd6s3",
-    "interval": "3 months",
-    "metadata": null,
-    "method": null,
-    "mode": "live",
-    "resource": "subscription",
-    "startDate": null,
-    "status": "active",
-    "times": 4,
-    "timesRemaining": null,
-    "webhookUrl": "https://webshop.example.org/subscriptions/webhook",
-  },
-]
-`;
-
 exports[`customers_subscriptions .cancel() should return a subscription instance 1`] = `
-Subscription {
-  "_links": Object {
-    "customer": Object {
-      "href": "https://api.mollie.com/v2/customers/cst_stTC2WHAuS",
-      "type": "application/hal+json",
-    },
-    "self": Object {
-      "href": "https://api.mollie.com/v2/customers/cst_stTC2WHAuS/subscriptions/sub_rVKGtNd6s3",
-      "type": "application/hal+json",
-    },
-  },
-  "amount": Object {
-    "currency": "EUR",
-    "value": "25.00",
-  },
-  "canceledAt": null,
-  "createdAt": "2018-06-01T12:23:34+00:00",
-  "data": Object {
-    "_links": Object {
-      "customer": Object {
-        "href": "https://api.mollie.com/v2/customers/cst_stTC2WHAuS",
-        "type": "application/hal+json",
-      },
-      "self": Object {
-        "href": "https://api.mollie.com/v2/customers/cst_stTC2WHAuS/subscriptions/sub_rVKGtNd6s3",
-        "type": "application/hal+json",
-      },
-    },
-    "amount": Object {
-      "currency": "EUR",
-      "value": "25.00",
-    },
-    "createdAt": "2018-06-01T12:23:34+00:00",
-    "description": "Quarterly payment",
-    "id": "sub_rVKGtNd6s3",
-    "interval": "3 months",
-    "method": null,
-    "mode": "live",
-    "resource": "subscription",
-    "status": "active",
-    "times": 4,
-    "webhookUrl": "https://webshop.example.org/subscriptions/webhook",
-  },
-  "description": "Quarterly payment",
-  "id": "sub_rVKGtNd6s3",
-  "interval": "3 months",
-  "metadata": null,
-  "method": null,
-  "mode": "live",
-  "resource": "subscription",
-  "startDate": null,
-  "status": "active",
-  "times": 4,
-  "timesRemaining": null,
-  "webhookUrl": "https://webshop.example.org/subscriptions/webhook",
-}
-`;
-
-exports[`customers_subscriptions .cancel() should work with a callback 1`] = `
 Subscription {
   "_links": Object {
     "customer": Object {
@@ -356,4 +175,65 @@ Subscription {
   "timesRemaining": null,
   "webhookUrl": "https://webshop.example.org/subscriptions/webhook",
 }
+`;
+
+exports[`customers_subscriptions .list() should return a list of all customer subscriptions 1`] = `
+Array [
+  Subscription {
+    "_links": Object {
+      "customer": Object {
+        "href": "https://api.mollie.com/v2/customers/cst_stTC2WHAuS",
+        "type": "application/hal+json",
+      },
+      "self": Object {
+        "href": "https://api.mollie.com/v2/customers/cst_stTC2WHAuS/subscriptions/sub_rVKGtNd6s3",
+        "type": "application/hal+json",
+      },
+    },
+    "amount": Object {
+      "currency": "EUR",
+      "value": "25.00",
+    },
+    "canceledAt": null,
+    "createdAt": "2018-06-01T12:23:34+00:00",
+    "data": Object {
+      "_links": Object {
+        "customer": Object {
+          "href": "https://api.mollie.com/v2/customers/cst_stTC2WHAuS",
+          "type": "application/hal+json",
+        },
+        "self": Object {
+          "href": "https://api.mollie.com/v2/customers/cst_stTC2WHAuS/subscriptions/sub_rVKGtNd6s3",
+          "type": "application/hal+json",
+        },
+      },
+      "amount": Object {
+        "currency": "EUR",
+        "value": "25.00",
+      },
+      "createdAt": "2018-06-01T12:23:34+00:00",
+      "description": "Quarterly payment",
+      "id": "sub_rVKGtNd6s3",
+      "interval": "3 months",
+      "method": null,
+      "mode": "live",
+      "resource": "subscription",
+      "status": "active",
+      "times": 4,
+      "webhookUrl": "https://webshop.example.org/subscriptions/webhook",
+    },
+    "description": "Quarterly payment",
+    "id": "sub_rVKGtNd6s3",
+    "interval": "3 months",
+    "metadata": null,
+    "method": null,
+    "mode": "live",
+    "resource": "subscription",
+    "startDate": null,
+    "status": "active",
+    "times": 4,
+    "timesRemaining": null,
+    "webhookUrl": "https://webshop.example.org/subscriptions/webhook",
+  },
+]
 `;

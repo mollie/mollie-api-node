@@ -1,26 +1,23 @@
-import { startsWith } from 'lodash';
+import { get, startsWith } from 'lodash';
 
 import PaymentsBaseResource from '../../resources/payments/base';
 import ApiException from '../../exceptions/ApiException';
 import Chargeback from '../../models/Chargeback';
 import List from '../../models/List';
-import InvalidArgumentException from '../../exceptions/InvalidArgumentException';
 import Payment from '../../models/Payment';
 import { IGetParams, IListParams } from '../../types/payment/chargeback/params';
 import { GetCallback, ListCallback } from '../../types/payment/chargeback/callback';
+import Resource from '../../resource';
 
 /**
  * The `payments_chargebacks` resource
  *
- * @static {string} resource
- * @static {Model} model
- *
  * @since 1.1.1
  */
 export default class PaymentsChargebacksResource extends PaymentsBaseResource {
-  static resource = 'payments_chargebacks';
-  static model = Chargeback;
-  static apiName = 'Chargebacks API';
+  public resource = 'payments_chargebacks';
+  public model = Chargeback;
+  public apiName = 'Chargebacks API';
 
   // AVAILABLE API METHODS
 
@@ -39,9 +36,33 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
    * @public ✓ This method is part of the public API
    */
   public async get(id: string, params: IGetParams, cb?: GetCallback): Promise<Chargeback> {
+    if (!startsWith(id, Chargeback.resourcePrefix)) {
+      Resource.errorHandler(
+        Resource.errorHandler({ error: { message: 'The chargeback id is invalid' } }, cb),
+      );
+    }
+
+    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    if (typeof params === 'function' || typeof cb === 'function') {
+      const paymentId = get(params, 'paymentId') || this.parentId;
+      if (!startsWith(paymentId, Payment.resourcePrefix)) {
+        Resource.errorHandler(
+          Resource.errorHandler({ error: { message: 'The payment id is invalid' } }, cb),
+        );
+      }
+
+      return super.get(
+        id,
+        typeof params === 'function' ? null : params,
+        typeof params === 'function' ? params : cb,
+      ) as Promise<Chargeback>;
+    }
+
     const { paymentId, ...parameters } = params;
-    if (!startsWith(id, Payment.resourcePrefix)) {
-      throw new InvalidArgumentException('Invalid Payment ID given');
+    if (!startsWith(paymentId, Payment.resourcePrefix)) {
+      Resource.errorHandler(
+        Resource.errorHandler({ error: { message: 'The payment id is invalid' } }, cb),
+      );
     }
     this.setParentId(paymentId);
 
@@ -63,6 +84,11 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
    */
   public async list(params: IListParams, cb?: ListCallback): Promise<List<Chargeback>> {
     const { paymentId, ...parameters } = params;
+    if (!startsWith(paymentId, Payment.resourcePrefix)) {
+      Resource.errorHandler(
+        Resource.errorHandler({ error: { message: 'The payment id is invalid' } }, cb),
+      );
+    }
     this.setParentId(paymentId);
 
     return super.list(parameters, cb);
@@ -87,43 +113,27 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
    * @deprecated This method is not available
    */
   public async create(): Promise<Chargeback> {
-    throw new ApiException(
-      `The method "${this.create.name}" does not exist on the "${
-        PaymentsChargebacksResource.apiName
-      }"`,
-    );
+    throw new ApiException(`The method "create" does not exist on the "${this.apiName}"`);
   }
 
   /**
    * @deprecated This method is not available
    */
   public async update(): Promise<Chargeback> {
-    throw new ApiException(
-      `The method "${this.update.name}" does not exist on the "${
-        PaymentsChargebacksResource.apiName
-      }"`,
-    );
+    throw new ApiException(`The method "update" does not exist on the "${this.apiName}"`);
   }
 
   /**
    * @deprecated This method is not available
    */
   public async cancel(): Promise<boolean> {
-    throw new ApiException(
-      `The method "${this.cancel.name}" does not exist on the "${
-        PaymentsChargebacksResource.apiName
-      }"`,
-    );
+    throw new ApiException(`The method "cancel" does not exist on the "${this.apiName}"`);
   }
 
   /**
    * @deprecated This method is not available
    */
   public async delete(): Promise<boolean> {
-    throw new ApiException(
-      `The method "${this.delete.name}" does not exist on the "${
-        PaymentsChargebacksResource.apiName
-      }"`,
-    );
+    throw new ApiException(`The method "delete" does not exist on the "${this.apiName}"`);
   }
 }

@@ -1,6 +1,3 @@
-import { IPaymentRefund } from '../payment/refund';
-export type IRefund = IPaymentRefund;
-
 /**
  * Refund statuses
  *

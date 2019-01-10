@@ -1,29 +1,29 @@
+import { get, startsWith } from 'lodash';
+
 import CustomersBaseResource from './base';
 import Payment from '../../models/Payment';
 import List from '../../models/List';
 import ApiException from '../../exceptions/ApiException';
 import { ICreateParams, IListParams } from '../../types/customer/payment/params';
 import { CreateCallback, ListCallback } from '../../types/customer/payment/callback';
+import Customer from '../../models/Customer';
+import Resource from '../../resource';
 
 /**
  * The `customers_payments` resource.
  *
- * @static {string} resource
- * @static {Object} model
- * @static {string} apiName
- *
  * @since 1.1.1
  */
 export default class CustomersPaymentsResource extends CustomersBaseResource {
-  public static resource = 'customers_payments';
-  public static model = Payment;
-  public static apiName = 'Customers API (Payments section)';
+  public resource = 'customers_payments';
+  public model = Payment;
+  public apiName = 'Customers API (Payments section)';
 
   /**
    * Create a customer payment.
    *
    * @param params - Create Customer Payment parameters
-   * @param cb - Callback function, can be used instead of the returned `Promise` object
+   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns The newly created Payment object
    *
@@ -43,7 +43,8 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
    * Get all of a customer's payments.
    *
    * @param params - List Customer Payments parameters
-   * @param cb - Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns A list of found Customer Payments
    *
@@ -52,8 +53,32 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customer-payments
    * @public ✓ This method is part of the public API
    */
-  public async list(params?: IListParams, cb?: ListCallback): Promise<List<Payment>> {
+  public async list(
+    params?: IListParams | ListCallback,
+    cb?: ListCallback,
+  ): Promise<List<Payment>> {
+    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    if (typeof params === 'function' || typeof cb === 'function') {
+      const customerId = get(params, 'customerId') || this.parentId;
+      if (!startsWith(customerId, Customer.resourcePrefix)) {
+        Resource.errorHandler(
+          Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, cb),
+        );
+      }
+
+      return super.list(
+        typeof params === 'function' ? null : params,
+        typeof params === 'function' ? params : cb,
+      ) as Promise<List<Payment>>;
+    }
+
     const { customerId, ...parameters } = params;
+    if (!startsWith(customerId, Customer.resourcePrefix)) {
+      Resource.errorHandler(
+        Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, cb),
+      );
+    }
+
     this.setParentId(customerId);
 
     return super.list(parameters, cb) as Promise<List<Payment>>;
@@ -75,41 +100,27 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
    * @deprecated This method is not available
    */
   public async get(): Promise<Payment> {
-    throw new ApiException(
-      `The method "${this.get.name}" does not exist on the "${CustomersPaymentsResource.apiName}"`,
-    );
+    throw new ApiException(`The method "get" does not exist on the "${this.apiName}"`);
   }
 
   /**
    * @deprecated This method is not available
    */
   public async update(): Promise<Payment> {
-    throw new ApiException(
-      `The method "${this.update.name}" does not exist on the "${
-        CustomersPaymentsResource.apiName
-      }"`,
-    );
+    throw new ApiException(`The method "update" does not exist on the "${this.apiName}"`);
   }
 
   /**
    * @deprecated This method is not available
    */
   public async delete(): Promise<boolean> {
-    throw new ApiException(
-      `The method "${this.delete.name}" does not exist on the "${
-        CustomersPaymentsResource.apiName
-      }"`,
-    );
+    throw new ApiException(`The method "delete" does not exist on the "${this.apiName}"`);
   }
 
   /**
    * @deprecated This method is not available
    */
   public async cancel(): Promise<boolean> {
-    throw new ApiException(
-      `The method "${this.cancel.name}" does not exist on the "${
-        CustomersPaymentsResource.apiName
-      }"`,
-    );
+    throw new ApiException(`The method "cancel" does not exist on the "${this.apiName}"`);
   }
 }

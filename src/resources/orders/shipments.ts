@@ -1,3 +1,5 @@
+import { get, startsWith } from 'lodash';
+
 import Shipment from '../../models/Shipment';
 import List from '../../models/List';
 import ApiException from '../../exceptions/ApiException';
@@ -9,6 +11,8 @@ import {
   ListCallback,
   UpdateCallback,
 } from '../../types/shipment/callback';
+import Order from '../../models/Order';
+import Resource from '../../resource';
 
 /**
  * The `order_shipments` resource
@@ -16,9 +20,9 @@ import {
  * @since 2.2.0
  */
 export default class OrdersShipmentsResource extends OrdersBaseResource {
-  public static resource = 'orders_shipments';
-  public static model = Shipment;
-  public static apiName = 'Shipments API';
+  public resource = 'orders_shipments';
+  public model = Shipment;
+  public apiName = 'Shipments API';
 
   /**
    * In addition to the
@@ -44,6 +48,11 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
    */
   public async create(params: ICreateParams, cb?: CreateCallback): Promise<Shipment> {
     const { orderId, ...parameters } = params;
+    if (!startsWith(orderId, Order.resourcePrefix)) {
+      Resource.errorHandler(
+        Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb),
+      );
+    }
     this.setParentId(orderId);
 
     return super.create(parameters, cb) as Promise<Shipment>;
@@ -65,6 +74,16 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
    */
   public async update(id: string, params: IUpdateParams, cb?: UpdateCallback): Promise<Shipment> {
     const { orderId, ...parameters } = params;
+    if (!startsWith(id, Shipment.resourcePrefix)) {
+      Resource.errorHandler(
+        Resource.errorHandler({ error: { message: 'The shipment id is invalid' } }, cb),
+      );
+    }
+    if (!startsWith(orderId, Order.resourcePrefix)) {
+      Resource.errorHandler(
+        Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb),
+      );
+    }
     this.setParentId(orderId);
 
     return super.update(id, parameters, cb) as Promise<Shipment>;
@@ -85,7 +104,28 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
    * @public ✓ This method is part of the public API
    */
   public async get(id: string, params?: IGetParams, cb?: GetCallback): Promise<Shipment> {
+    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    if (typeof params === 'function' || typeof cb === 'function') {
+      const orderId = get(params, 'orderId') || this.parentId;
+      if (!startsWith(orderId, Order.resourcePrefix)) {
+        Resource.errorHandler(
+          Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb),
+        );
+      }
+
+      return super.get(
+        id,
+        typeof params === 'function' ? null : params,
+        typeof params === 'function' ? params : cb,
+      ) as Promise<Shipment>;
+    }
+
     const { orderId, ...parameters } = params;
+    if (!startsWith(orderId, Order.resourcePrefix)) {
+      Resource.errorHandler(
+        Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb),
+      );
+    }
     this.setParentId(orderId);
 
     return super.get(id, parameters, cb) as Promise<Shipment>;
@@ -106,6 +146,11 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
    */
   public async list(params?: IListParams, cb?: ListCallback): Promise<List<Shipment>> {
     const { orderId, ...parameters } = params;
+    if (!startsWith(orderId, Order.resourcePrefix)) {
+      Resource.errorHandler(
+        Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb),
+      );
+    }
     this.setParentId(orderId);
 
     return super.list(parameters, cb) as Promise<List<Shipment>>;
@@ -117,17 +162,13 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
    * @deprecated This method is not available
    */
   public async cancel(): Promise<boolean> {
-    throw new ApiException(
-      `The method "${this.cancel.name}" does not exist on the "${OrdersShipmentsResource.apiName}"`,
-    );
+    throw new ApiException(`The method "cancel" does not exist on the "${this.apiName}"`);
   }
 
   /**
    * @deprecated This method is not available
    */
   public async delete(): Promise<boolean> {
-    throw new ApiException(
-      `The method "${this.delete.name}" does not exist on the "${OrdersShipmentsResource.apiName}"`,
-    );
+    throw new ApiException(`The method "delete" does not exist on the "${this.apiName}"`);
   }
 }

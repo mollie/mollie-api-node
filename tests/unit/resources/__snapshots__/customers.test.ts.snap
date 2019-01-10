@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`customers .all() should return a list of all customers 1`] = `
+exports[`customers .list() should return a list of all customers 1`] = `
 Array [
   Customer {
     "_links": Object {
@@ -53,7 +53,7 @@ Array [
 ]
 `;
 
-exports[`customers .all() should work with a callback 1`] = `
+exports[`customers .list() should work with a callback 1`] = `
 Array [
   Customer {
     "_links": Object {
@@ -109,16 +109,33 @@ Array [
 exports[`customers .update() should return a customer instance 1`] = `
 Customer {
   "_links": Object {
-    "documentation": Object {
-      "href": "https://docs.mollie.com/reference/v2/customers-api/get-customer",
-      "type": "text/html",
-    },
-    "self": Object {
-      "href": "https://api.mollie.com/v2/customers/cst_kEn1PlbGa",
-      "type": "application/hal+json",
-    },
+    "documentation": null,
+    "mandates": null,
+    "payments": null,
+    "self": null,
+    "subscriptions": null,
   },
-  "createdAt": "2018-04-06T13:23:21.0Z",
+  "config": Object {
+    "data": "{\\"id\\":\\"cst_kEn1PlbGa\\",\\"name\\":\\"Customer A\\",\\"email\\":\\"customer@example.org\\"}",
+    "headers": Object {
+      "Accept": "application/json, text/plain, */*",
+      "Content-Type": "application/json;charset=utf-8",
+    },
+    "maxContentLength": -1,
+    "method": "post",
+    "timeout": 0,
+    "transformRequest": Object {
+      "0": [Function],
+    },
+    "transformResponse": Object {
+      "0": [Function],
+    },
+    "url": "customers/cst_kEn1PlbGa",
+    "validateStatus": [Function],
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+  },
+  "createdAt": null,
   "data": Object {
     "_links": Object {
       "documentation": Object {
@@ -143,33 +160,49 @@ Customer {
     ],
     "resource": "customer",
   },
-  "email": "customer@example.org",
-  "id": "cst_kEn1PlbGa",
-  "locale": "nl_NL",
+  "email": null,
+  "headers": undefined,
+  "id": null,
+  "locale": null,
   "metadata": null,
-  "mode": "test",
-  "name": "Customer A",
-  "recentlyUsedMethods": Array [
-    "creditcard",
-    "ideal",
-  ],
+  "mode": null,
+  "name": null,
+  "recentlyUsedMethods": null,
   "resource": "customer",
+  "status": 200,
 }
 `;
 
 exports[`customers .update() should work with a callback 1`] = `
 Customer {
   "_links": Object {
-    "documentation": Object {
-      "href": "https://docs.mollie.com/reference/v2/customers-api/get-customer",
-      "type": "text/html",
-    },
-    "self": Object {
-      "href": "https://api.mollie.com/v2/customers/cst_kEn1PlbGa",
-      "type": "application/hal+json",
-    },
+    "documentation": null,
+    "mandates": null,
+    "payments": null,
+    "self": null,
+    "subscriptions": null,
   },
-  "createdAt": "2018-04-06T13:23:21.0Z",
+  "config": Object {
+    "data": "{\\"id\\":\\"cst_kEn1PlbGa\\",\\"name\\":\\"Customer A\\",\\"email\\":\\"customer@example.org\\"}",
+    "headers": Object {
+      "Accept": "application/json, text/plain, */*",
+      "Content-Type": "application/json;charset=utf-8",
+    },
+    "maxContentLength": -1,
+    "method": "post",
+    "timeout": 0,
+    "transformRequest": Object {
+      "0": [Function],
+    },
+    "transformResponse": Object {
+      "0": [Function],
+    },
+    "url": "customers/cst_kEn1PlbGa",
+    "validateStatus": [Function],
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+  },
+  "createdAt": null,
   "data": Object {
     "_links": Object {
       "documentation": Object {
@@ -194,16 +227,15 @@ Customer {
     ],
     "resource": "customer",
   },
-  "email": "customer@example.org",
-  "id": "cst_kEn1PlbGa",
-  "locale": "nl_NL",
+  "email": null,
+  "headers": undefined,
+  "id": null,
+  "locale": null,
   "metadata": null,
-  "mode": "test",
-  "name": "Customer A",
-  "recentlyUsedMethods": Array [
-    "creditcard",
-    "ideal",
-  ],
+  "mode": null,
+  "name": null,
+  "recentlyUsedMethods": null,
   "resource": "customer",
+  "status": 200,
 }
 `;

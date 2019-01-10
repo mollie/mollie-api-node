@@ -3,6 +3,8 @@ import { ICustomer } from '../types/customer';
 
 /**
  * The `Customer` model
+ *
+ * {@link ICustomer}
  */
 export default class Customer extends Model implements ICustomer {
   public static resourcePrefix = 'cst_';

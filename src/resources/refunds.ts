@@ -9,15 +9,12 @@ import { ListCallback } from '../types/refund/callback';
 /**
  * The `refunds` resource
  *
- * @static {string} resource
- * @static {Object} model
- *
  * @since 2.0.0
  */
 export default class RefundsResource extends Resource {
-  public static resource = 'refunds';
-  public static model = Refund;
-  public static apiName = 'Refunds API';
+  public resource = 'refunds';
+  public model = Refund;
+  public apiName = 'Refunds API';
 
   // API METHODS
 
@@ -35,8 +32,27 @@ export default class RefundsResource extends Resource {
    * @public
    */
   public async list(params?: IListParams, cb?: ListCallback): Promise<List<Refund>> {
+    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    if (typeof params === 'function' || typeof cb === 'function') {
+      return super.list(
+        typeof params === 'function' ? null : params,
+        typeof params === 'function' ? params : cb,
+      ) as Promise<List<Refund>>;
+    }
     return super.list(params, cb);
   }
+
+  // ALIASES
+
+  /**
+   * List Refunds
+   *
+   * @since 2.0.0
+   *
+   * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
+   * @public
+   */
+  all = this.list;
 
   // NOT AVAILABLE
 
@@ -44,44 +60,34 @@ export default class RefundsResource extends Resource {
    * @deprecated This method is not available
    */
   public async create(): Promise<Refund> {
-    throw new ApiException(
-      `The method "${this.create.name}" does not exist on the "${RefundsResource.apiName}"`,
-    );
+    throw new ApiException(`The method "create" does not exist on the "${this.apiName}"`);
   }
 
   /**
    * @deprecated This method is not available
    */
   public async get(): Promise<Refund> {
-    throw new ApiException(
-      `The method "${this.get.name}" does not exist on the "${RefundsResource.apiName}"`,
-    );
+    throw new ApiException(`The method "get" does not exist on the "${this.apiName}"`);
   }
 
   /**
    * @deprecated This method is not available
    */
   public async update(): Promise<Refund> {
-    throw new ApiException(
-      `The method "${this.update.name}" does not exist on the "${RefundsResource.apiName}"`,
-    );
+    throw new ApiException(`The method "update" does not exist on the "${this.apiName}"`);
   }
 
   /**
    * @deprecated This method is not available
    */
   public async cancel(): Promise<boolean> {
-    throw new ApiException(
-      `The method "${this.cancel.name}" does not exist on the "${RefundsResource.apiName}"`,
-    );
+    throw new ApiException(`The method "cancel" does not exist on the "${this.apiName}"`);
   }
 
   /**
    * @deprecated This method is not available
    */
   public async delete(): Promise<boolean> {
-    throw new ApiException(
-      `The method "${this.delete.name}" does not exist on the "${RefundsResource.apiName}"`,
-    );
+    throw new ApiException(`The method "delete" does not exist on the "${this.apiName}"`);
   }
 }

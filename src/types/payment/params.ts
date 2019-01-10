@@ -197,7 +197,7 @@ export interface ICreateParams {
   dueDate?: string;
   billingAddress?: IAddress;
   shippingAddress?: IAddress;
-  issuer: Issuer;
+  issuer?: Issuer;
   customerReference?: string;
   consumerName?: string;
   consumerAccount?: string;

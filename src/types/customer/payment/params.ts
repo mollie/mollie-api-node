@@ -1,4 +1,4 @@
-import { Locale, SequenceType } from '../../global';
+import { SequenceType } from '../../global';
 
 /**
  * Create Customer Payment parameters

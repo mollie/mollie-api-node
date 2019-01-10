@@ -3,6 +3,8 @@ import { IMethod, MethodImageSize } from '../types/method';
 
 /**
  * The `Method` model
+ *
+ * {@link IMethod}
  */
 export default class Method extends Model implements IMethod {
   public resource = 'method';
@@ -13,9 +15,9 @@ export default class Method extends Model implements IMethod {
     size2x: null,
     svg: null,
   };
-  public _links: {
-    self: null;
-    documentation: null;
+  public _links = {
+    self: null,
+    documentation: null,
   };
 
   /**

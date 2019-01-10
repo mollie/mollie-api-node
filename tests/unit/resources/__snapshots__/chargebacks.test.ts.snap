@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`chargebacks .all() should return a list of all chargebacks 1`] = `
+exports[`chargebacks .list() should return a list of all chargebacks 1`] = `
 Array [
   Chargeback {
     "_links": Object {
@@ -63,7 +63,7 @@ Array [
 ]
 `;
 
-exports[`chargebacks .all() should work with a callback 1`] = `
+exports[`chargebacks .list() should work with a callback 1`] = `
 Array [
   Chargeback {
     "_links": Object {

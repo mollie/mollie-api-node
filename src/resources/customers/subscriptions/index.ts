@@ -1,3 +1,7 @@
+import { get } from 'lodash';
+
+import { startsWith } from 'lodash';
+
 import CustomersBaseResource from './base';
 import Subscription from '../../../models/Subscription';
 import List from '../../../models/List';
@@ -15,30 +19,28 @@ import {
   ListCallback,
   UpdateCallback,
 } from '../../../types/subscription/callback';
+import Customer from '../../../models/Customer';
+import Resource from '../../../resource';
 
 /**
  * The `customers_subscriptions` resource.
  *
- * @static {string} resource
- * @static {Object} model
- * @static {string} apiName
- *
  * @since 1.3.2
  */
 export default class CustomersSubscriptionsResource extends CustomersBaseResource {
-  public static resource = 'customers_subscriptions';
-  public static model = Subscription;
-  public static apiName = 'Subscriptions API';
+  public resource = 'customers_subscriptions';
+  public model = Subscription;
+  public apiName = 'Subscriptions API';
 
   // API METHODS
 
   /**
    * Create a customer subscription.
    *
-   * @param params
-   * @param cb     Callback function, can be used instead of the returned `Promise` object
+   * @param params - Create Subscription parameters
+   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
    *
-   * @returns
+   * @returns Customer Subscription
    *
    * @since 1.3.2
    *
@@ -47,6 +49,11 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
    */
   public async create(params: ICreateParams, cb?: CreateCallback): Promise<Subscription> {
     const { customerId, ...parameters } = params;
+    if (!startsWith(params.customerId, Customer.resourcePrefix)) {
+      Resource.errorHandler(
+        Resource.errorHandler({ error: { message: 'The subscription id is invalid' } }, cb),
+      );
+    }
     this.setParentId(customerId);
 
     return super.create(parameters, cb) as Promise<Subscription>;
@@ -55,19 +62,45 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
   /**
    * Get a customer subscription.
    *
-   * @param id     Subscription ID
-   * @param params
-   * @param cb     Callback function, can be used instead of the returned `Promise` object
+   * @param id - Subscription ID
+   * @param params - Get Subscription parameters
+   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
    *
-   * @return
+   * @return Customer Subscription
    *
    * @since 1.3.2
    *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription
    * @public ✓ This method is part of the public API
    */
-  public async get(id: string, params: IGetParams, cb?: GetCallback): Promise<Subscription> {
+  public async get(
+    id: string,
+    params?: IGetParams | GetCallback,
+    cb?: GetCallback,
+  ): Promise<Subscription> {
+    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    if (typeof params === 'function' || typeof cb === 'function') {
+      const customerId = get(params, 'customerId') || this.parentId;
+      if (!startsWith(customerId, Customer.resourcePrefix)) {
+        Resource.errorHandler(
+          Resource.errorHandler({ error: { message: 'The subscription id is invalid' } }, cb),
+        );
+      }
+
+      return super.get(
+        id,
+        typeof params === 'function' ? null : params,
+        typeof params === 'function' ? params : cb,
+      ) as Promise<Subscription>;
+    }
+
     const { customerId, ...parameters } = params;
+    if (!startsWith(params.customerId, Customer.resourcePrefix)) {
+      Resource.errorHandler(
+        Resource.errorHandler({ error: { message: 'The subscription id is invalid' } }, cb),
+      );
+    }
     this.setParentId(customerId);
 
     return super.get(id, parameters, cb) as Promise<Subscription>;
@@ -76,29 +109,49 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
   /**
    * Get all customer's subscriptions.
    *
-   * @param params - List Customer's Subscriptions parameters
-   * @param cb - Callback function, can be used instead of the returned `Promise` object
+   * @param params - List customer's subscriptions parameters
+   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
    *
-   * @returns
+   * @returns A list of found subscriptions
    *
    * @since 1.3.2
    *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions
    * @public ✓ This method is part of the public API
    */
-  public async list(params?: IListParams, cb?: ListCallback): Promise<List<Subscription>> {
+  public async list(
+    params: IListParams | ListCallback,
+    cb?: ListCallback,
+  ): Promise<List<Subscription>> {
+    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    if (typeof params === 'function' || typeof cb === 'function') {
+      const customerId = get(params, 'customerId') || this.parentId;
+      if (!startsWith(customerId, Customer.resourcePrefix)) {
+        Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, cb);
+      }
+
+      return super.list(
+        typeof params === 'function' ? null : params,
+        typeof params === 'function' ? params : cb,
+      ) as Promise<List<Subscription>>;
+    }
+
     const { customerId, ...parameters } = params;
+    if (!startsWith(params.customerId, Customer.resourcePrefix)) {
+      Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, cb);
+    }
     this.setParentId(customerId);
 
     return super.list(parameters, cb) as Promise<List<Subscription>>;
   }
 
   /**
-   * Update a Customer's Subscription.
+   * Update a customer's subscription.
    *
    * @param id - Subscription ID
-   * @param params - Update Customer Subscription parameters
-   * @param cb - Callback function, can be used instead of the returned `Promise` object
+   * @param params - Update customer subscription parameters
+   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns The updated Customer Subscription object
    *
@@ -113,6 +166,11 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
     cb?: UpdateCallback,
   ): Promise<Subscription> {
     const { customerId, ...parameters } = params;
+    if (!startsWith(params.customerId, Customer.resourcePrefix)) {
+      Resource.errorHandler(
+        Resource.errorHandler({ error: { message: 'The subscription id is invalid' } }, cb),
+      );
+    }
     this.setParentId(customerId);
 
     return super.update(id, parameters, cb) as Promise<Subscription>;
@@ -123,7 +181,8 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
    *
    * @param id - Subscription ID
    * @param params - Delete Subscription parameters
-   * @param cb - Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns Success status
    *
@@ -132,8 +191,33 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/cancel-subscription
    * @public ✓ This method is part of the public API
    */
-  public async cancel(id: string, params?: ICancelParams, cb?: CancelCallback): Promise<boolean> {
+  public async cancel(
+    id: string,
+    params?: ICancelParams | CancelCallback,
+    cb?: CancelCallback,
+  ): Promise<boolean> {
+    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    if (typeof params === 'function' || typeof cb === 'function') {
+      const customerId = get(params, 'customerId') || this.parentId;
+      if (!startsWith(customerId, Customer.resourcePrefix)) {
+        Resource.errorHandler(
+          Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, cb),
+        );
+      }
+
+      return super.delete(
+        id,
+        typeof params === 'function' ? null : params,
+        typeof params === 'function' ? params : cb,
+      ) as Promise<boolean>;
+    }
+
     const { customerId, ...parameters } = params;
+    if (!startsWith(params.customerId, Customer.resourcePrefix)) {
+      Resource.errorHandler(
+        Resource.errorHandler({ error: { message: 'The subscription id is invalid' } }, cb),
+      );
+    }
     this.setParentId(customerId);
 
     // TODO: check return type

@@ -5,6 +5,8 @@ import { IPayment, PaymentStatus } from '../types/payment';
 
 /**
  * The `Payment` model
+ *
+ * {@link IPayment}
  */
 export default class Payment extends Model implements IPayment {
   public static readonly resourcePrefix = 'tr_';
@@ -135,6 +137,6 @@ export default class Payment extends Model implements IPayment {
    * @public ✓ This method is part of the public API
    */
   public getPaymentUrl(): string {
-    return get(this._links, 'checkout.href', '');
+    return get(this._links, 'checkout.href', null);
   }
 }

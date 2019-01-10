@@ -25,7 +25,7 @@ describe('chargebacks', () => {
         done();
       })
       .catch(err => {
-        expect(err).toBeNull();
+        expect(err).toBeUndefined();
         done();
       }));
 });

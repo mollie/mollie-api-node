@@ -3,7 +3,10 @@
 exports[`refund model should instantiate with default values 1`] = `
 Object {
   "_links": Object {
+    "documentation": null,
+    "order": null,
     "payment": null,
+    "self": null,
     "settlement": null,
   },
   "amount": Object {

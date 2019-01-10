@@ -1,3 +1,5 @@
+import { startsWith } from 'lodash';
+
 import Resource from '../../resource';
 import Order from '../../models/Order';
 import List from '../../models/List';
@@ -19,16 +21,12 @@ import {
 /**
  * The `orders` resource
  *
- * @static {string} resource
- * @static {Model}  model
- * @static {string} apiName
- *
  * @since 2.2.0
  */
 export default class Orders extends Resource {
-  public static resource = 'orders';
-  public static model = Order;
-  public static apiName = 'Orders API';
+  public resource = 'orders';
+  public model = Order;
+  public apiName = 'Orders API';
 
   // API METHODS
 
@@ -49,7 +47,7 @@ export default class Orders extends Resource {
    * for orders that have a created status.
    *
    * @param params - Create Order parameters
-   * @param cb - Callback function, can be used instead of
+   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of
    *             the returned `Promise` object
    *
    * @returns The newly created Order
@@ -68,7 +66,8 @@ export default class Orders extends Resource {
    *
    * @param id - Order ID
    * @param params - Get Order parameters
-   * @param cb - Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns The Order
    *
@@ -77,7 +76,22 @@ export default class Orders extends Resource {
    * @see https://docs.mollie.com/reference/v2/orders-api/get-order
    * @public ✓ This method is part of the public API
    */
-  public async get(id: string, params: IGetParams, cb?: GetCallback): Promise<Order> {
+  public async get(id: string, params: IGetParams | GetCallback, cb?: GetCallback): Promise<Order> {
+    if (!startsWith(id, Order.resourcePrefix)) {
+      Resource.errorHandler(
+        Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb),
+      );
+    }
+
+    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    if (typeof params === 'function' || typeof cb === 'function') {
+      return super.get(
+        id,
+        typeof params === 'function' ? null : params,
+        typeof params === 'function' ? params : cb,
+      ) as Promise<Order>;
+    }
+
     return super.get(id, params, cb) as Promise<Order>;
   }
 
@@ -85,7 +99,8 @@ export default class Orders extends Resource {
    * List Orders.
    *
    * @param params - List Order parameters
-   * @param cb - Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns A list of the Orders found
    *
@@ -94,7 +109,15 @@ export default class Orders extends Resource {
    * @see https://docs.mollie.com/reference/v2/orders-api/list-orders
    * @public ✓ This method is part of the public API
    */
-  public async list(params?: IListParams, cb?: ListCallback): Promise<List<Order>> {
+  public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Order>> {
+    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    if (typeof params === 'function' || typeof cb === 'function') {
+      return super.list(
+        typeof params === 'function' ? null : params,
+        typeof params === 'function' ? params : cb,
+      ) as Promise<List<Order>>;
+    }
+
     return super.list(params, cb) as Promise<List<Order>>;
   }
 
@@ -103,7 +126,7 @@ export default class Orders extends Resource {
    *
    * @param id - Order ID
    * @param data - Update Order parameters
-   * @param cb - Callback function, can be used instead of the returned `Promise` object
+   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns The updated Order
    *
@@ -113,6 +136,12 @@ export default class Orders extends Resource {
    * @public ✓ This method is part of the public API
    */
   public async update(id: string, data: IUpdateParams, cb?: UpdateCallback): Promise<Order> {
+    if (!startsWith(id, Order.resourcePrefix)) {
+      Resource.errorHandler(
+        Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb),
+      );
+    }
+
     return super.update(id, data, cb) as Promise<Order>;
   }
 
@@ -121,7 +150,8 @@ export default class Orders extends Resource {
    *
    * @param id - Order ID
    * @param params - Cancel Order parameters
-   * @param cb - Callback object, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 2.2.0) Callback object, can be used instead of the returned `Promise` object
    *
    * @returns Updated Order object
    *
@@ -130,7 +160,26 @@ export default class Orders extends Resource {
    * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order
    * @public ✓ This method is part of the public API
    */
-  public async cancel(id: string, params?: ICancelParams, cb?: CancelCallback): Promise<Order> {
+  public async cancel(
+    id: string,
+    params?: ICancelParams | CancelCallback,
+    cb?: CancelCallback,
+  ): Promise<Order> {
+    if (!startsWith(id, Order.resourcePrefix)) {
+      Resource.errorHandler(
+        Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb),
+      );
+    }
+
+    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    if (typeof params === 'function' || typeof cb === 'function') {
+      return super.delete(
+        id,
+        typeof params === 'function' ? null : params,
+        typeof params === 'function' ? params : cb,
+      ) as Promise<Order>;
+    }
+
     return super.delete(id, params, cb) as Promise<Order>;
   }
 

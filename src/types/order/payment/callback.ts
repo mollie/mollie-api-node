@@ -1,3 +1,6 @@
 import { IPayment } from '../../payment';
 
-export type CreateCallback = (error: any, payment: IPayment) => void;
+/**
+ * @deprecated since 2.2.0 - All callbacks will be removed in a future version
+ */
+export type CreateCallback = (error: any, payment?: IPayment) => void;

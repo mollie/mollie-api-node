@@ -2,7 +2,10 @@
 
 exports[`method model should instantiate with default values 1`] = `
 Object {
-  "_links": Object {},
+  "_links": Object {
+    "documentation": null,
+    "self": null,
+  },
   "data": undefined,
   "description": null,
   "getImage": [Function],
@@ -20,6 +23,10 @@ Object {
 exports[`method model should instantiate with given values 1`] = `
 Object {
   "_links": Object {
+    "documentation": Object {
+      "href": "https://docs.mollie.com/reference/v2/methods-api/get-method",
+      "type": "text/html",
+    },
     "self": Object {
       "href": "https://api.mollie.com/v2/methods/ideal",
       "type": "application/hal+json",
@@ -27,6 +34,10 @@ Object {
   },
   "data": Object {
     "_links": Object {
+      "documentation": Object {
+        "href": "https://docs.mollie.com/reference/v2/methods-api/get-method",
+        "type": "text/html",
+      },
       "self": Object {
         "href": "https://api.mollie.com/v2/methods/ideal",
         "type": "application/hal+json",
@@ -35,18 +46,84 @@ Object {
     "description": "iDEAL",
     "id": "ideal",
     "image": Object {
-      "size1x": "https://www.mollie.com/images/payscreen/methods/ideal.png",
-      "size2x": "https://www.mollie.com/images/payscreen/methods/ideal%402x.png",
+      "size1x": "https://www.mollie.com/external/icons/payment-methods/ideal.png",
+      "size2x": "https://www.mollie.com/external/icons/payment-methods/ideal%402x.png",
+      "svg": "https://www.mollie.com/external/icons/payment-methods/ideal.svg",
     },
+    "issuers": Array [
+      Object {
+        "id": "ideal_ABNANL2A",
+        "image": Object {
+          "size1x": "https://www.mollie.com/external/icons/ideal-issuers/ABNANL2A.png",
+          "size2x": "https://www.mollie.com/external/icons/ideal-issuers/ABNANL2A%402x.png",
+          "svg": "https://www.mollie.com/external/icons/ideal-issuers/ABNANL2A.svg",
+        },
+        "name": "ABN AMRO",
+        "resource": "issuer",
+      },
+      Object {
+        "id": "ideal_ASNBNL21",
+        "image": Object {
+          "size1x": "https://www.mollie.com/external/icons/ideal-issuers/ASNBNL21.png",
+          "size2x": "https://www.mollie.com/external/icons/ideal-issuers/ASNBNL21%402x.png",
+          "svg": "https://www.mollie.com/external/icons/ideal-issuers/ASNBNL21.svg",
+        },
+        "name": "ASN Bank",
+        "resource": "issuer",
+      },
+    ],
+    "pricing": Array [
+      Object {
+        "description": "The Netherlands",
+        "fixed": Object {
+          "currency": "EUR",
+          "value": "0.29",
+        },
+        "variable": "0",
+      },
+    ],
     "resource": "method",
   },
   "description": "iDEAL",
   "getImage": [Function],
   "id": "ideal",
   "image": Object {
-    "size1x": "https://www.mollie.com/images/payscreen/methods/ideal.png",
-    "size2x": "https://www.mollie.com/images/payscreen/methods/ideal%402x.png",
+    "size1x": "https://www.mollie.com/external/icons/payment-methods/ideal.png",
+    "size2x": "https://www.mollie.com/external/icons/payment-methods/ideal%402x.png",
+    "svg": "https://www.mollie.com/external/icons/payment-methods/ideal.svg",
   },
+  "issuers": Array [
+    Object {
+      "id": "ideal_ABNANL2A",
+      "image": Object {
+        "size1x": "https://www.mollie.com/external/icons/ideal-issuers/ABNANL2A.png",
+        "size2x": "https://www.mollie.com/external/icons/ideal-issuers/ABNANL2A%402x.png",
+        "svg": "https://www.mollie.com/external/icons/ideal-issuers/ABNANL2A.svg",
+      },
+      "name": "ABN AMRO",
+      "resource": "issuer",
+    },
+    Object {
+      "id": "ideal_ASNBNL21",
+      "image": Object {
+        "size1x": "https://www.mollie.com/external/icons/ideal-issuers/ASNBNL21.png",
+        "size2x": "https://www.mollie.com/external/icons/ideal-issuers/ASNBNL21%402x.png",
+        "svg": "https://www.mollie.com/external/icons/ideal-issuers/ASNBNL21.svg",
+      },
+      "name": "ASN Bank",
+      "resource": "issuer",
+    },
+  ],
+  "pricing": Array [
+    Object {
+      "description": "The Netherlands",
+      "fixed": Object {
+        "currency": "EUR",
+        "value": "0.29",
+      },
+      "variable": "0",
+    },
+  ],
   "resource": "method",
   "toPlainObject": [Function],
 }

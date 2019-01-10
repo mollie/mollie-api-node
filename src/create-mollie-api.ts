@@ -1,18 +1,18 @@
 import { AxiosInstance } from 'axios';
 
-import PaymentsResource from './resources/payments/payments';
+import PaymentsResource from './resources/payments';
 import PaymentsRefundsResource from './resources/payments/refunds';
 import PaymentsChargebacksResource from './resources/payments/chargebacks';
 import MethodsResource from './resources/methods';
 import RefundsResource from './resources/refunds';
-import CustomersResource from './resources/customers/customers';
+import CustomersResource from './resources/customers';
 import CustomersPaymentsResource from './resources/customers/payments';
 import CustomersMandatesResource from './resources/customers/mandates';
-import CustomersSubscriptionsResource from './resources/customers/subscriptions/subscriptions';
+import CustomersSubscriptionsResource from './resources/customers/subscriptions';
 import ChargebacksResource from './resources/chargebacks';
 import OrdersShipmentsResource from './resources/orders/shipments';
 import OrdersRefundsResource from './resources/orders/refunds';
-import OrdersResource from './resources/orders/orders';
+import OrdersResource from './resources/orders';
 import OrdersLinesResource from './resources/orders/lines';
 import PaymentsCapturesResource from './resources/payments/captures';
 

@@ -2,7 +2,7 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import CustomersMandates from '../../../../src/resources/customers/mandates';
-import Mandate from '../../../../src/models/mandate';
+import Mandate from '../../../../src/models/Mandate';
 
 import response from '../../__stubs__/customers_mandates.json';
 
@@ -31,8 +31,9 @@ describe('customers_mandates', () => {
   });
 
   it('should have a resource name and model', () => {
-    expect(CustomersMandates.resource).toBe('customers_mandates');
-    expect(CustomersMandates.model).toBe(Mandate);
+    const mandate = new CustomersMandates(null);
+    expect(mandate.resource).toBe('customers_mandates');
+    expect(mandate.model).toBe(Mandate);
   });
 
   describe('.create()', () => {
@@ -98,7 +99,7 @@ describe('customers_mandates', () => {
     });
   });
 
-  describe('.all()', () => {
+  describe('.list()', () => {
     mock.onGet(`/customers/${props.customerId}/mandates`).reply(200, response);
 
     it('should return a list of all customer mandates', () =>

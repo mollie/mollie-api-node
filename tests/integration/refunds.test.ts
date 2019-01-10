@@ -19,7 +19,7 @@ const mollieClient = mollie({ apiKey: process.env.API_KEY });
 describe('refunds', () => {
   it('should integrate', () =>
     mollieClient.refunds
-      .all()
+      .list()
       .then(refunds => expect(refunds).toBeDefined())
-      .catch(err => expect(err).toBeNull()));
+      .catch(err => expect(err).toBeUndefined()));
 });

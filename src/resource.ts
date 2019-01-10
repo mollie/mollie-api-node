@@ -4,6 +4,11 @@ import { AxiosInstance, AxiosResponse } from 'axios';
 import qs from 'qs';
 
 /**
+ * @deprecated since 2.2.0
+ */
+type Callback = (error: any, resource: any) => void;
+
+/**
  * The base resource
  */
 export default class Resource {
@@ -11,20 +16,20 @@ export default class Resource {
    * Resource code such as `payments`
    * @var {string} resource
    */
-  public static resource: string;
+  public resource: string;
   /**
    * Refers to a Model class
    * @var {Model} model
    */
-  public static model: any;
+  public model: any;
   /**
    * @var {string} apiName
    */
-  public static readonly apiName: string;
+  public readonly apiName: string;
   /**
    * @var {string} resourcePrefix
    */
-  public static readonly resourcePrefix: string;
+  public readonly resourcePrefix: string;
   /**
    * @var {AxiosInstance} httpClient
    */
@@ -44,7 +49,7 @@ export default class Resource {
   /**
    * Error handler
    */
-  protected static errorHandler(response: AxiosResponse, cb?: Function) {
+  protected static errorHandler(response: any, cb?: Function) {
     const error = (response && response.data) || response;
 
     if (cb) {
@@ -54,11 +59,11 @@ export default class Resource {
   }
 
   /**
-   * Get the API client
+   * Get the HTTP client
    *
    * @since 2.0.0
    */
-  protected getClient() {
+  protected getClient(): AxiosInstance {
     return this.httpClient;
   }
 
@@ -69,7 +74,7 @@ export default class Resource {
    *
    * @deprecated This method is not available
    */
-  protected withParent(parent: any) {
+  public withParent(parent: any): this {
     if (parent && parent.id) {
       this.setParentId(parent.id);
     }
@@ -81,7 +86,7 @@ export default class Resource {
    *
    * @since 2.0.0
    */
-  protected setParentId(parentId: string) {
+  protected setParentId(parentId: string): void {
     this.parentId = parentId;
   }
 
@@ -90,7 +95,7 @@ export default class Resource {
    *
    * @since 2.0.0
    */
-  hasParentId(): boolean {
+  protected hasParentId(): boolean {
     return !!this.parentId;
   }
 
@@ -100,12 +105,12 @@ export default class Resource {
    * @since 2.0.0
    */
   protected getResourceUrl(): string {
-    if ((this.constructor as typeof Resource).model.resource.indexOf('_') !== -1) {
-      const parts = (this.constructor as typeof Resource).model.resource.split('_');
+    if (this.resource.indexOf('_') !== -1) {
+      const parts = this.resource.split('_');
       return `${parts[0]}/${this.parentId}/${parts[1]}`;
     }
 
-    return (this.constructor as typeof Resource).model.resource;
+    return this.resource;
   }
 
   /**
@@ -114,11 +119,12 @@ export default class Resource {
    * @since 2.0.0-rc.2
    */
   protected getResourceName(): string {
-    if ((this.constructor as typeof Resource).model.resource.includes('_')) {
-      return (this.constructor as typeof Resource).model.resource.split('_')[1];
+    // Instantiate the model to get the defaults
+    if (this.resource.includes('_')) {
+      return this.resource.split('_')[1];
     }
 
-    return (this.constructor as typeof Resource).model.resource;
+    return this.resource;
   }
 
   // CREATE
@@ -126,16 +132,16 @@ export default class Resource {
   /**
    * Create a resource by ID
    *
-   * @params {any}      data Resource data
-   * @params {Function} cb   Callback function, can be used instead of the returned Promise
+   * @params params - Resource-specific parameters
+   * @params cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned Promise
    *
-   * @returns {Promise<Model>}
+   * @returns The resource
    *
    * @since 1.0.0
    *
    * @public ✓ This method is part of the public API
    */
-  public async create(params: any, cb?: Function): Promise<Model> {
+  public async create(params: any, cb?: Callback): Promise<Model> {
     const callback = typeof params === 'function' ? params : cb;
     let query: any = {};
     if (typeof params === 'object' && typeof params.include === 'string') {
@@ -149,7 +155,7 @@ export default class Resource {
         params,
       );
 
-      const model = new ((this.constructor as typeof Resource).model as any)(response.data);
+      const model = new this.model(response.data);
 
       if (callback) {
         return callback(null, model);
@@ -165,15 +171,15 @@ export default class Resource {
   /**
    * Get a resource by ID
    *
-   * @params {string}   id     Resource ID
-   * @params {any}      params Resource-specific parameters
-   * @params {Function} cb     You can use a callback in case you do not prefer to use Promises
+   * @params id - Resource ID
+   * @params params - Resource-specific parameters
+   * @params cb - (DEPRECATED SINCE 2.2.0) Optional callback function
    *
    * @returns {Promise<Model>}
    *
    * @since 1.0.0
    */
-  public async get(id: string, params?: any, cb?: Function): Promise<Model> {
+  public async get(id: string, params?: any, cb?: Callback): Promise<Model> {
     const callback = typeof params === 'function' ? params : cb;
 
     try {
@@ -181,7 +187,7 @@ export default class Resource {
         params,
       });
 
-      const model = new ((this.constructor as typeof Resource).model as any)(response);
+      const model = new this.model(response);
 
       if (callback) {
         return callback(null, model);
@@ -196,14 +202,14 @@ export default class Resource {
   /**
    * List resources
    *
-   * @params {any} params Resource-specific parameters
+   * @param params - Resource-specific parameters
+   * @param cb - (DEPRECATED SINCE 2.2.0) Optional callback function
    *
+   * @returns Resource list
    *
    * @since 1.0.0
    */
-  public async list(params?: any, cb?: Function): Promise<List<Model>> {
-    const callback = typeof params === 'function' ? params : cb;
-
+  public async list(params?: any, cb?: Callback): Promise<List<Model>> {
     try {
       const response: AxiosResponse = await this.getClient().get(this.getResourceUrl(), { params });
       const resourceName = this.getResourceName();
@@ -211,53 +217,50 @@ export default class Resource {
         response: response.data,
         resourceName,
         params,
-        callback,
+        cb,
         getResources: this.list.bind(this),
-        Model: Resource.model,
+        Model: this.model,
       });
 
-      if (callback) {
-        return callback(null, list);
+      if (typeof cb === 'function') {
+        cb(null, list);
       }
 
       return list;
     } catch (error) {
-      Resource.errorHandler(error.response, callback);
+      Resource.errorHandler(error, cb);
     }
   }
 
   // UPDATE
 
   /**
-   *
    * Update a resource by ID
    *
-   * @param {string} id
-   * @param data
-   * @param {Function} cb
+   * @param id - Resource id
+   * @param params - Resource-specific parameters
+   * @param cb - (DEPRECATED SINCE 2.2.0) Optional callback function
    *
    * @returns {Promise<Model>}
    *
    * @since 1.0.0
    */
-  public async update(id: string, data: any, cb?: Function): Promise<Model> {
-    const callback = typeof data === 'function' ? data : cb;
-
+  public async update(id: string, params: any, cb?: Callback): Promise<Model> {
     try {
       const response: AxiosResponse = await this.getClient().post(
         `${this.getResourceUrl()}/${id}`,
-        data,
+        params,
       );
 
-      const model = new ((this.constructor as typeof Resource).model as any)(response);
+      const model = new this.model(response);
 
-      if (callback) {
-        return callback(null, model);
+      if (typeof cb === 'function') {
+        cb(null, model);
       }
 
       return model;
     } catch (error) {
-      Resource.errorHandler(error.response, callback);
+      Resource.errorHandler(error.response, cb);
     }
   }
 
@@ -266,34 +269,31 @@ export default class Resource {
   /**
    * Delete a resource by ID
    *
-   * @param {string}   id       Resource ID
-   * @param {any}      params
-   * @param {Function} cb Optional callback function
+   * @param id - Resource ID
+   * @param params - Resource-specific parameters
+   * @param cb - (DEPRECATED SINCE 2.2.0) Optional callback function
    *
-   * @returns {Promise<Model|boolean>} In case the API returns the updated object it we'll return a Model.
-   *                                   In other cases the API should respond with `204 No Content`. This is translated
-   *                                   to a boolean value with `true` meaning the correct `204 No Content` response was given.
+   * @returns In case the API returns the updated object it we'll return a Model.
+   *          In other cases the API should respond with `204 No Content`. This is translated
+   *          to a boolean value with `true` meaning the correct `204 No Content` response was given.
    *
    * @since 1.0.0
-   * @since 2.2.0 Accepts access token parameters
    */
-  public async delete(id: string, params?: any, cb?: Function): Promise<Model | boolean> {
-    // TODO: add support for access token parameters
-    const callback = typeof params === 'function' ? params : cb;
+  public async delete(id: string, params?: any, cb?: Callback): Promise<Model | boolean> {
     try {
       const response: AxiosResponse = await this.getClient().delete(
         `${this.getResourceUrl()}/${id}`,
       );
 
-      const model = new ((this.constructor as typeof Resource).model as any)(response);
+      const model = new this.model(response);
 
-      if (callback) {
-        return callback(null, model);
+      if (cb) {
+        cb(null, model);
       }
 
       return model;
     } catch (error) {
-      Resource.errorHandler(error.response, callback);
+      Resource.errorHandler(error.response, cb);
     }
   }
 }

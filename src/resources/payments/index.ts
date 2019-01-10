@@ -4,7 +4,6 @@ import Payment from '../../models/Payment';
 import PaymentsBaseResource from '../../resources/payments/base';
 
 import ApiException from '../../exceptions/ApiException';
-import InvalidArgumentException from '../../exceptions/InvalidArgumentException';
 import { ICancelParams, ICreateParams, IGetParams, IListParams } from '../../types/payment/params';
 import {
   CancelCallback,
@@ -13,18 +12,15 @@ import {
   ListCallback,
 } from '../..//types/payment/callback';
 import List from '../../models/List';
+import Resource from '../../resource';
 
 /**
  * The `payments` resource
- *
- * @static {string} resource
- * @static {Model}  model
- * @static {string} apiName
  */
 export default class PaymentsResource extends PaymentsBaseResource {
-  public static resource = 'payments';
-  public static model = Payment;
-  public static apiName = 'Payments API';
+  public resource = 'payments';
+  public model = Payment;
+  public apiName = 'Payments API';
 
   // API METHODS
 
@@ -60,11 +56,13 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * @public ✓ This method is part of the public API
    */
   public async get(id: string, params?: IGetParams, cb?: GetCallback): Promise<Payment> {
+    const callback = typeof params === 'function' ? params : cb;
+
     if (!startsWith(id, Payment.resourcePrefix)) {
-      throw new InvalidArgumentException('Invalid Payment ID given');
+      Resource.errorHandler({ error: { message: 'The payment id is invalid' } }, callback);
     }
 
-    return super.get(id, params, cb) as Promise<Payment>;
+    return super.get(id, params, callback) as Promise<Payment>;
   }
 
   /**
@@ -102,16 +100,15 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * @public ✓ This method is part of the public API
    */
   public async cancel(id: string, params?: ICancelParams, cb?: CancelCallback): Promise<Payment> {
-    if (!startsWith(id, Payment.resourcePrefix)) {
-      throw new InvalidArgumentException('Invalid Payment ID given');
-    }
     const callback = typeof params === 'function' ? params : cb;
+    if (!startsWith(id, Payment.resourcePrefix)) {
+      Resource.errorHandler({ error: { message: 'The payment id is invalid' } }, callback);
+    }
 
     return super.delete(id, callback) as Promise<Payment>;
   }
 
   // ALIASES
-
   /**
    * Retrieve all payments created with the current website profile, ordered from newest to oldest.
    * This is just an alias of the `list` method.
@@ -143,8 +140,6 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * @deprecated This method is not available
    */
   public async update(): Promise<Payment> {
-    throw new ApiException(
-      `The method "${this.update.name}" does not exist on the "${PaymentsResource.apiName}"`,
-    );
+    throw new ApiException(`The method "update" does not exist on the "${this.apiName}"`);
   }
 }

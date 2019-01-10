@@ -1,16 +1,17 @@
 import { parseCursorUrl } from '../utils';
-import { ILinks, IListLinks } from '../types/global';
+import { IListLinks } from '../types/global';
+import Model from '../model';
 
 /**
  * A list helper class
  */
 export default class List<T> extends Array {
-  links: IListLinks = null;
-  count: number = null;
-  nextPage: any = null;
-  previousPage: any = null;
-  nextPageCursor: any = null;
-  previousPageCursor: any = null;
+  public links: IListLinks = null;
+  public count: number = null;
+  public nextPage: Function = null;
+  public previousPage: Function = null;
+  public nextPageCursor: any = null;
+  public previousPageCursor: any = null;
 
   public static getNextPageParams(links: IListLinks) {
     if (links.next && links.next.href) {
@@ -59,7 +60,7 @@ export default class List<T> extends Array {
       );
     list.nextPageCursor = List.getNextPageParams(_links).from;
     list.previousPageCursor = List.getPreviousPageParams(_links).from;
-    list.push(...resources.map((resource: any) => new Model(resource)));
+    list.push(...resources.map((resource: Model) => new Model(resource)));
 
     return list;
   }

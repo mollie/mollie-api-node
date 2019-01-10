@@ -4,6 +4,8 @@ exports[`mandate model should instantiate with default values 1`] = `
 Object {
   "_links": Object {
     "customer": null,
+    "documentation": null,
+    "self": null,
   },
   "createdAt": null,
   "data": undefined,

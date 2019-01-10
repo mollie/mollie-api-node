@@ -1,5 +1,4 @@
 import { toPlainObject } from 'lodash';
-import { AxiosResponse } from 'axios';
 import { ApiMode } from './types/global';
 
 /**
@@ -11,21 +10,14 @@ export default class Model {
   public resource: string;
 
   private data: any;
-  private response: AxiosResponse;
 
   /**
    * Model constructor
    *
-   * @param {AxiosResponse|any} data Accepts an AxiosResponse
-   *                                 or a raw JSON response (deprecated)
+   * @param data - The raw JSON response (deprecated)
    */
-  constructor(data: AxiosResponse | any) {
-    if (data && data.constructor && data.constructor.name === 'AxiosResponse') {
-      this.response = data;
-      this.data = data; // Backwards compatible
-    } else {
-      this.data = data; // Backwards compatible
-    }
+  constructor(data: any) {
+    this.data = data;
   }
 
   /**

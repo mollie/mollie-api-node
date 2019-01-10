@@ -178,13 +178,12 @@ interface IPaymentLinks extends ILinks {
   changePaymentState?: IUrl;
   refunds?: IUrl;
   chargebacks?: IUrl;
-  captures: IUrl;
-  settlement: IUrl;
-  documentation: IUrl;
-  mandate: IUrl;
-  subscription: IUrl;
-  customer: IUrl;
-  order: IUrl;
+  captures?: IUrl;
+  settlement?: IUrl;
+  mandate?: IUrl;
+  subscription?: IUrl;
+  customer?: IUrl;
+  order?: IUrl;
 }
 
 export type IDetails =

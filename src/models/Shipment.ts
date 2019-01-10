@@ -3,6 +3,8 @@ import { IShipment } from '../types/shipment';
 
 /**
  * The `shipment` model
+ *
+ * {@link IShipment}
  */
 export default class Shipment extends Model implements IShipment {
   public static resourcePrefix = 'shp_';

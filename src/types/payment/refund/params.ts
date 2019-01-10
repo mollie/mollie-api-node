@@ -39,7 +39,7 @@ export interface ICreateParams {
  */
 export interface IGetParams {
   paymentId: string;
-  embed: Array<RefundEmbed>;
+  embed?: Array<RefundEmbed>;
 
   // Access token parameters
   testmode?: boolean;

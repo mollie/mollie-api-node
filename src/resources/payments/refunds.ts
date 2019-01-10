@@ -1,3 +1,5 @@
+import { get, startsWith } from 'lodash';
+
 import PaymentsResource from './base';
 import Refund from '../../models/Refund';
 import List from '../../models/List';
@@ -14,20 +16,18 @@ import {
   GetCallback,
   ListCallback,
 } from '../../types/payment/refund/callback';
+import Payment from '../../models/Payment';
+import Resource from '../../resource';
 
 /**
  * The `payments_refunds` resource
  *
- * @static {string} resource
- * @static {Object} model
- * @static {string} apiName
- *
  * @since 1.1.1
  */
 export default class PaymentsRefundsResource extends PaymentsResource {
-  public static resource = 'payments_refunds';
-  public static model = Refund;
-  public static apiName = 'Refunds API';
+  public resource = 'payments_refunds';
+  public model = Refund;
+  public apiName = 'Refunds API';
 
   // API METHODS
 
@@ -46,6 +46,11 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    */
   public async create(params: ICreateParams, cb?: CreateCallback): Promise<Refund> {
     const { paymentId, ...parameters } = params;
+    if (!startsWith(paymentId, Payment.resourcePrefix)) {
+      Resource.errorHandler(
+        Resource.errorHandler({ error: { message: 'The payment id is invalid' } }, cb),
+      );
+    }
     this.setParentId(paymentId);
 
     return super.create(parameters, cb) as Promise<Refund>;
@@ -56,15 +61,47 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    *
    * @param id - Refund ID
    * @param params - Retrieve Payment Refund parameters
-   * @param cb - Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @since 1.1.1
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/get-refund
    * @public ✓ This method is part of the public API
    */
-  public async get(id: string, params?: IGetParams, cb?: GetCallback): Promise<Refund> {
+  public async get(
+    id: string,
+    params?: IGetParams | GetCallback,
+    cb?: GetCallback,
+  ): Promise<Refund> {
+    if (!startsWith(id, Refund.resourcePrefix)) {
+      Resource.errorHandler(
+        Resource.errorHandler({ error: { message: 'The refund id is invalid' } }, cb),
+      );
+    }
+
+    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    if (typeof params === 'function' || typeof cb === 'function') {
+      const paymentId = get(params, 'paymentId') || this.parentId;
+      if (!startsWith(paymentId, Payment.resourcePrefix)) {
+        Resource.errorHandler(
+          Resource.errorHandler({ error: { message: 'The payment id is invalid' } }, cb),
+        );
+      }
+
+      return super.get(
+        id,
+        typeof params === 'function' ? null : params,
+        typeof params === 'function' ? params : cb,
+      ) as Promise<Refund>;
+    }
+
     const { paymentId, ...parameters } = params;
+    if (!startsWith(paymentId, Payment.resourcePrefix)) {
+      Resource.errorHandler(
+        Resource.errorHandler({ error: { message: 'The payment id is invalid' } }, cb),
+      );
+    }
     this.setParentId(paymentId);
 
     return super.get(id, parameters, cb) as Promise<Refund>;
@@ -74,22 +111,31 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    * Get all payment refunds. Alias of list.
    *
    * @param params - List Payment Refunds parameters
-   * @param cb - Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @since 1.1.1
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
    * @public ✓ This method is part of the public API
    */
-  public async list(params?: IListParams, cb?: ListCallback): Promise<List<Refund>> {
+  public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Refund>> {
+    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    if (typeof params === 'function' || typeof cb === 'function') {
+      return super.list(
+        typeof params === 'function' ? null : params,
+        typeof params === 'function' ? params : cb,
+      ) as Promise<List<Refund>>;
+    }
+
     return super.list(params, cb) as Promise<List<Refund>>;
   }
 
   /**
-   * Delete a payment_refund by ID
+   * Delete a payment refund by ID
    *
    * @param id - Refund ID
-   * @param params - Delete Payment Refund parameters
+   * @param params - Cancel payment refund parameters
    * @param cb - Callback function, can be used instead of the returned `Promise` object
    *
    * @return Success status
@@ -99,8 +145,39 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    * @see https://docs.mollie.com/reference/v2/refunds-api/cancel-refund
    * @public ✓ This method is part of the public API
    */
-  cancel(id: string, params?: ICancelParams, cb?: CancelCallback): Promise<boolean> {
+  public async cancel(
+    id: string,
+    params?: ICancelParams | CancelCallback,
+    cb?: CancelCallback,
+  ): Promise<boolean> {
+    if (!startsWith(id, Refund.resourcePrefix)) {
+      Resource.errorHandler(
+        Resource.errorHandler({ error: { message: 'The refund id is invalid' } }, cb),
+      );
+    }
+
+    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    if (typeof params === 'function' || typeof cb === 'function') {
+      const paymentId = get(params, 'paymentId') || this.parentId;
+      if (!startsWith(paymentId, Payment.resourcePrefix)) {
+        Resource.errorHandler(
+          Resource.errorHandler({ error: { message: 'The payment id is invalid' } }, cb),
+        );
+      }
+
+      return super.delete(
+        id,
+        typeof params === 'function' ? null : params,
+        typeof params === 'function' ? params : cb,
+      ) as Promise<boolean>;
+    }
+
     const { paymentId, ...parameters } = params;
+    if (!startsWith(paymentId, Payment.resourcePrefix)) {
+      Resource.errorHandler(
+        Resource.errorHandler({ error: { message: 'The payment id is invalid' } }, cb),
+      );
+    }
     this.setParentId(paymentId);
 
     // TODO: double-check if super actually returns a boolean status
@@ -135,8 +212,6 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    * @deprecated This method is not available
    */
   async update(): Promise<Refund> {
-    throw new ApiException(
-      `The method "${this.update.name}" does not exist on the "${PaymentsRefundsResource.apiName}"`,
-    );
+    throw new ApiException(`The method "update" does not exist on the "${this.apiName}"`);
   }
 }

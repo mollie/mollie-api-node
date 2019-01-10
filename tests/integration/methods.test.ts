@@ -30,12 +30,12 @@ describe('methods', () => {
             done();
           })
           .catch(err => {
-            expect(err).toBeNull();
+            expect(err).toBeUndefined();
             done();
           });
       })
       .catch(err => {
-        expect(err).toBeNull();
+        expect(err).toBeUndefined();
         done();
       });
   });

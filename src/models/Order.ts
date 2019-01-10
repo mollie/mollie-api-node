@@ -3,6 +3,8 @@ import { IOrder } from '../types/order';
 
 /**
  * The `order` model
+ *
+ * {@link IOrder}
  */
 export default class Order extends Model implements IOrder {
   public static resourcePrefix = 'ord_';

@@ -58,85 +58,39 @@ Array [
 ]
 `;
 
-exports[`payments_refunds .all() should work with a callback 1`] = `
-Array [
-  Refund {
-    "_links": Object {
-      "documentation": Object {
-        "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
-        "type": "text/html",
-      },
-      "payment": Object {
-        "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg",
-        "type": "application/hal+json",
-      },
-      "self": Object {
-        "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT",
-        "type": "application/hal+json",
-      },
-    },
-    "amount": Object {
-      "currency": "EUR",
-      "value": "5.95",
-    },
-    "createdAt": "2018-03-14T17:09:02.0Z",
-    "data": Object {
-      "_links": Object {
-        "documentation": Object {
-          "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
-          "type": "text/html",
-        },
-        "payment": Object {
-          "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg",
-          "type": "application/hal+json",
-        },
-        "self": Object {
-          "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT",
-          "type": "application/hal+json",
-        },
-      },
-      "amount": Object {
-        "currency": "EUR",
-        "value": "5.95",
-      },
-      "createdAt": "2018-03-14T17:09:02.0Z",
-      "description": "Order",
-      "id": "re_4qqhO89gsT",
-      "paymentId": "tr_WDqYK6vllg",
-      "resource": "refund",
-      "status": "pending",
-    },
-    "description": "Order",
-    "id": "re_4qqhO89gsT",
-    "paymentId": "tr_WDqYK6vllg",
-    "resource": "refund",
-    "settlementAmount": null,
-    "status": "pending",
-  },
-]
-`;
-
 exports[`payments_refunds .cancel() should return a refund instance 1`] = `
 Refund {
   "_links": Object {
-    "documentation": Object {
-      "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
-      "type": "text/html",
-    },
-    "payment": Object {
-      "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg",
-      "type": "application/hal+json",
-    },
-    "self": Object {
-      "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT",
-      "type": "application/hal+json",
-    },
+    "documentation": null,
+    "order": null,
+    "payment": null,
+    "self": null,
+    "settlement": null,
   },
   "amount": Object {
-    "currency": "EUR",
-    "value": "5.95",
+    "currency": null,
+    "value": null,
   },
-  "createdAt": "2018-03-14T17:09:02.0Z",
+  "config": Object {
+    "data": undefined,
+    "headers": Object {
+      "Accept": "application/json, text/plain, */*",
+    },
+    "maxContentLength": -1,
+    "method": "delete",
+    "timeout": 0,
+    "transformRequest": Object {
+      "0": [Function],
+    },
+    "transformResponse": Object {
+      "0": [Function],
+    },
+    "url": "payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT",
+    "validateStatus": [Function],
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+  },
+  "createdAt": null,
   "data": Object {
     "_links": Object {
       "documentation": Object {
@@ -163,68 +117,13 @@ Refund {
     "resource": "refund",
     "status": "pending",
   },
-  "description": "Order",
-  "id": "re_4qqhO89gsT",
-  "paymentId": "tr_WDqYK6vllg",
+  "description": null,
+  "headers": undefined,
+  "id": null,
+  "paymentId": null,
   "resource": "refund",
   "settlementAmount": null,
-  "status": "pending",
-}
-`;
-
-exports[`payments_refunds .cancel() should work with a callback and legacy delete 1`] = `
-Refund {
-  "_links": Object {
-    "documentation": Object {
-      "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
-      "type": "text/html",
-    },
-    "payment": Object {
-      "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg",
-      "type": "application/hal+json",
-    },
-    "self": Object {
-      "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT",
-      "type": "application/hal+json",
-    },
-  },
-  "amount": Object {
-    "currency": "EUR",
-    "value": "5.95",
-  },
-  "createdAt": "2018-03-14T17:09:02.0Z",
-  "data": Object {
-    "_links": Object {
-      "documentation": Object {
-        "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
-        "type": "text/html",
-      },
-      "payment": Object {
-        "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg",
-        "type": "application/hal+json",
-      },
-      "self": Object {
-        "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT",
-        "type": "application/hal+json",
-      },
-    },
-    "amount": Object {
-      "currency": "EUR",
-      "value": "5.95",
-    },
-    "createdAt": "2018-03-14T17:09:02.0Z",
-    "description": "Order",
-    "id": "re_4qqhO89gsT",
-    "paymentId": "tr_WDqYK6vllg",
-    "resource": "refund",
-    "status": "pending",
-  },
-  "description": "Order",
-  "id": "re_4qqhO89gsT",
-  "paymentId": "tr_WDqYK6vllg",
-  "resource": "refund",
-  "settlementAmount": null,
-  "status": "pending",
+  "status": 200,
 }
 `;
 
@@ -343,24 +242,37 @@ Refund {
 exports[`payments_refunds .get() should return a refund instance 1`] = `
 Refund {
   "_links": Object {
-    "documentation": Object {
-      "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
-      "type": "text/html",
-    },
-    "payment": Object {
-      "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg",
-      "type": "application/hal+json",
-    },
-    "self": Object {
-      "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT",
-      "type": "application/hal+json",
-    },
+    "documentation": null,
+    "order": null,
+    "payment": null,
+    "self": null,
+    "settlement": null,
   },
   "amount": Object {
-    "currency": "EUR",
-    "value": "5.95",
+    "currency": null,
+    "value": null,
   },
-  "createdAt": "2018-03-14T17:09:02.0Z",
+  "config": Object {
+    "data": undefined,
+    "headers": Object {
+      "Accept": "application/json, text/plain, */*",
+    },
+    "maxContentLength": -1,
+    "method": "get",
+    "params": Object {},
+    "timeout": 0,
+    "transformRequest": Object {
+      "0": [Function],
+    },
+    "transformResponse": Object {
+      "0": [Function],
+    },
+    "url": "payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT",
+    "validateStatus": [Function],
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+  },
+  "createdAt": null,
   "data": Object {
     "_links": Object {
       "documentation": Object {
@@ -387,11 +299,12 @@ Refund {
     "resource": "refund",
     "status": "pending",
   },
-  "description": "Order",
-  "id": "re_4qqhO89gsT",
-  "paymentId": "tr_WDqYK6vllg",
+  "description": null,
+  "headers": undefined,
+  "id": null,
+  "paymentId": null,
   "resource": "refund",
   "settlementAmount": null,
-  "status": "pending",
+  "status": 200,
 }
 `;

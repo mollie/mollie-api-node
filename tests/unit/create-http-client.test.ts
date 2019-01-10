@@ -1,7 +1,7 @@
 import createHttpClient from '../../src/create-http-client';
 
 describe('create-http-client', () => {
-  const httpClient = createHttpClient();
+  const httpClient = createHttpClient({ apiKey: 'test' });
 
   it('should have a secure baseURL set', () => {
     expect(httpClient.defaults.baseURL).toBe('https://api.mollie.com:443/v2/');

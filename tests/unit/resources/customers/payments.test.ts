@@ -2,7 +2,7 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import CustomersPayments from '../../../../src/resources/customers/payments';
-import Payment from '../../../../src/models/payment';
+import Payment from '../../../../src/models/Payment';
 
 import response from '../../__stubs__/customers_payments.json';
 
@@ -20,14 +20,15 @@ const props = {
 };
 
 describe('customers_payments', () => {
-  let customersPayments;
+  let customersPayments: CustomersPayments;
   beforeEach(() => {
     customersPayments = new CustomersPayments(axios.create());
   });
 
   it('should have a resource name and model', () => {
-    expect(CustomersPayments.resource).toBe('customers_payments');
-    expect(CustomersPayments.model).toBe(Payment);
+    const payment = new CustomersPayments(null);
+    expect(payment.resource).toBe('customers_payments');
+    expect(payment.model).toBe(Payment);
   });
 
   describe('.create()', () => {
@@ -73,14 +74,18 @@ describe('customers_payments', () => {
       .reply(200, response._embedded.payments[0]);
     mock.onGet(`/customers/${props.customerId}/payments/foo`).reply(500, error);
 
-    it('should return a payment instance', () =>
-      customersPayments.get(props.id, props).then(result => {
-        expect(result).toBeInstanceOf(Payment);
-        expect(result).toMatchSnapshot();
-      }));
+    it('should return a payment instance', done =>
+      customersPayments.get(props.id, { customerId: props.customerId })
+        .then(result => {
+          expect(result).toBeInstanceOf(Payment);
+          expect(result).toMatchSnapshot();
+          done();
+        })
+        .catch(err => expect(err).toBeUndefined())
+    );
 
     it('should work with a callback', done => {
-      customersPayments.get(props.id, props, (err, result) => {
+      customersPayments.get(props.id, { customerId: props.customerId }, (err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Payment);
         expect(result).toMatchSnapshot();
@@ -103,24 +108,28 @@ describe('customers_payments', () => {
     });
   });
 
-  describe('.all()', () => {
+  describe('.list()', () => {
     mock.onGet(`/customers/${props.customerId}/payments`).reply(200, response);
 
-    it('should return a list of all customer payments', () =>
-      customersPayments.all({ customerId: props.customerId }).then(result => {
-        expect(result).toBeInstanceOf(Array);
-        expect(result).toHaveProperty('links');
-        expect(result).toMatchSnapshot();
-      }));
+    it('should return a list of all customer payments', done =>
+      customersPayments.list({ customerId: props.customerId })
+        .then(result => {
+          expect(result).toBeInstanceOf(Array);
+          expect(result).toHaveProperty('links');
+          expect(result).toMatchSnapshot();
+          done();
+        })
+        .catch(err => expect(err).toBeUndefined())
+    );
 
     it('should throw an error if "customerId" is not set', () => {
-      const getPayments = () => customersPayments.all();
+      const getPayments = () => customersPayments.list();
 
       expect(getPayments).toThrowError(TypeError);
     });
 
     it('should work with a callback', done => {
-      customersPayments.all(props, (err, result) => {
+      customersPayments.list(props, (err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Array);
         expect(result).toHaveProperty('links');
@@ -135,7 +144,7 @@ describe('customers_payments', () => {
           resource: 'customer',
           id: props.customerId,
         })
-        .all()
+        .list()
         .then(result => {
           expect(result).toBeInstanceOf(Array);
           expect(result).toHaveProperty('links');

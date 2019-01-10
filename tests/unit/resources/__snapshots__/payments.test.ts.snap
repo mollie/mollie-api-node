@@ -17,19 +17,7 @@ Array [
       "currency": "GBP",
       "value": "75.00",
     },
-    "amountRefunded": null,
-    "amountRemaining": null,
-    "applicationFee": Object {
-      "amount": Object {
-        "currency": null,
-        "value": null,
-      },
-      "description": null,
-    },
-    "canceledAt": null,
-    "countryCode": null,
     "createdAt": "2018-02-12T11:58:35.0Z",
-    "customerId": null,
     "data": Object {
       "_links": Object {
         "checkout": Object {
@@ -61,26 +49,16 @@ Array [
     },
     "description": "test",
     "details": null,
-    "expiredAt": null,
     "expiresAt": "2018-02-12T12:13:35.0Z",
-    "failedAt": null,
     "id": "tr_7UhSN1zuXS",
     "isCancelable": false,
-    "locale": null,
-    "mandateId": null,
     "metadata": null,
     "method": "ideal",
     "mode": "test",
-    "paidAt": null,
     "profileId": "pfl_QkEhN94Ba",
     "redirectUrl": "https://webshop.example.org/order/12345/",
     "resource": "payment",
-    "sequenceType": null,
-    "settlementAmount": null,
-    "settlementId": null,
     "status": "open",
-    "subscriptionId": null,
-    "webhookUrl": null,
   },
 ]
 `;
@@ -102,19 +80,7 @@ Array [
       "currency": "GBP",
       "value": "75.00",
     },
-    "amountRefunded": null,
-    "amountRemaining": null,
-    "applicationFee": Object {
-      "amount": Object {
-        "currency": null,
-        "value": null,
-      },
-      "description": null,
-    },
-    "canceledAt": null,
-    "countryCode": null,
     "createdAt": "2018-02-12T11:58:35.0Z",
-    "customerId": null,
     "data": Object {
       "_links": Object {
         "checkout": Object {
@@ -146,26 +112,16 @@ Array [
     },
     "description": "test",
     "details": null,
-    "expiredAt": null,
     "expiresAt": "2018-02-12T12:13:35.0Z",
-    "failedAt": null,
     "id": "tr_7UhSN1zuXS",
     "isCancelable": false,
-    "locale": null,
-    "mandateId": null,
     "metadata": null,
     "method": "ideal",
     "mode": "test",
-    "paidAt": null,
     "profileId": "pfl_QkEhN94Ba",
     "redirectUrl": "https://webshop.example.org/order/12345/",
     "resource": "payment",
-    "sequenceType": null,
-    "settlementAmount": null,
-    "settlementId": null,
     "status": "open",
-    "subscriptionId": null,
-    "webhookUrl": null,
   },
 ]
 `;
@@ -186,19 +142,7 @@ Payment {
     "currency": "GBP",
     "value": "75.00",
   },
-  "amountRefunded": null,
-  "amountRemaining": null,
-  "applicationFee": Object {
-    "amount": Object {
-      "currency": null,
-      "value": null,
-    },
-    "description": null,
-  },
-  "canceledAt": null,
-  "countryCode": null,
   "createdAt": "2018-02-12T11:58:35.0Z",
-  "customerId": null,
   "data": Object {
     "_links": Object {
       "checkout": Object {
@@ -230,26 +174,16 @@ Payment {
   },
   "description": "test",
   "details": null,
-  "expiredAt": null,
   "expiresAt": "2018-02-12T12:13:35.0Z",
-  "failedAt": null,
   "id": "tr_7UhSN1zuXS",
   "isCancelable": false,
-  "locale": null,
-  "mandateId": null,
   "metadata": null,
   "method": "ideal",
   "mode": "test",
-  "paidAt": null,
   "profileId": "pfl_QkEhN94Ba",
   "redirectUrl": "https://webshop.example.org/order/12345/",
   "resource": "payment",
-  "sequenceType": null,
-  "settlementAmount": null,
-  "settlementId": null,
   "status": "open",
-  "subscriptionId": null,
-  "webhookUrl": null,
 }
 `;
 
@@ -269,19 +203,7 @@ Payment {
     "currency": "GBP",
     "value": "75.00",
   },
-  "amountRefunded": null,
-  "amountRemaining": null,
-  "applicationFee": Object {
-    "amount": Object {
-      "currency": null,
-      "value": null,
-    },
-    "description": null,
-  },
-  "canceledAt": null,
-  "countryCode": null,
   "createdAt": "2018-02-12T11:58:35.0Z",
-  "customerId": null,
   "data": Object {
     "_links": Object {
       "checkout": Object {
@@ -313,58 +235,41 @@ Payment {
   },
   "description": "test",
   "details": null,
-  "expiredAt": null,
   "expiresAt": "2018-02-12T12:13:35.0Z",
-  "failedAt": null,
   "id": "tr_7UhSN1zuXS",
   "isCancelable": false,
-  "locale": null,
-  "mandateId": null,
   "metadata": null,
   "method": "ideal",
   "mode": "test",
-  "paidAt": null,
   "profileId": "pfl_QkEhN94Ba",
   "redirectUrl": "https://webshop.example.org/order/12345/",
   "resource": "payment",
-  "sequenceType": null,
-  "settlementAmount": null,
-  "settlementId": null,
   "status": "open",
-  "subscriptionId": null,
-  "webhookUrl": null,
 }
 `;
 
 exports[`payments .get() should return a payment instance 1`] = `
 Payment {
-  "_links": Object {
-    "checkout": Object {
-      "href": "https://www.mollie.com/paymentscreen/issuer/select/ideal/7UhSN1zuXS",
-      "type": "text/html",
+  "config": Object {
+    "data": undefined,
+    "headers": Object {
+      "Accept": "application/json, text/plain, */*",
     },
-    "self": Object {
-      "href": "https://api.mollie.com/v2/payments/tr_7UhSN1zuXS",
-      "type": "application/hal+json",
+    "maxContentLength": -1,
+    "method": "get",
+    "params": undefined,
+    "timeout": 0,
+    "transformRequest": Object {
+      "0": [Function],
     },
-  },
-  "amount": Object {
-    "currency": "GBP",
-    "value": "75.00",
-  },
-  "amountRefunded": null,
-  "amountRemaining": null,
-  "applicationFee": Object {
-    "amount": Object {
-      "currency": null,
-      "value": null,
+    "transformResponse": Object {
+      "0": [Function],
     },
-    "description": null,
+    "url": "payments/tr_nBeryjMVjr",
+    "validateStatus": [Function],
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
   },
-  "canceledAt": null,
-  "countryCode": null,
-  "createdAt": "2018-02-12T11:58:35.0Z",
-  "customerId": null,
   "data": Object {
     "_links": Object {
       "checkout": Object {
@@ -394,60 +299,33 @@ Payment {
     "resource": "payment",
     "status": "open",
   },
-  "description": "test",
-  "details": null,
-  "expiredAt": null,
-  "expiresAt": "2018-02-12T12:13:35.0Z",
-  "failedAt": null,
-  "id": "tr_7UhSN1zuXS",
-  "isCancelable": false,
-  "locale": null,
-  "mandateId": null,
-  "metadata": null,
-  "method": "ideal",
-  "mode": "test",
-  "paidAt": null,
-  "profileId": "pfl_QkEhN94Ba",
-  "redirectUrl": "https://webshop.example.org/order/12345/",
-  "resource": "payment",
-  "sequenceType": null,
-  "settlementAmount": null,
-  "settlementId": null,
-  "status": "open",
-  "subscriptionId": null,
-  "webhookUrl": null,
+  "headers": undefined,
+  "status": 200,
 }
 `;
 
 exports[`payments .get() should work with a callback 1`] = `
 Payment {
-  "_links": Object {
-    "checkout": Object {
-      "href": "https://www.mollie.com/paymentscreen/issuer/select/ideal/7UhSN1zuXS",
-      "type": "text/html",
+  "config": Object {
+    "data": undefined,
+    "headers": Object {
+      "Accept": "application/json, text/plain, */*",
     },
-    "self": Object {
-      "href": "https://api.mollie.com/v2/payments/tr_7UhSN1zuXS",
-      "type": "application/hal+json",
+    "maxContentLength": -1,
+    "method": "get",
+    "params": [Function],
+    "timeout": 0,
+    "transformRequest": Object {
+      "0": [Function],
     },
-  },
-  "amount": Object {
-    "currency": "GBP",
-    "value": "75.00",
-  },
-  "amountRefunded": null,
-  "amountRemaining": null,
-  "applicationFee": Object {
-    "amount": Object {
-      "currency": null,
-      "value": null,
+    "transformResponse": Object {
+      "0": [Function],
     },
-    "description": null,
+    "url": "payments/tr_nBeryjMVjr",
+    "validateStatus": [Function],
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
   },
-  "canceledAt": null,
-  "countryCode": null,
-  "createdAt": "2018-02-12T11:58:35.0Z",
-  "customerId": null,
   "data": Object {
     "_links": Object {
       "checkout": Object {
@@ -477,27 +355,7 @@ Payment {
     "resource": "payment",
     "status": "open",
   },
-  "description": "test",
-  "details": null,
-  "expiredAt": null,
-  "expiresAt": "2018-02-12T12:13:35.0Z",
-  "failedAt": null,
-  "id": "tr_7UhSN1zuXS",
-  "isCancelable": false,
-  "locale": null,
-  "mandateId": null,
-  "metadata": null,
-  "method": "ideal",
-  "mode": "test",
-  "paidAt": null,
-  "profileId": "pfl_QkEhN94Ba",
-  "redirectUrl": "https://webshop.example.org/order/12345/",
-  "resource": "payment",
-  "sequenceType": null,
-  "settlementAmount": null,
-  "settlementId": null,
-  "status": "open",
-  "subscriptionId": null,
-  "webhookUrl": null,
+  "headers": undefined,
+  "status": 200,
 }
 `;

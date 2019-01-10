@@ -18,15 +18,11 @@ import {
 
 /**
  * The `customers` resource
- *
- * @static {string} resource
- * @static {Model}  model
- * @static {string} apiName
  */
 export default class CustomersResource extends CustomersBaseResource {
-  public static resource = 'customers';
-  public static model = Customer;
-  public static apiName = 'Customers API';
+  public resource = 'customers';
+  public model = Customer;
+  public apiName = 'Customers API';
 
   // API METHODS
 
@@ -60,14 +56,27 @@ export default class CustomersResource extends CustomersBaseResource {
    * @param params - Retrieve Customer parameters
    * @param cb - Callback function, can be used instead of the returned `Promise` object
    *
-   * @returns
+   * @returns Customer object
    *
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/customers-api/get-customer
    * @public ✓ This method is part of the public API
    */
-  public async get(id: string, params?: IGetParams, cb?: GetCallback): Promise<Customer> {
+  public async get(
+    id: string,
+    params?: IGetParams | GetCallback,
+    cb?: GetCallback,
+  ): Promise<Customer> {
+    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    if (typeof params === 'function' || typeof cb === 'function') {
+      return super.get(
+        id,
+        typeof params === 'function' ? null : params,
+        typeof params === 'function' ? params : cb,
+      ) as Promise<Customer>;
+    }
+
     return super.get(id, params, cb) as Promise<Customer>;
   }
 
@@ -84,7 +93,18 @@ export default class CustomersResource extends CustomersBaseResource {
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
    * @public ✓ This method is part of the public API
    */
-  public async list(params?: IListParams, cb?: ListCallback): Promise<List<Customer>> {
+  public async list(
+    params?: IListParams | ListCallback,
+    cb?: ListCallback,
+  ): Promise<List<Customer>> {
+    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    if (typeof params === 'function' || typeof cb === 'function') {
+      return super.list(
+        typeof params === 'function' ? null : params,
+        typeof params === 'function' ? params : cb,
+      ) as Promise<List<Customer>>;
+    }
+
     return super.list(params, cb) as Promise<List<Customer>>;
   }
 
@@ -120,7 +140,20 @@ export default class CustomersResource extends CustomersBaseResource {
    * @see https://docs.mollie.com/reference/v2/customers-api/delete-customer
    * @public ✓ This method is part of the public API
    */
-  public async delete(id: string, params?: IDeleteParams, cb?: DeleteCallback): Promise<boolean> {
+  public async delete(
+    id: string,
+    params?: IDeleteParams | DeleteCallback,
+    cb?: DeleteCallback,
+  ): Promise<boolean> {
+    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    if (typeof params === 'function' || typeof cb === 'function') {
+      return super.delete(
+        id,
+        typeof params === 'function' ? null : params,
+        typeof params === 'function' ? params : cb,
+      ) as Promise<boolean>;
+    }
+
     // TODO: check return type
     return super.delete(id, params, cb) as Promise<boolean>;
   }
@@ -136,8 +169,8 @@ export default class CustomersResource extends CustomersBaseResource {
    * @public ✓ This method is part of the public API
    * @alias list
    */
-
   all = this.list;
+
   /**
    * Delete a Customer.
    *

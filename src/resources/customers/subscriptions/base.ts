@@ -1,15 +1,23 @@
 import { startsWith } from 'lodash';
 
-import InvalidArgumentException from '../../../exceptions/InvalidArgumentException';
 import Subscription from '../../../models/Subscription';
 import CustomersBaseResource from '../../../resources/customers/base';
-import Resource from '../../../resource';
 
 /**
  * Customers base resource.
  */
 export default class CustomersSubscriptionsBaseResource extends CustomersBaseResource {
+  public resource = 'customers_subscriptions';
   protected subscriptionId: string;
+
+  /**
+   * If the subscription ID is set
+   *
+   * @since 2.0.0
+   */
+  protected hasSubscriptionId(): boolean {
+    return !!this.subscriptionId;
+  }
 
   /**
    * @param subscriptionId - Subscription ID
@@ -18,10 +26,10 @@ export default class CustomersSubscriptionsBaseResource extends CustomersBaseRes
    */
   protected setSubscriptionId(subscriptionId: string) {
     if (!startsWith(subscriptionId, Subscription.resourcePrefix)) {
-      throw new InvalidArgumentException('Invalid Subscription ID given');
+      throw { error: { message: 'The subscription id is invalid' } };
     }
 
-    super.setParentId(subscriptionId);
+    this.subscriptionId = subscriptionId;
   }
 
   /**
@@ -30,8 +38,8 @@ export default class CustomersSubscriptionsBaseResource extends CustomersBaseRes
    * @since 2.0.0
    */
   protected getResourceUrl(): string {
-    if ((this.constructor as typeof Resource).model.resource.indexOf('_') !== -1) {
-      const parts = (this.constructor as typeof Resource).model.resource.split('_');
+    if (this.resource.indexOf('_') !== -1) {
+      const parts = this.resource.split('_');
 
       if (parts.length >= 3) {
         return `${parts[0]}/${this.parentId}/${parts[1]}/${this.subscriptionId}/${parts[2]}`;
@@ -40,6 +48,6 @@ export default class CustomersSubscriptionsBaseResource extends CustomersBaseRes
       return `${parts[0]}/${this.parentId}/${parts[1]}`;
     }
 
-    return (this.constructor as typeof Resource).model.resource;
+    return this.resource;
   }
 }

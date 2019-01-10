@@ -1,28 +1,25 @@
-import { startsWith } from 'lodash';
+import { get, startsWith } from 'lodash';
 
 import PaymentsBaseResource from '../../resources/payments/base';
 import ApiException from '../../exceptions/ApiException';
 import Capture from '../../models/Capture';
 import List from '../../models/List';
-import InvalidArgumentException from '../../exceptions/InvalidArgumentException';
 import Payment from '../../models/Payment';
 import { IGetParams, IListParams } from '../../types/payment/capture/params';
 import { GetCallback, ListCallback } from '../../types/payment/capture/callback';
+import Resource from '../../resource';
 
 /**
  * The `payments_captures` resource
  *
- * @static {string} resource
- * @static {Model} model
- *
  * @since 1.1.1
  */
 export default class PaymentsCapturesResource extends PaymentsBaseResource {
-  static resource = 'payments_captures';
-  static model = Capture;
-  static apiName = 'Captures API';
+  public resource = 'payments_captures';
+  public model = Capture;
+  public apiName = 'Captures API';
 
-  // AVAILABLE API METHODS
+  // API METHODS
 
   /**
    * Get a Payment Capture by ID
@@ -39,9 +36,31 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
    * @public ✓ This method is part of the public API
    */
   public async get(id: string, params: IGetParams, cb?: GetCallback): Promise<Capture> {
+    if (!startsWith(id, Capture.resourcePrefix)) {
+      Resource.errorHandler(
+        Resource.errorHandler({ error: { message: 'The capture id is invalid' } }, cb),
+      );
+    }
+
+    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    if (typeof params === 'function' || typeof cb === 'function') {
+      const paymentId = get(params, 'paymentId') || this.parentId;
+      if (!startsWith(paymentId, Payment.resourcePrefix)) {
+        Resource.errorHandler(
+          Resource.errorHandler({ error: { message: 'The payment id is invalid' } }, cb),
+        );
+      }
+
+      return super.get(
+        id,
+        typeof params === 'function' ? null : params,
+        typeof params === 'function' ? params : cb,
+      ) as Promise<Capture>;
+    }
+
     const { paymentId, ...parameters } = params;
     if (!startsWith(id, Payment.resourcePrefix)) {
-      throw new InvalidArgumentException('Invalid Payment ID given');
+      throw { error: { message: 'The payment id is invalid' } };
     }
     this.setParentId(paymentId);
 
@@ -87,43 +106,27 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
    * @deprecated This method is not available
    */
   public async create(): Promise<Capture> {
-    throw new ApiException(
-      `The method "${this.create.name}" does not exist on the "${
-        PaymentsCapturesResource.apiName
-      }"`,
-    );
+    throw new ApiException(`The method "create" does not exist on the "${this.apiName}"`);
   }
 
   /**
    * @deprecated This method is not available
    */
   public async update(): Promise<Capture> {
-    throw new ApiException(
-      `The method "${this.update.name}" does not exist on the "${
-        PaymentsCapturesResource.apiName
-      }"`,
-    );
+    throw new ApiException(`The method "update" does not exist on the "${this.apiName}"`);
   }
 
   /**
    * @deprecated This method is not available
    */
   public async cancel(): Promise<boolean> {
-    throw new ApiException(
-      `The method "${this.cancel.name}" does not exist on the "${
-        PaymentsCapturesResource.apiName
-      }"`,
-    );
+    throw new ApiException(`The method "cancel" does not exist on the "${this.apiName}"`);
   }
 
   /**
    * @deprecated This method is not available
    */
   public async delete(): Promise<boolean> {
-    throw new ApiException(
-      `The method "${this.delete.name}" does not exist on the "${
-        PaymentsCapturesResource.apiName
-      }"`,
-    );
+    throw new ApiException(`The method "delete" does not exist on the "${this.apiName}"`);
   }
 }

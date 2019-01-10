@@ -3,6 +3,8 @@ import { ICapture } from '../types/payment/capture';
 
 /**
  * The `capture` model
+ *
+ * {@link ICapture}
  */
 export default class Capture extends Model implements ICapture {
   public static resourcePrefix = 'cpt_';
@@ -25,7 +27,7 @@ export default class Capture extends Model implements ICapture {
   /**
    * Capture constructor
    *
-   * @public ✓ This method is part of the public API
+   * @public ✓ This constructor is part of the public API
    */
   public constructor(props?: Partial<ICapture>) {
     super(props);

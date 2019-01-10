@@ -1,8 +1,23 @@
 import { ICustomer } from '../customer';
 import { List } from '../list';
 
-export type CreateCallback = (error: any, customer: ICustomer) => void;
-export type GetCallback = (error: any, customer: ICustomer) => void;
-export type UpdateCallback = (error: any, customer: ICustomer) => void;
-export type DeleteCallback = (error: any, success: boolean) => void;
-export type ListCallback = (error: any, customers: List<ICustomer>) => void;
+/**
+ * @deprecated since 2.2.0 - All callbacks will be removed in a future version
+ */
+export type CreateCallback = (error: any, customer?: ICustomer) => void;
+/**
+ * @deprecated since 2.2.0 - All callbacks will be removed in a future version
+ */
+export type GetCallback = (error: any, customer?: ICustomer) => void;
+/**
+ * @deprecated since 2.2.0 - All callbacks will be removed in a future version
+ */
+export type UpdateCallback = (error: any, customer?: ICustomer) => void;
+/**
+ * @deprecated since 2.2.0 - All callbacks will be removed in a future version
+ */
+export type DeleteCallback = (error: any, success?: boolean) => void;
+/**
+ * @deprecated since 2.2.0 - All callbacks will be removed in a future version
+ */
+export type ListCallback = (error: any, customers?: List<ICustomer>) => void;

@@ -9,12 +9,12 @@
  *
  * @see https://docs.mollie.com/reference/v2/orders-api/create-order-refund
  */
-import { IOrderLine } from '../line';
+import { IRequestOrderLine } from '../line';
 
 export interface ICreateParams {
   orderId: string;
 
-  lines: Array<IOrderLine>;
+  lines: Array<IRequestOrderLine>;
   description?: string;
 
   // Access token parameters

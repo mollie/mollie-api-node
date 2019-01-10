@@ -3,8 +3,6 @@ import { OrderStatus } from '../../order';
 
 /**
  * OrderLine Response object.
- *
- * @see
  */
 export interface IOrderLine {
   resource: string;
@@ -33,6 +31,12 @@ export interface IOrderLine {
   _links: ILinks;
   imageUrl: string;
   productUrl: string;
+}
+
+export interface IRequestOrderLine {
+  id: string;
+  quantity?: number;
+  amount?: IAmount;
 }
 
 export type OrderLineType =

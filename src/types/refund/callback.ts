@@ -1,4 +1,7 @@
-import { IRefund } from '../refund';
-import { List as MollieList } from '../list';
+import { List } from '../list';
+import { IRefund } from '../payment/refund';
 
-export type ListCallback = (error: any, refunds: MollieList<IRefund>) => void;
+/**
+ * @deprecated since 2.2.0 - All callbacks will be removed in a future version
+ */
+export type ListCallback = (error: any, refunds?: List<IRefund>) => void;

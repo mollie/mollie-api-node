@@ -3,6 +3,8 @@ import { IMandate, MandateStatus } from '../types/mandate';
 
 /**
  * The `Mandate` model
+ *
+ * {@link IMandate}
  */
 export default class Mandate extends Model implements IMandate {
   public static resourcePrefix = 'mdt_';

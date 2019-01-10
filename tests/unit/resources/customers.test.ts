@@ -2,9 +2,10 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import Customers from '../../../src/resources/customers';
-import Customer from '../../../src/models/customer';
+import Customer from '../../../src/models/Customer';
 
 import response from '../__stubs__/customers.json';
+import CustomersResource from '../../../src/resources/customers';
 
 const mock = new MockAdapter(axios);
 
@@ -15,25 +16,33 @@ const props = {
 };
 
 describe('customers', () => {
-  let customers;
+  let customers: CustomersResource;
   beforeEach(() => {
     customers = new Customers(axios.create());
   });
 
   it('should have a resource name and model', () => {
-    expect(Customers.resource).toBe('customers');
-    expect(Customers.model).toBe(Customer);
+    const customer = new Customers(null);
+    expect(customer.resource).toBe('customers');
+    expect(customer.model).toBe(Customer);
   });
 
   describe('.create()', () => {
     mock.onPost('/customers').reply(200, response._embedded.customers[0]);
 
-    it('should return a customer instance', () =>
-      customers.create(props).then(result => {
-        expect(result).toBeInstanceOf(Customer);
-        expect(result.name).toBe(props.name);
-        expect(result.email).toBe(props.email);
-      }));
+    it('should return a customer instance', done => {
+      customers.create(props)
+        .then(result => {
+          expect(result).toBeInstanceOf(Customer);
+          expect(result.name).toBe(props.name);
+          expect(result.email).toBe(props.email);
+          done();
+        })
+        .catch(error => {
+          expect(error).toBeUndefined();
+          done();
+        });
+    });
 
     it('should work with a callback', done => {
       customers.create(props, (err, result) => {
@@ -52,22 +61,29 @@ describe('customers', () => {
     mock.onGet(`/customers/${props.id}`).reply(200, response._embedded.customers[0]);
     mock.onGet('/customers/foo').reply(500, error);
 
-    it('should return a customer instance', () =>
-      customers.get(props.id).then(result => {
-        expect(result).toBeInstanceOf(Customer);
-        expect(result.id).toBe(props.id);
-      }));
+    it('should return a customer instance', done => {
+      customers.get(props.id)
+        .then(result => {
+          expect(result).toBeInstanceOf(Customer);
+          expect(result.id).toBe(props.id);
+          done();
+        })
+        .catch(error => {
+          expect(error).toBeUndefined();
+          done();
+        });
+    });
 
     it('should work with a callback', done => {
-      customers.get(props.id, (err, result) => {
+      customers.get(props.id, (err, customer) => {
         expect(err).toBeNull();
-        expect(result).toBeInstanceOf(Customer);
-        expect(result.id).toBe(props.id);
+        expect(customer).toBeInstanceOf(Customer);
+        expect(customer.id).toBe(props.id);
         done();
       });
     });
 
-    it('should return an error for non-existing IDs', () =>
+    it('should return an error for non-existing IDs', () => {
       customers
         .get('foo')
         .then(() => {
@@ -75,7 +91,8 @@ describe('customers', () => {
         })
         .catch(err => {
           expect(err).toEqual(error);
-        }));
+        });
+    });
 
     it('should return an error with a callback for non-existing IDs', done => {
       customers.get('foo', (err, result) => {
@@ -92,11 +109,18 @@ describe('customers', () => {
     mock.onPost(`/customers/${props.id}`).reply(200, response._embedded.customers[0]);
     mock.onPost('/customers/foo').reply(500, error);
 
-    it('should return a customer instance', () =>
-      customers.update(props.id, props).then(result => {
-        expect(result).toBeInstanceOf(Customer);
-        expect(result).toMatchSnapshot();
-      }));
+    it('should return a customer instance', done => {
+      customers.update(props.id, props)
+        .then(result => {
+          expect(result).toBeInstanceOf(Customer);
+          expect(result).toMatchSnapshot();
+          done();
+        })
+        .catch(err => {
+          expect(err).toBeUndefined();
+          done();
+        });
+    });
 
     it('should work with a callback', done => {
       customers.update(props.id, props, (err, result) => {
@@ -107,7 +131,7 @@ describe('customers', () => {
       });
     });
 
-    it('should return an error for non-existing IDs', () =>
+    it('should return an error for non-existing IDs', () => {
       customers
         .update('foo')
         .then(() => {
@@ -115,7 +139,8 @@ describe('customers', () => {
         })
         .catch(err => {
           expect(err).toEqual(error);
-        }));
+        });
+    });
 
     it('should return an error with a callback for non-existing IDs', done => {
       customers.update('foo', (err, result) => {
@@ -126,18 +151,19 @@ describe('customers', () => {
     });
   });
 
-  describe('.all()', () => {
+  describe('.list()', () => {
     mock.onGet('/customers').reply(200, response);
 
-    it('should return a list of all customers', () =>
-      customers.all().then(result => {
+    it('should return a list of all customers', () => {
+      customers.list().then(result => {
         expect(result).toBeInstanceOf(Array);
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
-      }));
+      });
+    });
 
     it('should work with a callback', done => {
-      customers.all((err, result) => {
+      customers.list((err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Array);
         expect(result).toHaveProperty('links');

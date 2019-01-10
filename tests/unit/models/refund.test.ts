@@ -1,8 +1,9 @@
-import PaymentRefund from '../../../src/models/paymentRefund';
+import Refund from '../../../src/models/Refund';
+import { RefundStatus } from '../../../src/types/refund';
 
 describe('refund model', () => {
   it('should instantiate with default values', () => {
-    const refund = new PaymentRefund();
+    const refund = new Refund();
 
     expect(refund.isQueued()).toBe(false);
     expect(refund.isPending()).toBe(false);
@@ -12,33 +13,33 @@ describe('refund model', () => {
   });
 
   it('should instantiate with given values', () => {
-    const refundProps = JSON.parse(`{
-        "resource": "refund",
-        "id": "re_4qqhO89gsT",
-        "amount": {
-            "currency": "EUR",
-            "value": "5.95"
+    const refundProps = {
+      resource: 'refund',
+      id: 're_4qqhO89gsT',
+      amount: {
+        currency: 'EUR',
+        value: '5.95'
+      },
+      status: 'pending' as RefundStatus,
+      createdAt: '2018-03-14T17:09:02.0Z',
+      description: 'Order',
+      paymentId: 'tr_WDqYK6vllg',
+      _links: {
+        self: {
+          href: 'https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT',
+          type: 'application/hal+json'
         },
-        "status": "pending",
-        "createdAt": "2018-03-14T17:09:02.0Z",
-        "description": "Order",
-        "paymentId": "tr_WDqYK6vllg",
-        "_links": {
-            "self": {
-                "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT",
-                "type": "application/hal+json"
-            },
-            "payment": {
-                "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg",
-                "type": "application/hal+json"
-            },
-            "documentation": {
-                "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
-                "type": "text/html"
-            }
+        payment: {
+          href: 'https://api.mollie.com/v2/payments/tr_WDqYK6vllg',
+          type: 'application/hal+json'
+        },
+        documentation: {
+          href: 'https://docs.mollie.com/reference/v2/refunds-api/get-refund',
+          type: 'text/html'
         }
-    }`);
-    const refund = new PaymentRefund(refundProps);
+      }
+    };
+    const refund = new Refund(refundProps);
 
     expect(refund.isQueued()).toBe(false);
     expect(refund.isPending()).toBe(true);

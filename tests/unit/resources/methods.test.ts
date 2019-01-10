@@ -2,7 +2,7 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import Methods from '../../../src/resources/methods';
-import Method from '../../../src/models/method';
+import Method from '../../../src/models/Method';
 
 import response from '../__stubs__/methods.json';
 
@@ -15,8 +15,9 @@ describe('methods', () => {
   });
 
   it('should have a resource name and model', () => {
-    expect(Methods.resource).toBe('methods');
-    expect(Methods.model).toBe(Method);
+    const method = new Methods(null);
+    expect(method.resource).toBe('methods');
+    expect(method.model).toBe(Method);
   });
 
   describe('.get()', () => {

@@ -2,7 +2,7 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import Payments from '../../../src/resources/payments';
-import Payment from '../../../src/models/payment';
+import Payment from '../../../src/models/Payment';
 
 import response from '../__stubs__/payments.json';
 
@@ -28,8 +28,9 @@ describe('payments', () => {
   });
 
   it('should have a resource name and model', () => {
-    expect(Payments.resource).toBe('payments');
-    expect(Payments.model).toBe(Payment);
+    const payment = new Payments(null);
+    expect(payment.resource).toBe('payments');
+    expect(payment.model).toBe(Payment);
   });
 
   describe('.create()', () => {

@@ -3,10 +3,11 @@ import { IChargeback } from '../types/chargeback';
 
 /**
  * The `Chargeback` model
+ *
+ * {@link IChargeback}
  */
 export default class Chargeback extends Model implements IChargeback {
   public static resourcePrefix = 'chb_';
-
   public resource = 'chargeback';
   public id = null;
   public amount = null;

@@ -3,6 +3,8 @@ import { IOrderLine } from '../types/order/line';
 
 /**
  * The `orderline` model
+ *
+ * {@link IOrderLine}
  */
 export default class OrderLine extends Model implements IOrderLine {
   public static resourcePrefix = 'odl_';

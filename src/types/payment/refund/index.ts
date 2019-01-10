@@ -43,7 +43,7 @@ import { IOrderLine } from '../../order/line';
  *
  * @see https://docs.mollie.com/reference/v2/refunds-api/get-refund
  */
-export interface IPaymentRefund {
+export interface IRefund {
   resource: string;
   id: string;
   amount: IAmount;
@@ -66,6 +66,6 @@ export interface IPaymentRefund {
  */
 export interface IPaymentRefundLinks extends ILinks {
   payment: IUrl;
-  settlement: IUrl;
-  order: IUrl;
+  settlement?: IUrl;
+  order?: IUrl;
 }

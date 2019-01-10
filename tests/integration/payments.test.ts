@@ -3,7 +3,7 @@ import httpAdapter from 'axios/lib/adapters/http';
 import dotenv from 'dotenv';
 
 import mollie from '../../src/mollie';
-import Payment from '../../src/models/payment';
+import Payment from '../../src/models/Payment';
 
 /**
  * Overwrite the default XMLHttpRequestAdapter
@@ -88,19 +88,19 @@ describe('payments', () => {
                     done();
                   })
                   .catch(err => {
-                    expect(err).toBeNull();
+                    expect(err).toBeUndefined();
                     done();
                   });
               });
             })
             .catch(err => {
-              expect(err).toBeNull();
+              expect(err).toBeUndefined();
               done();
             });
         });
       })
       .catch(err => {
-        expect(err).toBeNull();
+        expect(err).toBeUndefined();
         done();
       });
   });
@@ -137,12 +137,12 @@ describe('payments', () => {
             });
           })
           .catch(err => {
-            expect(err).toBeNull();
+            expect(err).toBeUndefined();
             done();
           });
       })
       .catch(err => {
-        expect(err).toBeNull();
+        expect(err).toBeUndefined();
         done();
       });
   });

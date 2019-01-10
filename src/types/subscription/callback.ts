@@ -1,8 +1,23 @@
-import { List as MollieList } from '../list';
+import { List } from '../list';
 import { ISubscription } from '../subscription';
 
-export type CreateCallback = (error: any, subscription: ISubscription) => void;
-export type GetCallback = (error: any, subscription: ISubscription) => void;
-export type ListCallback = (error: any, subscriptions: MollieList<ISubscription>) => void;
-export type UpdateCallback = (error: any, subscription: ISubscription) => void;
-export type CancelCallback = (error: any, success: boolean) => void;
+/**
+ * @deprecated since 2.2.0 - All callbacks will be removed in a future version
+ */
+export type CreateCallback = (error: any, subscription?: ISubscription) => void;
+/**
+ * @deprecated since 2.2.0 - All callbacks will be removed in a future version
+ */
+export type GetCallback = (error: any, subscription?: ISubscription) => void;
+/**
+ * @deprecated since 2.2.0 - All callbacks will be removed in a future version
+ */
+export type ListCallback = (error: any, subscriptions?: List<ISubscription>) => void;
+/**
+ * @deprecated since 2.2.0 - All callbacks will be removed in a future version
+ */
+export type UpdateCallback = (error: any, subscription?: ISubscription) => void;
+/**
+ * @deprecated since 2.2.0 - All callbacks will be removed in a future version
+ */
+export type CancelCallback = (error: any, success?: boolean) => void;

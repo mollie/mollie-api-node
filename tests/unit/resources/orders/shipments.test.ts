@@ -2,7 +2,7 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import OrdersShipments from '../../../../src/resources/orders/shipments';
-import Shipment from '../../../../src/models/shipment';
+import Shipment from '../../../../src/models/Shipment';
 
 import response from '../../__stubs__/shipments.json';
 
@@ -25,8 +25,9 @@ describe('orders_shipments', () => {
   });
 
   it('should have a resource name and model', () => {
-    expect(OrdersShipments.resource).toBe('orders_shipments');
-    expect(OrdersShipments.model).toBe(Shipment);
+    const shipment = new OrdersShipments(null);
+    expect(shipment.resource).toBe('orders_shipments');
+    expect(shipment.model).toBe(Shipment);
   });
 
   describe('.create()', () => {

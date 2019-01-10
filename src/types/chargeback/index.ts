@@ -33,5 +33,5 @@ export interface IChargeback {
  */
 export interface IChargebackLinks extends ILinks {
   payment: IUrl;
-  settlement: IUrl;
+  settlement?: IUrl;
 }
