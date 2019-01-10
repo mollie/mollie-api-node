@@ -5,12 +5,7 @@ import List from '../../models/List';
 import ApiException from '../../exceptions/ApiException';
 import OrdersBaseResource from './base';
 import { ICreateParams, IGetParams, IListParams, IUpdateParams } from '../../types/shipment/params';
-import {
-  CreateCallback,
-  GetCallback,
-  ListCallback,
-  UpdateCallback,
-} from '../../types/shipment/callback';
+import { CreateCallback, GetCallback, ListCallback, UpdateCallback } from '../../types/shipment/callback';
 import Order from '../../models/Order';
 import Resource from '../../resource';
 
@@ -47,10 +42,28 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
    * @public
    */
   public async create(params: ICreateParams, cb?: CreateCallback): Promise<Shipment> {
+    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    if (typeof params === 'function' || typeof cb === 'function') {
+      const orderId = get(params, 'orderId') || this.parentId;
+      if (!startsWith(orderId, Order.resourcePrefix)) {
+        Resource.errorHandler(
+          { error: { message: 'The order id  is invalid' } },
+          typeof params === 'function' ? params : cb,
+        );
+      }
+      this.setParentId(orderId);
+
+      return super.create(
+        typeof params === 'function' ? null : params,
+        typeof params === 'function' ? params : cb,
+      ) as Promise<Shipment>;
+    }
+
     const { orderId, ...parameters } = params;
     if (!startsWith(orderId, Order.resourcePrefix)) {
       Resource.errorHandler(
-        Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb),
+        { error: { message: 'The order id is invalid' } },
+        typeof params === 'function' ? params : cb,
       );
     }
     this.setParentId(orderId);
@@ -72,17 +85,37 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
    * @see https://docs.mollie.com/reference/v2/shipments-api/update-shipment
    * @public ✓ This method is part of the public API
    */
-  public async update(id: string, params: IUpdateParams, cb?: UpdateCallback): Promise<Shipment> {
-    const { orderId, ...parameters } = params;
-    if (!startsWith(id, Shipment.resourcePrefix)) {
-      Resource.errorHandler(
-        Resource.errorHandler({ error: { message: 'The shipment id is invalid' } }, cb),
-      );
+  public async update(id: string, params: IUpdateParams | UpdateCallback, cb?: UpdateCallback): Promise<Shipment> {
+    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    if (typeof params === 'function' || typeof cb === 'function') {
+      if (!startsWith(id, Shipment.resourcePrefix)) {
+        Resource.errorHandler(
+          { error: { message: 'The orders_shipments id is invalid' } },
+          typeof params === 'function' ? params : cb,
+        );
+      }
+      const orderId = get(params, 'orderId') || this.parentId;
+      if (!startsWith(orderId, Order.resourcePrefix)) {
+        Resource.errorHandler(
+          { error: { message: 'The order id is invalid' } },
+          typeof params === 'function' ? params : cb,
+        );
+      }
+      this.setParentId(orderId);
+
+      return super.get(
+        id,
+        typeof params === 'function' ? null : params,
+        typeof params === 'function' ? params : cb,
+      ) as Promise<Shipment>;
     }
+
+    if (!startsWith(id, Shipment.resourcePrefix)) {
+      Resource.errorHandler({ error: { message: 'The orders_shipments id is invalid' } });
+    }
+    const { orderId, ...parameters } = params;
     if (!startsWith(orderId, Order.resourcePrefix)) {
-      Resource.errorHandler(
-        Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb),
-      );
+      Resource.errorHandler({ error: { message: 'The order id is invalid' } });
     }
     this.setParentId(orderId);
 
@@ -106,12 +139,17 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
   public async get(id: string, params?: IGetParams, cb?: GetCallback): Promise<Shipment> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
+      if (!startsWith(id, Shipment.resourcePrefix)) {
+        Resource.errorHandler(Resource.errorHandler({ error: { message: 'The orders_shipments id is invalid' } }, cb));
+      }
       const orderId = get(params, 'orderId') || this.parentId;
       if (!startsWith(orderId, Order.resourcePrefix)) {
         Resource.errorHandler(
-          Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb),
+          { error: { message: 'The order id is invalid' } },
+          typeof params === 'function' ? params : cb,
         );
       }
+      this.setParentId(orderId);
 
       return super.get(
         id,
@@ -120,11 +158,12 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
       ) as Promise<Shipment>;
     }
 
+    if (!startsWith(id, Shipment.resourcePrefix)) {
+      Resource.errorHandler(Resource.errorHandler({ error: { message: 'The orders_shipments id is invalid' } }, cb));
+    }
     const { orderId, ...parameters } = params;
     if (!startsWith(orderId, Order.resourcePrefix)) {
-      Resource.errorHandler(
-        Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb),
-      );
+      Resource.errorHandler({ error: { message: 'The order id is invalid' } });
     }
     this.setParentId(orderId);
 
@@ -148,13 +187,26 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
     const { orderId, ...parameters } = params;
     if (!startsWith(orderId, Order.resourcePrefix)) {
       Resource.errorHandler(
-        Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb),
+        { error: { message: 'The order id is invalid' } },
+        typeof params === 'function' ? params : cb,
       );
     }
     this.setParentId(orderId);
 
     return super.list(parameters, cb) as Promise<List<Shipment>>;
   }
+
+  // ALIASES
+
+  /**
+   * List order shipments
+   *
+   * @since 2.2.0
+   *
+   * @see https://docs.mollie.com/reference/v2/shipments-api/list-shipments
+   * @public
+   */
+  all = this.list;
 
   // NOT AVAILABLE
 
