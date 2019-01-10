@@ -28,49 +28,6 @@ describe('refunds', () => {
     expect(refund.model).toBe(PaymentRefund);
   });
 
-  // FIXME: create no longer exists on the /refunds endpoint (payment/order refunds instead)?
-  // describe('.create()', () => {
-  //   mock.onPost('/refunds', props).reply(200, response._embedded.refunds[0]);
-  //
-  //   it('should return a refund instance', () =>
-  //     refunds.create(props).then(result => {
-  //       expect(result).toBeInstanceOf(PaymentRefund);
-  //       expect(result).toMatchSnapshot();
-  //     }));
-  //
-  //   it('should work with a callback', done => {
-  //     refunds.create(props, (err, result) => {
-  //       expect(result).toBeInstanceOf(PaymentRefund);
-  //       expect(result).toMatchSnapshot();
-  //       done();
-  //     });
-  //   });
-  // });
-
-  // FIXME: get no longer exists on the /refunds endpoint?
-  // describe('.get()', () => {
-  //   const error = { error: { message: 'The refund id is invalid' } };
-  //
-  //   mock.onGet(`/refunds/${props.id}`).reply(200, response._embedded.refunds[0]);
-  //   mock.onGet('/refunds/foo').reply(500, error);
-  //
-  //   it('should return a refund instance', () =>
-  //     refunds.get(props.id).then(result => {
-  //       expect(result).toBeInstanceOf(PaymentRefund);
-  //       expect(result).toMatchSnapshot();
-  //     }));
-  //
-  //   it('should return an error for non-existing IDs', () =>
-  //     refunds
-  //       .get('foo')
-  //       .then(() => {
-  //         throw new Error('Should reject');
-  //       })
-  //       .catch(err => {
-  //         expect(err).toEqual(error);
-  //       }));
-  // });
-
   describe('.all()', () => {
     mock.onGet(`/refunds`).reply(200, response);
 
