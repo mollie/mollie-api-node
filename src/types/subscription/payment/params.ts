@@ -4,7 +4,8 @@
  * @param customerId - Corresponding Customer ID
  * @param subscriptionId - Corresponding Subscription ID
  *
- * @param from - Offset the result set to the payment with this ID. The payment with this ID is included in the result set as well.
+ * @param from - Offset the result set to the payment with this ID. The payment with this ID is included in the result
+ *               set as well.
  * @param limit - The number of payments to return (with a maximum of 250).
  *
  * @param testmode - Set this to `true` to retrieve test mode payments.

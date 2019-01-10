@@ -2,8 +2,10 @@
  * Create Order Refund parameters.
  *
  * @param orderId - Corresponding Order ID
- * @param lines - An array of objects containing the order line details you want to create a refund for. If you send an empty array, the entire order will be refunded.
- * @param description - The description of the refund you are creating. This will be shown to the consumer on their card or bank statement when possible. Max. 140 characters.
+ * @param lines - An array of objects containing the order line details you want to create a refund for. If you send an
+ *                empty array, the entire order will be refunded.
+ * @param description - The description of the refund you are creating. This will be shown to the consumer on their card
+ *                      or bank statement when possible. Max. 140 characters.
  *
  * @param testmode - Set this to `true` to create a test mode order refund.
  *

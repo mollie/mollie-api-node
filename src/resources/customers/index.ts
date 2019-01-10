@@ -1,13 +1,7 @@
 import CustomersBaseResource from './base';
 import Customer from '../../models/Customer';
 import List from '../../models/List';
-import {
-  ICreateParams,
-  IDeleteParams,
-  IGetParams,
-  IListParams,
-  IUpdateParams,
-} from '../../types/customer/params';
+import { ICreateParams, IDeleteParams, IGetParams, IListParams, IUpdateParams } from '../../types/customer/params';
 import {
   CreateCallback,
   DeleteCallback,
@@ -63,11 +57,7 @@ export default class CustomersResource extends CustomersBaseResource {
    * @see https://docs.mollie.com/reference/v2/customers-api/get-customer
    * @public ✓ This method is part of the public API
    */
-  public async get(
-    id: string,
-    params?: IGetParams | GetCallback,
-    cb?: GetCallback,
-  ): Promise<Customer> {
+  public async get(id: string, params?: IGetParams | GetCallback, cb?: GetCallback): Promise<Customer> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       return super.get(
@@ -93,10 +83,7 @@ export default class CustomersResource extends CustomersBaseResource {
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
    * @public ✓ This method is part of the public API
    */
-  public async list(
-    params?: IListParams | ListCallback,
-    cb?: ListCallback,
-  ): Promise<List<Customer>> {
+  public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Customer>> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       return super.list(
@@ -140,11 +127,7 @@ export default class CustomersResource extends CustomersBaseResource {
    * @see https://docs.mollie.com/reference/v2/customers-api/delete-customer
    * @public ✓ This method is part of the public API
    */
-  public async delete(
-    id: string,
-    params?: IDeleteParams | DeleteCallback,
-    cb?: DeleteCallback,
-  ): Promise<boolean> {
+  public async delete(id: string, params?: IDeleteParams | DeleteCallback, cb?: DeleteCallback): Promise<boolean> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       return super.delete(

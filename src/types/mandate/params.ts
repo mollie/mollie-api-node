@@ -49,10 +49,12 @@ export interface IGetParams {
  * List Mandate parameters
  *
  * @param customerId - Corresponding Customer ID
- * @param from - Offset the result set to the mandate with this ID. The mandate with this ID is included in the result set as well.
+ * @param from - Offset the result set to the mandate with this ID. The mandate with this ID is included in the result
+ *               set as well.
  * @param limit - The number of mandates to return (with a maximum of 250).
  *
- * @param testmode - Set this to true to only retrieve mandates made in test mode. By default, only live mandates are returned.
+ * @param testmode - Set this to true to only retrieve mandates made in test mode. By default, only live mandates
+ *                   are returned.
  *
  * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
  */

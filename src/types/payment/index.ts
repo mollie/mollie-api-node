@@ -205,10 +205,13 @@ export type IDetails =
  * Bancontact details
  *
  * @param cardNumber - Only available if the payment is completed - The last four digits of the card number.
- * @param cardFingerprint - Only available if the payment is completed - Unique alphanumeric representation of card, usable for identifying returning customers.
- * @param qrCode - Only available if requested during payment creation - The QR code that can be scanned by the mobile Bancontact application. This enables the desktop to mobile feature.
+ * @param cardFingerprint - Only available if the payment is completed - Unique alphanumeric representation of card,
+ *                          usable for identifying returning customers.
+ * @param qrCode - Only available if requested during payment creation - The QR code that can be scanned by the mobile
+ *                 Bancontact application. This enables the desktop to mobile feature.
  * @param consumerName - Only available if the payment is completed – The consumer’s name.
- * @param consumerAccount - Only available if the payment is completed – The consumer’s bank account. This may be an IBAN, or it may be a domestic account number.
+ * @param consumerAccount - Only available if the payment is completed – The consumer’s bank account. This may be an
+ *                          IBAN, or it may be a domestic account number.
  * @param consumerBic - Only available if the payment is completed – The consumer’s bank’s BIC / SWIFT code.
  */
 export interface IBancontactDetails {
@@ -241,11 +244,14 @@ export interface IBankTransferLinks extends ILinks {
  * @param bankName - The name of the bank the consumer should wire the amount to.
  * @param bankAccount - The IBAN the consumer should wire the amount to.
  * @param bankBic - The BIC of the bank the consumer should wire the amount to.
- * @param transferReference - The reference the consumer should use when wiring the amount. Note you should not apply any formatting here; show it to the consumer as-is.
+ * @param transferReference - The reference the consumer should use when wiring the amount. Note you should not apply
+ *                            any formatting here; show it to the consumer as-is.
  * @param consumerName - Only available if the payment has been completed – The consumer’s name.
- * @param consumerAccount - Only available if the payment has been completed – The consumer’s bank account. This may be an IBAN, or it may be a domestic account number.
+ * @param consumerAccount - Only available if the payment has been completed – The consumer’s bank account. This may be
+ *                          an IBAN, or it may be a domestic account number.
  * @param consumerBic - Only available if the payment has been completed – The consumer’s bank’s BIC / SWIFT code.
- * @param billingEmail - Only available if filled out in the API or by the consumer – The email address which the consumer asked the payment instructions to be sent to.
+ * @param billingEmail - Only available if filled out in the API or by the consumer – The email address which the
+ *                       consumer asked the payment instructions to be sent to.
  * @param _links - See {@link IBankTransferLinks}
  */
 export interface IBankTransferDetails {
@@ -338,10 +344,14 @@ export interface ICreditCardDetails {
 /**
  * Gift Card Details
  *
- * @param voucherNumber - The voucher number, with the last four digits masked. When multiple gift cards are used, this is the first voucher number. Example: `606436353088147****`.
- * @param giftcards - A list of details of all giftcards that are used for this payment. Each object will contain the following properties.
- * @param remainderAmount - Only available if another payment method was used to pay the remainder amount – The amount that was paid with another payment method for the remainder amount.
- * @param remainderMethod - Only available if another payment method was used to pay the remainder amount – The payment method that was used to pay the remainder amount.
+ * @param voucherNumber - The voucher number, with the last four digits masked. When multiple gift cards are used, this
+ *                        is the first voucher number. Example: `606436353088147****`.
+ * @param giftcards - A list of details of all giftcards that are used for this payment. Each object will contain the
+ *                    following properties.
+ * @param remainderAmount - Only available if another payment method was used to pay the remainder amount – The amount
+ *                          that was paid with another payment method for the remainder amount.
+ * @param remainderMethod - Only available if another payment method was used to pay the remainder amount – The payment
+ *                          method that was used to pay the remainder amount.
  */
 export interface IGiftCardDetails {
   voucherNumber: string;
@@ -421,18 +431,25 @@ export interface IPaysafecardDetails {
  * SEPA Direct Debit details
  *
  * @param transferReference - Transfer reference used by Mollie to identify this payment.
- * @param creditorIdentifier - The creditor identifier indicates who is authorized to execute the payment. In this case, it is a reference to Mollie.
+ * @param creditorIdentifier - The creditor identifier indicates who is authorized to execute the payment. In this case,
+ *                             it is a reference to Mollie.
  * @param consumerName - The consumer’s name.
  * @param consumerAccount - The consumer’s IBAN.
  * @param consumerBic - The consumer’s bank’s BIC.
  * @param dueDate - Estimated date the payment is debited from the consumer’s bank account, in `YYYY-MM-DD` format.
- * @param signatureDate - Only available if the payment has been verified – Date the payment has been signed by the consumer, in `YYYY-MM-DD` format.
- * @param bankReasonCode - Only available if the payment has failed – The official reason why this payment has failed. A detailed description of each reason is available on the website of the European Payments Council.
+ * @param signatureDate - Only available if the payment has been verified – Date the payment has been signed by the
+ *                        consumer, in `YYYY-MM-DD` format.
+ * @param bankReasonCode - Only available if the payment has failed – The official reason why this payment has failed.
+ *                         A detailed description of each reason is available on the website of the European Payments Council.
  * @param bankReason - Only available if the payment has failed – A textual desciption of the failure reason.
- * @param endToEndIdentifier - Only available for batch transactions – The original end-to-end identifier that you’ve specified in your batch.
- * @param mandateReference - Only available for batch transactions – The original mandate reference that you’ve specified in your batch.
- * @param batchReference - Only available for batch transactions – The original batch reference that you’ve specified in your batch.
- * @param fileReference - Only available for batch transactions – The original file reference that you’ve specified in your batch.
+ * @param endToEndIdentifier - Only available for batch transactions – The original end-to-end identifier that you’ve
+ *                             specified in your batch.
+ * @param mandateReference - Only available for batch transactions – The original mandate reference that you’ve
+ *                           specified in your batch.
+ * @param batchReference - Only available for batch transactions – The original batch reference that you’ve
+ *                         specified in your batch.
+ * @param fileReference - Only available for batch transactions – The original file reference that you’ve specified
+ *                        in your batch.
  */
 export interface ISepaDirectDebitDetails {
   transferReference: string;

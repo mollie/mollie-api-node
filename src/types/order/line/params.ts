@@ -1,8 +1,11 @@
 /**
  * Update Order Line parameters
  *
- * This endpoint can be used to update the order line. Only the lines that belong to an order with status `created`, `pending` or `authorized` can be updated.
- * When updating an order line that uses a pay after delivery method such as Klarna Pay later, Klarna may decline the requested changes, resulting in an error response from the Mollie API. The order remains intact, though the requested changes are not persisted.
+ * This endpoint can be used to update the order line. Only the lines that belong to an order with status `created`,
+ * `pending` or `authorized` can be updated.
+ * When updating an order line that uses a pay after delivery method such as Klarna Pay later, Klarna may decline the
+ * requested changes, resulting in an error response from the Mollie API. The order remains intact, though the requested
+ * changes are not persisted.
  *
  * @param orderId - Corresponding Order ID
  * @param name - A description of the order line, for example LEGO 4440 Forest Police Station.

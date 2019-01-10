@@ -50,9 +50,7 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
   public async create(params: ICreateParams, cb?: CreateCallback): Promise<Subscription> {
     const { customerId, ...parameters } = params;
     if (!startsWith(params.customerId, Customer.resourcePrefix)) {
-      Resource.errorHandler(
-        Resource.errorHandler({ error: { message: 'The subscription id is invalid' } }, cb),
-      );
+      Resource.errorHandler(Resource.errorHandler({ error: { message: 'The subscription id is invalid' } }, cb));
     }
     this.setParentId(customerId);
 
@@ -74,18 +72,12 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription
    * @public ✓ This method is part of the public API
    */
-  public async get(
-    id: string,
-    params?: IGetParams | GetCallback,
-    cb?: GetCallback,
-  ): Promise<Subscription> {
+  public async get(id: string, params?: IGetParams | GetCallback, cb?: GetCallback): Promise<Subscription> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        Resource.errorHandler(
-          Resource.errorHandler({ error: { message: 'The subscription id is invalid' } }, cb),
-        );
+        Resource.errorHandler(Resource.errorHandler({ error: { message: 'The subscription id is invalid' } }, cb));
       }
 
       return super.get(
@@ -97,9 +89,7 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
 
     const { customerId, ...parameters } = params;
     if (!startsWith(params.customerId, Customer.resourcePrefix)) {
-      Resource.errorHandler(
-        Resource.errorHandler({ error: { message: 'The subscription id is invalid' } }, cb),
-      );
+      Resource.errorHandler(Resource.errorHandler({ error: { message: 'The subscription id is invalid' } }, cb));
     }
     this.setParentId(customerId);
 
@@ -120,10 +110,7 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions
    * @public ✓ This method is part of the public API
    */
-  public async list(
-    params: IListParams | ListCallback,
-    cb?: ListCallback,
-  ): Promise<List<Subscription>> {
+  public async list(params: IListParams | ListCallback, cb?: ListCallback): Promise<List<Subscription>> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
@@ -160,16 +147,10 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/update-subscription
    * @public ✓ This method is part of the public API
    */
-  public async update(
-    id: string,
-    params: IUpdateParams,
-    cb?: UpdateCallback,
-  ): Promise<Subscription> {
+  public async update(id: string, params: IUpdateParams, cb?: UpdateCallback): Promise<Subscription> {
     const { customerId, ...parameters } = params;
     if (!startsWith(params.customerId, Customer.resourcePrefix)) {
-      Resource.errorHandler(
-        Resource.errorHandler({ error: { message: 'The subscription id is invalid' } }, cb),
-      );
+      Resource.errorHandler(Resource.errorHandler({ error: { message: 'The subscription id is invalid' } }, cb));
     }
     this.setParentId(customerId);
 
@@ -191,18 +172,12 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/cancel-subscription
    * @public ✓ This method is part of the public API
    */
-  public async cancel(
-    id: string,
-    params?: ICancelParams | CancelCallback,
-    cb?: CancelCallback,
-  ): Promise<boolean> {
+  public async cancel(id: string, params?: ICancelParams | CancelCallback, cb?: CancelCallback): Promise<boolean> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        Resource.errorHandler(
-          Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, cb),
-        );
+        Resource.errorHandler(Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, cb));
       }
 
       return super.delete(
@@ -214,9 +189,7 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
 
     const { customerId, ...parameters } = params;
     if (!startsWith(params.customerId, Customer.resourcePrefix)) {
-      Resource.errorHandler(
-        Resource.errorHandler({ error: { message: 'The subscription id is invalid' } }, cb),
-      );
+      Resource.errorHandler(Resource.errorHandler({ error: { message: 'The subscription id is invalid' } }, cb));
     }
     this.setParentId(customerId);
 

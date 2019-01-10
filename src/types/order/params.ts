@@ -76,7 +76,8 @@ export interface ICreateParams {
  *
  * @param testmode - Set this to true to retrieve a test mode order.
  *
- * @param embed - This endpoint also allows for embedding additional information by appending the following values via the `embed` query string parameter.
+ * @param embed - This endpoint also allows for embedding additional information by appending the following values via
+ *                the `embed` query string parameter.
  *
  * @since 2.2.0
  *
@@ -92,7 +93,8 @@ export interface IGetParams {
 /**
  * List Orders parameters.
  *
- * @param from - Offset the result set to the order with this ID. The order with this ID is included in the result set as well.
+ * @param from - Offset the result set to the order with this ID. The order with this ID is included in the result set
+ *               as well.
  * @param limit - The number of orders to return (with a maximum of 250).
  *
  * @param profileId - The website profile’s unique identifier, for example `pfl_3RkSN1zuPE`.
@@ -115,7 +117,7 @@ export interface IListParams {
  * Update Order parameters.
  *
  * @param billingAddress - The billing person and address for the order.
- *                         See {@link https://docs.mollie.com/reference/v2/orders-api/create-order#order-address-details | Order address details} for the exact fields needed.
+ *                         See {@link https://docs.mollie.com/reference/v2/orders-api/create-order#order-address-details Order address details} for the exact fields needed.
  * @param shippingAddress - The shipping address for the order.
  *                          See {@link https://docs.mollie.com/reference/v2/orders-api/create-order#order-address-details Order address details}
  *                          for the exact fields needed.

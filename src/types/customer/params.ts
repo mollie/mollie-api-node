@@ -49,8 +49,11 @@ export interface IGetParams {
  *
  * @param name - The full name of the customer.
  * @param email - The email address of the customer.
- * @param locale - Allows you to preset the language to be used in the hosted payment pages shown to the consumer. When this parameter is not provided, the browser language will be used instead in the payment flow (which is usually more accurate).
- * @param metadata - Provide any data you like, and we will save the data alongside the customer. Whenever you fetch the customer with our API, we’ll also include the metadata. You can use up to 1kB of JSON.
+ * @param locale - Allows you to preset the language to be used in the hosted payment pages shown to the consumer.
+ *                 When this parameter is not provided, the browser language will be used instead in the payment flow
+ *                 (which is usually more accurate).
+ * @param metadata - Provide any data you like, and we will save the data alongside the customer. Whenever you fetch
+ *                   the customer with our API, we’ll also include the metadata. You can use up to 1kB of JSON.
  *
  * @param testmode - Set this to true to update a test mode customer.
  *
@@ -81,7 +84,8 @@ export interface IDeleteParams {
 /**
  * List Customers parameters
  *
- * @param from - Offset the result set to the customer with this ID. The customer with this ID is included in the result set as well.
+ * @param from - Offset the result set to the customer with this ID. The customer with this ID is included in the
+ *               result set as well.
  * @param limit - The number of customers to return (with a maximum of 250).
  *
  * @testmode - Set this to `true` to list test mode customers.

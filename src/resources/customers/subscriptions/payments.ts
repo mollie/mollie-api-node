@@ -36,23 +36,16 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions-payments
    * @public ✓ This method is part of the public API
    */
-  public async list(
-    params?: IListParams | ListCallback,
-    cb?: ListCallback,
-  ): Promise<List<Payment>> {
+  public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Payment>> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       const subscriptionId = get(params, 'subscriptionId') || this.subscriptionId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        Resource.errorHandler(
-          Resource.errorHandler({ error: { message: 'The subscription id is invalid' } }, cb),
-        );
+        Resource.errorHandler(Resource.errorHandler({ error: { message: 'The subscription id is invalid' } }, cb));
       }
       if (!startsWith(subscriptionId, Subscription.resourcePrefix)) {
-        Resource.errorHandler(
-          Resource.errorHandler({ error: { message: 'The subscription id is invalid' } }, cb),
-        );
+        Resource.errorHandler(Resource.errorHandler({ error: { message: 'The subscription id is invalid' } }, cb));
       }
 
       return super.list(

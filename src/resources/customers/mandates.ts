@@ -5,12 +5,7 @@ import List from '../../models/List';
 import Mandate from '../../models/Mandate';
 import ApiException from '../../exceptions/ApiException';
 import { ICreateParams, IGetParams, IListParams, IRevokeParams } from '../../types/mandate/params';
-import {
-  CreateCallback,
-  GetCallback,
-  ListCallback,
-  RevokeCallback,
-} from '../../types/mandate/callback';
+import { CreateCallback, GetCallback, ListCallback, RevokeCallback } from '../../types/mandate/callback';
 import Customer from '../../models/Customer';
 import Resource from '../../resource';
 
@@ -61,18 +56,12 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    * @see https://docs.mollie.com/reference/v2/mandates-api/get-mandate
    * @public ✓ This method is part of the public API
    */
-  public async get(
-    id: string,
-    params?: IGetParams | GetCallback,
-    cb?: GetCallback,
-  ): Promise<Mandate> {
+  public async get(id: string, params?: IGetParams | GetCallback, cb?: GetCallback): Promise<Mandate> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        Resource.errorHandler(
-          Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, cb),
-        );
+        Resource.errorHandler(Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, cb));
       }
 
       return super.get(
@@ -84,9 +73,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
 
     const { customerId, ...parameters } = params;
     if (!startsWith(customerId, Customer.resourcePrefix)) {
-      Resource.errorHandler(
-        Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, cb),
-      );
+      Resource.errorHandler(Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, cb));
     }
 
     this.setParentId(customerId);
@@ -113,9 +100,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        Resource.errorHandler(
-          Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, cb),
-        );
+        Resource.errorHandler(Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, cb));
       }
 
       return super.list(
@@ -126,9 +111,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
 
     const { customerId, ...parameters } = params;
     if (!startsWith(customerId, Customer.resourcePrefix)) {
-      Resource.errorHandler(
-        Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, cb),
-      );
+      Resource.errorHandler(Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, cb));
     }
 
     this.setParentId(customerId);
@@ -151,18 +134,12 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    * @see https://docs.mollie.com/reference/v2/mandates-api/revoke-mandate
    * @public ✓ This method is part of the public API
    */
-  public async revoke(
-    id: string,
-    params?: IRevokeParams | RevokeCallback,
-    cb?: RevokeCallback,
-  ): Promise<boolean> {
+  public async revoke(id: string, params?: IRevokeParams | RevokeCallback, cb?: RevokeCallback): Promise<boolean> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        Resource.errorHandler(
-          Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, cb),
-        );
+        Resource.errorHandler(Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, cb));
       }
 
       return super.delete(
@@ -174,9 +151,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
 
     const { customerId } = params;
     if (!startsWith(customerId, Customer.resourcePrefix)) {
-      Resource.errorHandler(
-        Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, cb),
-      );
+      Resource.errorHandler(Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, cb));
     }
 
     this.setParentId(customerId);

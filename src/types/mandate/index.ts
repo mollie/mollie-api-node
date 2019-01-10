@@ -3,7 +3,7 @@ import { ApiMode, CardLabel, ILinks, IUrl } from '../global';
 /**
  * Mandate Response object
  *
- * @see
+ * @see https://docs.mollie.com/reference/v2/mandates-api/get-mandate
  */
 export interface IMandate {
   resource: string;

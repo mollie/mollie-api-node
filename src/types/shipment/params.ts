@@ -5,8 +5,11 @@ import { IOrderLine } from '../order/line';
  * Create Shipment parameters
  *
  * @param orderId - Corresponding Order ID
- * @param lines - An array of objects containing the order line details you want to create a shipment for. If you send an empty array, the entire order will be shipped. If the order is already partially shipped, any remaining lines will be shipped.
- * @param tracking - An object containing tracking details for the shipment. When sent, the carrier and code parameters become required for this endpoint.
+ * @param lines - An array of objects containing the order line details you want to create a shipment for. If you send
+ *                an empty array, the entire order will be shipped. If the order is already partially shipped,
+ *                any remaining lines will be shipped.
+ * @param tracking - An object containing tracking details for the shipment. When sent, the carrier and code parameters
+ *                   become required for this endpoint.
  *
  * @param testmode - Set this to `true` to make this order a test shipment.
  *

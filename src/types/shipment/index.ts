@@ -10,7 +10,9 @@ import { IOrderLine } from '../order/line';
  * @param createdAt - The shipment’s date and time of creation, in ISO 8601 format.
  * @param tracking - @see {@link IShipmentTracking}
  * @param lines - An array of {@link IOrderLine order line objects} as described in {@link https://docs.mollie.com/reference/v2/shipments-api/get-shipment Get order}.
- *                The lines will show the quantity, discountAmount, vatAmount and totalAmount shipped in this shipment. If the line was partially shipped, these values will be different from the values in response from the Get order API.
+ *                The lines will show the quantity, discountAmount, vatAmount and totalAmount shipped in this shipment.
+ *                If the line was partially shipped, these values will be different from the values in response from the
+ *                Get order API.
  * @param _links - An object with several URL objects relevant to the shipment.
  *
  * @see https://docs.mollie.com/reference/v2/shipments-api/get-shipment
