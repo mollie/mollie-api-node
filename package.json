@@ -26,7 +26,6 @@
   },
   "scripts": {
     "prepublish": "yarn run build",
-    "precommit": "lint-staged",
     "commit": "git-cz",
     "prepush": "yarn test",
     "test": "jest",
@@ -73,6 +72,11 @@
     "tslint": "^5.11.0",
     "tslint-eslint-rules": "^5.4.0",
     "typescript": "^3.1.6"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "lint-staged": {
     "{src,test}/**/*.ts": [
