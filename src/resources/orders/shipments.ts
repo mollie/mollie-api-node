@@ -18,6 +18,15 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
   public resource = 'orders_shipments';
   public model = Shipment;
   public apiName = 'Shipments API';
+  /**
+   * List order shipments
+   *
+   * @since 2.2.0
+   *
+   * @see https://docs.mollie.com/reference/v2/shipments-api/list-shipments
+   * @public
+   */
+  all = this.list;
 
   /**
    * In addition to the
@@ -170,6 +179,8 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
     return super.get(id, parameters) as Promise<Shipment>;
   }
 
+  // ALIASES
+
   /**
    * List order shipments
    *
@@ -213,18 +224,6 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
 
     return super.list(parameters) as Promise<List<Shipment>>;
   }
-
-  // ALIASES
-
-  /**
-   * List order shipments
-   *
-   * @since 2.2.0
-   *
-   * @see https://docs.mollie.com/reference/v2/shipments-api/list-shipments
-   * @public
-   */
-  all = this.list;
 
   // NOT AVAILABLE
 

@@ -18,6 +18,15 @@ export default class OrdersLinesResource extends OrdersResource {
   public apiName = 'Orders API (Order Lines section)';
 
   // API METHODS
+  /**
+   * Cancel an order line by ID or multiple order lines
+   *
+   * @since 2.2.0
+   *
+   * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order-lines
+   * @public ✓ This method is part of the public API
+   */
+  delete = this.cancel;
 
   /**
    * Update order lines
@@ -61,6 +70,8 @@ export default class OrdersLinesResource extends OrdersResource {
 
     return super.update(id, parameters) as Promise<Order>;
   }
+
+  // ALIASES
 
   /**
    * Cancel an order line by ID or multiple order lines
@@ -107,16 +118,4 @@ export default class OrdersLinesResource extends OrdersResource {
     // TODO: check return type
     return super.delete(id, parameters, cb) as Promise<boolean>;
   }
-
-  // ALIASES
-
-  /**
-   * Cancel an order line by ID or multiple order lines
-   *
-   * @since 2.2.0
-   *
-   * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order-lines
-   * @public ✓ This method is part of the public API
-   */
-  delete = this.cancel;
 }

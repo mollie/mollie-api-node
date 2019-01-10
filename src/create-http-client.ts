@@ -3,16 +3,15 @@ import fs from 'fs';
 import https from 'https';
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import qs from 'qs';
-
 // @ts-ignore
 import cert from './cacert.pem';
-
 // @ts-ignore
 import { version } from '../package.json';
 
 export interface MollieRequestConfig extends AxiosRequestConfig {
   apiKey: string;
 }
+
 declare let window: any;
 
 /**

@@ -31,6 +31,24 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
   public apiName = 'Subscriptions API';
 
   // API METHODS
+  /**
+   * Delete a customer subscription.
+   *
+   * @since 1.3.2
+   *
+   * @see https://docs.mollie.com/reference/v2/subscriptions-api/cancel-subscription
+   * @public ✓ This method is part of the public API
+   */
+  delete = this.cancel;
+  /**
+   * List the Customer's Subscriptions.
+   *
+   * @since 1.3.2
+   *
+   * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions
+   * @public ✓ This method is part of the public API
+   */
+  all = this.list;
 
   /**
    * Create a customer subscription.
@@ -145,6 +163,8 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
     return super.list(parameters, cb) as Promise<List<Subscription>>;
   }
 
+  // ALIASES
+
   /**
    * Update a customer's subscription.
    *
@@ -249,26 +269,4 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
     // TODO: check return type
     return super.delete(id, parameters, cb) as Promise<boolean>;
   }
-
-  // ALIASES
-
-  /**
-   * Delete a customer subscription.
-   *
-   * @since 1.3.2
-   *
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/cancel-subscription
-   * @public ✓ This method is part of the public API
-   */
-  delete = this.cancel;
-
-  /**
-   * List the Customer's Subscriptions.
-   *
-   * @since 1.3.2
-   *
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions
-   * @public ✓ This method is part of the public API
-   */
-  all = this.list;
 }

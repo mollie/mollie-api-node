@@ -22,6 +22,26 @@ export default class CustomersResource extends CustomersBaseResource {
   public apiName = 'Customers API';
 
   // API METHODS
+  /**
+   * List Customers.
+   *
+   * @since 2.0.0
+   *
+   * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
+   * @public ✓ This method is part of the public API
+   * @alias list
+   */
+  all = this.list;
+  /**
+   * Delete a Customer.
+   *
+   * @since 2.0.0
+   *
+   * @see https://docs.mollie.com/reference/v2/customers-api/delete-customer
+   * @public ✓ This method is part of the public API
+   * @alias delete
+   */
+  cancel = this.delete;
 
   /**
    * Creates a simple minimal representation of a customer in the Mollie API
@@ -110,6 +130,8 @@ export default class CustomersResource extends CustomersBaseResource {
     return super.list(params, cb) as Promise<List<Customer>>;
   }
 
+  // ALIASES
+
   /**
    * Update a customer
    *
@@ -187,28 +209,4 @@ export default class CustomersResource extends CustomersBaseResource {
     // TODO: check return type
     return super.delete(id, params, cb) as Promise<boolean>;
   }
-
-  // ALIASES
-
-  /**
-   * List Customers.
-   *
-   * @since 2.0.0
-   *
-   * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
-   * @public ✓ This method is part of the public API
-   * @alias list
-   */
-  all = this.list;
-
-  /**
-   * Delete a Customer.
-   *
-   * @since 2.0.0
-   *
-   * @see https://docs.mollie.com/reference/v2/customers-api/delete-customer
-   * @public ✓ This method is part of the public API
-   * @alias delete
-   */
-  cancel = this.delete;
 }

@@ -17,6 +17,17 @@ export default class ChargebacksResource extends Resource {
   public apiName = 'Chargebacks API';
 
   // API METHODS
+  /**
+   * List chargebacks
+   *
+   * @since 2.0.0
+   *
+   * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
+   * @public ✓ This method is part of the public API
+   */
+  all = this.list;
+
+  // ALIASES
 
   /**
    * List chargebacks
@@ -43,18 +54,6 @@ export default class ChargebacksResource extends Resource {
 
     return super.list(params, cb) as Promise<List<Chargeback>>;
   }
-
-  // ALIASES
-
-  /**
-   * List chargebacks
-   *
-   * @since 2.0.0
-   *
-   * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
-   * @public ✓ This method is part of the public API
-   */
-  all = this.list;
 
   // UNAVAILABLE
 

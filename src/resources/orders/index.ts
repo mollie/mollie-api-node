@@ -5,8 +5,6 @@ import Order from '../../models/Order';
 import List from '../../models/List';
 import { ICancelParams, ICreateParams, IGetParams, IListParams, IUpdateParams } from '../../types/order/params';
 import { CancelCallback, CreateCallback, GetCallback, ListCallback, UpdateCallback } from '../../types/order/callback';
-import Customer from '../../models/Customer';
-import Payment from '../../models/Payment';
 
 /**
  * The `orders` resource
@@ -19,6 +17,26 @@ export default class Orders extends Resource {
   public apiName = 'Orders API';
 
   // API METHODS
+  /**
+   * Cancel an Order.
+   *
+   * @since 2.2.0
+   *
+   * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order
+   * @public ✓ This method is part of the public API
+   * @alias cancel
+   */
+  delete = this.cancel;
+  /**
+   * List Orders.
+   *
+   * @since 2.2.0
+   *
+   * @see https://docs.mollie.com/reference/v2/orders-api/list-orders
+   * @public ✓ This method is part of the public API
+   * @alias list
+   */
+  all = this.list;
 
   /**
    * Using the Orders API is the preferred approach when integrating
@@ -116,6 +134,8 @@ export default class Orders extends Resource {
     return super.list(params) as Promise<List<Order>>;
   }
 
+  // ALIASES
+
   /**
    * Update an Order.
    *
@@ -186,28 +206,4 @@ export default class Orders extends Resource {
 
     return super.delete(id, params) as Promise<Order>;
   }
-
-  // ALIASES
-
-  /**
-   * Cancel an Order.
-   *
-   * @since 2.2.0
-   *
-   * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order
-   * @public ✓ This method is part of the public API
-   * @alias cancel
-   */
-  delete = this.cancel;
-
-  /**
-   * List Orders.
-   *
-   * @since 2.2.0
-   *
-   * @see https://docs.mollie.com/reference/v2/orders-api/list-orders
-   * @public ✓ This method is part of the public API
-   * @alias list
-   */
-  all = this.list;
 }

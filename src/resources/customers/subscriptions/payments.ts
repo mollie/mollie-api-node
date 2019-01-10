@@ -21,6 +21,17 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
   public apiName = 'Subscriptions API (Payments section)';
 
   // API METHODS
+  /**
+   * Get all customer's subscriptions.
+   *
+   * @since 2.2.0
+   *
+   * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions-payments
+   * @public ✓ This method is part of the public API
+   */
+  all = this.list;
+
+  // ALIASES
 
   /**
    * Get all customer's subscriptions.
@@ -74,18 +85,6 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
 
     return super.list(parameters, cb) as Promise<List<Payment>>;
   }
-
-  // ALIASES
-
-  /**
-   * Get all customer's subscriptions.
-   *
-   * @since 2.2.0
-   *
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions-payments
-   * @public ✓ This method is part of the public API
-   */
-  all = this.list;
 
   // NOT AVAILABLE
 

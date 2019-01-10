@@ -41,16 +41,16 @@ describe('customers', () => {
 
             const mandate = mandates[0]
               ? mollieClient.customers_mandates.get(mandates[0].id, {
-                  customerId: customers[0].id,
-                })
+                customerId: customers[0].id,
+              })
               : Promise.resolve('true');
             const payment = payments[0]
               ? mollieClient.payments.get(payments[0].id)
               : Promise.resolve('true');
             const subscription = subscriptions[0]
               ? mollieClient.customers_subscriptions.get(subscriptions[0].id, {
-                  customerId: customers[0].id,
-                })
+                customerId: customers[0].id,
+              })
               : Promise.resolve('true');
 
             // @ts-ignore

@@ -29,14 +29,7 @@ export default class List<T> extends Array {
     return {};
   }
 
-  public static buildResourceList({
-    response,
-    resourceName,
-    params,
-    callback,
-    getResources,
-    Model,
-  }: any) {
+  public static buildResourceList({ response, resourceName, params, callback, getResources, Model }: any) {
     const { _embedded, count = 0, _links = [] } = response;
     const resources = _embedded[resourceName];
     const list = new List();

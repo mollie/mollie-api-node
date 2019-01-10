@@ -8,8 +8,6 @@ import ApiException from '../../exceptions/ApiException';
 import { ICreateParams, IListParams } from '../../types/order/refund/params';
 import Order from '../../models/Order';
 import Resource from '../../resource';
-import Customer from '../../models/Customer';
-import Payment from '../../models/Payment';
 
 /**
  * The `orders_refunds` resource
@@ -22,6 +20,15 @@ export default class OrdersRefundsResource extends OrdersResource {
   public apiName = 'Refunds API';
 
   // API METHODS
+  /**
+   * Get all order refunds
+   *
+   * @since 2.2.0
+   *
+   * @see https://docs.mollie.com/reference/v2/orders-api/list-order-refunds
+   * @public ✓ This method is part of the public API
+   */
+  all = this.list;
 
   /**
    * Create an order refund
@@ -63,6 +70,8 @@ export default class OrdersRefundsResource extends OrdersResource {
     return super.create(parameters, cb) as Promise<Refund>;
   }
 
+  // ALIASES
+
   /**
    * Get all order refunds
    *
@@ -100,18 +109,6 @@ export default class OrdersRefundsResource extends OrdersResource {
 
     return super.list(parameters, cb);
   }
-
-  // ALIASES
-
-  /**
-   * Get all order refunds
-   *
-   * @since 2.2.0
-   *
-   * @see https://docs.mollie.com/reference/v2/orders-api/list-order-refunds
-   * @public ✓ This method is part of the public API
-   */
-  all = this.list;
 
   // NOT AVAILABLE
 

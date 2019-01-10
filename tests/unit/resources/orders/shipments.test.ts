@@ -2,10 +2,10 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import OrdersShipments from '../../../../src/resources/orders/shipments';
+import OrdersShipmentsResource from '../../../../src/resources/orders/shipments';
 import Shipment from '../../../../src/models/Shipment';
 
 import response from '../../__stubs__/shipments.json';
-import OrdersShipmentsResource from '../../../../src/resources/orders/shipments';
 
 const mock = new MockAdapter(axios);
 
@@ -90,8 +90,8 @@ describe('orders_shipments', () => {
         .then(() => {
           throw new Error('This should error out instead');
         }).catch(err => {
-          expect(err).toBeInstanceOf(TypeError);
-          done();
+        expect(err).toBeInstanceOf(TypeError);
+        done();
       });
     });
 

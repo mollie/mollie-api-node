@@ -20,6 +20,16 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
   public apiName = 'Captures API';
 
   // API METHODS
+  /**
+   * Retrieve a list of Payment Captures
+   *
+   * @since 1.1.1
+   *
+   * @see https://docs.mollie.com/reference/v2/captures-api/list-captures
+   * @public ✓ This method is part of the public API
+   * @alias list
+   */
+  all = this.list;
 
   /**
    * Get a Payment Capture by ID
@@ -72,6 +82,8 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
     return (super.get(id, parameters, cb) as unknown) as Promise<Capture>;
   }
 
+  // ALIASES
+
   /**
    * Retrieve a list of Payment Captures
    *
@@ -112,19 +124,6 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
 
     return super.list(parameters, cb);
   }
-
-  // ALIASES
-
-  /**
-   * Retrieve a list of Payment Captures
-   *
-   * @since 1.1.1
-   *
-   * @see https://docs.mollie.com/reference/v2/captures-api/list-captures
-   * @public ✓ This method is part of the public API
-   * @alias list
-   */
-  all = this.list;
 
   // UNAVAILABLE
 

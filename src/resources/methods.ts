@@ -14,6 +14,15 @@ export default class MethodsResource extends Resource {
   public resource = 'methods';
   public model = Method;
   public apiName = 'Methods API';
+  /**
+   * Retrieve a list of Payment Methods
+   *
+   * @since 2.0.0
+   *
+   * @see https://docs.mollie.com/reference/v2/methods-api/list-methods
+   * @public ✓ This method is part of the public API
+   */
+  all = this.list;
 
   /**
    * Retrieve a single Payment Method
@@ -54,6 +63,8 @@ export default class MethodsResource extends Resource {
     return super.get(id, params, cb) as Promise<Method>;
   }
 
+  // ALIASES
+
   /**
    * Retrieve a list of Payment Methods
    *
@@ -79,18 +90,6 @@ export default class MethodsResource extends Resource {
 
     return super.list(params, cb) as Promise<List<Method>>;
   }
-
-  // ALIASES
-
-  /**
-   * Retrieve a list of Payment Methods
-   *
-   * @since 2.0.0
-   *
-   * @see https://docs.mollie.com/reference/v2/methods-api/list-methods
-   * @public ✓ This method is part of the public API
-   */
-  all = this.list;
 
   // NOT AVAILABLE
 

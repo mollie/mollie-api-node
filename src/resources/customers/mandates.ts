@@ -20,6 +20,35 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
   public apiName = 'Mandates API';
 
   // API METHODS
+  /**
+   * Get all of a customer's mandates
+   *
+   * @since 1.2.0
+   *
+   * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
+   * @public ✓ This method is part of the public API
+   */
+  all = this.list;
+  /**
+   * Alias for revoke
+   *
+   * @since 1.3.2
+   *
+   * @see https://docs.mollie.com/reference/v2/mandates-api/revoke-mandate
+   * @public ✓ This method is part of the public API
+   * @alias delete
+   */
+  cancel = this.revoke;
+  /**
+   * Alias for revoke
+   *
+   * @since 2.0.0
+   *
+   * @see https://docs.mollie.com/reference/v2/mandates-api/revoke-mandate
+   * @public ✓ This method is part of the public API
+   * @alias delete
+   */
+  delete = this.revoke;
 
   /**
    * Create a customer mandate
@@ -40,6 +69,8 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
 
     return super.create(parameters, cb) as Promise<Mandate>;
   }
+
+  // ALIASES
 
   /**
    * Get a customer mandate by ID
@@ -187,40 +218,6 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
     // TODO: check parent return type
     return super.delete(id, cb) as Promise<boolean>;
   }
-
-  // ALIASES
-
-  /**
-   * Get all of a customer's mandates
-   *
-   * @since 1.2.0
-   *
-   * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
-   * @public ✓ This method is part of the public API
-   */
-  all = this.list;
-
-  /**
-   * Alias for revoke
-   *
-   * @since 1.3.2
-   *
-   * @see https://docs.mollie.com/reference/v2/mandates-api/revoke-mandate
-   * @public ✓ This method is part of the public API
-   * @alias delete
-   */
-  cancel = this.revoke;
-
-  /**
-   * Alias for revoke
-   *
-   * @since 2.0.0
-   *
-   * @see https://docs.mollie.com/reference/v2/mandates-api/revoke-mandate
-   * @public ✓ This method is part of the public API
-   * @alias delete
-   */
-  delete = this.revoke;
 
   // NOT AVAILABLE
 

@@ -20,6 +20,24 @@ export default class PaymentsRefundsResource extends PaymentsResource {
   public apiName = 'Refunds API';
 
   // API METHODS
+  /**
+   * Get all payment refunds. Alias of list.
+   *
+   * @since 1.1.1
+   *
+   * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
+   * @public ✓ This method is part of the public API
+   * @alias list
+   */
+  all = this.list;
+  /**
+   * Cancel a Payment Refund by ID
+   *
+   * @see https://docs.mollie.com/reference/v2/refunds-api/cancel-refund
+   * @public ✓ This method is part of the public API
+   * @alias cancel
+   */
+  delete = this.cancel;
 
   /**
    * Create a payment refund
@@ -93,6 +111,8 @@ export default class PaymentsRefundsResource extends PaymentsResource {
 
     return super.get(id, parameters, cb) as Promise<Refund>;
   }
+
+  // ALIASES
 
   /**
    * Get all payment refunds.
@@ -184,28 +204,6 @@ export default class PaymentsRefundsResource extends PaymentsResource {
     // TODO: double-check if super actually returns a boolean status
     return super.delete(id, parameters, cb) as Promise<boolean>;
   }
-
-  // ALIASES
-
-  /**
-   * Get all payment refunds. Alias of list.
-   *
-   * @since 1.1.1
-   *
-   * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
-   * @public ✓ This method is part of the public API
-   * @alias list
-   */
-  all = this.list;
-
-  /**
-   * Cancel a Payment Refund by ID
-   *
-   * @see https://docs.mollie.com/reference/v2/refunds-api/cancel-refund
-   * @public ✓ This method is part of the public API
-   * @alias cancel
-   */
-  delete = this.cancel;
 
   // UNAVAILABLE
 

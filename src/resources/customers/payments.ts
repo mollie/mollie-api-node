@@ -18,6 +18,15 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
   public resource = 'customers_payments';
   public model = Payment;
   public apiName = 'Customers API (Payments section)';
+  /**
+   * Get all of a customer's payments.
+   *
+   * @since 1.1.1
+   *
+   * @see https://docs.mollie.com/reference/v2/customers-api/list-customer-payments
+   * @public ✓ This method is part of the public API
+   */
+  all = this.list;
 
   /**
    * Create a customer payment.
@@ -55,6 +64,8 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
 
     return super.create(parameters, cb) as Promise<Payment>;
   }
+
+  // ALIASES
 
   /**
    * Get all of a customer's payments.
@@ -96,18 +107,6 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
 
     return super.list(parameters, cb) as Promise<List<Payment>>;
   }
-
-  // ALIASES
-
-  /**
-   * Get all of a customer's payments.
-   *
-   * @since 1.1.1
-   *
-   * @see https://docs.mollie.com/reference/v2/customers-api/list-customer-payments
-   * @public ✓ This method is part of the public API
-   */
-  all = this.list;
 
   /**
    * @deprecated This method is not available

@@ -82,7 +82,9 @@ describe('customers_payments', () => {
 
     it('should throw an error if "customerId" is not set', done => {
       customersPayments.list()
-        .then(() => { throw Error('Should error out'); })
+        .then(() => {
+          throw Error('Should error out');
+        })
         .catch(err => {
           expect(err).toBeInstanceOf(TypeError);
           done();

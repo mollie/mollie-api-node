@@ -59,15 +59,6 @@ export default class Resource {
   }
 
   /**
-   * Get the HTTP client
-   *
-   * @since 2.0.0
-   */
-  protected getClient(): AxiosInstance {
-    return this.httpClient;
-  }
-
-  /**
    * Set the parent ID by providing the parent
    *
    * @since 1.1.1
@@ -80,54 +71,6 @@ export default class Resource {
     }
     return this;
   }
-
-  /**
-   * Set the parent ID
-   *
-   * @since 2.0.0
-   */
-  protected setParentId(parentId: string): void {
-    this.parentId = parentId;
-  }
-
-  /**
-   * If the parent ID is set
-   *
-   * @since 2.0.0
-   */
-  protected hasParentId(): boolean {
-    return !!this.parentId;
-  }
-
-  /**
-   * Create a resource URL with the parent ID
-   *
-   * @since 2.0.0
-   */
-  protected getResourceUrl(): string {
-    if (this.resource.indexOf('_') !== -1) {
-      const parts = this.resource.split('_');
-      return `${parts[0]}/${this.parentId}/${parts[1]}`;
-    }
-
-    return this.resource;
-  }
-
-  /**
-   * Get the resource name from the resource identifier
-   *
-   * @since 2.0.0-rc.2
-   */
-  protected getResourceName(): string {
-    // Instantiate the model to get the defaults
-    if (this.resource.includes('_')) {
-      return this.resource.split('_')[1];
-    }
-
-    return this.resource;
-  }
-
-  // CREATE
 
   /**
    * Create a resource by ID
@@ -165,8 +108,6 @@ export default class Resource {
       Resource.errorHandler(error.response, callback);
     }
   }
-
-  // READ: consists of get (one) and list (many)
 
   /**
    * Get a resource by ID
@@ -232,8 +173,6 @@ export default class Resource {
     }
   }
 
-  // UPDATE
-
   /**
    * Update a resource by ID
    *
@@ -260,8 +199,6 @@ export default class Resource {
       Resource.errorHandler(error.response, cb);
     }
   }
-
-  // DELETE
 
   /**
    * Delete a resource by ID
@@ -290,5 +227,68 @@ export default class Resource {
     } catch (error) {
       Resource.errorHandler(error.response, cb);
     }
+  }
+
+  // CREATE
+
+  /**
+   * Get the HTTP client
+   *
+   * @since 2.0.0
+   */
+  protected getClient(): AxiosInstance {
+    return this.httpClient;
+  }
+
+  // READ: consists of get (one) and list (many)
+
+  /**
+   * Set the parent ID
+   *
+   * @since 2.0.0
+   */
+  protected setParentId(parentId: string): void {
+    this.parentId = parentId;
+  }
+
+  /**
+   * If the parent ID is set
+   *
+   * @since 2.0.0
+   */
+  protected hasParentId(): boolean {
+    return !!this.parentId;
+  }
+
+  // UPDATE
+
+  /**
+   * Create a resource URL with the parent ID
+   *
+   * @since 2.0.0
+   */
+  protected getResourceUrl(): string {
+    if (this.resource.indexOf('_') !== -1) {
+      const parts = this.resource.split('_');
+      return `${parts[0]}/${this.parentId}/${parts[1]}`;
+    }
+
+    return this.resource;
+  }
+
+  // DELETE
+
+  /**
+   * Get the resource name from the resource identifier
+   *
+   * @since 2.0.0-rc.2
+   */
+  protected getResourceName(): string {
+    // Instantiate the model to get the defaults
+    if (this.resource.includes('_')) {
+      return this.resource.split('_')[1];
+    }
+
+    return this.resource;
   }
 }

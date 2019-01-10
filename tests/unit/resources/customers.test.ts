@@ -2,10 +2,10 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import Customers from '../../../src/resources/customers';
+import CustomersResource from '../../../src/resources/customers';
 import Customer from '../../../src/models/Customer';
 
 import response from '../__stubs__/customers.json';
-import CustomersResource from '../../../src/resources/customers';
 
 const mock = new MockAdapter(axios);
 

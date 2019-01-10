@@ -20,6 +20,16 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
   public apiName = 'Chargebacks API';
 
   // AVAILABLE API METHODS
+  /**
+   * Retrieve a list of Payment Chargebacks
+   *
+   * @since 1.1.1
+   *
+   * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
+   * @public ✓ This method is part of the public API
+   * @alias list
+   */
+  all = this.list;
 
   /**
    * Get a Payment Chargeback by ID
@@ -73,6 +83,8 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
     return (super.get(id, parameters, cb) as unknown) as Promise<Chargeback>;
   }
 
+  // ALIASES
+
   /**
    * Retrieve a list of Payment Chargebacks
    *
@@ -112,19 +124,6 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
 
     return super.list(parameters, cb);
   }
-
-  // ALIASES
-
-  /**
-   * Retrieve a list of Payment Chargebacks
-   *
-   * @since 1.1.1
-   *
-   * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
-   * @public ✓ This method is part of the public API
-   * @alias list
-   */
-  all = this.list;
 
   // UNAVAILABLE
 

@@ -19,6 +19,29 @@ export default class PaymentsResource extends PaymentsBaseResource {
   public apiName = 'Payments API';
 
   // API METHODS
+  /**
+   * Retrieve all payments created with the current website profile, ordered from newest to oldest.
+   * This is just an alias of the `list` method.
+   *
+   * @since 2.0.0
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
+   * @public ✓ This method is part of the public API
+   * @alias list
+   */
+  all = this.list;
+  /**
+   * Delete the given Payment. This is just an alias of the 'cancel' method.
+   *
+   * Will throw an ApiException if the payment ID is invalid or if the resource cannot be found.
+   *
+   * @since 2.0.0
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/cancel-payment
+   * @public ✓ This method is part of the public API
+   * @alias cancel
+   */
+  delete = this.cancel;
 
   /**
    * Create a payment in Mollie.
@@ -76,6 +99,8 @@ export default class PaymentsResource extends PaymentsBaseResource {
     return super.get(id, params, cb) as Promise<Payment>;
   }
 
+  // ALIASES
+
   /**
    * Retrieve all payments created with the current website profile, ordered from newest to oldest.
    *
@@ -129,33 +154,6 @@ export default class PaymentsResource extends PaymentsBaseResource {
 
     return super.delete(id, typeof params === 'function' ? params : cb) as Promise<Payment>;
   }
-
-  // ALIASES
-
-  /**
-   * Retrieve all payments created with the current website profile, ordered from newest to oldest.
-   * This is just an alias of the `list` method.
-   *
-   * @since 2.0.0
-   *
-   * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
-   * @public ✓ This method is part of the public API
-   * @alias list
-   */
-  all = this.list;
-
-  /**
-   * Delete the given Payment. This is just an alias of the 'cancel' method.
-   *
-   * Will throw an ApiException if the payment ID is invalid or if the resource cannot be found.
-   *
-   * @since 2.0.0
-   *
-   * @see https://docs.mollie.com/reference/v2/payments-api/cancel-payment
-   * @public ✓ This method is part of the public API
-   * @alias cancel
-   */
-  delete = this.cancel;
 
   // NOT AVAILABLE
   /**
