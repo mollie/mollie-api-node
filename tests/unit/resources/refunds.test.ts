@@ -96,28 +96,4 @@ describe('refunds', () => {
         });
     });
   });
-
-  describe('.delete()', () => {
-    mock.onDelete(`/refunds/${props.id}`).reply(200, response._embedded.refunds[0]);
-
-    it('should return a refund instance', () =>
-      refunds.delete(props.id).then(result => {
-        expect(result).toBeInstanceOf(PaymentRefund);
-        expect(result).toMatchSnapshot();
-      }));
-
-    it('should work with a callback and legacy delete', done => {
-      refunds
-        .withParent({
-          resource: 'payment',
-          id: props.id,
-        })
-        .delete(props.id, (err, result) => {
-          expect(err).toBeNull();
-          expect(result).toBeInstanceOf(PaymentRefund);
-          expect(result).toMatchSnapshot();
-          done();
-        });
-    });
-  });
 });
