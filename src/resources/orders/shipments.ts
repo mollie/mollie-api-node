@@ -68,7 +68,7 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
     }
     this.setParentId(orderId);
 
-    return super.create(parameters, cb) as Promise<Shipment>;
+    return super.create(parameters) as Promise<Shipment>;
   }
 
   /**
@@ -119,7 +119,7 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
     }
     this.setParentId(orderId);
 
-    return super.update(id, parameters, cb) as Promise<Shipment>;
+    return super.update(id, parameters) as Promise<Shipment>;
   }
 
   /**
@@ -167,14 +167,15 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
     }
     this.setParentId(orderId);
 
-    return super.get(id, parameters, cb) as Promise<Shipment>;
+    return super.get(id, parameters) as Promise<Shipment>;
   }
 
   /**
    * List order shipments
    *
    * @param params - List Order parameters
-   * @param cb - Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns A list of found Shipments
    *
@@ -183,7 +184,24 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
    * @see https://docs.mollie.com/reference/v2/shipments-api/list-shipments
    * @public
    */
-  public async list(params?: IListParams, cb?: ListCallback): Promise<List<Shipment>> {
+  public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Shipment>> {
+    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    if (typeof params === 'function' || typeof cb === 'function') {
+      const orderId = get(params, 'orderId') || this.parentId;
+      if (!startsWith(orderId, Order.resourcePrefix)) {
+        Resource.errorHandler(
+          { error: { message: 'The order id is invalid' } },
+          typeof params === 'function' ? params : cb,
+        );
+      }
+      this.setParentId(orderId);
+
+      return super.list(
+        typeof params === 'function' ? null : params,
+        typeof params === 'function' ? params : cb,
+      ) as Promise<List<Shipment>>;
+    }
+
     const { orderId, ...parameters } = params;
     if (!startsWith(orderId, Order.resourcePrefix)) {
       Resource.errorHandler(
@@ -193,7 +211,7 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
     }
     this.setParentId(orderId);
 
-    return super.list(parameters, cb) as Promise<List<Shipment>>;
+    return super.list(parameters) as Promise<List<Shipment>>;
   }
 
   // ALIASES

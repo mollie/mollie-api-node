@@ -33,6 +33,23 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
    * @public ✓ This method is part of the public API
    */
   public async create(params: ICreateParams, cb?: CreateCallback): Promise<Payment> {
+    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    if (typeof params === 'function' || typeof cb === 'function') {
+      const customerId = get(params, 'customerId') || this.parentId;
+      if (!startsWith(customerId, Customer.resourcePrefix)) {
+        Resource.errorHandler(
+          { error: { message: 'The customer id is invalid' } },
+          typeof params === 'function' ? params : cb,
+        );
+      }
+      this.setParentId(customerId);
+
+      return super.create(
+        typeof params === 'function' ? null : params,
+        typeof params === 'function' ? params : cb,
+      ) as Promise<Payment>;
+    }
+
     const { customerId, ...parameters } = params;
     this.setParentId(customerId);
 
@@ -53,18 +70,17 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customer-payments
    * @public ✓ This method is part of the public API
    */
-  public async list(
-    params?: IListParams | ListCallback,
-    cb?: ListCallback,
-  ): Promise<List<Payment>> {
+  public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Payment>> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
         Resource.errorHandler(
-          Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, cb),
+          { error: { message: 'The customer id is invalid' } },
+          typeof params === 'function' ? params : cb,
         );
       }
+      this.setParentId(customerId);
 
       return super.list(
         typeof params === 'function' ? null : params,
@@ -74,11 +90,8 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
 
     const { customerId, ...parameters } = params;
     if (!startsWith(customerId, Customer.resourcePrefix)) {
-      Resource.errorHandler(
-        Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, cb),
-      );
+      Resource.errorHandler({ error: { message: 'The customer id is invalid' } });
     }
-
     this.setParentId(customerId);
 
     return super.list(parameters, cb) as Promise<List<Payment>>;

@@ -5,12 +5,14 @@ import OrdersShipments from '../../../../src/resources/orders/shipments';
 import Shipment from '../../../../src/models/Shipment';
 
 import response from '../../__stubs__/shipments.json';
+import OrdersShipmentsResource from '../../../../src/resources/orders/shipments';
 
 const mock = new MockAdapter(axios);
 
 const props = {
   id: 'shp_3wmsgCJN4U',
   orderId: 'ord_kEn1PlbGa',
+  lines: [],
   tracking: {
     carrier: 'PostNL',
     code: '3SKABA000000000',
@@ -19,7 +21,7 @@ const props = {
 };
 
 describe('orders_shipments', () => {
-  let ordersShipments;
+  let ordersShipments: OrdersShipmentsResource;
   beforeEach(() => {
     ordersShipments = new OrdersShipments(axios.create());
   });
@@ -83,10 +85,14 @@ describe('orders_shipments', () => {
         expect(result).toMatchSnapshot();
       }));
 
-    it('should throw an error if "paymentId" is not set', () => {
-      const getRefunds = () => ordersShipments.all();
-
-      expect(getRefunds).toThrowError(TypeError);
+    it('should throw an error if "paymentId" is not set', done => {
+      ordersShipments.all()
+        .then(() => {
+          throw new Error('This should error out instead');
+        }).catch(err => {
+          expect(err).toBeInstanceOf(TypeError);
+          done();
+      });
     });
 
     it('should work with a callback', done => {

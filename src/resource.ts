@@ -187,7 +187,7 @@ export default class Resource {
         params,
       });
 
-      const model = new this.model(response);
+      const model = new this.model(response.data);
 
       if (callback) {
         return callback(null, model);
@@ -247,12 +247,9 @@ export default class Resource {
    */
   public async update(id: string, params: any, cb?: Callback): Promise<Model> {
     try {
-      const response: AxiosResponse = await this.getClient().post(
-        `${this.getResourceUrl()}/${id}`,
-        params,
-      );
+      const response: AxiosResponse = await this.getClient().post(`${this.getResourceUrl()}/${id}`, params);
 
-      const model = new this.model(response);
+      const model = new this.model(response.data);
 
       if (typeof cb === 'function') {
         cb(null, model);
@@ -281,11 +278,9 @@ export default class Resource {
    */
   public async delete(id: string, params?: any, cb?: Callback): Promise<Model | boolean> {
     try {
-      const response: AxiosResponse = await this.getClient().delete(
-        `${this.getResourceUrl()}/${id}`,
-      );
+      const response: AxiosResponse = await this.getClient().delete(`${this.getResourceUrl()}/${id}`);
 
-      const model = new this.model(response);
+      const model = new this.model(response.data);
 
       if (cb) {
         cb(null, model);

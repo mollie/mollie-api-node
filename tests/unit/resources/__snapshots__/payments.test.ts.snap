@@ -250,26 +250,21 @@ Payment {
 
 exports[`payments .get() should return a payment instance 1`] = `
 Payment {
-  "config": Object {
-    "data": undefined,
-    "headers": Object {
-      "Accept": "application/json, text/plain, */*",
+  "_links": Object {
+    "checkout": Object {
+      "href": "https://www.mollie.com/paymentscreen/issuer/select/ideal/7UhSN1zuXS",
+      "type": "text/html",
     },
-    "maxContentLength": -1,
-    "method": "get",
-    "params": undefined,
-    "timeout": 0,
-    "transformRequest": Object {
-      "0": [Function],
+    "self": Object {
+      "href": "https://api.mollie.com/v2/payments/tr_7UhSN1zuXS",
+      "type": "application/hal+json",
     },
-    "transformResponse": Object {
-      "0": [Function],
-    },
-    "url": "payments/tr_nBeryjMVjr",
-    "validateStatus": [Function],
-    "xsrfCookieName": "XSRF-TOKEN",
-    "xsrfHeaderName": "X-XSRF-TOKEN",
   },
+  "amount": Object {
+    "currency": "GBP",
+    "value": "75.00",
+  },
+  "createdAt": "2018-02-12T11:58:35.0Z",
   "data": Object {
     "_links": Object {
       "checkout": Object {
@@ -299,33 +294,38 @@ Payment {
     "resource": "payment",
     "status": "open",
   },
-  "headers": undefined,
-  "status": 200,
+  "description": "test",
+  "details": null,
+  "expiresAt": "2018-02-12T12:13:35.0Z",
+  "id": "tr_7UhSN1zuXS",
+  "isCancelable": false,
+  "metadata": null,
+  "method": "ideal",
+  "mode": "test",
+  "profileId": "pfl_QkEhN94Ba",
+  "redirectUrl": "https://webshop.example.org/order/12345/",
+  "resource": "payment",
+  "status": "open",
 }
 `;
 
 exports[`payments .get() should work with a callback 1`] = `
 Payment {
-  "config": Object {
-    "data": undefined,
-    "headers": Object {
-      "Accept": "application/json, text/plain, */*",
+  "_links": Object {
+    "checkout": Object {
+      "href": "https://www.mollie.com/paymentscreen/issuer/select/ideal/7UhSN1zuXS",
+      "type": "text/html",
     },
-    "maxContentLength": -1,
-    "method": "get",
-    "params": [Function],
-    "timeout": 0,
-    "transformRequest": Object {
-      "0": [Function],
+    "self": Object {
+      "href": "https://api.mollie.com/v2/payments/tr_7UhSN1zuXS",
+      "type": "application/hal+json",
     },
-    "transformResponse": Object {
-      "0": [Function],
-    },
-    "url": "payments/tr_nBeryjMVjr",
-    "validateStatus": [Function],
-    "xsrfCookieName": "XSRF-TOKEN",
-    "xsrfHeaderName": "X-XSRF-TOKEN",
   },
+  "amount": Object {
+    "currency": "GBP",
+    "value": "75.00",
+  },
+  "createdAt": "2018-02-12T11:58:35.0Z",
   "data": Object {
     "_links": Object {
       "checkout": Object {
@@ -355,7 +355,17 @@ Payment {
     "resource": "payment",
     "status": "open",
   },
-  "headers": undefined,
-  "status": 200,
+  "description": "test",
+  "details": null,
+  "expiresAt": "2018-02-12T12:13:35.0Z",
+  "id": "tr_7UhSN1zuXS",
+  "isCancelable": false,
+  "metadata": null,
+  "method": "ideal",
+  "mode": "test",
+  "profileId": "pfl_QkEhN94Ba",
+  "redirectUrl": "https://webshop.example.org/order/12345/",
+  "resource": "payment",
+  "status": "open",
 }
 `;

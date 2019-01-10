@@ -5,14 +5,10 @@ import PaymentsBaseResource from '../../resources/payments/base';
 
 import ApiException from '../../exceptions/ApiException';
 import { ICancelParams, ICreateParams, IGetParams, IListParams } from '../../types/payment/params';
-import {
-  CancelCallback,
-  CreateCallback,
-  GetCallback,
-  ListCallback,
-} from '../..//types/payment/callback';
+import { CancelCallback, CreateCallback, GetCallback, ListCallback } from '../..//types/payment/callback';
 import List from '../../models/List';
 import Resource from '../../resource';
+import Chargeback from '../../models/Chargeback';
 
 /**
  * The `payments` resource
@@ -46,7 +42,8 @@ export default class PaymentsResource extends PaymentsBaseResource {
    *
    * @param id - Payment ID
    * @param params - Retrieve Payment parameters
-   * @param cb - Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns The found Payment object
    *
@@ -55,21 +52,36 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment
    * @public ✓ This method is part of the public API
    */
-  public async get(id: string, params?: IGetParams, cb?: GetCallback): Promise<Payment> {
-    const callback = typeof params === 'function' ? params : cb;
+  public async get(id: string, params?: IGetParams | GetCallback, cb?: GetCallback): Promise<Payment> {
+    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    if (typeof params === 'function' || typeof cb === 'function') {
+      if (!startsWith(id, Payment.resourcePrefix)) {
+        Resource.errorHandler(
+          { error: { message: 'The payment id is invalid' } },
+          typeof params === 'function' ? params : cb,
+        );
+      }
 
-    if (!startsWith(id, Payment.resourcePrefix)) {
-      Resource.errorHandler({ error: { message: 'The payment id is invalid' } }, callback);
+      return super.get(
+        id,
+        typeof params === 'function' ? null : params,
+        typeof params === 'function' ? params : cb,
+      ) as Promise<Payment>;
     }
 
-    return super.get(id, params, callback) as Promise<Payment>;
+    if (!startsWith(id, Payment.resourcePrefix)) {
+      Resource.errorHandler({ error: { message: 'The payment id is invalid' } });
+    }
+
+    return super.get(id, params, cb) as Promise<Payment>;
   }
 
   /**
    * Retrieve all payments created with the current website profile, ordered from newest to oldest.
    *
    * @param params - List parameters
-   * @param cb - Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns A list of found Payments
    *
@@ -79,7 +91,15 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * @public ✓ This method is part of the public API
    */
   public async list(params?: IListParams, cb?: ListCallback): Promise<List<Payment>> {
-    return super.list(params, cb);
+    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    if (typeof params === 'function' || typeof cb === 'function') {
+      return super.list(
+        typeof params === 'function' ? null : params,
+        typeof params === 'function' ? params : cb,
+      ) as Promise<List<Chargeback>>;
+    }
+
+    return super.list(params);
   }
 
   /**
@@ -100,15 +120,18 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * @public ✓ This method is part of the public API
    */
   public async cancel(id: string, params?: ICancelParams, cb?: CancelCallback): Promise<Payment> {
-    const callback = typeof params === 'function' ? params : cb;
     if (!startsWith(id, Payment.resourcePrefix)) {
-      Resource.errorHandler({ error: { message: 'The payment id is invalid' } }, callback);
+      Resource.errorHandler(
+        { error: { message: 'The payment id is invalid' } },
+        typeof params === 'function' ? params : cb,
+      );
     }
 
-    return super.delete(id, callback) as Promise<Payment>;
+    return super.delete(id, typeof params === 'function' ? params : cb) as Promise<Payment>;
   }
 
   // ALIASES
+
   /**
    * Retrieve all payments created with the current website profile, ordered from newest to oldest.
    * This is just an alias of the `list` method.
@@ -119,8 +142,8 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * @public ✓ This method is part of the public API
    * @alias list
    */
-
   all = this.list;
+
   /**
    * Delete the given Payment. This is just an alias of the 'cancel' method.
    *
@@ -134,8 +157,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
    */
   delete = this.cancel;
 
-  // UNAVAILABLE
-
+  // NOT AVAILABLE
   /**
    * @deprecated This method is not available
    */

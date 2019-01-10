@@ -42,11 +42,19 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
       const customerId = get(params, 'customerId') || this.parentId;
       const subscriptionId = get(params, 'subscriptionId') || this.subscriptionId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        Resource.errorHandler(Resource.errorHandler({ error: { message: 'The subscription id is invalid' } }, cb));
+        Resource.errorHandler(
+          { error: { message: 'The customer id is invalid' } },
+          typeof params === 'function' ? params : cb,
+        );
       }
       if (!startsWith(subscriptionId, Subscription.resourcePrefix)) {
-        Resource.errorHandler(Resource.errorHandler({ error: { message: 'The subscription id is invalid' } }, cb));
+        Resource.errorHandler(
+          { error: { message: 'The subscription id is invalid' } },
+          typeof params === 'function' ? params : cb,
+        );
       }
+      this.setParentId(customerId);
+      this.setSubscriptionId(subscriptionId);
 
       return super.list(
         typeof params === 'function' ? null : params,
@@ -55,6 +63,12 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
     }
 
     const { customerId, subscriptionId, ...parameters } = params;
+    if (!startsWith(customerId, Customer.resourcePrefix)) {
+      Resource.errorHandler({ error: { message: 'The customer id is invalid' } });
+    }
+    if (!startsWith(subscriptionId, Subscription.resourcePrefix)) {
+      Resource.errorHandler({ error: { message: 'The subscription id is invalid' } });
+    }
     this.setParentId(customerId);
     this.setSubscriptionId(subscriptionId);
 

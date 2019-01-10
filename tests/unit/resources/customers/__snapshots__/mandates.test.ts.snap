@@ -247,30 +247,20 @@ Array [
 exports[`customers_mandates .revoke() should return a mandate instance 1`] = `
 Mandate {
   "_links": Object {
-    "customer": null,
-    "documentation": null,
-    "self": null,
+    "customer": Object {
+      "href": "https://api.mollie.com/v2/customers/cst_8wmqcHMN4U",
+      "type": "application/hal+json",
+    },
+    "documentation": Object {
+      "href": "https://mollie.com/en/docs/reference/customers/create-mandate",
+      "type": "text/html",
+    },
+    "self": Object {
+      "href": "https://api.mollie.com/v2/customers/cst_8wmqcHMN4U/mandates/mdt_AcQl5fdL4h",
+      "type": "application/hal+json",
+    },
   },
-  "config": Object {
-    "data": undefined,
-    "headers": Object {
-      "Accept": "application/json, text/plain, */*",
-    },
-    "maxContentLength": -1,
-    "method": "delete",
-    "timeout": 0,
-    "transformRequest": Object {
-      "0": [Function],
-    },
-    "transformResponse": Object {
-      "0": [Function],
-    },
-    "url": "customers/cst_R6JLAuqEgm/mandates/mdt_AcQl5fdL4h",
-    "validateStatus": [Function],
-    "xsrfCookieName": "XSRF-TOKEN",
-    "xsrfHeaderName": "X-XSRF-TOKEN",
-  },
-  "createdAt": null,
+  "createdAt": "2018-05-07T10:49:08+00:00",
   "data": Object {
     "_links": Object {
       "customer": Object {
@@ -299,14 +289,77 @@ Mandate {
     "signatureDate": "2018-05-07",
     "status": "valid",
   },
-  "details": null,
-  "headers": undefined,
-  "id": null,
+  "details": Object {
+    "consumerAccount": "NL55INGB0000000000",
+    "consumerBic": "INGBNL2A",
+    "consumerName": "John Doe",
+  },
+  "id": "mdt_AcQl5fdL4h",
   "mandateReference": null,
-  "method": null,
+  "method": "directdebit",
   "mode": null,
   "resource": "mandate",
-  "signatureDate": null,
-  "status": 200,
+  "signatureDate": "2018-05-07",
+  "status": "valid",
+}
+`;
+
+exports[`customers_mandates .revoke() should work with cancel alias and a callback 1`] = `
+Mandate {
+  "_links": Object {
+    "customer": Object {
+      "href": "https://api.mollie.com/v2/customers/cst_8wmqcHMN4U",
+      "type": "application/hal+json",
+    },
+    "documentation": Object {
+      "href": "https://mollie.com/en/docs/reference/customers/create-mandate",
+      "type": "text/html",
+    },
+    "self": Object {
+      "href": "https://api.mollie.com/v2/customers/cst_8wmqcHMN4U/mandates/mdt_AcQl5fdL4h",
+      "type": "application/hal+json",
+    },
+  },
+  "createdAt": "2018-05-07T10:49:08+00:00",
+  "data": Object {
+    "_links": Object {
+      "customer": Object {
+        "href": "https://api.mollie.com/v2/customers/cst_8wmqcHMN4U",
+        "type": "application/hal+json",
+      },
+      "documentation": Object {
+        "href": "https://mollie.com/en/docs/reference/customers/create-mandate",
+        "type": "text/html",
+      },
+      "self": Object {
+        "href": "https://api.mollie.com/v2/customers/cst_8wmqcHMN4U/mandates/mdt_AcQl5fdL4h",
+        "type": "application/hal+json",
+      },
+    },
+    "createdAt": "2018-05-07T10:49:08+00:00",
+    "details": Object {
+      "consumerAccount": "NL55INGB0000000000",
+      "consumerBic": "INGBNL2A",
+      "consumerName": "John Doe",
+    },
+    "id": "mdt_AcQl5fdL4h",
+    "mandateReference": null,
+    "method": "directdebit",
+    "resource": "mandate",
+    "signatureDate": "2018-05-07",
+    "status": "valid",
+  },
+  "details": Object {
+    "consumerAccount": "NL55INGB0000000000",
+    "consumerBic": "INGBNL2A",
+    "consumerName": "John Doe",
+  },
+  "id": "mdt_AcQl5fdL4h",
+  "mandateReference": null,
+  "method": "directdebit",
+  "mode": null,
+  "resource": "mandate",
+  "signatureDate": "2018-05-07",
+  "status": "valid",
 }
 `;

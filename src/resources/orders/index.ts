@@ -3,20 +3,10 @@ import { startsWith } from 'lodash';
 import Resource from '../../resource';
 import Order from '../../models/Order';
 import List from '../../models/List';
-import {
-  ICancelParams,
-  ICreateParams,
-  IGetParams,
-  IListParams,
-  IUpdateParams,
-} from '../../types/order/params';
-import {
-  CancelCallback,
-  CreateCallback,
-  GetCallback,
-  ListCallback,
-  UpdateCallback,
-} from '../../types/order/callback';
+import { ICancelParams, ICreateParams, IGetParams, IListParams, IUpdateParams } from '../../types/order/params';
+import { CancelCallback, CreateCallback, GetCallback, ListCallback, UpdateCallback } from '../../types/order/callback';
+import Customer from '../../models/Customer';
+import Payment from '../../models/Payment';
 
 /**
  * The `orders` resource
@@ -77,14 +67,15 @@ export default class Orders extends Resource {
    * @public ✓ This method is part of the public API
    */
   public async get(id: string, params: IGetParams | GetCallback, cb?: GetCallback): Promise<Order> {
-    if (!startsWith(id, Order.resourcePrefix)) {
-      Resource.errorHandler(
-        Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb),
-      );
-    }
-
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
+      if (!startsWith(id, Order.resourcePrefix)) {
+        Resource.errorHandler(
+          { error: { message: 'The order id is invalid' } },
+          typeof params === 'function' ? params : cb,
+        );
+      }
+
       return super.get(
         id,
         typeof params === 'function' ? null : params,
@@ -92,7 +83,11 @@ export default class Orders extends Resource {
       ) as Promise<Order>;
     }
 
-    return super.get(id, params, cb) as Promise<Order>;
+    if (!startsWith(id, Order.resourcePrefix)) {
+      Resource.errorHandler({ error: { message: 'The order id is invalid' } });
+    }
+
+    return super.get(id, params) as Promise<Order>;
   }
 
   /**
@@ -118,14 +113,15 @@ export default class Orders extends Resource {
       ) as Promise<List<Order>>;
     }
 
-    return super.list(params, cb) as Promise<List<Order>>;
+    return super.list(params) as Promise<List<Order>>;
   }
 
   /**
    * Update an Order.
    *
    * @param id - Order ID
-   * @param data - Update Order parameters
+   * @param params - Update Order parameters
+   *               (DEPRECATED SINCE 2.2.0) Can also be a callback function
    * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns The updated Order
@@ -135,14 +131,28 @@ export default class Orders extends Resource {
    * @see https://docs.mollie.com/reference/v2/orders-api/update-order
    * @public ✓ This method is part of the public API
    */
-  public async update(id: string, data: IUpdateParams, cb?: UpdateCallback): Promise<Order> {
-    if (!startsWith(id, Order.resourcePrefix)) {
-      Resource.errorHandler(
-        Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb),
-      );
+  public async update(id: string, params: IUpdateParams | UpdateCallback, cb?: UpdateCallback): Promise<Order> {
+    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    if (typeof params === 'function' || typeof cb === 'function') {
+      if (!startsWith(id, Order.resourcePrefix)) {
+        Resource.errorHandler(
+          { error: { message: 'The order id is invalid' } },
+          typeof params === 'function' ? params : cb,
+        );
+      }
+
+      return super.update(
+        id,
+        typeof params === 'function' ? null : params,
+        typeof params === 'function' ? params : cb,
+      ) as Promise<Order>;
     }
 
-    return super.update(id, data, cb) as Promise<Order>;
+    if (!startsWith(id, Order.resourcePrefix)) {
+      Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb);
+    }
+
+    return super.update(id, params) as Promise<Order>;
   }
 
   /**
@@ -160,15 +170,9 @@ export default class Orders extends Resource {
    * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order
    * @public ✓ This method is part of the public API
    */
-  public async cancel(
-    id: string,
-    params?: ICancelParams | CancelCallback,
-    cb?: CancelCallback,
-  ): Promise<Order> {
+  public async cancel(id: string, params?: ICancelParams | CancelCallback, cb?: CancelCallback): Promise<Order> {
     if (!startsWith(id, Order.resourcePrefix)) {
-      Resource.errorHandler(
-        Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb),
-      );
+      Resource.errorHandler(Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb));
     }
 
     // Using callbacks (DEPRECATED SINCE 2.2.0)
@@ -180,7 +184,7 @@ export default class Orders extends Resource {
       ) as Promise<Order>;
     }
 
-    return super.delete(id, params, cb) as Promise<Order>;
+    return super.delete(id, params) as Promise<Order>;
   }
 
   // ALIASES

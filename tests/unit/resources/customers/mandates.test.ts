@@ -2,9 +2,11 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import CustomersMandates from '../../../../src/resources/customers/mandates';
+import CustomersMandatesResource from '../../../../src/resources/customers/mandates';
 import Mandate from '../../../../src/models/Mandate';
 
 import response from '../../__stubs__/customers_mandates.json';
+import { MandateMethod } from '../../../../src/types/mandate';
 
 const mock = new MockAdapter(axios);
 
@@ -25,7 +27,7 @@ const props = {
 };
 
 describe('customers_mandates', () => {
-  let customersMandates;
+  let customersMandates: CustomersMandatesResource;
   beforeEach(() => {
     customersMandates = new CustomersMandates(axios.create());
   });
@@ -42,13 +44,21 @@ describe('customers_mandates', () => {
       .reply(200, response._embedded.mandates[0]);
 
     it('should return a mandate instance', () =>
-      customersMandates.create(props).then(result => {
+      customersMandates.create({
+        ...props.details,
+        customerId: props.customerId,
+        method: MandateMethod.directdebit,
+      }).then(result => {
         expect(result).toBeInstanceOf(Mandate);
         expect(result).toMatchSnapshot();
       }));
 
     it('should work with a callback', done => {
-      customersMandates.create(props, (err, result) => {
+      customersMandates.create({
+        ...props.details,
+        customerId: props.customerId,
+        method: MandateMethod.directdebit,
+      }, (err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Mandate);
         expect(result).toMatchSnapshot();

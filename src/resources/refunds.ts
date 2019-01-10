@@ -5,6 +5,7 @@ import List from '../models/List';
 import ApiException from '../exceptions/ApiException';
 import { IListParams } from '../types/refund/params';
 import { ListCallback } from '../types/refund/callback';
+import { AxiosInstance } from 'axios';
 
 /**
  * The `refunds` resource
@@ -16,13 +17,18 @@ export default class RefundsResource extends Resource {
   public model = Refund;
   public apiName = 'Refunds API';
 
+  public constructor(httpClient: AxiosInstance) {
+    super(httpClient);
+  }
+
   // API METHODS
 
   /**
    * List Refunds
    *
    * @param params - List Refunds parameters
-   * @param cb - Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns A list of found Refunds
    *
@@ -31,7 +37,7 @@ export default class RefundsResource extends Resource {
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
    * @public
    */
-  public async list(params?: IListParams, cb?: ListCallback): Promise<List<Refund>> {
+  public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Refund>> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       return super.list(
@@ -39,6 +45,7 @@ export default class RefundsResource extends Resource {
         typeof params === 'function' ? params : cb,
       ) as Promise<List<Refund>>;
     }
+
     return super.list(params, cb);
   }
 

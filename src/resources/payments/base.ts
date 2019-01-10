@@ -1,16 +1,10 @@
-import { startsWith } from 'lodash';
-
 import Resource from '../../resource';
-import Payment from '../../models/Payment';
 
 /**
  * Payments base resource
  */
 export default class PaymentsBaseResource extends Resource {
   protected setParentId(parentId: string) {
-    if (!startsWith(parentId, Payment.resourcePrefix)) {
-      throw { error: { message: 'The payment id is invalid' } };
-    }
     super.setParentId(parentId);
   }
 

@@ -24,6 +24,7 @@ export default class OrdersLinesResource extends OrdersResource {
    *
    * @param id - Order ID
    * @param params - Update order parameters
+   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
    * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns The updated Order object
@@ -33,17 +34,32 @@ export default class OrdersLinesResource extends OrdersResource {
    * @see https://docs.mollie.com/reference/v2/orders-api/update-orderline
    * @public ✓ This method is part of the public API
    */
-  public async update(id: string, params: IUpdateParams, cb?: UpdateCallback): Promise<Order> {
+  public async update(id: string, params: IUpdateParams | UpdateCallback, cb?: UpdateCallback): Promise<Order> {
+    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    if (typeof params === 'function' || typeof cb === 'function') {
+      if (!startsWith(id, Order.resourcePrefix)) {
+        Resource.errorHandler(
+          { error: { message: 'The order id is invalid' } },
+          typeof params === 'function' ? params : cb,
+        );
+      }
+      this.setParentId(id);
+
+      return super.update(
+        id,
+        typeof params === 'function' ? null : params,
+        typeof params === 'function' ? params : cb,
+      ) as Promise<Order>;
+    }
+
     const { ...parameters } = params;
     if (!startsWith(id, Order.resourcePrefix)) {
-      Resource.errorHandler(
-        Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb),
-      );
+      Resource.errorHandler({ error: { message: 'The order id is invalid' } });
     }
 
     this.setParentId(id);
 
-    return super.update(id, parameters, cb) as Promise<Order>;
+    return super.update(id, parameters) as Promise<Order>;
   }
 
   /**
@@ -61,11 +77,30 @@ export default class OrdersLinesResource extends OrdersResource {
    * @public ✓ This method is part of the public API
    */
   public async cancel(id: string, params?: ICancelParams, cb?: CancelCallback): Promise<boolean> {
+    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    if (typeof params === 'function' || typeof cb === 'function') {
+      if (!startsWith(id, Order.resourcePrefix)) {
+        Resource.errorHandler(
+          { error: { message: 'The order id is invalid' } },
+          typeof params === 'function' ? params : cb,
+        );
+      }
+      this.setParentId(id);
+
+      return super.delete(
+        id,
+        typeof params === 'function' ? null : params,
+        typeof params === 'function' ? params : cb,
+      ) as Promise<boolean>;
+    }
+
     if (!startsWith(id, Order.resourcePrefix)) {
       Resource.errorHandler(
-        Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb),
+        { error: { message: 'The order id is invalid' } },
+        typeof params === 'function' ? params : cb,
       );
     }
+
     const { ...parameters } = params;
     this.setParentId(id);
 

@@ -66,52 +66,10 @@ describe('customers_payments', () => {
     });
   });
 
-  describe('.get()', () => {
-    const error = { error: { message: 'The customers_mandate id is invalid' } };
-
-    mock
-      .onGet(`/customers/${props.customerId}/payments/${props.id}`)
-      .reply(200, response._embedded.payments[0]);
-    mock.onGet(`/customers/${props.customerId}/payments/foo`).reply(500, error);
-
-    it('should return a payment instance', done =>
-      customersPayments.get(props.id, { customerId: props.customerId })
-        .then(result => {
-          expect(result).toBeInstanceOf(Payment);
-          expect(result).toMatchSnapshot();
-          done();
-        })
-        .catch(err => expect(err).toBeUndefined())
-    );
-
-    it('should work with a callback', done => {
-      customersPayments.get(props.id, { customerId: props.customerId }, (err, result) => {
-        expect(err).toBeNull();
-        expect(result).toBeInstanceOf(Payment);
-        expect(result).toMatchSnapshot();
-        done();
-      });
-    });
-
-    it('should work with withParent', done => {
-      customersPayments
-        .withParent({
-          resource: 'customer',
-          id: props.customerId,
-        })
-        .get(props.id, (err, result) => {
-          expect(err).toBeNull();
-          expect(result).toBeInstanceOf(Payment);
-          expect(result).toMatchSnapshot();
-          done();
-        });
-    });
-  });
-
   describe('.list()', () => {
     mock.onGet(`/customers/${props.customerId}/payments`).reply(200, response);
 
-    it('should return a list of all customer payments', done =>
+    it('should return a list of all customer payments', done => {
       customersPayments.list({ customerId: props.customerId })
         .then(result => {
           expect(result).toBeInstanceOf(Array);
@@ -119,13 +77,16 @@ describe('customers_payments', () => {
           expect(result).toMatchSnapshot();
           done();
         })
-        .catch(err => expect(err).toBeUndefined())
-    );
+        .catch(err => expect(err).toBeUndefined());
+    });
 
-    it('should throw an error if "customerId" is not set', () => {
-      const getPayments = () => customersPayments.list();
-
-      expect(getPayments).toThrowError(TypeError);
+    it('should throw an error if "customerId" is not set', done => {
+      customersPayments.list()
+        .then(() => { throw Error('Should error out'); })
+        .catch(err => {
+          expect(err).toBeInstanceOf(TypeError);
+          done();
+        });
     });
 
     it('should work with a callback', done => {
@@ -138,17 +99,19 @@ describe('customers_payments', () => {
       });
     });
 
-    it('should work with withParent', () =>
+    it('should work with withParent', done => {
       customersPayments
         .withParent({
           resource: 'customer',
           id: props.customerId,
         })
-        .list()
-        .then(result => {
+        .list((err, result) => {
+          expect(err).toBeNull();
           expect(result).toBeInstanceOf(Array);
           expect(result).toHaveProperty('links');
           expect(result).toMatchSnapshot();
-        }));
+          done();
+        });
+    });
   });
 });

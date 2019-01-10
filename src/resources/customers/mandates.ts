@@ -44,7 +44,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
   /**
    * Get a customer mandate by ID
    *
-   * @param id - Mandate ID
+   * @param id - customers_mandate id
    * @param params - Get customer mandate parameters
    *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
    * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
@@ -59,10 +59,20 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
   public async get(id: string, params?: IGetParams | GetCallback, cb?: GetCallback): Promise<Mandate> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
+      if (!startsWith(id, Mandate.resourcePrefix)) {
+        Resource.errorHandler(
+          { error: { message: 'The customers_mandate id is invalid' } },
+          typeof params === 'function' ? params : cb,
+        );
+      }
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        Resource.errorHandler(Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, cb));
+        Resource.errorHandler(
+          { error: { message: 'The customer id is invalid' } },
+          typeof params === 'function' ? params : cb,
+        );
       }
+      this.setParentId(customerId);
 
       return super.get(
         id,
@@ -72,10 +82,12 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
     }
 
     const { customerId, ...parameters } = params;
-    if (!startsWith(customerId, Customer.resourcePrefix)) {
-      Resource.errorHandler(Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, cb));
+    if (!startsWith(id, Mandate.resourcePrefix)) {
+      Resource.errorHandler({ error: { message: 'The customers_mandate id is invalid' } });
     }
-
+    if (!startsWith(customerId, Customer.resourcePrefix)) {
+      Resource.errorHandler({ error: { message: 'The customer id is invalid' } });
+    }
     this.setParentId(customerId);
 
     return super.get(id, parameters, cb) as Promise<Mandate>;
@@ -100,8 +112,12 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        Resource.errorHandler(Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, cb));
+        Resource.errorHandler(
+          { error: { message: 'The customer id is invalid' } },
+          typeof params === 'function' ? params : cb,
+        );
       }
+      this.setParentId(customerId);
 
       return super.list(
         typeof params === 'function' ? null : params,
@@ -111,7 +127,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
 
     const { customerId, ...parameters } = params;
     if (!startsWith(customerId, Customer.resourcePrefix)) {
-      Resource.errorHandler(Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, cb));
+      Resource.errorHandler({ error: { message: 'The customer id is invalid' } });
     }
 
     this.setParentId(customerId);
@@ -122,7 +138,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
   /**
    * Delete a customer subscription
    *
-   * @param id - Mandate ID
+   * @param id - customers_mandate id
    * @param params - Delete Customer parameters
    *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
    * @param cb - Callback function, can be used instead of the returned `Promise` object
@@ -138,9 +154,19 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
-      if (!startsWith(customerId, Customer.resourcePrefix)) {
-        Resource.errorHandler(Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, cb));
+      if (!startsWith(id, Mandate.resourcePrefix)) {
+        Resource.errorHandler(
+          { error: { message: 'The customers_mandate id is invalid' } },
+          typeof params === 'function' ? params : cb,
+        );
       }
+      if (!startsWith(customerId, Customer.resourcePrefix)) {
+        Resource.errorHandler(
+          { error: { message: 'The customer id is invalid' } },
+          typeof params === 'function' ? params : cb,
+        );
+      }
+      this.setParentId(customerId);
 
       return super.delete(
         id,
@@ -150,10 +176,12 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
     }
 
     const { customerId } = params;
-    if (!startsWith(customerId, Customer.resourcePrefix)) {
-      Resource.errorHandler(Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, cb));
+    if (!startsWith(id, Mandate.resourcePrefix)) {
+      Resource.errorHandler({ error: { message: 'The customers_mandate id is invalid' } });
     }
-
+    if (!startsWith(customerId, Customer.resourcePrefix)) {
+      Resource.errorHandler({ error: { message: 'The customer id is invalid' } });
+    }
     this.setParentId(customerId);
 
     // TODO: check parent return type

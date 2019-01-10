@@ -132,9 +132,8 @@ describe('customers', () => {
     });
 
     it('should return an error for non-existing IDs', () => {
-      // @ts-ignore -- this is on purpose
       customers
-        .update('foo')
+        .update('foo', null)
         .then(() => {
           throw new Error('Should reject');
         })
@@ -144,7 +143,6 @@ describe('customers', () => {
     });
 
     it('should return an error with a callback for non-existing IDs', done => {
-      // @ts-ignore -- this is on purpose
       customers.update('foo', (err, result) => {
         expect(err).toEqual(error);
         expect(result).toBeUndefined();

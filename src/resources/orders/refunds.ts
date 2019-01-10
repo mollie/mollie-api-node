@@ -8,6 +8,8 @@ import ApiException from '../../exceptions/ApiException';
 import { ICreateParams, IListParams } from '../../types/order/refund/params';
 import Order from '../../models/Order';
 import Resource from '../../resource';
+import Customer from '../../models/Customer';
+import Payment from '../../models/Payment';
 
 /**
  * The `orders_refunds` resource
@@ -35,11 +37,26 @@ export default class OrdersRefundsResource extends OrdersResource {
    * @public ✓ This method is part of the public API
    */
   public async create(params: ICreateParams, cb?: CreateCallback): Promise<Refund> {
+    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    if (typeof params === 'function' || typeof cb === 'function') {
+      const orderId = get(params, 'orderId') || this.parentId;
+      if (!startsWith(orderId, Order.resourcePrefix)) {
+        Resource.errorHandler(
+          { error: { message: 'The order id is invalid' } },
+          typeof params === 'function' ? params : cb,
+        );
+      }
+      this.setParentId(orderId);
+
+      return super.create(
+        typeof params === 'function' ? null : params,
+        typeof params === 'function' ? params : cb,
+      ) as Promise<Refund>;
+    }
+
     const { orderId, ...parameters } = params;
     if (!startsWith(orderId, Order.resourcePrefix)) {
-      Resource.errorHandler(
-        Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb),
-      );
+      Resource.errorHandler(Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb));
     }
     this.setParentId(orderId);
 
@@ -67,6 +84,7 @@ export default class OrdersRefundsResource extends OrdersResource {
       if (!orderId) {
         throw new ApiException('Order ID is not set');
       }
+      this.setParentId(orderId);
 
       return super.list(
         typeof params === 'function' ? null : params,
@@ -76,9 +94,7 @@ export default class OrdersRefundsResource extends OrdersResource {
 
     const { orderId, ...parameters } = params;
     if (!startsWith(orderId, Order.resourcePrefix)) {
-      Resource.errorHandler(
-        Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb),
-      );
+      Resource.errorHandler({ error: { message: 'The order id is invalid' } });
     }
     this.setParentId(orderId);
 

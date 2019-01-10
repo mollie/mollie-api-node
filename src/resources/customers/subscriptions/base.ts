@@ -1,6 +1,3 @@
-import { startsWith } from 'lodash';
-
-import Subscription from '../../../models/Subscription';
 import CustomersBaseResource from '../../../resources/customers/base';
 
 /**
@@ -13,7 +10,7 @@ export default class CustomersSubscriptionsBaseResource extends CustomersBaseRes
   /**
    * If the subscription ID is set
    *
-   * @since 2.0.0
+   * @since 2.2.0
    */
   protected hasSubscriptionId(): boolean {
     return !!this.subscriptionId;
@@ -25,10 +22,6 @@ export default class CustomersSubscriptionsBaseResource extends CustomersBaseRes
    * @since 2.2.0
    */
   protected setSubscriptionId(subscriptionId: string) {
-    if (!startsWith(subscriptionId, Subscription.resourcePrefix)) {
-      throw { error: { message: 'The subscription id is invalid' } };
-    }
-
     this.subscriptionId = subscriptionId;
   }
 

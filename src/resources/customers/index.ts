@@ -1,3 +1,5 @@
+import { startsWith } from 'lodash';
+
 import CustomersBaseResource from './base';
 import Customer from '../../models/Customer';
 import List from '../../models/List';
@@ -9,6 +11,7 @@ import {
   ListCallback,
   UpdateCallback,
 } from '../../types/customer/callback';
+import Resource from '../../resource';
 
 /**
  * The `customers` resource
@@ -29,10 +32,10 @@ export default class CustomersResource extends CustomersBaseResource {
    * where you can manage their details,
    * and also see their payments and subscriptions.
    *
-   * @param {ICreateParams}  params Create Customer parameters
-   * @param {CreateCallback} cb     Callback function, can be used instead of the returned `Promise` object
+   * @param params - Create customer parameters
+   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
    *
-   * @returns {Promise<Customer>}
+   * @returns The newly created customer object
    *
    * @since 2.0.0
    *
@@ -44,11 +47,12 @@ export default class CustomersResource extends CustomersBaseResource {
   }
 
   /**
-   * Retrieve a single customer by its ID.
+   * Retrieve a single customer by its ID
    *
    * @param id - Customer ID
-   * @param params - Retrieve Customer parameters
-   * @param cb - Callback function, can be used instead of the returned `Promise` object
+   * @param params - Retrieve customer parameters
+   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns Customer object
    *
@@ -60,6 +64,13 @@ export default class CustomersResource extends CustomersBaseResource {
   public async get(id: string, params?: IGetParams | GetCallback, cb?: GetCallback): Promise<Customer> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
+      if (!startsWith(id, Customer.resourcePrefix)) {
+        Resource.errorHandler(
+          { error: { message: 'The customer id is invalid' } },
+          typeof params === 'function' ? params : cb,
+        );
+      }
+
       return super.get(
         id,
         typeof params === 'function' ? null : params,
@@ -67,14 +78,18 @@ export default class CustomersResource extends CustomersBaseResource {
       ) as Promise<Customer>;
     }
 
+    if (!startsWith(id, Customer.resourcePrefix)) {
+      Resource.errorHandler({ error: { message: 'The customer id is invalid' } });
+    }
     return super.get(id, params, cb) as Promise<Customer>;
   }
 
   /**
-   * List Customers.
+   * List customers
    *
-   * @param params - List Customers parameters
-   * @param cb - Callback function, can be used instead of the returned `Promise` object
+   * @param params - List customer parameters
+   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns
    *
@@ -96,11 +111,12 @@ export default class CustomersResource extends CustomersBaseResource {
   }
 
   /**
-   * Update a Customer.
+   * Update a customer
    *
    * @param id - Customer ID
-   * @param params - Update Customer parameters
-   * @param cb - Callback function, can be used instead of the returned `Promise` object
+   * @param params - Update customer parameters
+   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns The updated Customer object
    *
@@ -109,16 +125,36 @@ export default class CustomersResource extends CustomersBaseResource {
    * @see https://docs.mollie.com/reference/v2/customers-api/update-customer
    * @public ✓ This method is part of the public API
    */
-  public async update(id: string, params: IUpdateParams, cb?: UpdateCallback): Promise<Customer> {
+  public async update(id: string, params: IUpdateParams | UpdateCallback, cb?: UpdateCallback): Promise<Customer> {
+    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    if (typeof params === 'function' || typeof cb === 'function') {
+      if (!startsWith(id, Customer.resourcePrefix)) {
+        Resource.errorHandler(
+          { error: { message: 'The customer id is invalid' } },
+          typeof params === 'function' ? params : cb,
+        );
+      }
+
+      return super.update(
+        id,
+        typeof params === 'function' ? null : params,
+        typeof params === 'function' ? params : cb,
+      ) as Promise<Customer>;
+    }
+
+    if (!startsWith(id, Customer.resourcePrefix)) {
+      Resource.errorHandler({ error: { message: 'The customer id is invalid' } });
+    }
     return super.update(id, params, cb) as Promise<Customer>;
   }
 
   /**
-   * Delete a Customer.
+   * Delete a customer
    *
    * @param id - Customer ID
-   * @param params - Delete Customer parameters
-   * @param cb - Callback function, can be used instead of the returned `Promise` object
+   * @param params - Delete customer parameters
+   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns Success status
    *
@@ -130,11 +166,22 @@ export default class CustomersResource extends CustomersBaseResource {
   public async delete(id: string, params?: IDeleteParams | DeleteCallback, cb?: DeleteCallback): Promise<boolean> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
+      if (!startsWith(id, Customer.resourcePrefix)) {
+        Resource.errorHandler(
+          { error: { message: 'The customer id is invalid' } },
+          typeof params === 'function' ? params : cb,
+        );
+      }
+
       return super.delete(
         id,
         typeof params === 'function' ? null : params,
         typeof params === 'function' ? params : cb,
       ) as Promise<boolean>;
+    }
+
+    if (!startsWith(id, Customer.resourcePrefix)) {
+      Resource.errorHandler({ error: { message: 'The customer id is invalid' } });
     }
 
     // TODO: check return type

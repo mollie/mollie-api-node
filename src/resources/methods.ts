@@ -20,7 +20,8 @@ export default class MethodsResource extends Resource {
    *
    * @param id - Method ID
    * @param params - Retrieve Payment Method parameters
-   * @param cb - Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns The Payment Method object
    *
@@ -29,20 +30,25 @@ export default class MethodsResource extends Resource {
    * @see https://docs.mollie.com/reference/v2/methods-api/get-method
    * @public ✓ This method is part of the public API
    */
-  public async get(id: string, params?: IGetParams, cb?: GetCallback): Promise<Method> {
-    if (!id) {
-      Resource.errorHandler(
-        Resource.errorHandler({ error: { message: 'The method id is invalid' } }, cb),
-      );
-    }
-
+  public async get(id: string, params?: IGetParams | GetCallback, cb?: GetCallback): Promise<Method> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
+      if (!id) {
+        Resource.errorHandler(
+          { error: { message: 'The method id is invalid' } },
+          typeof params === 'function' ? params : cb,
+        );
+      }
+
       return super.get(
         id,
         typeof params === 'function' ? null : params,
         typeof params === 'function' ? params : cb,
       ) as Promise<Method>;
+    }
+
+    if (!id) {
+      Resource.errorHandler({ error: { message: 'The method id is invalid' } });
     }
 
     return super.get(id, params, cb) as Promise<Method>;
@@ -52,7 +58,8 @@ export default class MethodsResource extends Resource {
    * Retrieve a list of Payment Methods
    *
    * @param params - Retrieve Payment Method parameters
-   * @param cb - Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns A list of found Payment Methods
    *
@@ -61,7 +68,7 @@ export default class MethodsResource extends Resource {
    * @see https://docs.mollie.com/reference/v2/methods-api/list-methods
    * @public ✓ This method is part of the public API
    */
-  public async list(params?: IListParams, cb?: ListCallback): Promise<List<Method>> {
+  public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Method>> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       return super.list(

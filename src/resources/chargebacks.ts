@@ -19,10 +19,11 @@ export default class ChargebacksResource extends Resource {
   // API METHODS
 
   /**
-   * List Chargebacks.
+   * List chargebacks
    *
-   * @param params - List Chargebacks parameters
-   * @param cb - Callback function, can be used instead of the returned `Promise` object
+   * @param params - List chargebacks parameters
+   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns A list of found Chargebacks
    *
@@ -31,7 +32,7 @@ export default class ChargebacksResource extends Resource {
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
    * @public ✓ This method is part of the public API
    */
-  public async list(params?: IListParams, cb?: ListCallback): Promise<List<Chargeback>> {
+  public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Chargeback>> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       return super.list(
@@ -46,7 +47,7 @@ export default class ChargebacksResource extends Resource {
   // ALIASES
 
   /**
-   * List Chargebacks.
+   * List chargebacks
    *
    * @since 2.0.0
    *

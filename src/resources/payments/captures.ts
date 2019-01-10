@@ -26,7 +26,7 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
    *
    * @param id - Capture ID
    * @param params - Get Payment Capture parameters
-   * @param cb - Callback function, can be used instead of the returned `Promise` object
+   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns The found Payment Capture object
    *
@@ -36,20 +36,22 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
    * @public ✓ This method is part of the public API
    */
   public async get(id: string, params: IGetParams, cb?: GetCallback): Promise<Capture> {
-    if (!startsWith(id, Capture.resourcePrefix)) {
-      Resource.errorHandler(
-        Resource.errorHandler({ error: { message: 'The capture id is invalid' } }, cb),
-      );
-    }
-
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
+      if (!startsWith(id, Capture.resourcePrefix)) {
+        Resource.errorHandler(
+          { error: { message: 'The capture id is invalid' } },
+          typeof params === 'function' ? params : cb,
+        );
+      }
       const paymentId = get(params, 'paymentId') || this.parentId;
       if (!startsWith(paymentId, Payment.resourcePrefix)) {
         Resource.errorHandler(
-          Resource.errorHandler({ error: { message: 'The payment id is invalid' } }, cb),
+          { error: { message: 'The payment id is invalid' } },
+          typeof params === 'function' ? params : cb,
         );
       }
+      this.setParentId(paymentId);
 
       return super.get(
         id,
@@ -58,9 +60,12 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
       ) as Promise<Capture>;
     }
 
+    if (!startsWith(id, Capture.resourcePrefix)) {
+      Resource.errorHandler({ error: { message: 'The capture id is invalid' } });
+    }
     const { paymentId, ...parameters } = params;
     if (!startsWith(id, Payment.resourcePrefix)) {
-      throw { error: { message: 'The payment id is invalid' } };
+      Resource.errorHandler({ error: { message: 'The payment id is invalid' } });
     }
     this.setParentId(paymentId);
 
@@ -71,7 +76,8 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
    * Retrieve a list of Payment Captures
    *
    * @param params - Retrieve Payment Captures list parameters
-   * @param cb - Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns A list of found Payment Captures
    *
@@ -80,8 +86,28 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
    * @see https://docs.mollie.com/reference/v2/captures-api/list-captures
    * @public ✓ This method is part of the public API
    */
-  public async list(params: IListParams, cb?: ListCallback): Promise<List<Capture>> {
+  public async list(params: IListParams | ListCallback, cb?: ListCallback): Promise<List<Capture>> {
+    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    if (typeof params === 'function' || typeof cb === 'function') {
+      const paymentId = get(params, 'paymentId') || this.parentId;
+      if (!startsWith(paymentId, Payment.resourcePrefix)) {
+        Resource.errorHandler(
+          { error: { message: 'The payment id is invalid' } },
+          typeof params === 'function' ? params : cb,
+        );
+      }
+      this.setParentId(paymentId);
+
+      return super.list(
+        typeof params === 'function' ? null : params,
+        typeof params === 'function' ? params : cb,
+      ) as Promise<List<Capture>>;
+    }
+
     const { paymentId, ...parameters } = params;
+    if (!startsWith(paymentId, Payment.resourcePrefix)) {
+      Resource.errorHandler(Resource.errorHandler({ error: { message: 'The payment id is invalid' } }));
+    }
     this.setParentId(paymentId);
 
     return super.list(parameters, cb);

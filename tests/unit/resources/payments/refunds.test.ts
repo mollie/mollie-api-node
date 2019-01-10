@@ -18,7 +18,7 @@ const props = {
 };
 
 describe('payments_refunds', () => {
-  let paymentsRefunds;
+  let paymentsRefunds: PaymentsRefundsResource;
   beforeEach(() => {
     paymentsRefunds = new PaymentsRefundsResource(axios.create());
   });
@@ -82,10 +82,15 @@ describe('payments_refunds', () => {
         expect(result).toMatchSnapshot();
       }));
 
-    it('should throw an error if "paymentId" is not set', () => {
-      const getRefunds = () => paymentsRefunds.all();
-
-      expect(getRefunds).toThrowError(TypeError);
+    it('should throw an error if "paymentId" is not set', done => {
+      paymentsRefunds.all()
+        .then(() => {
+          throw new Error('This should error out instead');
+        })
+        .catch(error => {
+          expect(error).toBeInstanceOf(TypeError);
+          done();
+        });
     });
 
     it('should work with a callback', done => {

@@ -313,28 +313,10 @@ Array [
 exports[`methods .get() should return a method instance 1`] = `
 Method {
   "_links": Object {
-    "documentation": null,
-    "self": null,
-  },
-  "config": Object {
-    "data": undefined,
-    "headers": Object {
-      "Accept": "application/json, text/plain, */*",
+    "self": Object {
+      "href": "https://api.mollie.com/v2/methods/ideal",
+      "type": "application/hal+json",
     },
-    "maxContentLength": -1,
-    "method": "get",
-    "params": undefined,
-    "timeout": 0,
-    "transformRequest": Object {
-      "0": [Function],
-    },
-    "transformResponse": Object {
-      "0": [Function],
-    },
-    "url": "methods/ideal",
-    "validateStatus": [Function],
-    "xsrfCookieName": "XSRF-TOKEN",
-    "xsrfHeaderName": "X-XSRF-TOKEN",
   },
   "data": Object {
     "_links": Object {
@@ -351,44 +333,23 @@ Method {
     },
     "resource": "method",
   },
-  "description": null,
-  "headers": undefined,
-  "id": null,
+  "description": "iDEAL",
+  "id": "ideal",
   "image": Object {
-    "size1x": null,
-    "size2x": null,
-    "svg": null,
+    "size1x": "https://www.mollie.com/images/payscreen/methods/ideal.png",
+    "size2x": "https://www.mollie.com/images/payscreen/methods/ideal%402x.png",
   },
   "resource": "method",
-  "status": 200,
 }
 `;
 
 exports[`methods .get() should work with a callback 1`] = `
 Method {
   "_links": Object {
-    "documentation": null,
-    "self": null,
-  },
-  "config": Object {
-    "data": undefined,
-    "headers": Object {
-      "Accept": "application/json, text/plain, */*",
+    "self": Object {
+      "href": "https://api.mollie.com/v2/methods/ideal",
+      "type": "application/hal+json",
     },
-    "maxContentLength": -1,
-    "method": "get",
-    "params": [Function],
-    "timeout": 0,
-    "transformRequest": Object {
-      "0": [Function],
-    },
-    "transformResponse": Object {
-      "0": [Function],
-    },
-    "url": "methods/ideal",
-    "validateStatus": [Function],
-    "xsrfCookieName": "XSRF-TOKEN",
-    "xsrfHeaderName": "X-XSRF-TOKEN",
   },
   "data": Object {
     "_links": Object {
@@ -405,15 +366,12 @@ Method {
     },
     "resource": "method",
   },
-  "description": null,
-  "headers": undefined,
-  "id": null,
+  "description": "iDEAL",
+  "id": "ideal",
   "image": Object {
-    "size1x": null,
-    "size2x": null,
-    "svg": null,
+    "size1x": "https://www.mollie.com/images/payscreen/methods/ideal.png",
+    "size2x": "https://www.mollie.com/images/payscreen/methods/ideal%402x.png",
   },
   "resource": "method",
-  "status": 200,
 }
 `;
