@@ -7,7 +7,9 @@ export type GiftcardIssuer =
   | 'podiumcadeaukaart'
   | 'vvvgiftcard'
   | 'webshopgiftcard'
-  | 'yourgift';
+  | 'yourgift'
+  | 'travelcheq'
+  | 'fashioncheque';
 
 export type KbcIssuer = 'kbc' | 'cbc';
 
