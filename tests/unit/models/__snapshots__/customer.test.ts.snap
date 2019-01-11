@@ -30,8 +30,20 @@ Object {
       "href": "https://docs.mollie.com/reference/v2/customers-api/get-customer",
       "type": "text/html",
     },
+    "mandates": Object {
+      "href": "https://api.mollie.com/v2/customers/cst_kEn1PlbGa/mandates",
+      "type": "application/hal+json",
+    },
+    "payments": Object {
+      "href": "https://api.mollie.com/v2/customers/cst_kEn1PlbGa/payments",
+      "type": "application/hal+json",
+    },
     "self": Object {
       "href": "https://api.mollie.com/v2/customers/cst_kEn1PlbGa",
+      "type": "application/hal+json",
+    },
+    "subscriptions": Object {
+      "href": "https://api.mollie.com/v2/customers/cst_kEn1PlbGa/subscriptions",
       "type": "application/hal+json",
     },
   },
@@ -42,8 +54,20 @@ Object {
         "href": "https://docs.mollie.com/reference/v2/customers-api/get-customer",
         "type": "text/html",
       },
+      "mandates": Object {
+        "href": "https://api.mollie.com/v2/customers/cst_kEn1PlbGa/mandates",
+        "type": "application/hal+json",
+      },
+      "payments": Object {
+        "href": "https://api.mollie.com/v2/customers/cst_kEn1PlbGa/payments",
+        "type": "application/hal+json",
+      },
       "self": Object {
         "href": "https://api.mollie.com/v2/customers/cst_kEn1PlbGa",
+        "type": "application/hal+json",
+      },
+      "subscriptions": Object {
+        "href": "https://api.mollie.com/v2/customers/cst_kEn1PlbGa/subscriptions",
         "type": "application/hal+json",
       },
     },

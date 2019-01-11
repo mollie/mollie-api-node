@@ -1,5 +1,5 @@
 import Customer from '../../../src/models/Customer';
-import { ApiMode, Locale, PaymentMethod } from '../../../src/types/global';
+import {ApiMode, Locale, PaymentMethod} from '../../../src/types/global';
 
 describe('customer model', () => {
   it('should instantiate with default values', () => {
@@ -25,13 +25,25 @@ describe('customer model', () => {
       _links: {
         self: {
           href: 'https://api.mollie.com/v2/customers/cst_kEn1PlbGa',
-          type: 'application/hal+json'
+          type: 'application/hal+json',
+        },
+        mandates: {
+          href: 'https://api.mollie.com/v2/customers/cst_kEn1PlbGa/mandates',
+          type: 'application/hal+json',
+        },
+        subscriptions: {
+          href: 'https://api.mollie.com/v2/customers/cst_kEn1PlbGa/subscriptions',
+          type: 'application/hal+json',
+        },
+        payments: {
+          href: 'https://api.mollie.com/v2/customers/cst_kEn1PlbGa/payments',
+          type: 'application/hal+json',
         },
         documentation: {
           href: 'https://docs.mollie.com/reference/v2/customers-api/get-customer',
-          type: 'text/html'
-        }
-      }
+          type: 'text/html',
+        },
+      },
     };
     const customer = new Customer(customerProps);
 
