@@ -9,21 +9,6 @@ Array [
         "type": "application/hal+json",
       },
     },
-    "data": Object {
-      "_links": Object {
-        "self": Object {
-          "href": "https://api.mollie.com/v2/methods/ideal",
-          "type": "application/hal+json",
-        },
-      },
-      "description": "iDEAL",
-      "id": "ideal",
-      "image": Object {
-        "size1x": "https://www.mollie.com/images/payscreen/methods/ideal.png",
-        "size2x": "https://www.mollie.com/images/payscreen/methods/ideal%402x.png",
-      },
-      "resource": "method",
-    },
     "description": "iDEAL",
     "id": "ideal",
     "image": Object {
@@ -38,21 +23,6 @@ Array [
         "href": "https://api.mollie.com/v2/methods/creditcard",
         "type": "application/hal+json",
       },
-    },
-    "data": Object {
-      "_links": Object {
-        "self": Object {
-          "href": "https://api.mollie.com/v2/methods/creditcard",
-          "type": "application/hal+json",
-        },
-      },
-      "description": "Credit card",
-      "id": "creditcard",
-      "image": Object {
-        "size1x": "https://www.mollie.com/images/payscreen/methods/creditcard.png",
-        "size2x": "https://www.mollie.com/images/payscreen/methods/creditcard%402x.png",
-      },
-      "resource": "method",
     },
     "description": "Credit card",
     "id": "creditcard",
@@ -69,21 +39,6 @@ Array [
         "type": "application/hal+json",
       },
     },
-    "data": Object {
-      "_links": Object {
-        "self": Object {
-          "href": "https://api.mollie.com/v2/methods/banktransfer",
-          "type": "application/hal+json",
-        },
-      },
-      "description": "Bank transfer",
-      "id": "banktransfer",
-      "image": Object {
-        "size1x": "https://www.mollie.com/images/payscreen/methods/banktransfer.png",
-        "size2x": "https://www.mollie.com/images/payscreen/methods/banktransfer%402x.png",
-      },
-      "resource": "method",
-    },
     "description": "Bank transfer",
     "id": "banktransfer",
     "image": Object {
@@ -99,21 +54,6 @@ Array [
         "type": "application/hal+json",
       },
     },
-    "data": Object {
-      "_links": Object {
-        "self": Object {
-          "href": "https://api.mollie.com/v2/methods/bitcoin",
-          "type": "application/hal+json",
-        },
-      },
-      "description": "Bitcoin",
-      "id": "bitcoin",
-      "image": Object {
-        "size1x": "https://www.mollie.com/images/payscreen/methods/bitcoin.png",
-        "size2x": "https://www.mollie.com/images/payscreen/methods/bitcoin%402x.png",
-      },
-      "resource": "method",
-    },
     "description": "Bitcoin",
     "id": "bitcoin",
     "image": Object {
@@ -128,21 +68,6 @@ Array [
         "href": "https://api.mollie.com/v2/methods/inghomepay",
         "type": "application/hal+json",
       },
-    },
-    "data": Object {
-      "_links": Object {
-        "self": Object {
-          "href": "https://api.mollie.com/v2/methods/inghomepay",
-          "type": "application/hal+json",
-        },
-      },
-      "description": "ING Home'Pay",
-      "id": "inghomepay",
-      "image": Object {
-        "size1x": "https://www.mollie.com/images/payscreen/methods/inghomepay.png",
-        "size2x": "https://www.mollie.com/images/payscreen/methods/inghomepay%402x.png",
-      },
-      "resource": "method",
     },
     "description": "ING Home'Pay",
     "id": "inghomepay",
@@ -164,21 +89,6 @@ Array [
         "type": "application/hal+json",
       },
     },
-    "data": Object {
-      "_links": Object {
-        "self": Object {
-          "href": "https://api.mollie.com/v2/methods/ideal",
-          "type": "application/hal+json",
-        },
-      },
-      "description": "iDEAL",
-      "id": "ideal",
-      "image": Object {
-        "size1x": "https://www.mollie.com/images/payscreen/methods/ideal.png",
-        "size2x": "https://www.mollie.com/images/payscreen/methods/ideal%402x.png",
-      },
-      "resource": "method",
-    },
     "description": "iDEAL",
     "id": "ideal",
     "image": Object {
@@ -193,21 +103,6 @@ Array [
         "href": "https://api.mollie.com/v2/methods/creditcard",
         "type": "application/hal+json",
       },
-    },
-    "data": Object {
-      "_links": Object {
-        "self": Object {
-          "href": "https://api.mollie.com/v2/methods/creditcard",
-          "type": "application/hal+json",
-        },
-      },
-      "description": "Credit card",
-      "id": "creditcard",
-      "image": Object {
-        "size1x": "https://www.mollie.com/images/payscreen/methods/creditcard.png",
-        "size2x": "https://www.mollie.com/images/payscreen/methods/creditcard%402x.png",
-      },
-      "resource": "method",
     },
     "description": "Credit card",
     "id": "creditcard",
@@ -224,21 +119,6 @@ Array [
         "type": "application/hal+json",
       },
     },
-    "data": Object {
-      "_links": Object {
-        "self": Object {
-          "href": "https://api.mollie.com/v2/methods/banktransfer",
-          "type": "application/hal+json",
-        },
-      },
-      "description": "Bank transfer",
-      "id": "banktransfer",
-      "image": Object {
-        "size1x": "https://www.mollie.com/images/payscreen/methods/banktransfer.png",
-        "size2x": "https://www.mollie.com/images/payscreen/methods/banktransfer%402x.png",
-      },
-      "resource": "method",
-    },
     "description": "Bank transfer",
     "id": "banktransfer",
     "image": Object {
@@ -254,21 +134,6 @@ Array [
         "type": "application/hal+json",
       },
     },
-    "data": Object {
-      "_links": Object {
-        "self": Object {
-          "href": "https://api.mollie.com/v2/methods/bitcoin",
-          "type": "application/hal+json",
-        },
-      },
-      "description": "Bitcoin",
-      "id": "bitcoin",
-      "image": Object {
-        "size1x": "https://www.mollie.com/images/payscreen/methods/bitcoin.png",
-        "size2x": "https://www.mollie.com/images/payscreen/methods/bitcoin%402x.png",
-      },
-      "resource": "method",
-    },
     "description": "Bitcoin",
     "id": "bitcoin",
     "image": Object {
@@ -283,21 +148,6 @@ Array [
         "href": "https://api.mollie.com/v2/methods/inghomepay",
         "type": "application/hal+json",
       },
-    },
-    "data": Object {
-      "_links": Object {
-        "self": Object {
-          "href": "https://api.mollie.com/v2/methods/inghomepay",
-          "type": "application/hal+json",
-        },
-      },
-      "description": "ING Home'Pay",
-      "id": "inghomepay",
-      "image": Object {
-        "size1x": "https://www.mollie.com/images/payscreen/methods/inghomepay.png",
-        "size2x": "https://www.mollie.com/images/payscreen/methods/inghomepay%402x.png",
-      },
-      "resource": "method",
     },
     "description": "ING Home'Pay",
     "id": "inghomepay",
@@ -318,21 +168,6 @@ Method {
       "type": "application/hal+json",
     },
   },
-  "data": Object {
-    "_links": Object {
-      "self": Object {
-        "href": "https://api.mollie.com/v2/methods/ideal",
-        "type": "application/hal+json",
-      },
-    },
-    "description": "iDEAL",
-    "id": "ideal",
-    "image": Object {
-      "size1x": "https://www.mollie.com/images/payscreen/methods/ideal.png",
-      "size2x": "https://www.mollie.com/images/payscreen/methods/ideal%402x.png",
-    },
-    "resource": "method",
-  },
   "description": "iDEAL",
   "id": "ideal",
   "image": Object {
@@ -350,21 +185,6 @@ Method {
       "href": "https://api.mollie.com/v2/methods/ideal",
       "type": "application/hal+json",
     },
-  },
-  "data": Object {
-    "_links": Object {
-      "self": Object {
-        "href": "https://api.mollie.com/v2/methods/ideal",
-        "type": "application/hal+json",
-      },
-    },
-    "description": "iDEAL",
-    "id": "ideal",
-    "image": Object {
-      "size1x": "https://www.mollie.com/images/payscreen/methods/ideal.png",
-      "size2x": "https://www.mollie.com/images/payscreen/methods/ideal%402x.png",
-    },
-    "resource": "method",
   },
   "description": "iDEAL",
   "id": "ideal",
