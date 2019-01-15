@@ -198,8 +198,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
     }
     this.setParentId(paymentId);
 
-    // TODO: double-check if super actually returns a boolean status
-    return super.delete(id, parameters, cb) as Promise<boolean>;
+    return !!(await super.delete(id, parameters, cb));
   }
 
   /**

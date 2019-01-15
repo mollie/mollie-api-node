@@ -112,7 +112,6 @@ export default class OrdersLinesResource extends OrdersResource {
     const { ...parameters } = params;
     this.setParentId(id);
 
-    // TODO: check return type
-    return super.delete(id, parameters, cb) as Promise<boolean>;
+    return !!(await super.delete(id, parameters, cb));
   }
 }

@@ -212,8 +212,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
     }
     this.setParentId(customerId);
 
-    // TODO: check parent return type
-    return super.delete(id, cb) as Promise<boolean>;
+    return !!(await super.delete(id, cb));
   }
 
   /**

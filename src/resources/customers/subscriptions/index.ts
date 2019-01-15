@@ -263,7 +263,6 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
     }
     this.setParentId(customerId);
 
-    // TODO: check return type
-    return super.delete(id, parameters, cb) as Promise<boolean>;
+    return !!(await super.delete(id, parameters, cb));
   }
 }

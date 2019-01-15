@@ -203,7 +203,6 @@ export default class CustomersResource extends CustomersBaseResource {
       Resource.errorHandler({ error: { message: 'The customer id is invalid' } });
     }
 
-    // TODO: check return type
-    return super.delete(id, params, cb) as Promise<boolean>;
+    return !!(await super.delete(id, params, cb));
   }
 }
