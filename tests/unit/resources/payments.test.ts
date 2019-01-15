@@ -81,6 +81,8 @@ describe('payments', () => {
           expect(err).toEqual(error);
           expect(err.error.field).toBe('amount');
         }));
+
+    // TODO: it should return a QR code
   });
 
   describe('.get()', () => {

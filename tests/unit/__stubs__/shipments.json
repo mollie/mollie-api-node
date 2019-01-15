@@ -1,5 +1,5 @@
 {
-  "count": 2,
+  "count": 1,
   "_embedded": {
     "shipments": [
       {
@@ -51,8 +51,7 @@
                 "type": "text/html"
               }
             }
-          },
-          {}
+          }
         ],
         "_links": {
           "self": {

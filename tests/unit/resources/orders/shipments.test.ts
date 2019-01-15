@@ -74,18 +74,18 @@ describe('orders_shipments', () => {
         }));
   });
 
-  describe('.all()', () => {
+  describe('.list()', () => {
     mock.onGet(`/orders/${props.orderId}/shipments`).reply(200, response);
 
     it('should return a list of all payment refunds', () =>
-      ordersShipments.all({ orderId: props.orderId }).then(result => {
+      ordersShipments.list({ orderId: props.orderId }).then(result => {
         expect(result).toBeInstanceOf(Array);
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
       }));
 
     it('should throw an error if "paymentId" is not set', done => {
-      ordersShipments.all()
+      ordersShipments.list()
         .then(() => {
           throw new Error('This should error out instead');
         }).catch(err => {
@@ -100,7 +100,7 @@ describe('orders_shipments', () => {
           resource: 'order',
           id: props.orderId,
         })
-        .all((err, result) => {
+        .list((err, result) => {
           expect(err).toBeNull();
           expect(result).toBeInstanceOf(Array);
           expect(result).toHaveProperty('links');
