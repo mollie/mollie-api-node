@@ -1,149 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`orders_shipments .all() should return a list of all payment refunds 1`] = `
-Array [
-  Shipment {
-    "_links": Object {
-      "documentation": Object {
-        "href": "https://docs.mollie.com/reference/v2/shipments-api/get-shipment",
-        "type": "text/html",
-      },
-      "order": Object {
-        "href": "https://api.mollie.com/v2/orders/ord_kEn1PlbGa",
-        "type": "application/hal+json",
-      },
-      "self": Object {
-        "href": "https://api.mollie.com/v2/order/ord_kEn1PlbGa/shipments/shp_3wmsgCJN4U",
-        "type": "application/hal+json",
-      },
-    },
-    "createdAt": "2018-08-09T14:33:54+00:00",
-    "id": "shp_3wmsgCJN4U",
-    "lines": Array [
-      Object {
-        "_links": Object {
-          "imageUrl": Object {
-            "href": "https://sh-s7-live-s.legocdn.com/is/image//LEGO/42083_alt1?$main$",
-            "type": "text/html",
-          },
-          "productUrl": Object {
-            "href": "https://shop.lego.com/nl-NL/Bugatti-Chiron-42083",
-            "type": "text/html",
-          },
-        },
-        "createdAt": "2018-08-02T09:29:56+00:00",
-        "discountAmount": Object {
-          "currency": "EUR",
-          "value": "100.00",
-        },
-        "id": "odl_dgtxyl",
-        "isCancelable": true,
-        "name": "LEGO 42083 Bugatti Chiron",
-        "orderId": "ord_pbjz8x",
-        "quantity": 1,
-        "resource": "orderline",
-        "sku": "5702016116977",
-        "status": "shipping",
-        "totalAmount": Object {
-          "currency": "EUR",
-          "value": "299.00",
-        },
-        "type": "physical",
-        "unitPrice": Object {
-          "currency": "EUR",
-          "value": "399.00",
-        },
-        "vatAmount": Object {
-          "currency": "EUR",
-          "value": "51.89",
-        },
-        "vatRate": "21.00",
-      },
-      Object {},
-    ],
-    "orderId": "ord_kEn1PlbGa",
-    "resource": "shipment",
-    "tracking": Object {
-      "carrier": "PostNL",
-      "code": "3SKABA000000000",
-      "url": "http://postnl.nl/tracktrace/?B=3SKABA000000000&P=1016EE&D=NL&T=C",
-    },
-  },
-]
-`;
-
-exports[`orders_shipments .all() should work with a callback 1`] = `
-Array [
-  Shipment {
-    "_links": Object {
-      "documentation": Object {
-        "href": "https://docs.mollie.com/reference/v2/shipments-api/get-shipment",
-        "type": "text/html",
-      },
-      "order": Object {
-        "href": "https://api.mollie.com/v2/orders/ord_kEn1PlbGa",
-        "type": "application/hal+json",
-      },
-      "self": Object {
-        "href": "https://api.mollie.com/v2/order/ord_kEn1PlbGa/shipments/shp_3wmsgCJN4U",
-        "type": "application/hal+json",
-      },
-    },
-    "createdAt": "2018-08-09T14:33:54+00:00",
-    "id": "shp_3wmsgCJN4U",
-    "lines": Array [
-      Object {
-        "_links": Object {
-          "imageUrl": Object {
-            "href": "https://sh-s7-live-s.legocdn.com/is/image//LEGO/42083_alt1?$main$",
-            "type": "text/html",
-          },
-          "productUrl": Object {
-            "href": "https://shop.lego.com/nl-NL/Bugatti-Chiron-42083",
-            "type": "text/html",
-          },
-        },
-        "createdAt": "2018-08-02T09:29:56+00:00",
-        "discountAmount": Object {
-          "currency": "EUR",
-          "value": "100.00",
-        },
-        "id": "odl_dgtxyl",
-        "isCancelable": true,
-        "name": "LEGO 42083 Bugatti Chiron",
-        "orderId": "ord_pbjz8x",
-        "quantity": 1,
-        "resource": "orderline",
-        "sku": "5702016116977",
-        "status": "shipping",
-        "totalAmount": Object {
-          "currency": "EUR",
-          "value": "299.00",
-        },
-        "type": "physical",
-        "unitPrice": Object {
-          "currency": "EUR",
-          "value": "399.00",
-        },
-        "vatAmount": Object {
-          "currency": "EUR",
-          "value": "51.89",
-        },
-        "vatRate": "21.00",
-      },
-      Object {},
-    ],
-    "orderId": "ord_kEn1PlbGa",
-    "resource": "shipment",
-    "tracking": Object {
-      "carrier": "PostNL",
-      "code": "3SKABA000000000",
-      "url": "http://postnl.nl/tracktrace/?B=3SKABA000000000&P=1016EE&D=NL&T=C",
-    },
-  },
-]
-`;
-
 exports[`orders_shipments .create() should return a shipment instance 1`] = `
 Shipment {
   "_links": Object {
@@ -202,7 +58,6 @@ Shipment {
       },
       "vatRate": "21.00",
     },
-    Object {},
   ],
   "orderId": "ord_kEn1PlbGa",
   "resource": "shipment",
@@ -272,7 +127,6 @@ Shipment {
       },
       "vatRate": "21.00",
     },
-    Object {},
   ],
   "orderId": "ord_kEn1PlbGa",
   "resource": "shipment",
@@ -342,7 +196,6 @@ Shipment {
       },
       "vatRate": "21.00",
     },
-    Object {},
   ],
   "orderId": "ord_kEn1PlbGa",
   "resource": "shipment",
@@ -352,4 +205,146 @@ Shipment {
     "url": "http://postnl.nl/tracktrace/?B=3SKABA000000000&P=1016EE&D=NL&T=C",
   },
 }
+`;
+
+exports[`orders_shipments .list() should return a list of all payment refunds 1`] = `
+Array [
+  Shipment {
+    "_links": Object {
+      "documentation": Object {
+        "href": "https://docs.mollie.com/reference/v2/shipments-api/get-shipment",
+        "type": "text/html",
+      },
+      "order": Object {
+        "href": "https://api.mollie.com/v2/orders/ord_kEn1PlbGa",
+        "type": "application/hal+json",
+      },
+      "self": Object {
+        "href": "https://api.mollie.com/v2/order/ord_kEn1PlbGa/shipments/shp_3wmsgCJN4U",
+        "type": "application/hal+json",
+      },
+    },
+    "createdAt": "2018-08-09T14:33:54+00:00",
+    "id": "shp_3wmsgCJN4U",
+    "lines": Array [
+      Object {
+        "_links": Object {
+          "imageUrl": Object {
+            "href": "https://sh-s7-live-s.legocdn.com/is/image//LEGO/42083_alt1?$main$",
+            "type": "text/html",
+          },
+          "productUrl": Object {
+            "href": "https://shop.lego.com/nl-NL/Bugatti-Chiron-42083",
+            "type": "text/html",
+          },
+        },
+        "createdAt": "2018-08-02T09:29:56+00:00",
+        "discountAmount": Object {
+          "currency": "EUR",
+          "value": "100.00",
+        },
+        "id": "odl_dgtxyl",
+        "isCancelable": true,
+        "name": "LEGO 42083 Bugatti Chiron",
+        "orderId": "ord_pbjz8x",
+        "quantity": 1,
+        "resource": "orderline",
+        "sku": "5702016116977",
+        "status": "shipping",
+        "totalAmount": Object {
+          "currency": "EUR",
+          "value": "299.00",
+        },
+        "type": "physical",
+        "unitPrice": Object {
+          "currency": "EUR",
+          "value": "399.00",
+        },
+        "vatAmount": Object {
+          "currency": "EUR",
+          "value": "51.89",
+        },
+        "vatRate": "21.00",
+      },
+    ],
+    "orderId": "ord_kEn1PlbGa",
+    "resource": "shipment",
+    "tracking": Object {
+      "carrier": "PostNL",
+      "code": "3SKABA000000000",
+      "url": "http://postnl.nl/tracktrace/?B=3SKABA000000000&P=1016EE&D=NL&T=C",
+    },
+  },
+]
+`;
+
+exports[`orders_shipments .list() should work with a callback 1`] = `
+Array [
+  Shipment {
+    "_links": Object {
+      "documentation": Object {
+        "href": "https://docs.mollie.com/reference/v2/shipments-api/get-shipment",
+        "type": "text/html",
+      },
+      "order": Object {
+        "href": "https://api.mollie.com/v2/orders/ord_kEn1PlbGa",
+        "type": "application/hal+json",
+      },
+      "self": Object {
+        "href": "https://api.mollie.com/v2/order/ord_kEn1PlbGa/shipments/shp_3wmsgCJN4U",
+        "type": "application/hal+json",
+      },
+    },
+    "createdAt": "2018-08-09T14:33:54+00:00",
+    "id": "shp_3wmsgCJN4U",
+    "lines": Array [
+      Object {
+        "_links": Object {
+          "imageUrl": Object {
+            "href": "https://sh-s7-live-s.legocdn.com/is/image//LEGO/42083_alt1?$main$",
+            "type": "text/html",
+          },
+          "productUrl": Object {
+            "href": "https://shop.lego.com/nl-NL/Bugatti-Chiron-42083",
+            "type": "text/html",
+          },
+        },
+        "createdAt": "2018-08-02T09:29:56+00:00",
+        "discountAmount": Object {
+          "currency": "EUR",
+          "value": "100.00",
+        },
+        "id": "odl_dgtxyl",
+        "isCancelable": true,
+        "name": "LEGO 42083 Bugatti Chiron",
+        "orderId": "ord_pbjz8x",
+        "quantity": 1,
+        "resource": "orderline",
+        "sku": "5702016116977",
+        "status": "shipping",
+        "totalAmount": Object {
+          "currency": "EUR",
+          "value": "299.00",
+        },
+        "type": "physical",
+        "unitPrice": Object {
+          "currency": "EUR",
+          "value": "399.00",
+        },
+        "vatAmount": Object {
+          "currency": "EUR",
+          "value": "51.89",
+        },
+        "vatRate": "21.00",
+      },
+    ],
+    "orderId": "ord_kEn1PlbGa",
+    "resource": "shipment",
+    "tracking": Object {
+      "carrier": "PostNL",
+      "code": "3SKABA000000000",
+      "url": "http://postnl.nl/tracktrace/?B=3SKABA000000000&P=1016EE&D=NL&T=C",
+    },
+  },
+]
 `;

@@ -65,12 +65,17 @@ describe('orders_refunds', () => {
         expect(result).toMatchSnapshot();
       }));
 
-    // TODO: might have to be removed, this immediately crashes on JS/TS anyway
-    // it('should throw an error if "orderId" is not set', () => {
-    //   const getRefunds = () => ordersRefunds.all();
-    //
-    //   expect(getRefunds).toThrowError();
-    // });
+    it('should throw an error if "orderId" is not set', done => {
+      ordersRefunds
+        .all(undefined)
+        .then(() => {
+          throw new Error('Should crash here');
+        })
+        .catch(err => {
+          expect(err).toBeInstanceOf(Error);
+          done();
+        });
+    });
 
     it('should work with a callback', done => {
       ordersRefunds.all({ orderId: props.orderId }, (err, result) => {

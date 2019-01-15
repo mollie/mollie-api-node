@@ -73,7 +73,7 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
       Resource.errorHandler({ error: { message: 'The capture id is invalid' } });
     }
     const { paymentId, ...parameters } = params;
-    if (!startsWith(id, Payment.resourcePrefix)) {
+    if (!startsWith(paymentId, Payment.resourcePrefix)) {
       Resource.errorHandler({ error: { message: 'The payment id is invalid' } });
     }
     this.setParentId(paymentId);
