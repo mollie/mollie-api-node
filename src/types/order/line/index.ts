@@ -1,4 +1,4 @@
-import { IAmount, ILinks } from '../../global';
+import { IAmount, ILinks, IUrl } from '../../global';
 import { OrderStatus } from '../../order';
 
 /**
@@ -14,13 +14,14 @@ export interface IOrderLine {
   isCancelable: boolean;
   quantity: number;
   quantityShipped: number;
-  amountShipped: number;
+  amountShipped: IAmount;
   quantityRefunded: number;
-  amountRefunded: number;
+  amountRefunded: IAmount;
   quantityCanceled: number;
-  amountCanceled: number;
+  amountCanceled: IAmount;
   shippableQuantity: number;
   refundableQuantity: number;
+  cancelableQuantity: number;
   unitPrice: IAmount;
   discountAmount?: IAmount;
   totalAmount: IAmount;
@@ -28,9 +29,14 @@ export interface IOrderLine {
   vatAmount: IAmount;
   sku?: string;
   createdAt: string;
-  _links: ILinks;
+  _links: IOrderLineLinks;
   imageUrl: string;
   productUrl: string;
+}
+
+export interface IOrderLineLinks {
+  productUrl: IUrl;
+  imageUrl: IUrl;
 }
 
 export interface IRequestOrderLine {

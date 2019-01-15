@@ -16,8 +16,6 @@ export default class Order extends Model implements IOrder {
   public createdAt = null;
   public method = null;
   public mode = null;
-  public amountCaptured = null;
-  public amountRefunded = null;
   public status = null;
   public isCancelable = null;
   public billingAddress = null;

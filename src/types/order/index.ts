@@ -1,5 +1,6 @@
-import { ApiMode, IAddress, IAmount, ILinks } from '../global';
+import { ApiMode, IAddress, IAmount, ILinks, IUrl } from '../global';
 import { IOrderLine } from './line';
+import { IPayment } from '../payment';
 
 /**
  * Order Response object.
@@ -13,8 +14,8 @@ export interface IOrder {
   method: string | null;
   mode: ApiMode;
   amount: IAmount;
-  amountCaptured: IAmount | null;
-  amountRefunded: IAmount | null;
+  amountCaptured?: IAmount | null;
+  amountRefunded?: IAmount | null;
   status: OrderStatus;
   isCancelable: boolean;
   billingAddress: IOrderAddress;
@@ -33,19 +34,28 @@ export interface IOrder {
   authorizedAt?: string;
   canceledAt?: string;
   completedAt?: string;
-  _links: ILinks;
+  _embedded?: {
+    payments?: Array<IPayment>;
+  };
+  _links: IOrderLinks;
 }
 
-export type OrderStatus =
-  | 'created'
-  | 'paid'
-  | 'authorized'
-  | 'canceled'
-  | 'shipping'
-  | 'completed'
-  | 'expired';
+export interface IOrderLinks extends ILinks {
+  checkout?: IUrl;
+}
+
+export enum OrderStatus {
+  created = 'created',
+  paid = 'paid',
+  authorized = 'authorized',
+  canceled = 'canceled',
+  shipping = 'shipping',
+  completed = 'completed',
+  expired = 'expired',
+}
 
 export interface IOrderAddress extends IAddress {
+  organizationName?: string;
   title?: string;
   givenName: string;
   familyName: string;
