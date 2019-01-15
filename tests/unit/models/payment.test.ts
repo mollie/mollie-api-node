@@ -1,5 +1,5 @@
 import Payment from '../../../src/models/Payment';
-import { ApiMode } from '../../../src/types/global';
+import { ApiMode, SequenceType } from '../../../src/types/global';
 import { PaymentStatus } from '../../../src/types/payment';
 
 describe('payment model', () => {
@@ -18,37 +18,37 @@ describe('payment model', () => {
     const paymentProps = {
       resource: 'payment',
       id: 'tr_WDqYK6vllg',
-      mode: 'test' as ApiMode,
+      mode: ApiMode.test,
       createdAt: '2018-03-20T13:13:37+00:00',
       amount: {
         value: '10.00',
-        currency: 'EUR'
+        currency: 'EUR',
       },
       description: 'Order #12345',
       method: null,
       metadata: {
-        order_id: '12345'
+        order_id: '12345',
       },
-      status: 'open' as PaymentStatus,
+      status: PaymentStatus.open,
       isCancelable: false,
       expiresAt: '2018-03-20T13:28:37+00:00',
       details: null,
       profileId: 'pfl_QkEhN94Ba',
-      sequenceType: 'oneoff',
+      sequenceType: SequenceType.oneoff,
       redirectUrl: 'https://webshop.example.org/order/12345/',
       webhookUrl: 'https://webshop.example.org/payments/webhook/',
       _links: {
         self: {
           href: 'https://api.mollie.com/v2/payments/tr_WDqYK6vllg',
-          type: 'application/hal+json'
+          type: 'application/hal+json',
         },
         checkout: {
           href: 'https://www.mollie.com/payscreen/select-method/WDqYK6vllg',
-          type: 'text/html'
+          type: 'text/html',
         },
         documentation: {
           href: 'https://docs.mollie.com/reference/v2/payments-api/get-payment',
-          type: 'text/html'
+          type: 'text/html',
         }
       }
     };

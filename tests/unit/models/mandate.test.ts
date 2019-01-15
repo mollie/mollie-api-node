@@ -13,8 +13,8 @@ describe('mandate model', () => {
     const mandateProps = {
       resource: 'mandate',
       id: 'mdt_h3gAaD5zP',
-      status: 'valid' as MandateStatus,
-      method: 'directdebit' as MandateMethod,
+      status: MandateStatus.valid,
+      method: MandateMethod.directdebit,
       details: {
         consumerName: 'John Doe',
         consumerAccount: 'NL55INGB0000000000',
@@ -26,15 +26,15 @@ describe('mandate model', () => {
       _links: {
         self: {
           href: 'https://api.mollie.com/v2/customers/cst_4qqhO89gsT/mandates/mdt_h3gAaD5zP',
-          type: 'application/hal+json'
+          type: 'application/hal+json',
         },
         customer: {
           href: 'https://api.mollie.com/v2/customers/cst_4qqhO89gsT',
-          type: 'application/hal+json'
+          type: 'application/hal+json',
         },
         documentation: {
           href: 'https://docs.mollie.com/reference/v2/mandates-api/get-mandate',
-          type: 'text/html'
+          type: 'text/html',
         }
       }
     };

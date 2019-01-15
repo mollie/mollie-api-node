@@ -22,10 +22,8 @@ export default class OrderLine extends Model implements IOrderLine {
   public imageUrl = null;
   public productUrl = null;
   public _links: {
-    self: null;
-    documentation: null;
-    order: null;
-    settlement: null;
+    productUrl: null;
+    imageUrl: null;
   };
   public orderId = null;
   public type = null;
@@ -39,7 +37,9 @@ export default class OrderLine extends Model implements IOrderLine {
   public amountCanceled = null;
   public shippableQuantity = null;
   public refundableQuantity = null;
+  public cancelableQuantity = null;
   public createdAt = null;
+  public metadata = null;
 
   /**
    * OrderLine constructor

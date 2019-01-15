@@ -1,42 +1,44 @@
-export type Locale =
-  | 'en_US'
-  | 'nl_NL'
-  | 'nl_BE'
-  | 'fr_FR'
-  | 'fr_BE'
-  | 'de_DE'
-  | 'de_AT'
-  | 'de_CH'
-  | 'es_ES'
-  | 'ca_ES'
-  | 'pt_PT'
-  | 'it_IT'
-  | 'nb_NO'
-  | 'sv_SE'
-  | 'fi_FI'
-  | 'da_DK'
-  | 'is_IS'
-  | 'hu_HU'
-  | 'pl_PL'
-  | 'lv_LV'
-  | 'lt_LT';
+export enum Locale {
+  en_US = 'en_US',
+  nl_NL = 'nl_NL',
+  nl_BE = 'nl_BE',
+  fr_FR = 'fr_FR',
+  fr_BE = 'fr_BE',
+  de_DE = 'de_DE',
+  de_AT = 'de_AT',
+  de_CH = 'de_CH',
+  es_ES = 'es_ES',
+  ca_ES = 'ca_ES',
+  pt_PT = 'pt_PT',
+  it_IT = 'it_IT',
+  nb_NO = 'nb_NO',
+  sv_SE = 'sv_SE',
+  fi_FI = 'fi_FI',
+  da_DK = 'da_DK',
+  is_IS = 'is_IS',
+  hu_HU = 'hu_HU',
+  pl_PL = 'pl_PL',
+  lv_LV = 'lv_LV',
+  lt_LT = 'lt_LT',
+}
 
-export type PaymentMethod =
-  | 'bancontact'
-  | 'banktransfer'
-  | 'belfius'
-  | 'bitcoin'
-  | 'creditcard'
-  | 'directdebit'
-  | 'eps'
-  | 'giftcard'
-  | 'giropay'
-  | 'ideal'
-  | 'inghomepay'
-  | 'kbc'
-  | 'paypal'
-  | 'paysafecard'
-  | 'sofort';
+export enum PaymentMethod {
+  bancontact = 'bancontact',
+  banktransfer = 'banktransfer',
+  belfius = 'belfius',
+  bitcoin = 'bitcoin',
+  creditcard = 'creditcard',
+  directdebit = 'directdebit',
+  eps = 'eps',
+  giftcard = 'giftcard',
+  giropay = 'giropay',
+  ideal = 'ideal',
+  inghomepay = 'inghomepay',
+  kbc = 'kbc',
+  paypal = 'paypal',
+  paysafecard = 'paysafecard',
+  sofort = 'sofort',
+}
 
 export enum ApiMode {
   test = 'test',

@@ -1,4 +1,4 @@
-import { IAmount, IImage, ILinks } from '../global';
+import { IAmount, IImage, ILinks, PaymentMethod as PaymentMethodEnum } from '../global';
 
 /**
  * Method Response object.
@@ -15,7 +15,7 @@ import { IAmount, IImage, ILinks } from '../global';
  */
 export interface IMethod {
   resource: string;
-  id: string;
+  id: PaymentMethodEnum;
   description: string;
   image: IImage;
   _links: ILinks;

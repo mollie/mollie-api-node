@@ -12,15 +12,15 @@ describe('customer model', () => {
     const customerProps = {
       resource: 'customer',
       id: 'cst_kEn1PlbGa',
-      mode: 'test' as ApiMode,
+      mode: ApiMode.test,
       name: 'Customer A',
       email: 'customer@example.org',
-      locale: 'nl_NL' as Locale,
+      locale: Locale.nl_NL,
       metadata: null,
       recentlyUsedMethods: [
-        'creditcard',
-        'ideal',
-      ] as Array<PaymentMethod>,
+        PaymentMethod.creditcard,
+        PaymentMethod.ideal,
+      ],
       createdAt: '2018-04-06T13:23:21.0Z',
       _links: {
         self: {

@@ -25,15 +25,15 @@ describe('chargeback model', () => {
       _links: {
         self: {
           href: 'https://api.mollie.com/v2/payments/tr_WDqYK6vllg/chargebacks/chb_n9z0tp',
-          type: 'application/hal+json'
+          type: 'application/hal+json',
         },
         payment: {
           href: 'https://api.mollie.com/v2/payments/tr_WDqYK6vllg',
-          type: 'application/hal+json'
+          type: 'application/hal+json',
         },
         documentation: {
           href: 'https://docs.mollie.com/reference/v2/chargebacks-api/get-chargeback',
-          type: 'text/html'
+          type: 'text/html',
         }
       }
     };

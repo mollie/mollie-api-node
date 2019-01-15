@@ -30,8 +30,6 @@ export interface IOrderLine {
   sku?: string;
   createdAt: string;
   _links: IOrderLineLinks;
-  imageUrl: string;
-  productUrl: string;
   metadata: any;
 }
 

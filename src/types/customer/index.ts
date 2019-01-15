@@ -1,4 +1,4 @@
-import { ApiMode, ILinks, Locale, PaymentMethod, IUrl } from '../global';
+import { ApiMode, ILinks, IUrl, Locale, PaymentMethod } from '../global';
 
 /**
  * Customer Response object.

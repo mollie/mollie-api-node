@@ -19,8 +19,6 @@ export default class Capture extends Model implements ICapture {
   public _links = {
     self: null,
     payment: null,
-    shipment: null,
-    settlement: null,
     documentation: null,
   };
 

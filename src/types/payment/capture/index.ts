@@ -1,4 +1,4 @@
-import { ApiMode, IAmount, ILinks } from '../../../types/global';
+import { ApiMode, IAmount, ILinks, IUrl } from '../../../types/global';
 
 /**
  * Capture Response object.
@@ -33,5 +33,11 @@ export interface ICapture {
   shipmentId?: string;
   settlementId?: string;
   createdAt: string;
-  _links: ILinks;
+  _links: ICaptureLinks;
+}
+
+export interface ICaptureLinks extends ILinks {
+  payment: IUrl;
+  shipment?: IUrl;
+  settlement?: IUrl;
 }

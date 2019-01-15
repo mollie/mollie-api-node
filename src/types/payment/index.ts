@@ -9,6 +9,7 @@ import {
   IUrl,
   Locale,
   PaymentMethod,
+  SequenceType,
 } from '../global';
 
 /**
@@ -114,7 +115,7 @@ export interface IPayment {
   authorizedAt?: string;
   paidAt?: string;
   canceledAt?: string;
-  expiresAt: string;
+  expiresAt?: string; // TODO: check if this should become a required field, even as an embedded object
   expiredAt?: string;
   failedAt?: string;
   amount: IAmount;
@@ -132,7 +133,7 @@ export interface IPayment {
   settlementAmount?: IAmount;
   settlementId?: string;
   customerId?: string;
-  sequenceType: string;
+  sequenceType: SequenceType;
   mandateId?: string;
   subscriptionId?: string;
   orderId?: string;
@@ -141,7 +142,7 @@ export interface IPayment {
     description: string;
   };
   _links: IPaymentLinks;
-  details: IDetails;
+  details?: IDetails; // TODO: check if this should become a required field, even as an embedded object
 }
 
 /**
@@ -173,7 +174,9 @@ export interface IPayment {
  *
  * @see https://docs.mollie.com/reference/v2/payments-api/get-payment
  */
-interface IPaymentLinks extends ILinks {
+interface IPaymentLinks {
+  self: IUrl;
+  documentation?: IUrl; // TODO: check if this should become a required field, even as an embedded object
   checkout?: IUrl;
   changePaymentState?: IUrl;
   refunds?: IUrl;

@@ -1,4 +1,5 @@
 import Method from '../../../src/models/Method';
+import { PaymentMethod } from '../../../src/types/global';
 
 describe('method model', () => {
   it('should instantiate with default values', () => {
@@ -11,12 +12,12 @@ describe('method model', () => {
   it('should instantiate with given values', () => {
     const methodProps = {
       resource: 'method',
-      id: 'ideal',
+      id: PaymentMethod.ideal,
       description: 'iDEAL',
       image: {
         size1x: 'https://www.mollie.com/external/icons/payment-methods/ideal.png',
         size2x: 'https://www.mollie.com/external/icons/payment-methods/ideal%402x.png',
-        svg: 'https://www.mollie.com/external/icons/payment-methods/ideal.svg'
+        svg: 'https://www.mollie.com/external/icons/payment-methods/ideal.svg',
       },
       issuers: [
         {
@@ -26,8 +27,8 @@ describe('method model', () => {
           image: {
             size1x: 'https://www.mollie.com/external/icons/ideal-issuers/ABNANL2A.png',
             size2x: 'https://www.mollie.com/external/icons/ideal-issuers/ABNANL2A%402x.png',
-            svg: 'https://www.mollie.com/external/icons/ideal-issuers/ABNANL2A.svg'
-          }
+            svg: 'https://www.mollie.com/external/icons/ideal-issuers/ABNANL2A.svg',
+          },
         },
         {
           resource: 'issuer',
@@ -36,8 +37,8 @@ describe('method model', () => {
           image: {
             size1x: 'https://www.mollie.com/external/icons/ideal-issuers/ASNBNL21.png',
             size2x: 'https://www.mollie.com/external/icons/ideal-issuers/ASNBNL21%402x.png',
-            svg: 'https://www.mollie.com/external/icons/ideal-issuers/ASNBNL21.svg'
-          }
+            svg: 'https://www.mollie.com/external/icons/ideal-issuers/ASNBNL21.svg',
+          },
         },
       ],
       pricing: [
@@ -47,19 +48,19 @@ describe('method model', () => {
             value: '0.29',
             currency: 'EUR'
           },
-          variable: '0'
-        }
+          variable: '0',
+        },
       ],
       _links: {
         self: {
           href: 'https://api.mollie.com/v2/methods/ideal',
-          type: 'application/hal+json'
+          type: 'application/hal+json',
         },
         documentation: {
           href: 'https://docs.mollie.com/reference/v2/methods-api/get-method',
-          type: 'text/html'
-        }
-      }
+          type: 'text/html',
+        },
+      },
     };
     const method = new Method(methodProps);
 

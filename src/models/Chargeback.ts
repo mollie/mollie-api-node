@@ -19,7 +19,6 @@ export default class Chargeback extends Model implements IChargeback {
     self: null,
     documentation: null,
     payment: null,
-    settlement: null,
   };
 
   /**

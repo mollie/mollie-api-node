@@ -19,9 +19,9 @@ describe('subscription model', () => {
     const subscriptionProps = {
       resource: 'subscription',
       id: 'sub_rVKGtNd6s3',
-      mode: 'live' as ApiMode,
+      mode: ApiMode.live,
       createdAt: '2016-06-01T12:23:34+00:00',
-      status: 'active' as SubscriptionStatus,
+      status: SubscriptionStatus.active,
       amount: {
         value: '25.00',
         currency: 'EUR'
@@ -34,15 +34,15 @@ describe('subscription model', () => {
       _links: {
         self: {
           href: 'https://api.mollie.com/v2/customers/cst_stTC2WHAuS/subscriptions/sub_rVKGtNd6s3',
-          type: 'application/hal+json'
+          type: 'application/hal+json',
         },
         customer: {
           href: 'https://api.mollie.com/v2/customers/cst_stTC2WHAuS',
-          type: 'application/hal+json'
+          type: 'application/hal+json',
         },
         documentation: {
           href: 'https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription',
-          type: 'text/html'
+          type: 'text/html',
         }
       }
     };

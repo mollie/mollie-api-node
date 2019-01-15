@@ -20,7 +20,7 @@ describe('refund model', () => {
         currency: 'EUR',
         value: '5.95'
       },
-      status: 'pending' as RefundStatus,
+      status: RefundStatus.pending,
       createdAt: '2018-03-14T17:09:02.0Z',
       description: 'Order',
       paymentId: 'tr_WDqYK6vllg',
