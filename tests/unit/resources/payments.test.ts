@@ -48,7 +48,16 @@ describe('payments', () => {
         }),
       )
       .reply(500, error);
-    mock.onPost('/payments').reply(200, response._embedded.payments[0]);
+    mock
+      .onPost(
+        '/payments'
+      )
+      .reply(200, response._embedded.payments[0]);
+    mock
+      .onPost(
+        '/payments?include=details.qrCode'
+      )
+      .reply(200, response._embedded.payments[1]);
 
     it('should return a payment instance', () =>
       payments.create(props).then(result => {
@@ -82,7 +91,26 @@ describe('payments', () => {
           expect(err.error.field).toBe('amount');
         }));
 
-    // TODO: it should return a QR code
+    it('should return a QR code', () =>
+      payments.create({
+        ...props,
+        include: 'details.qrCode',
+      }).then(result => {
+        expect(result).toBeInstanceOf(Payment);
+        expect(result.amount.value).toBe(props.amount.value);
+        expect(result.details.qrCode.width).toBe(180);
+        expect(result).toMatchSnapshot();
+      }));
+
+    /**
+     * "details": {
+    "qrCode": {
+      "src": "https://qr2.ideal.nl/ideal-qr/qr/get/3d530c37-e2c0-4f8b-b40c-d72a4bef40c2",
+      "width": 180,
+      "height": 180
+    }
+  },
+     */
   });
 
   describe('.get()', () => {

@@ -30,6 +30,41 @@
             "type": "application/hal+json"
           }
         }
+      },
+      {
+        "resource": "payment",
+        "id": "tr_7UhSN1zuXS",
+        "mode": "test",
+        "createdAt": "2018-02-12T11:58:35.0Z",
+        "expiresAt": "2018-02-12T12:13:35.0Z",
+        "status": "open",
+        "isCancelable": false,
+        "amount": {
+          "value": "75.00",
+          "currency": "GBP"
+        },
+        "description": "test",
+        "details": {
+          "qrCode": {
+            "src": "https://qr2.ideal.nl/ideal-qr/qr/get/3d530c37-e2c0-4f8b-b40c-d72a4bef40c2",
+            "width": 180,
+            "height": 180
+          }
+        },
+        "method": "ideal",
+        "metadata": null,
+        "profileId": "pfl_QkEhN94Ba",
+        "redirectUrl": "https://webshop.example.org/order/12345/",
+        "_links": {
+          "checkout": {
+            "href": "https://www.mollie.com/paymentscreen/issuer/select/ideal/7UhSN1zuXS",
+            "type": "text/html"
+          },
+          "self": {
+            "href": "https://api.mollie.com/v2/payments/tr_7UhSN1zuXS",
+            "type": "application/hal+json"
+          }
+        }
       }
     ]
   },

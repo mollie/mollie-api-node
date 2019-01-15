@@ -1,7 +1,9 @@
+import { get } from 'lodash';
+import qs from 'qs';
+import { AxiosInstance, AxiosResponse } from 'axios';
+
 import Model from './model';
 import List from './models/List';
-import { AxiosInstance, AxiosResponse } from 'axios';
-import qs from 'qs';
 
 /**
  * @deprecated since 2.2.0
@@ -86,10 +88,16 @@ export default class Resource {
    */
   public async create(params: any, cb?: Callback): Promise<Model> {
     const callback = typeof params === 'function' ? params : cb;
-    let query: any = {};
-    if (typeof params === 'object' && typeof params.include === 'string') {
-      query.include = params.include;
-      delete params.include;
+    const query: any = {};
+    if (params !== null && typeof params === 'object') {
+      if (typeof params.include === 'string') {
+        query.include = params.include;
+        delete params.include;
+      }
+      if (typeof params.embed !== 'undefined' && Array.isArray(params.embed)) {
+        query.embed = params.embed.join(';');
+        delete params.embed;
+      }
     }
 
     try {
@@ -123,11 +131,25 @@ export default class Resource {
    */
   public async get(id: string, params?: any, cb?: Callback): Promise<Model> {
     const callback = typeof params === 'function' ? params : cb;
+    const query: any = {};
+    if (params != null && typeof params === 'object') {
+      if (typeof params.include === 'string') {
+        query.include = params.include;
+        delete params.include;
+      }
+      if (typeof params.embed !== 'undefined' && Array.isArray(params.embed)) {
+        query.embed = params.embed.join(';');
+        delete params.embed;
+      }
+    }
 
     try {
-      const response: AxiosResponse = await this.getClient().get(`${this.getResourceUrl()}/${id}`, {
-        params,
-      });
+      const response: AxiosResponse = await this.getClient().get(
+        `${this.getResourceUrl()}/${id}${qs.stringify(query, { addQueryPrefix: true })}`,
+        {
+          params,
+        },
+      );
 
       const model = new (this.constructor as any).model(response.data);
 
@@ -153,7 +175,22 @@ export default class Resource {
    */
   public async list(params?: any, cb?: Callback): Promise<List<Model>> {
     try {
-      const response: AxiosResponse = await this.getClient().get(this.getResourceUrl(), { params });
+      const query: any = {};
+      if (params != null && typeof params === 'object') {
+        if (typeof params.include === 'string') {
+          query.include = params.include;
+          delete params.include;
+        }
+        if (typeof params.embed !== 'undefined' && Array.isArray(params.embed)) {
+          query.embed = params.embed.join(';');
+          delete params.embed;
+        }
+      }
+
+      const response: AxiosResponse = await this.getClient().get(
+        `${this.getResourceUrl()}${qs.stringify(query, { addQueryPrefix: true })}`,
+        { params },
+      );
       const resourceName = this.getResourceName();
       const list = List.buildResourceList({
         response: response.data,
