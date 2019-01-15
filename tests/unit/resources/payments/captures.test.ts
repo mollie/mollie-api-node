@@ -25,6 +25,7 @@ describe('payments_captures', () => {
   });
 
   describe('.get()', () => {
+    // @ts-ignore
     mock.onGet(`/payments/${props.paymentId}/captures/${props.id}`).reply(200, response._embedded.captures[0]);
 
     it('should return a capture instance', done =>
