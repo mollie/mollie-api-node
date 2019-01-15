@@ -32,6 +32,7 @@ export interface IOrderLine {
   _links: IOrderLineLinks;
   imageUrl: string;
   productUrl: string;
+  metadata: any;
 }
 
 export interface IOrderLineLinks {
@@ -45,11 +46,12 @@ export interface IRequestOrderLine {
   amount?: IAmount;
 }
 
-export type OrderLineType =
-  | 'physical'
-  | 'discount'
-  | 'digital'
-  | 'shipping_fee'
-  | 'store_credit'
-  | 'gift_card'
-  | 'surcharge';
+export enum OrderLineType {
+  physical = 'physical',
+  discount = 'discount',
+  digital = 'digital',
+  shipping_fee = 'shipping_fee',
+  store_credit = 'store_credit',
+  gift_card = 'gift_card',
+  surcharge = 'surcharge',
+}
