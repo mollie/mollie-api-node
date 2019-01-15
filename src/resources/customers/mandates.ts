@@ -178,7 +178,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    * @see https://docs.mollie.com/reference/v2/mandates-api/revoke-mandate
    * @public ✓ This method is part of the public API
    */
-  public async revoke(id: string, params?: IRevokeParams | RevokeCallback, cb?: RevokeCallback): Promise<boolean> {
+  public async revoke(id: string, params?: IRevokeParams | RevokeCallback, cb?: RevokeCallback): Promise<Mandate> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
@@ -200,7 +200,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
         id,
         typeof params === 'function' ? null : params,
         typeof params === 'function' ? params : cb,
-      ) as Promise<boolean>;
+      ) as Promise<Mandate>;
     }
 
     const { customerId } = params;
@@ -212,7 +212,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
     }
     this.setParentId(customerId);
 
-    return !!(await super.delete(id, cb));
+    return super.delete(id, cb) as Promise<Mandate>;
   }
 
   /**

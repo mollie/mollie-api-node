@@ -165,7 +165,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    * @see https://docs.mollie.com/reference/v2/refunds-api/cancel-refund
    * @public ✓ This method is part of the public API
    */
-  public async cancel(id: string, params?: ICancelParams | CancelCallback, cb?: CancelCallback): Promise<boolean> {
+  public async cancel(id: string, params?: ICancelParams | CancelCallback, cb?: CancelCallback): Promise<Refund> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Refund.resourcePrefix)) {
@@ -186,7 +186,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
         id,
         typeof params === 'function' ? null : params,
         typeof params === 'function' ? params : cb,
-      ) as Promise<boolean>;
+      ) as Promise<Refund>;
     }
 
     if (!startsWith(id, Refund.resourcePrefix)) {
@@ -198,7 +198,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
     }
     this.setParentId(paymentId);
 
-    return !!(await super.delete(id, parameters, cb));
+    return super.delete(id, parameters, cb) as Promise<Refund>;
   }
 
   /**

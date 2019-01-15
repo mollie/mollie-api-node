@@ -229,7 +229,7 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/cancel-subscription
    * @public ✓ This method is part of the public API
    */
-  public async cancel(id: string, params?: ICancelParams | CancelCallback, cb?: CancelCallback): Promise<boolean> {
+  public async cancel(id: string, params?: ICancelParams | CancelCallback, cb?: CancelCallback): Promise<Subscription> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Subscription.resourcePrefix)) {
@@ -251,7 +251,7 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
         id,
         typeof params === 'function' ? null : params,
         typeof params === 'function' ? params : cb,
-      ) as Promise<boolean>;
+      ) as Promise<Subscription>;
     }
 
     if (!startsWith(id, Subscription.resourcePrefix)) {
@@ -263,6 +263,6 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
     }
     this.setParentId(customerId);
 
-    return !!(await super.delete(id, parameters, cb));
+    return super.delete(id, parameters, cb) as Promise<Subscription>;
   }
 }
