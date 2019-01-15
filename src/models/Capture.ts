@@ -28,7 +28,8 @@ export default class Capture extends Model implements ICapture {
    * @public ✓ This constructor is part of the public API
    */
   public constructor(props?: Partial<ICapture>) {
-    super(props);
+    super();
+
     Object.assign(this, props);
   }
 }

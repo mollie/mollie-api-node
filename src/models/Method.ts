@@ -26,7 +26,7 @@ export default class Method extends Model implements IMethod {
    * @public ✓ This method is part of the public API
    */
   public constructor(props?: Partial<IMethod>) {
-    super(props);
+    super();
 
     Object.assign(this, props);
   }

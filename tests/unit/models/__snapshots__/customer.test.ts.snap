@@ -4,7 +4,10 @@ exports[`customer model should instantiate with default values 1`] = `
 Object {
   "_links": Object {
     "documentation": null,
+    "mandates": null,
+    "payments": null,
     "self": null,
+    "subscriptions": null,
   },
   "createdAt": null,
   "email": null,

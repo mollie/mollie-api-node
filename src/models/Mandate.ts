@@ -33,7 +33,7 @@ export default class Mandate extends Model implements IMandate {
    * @public ✓ This method is part of the public API
    */
   public constructor(props?: Partial<IMandate>) {
-    super(props);
+    super();
 
     Object.assign(this, props);
   }

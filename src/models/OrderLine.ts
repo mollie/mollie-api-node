@@ -47,7 +47,7 @@ export default class OrderLine extends Model implements IOrderLine {
    * @public ✓ This method is part of the public API
    */
   constructor(props?: Partial<IOrderLine>) {
-    super(props);
+    super();
 
     Object.assign(this, props);
   }

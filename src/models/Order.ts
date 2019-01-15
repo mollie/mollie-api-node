@@ -38,7 +38,7 @@ export default class Order extends Model implements IOrder {
    * @public ✓ This method is part of the public API
    */
   constructor(props?: Partial<IOrder>) {
-    super(props);
+    super();
 
     Object.assign(this, props);
   }

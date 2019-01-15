@@ -21,6 +21,9 @@ export default class Customer extends Model implements ICustomer {
   public _links = {
     self: null,
     documentation: null,
+    mandates: null,
+    subscriptions: null,
+    payments: null,
   };
 
   // Access token parameters
@@ -32,7 +35,7 @@ export default class Customer extends Model implements ICustomer {
    * @public ✓ This method is part of the public API
    */
   constructor(props?: Partial<ICustomer>) {
-    super(props);
+    super();
 
     Object.assign(this, props);
   }

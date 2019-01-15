@@ -42,7 +42,7 @@ export default class Subscription extends Model implements ISubscription {
    * @public ✓ This method is part of the public API
    */
   public constructor(props?: Partial<ISubscription>) {
-    super(props);
+    super();
 
     Object.assign(this, props);
   }
