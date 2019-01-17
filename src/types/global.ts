@@ -38,6 +38,8 @@ export enum PaymentMethod {
   paypal = 'paypal',
   paysafecard = 'paysafecard',
   sofort = 'sofort',
+  klarnapaylater = 'klarnapaylater',
+  klarnasliceit = 'klarnasliceit',
 }
 
 export enum ApiMode {
@@ -72,11 +74,12 @@ export interface IAmount {
 }
 
 export interface IAddress {
-  streetAndNumber?: string;
-  postalCode?: string;
-  city?: string;
+  streetAndNumber: string;
+  streetAdditional?: string;
+  postalCode: string;
+  city: string;
   region?: string;
-  country?: string;
+  country: string;
 }
 
 export type CardLabel =

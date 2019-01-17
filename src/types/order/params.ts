@@ -1,7 +1,7 @@
 import { IAddress, IAmount, Locale, PaymentMethod } from '../global';
 import { IPayment } from '../payment';
 import { IOrderAddress, OrderEmbed } from './index';
-import { IOrderLine } from './line';
+import { ICreateOrderLine, IOrderLine } from './line';
 
 /**
  * Create Order parameters.
@@ -55,9 +55,9 @@ import { IOrderLine } from './line';
 export interface ICreateParams {
   amount: IAmount;
   orderNumber: string;
-  lines: Array<IOrderLine>;
-  billingAddress: IAddress;
-  shippingAddress?: IAddress;
+  lines: Array<ICreateOrderLine>;
+  billingAddress: IOrderAddress;
+  shippingAddress?: IOrderAddress;
   consumerDateOfBirth?: string;
   redirectUrl?: string;
   webhookUrl?: string;

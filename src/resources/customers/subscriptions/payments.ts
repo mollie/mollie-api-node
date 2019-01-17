@@ -29,6 +29,15 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
    * @public ✓ This method is part of the public API
    */
   all = this.list;
+  /**
+   * Get all customer's subscriptions.
+   *
+   * @since 2.2.0
+   *
+   * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions-payments
+   * @public ✓ This method is part of the public API
+   */
+  page = this.list;
 
   /**
    * Get all customer's subscriptions.

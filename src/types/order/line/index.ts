@@ -33,6 +33,21 @@ export interface IOrderLine {
   metadata: any;
 }
 
+export interface ICreateOrderLine {
+  type?: OrderLineType;
+  name: string;
+  quantity: number;
+  unitPrice: IAmount;
+  discountAmount?: IAmount;
+  totalAmount: IAmount;
+  vatRate: string;
+  vatAmount: IAmount;
+  sku?: string;
+  imageUrl?: string;
+  productUrl?: string;
+  metadata?: any;
+}
+
 export interface IOrderLineLinks {
   productUrl: IUrl;
   imageUrl: IUrl;
