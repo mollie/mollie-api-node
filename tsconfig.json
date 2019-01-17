@@ -3,7 +3,6 @@
     "outDir": "dist/",
     "declaration": true,
     "resolveJsonModule": true,
-    "module": "ESNext",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "pretty": true,

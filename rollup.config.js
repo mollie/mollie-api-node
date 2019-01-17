@@ -1,6 +1,6 @@
 import json from 'rollup-plugin-json';
 import typescript from 'rollup-plugin-typescript2';
-import url from 'rollup-plugin-url';
+import copy from 'rollup-plugin-copy-glob';
 
 export default {
   input: 'src/mollie.ts',
@@ -12,6 +12,9 @@ export default {
   plugins: [
     json(),
     typescript(),
-    url({ limit: 0, include: ['**/*.pem'] }),
+    copy([
+      { files: 'src/cacert.pem', dest: 'dist/cjs/src'},
+      { files: 'src/cacert.pem', dest: 'dist/esm/src'},
+    ]),
   ],
 };

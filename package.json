@@ -40,7 +40,8 @@
   "dependencies": {
     "axios": "^0.16.1",
     "lodash": "^4.17.4",
-    "qs": "^6.4.0"
+    "qs": "^6.4.0",
+    "rollup-plugin-copy-glob": "^0.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
@@ -68,10 +69,11 @@
     "rollup-plugin-typescript2": "^0.17.2",
     "rollup-plugin-url": "^2.0.1",
     "ts-jest": "^23.10.4",
+    "ts-node": "^7.0.1",
     "tslib": "^1.9.3",
     "tslint": "^5.11.0",
     "tslint-eslint-rules": "^5.4.0",
-    "typescript": "^3.1.6"
+    "typescript": "^3.2.2"
   },
   "husky": {
     "hooks": {

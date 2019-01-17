@@ -3,6 +3,7 @@
     "@babel/plugin-proposal-class-properties"
   ],
   "presets": [
+    "@babel/typescript",
     [
       "@babel/preset-env",
       {
@@ -10,21 +11,20 @@
           "node": "4.8"
         }
       }
-    ],
-    "@babel/typescript",
+    ]
   ],
   "env": {
     "test": {
       "presets": [
         [
+          "@babel/typescript",
           "@babel/preset-env",
           {
             "targets": {
               "node": "4.8"
             }
           }
-        ],
-        "@babel/typescript"
+        ]
       ],
       "plugins": [
         "@babel/plugin-proposal-class-properties"
