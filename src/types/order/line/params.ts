@@ -17,6 +17,7 @@
  * @see https://docs.mollie.com/reference/v2/orders-api/update-orderline
  */
 import { IOrderLine } from './index';
+import { IAmount } from '../../global';
 
 export interface IUpdateParams {
   orderId: string;
@@ -24,6 +25,12 @@ export interface IUpdateParams {
   name?: string;
   imageUrl?: string;
   productUrl?: string;
+  quantity?: number;
+  unitPrice?: IAmount;
+  discountAmount?: IAmount;
+  totalAmount?: IAmount;
+  vatAmount?: IAmount;
+  vatRate?: IAmount;
 
   // Access token parameters
   testmode?: boolean;
