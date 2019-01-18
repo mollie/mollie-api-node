@@ -38,9 +38,9 @@
     "lint": "yarn lint:tslint && yarn lint:prettier"
   },
   "dependencies": {
-    "axios": "^0.16.1",
-    "lodash": "^4.17.4",
-    "qs": "^6.4.0"
+    "axios": "^0.18.0",
+    "lodash": "^4.17.11",
+    "qs": "^6.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
