@@ -16,6 +16,7 @@ export default class RefundsResource extends Resource {
   public static resource = 'refunds';
   public static model = Refund;
   public apiName = 'Refunds API';
+
   /**
    * List Refunds
    *
@@ -25,6 +26,15 @@ export default class RefundsResource extends Resource {
    * @public
    */
   all = this.list;
+  /**
+   * List Refunds
+   *
+   * @since 2.2.0
+   *
+   * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
+   * @public
+   */
+  page = this.list;
 
   public constructor(httpClient: AxiosInstance) {
     super(httpClient);
@@ -39,7 +49,7 @@ export default class RefundsResource extends Resource {
    *
    * @returns A list of found Refunds
    *
-   * @since 2.0.0
+   * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
    * @public

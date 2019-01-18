@@ -30,6 +30,16 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    */
   all = this.list;
   /**
+   * Get all payment refunds. Alias of list.
+   *
+   * @since 2.2.0
+   *
+   * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
+   * @public ✓ This method is part of the public API
+   * @alias list
+   */
+  page = this.list;
+  /**
    * Cancel a Payment Refund by ID
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/cancel-refund
@@ -118,7 +128,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
    * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
    *
-   * @since 1.1.1
+   * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
    * @public ✓ This method is part of the public API

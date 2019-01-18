@@ -63,6 +63,15 @@ export default class MethodsResource extends Resource {
    * @public ✓ This method is part of the public API
    */
   all = this.list;
+  /**
+   * Retrieve a list of Payment Methods
+   *
+   * @since 2.2.0
+   *
+   * @see https://docs.mollie.com/reference/v2/methods-api/list-methods
+   * @public ✓ This method is part of the public API
+   */
+  page = this.list;
 
   /**
    * Retrieve a list of Payment Methods
@@ -73,7 +82,7 @@ export default class MethodsResource extends Resource {
    *
    * @returns A list of found Payment Methods
    *
-   * @since 2.0.0
+   * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/methods-api/list-methods
    * @public ✓ This method is part of the public API

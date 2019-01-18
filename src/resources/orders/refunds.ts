@@ -28,6 +28,15 @@ export default class OrdersRefundsResource extends OrdersResource {
    * @public ✓ This method is part of the public API
    */
   all = this.list;
+  /**
+   * Get all order refunds
+   *
+   * @since 2.2.0
+   *
+   * @see https://docs.mollie.com/reference/v2/orders-api/list-order-refunds
+   * @public ✓ This method is part of the public API
+   */
+  page = this.list;
 
   /**
    * Create an order refund

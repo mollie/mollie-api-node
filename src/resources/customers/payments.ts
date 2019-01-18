@@ -18,6 +18,7 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
   public static resource = 'customers_payments';
   public static model = Payment;
   public apiName = 'Customers API (Payments section)';
+
   /**
    * Get all of a customer's payments.
    *
@@ -27,6 +28,15 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
    * @public ✓ This method is part of the public API
    */
   all = this.list;
+  /**
+   * Get all of a customer's payments.
+   *
+   * @since 2.2.0
+   *
+   * @see https://docs.mollie.com/reference/v2/customers-api/list-customer-payments
+   * @public ✓ This method is part of the public API
+   */
+  page = this.list;
 
   /**
    * Create a customer payment.

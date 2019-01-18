@@ -29,6 +29,15 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    */
   all = this.list;
   /**
+   * Get all of a customer's mandates
+   *
+   * @since 2.2.0
+   *
+   * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
+   * @public ✓ This method is part of the public API
+   */
+  page = this.list;
+  /**
    * Alias for revoke
    *
    * @since 1.3.2
@@ -130,7 +139,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    *
    * @returns A list of found mandates
    *
-   * @since 1.2.0
+   * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
    * @public ✓ This method is part of the public API

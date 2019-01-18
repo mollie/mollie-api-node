@@ -29,6 +29,16 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
    * @alias list
    */
   all = this.list;
+  /**
+   * Retrieve a list of Payment Captures
+   *
+   * @since 2.2.0
+   *
+   * @see https://docs.mollie.com/reference/v2/captures-api/list-captures
+   * @public ✓ This method is part of the public API
+   * @alias list
+   */
+  page = this.list;
 
   /**
    * Get a Payment Capture by ID
@@ -90,7 +100,7 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
    *
    * @returns A list of found Payment Captures
    *
-   * @since 1.1.1
+   * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/captures-api/list-captures
    * @public ✓ This method is part of the public API

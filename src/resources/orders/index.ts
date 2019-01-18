@@ -36,6 +36,16 @@ export default class Orders extends Resource {
    * @alias list
    */
   all = this.list;
+  /**
+   * List Orders.
+   *
+   * @since 2.2.0
+   *
+   * @see https://docs.mollie.com/reference/v2/orders-api/list-orders
+   * @public ✓ This method is part of the public API
+   * @alias list
+   */
+  page = this.list;
 
   /**
    * Using the Orders API is the preferred approach when integrating

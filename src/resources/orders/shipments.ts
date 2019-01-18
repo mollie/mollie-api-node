@@ -18,6 +18,7 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
   public static resource = 'orders_shipments';
   public static model = Shipment;
   public apiName = 'Shipments API';
+
   /**
    * List order shipments
    *
@@ -27,6 +28,15 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
    * @public
    */
   all = this.list;
+  /**
+   * List order shipments
+   *
+   * @since 2.2.0
+   *
+   * @see https://docs.mollie.com/reference/v2/shipments-api/list-shipments
+   * @public
+   */
+  page = this.list;
 
   /**
    * In addition to the

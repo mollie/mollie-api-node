@@ -32,6 +32,16 @@ export default class CustomersResource extends CustomersBaseResource {
    */
   all = this.list;
   /**
+   * List Customers.
+   *
+   * @since 2.2.0
+   *
+   * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
+   * @public ✓ This method is part of the public API
+   * @alias list
+   */
+  page = this.list;
+  /**
    * Delete a Customer.
    *
    * @since 2.0.0
@@ -112,7 +122,7 @@ export default class CustomersResource extends CustomersBaseResource {
    *
    * @returns
    *
-   * @since 2.0.0
+   * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
    * @public ✓ This method is part of the public API

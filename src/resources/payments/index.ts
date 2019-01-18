@@ -30,6 +30,17 @@ export default class PaymentsResource extends PaymentsBaseResource {
    */
   all = this.list;
   /**
+   * Retrieve all payments created with the current website profile, ordered from newest to oldest.
+   * This is just an alias of the `list` method.
+   *
+   * @since 2.2.0
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
+   * @public ✓ This method is part of the public API
+   * @alias list
+   */
+  page = this.list;
+  /**
    * Delete the given Payment. This is just an alias of the 'cancel' method.
    *
    * Will throw an ApiException if the payment ID is invalid or if the resource cannot be found.
@@ -107,7 +118,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
    *
    * @returns A list of found Payments
    *
-   * @since 2.0.0
+   * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
    * @public ✓ This method is part of the public API

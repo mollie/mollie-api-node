@@ -19,7 +19,6 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
   public static model = Chargeback;
   public apiName = 'Chargebacks API';
 
-  // AVAILABLE API METHODS
   /**
    * Retrieve a list of Payment Chargebacks
    *
@@ -30,6 +29,16 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
    * @alias list
    */
   all = this.list;
+  /**
+   * Retrieve a list of Payment Chargebacks
+   *
+   * @since 2.2.0
+   *
+   * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
+   * @public ✓ This method is part of the public API
+   * @alias list
+   */
+  page = this.list;
 
   /**
    * Get a Payment Chargeback by ID
@@ -91,7 +100,7 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
    *
    * @returns A list of found Payment Chargebacks
    *
-   * @since 1.1.1
+   * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
    * @public ✓ This method is part of the public API

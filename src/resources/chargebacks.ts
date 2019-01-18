@@ -23,8 +23,19 @@ export default class ChargebacksResource extends Resource {
    *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
    * @public ✓ This method is part of the public API
+   * @alias list
    */
   all = this.list;
+  /**
+   * List chargebacks
+   *
+   * @since 2.2.0
+   *
+   * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
+   * @public ✓ This method is part of the public API
+   * @alias list
+   */
+  page = this.list;
 
   /**
    * List chargebacks
@@ -35,7 +46,7 @@ export default class ChargebacksResource extends Resource {
    *
    * @returns A list of found Chargebacks
    *
-   * @since 2.0.0
+   * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
    * @public ✓ This method is part of the public API
