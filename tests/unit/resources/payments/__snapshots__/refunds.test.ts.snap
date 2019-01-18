@@ -3,6 +3,7 @@
 exports[`payments_refunds .all() should return a list of all payment refunds 1`] = `
 Array [
   Refund {
+    "_embedded": null,
     "_links": Object {
       "documentation": Object {
         "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
@@ -24,6 +25,7 @@ Array [
     "createdAt": "2018-03-14T17:09:02.0Z",
     "description": "Order",
     "id": "re_4qqhO89gsT",
+    "lines": null,
     "paymentId": "tr_WDqYK6vllg",
     "resource": "refund",
     "settlementAmount": null,
@@ -35,6 +37,7 @@ Array [
 exports[`payments_refunds .all() should work with a Promise and with .withParent() 1`] = `
 Array [
   Refund {
+    "_embedded": null,
     "_links": Object {
       "documentation": Object {
         "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
@@ -56,6 +59,7 @@ Array [
     "createdAt": "2018-03-14T17:09:02.0Z",
     "description": "Order",
     "id": "re_4qqhO89gsT",
+    "lines": null,
     "paymentId": "tr_WDqYK6vllg",
     "resource": "refund",
     "settlementAmount": null,
@@ -67,6 +71,7 @@ Array [
 exports[`payments_refunds .all() should work with a callback 1`] = `
 Array [
   Refund {
+    "_embedded": null,
     "_links": Object {
       "documentation": Object {
         "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
@@ -88,6 +93,7 @@ Array [
     "createdAt": "2018-03-14T17:09:02.0Z",
     "description": "Order",
     "id": "re_4qqhO89gsT",
+    "lines": null,
     "paymentId": "tr_WDqYK6vllg",
     "resource": "refund",
     "settlementAmount": null,
@@ -98,6 +104,7 @@ Array [
 
 exports[`payments_refunds .cancel() should return a refund instance 1`] = `
 Refund {
+  "_embedded": null,
   "_links": Object {
     "documentation": Object {
       "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
@@ -119,6 +126,7 @@ Refund {
   "createdAt": "2018-03-14T17:09:02.0Z",
   "description": "Order",
   "id": "re_4qqhO89gsT",
+  "lines": null,
   "paymentId": "tr_WDqYK6vllg",
   "resource": "refund",
   "settlementAmount": null,
@@ -128,6 +136,7 @@ Refund {
 
 exports[`payments_refunds .cancel() should work with a callback and legacy delete 1`] = `
 Refund {
+  "_embedded": null,
   "_links": Object {
     "documentation": Object {
       "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
@@ -149,6 +158,7 @@ Refund {
   "createdAt": "2018-03-14T17:09:02.0Z",
   "description": "Order",
   "id": "re_4qqhO89gsT",
+  "lines": null,
   "paymentId": "tr_WDqYK6vllg",
   "resource": "refund",
   "settlementAmount": null,
@@ -158,6 +168,7 @@ Refund {
 
 exports[`payments_refunds .create() should return a refund instance 1`] = `
 Refund {
+  "_embedded": null,
   "_links": Object {
     "documentation": Object {
       "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
@@ -179,6 +190,7 @@ Refund {
   "createdAt": "2018-03-14T17:09:02.0Z",
   "description": "Order",
   "id": "re_4qqhO89gsT",
+  "lines": null,
   "paymentId": "tr_WDqYK6vllg",
   "resource": "refund",
   "settlementAmount": null,
@@ -188,6 +200,7 @@ Refund {
 
 exports[`payments_refunds .create() should work with a callback 1`] = `
 Refund {
+  "_embedded": null,
   "_links": Object {
     "documentation": Object {
       "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
@@ -209,6 +222,7 @@ Refund {
   "createdAt": "2018-03-14T17:09:02.0Z",
   "description": "Order",
   "id": "re_4qqhO89gsT",
+  "lines": null,
   "paymentId": "tr_WDqYK6vllg",
   "resource": "refund",
   "settlementAmount": null,
@@ -218,6 +232,7 @@ Refund {
 
 exports[`payments_refunds .get() should return a refund instance 1`] = `
 Refund {
+  "_embedded": null,
   "_links": Object {
     "documentation": Object {
       "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
@@ -239,6 +254,7 @@ Refund {
   "createdAt": "2018-03-14T17:09:02.0Z",
   "description": "Order",
   "id": "re_4qqhO89gsT",
+  "lines": null,
   "paymentId": "tr_WDqYK6vllg",
   "resource": "refund",
   "settlementAmount": null,

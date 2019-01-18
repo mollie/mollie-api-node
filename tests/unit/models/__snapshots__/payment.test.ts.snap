@@ -2,6 +2,7 @@
 
 exports[`payment model should instantiate with default values 1`] = `
 Object {
+  "_embedded": null,
   "getPaymentUrl": [Function],
   "isAuthorized": [Function],
   "isCanceled": [Function],
@@ -15,6 +16,7 @@ Object {
 
 exports[`payment model should instantiate with given values 1`] = `
 Object {
+  "_embedded": null,
   "_links": Object {
     "checkout": Object {
       "href": "https://www.mollie.com/payscreen/select-method/WDqYK6vllg",

@@ -2,6 +2,7 @@
 
 exports[`customers_payments .create() should return a payment instance 1`] = `
 Payment {
+  "_embedded": null,
   "_links": Object {
     "checkout": Object {
       "href": "https://www.mollie.com/paymentscreen/issuer/select/ideal/7UhSN1zuXS",
@@ -35,6 +36,7 @@ Payment {
 
 exports[`customers_payments .create() should work with a callback 1`] = `
 Payment {
+  "_embedded": null,
   "_links": Object {
     "checkout": Object {
       "href": "https://www.mollie.com/paymentscreen/issuer/select/ideal/7UhSN1zuXS",
@@ -68,6 +70,7 @@ Payment {
 
 exports[`customers_payments .create() should work with withParent 1`] = `
 Payment {
+  "_embedded": null,
   "_links": Object {
     "checkout": Object {
       "href": "https://www.mollie.com/paymentscreen/issuer/select/ideal/7UhSN1zuXS",
@@ -102,6 +105,7 @@ Payment {
 exports[`customers_payments .list() should return a list of all customer payments 1`] = `
 Array [
   Payment {
+    "_embedded": null,
     "_links": Object {
       "checkout": Object {
         "href": "https://www.mollie.com/paymentscreen/issuer/select/ideal/7UhSN1zuXS",
@@ -137,6 +141,7 @@ Array [
 exports[`customers_payments .list() should work with .withParent() 1`] = `
 Array [
   Payment {
+    "_embedded": null,
     "_links": Object {
       "checkout": Object {
         "href": "https://www.mollie.com/paymentscreen/issuer/select/ideal/7UhSN1zuXS",
@@ -172,6 +177,7 @@ Array [
 exports[`customers_payments .list() should work with a Promise and with .withParent() 1`] = `
 Array [
   Payment {
+    "_embedded": null,
     "_links": Object {
       "checkout": Object {
         "href": "https://www.mollie.com/paymentscreen/issuer/select/ideal/7UhSN1zuXS",
@@ -207,6 +213,7 @@ Array [
 exports[`customers_payments .list() should work with a callback 1`] = `
 Array [
   Payment {
+    "_embedded": null,
     "_links": Object {
       "checkout": Object {
         "href": "https://www.mollie.com/paymentscreen/issuer/select/ideal/7UhSN1zuXS",

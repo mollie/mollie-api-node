@@ -4,7 +4,8 @@ exports[`orders .create() should return an order instance 1`] = `
 Order {
   "_embedded": Object {
     "payments": Array [
-      Object {
+      Payment {
+        "_embedded": null,
         "_links": Object {
           "checkout": Object {
             "href": "https://www.mollie.com/payscreen/select-method/ncaPcAhuUV",
@@ -212,7 +213,8 @@ exports[`orders .create() should work with a callback 1`] = `
 Order {
   "_embedded": Object {
     "payments": Array [
-      Object {
+      Payment {
+        "_embedded": null,
         "_links": Object {
           "checkout": Object {
             "href": "https://www.mollie.com/payscreen/select-method/ncaPcAhuUV",
@@ -420,7 +422,8 @@ exports[`orders .get() should return an order instance 1`] = `
 Order {
   "_embedded": Object {
     "payments": Array [
-      Object {
+      Payment {
+        "_embedded": null,
         "_links": Object {
           "checkout": Object {
             "href": "https://www.mollie.com/payscreen/select-method/ncaPcAhuUV",
@@ -628,7 +631,8 @@ exports[`orders .get() should work with a callback 1`] = `
 Order {
   "_embedded": Object {
     "payments": Array [
-      Object {
+      Payment {
+        "_embedded": null,
         "_links": Object {
           "checkout": Object {
             "href": "https://www.mollie.com/payscreen/select-method/ncaPcAhuUV",
@@ -837,7 +841,8 @@ Array [
   Order {
     "_embedded": Object {
       "payments": Array [
-        Object {
+        Payment {
+          "_embedded": null,
           "_links": Object {
             "checkout": Object {
               "href": "https://www.mollie.com/payscreen/select-method/ncaPcAhuUV",
@@ -1047,7 +1052,8 @@ Array [
   Order {
     "_embedded": Object {
       "payments": Array [
-        Object {
+        Payment {
+          "_embedded": null,
           "_links": Object {
             "checkout": Object {
               "href": "https://www.mollie.com/payscreen/select-method/ncaPcAhuUV",

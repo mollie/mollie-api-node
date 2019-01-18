@@ -3,6 +3,7 @@
 exports[`orders_refunds .all() should return a list of all order refunds 1`] = `
 Array [
   Refund {
+    "_embedded": null,
     "_links": Object {
       "documentation": Object {
         "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
@@ -80,6 +81,7 @@ Array [
 exports[`orders_refunds .all() should work with a Promise and with .withParent() 1`] = `
 Array [
   Refund {
+    "_embedded": null,
     "_links": Object {
       "documentation": Object {
         "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
@@ -157,6 +159,7 @@ Array [
 exports[`orders_refunds .all() should work with a callback 1`] = `
 Array [
   Refund {
+    "_embedded": null,
     "_links": Object {
       "documentation": Object {
         "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
@@ -233,6 +236,7 @@ Array [
 
 exports[`orders_refunds .create() should return a refund instance 1`] = `
 Refund {
+  "_embedded": null,
   "_links": Object {
     "documentation": Object {
       "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",
@@ -308,6 +312,7 @@ Refund {
 
 exports[`orders_refunds .create() should work with a callback 1`] = `
 Refund {
+  "_embedded": null,
   "_links": Object {
     "documentation": Object {
       "href": "https://docs.mollie.com/reference/v2/refunds-api/get-refund",

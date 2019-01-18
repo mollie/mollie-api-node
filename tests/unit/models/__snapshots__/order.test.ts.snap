@@ -2,6 +2,7 @@
 
 exports[`order model should instantiate with default values 1`] = `
 Object {
+  "_embedded": null,
   "_links": Object {
     "documentation": null,
     "payment": null,
@@ -32,7 +33,8 @@ exports[`order model should instantiate with given values 1`] = `
 Object {
   "_embedded": Object {
     "payments": Array [
-      Object {
+      Payment {
+        "_embedded": null,
         "_links": Object {
           "checkout": Object {
             "href": "https://www.mollie.com/payscreen/select-method/ncaPcAhuUV",
