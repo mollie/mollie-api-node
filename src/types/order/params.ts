@@ -65,6 +65,7 @@ export interface ICreateParams {
   method: PaymentMethod;
   payment?: Partial<IPayment>;
   metadata?: any;
+  embed?: Array<OrderEmbed>;
 
   // Access token parameters
   profileId?: string;
