@@ -11,6 +11,8 @@ import {
   PaymentMethod,
   SequenceType,
 } from '../global';
+import { IRefund } from './refund';
+import { IChargeback } from '../chargeback';
 
 /**
  * Payment Response Object.
@@ -143,6 +145,10 @@ export interface IPayment {
   };
   _links: IPaymentLinks;
   details?: IDetails; // TODO: check if this should become a required field, even as an embedded object
+  _embedded?: {
+    refunds?: Array<IRefund>;
+    chargebacks?: Array<IChargeback>;
+  };
 }
 
 /**

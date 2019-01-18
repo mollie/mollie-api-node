@@ -2,6 +2,8 @@ import { get } from 'lodash';
 
 import Model from '../model';
 import { IPayment, PaymentStatus } from '../types/payment';
+import Chargeback from './Chargeback';
+import Refund from './Refund';
 
 /**
  * The `Payment` model
@@ -63,6 +65,7 @@ export default class Payment extends Model implements IPayment {
     subscription: null;
     customer: null;
   };
+  public _embedded = null;
 
   /**
    * Payment constructor
@@ -73,6 +76,19 @@ export default class Payment extends Model implements IPayment {
     super();
 
     Object.assign(this, props);
+
+    if (this._embedded != null && typeof this._embedded === 'object') {
+      if (Array.isArray(this._embedded.refunds)) {
+        this._embedded.refunds.map((refund, key, refunds) => {
+          refunds[key] = new Refund(refund);
+        });
+      }
+      if (Array.isArray(this._embedded.chargebacks)) {
+        this._embedded.chargebacks.map((chargeback, key, chargebacks) => {
+          chargebacks[key] = new Chargeback(chargeback);
+        });
+      }
+    }
   }
 
   /**

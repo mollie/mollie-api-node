@@ -1,5 +1,7 @@
 import Model from '../model';
 import { IOrder } from '../types/order';
+import { IAmount } from '../types/global';
+import Payment from './Payment';
 
 /**
  * The `order` model
@@ -31,6 +33,17 @@ export default class Order extends Model implements IOrder {
     payment: null,
     settlement: null,
   };
+  public _embedded = null;
+  public webhookUrl?: string;
+  public expiresAt?: string;
+  public expiredAt?: string;
+  public paidAt?: string;
+  public authorizedAt?: string;
+  public canceledAt?: string;
+  public completedAt?: string;
+  public amountCaptured?: IAmount | null;
+  public amountRefunded?: IAmount | null;
+  public consumerDateOfBirth?: string;
 
   /**
    * Order constructor
@@ -41,5 +54,13 @@ export default class Order extends Model implements IOrder {
     super();
 
     Object.assign(this, props);
+
+    if (this._embedded != null && typeof this._embedded === 'object') {
+      if (Array.isArray(this._embedded.payments)) {
+        this._embedded.payments.map((payment, key, payments) => {
+          payments[key] = new Payment(payment);
+        });
+      }
+    }
   }
 }

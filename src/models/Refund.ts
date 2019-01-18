@@ -1,6 +1,7 @@
 import Model from '../model';
 import { RefundStatus } from '../types/refund';
 import { IRefund } from '../types/payment/refund';
+import Payment from './Payment';
 
 /**
  * The `Refund` model
@@ -28,7 +29,8 @@ export default class Refund extends Model implements IRefund {
     self: null,
     documentation: null,
   };
-  public lines: null;
+  public lines = null;
+  public _embedded = null;
 
   /**
    * Refund constructor
@@ -39,6 +41,14 @@ export default class Refund extends Model implements IRefund {
     super();
 
     Object.assign(this, props);
+
+    if (this._embedded != null && typeof this._embedded === 'object') {
+      if (Array.isArray(this._embedded.payments)) {
+        this._embedded.payments.map((payment, key, payments) => {
+          payments[key] = new Payment(payment);
+        });
+      }
+    }
   }
 
   /**

@@ -1,6 +1,7 @@
 import { IAmount, ILinks, IUrl } from '../../global';
 import { RefundStatus } from '../../refund';
 import { IOrderLine } from '../../order/line';
+import { IPayment } from '../index';
 
 /**
  * Payment Refund object.
@@ -55,6 +56,9 @@ export interface IRefund {
   orderId?: string;
   createdAt: string;
   _links: IPaymentRefundLinks;
+  _embedded?: {
+    payments?: Array<IPayment>;
+  };
 }
 
 /**
