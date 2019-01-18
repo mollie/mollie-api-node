@@ -1,5 +1,6 @@
 import Model from '../model';
-import { ISubscription, SubscriptionStatus } from '../types/subscription';
+import { ISubscription, ISubscriptionLinks, SubscriptionStatus } from '../types/subscription';
+import { ApiMode, IAmount } from '../types/global';
 
 /**
  * The `Subscription` model
@@ -32,6 +33,8 @@ export default class Subscription extends Model implements ISubscription {
     documentation: null,
     customer: null,
   };
+  public mandateId = null;
+  nextPaymentDate = null;
 
   // Access token parameters
   public testmode?: boolean;

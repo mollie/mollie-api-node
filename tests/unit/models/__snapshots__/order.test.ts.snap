@@ -53,6 +53,7 @@ Object {
           "currency": "EUR",
           "value": "1027.99",
         },
+        "amountCaptured": null,
         "createdAt": "2018-09-07T12:00:05+00:00",
         "description": "Order #1337 (Lego cars)",
         "id": "tr_ncaPcAhuUV",

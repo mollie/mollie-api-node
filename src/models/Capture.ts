@@ -1,5 +1,6 @@
 import Model from '../model';
-import { ICapture } from '../types/payment/capture';
+import { ICapture, ICaptureLinks } from '../types/payment/capture';
+import { ApiMode, IAmount } from '../types/global';
 
 /**
  * The `capture` model
@@ -21,6 +22,8 @@ export default class Capture extends Model implements ICapture {
     payment: null,
     documentation: null,
   };
+  public shipmentId = null;
+  public settlementId = null;
 
   /**
    * Capture constructor

@@ -1,5 +1,6 @@
 import Model from '../model';
-import { IMandate, MandateStatus } from '../types/mandate';
+import { IMandate, IMandateDetails, IMandateLinks, MandateMethod, MandateStatus } from '../types/mandate';
+import { ApiMode } from '../types/global';
 
 /**
  * The `Mandate` model

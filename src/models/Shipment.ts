@@ -1,5 +1,6 @@
 import Model from '../model';
-import { IShipment } from '../types/shipment';
+import { IShipment, IShipmentLinks, IShipmentTracking } from '../types/shipment';
+import { IOrderLine } from '../types/order/line';
 
 /**
  * The `shipment` model
@@ -20,6 +21,9 @@ export default class Shipment extends Model implements IShipment {
     order: null,
     documentation: null,
   };
+
+  // Access token parameters
+  public testmode?: boolean;
 
   /**
    * Shipment constructor

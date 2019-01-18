@@ -1,7 +1,10 @@
 import Model from '../model';
 import { RefundStatus } from '../types/refund';
-import { IRefund } from '../types/payment/refund';
+import { IPaymentRefundLinks, IRefund } from '../types/payment/refund';
 import Payment from './Payment';
+import { IAmount } from '../types/global';
+import { IOrderLine } from '../types/order/line';
+import { IPayment } from '../types/payment';
 
 /**
  * The `Refund` model
@@ -31,6 +34,7 @@ export default class Refund extends Model implements IRefund {
   };
   public lines = null;
   public _embedded = null;
+  public orderId = null;
 
   /**
    * Refund constructor

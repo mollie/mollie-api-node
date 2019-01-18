@@ -1,9 +1,12 @@
 import { get } from 'lodash';
 
 import Model from '../model';
-import { IPayment, PaymentStatus } from '../types/payment';
+import { IDetails, IPayment, PaymentStatus } from '../types/payment';
 import Chargeback from './Chargeback';
 import Refund from './Refund';
+import { ApiMode, IAmount, Locale, PaymentMethod, SequenceType } from '../types/global';
+import { IRefund } from '../types/payment/refund';
+import { IChargeback } from '../types/chargeback';
 
 /**
  * The `Payment` model
@@ -66,6 +69,8 @@ export default class Payment extends Model implements IPayment {
     customer: null;
   };
   public _embedded = null;
+  public amountCaptured = null;
+  public orderId = null;
 
   /**
    * Payment constructor

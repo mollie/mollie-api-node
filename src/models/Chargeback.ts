@@ -1,5 +1,6 @@
 import Model from '../model';
-import { IChargeback } from '../types/chargeback';
+import { IChargeback, IChargebackLinks } from '../types/chargeback';
+import { IAmount } from '../types/global';
 
 /**
  * The `Chargeback` model

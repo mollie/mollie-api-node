@@ -1,5 +1,7 @@
 import Model from '../model';
-import { IOrderLine } from '../types/order/line';
+import { IOrderLine, IOrderLineLinks, OrderLineType } from '../types/order/line';
+import { OrderStatus } from '../types/order';
+import { IAmount } from '../types/global';
 
 /**
  * The `orderline` model

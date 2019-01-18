@@ -14,6 +14,8 @@ Object {
   "paymentId": null,
   "resource": null,
   "settlementAmount": null,
+  "settlementId": null,
+  "shipmentId": null,
   "toPlainObject": [Function],
 }
 `;
