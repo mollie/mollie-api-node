@@ -63,8 +63,6 @@ export default class ChargebacksResource extends Resource {
     return super.list(params, cb) as Promise<List<Chargeback>>;
   }
 
-  // UNAVAILABLE
-
   /**
    * @deprecated This method is not available
    */
@@ -82,7 +80,7 @@ export default class ChargebacksResource extends Resource {
   /**
    * @deprecated This method is not available
    */
-  public async get(id: string, params?: any, cb?: Function): Promise<Chargeback> {
+  public async get(id: string, params: any, cb?: Function): Promise<Chargeback> {
     throw new ApiException(`The method "get" does not exist on the "${this.apiName}"`);
   }
 

@@ -1,4 +1,4 @@
-import { get, startsWith } from 'lodash';
+import { get, startsWith, defaults } from 'lodash';
 
 import PaymentsBaseResource from '../../resources/payments/base';
 import ApiException from '../../exceptions/ApiException';
@@ -55,7 +55,7 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-chargeback
    * @public ✓ This method is part of the public API
    */
-  public async get(id: string, params: IGetParams | GetCallback, cb?: GetCallback): Promise<Chargeback> {
+  public async get(id: string, params?: IGetParams | GetCallback, cb?: GetCallback): Promise<Chargeback> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const paymentId = get(params, 'paymentId') || this.parentId;
@@ -80,7 +80,8 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
       ) as Promise<Chargeback>;
     }
 
-    const { paymentId, ...parameters } = params;
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    const { paymentId, ...parameters } = defaults(params, { paymentId: this.parentId });
     if (!startsWith(id, Chargeback.resourcePrefix)) {
       Resource.errorHandler({ error: { message: 'The chargeback id is invalid' } });
     }
@@ -105,7 +106,7 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
    * @public ✓ This method is part of the public API
    */
-  public async list(params: IListParams | ListCallback, cb?: ListCallback): Promise<List<Chargeback>> {
+  public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Chargeback>> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const paymentId = get(params, 'paymentId') || this.parentId;
@@ -123,7 +124,8 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
       ) as Promise<List<Chargeback>>;
     }
 
-    const { paymentId, ...parameters } = params;
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    const { paymentId, ...parameters } = defaults(params, { paymentId: this.parentId });
     if (!startsWith(paymentId, Payment.resourcePrefix)) {
       Resource.errorHandler({ error: { message: 'The payment id is invalid' } });
     }

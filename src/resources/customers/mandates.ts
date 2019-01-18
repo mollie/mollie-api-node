@@ -1,4 +1,4 @@
-import { get, startsWith } from 'lodash';
+import { get, startsWith, defaults } from 'lodash';
 
 import CustomersBaseResource from './base';
 import List from '../../models/List';
@@ -72,7 +72,8 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    * @public ✓ This method is part of the public API
    */
   public async create(params: ICreateParams, cb?: CreateCallback): Promise<Mandate> {
-    const { customerId, ...parameters } = params;
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    const { customerId, ...parameters } = defaults(params, { customerId: this.parentId });
     this.setParentId(customerId);
 
     return super.create(parameters, cb) as Promise<Mandate>;
@@ -118,7 +119,8 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
       ) as Promise<Mandate>;
     }
 
-    const { customerId, ...parameters } = params;
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    const { customerId, ...parameters } = defaults(params, { customerId: this.parentId });
     if (!startsWith(id, Mandate.resourcePrefix)) {
       Resource.errorHandler({ error: { message: 'The customers_mandate id is invalid' } });
     }
@@ -144,7 +146,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
    * @public ✓ This method is part of the public API
    */
-  public async list(params: IListParams | ListCallback, cb?: ListCallback): Promise<List<Mandate>> {
+  public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Mandate>> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
@@ -162,7 +164,8 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
       ) as Promise<List<Mandate>>;
     }
 
-    const { customerId, ...parameters } = params;
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    const { customerId, ...parameters } = defaults(params, { customerId: this.parentId });
     if (!startsWith(customerId, Customer.resourcePrefix)) {
       Resource.errorHandler({ error: { message: 'The customer id is invalid' } });
     }
@@ -212,7 +215,8 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
       ) as Promise<Mandate>;
     }
 
-    const { customerId } = params;
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    const { customerId } = defaults(params, { customerId: this.parentId });
     if (!startsWith(id, Mandate.resourcePrefix)) {
       Resource.errorHandler({ error: { message: 'The customers_mandate id is invalid' } });
     }

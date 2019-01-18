@@ -93,7 +93,7 @@ export default class Orders extends Resource {
    * @see https://docs.mollie.com/reference/v2/orders-api/get-order
    * @public ✓ This method is part of the public API
    */
-  public async get(id: string, params: IGetParams | GetCallback, cb?: GetCallback): Promise<Order> {
+  public async get(id: string, params?: IGetParams | GetCallback, cb?: GetCallback): Promise<Order> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Order.resourcePrefix)) {

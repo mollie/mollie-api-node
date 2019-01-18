@@ -1,4 +1,4 @@
-import { get, startsWith } from 'lodash';
+import { get, startsWith, defaults } from 'lodash';
 
 import CustomersBaseResource from './base';
 import Payment from '../../models/Payment';
@@ -69,7 +69,8 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
       ) as Promise<Payment>;
     }
 
-    const { customerId, ...parameters } = params;
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    const { customerId, ...parameters } = defaults(params, { customerId: this.parentId });
     this.setParentId(customerId);
 
     return super.create(parameters, cb) as Promise<Payment>;
@@ -107,7 +108,8 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
       ) as Promise<List<Payment>>;
     }
 
-    const { customerId, ...parameters } = params;
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    const { customerId, ...parameters } = defaults(params, { customerId: this.parentId });
     if (!startsWith(customerId, Customer.resourcePrefix)) {
       Resource.errorHandler({ error: { message: 'The customer id is invalid' } });
     }

@@ -86,6 +86,25 @@ describe('customers_subscriptions', () => {
           done();
         });
     });
+
+    it('should work with a Promise and with .withParent()', done => {
+      customersSubscriptions
+        .withParent({
+          resource: 'customer',
+          id: props.customerId,
+        })
+        .all()
+        .then(result => {
+          expect(result).toBeInstanceOf(Array);
+          expect(result).toHaveProperty('links');
+          expect(result).toMatchSnapshot();
+          done();
+        })
+        .catch(err => {
+          expect(err).toBeNull();
+          done();
+        });
+    });
   });
 
   describe('.cancel()', () => {

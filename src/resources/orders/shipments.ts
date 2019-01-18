@@ -1,4 +1,4 @@
-import { get, startsWith } from 'lodash';
+import { get, startsWith, defaults } from 'lodash';
 
 import Shipment from '../../models/Shipment';
 import List from '../../models/List';
@@ -78,7 +78,8 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
       ) as Promise<Shipment>;
     }
 
-    const { orderId, ...parameters } = params;
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    const { orderId, ...parameters } = defaults(params, { orderId: this.parentId });
     if (!startsWith(orderId, Order.resourcePrefix)) {
       Resource.errorHandler(
         { error: { message: 'The order id is invalid' } },
@@ -132,7 +133,8 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
     if (!startsWith(id, Shipment.resourcePrefix)) {
       Resource.errorHandler({ error: { message: 'The orders_shipments id is invalid' } });
     }
-    const { orderId, ...parameters } = params;
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    const { orderId, ...parameters } = defaults(params, { orderId: this.parentId });
     if (!startsWith(orderId, Order.resourcePrefix)) {
       Resource.errorHandler({ error: { message: 'The order id is invalid' } });
     }
@@ -180,7 +182,8 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
     if (!startsWith(id, Shipment.resourcePrefix)) {
       Resource.errorHandler(Resource.errorHandler({ error: { message: 'The orders_shipments id is invalid' } }, cb));
     }
-    const { orderId, ...parameters } = params;
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    const { orderId, ...parameters } = defaults(params, { orderId: this.parentId });
     if (!startsWith(orderId, Order.resourcePrefix)) {
       Resource.errorHandler({ error: { message: 'The order id is invalid' } });
     }
@@ -221,7 +224,8 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
       ) as Promise<List<Shipment>>;
     }
 
-    const { orderId, ...parameters } = params;
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    const { orderId, ...parameters } = defaults(params, { orderId: this.parentId });
     if (!startsWith(orderId, Order.resourcePrefix)) {
       Resource.errorHandler(
         { error: { message: 'The order id is invalid' } },

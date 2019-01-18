@@ -56,6 +56,7 @@ describe('orders_refunds', () => {
   });
 
   describe('.all()', () => {
+    const error = {"error": {"message": "The order id is invalid"}};
     mock.onGet(`/orders/${props.orderId}/refunds`).reply(200, response);
 
     it('should return a list of all order refunds', () =>
@@ -72,7 +73,7 @@ describe('orders_refunds', () => {
           throw new Error('Should crash here');
         })
         .catch(err => {
-          expect(err).toBeInstanceOf(Error);
+          expect(err).toEqual(error);
           done();
         });
     });
@@ -85,6 +86,28 @@ describe('orders_refunds', () => {
         expect(result).toMatchSnapshot();
         done();
       });
+    });
+
+    /**
+     * @deprecated 3.0.0
+     */
+    it('should work with a Promise and with .withParent()', done => {
+      ordersRefunds
+        .withParent({
+          resource: 'order',
+          id: props.orderId,
+        })
+        .all(undefined)
+        .then((result) => {
+          expect(result).toBeInstanceOf(Array);
+          expect(result).toHaveProperty('links');
+          expect(result).toMatchSnapshot();
+          done();
+        })
+        .catch(err => {
+          expect(err).toBeUndefined();
+          done();
+        });
     });
   });
 });

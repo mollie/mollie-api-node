@@ -1,4 +1,4 @@
-import { get, startsWith } from 'lodash';
+import { get, startsWith, defaults } from 'lodash';
 
 import Refund from '../../models/Refund';
 import OrdersResource from './base';
@@ -69,7 +69,8 @@ export default class OrdersRefundsResource extends OrdersResource {
       ) as Promise<Refund>;
     }
 
-    const { orderId, ...parameters } = params;
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    const { orderId, ...parameters } = defaults(params, { orderId: this.parentId });
     if (!startsWith(orderId, Order.resourcePrefix)) {
       Resource.errorHandler(Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb));
     }
@@ -92,7 +93,7 @@ export default class OrdersRefundsResource extends OrdersResource {
    * @see https://docs.mollie.com/reference/v2/orders-api/list-order-refunds
    * @public ✓ This method is part of the public API
    */
-  public async list(params: IListParams | ListCallback, cb?: ListCallback): Promise<List<Refund>> {
+  public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Refund>> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const orderId = get(params, 'orderId') || this.parentId;
@@ -107,7 +108,8 @@ export default class OrdersRefundsResource extends OrdersResource {
       ) as Promise<List<Order>>;
     }
 
-    const { orderId, ...parameters } = params;
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    const { orderId, ...parameters } = defaults(params, { orderId: this.parentId });
     if (!startsWith(orderId, Order.resourcePrefix)) {
       Resource.errorHandler({ error: { message: 'The order id is invalid' } });
     }

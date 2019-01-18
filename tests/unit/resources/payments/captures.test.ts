@@ -69,5 +69,39 @@ describe('payments_captures', () => {
         done();
       });
     });
+
+    it('should work with .withParent() and a callback', done => {
+      paymentsCaptures
+        .withParent({
+          resource: 'payment',
+          id: props.paymentId,
+        })
+        .list((err, result) => {
+          expect(err).toBeNull();
+          expect(result).toBeInstanceOf(Array);
+          expect(result).toHaveProperty('links');
+          expect(result).toMatchSnapshot();
+          done();
+        });
+    });
+
+    it('should work with a Promise and with .withParent()', done => {
+      paymentsCaptures
+        .withParent({
+          resource: 'payment',
+          id: props.paymentId,
+        })
+        .list(undefined)
+        .then(result => {
+          expect(result).toBeInstanceOf(Array);
+          expect(result).toHaveProperty('links');
+          expect(result).toMatchSnapshot();
+          done();
+        })
+        .catch(err => {
+          expect(err).toBeUndefined();
+          done();
+        });
+    });
   });
 });

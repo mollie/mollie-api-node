@@ -75,6 +75,7 @@ describe('orders_shipments', () => {
   });
 
   describe('.list()', () => {
+    const error =  {"error": {"message": "The order id is invalid"}};
     mock.onGet(`/orders/${props.orderId}/shipments`).reply(200, response);
 
     it('should return a list of all payment refunds', () =>
@@ -85,11 +86,11 @@ describe('orders_shipments', () => {
       }));
 
     it('should throw an error if "paymentId" is not set', done => {
-      ordersShipments.list()
+      ordersShipments.list(undefined)
         .then(() => {
           throw new Error('This should error out instead');
         }).catch(err => {
-        expect(err).toBeInstanceOf(TypeError);
+        expect(err).toEqual(error);
         done();
       });
     });
@@ -106,6 +107,39 @@ describe('orders_shipments', () => {
           expect(result).toHaveProperty('links');
           expect(result).toMatchSnapshot();
           done();
+        });
+    });
+
+    it('should work with a callback', done => {
+      ordersShipments
+        .withParent({
+          resource: 'order',
+          id: props.orderId,
+        })
+        .list((err, result) => {
+          expect(err).toBeNull();
+          expect(result).toBeInstanceOf(Array);
+          expect(result).toHaveProperty('links');
+          expect(result).toMatchSnapshot();
+          done();
+        });
+    });
+
+    it('should work with a Promise and with .withParent()', done => {
+      ordersShipments
+        .withParent({
+          resource: 'order',
+          id: props.orderId,
+        })
+        .list(undefined)
+        .then((result) => {
+          expect(result).toBeInstanceOf(Array);
+          expect(result).toHaveProperty('links');
+          expect(result).toMatchSnapshot();
+          done();
+        })
+        .catch(err => {
+          expect(err).toBeNull();
         });
     });
   });

@@ -66,6 +66,7 @@ describe('customers_payments', () => {
   });
 
   describe('.list()', () => {
+    const error = {"error": {"message": "The customer id is invalid"}};
     mock.onGet(`/customers/${props.customerId}/payments`).reply(200, response);
 
     it('should return a list of all customer payments', done => {
@@ -80,12 +81,12 @@ describe('customers_payments', () => {
     });
 
     it('should throw an error if "customerId" is not set', done => {
-      customersPayments.list()
+      customersPayments.list(undefined)
         .then(() => {
           throw Error('Should error out');
         })
         .catch(err => {
-          expect(err).toBeInstanceOf(TypeError);
+          expect(err).toEqual(error);
           done();
         });
     });
@@ -100,7 +101,10 @@ describe('customers_payments', () => {
       });
     });
 
-    it('should work with withParent', done => {
+    /**
+     * @deprecated 3.0.0
+     */
+    it('should work with .withParent()', done => {
       customersPayments
         .withParent({
           resource: 'customer',
@@ -111,6 +115,28 @@ describe('customers_payments', () => {
           expect(result).toBeInstanceOf(Array);
           expect(result).toHaveProperty('links');
           expect(result).toMatchSnapshot();
+          done();
+        });
+    });
+
+    /**
+     * @deprecated 3.0.0
+     */
+    it('should work with a Promise and with .withParent()', done => {
+      customersPayments
+        .withParent({
+          resource: 'customer',
+          id: props.customerId,
+        })
+        .list(undefined)
+        .then(result => {
+          expect(result).toBeInstanceOf(Array);
+          expect(result).toHaveProperty('links');
+          expect(result).toMatchSnapshot();
+          done();
+        })
+        .catch(err => {
+          expect(err).toBeNull();
           done();
         });
     });

@@ -10,6 +10,11 @@ import List from './models/List';
  */
 type Callback = (error: any, resource: any) => void;
 
+export interface IParentParams {
+  resource: string;
+  id: string;
+}
+
 /**
  * The base resource
  */
@@ -67,7 +72,7 @@ export default class Resource {
    *
    * @deprecated This method is not available
    */
-  public withParent(parent: any): this {
+  public withParent(parent: IParentParams): this {
     if (parent && parent.id) {
       this.setParentId(parent.id);
     }

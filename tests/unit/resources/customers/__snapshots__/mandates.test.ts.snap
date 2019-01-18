@@ -98,6 +98,40 @@ Array [
 ]
 `;
 
+exports[`customers_mandates .list() should work with a Promise and with .withParent() 1`] = `
+Array [
+  Mandate {
+    "_links": Object {
+      "customer": Object {
+        "href": "https://api.mollie.com/v2/customers/cst_8wmqcHMN4U",
+        "type": "application/hal+json",
+      },
+      "documentation": Object {
+        "href": "https://mollie.com/en/docs/reference/customers/create-mandate",
+        "type": "text/html",
+      },
+      "self": Object {
+        "href": "https://api.mollie.com/v2/customers/cst_8wmqcHMN4U/mandates/mdt_AcQl5fdL4h",
+        "type": "application/hal+json",
+      },
+    },
+    "createdAt": "2018-05-07T10:49:08+00:00",
+    "details": Object {
+      "consumerAccount": "NL55INGB0000000000",
+      "consumerBic": "INGBNL2A",
+      "consumerName": "John Doe",
+    },
+    "id": "mdt_AcQl5fdL4h",
+    "mandateReference": null,
+    "method": "directdebit",
+    "mode": null,
+    "resource": "mandate",
+    "signatureDate": "2018-05-07",
+    "status": "valid",
+  },
+]
+`;
+
 exports[`customers_mandates .list() should work with a callback 1`] = `
 Array [
   Mandate {

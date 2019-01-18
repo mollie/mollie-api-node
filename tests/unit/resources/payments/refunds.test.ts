@@ -72,6 +72,7 @@ describe('payments_refunds', () => {
   });
 
   describe('.all()', () => {
+    const error = {"error": {"message": "The payment id is invalid"}};
     mock.onGet(`/payments/${props.paymentId}/refunds`).reply(200, response);
 
     it('should return a list of all payment refunds', () =>
@@ -82,12 +83,12 @@ describe('payments_refunds', () => {
       }));
 
     it('should throw an error if "paymentId" is not set', done => {
-      paymentsRefunds.all()
+      paymentsRefunds.all(undefined)
         .then(() => {
           throw new Error('This should error out instead');
         })
-        .catch(error => {
-          expect(error).toBeInstanceOf(TypeError);
+        .catch(err => {
+          expect(err).toEqual(error);
           done();
         });
     });
@@ -103,6 +104,25 @@ describe('payments_refunds', () => {
           expect(result).toBeInstanceOf(Array);
           expect(result).toHaveProperty('links');
           expect(result).toMatchSnapshot();
+          done();
+        });
+    });
+
+    it('should work with a Promise and with .withParent()', done => {
+      paymentsRefunds
+        .withParent({
+          resource: 'payment',
+          id: props.paymentId,
+        })
+        .all(undefined)
+        .then(result => {
+          expect(result).toBeInstanceOf(Array);
+          expect(result).toHaveProperty('links');
+          expect(result).toMatchSnapshot();
+          done();
+        })
+        .catch(err => {
+          expect(err).toBeUndefined();
           done();
         });
     });

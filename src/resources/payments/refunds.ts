@@ -1,4 +1,4 @@
-import { get, startsWith } from 'lodash';
+import { get, startsWith, defaults } from 'lodash';
 
 import PaymentsResource from './base';
 import Refund from '../../models/Refund';
@@ -62,7 +62,8 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    * @public ✓ This method is part of the public API
    */
   public async create(params: ICreateParams, cb?: CreateCallback): Promise<Refund> {
-    const { paymentId, ...parameters } = params;
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    const { paymentId, ...parameters } = defaults(params, { paymentId: this.parentId });
     if (!startsWith(paymentId, Payment.resourcePrefix)) {
       Resource.errorHandler(Resource.errorHandler({ error: { message: 'The payment id is invalid' } }, cb));
     }
@@ -112,7 +113,8 @@ export default class PaymentsRefundsResource extends PaymentsResource {
     if (!startsWith(id, Refund.resourcePrefix)) {
       Resource.errorHandler({ error: { message: 'The refund id is invalid' } }, cb);
     }
-    const { paymentId, ...parameters } = params;
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    const { paymentId, ...parameters } = defaults(params, { paymentId: this.parentId });
     if (!startsWith(paymentId, Payment.resourcePrefix)) {
       Resource.errorHandler({ error: { message: 'The payment id is invalid' } }, cb);
     }
@@ -151,7 +153,8 @@ export default class PaymentsRefundsResource extends PaymentsResource {
       ) as Promise<List<Refund>>;
     }
 
-    const { paymentId, ...parameters } = params;
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    const { paymentId, ...parameters } = defaults(params, { paymentId: this.parentId });
     if (!startsWith(paymentId, Payment.resourcePrefix)) {
       Resource.errorHandler({ error: { message: 'The payment id is invalid' } });
     }
@@ -202,7 +205,8 @@ export default class PaymentsRefundsResource extends PaymentsResource {
     if (!startsWith(id, Refund.resourcePrefix)) {
       Resource.errorHandler({ error: { message: 'The refund id is invalid' } });
     }
-    const { paymentId, ...parameters } = params;
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    const { paymentId, ...parameters } = defaults(params, { paymentId: this.parentId });
     if (!startsWith(paymentId, Payment.resourcePrefix)) {
       Resource.errorHandler({ error: { message: 'The payment id is invalid' } });
     }

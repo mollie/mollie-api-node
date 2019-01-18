@@ -1,4 +1,4 @@
-import { get, startsWith } from 'lodash';
+import { get, startsWith, defaults } from 'lodash';
 
 import CustomersBaseResource from './base';
 import Subscription from '../../../models/Subscription';
@@ -72,7 +72,8 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
    * @public ✓ This method is part of the public API
    */
   public async create(params: ICreateParams, cb?: CreateCallback): Promise<Subscription> {
-    const { customerId, ...parameters } = params;
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    let { customerId, ...parameters } = defaults(params, { customerId: this.parentId });
     if (!startsWith(params.customerId, Customer.resourcePrefix)) {
       Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, cb);
     }
@@ -121,7 +122,8 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
       ) as Promise<Subscription>;
     }
 
-    const { customerId, ...parameters } = params;
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    const { customerId, ...parameters } = defaults(params, { customerId: this.parentId });
     if (!startsWith(id, Subscription.resourcePrefix)) {
       Resource.errorHandler({ error: { message: 'The subscription id is invalid' } });
     }
@@ -147,7 +149,7 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions
    * @public ✓ This method is part of the public API
    */
-  public async list(params: IListParams | ListCallback, cb?: ListCallback): Promise<List<Subscription>> {
+  public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Subscription>> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
@@ -162,8 +164,8 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
       ) as Promise<List<Subscription>>;
     }
 
-    const { customerId, ...parameters } = params;
-    if (!startsWith(params.customerId, Customer.resourcePrefix)) {
+    const { customerId, ...parameters } = defaults(params, { customerId: this.parentId });
+    if (!startsWith(customerId, Customer.resourcePrefix)) {
       Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, cb);
     }
     this.setParentId(customerId);
@@ -214,7 +216,8 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
     if (!startsWith(id, Subscription.resourcePrefix)) {
       Resource.errorHandler({ error: { message: 'The subscription id is invalid' } });
     }
-    const { customerId, ...parameters } = params;
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    const { customerId, ...parameters } = defaults(params, { customerId: this.parentId });
     if (!startsWith(params.customerId, Customer.resourcePrefix)) {
       Resource.errorHandler({ error: { message: 'The subscription id is invalid' } });
     }
@@ -266,7 +269,8 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
     if (!startsWith(id, Subscription.resourcePrefix)) {
       Resource.errorHandler({ error: { message: 'The subscription id is invalid' } });
     }
-    const { customerId, ...parameters } = params;
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    const { customerId, ...parameters } = defaults(params, { customerId: this.parentId });
     if (!startsWith(params.customerId, Customer.resourcePrefix)) {
       Resource.errorHandler({ error: { message: 'The customer id is invalid' } });
     }

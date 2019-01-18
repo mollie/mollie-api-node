@@ -127,6 +127,25 @@ describe('customers_mandates', () => {
         done();
       });
     });
+
+    it('should work with a Promise and with .withParent()', done => {
+      customersMandates
+        .withParent({
+          resource: 'customer',
+          id: props.customerId,
+        })
+        .all(undefined)
+        .then(result => {
+          expect(result).toBeInstanceOf(Array);
+          expect(result).toHaveProperty('links');
+          expect(result).toMatchSnapshot();
+          done();
+        })
+        .catch(err => {
+          expect(err).toBeUndefined();
+          done();
+        });
+    });
   });
 
   describe('.revoke()', () => {

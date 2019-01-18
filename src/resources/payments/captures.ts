@@ -1,4 +1,4 @@
-import { get, startsWith } from 'lodash';
+import { get, startsWith, defaults } from 'lodash';
 
 import PaymentsBaseResource from '../../resources/payments/base';
 import ApiException from '../../exceptions/ApiException';
@@ -54,7 +54,7 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
    * @see https://docs.mollie.com/reference/v2/captures-api/get-Capture
    * @public ✓ This method is part of the public API
    */
-  public async get(id: string, params: IGetParams, cb?: GetCallback): Promise<Capture> {
+  public async get(id: string, params?: IGetParams, cb?: GetCallback): Promise<Capture> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Capture.resourcePrefix)) {
@@ -82,7 +82,8 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
     if (!startsWith(id, Capture.resourcePrefix)) {
       Resource.errorHandler({ error: { message: 'The capture id is invalid' } });
     }
-    const { paymentId, ...parameters } = params;
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    const { paymentId, ...parameters } = defaults(params, { paymentId: this.parentId });
     if (!startsWith(paymentId, Payment.resourcePrefix)) {
       Resource.errorHandler({ error: { message: 'The payment id is invalid' } });
     }
@@ -105,7 +106,7 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
    * @see https://docs.mollie.com/reference/v2/captures-api/list-captures
    * @public ✓ This method is part of the public API
    */
-  public async list(params: IListParams | ListCallback, cb?: ListCallback): Promise<List<Capture>> {
+  public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Capture>> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const paymentId = get(params, 'paymentId') || this.parentId;
@@ -123,7 +124,8 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
       ) as Promise<List<Capture>>;
     }
 
-    const { paymentId, ...parameters } = params;
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    const { paymentId, ...parameters } = defaults(params, { paymentId: this.parentId });
     if (!startsWith(paymentId, Payment.resourcePrefix)) {
       Resource.errorHandler(Resource.errorHandler({ error: { message: 'The payment id is invalid' } }));
     }
