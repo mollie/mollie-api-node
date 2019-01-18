@@ -1,6 +1,24 @@
 import { parseCursorUrl } from '../utils';
 import { IListLinks } from '../types/global';
 import Model from '../model';
+import { ResourceCallback } from '../resource';
+
+type Instantiable<T = any> = { new (...args: Array<any>): T };
+
+interface IResourceListParams {
+  response: {
+    _embedded: any;
+    _links: IListLinks;
+    count: number;
+  };
+  resourceName: string;
+  params: any;
+  getResources: Function;
+  Model: Instantiable<Model>;
+
+  // Deprecated since 2.2.0
+  callback?: ResourceCallback;
+}
 
 /**
  * A list helper class
@@ -8,10 +26,10 @@ import Model from '../model';
 export default class List<T> extends Array {
   public links: IListLinks = null;
   public count: number = null;
-  public nextPage: Function = null;
-  public previousPage: Function = null;
-  public nextPageCursor: any = null;
-  public previousPageCursor: any = null;
+  public nextPage: () => Promise<List<Model>> = null;
+  public previousPage: () => Promise<List<Model>> = null;
+  public nextPageCursor?: string = null;
+  public previousPageCursor?: string = null;
 
   public static getNextPageParams(links: IListLinks) {
     if (links.next && links.next.href) {
@@ -29,13 +47,20 @@ export default class List<T> extends Array {
     return {};
   }
 
-  public static buildResourceList({ response, resourceName, params, callback, getResources, Model }: any) {
-    const { _embedded, count = 0, _links = [] } = response;
+  public static buildResourceList({
+    response,
+    resourceName,
+    params,
+    callback,
+    getResources,
+    Model,
+  }: IResourceListParams) {
+    const { _embedded, count, _links } = response;
     const resources = _embedded[resourceName];
     const list = new List();
     list.links = _links;
     list.count = count;
-    list.nextPage = () =>
+    list.nextPage = async () =>
       getResources(
         {
           ...params,
@@ -43,7 +68,7 @@ export default class List<T> extends Array {
         },
         callback,
       );
-    list.previousPage = () =>
+    list.previousPage = async () =>
       getResources(
         {
           ...params,

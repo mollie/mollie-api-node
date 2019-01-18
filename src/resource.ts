@@ -8,7 +8,7 @@ import List from './models/List';
 /**
  * @deprecated since 2.2.0
  */
-type Callback = (error: any, resource: any) => void;
+export type ResourceCallback = (error: any, resource: any) => void;
 
 export interface IParentParams {
   resource: string;
@@ -91,7 +91,7 @@ export default class Resource {
    *
    * @public ✓ This method is part of the public API
    */
-  public async create(params: any, cb?: Callback): Promise<Model> {
+  public async create(params: any, cb?: ResourceCallback): Promise<Model> {
     const callback = typeof params === 'function' ? params : cb;
     const query: any = {};
     if (params !== null && typeof params === 'object') {
@@ -134,7 +134,7 @@ export default class Resource {
    *
    * @since 1.0.0
    */
-  public async get(id: string, params?: any, cb?: Callback): Promise<Model> {
+  public async get(id: string, params?: any, cb?: ResourceCallback): Promise<Model> {
     const callback = typeof params === 'function' ? params : cb;
     const query: any = {};
     if (params != null && typeof params === 'object') {
@@ -178,7 +178,8 @@ export default class Resource {
    *
    * @since 1.0.0
    */
-  public async list(params?: any, cb?: Callback): Promise<List<Model>> {
+  // @ts-ignore
+  public async list(params?: any, cb?: ResourceCallback): Promise<List<Model>> {
     try {
       const query: any = {};
       if (params != null && typeof params === 'object') {
@@ -189,6 +190,14 @@ export default class Resource {
         if (typeof params.embed !== 'undefined' && Array.isArray(params.embed)) {
           query.embed = params.embed.join(';');
           delete params.embed;
+        }
+        if (typeof params.limit === 'number' || typeof params.limit === 'string') {
+          query.limit = params.limit;
+          delete params.limit;
+        }
+        if (typeof params.from === 'string') {
+          query.from = params.from;
+          delete params.from;
         }
       }
 
@@ -201,7 +210,7 @@ export default class Resource {
         response: response.data,
         resourceName,
         params,
-        cb,
+        callback: cb,
         getResources: this.list.bind(this),
         Model: (this.constructor as any).model,
       });
@@ -227,7 +236,7 @@ export default class Resource {
    *
    * @since 1.0.0
    */
-  public async update(id: string, params: any, cb?: Callback): Promise<Model> {
+  public async update(id: string, params: any, cb?: ResourceCallback): Promise<Model> {
     try {
       const response: AxiosResponse = await this.getClient().post(`${this.getResourceUrl()}/${id}`, params);
 
@@ -256,7 +265,7 @@ export default class Resource {
    *
    * @since 1.0.0
    */
-  public async delete(id: string, params?: any, cb?: Callback): Promise<Model | boolean> {
+  public async delete(id: string, params?: any, cb?: ResourceCallback): Promise<Model | boolean> {
     try {
       const response: AxiosResponse = await this.getClient().delete(`${this.getResourceUrl()}/${id}`);
 
