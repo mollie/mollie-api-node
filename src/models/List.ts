@@ -1,7 +1,8 @@
-import { parseCursorUrl } from '../utils';
+import { parse } from 'url';
 import { IListLinks } from '../types/global';
 import Model from '../model';
 import { ResourceCallback } from '../resource';
+import { ParsedUrlQuery } from 'querystring';
 
 type Instantiable<T = any> = { new (...args: Array<any>): T };
 
@@ -31,17 +32,17 @@ export default class List<T> extends Array {
   public nextPageCursor?: string = null;
   public previousPageCursor?: string = null;
 
-  public static getNextPageParams(links: IListLinks) {
+  public static getNextPageParams(links: IListLinks): any {
     if (links.next && links.next.href) {
-      return parseCursorUrl(links.next.href).query;
+      return parse(links.next.href, true).query;
     }
 
     return {};
   }
 
-  public static getPreviousPageParams(links: IListLinks) {
+  public static getPreviousPageParams(links: IListLinks): any {
     if (links.previous && links.previous.href) {
-      return parseCursorUrl(links.previous.href).query;
+      return parse(links.previous.href, true).query;
     }
 
     return {};
