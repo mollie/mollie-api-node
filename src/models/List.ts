@@ -2,7 +2,6 @@ import { parse } from 'url';
 import { IListLinks } from '../types/global';
 import Model from '../model';
 import { ResourceCallback } from '../resource';
-import { ParsedUrlQuery } from 'querystring';
 
 type Instantiable<T = any> = { new (...args: Array<any>): T };
 

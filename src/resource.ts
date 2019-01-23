@@ -111,8 +111,7 @@ export default class Resource {
         params,
       );
 
-      // @ts-ignore
-      const model = new this.constructor.model(response.data);
+      const model = new (this.constructor as any).model(response.data);
 
       if (callback) {
         return callback(null, model);
@@ -151,9 +150,6 @@ export default class Resource {
     try {
       const response: AxiosResponse = await this.getClient().get(
         `${this.getResourceUrl()}/${id}${qs.stringify(query, { addQueryPrefix: true })}`,
-        {
-          params,
-        },
       );
 
       const model = new (this.constructor as any).model(response.data);
@@ -178,7 +174,6 @@ export default class Resource {
    *
    * @since 1.0.0
    */
-  // @ts-ignore
   public async list(params?: any, cb?: ResourceCallback): Promise<List<Model>> {
     try {
       const query: any = {};
@@ -203,7 +198,6 @@ export default class Resource {
 
       const response: AxiosResponse = await this.getClient().get(
         `${this.getResourceUrl()}${qs.stringify(query, { addQueryPrefix: true })}`,
-        { params },
       );
       const resourceName = this.getResourceName();
       const list = List.buildResourceList({
@@ -281,8 +275,6 @@ export default class Resource {
     }
   }
 
-  // CREATE
-
   /**
    * Get the HTTP client
    *
@@ -291,8 +283,6 @@ export default class Resource {
   protected getClient(): AxiosInstance {
     return this.httpClient;
   }
-
-  // READ: consists of get (one) and list (many)
 
   /**
    * Set the parent ID
@@ -312,8 +302,6 @@ export default class Resource {
     return !!this.parentId;
   }
 
-  // UPDATE
-
   /**
    * Create a resource URL with the parent ID
    *
@@ -327,8 +315,6 @@ export default class Resource {
 
     return (this.constructor as any).resource;
   }
-
-  // DELETE
 
   /**
    * Get the resource name from the resource identifier

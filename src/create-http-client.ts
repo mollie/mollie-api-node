@@ -35,7 +35,5 @@ export default function createHttpClient(options: MollieRequestConfig): AxiosIns
     });
   }
 
-  options.paramsSerializer = options.paramsSerializer || qs.stringify;
-
   return axios.create(options);
 }

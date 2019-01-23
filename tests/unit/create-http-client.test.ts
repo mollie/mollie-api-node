@@ -18,8 +18,4 @@ describe('create-http-client', () => {
   it('should have a custom httpsAgent with cert loaded', () => {
     expect(httpClient.defaults.httpsAgent).toBeDefined();
   });
-
-  it('should have a default params serializer', () => {
-    expect(httpClient.defaults.paramsSerializer).toBeDefined();
-  });
 });
