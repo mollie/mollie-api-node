@@ -1,4 +1,3 @@
-import { get } from 'lodash';
 import qs from 'qs';
 import { AxiosInstance, AxiosResponse } from 'axios';
 

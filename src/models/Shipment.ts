@@ -1,6 +1,5 @@
 import Model from '../model';
-import { IShipment, IShipmentLinks, IShipmentTracking } from '../types/shipment';
-import { IOrderLine } from '../types/order/line';
+import { IShipment } from '../types/shipment';
 
 /**
  * The `shipment` model

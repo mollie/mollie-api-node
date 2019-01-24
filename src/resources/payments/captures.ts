@@ -1,4 +1,4 @@
-import { get, startsWith, defaults } from 'lodash';
+import { defaults, get, startsWith } from 'lodash';
 
 import PaymentsBaseResource from '../../resources/payments/base';
 import ApiException from '../../exceptions/ApiException';

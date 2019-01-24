@@ -1,12 +1,9 @@
 import { get } from 'lodash';
 
 import Model from '../model';
-import { IDetails, IPayment, PaymentStatus } from '../types/payment';
+import { IPayment, PaymentStatus } from '../types/payment';
 import Chargeback from './Chargeback';
 import Refund from './Refund';
-import { ApiMode, IAmount, Locale, PaymentMethod, SequenceType } from '../types/global';
-import { IRefund } from '../types/payment/refund';
-import { IChargeback } from '../types/chargeback';
 
 /**
  * The `Payment` model

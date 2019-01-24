@@ -1,7 +1,7 @@
-import { IAddress, IAmount, Locale, PaymentMethod } from '../global';
+import { IAmount, Locale, PaymentMethod } from '../global';
 import { IPayment } from '../payment';
 import { IOrderAddress, OrderEmbed } from './index';
-import { ICreateOrderLine, IOrderLine } from './line';
+import { ICreateOrderLine } from './line';
 
 /**
  * Create Order parameters.

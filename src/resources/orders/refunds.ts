@@ -1,4 +1,4 @@
-import { get, startsWith, defaults } from 'lodash';
+import { defaults, get, startsWith } from 'lodash';
 
 import Refund from '../../models/Refund';
 import OrdersResource from './base';

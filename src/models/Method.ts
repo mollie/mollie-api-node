@@ -1,6 +1,5 @@
 import Model from '../model';
 import { IMethod, MethodImageSize } from '../types/method';
-import { IImage, ILinks, PaymentMethod as PaymentMethodEnum } from '../types/global';
 
 /**
  * The `Method` model

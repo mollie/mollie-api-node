@@ -2,7 +2,6 @@ import path from 'path';
 import fs from 'fs';
 import https from 'https';
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import qs from 'qs';
 import { version } from '../package.json';
 
 export interface MollieRequestConfig extends AxiosRequestConfig {

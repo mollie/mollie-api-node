@@ -1,6 +1,5 @@
 import Model from '../model';
-import { ICapture, ICaptureLinks } from '../types/payment/capture';
-import { ApiMode, IAmount } from '../types/global';
+import { ICapture } from '../types/payment/capture';
 
 /**
  * The `capture` model

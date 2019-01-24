@@ -1,4 +1,4 @@
-import { get, startsWith, defaults } from 'lodash';
+import { defaults, get, startsWith } from 'lodash';
 
 import CustomersBaseResource from './base';
 import Payment from '../../models/Payment';

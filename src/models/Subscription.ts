@@ -1,6 +1,5 @@
 import Model from '../model';
-import { ISubscription, ISubscriptionLinks, SubscriptionStatus } from '../types/subscription';
-import { ApiMode, IAmount } from '../types/global';
+import { ISubscription, SubscriptionStatus } from '../types/subscription';
 
 /**
  * The `Subscription` model

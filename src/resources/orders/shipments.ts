@@ -1,4 +1,4 @@
-import { get, startsWith, defaults } from 'lodash';
+import { defaults, get, startsWith } from 'lodash';
 
 import Shipment from '../../models/Shipment';
 import List from '../../models/List';

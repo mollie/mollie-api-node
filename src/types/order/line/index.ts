@@ -1,4 +1,4 @@
-import { IAmount, ILinks, IUrl } from '../../global';
+import { IAmount, IUrl } from '../../global';
 import { OrderStatus } from '../../order';
 
 /**

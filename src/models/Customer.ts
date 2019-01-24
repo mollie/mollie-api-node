@@ -1,6 +1,5 @@
 import Model from '../model';
-import { ICustomer, ICustomerLinks } from '../types/customer';
-import { ApiMode, Locale, PaymentMethod } from '../types/global';
+import { ICustomer } from '../types/customer';
 
 /**
  * The `Customer` model
