@@ -2,6 +2,7 @@ coverage/
 dist/
 node_modules/
 .idea/
+.vscode/
 .env
 *.log
 .rpt2*/
