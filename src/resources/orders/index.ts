@@ -25,7 +25,7 @@ export default class Orders extends Resource {
    * @public ✓ This method is part of the public API
    * @alias cancel
    */
-  delete = this.cancel;
+  public delete = this.cancel;
   /**
    * List Orders.
    *
@@ -35,7 +35,7 @@ export default class Orders extends Resource {
    * @public ✓ This method is part of the public API
    * @alias list
    */
-  all = this.list;
+  public all = this.list;
   /**
    * List Orders.
    *
@@ -45,7 +45,7 @@ export default class Orders extends Resource {
    * @public ✓ This method is part of the public API
    * @alias list
    */
-  page = this.list;
+  public page = this.list;
 
   /**
    * Using the Orders API is the preferred approach when integrating
@@ -97,7 +97,7 @@ export default class Orders extends Resource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Order.resourcePrefix)) {
-        Resource.errorHandler(
+        throw Resource.errorHandler(
           { error: { message: 'The order id is invalid' } },
           typeof params === 'function' ? params : cb,
         );
@@ -111,7 +111,7 @@ export default class Orders extends Resource {
     }
 
     if (!startsWith(id, Order.resourcePrefix)) {
-      Resource.errorHandler({ error: { message: 'The order id is invalid' } });
+      throw Resource.errorHandler({ error: { message: 'The order id is invalid' } });
     }
 
     return super.get(id, params) as Promise<Order>;
@@ -162,7 +162,7 @@ export default class Orders extends Resource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Order.resourcePrefix)) {
-        Resource.errorHandler(
+        throw Resource.errorHandler(
           { error: { message: 'The order id is invalid' } },
           typeof params === 'function' ? params : cb,
         );
@@ -176,7 +176,7 @@ export default class Orders extends Resource {
     }
 
     if (!startsWith(id, Order.resourcePrefix)) {
-      Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb);
+      throw Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb);
     }
 
     return super.update(id, params) as Promise<Order>;
@@ -199,7 +199,7 @@ export default class Orders extends Resource {
    */
   public async cancel(id: string, params?: ICancelParams | CancelCallback, cb?: CancelCallback): Promise<Order> {
     if (!startsWith(id, Order.resourcePrefix)) {
-      Resource.errorHandler(Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb));
+      throw Resource.errorHandler(Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb));
     }
 
     // Using callbacks (DEPRECATED SINCE 2.2.0)

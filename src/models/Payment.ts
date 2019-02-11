@@ -81,12 +81,14 @@ export default class Payment extends Model implements IPayment {
 
     if (this._embedded != null && typeof this._embedded === 'object') {
       if (Array.isArray(this._embedded.refunds)) {
-        this._embedded.refunds.map((refund, key, refunds) => {
+        this._embedded.refunds.forEach((refund, key, refunds) => {
+          // eslint-disable-next-line no-param-reassign
           refunds[key] = new Refund(refund);
         });
       }
       if (Array.isArray(this._embedded.chargebacks)) {
-        this._embedded.chargebacks.map((chargeback, key, chargebacks) => {
+        this._embedded.chargebacks.forEach((chargeback, key, chargebacks) => {
+          // eslint-disable-next-line no-param-reassign
           chargebacks[key] = new Chargeback(chargeback);
         });
       }

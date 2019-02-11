@@ -22,29 +22,25 @@ app.get('/', (req, res) => {
 
   mollieClient.payments
     .all(paymentParameters)
-    .then(payments => {
+    .then((payments) => {
       res.send(`
         <ul>
-          ${payments
-            .map(
-              payment => `<li>
-                  Payment ID: ${payment.id}<br />
-                  Method: ${payment.method}<br />
-                  Amount: ${payment.amount.value} ${payment.amount.currency}<br />
-                  Created at: ${new Date(payment.createdAt)}
-                </li>`,
-            )
-            .join('')}
+${payments
+    .map(
+      payment => `<li>
+  Payment ID: ${payment.id}<br />
+  Method: ${payment.method}<br />
+  Amount: ${payment.amount.value} ${payment.amount.currency}<br />
+  Created at: ${new Date(payment.createdAt)}
+</li>`,
+    )
+    .join('')}
         </ul>
-        ${
-          payments.previousPageCursor
-            ? `<a href="?from=${payments.previousPageCursor}">Previous</a> | `
-            : ''
-        }
+        ${payments.previousPageCursor ? `<a href="?from=${payments.previousPageCursor}">Previous</a> | ` : ''}
         ${payments.nextPageCursor ? `<a href="?from=${payments.nextPageCursor}">Next</a>` : ''}
       `);
     })
-    .catch(error => {
+    .catch((error) => {
       // Do some proper error handling.
       res.send(error);
     });

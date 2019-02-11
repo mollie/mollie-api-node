@@ -62,7 +62,7 @@ export interface IListParams {
   amount?: IAmount;
   resource?: string;
   billingCountry?: string;
-  include?: Array<MethodInclude>;
+  include?: Array<MethodInclude> | MethodInclude;
 
   // Access token parameters
   profileId?: string;

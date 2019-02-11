@@ -17,7 +17,7 @@ dotenv.config();
 const mollieClient = mollie({ apiKey: process.env.API_KEY });
 
 describe('customers', () => {
-  it('should integrate', (done) =>
+  it('should integrate', done =>
     mollieClient.customers
       .all()
       .then((customers) => {
@@ -71,12 +71,12 @@ describe('customers', () => {
                 done();
               });
           })
-          .catch(err => {
+          .catch((err) => {
             expect(err).toBeUndefined();
             done();
           });
       })
-      .catch(err => {
+      .catch((err) => {
         expect(err).toBeUndefined();
         done();
       }));

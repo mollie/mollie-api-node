@@ -49,8 +49,8 @@ describe('payment model', () => {
         documentation: {
           href: 'https://docs.mollie.com/reference/v2/payments-api/get-payment',
           type: 'text/html',
-        }
-      }
+        },
+      },
     };
     const payment = new Payment(paymentProps);
 

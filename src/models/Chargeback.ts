@@ -26,7 +26,7 @@ export default class Chargeback extends Model implements IChargeback {
    *
    * @public ✓ This method is part of the public API
    */
-  constructor(props?: Partial<IChargeback>) {
+  public constructor(props?: Partial<IChargeback>) {
     super();
 
     Object.assign(this, props);

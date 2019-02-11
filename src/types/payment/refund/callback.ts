@@ -1,4 +1,4 @@
-import { List } from '../../list';
+import { IList } from '../../list';
 import { IRefund } from '../refund';
 
 /**
@@ -12,7 +12,7 @@ export type GetCallback = (err: any, refund?: IRefund) => void;
 /**
  * @deprecated since 2.2.0 - All callbacks will be removed in a future version
  */
-export type ListCallback = (err: any, refund?: List<IRefund>) => void;
+export type ListCallback = (err: any, refund?: IList<IRefund>) => void;
 /**
  * @deprecated since 2.2.0 - All callbacks will be removed in a future version
  */

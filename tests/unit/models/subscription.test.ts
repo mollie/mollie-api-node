@@ -24,7 +24,7 @@ describe('subscription model', () => {
       status: SubscriptionStatus.active,
       amount: {
         value: '25.00',
-        currency: 'EUR'
+        currency: 'EUR',
       },
       times: 4,
       interval: '3 months',
@@ -43,8 +43,8 @@ describe('subscription model', () => {
         documentation: {
           href: 'https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription',
           type: 'text/html',
-        }
-      }
+        },
+      },
     };
     const subscription = new Subscription(subscriptionProps);
 

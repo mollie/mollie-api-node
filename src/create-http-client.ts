@@ -2,9 +2,11 @@ import path from 'path';
 import fs from 'fs';
 import https from 'https';
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import { cloneDeep } from 'lodash';
+
 import { version } from '../package.json';
 
-export interface MollieRequestConfig extends AxiosRequestConfig {
+export interface IMollieRequestConfig extends AxiosRequestConfig {
   apiKey: string;
 }
 
@@ -15,10 +17,11 @@ declare let window: any;
  *
  * @private
  */
-export default function createHttpClient(options: MollieRequestConfig): AxiosInstance {
-  options.baseURL = 'https://api.mollie.com:443/v2/';
+export default function createHttpClient(options: IMollieRequestConfig): AxiosInstance {
+  const newOptions = cloneDeep(options);
+  newOptions.baseURL = 'https://api.mollie.com:443/v2/';
 
-  options.headers = {
+  newOptions.headers = {
     ...options.headers,
     Authorization: `Bearer ${options.apiKey}`,
     'Accept-Encoding': 'gzip',
@@ -29,10 +32,10 @@ export default function createHttpClient(options: MollieRequestConfig): AxiosIns
 
   // Setting the root CA certificate will fail in a browser environment
   if (typeof window !== 'undefined' && typeof fs !== 'undefined' && typeof fs.readFileSync !== 'undefined') {
-    options.httpsAgent = new https.Agent({
+    newOptions.httpsAgent = new https.Agent({
       cert: fs.readFileSync(path.resolve(__dirname, './cacert.pem'), 'utf8'),
     });
   }
 
-  return axios.create(options);
+  return axios.create(newOptions);
 }

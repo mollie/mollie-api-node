@@ -33,7 +33,7 @@ export default class Subscription extends Model implements ISubscription {
     customer: null,
   };
   public mandateId = null;
-  nextPaymentDate = null;
+  public nextPaymentDate = null;
 
   // Access token parameters
   public testmode?: boolean;

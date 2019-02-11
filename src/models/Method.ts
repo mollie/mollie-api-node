@@ -53,6 +53,8 @@ export default class Method extends Model implements IMethod {
         return this.image[MethodImageSize.size2x];
       case MethodImageSize.svg:
         return this.image[MethodImageSize.svg];
+      default:
+        return undefined;
     }
   }
 }

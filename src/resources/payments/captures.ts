@@ -28,7 +28,7 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
    * @public ✓ This method is part of the public API
    * @alias list
    */
-  all = this.list;
+  public all = this.list;
   /**
    * Retrieve a list of Payment Captures
    *
@@ -38,7 +38,7 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
    * @public ✓ This method is part of the public API
    * @alias list
    */
-  page = this.list;
+  public page = this.list;
 
   /**
    * Get a Payment Capture by ID
@@ -58,14 +58,14 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Capture.resourcePrefix)) {
-        Resource.errorHandler(
+        throw Resource.errorHandler(
           { error: { message: 'The capture id is invalid' } },
           typeof params === 'function' ? params : cb,
         );
       }
       const paymentId = get(params, 'paymentId') || this.parentId;
       if (!startsWith(paymentId, Payment.resourcePrefix)) {
-        Resource.errorHandler(
+        throw Resource.errorHandler(
           { error: { message: 'The payment id is invalid' } },
           typeof params === 'function' ? params : cb,
         );
@@ -80,12 +80,12 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
     }
 
     if (!startsWith(id, Capture.resourcePrefix)) {
-      Resource.errorHandler({ error: { message: 'The capture id is invalid' } });
+      throw Resource.errorHandler({ error: { message: 'The capture id is invalid' } });
     }
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
     const { paymentId, ...parameters } = defaults(params, { paymentId: this.parentId });
     if (!startsWith(paymentId, Payment.resourcePrefix)) {
-      Resource.errorHandler({ error: { message: 'The payment id is invalid' } });
+      throw Resource.errorHandler({ error: { message: 'The payment id is invalid' } });
     }
     this.setParentId(paymentId);
 
@@ -111,7 +111,7 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
     if (typeof params === 'function' || typeof cb === 'function') {
       const paymentId = get(params, 'paymentId') || this.parentId;
       if (!startsWith(paymentId, Payment.resourcePrefix)) {
-        Resource.errorHandler(
+        throw Resource.errorHandler(
           { error: { message: 'The payment id is invalid' } },
           typeof params === 'function' ? params : cb,
         );
@@ -127,7 +127,7 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
     const { paymentId, ...parameters } = defaults(params, { paymentId: this.parentId });
     if (!startsWith(paymentId, Payment.resourcePrefix)) {
-      Resource.errorHandler(Resource.errorHandler({ error: { message: 'The payment id is invalid' } }));
+      throw Resource.errorHandler({ error: { message: 'The payment id is invalid' } });
     }
     this.setParentId(paymentId);
 

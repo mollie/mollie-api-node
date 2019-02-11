@@ -50,14 +50,15 @@ export default class Order extends Model implements IOrder {
    *
    * @public ✓ This method is part of the public API
    */
-  constructor(props?: Partial<IOrder>) {
+  public constructor(props?: Partial<IOrder>) {
     super();
 
     Object.assign(this, props);
 
     if (this._embedded != null && typeof this._embedded === 'object') {
       if (Array.isArray(this._embedded.payments)) {
-        this._embedded.payments.map((payment, key, payments) => {
+        this._embedded.payments.forEach((payment, key, payments) => {
+          // eslint-disable-next-line no-param-reassign
           payments[key] = new Payment(payment);
         });
       }

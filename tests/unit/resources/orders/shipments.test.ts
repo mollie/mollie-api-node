@@ -1,7 +1,6 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import OrdersShipments from '../../../../src/resources/orders/shipments';
 import OrdersShipmentsResource from '../../../../src/resources/orders/shipments';
 import Shipment from '../../../../src/models/Shipment';
 
@@ -16,31 +15,31 @@ const props = {
   tracking: {
     carrier: 'PostNL',
     code: '3SKABA000000000',
-    url: 'http://postnl.nl/tracktrace/?B=3SKABA000000000&P=1016EE&D=NL&T=C'
+    url: 'http://postnl.nl/tracktrace/?B=3SKABA000000000&P=1016EE&D=NL&T=C',
   },
 };
 
 describe('orders_shipments', () => {
   let ordersShipments: OrdersShipmentsResource;
   beforeEach(() => {
-    ordersShipments = new OrdersShipments(axios.create());
+    ordersShipments = new OrdersShipmentsResource(axios.create());
   });
 
   it('should have a resource name and model', () => {
-    expect(OrdersShipments.resource).toBe('orders_shipments');
-    expect(OrdersShipments.model).toBe(Shipment);
+    expect(OrdersShipmentsResource.resource).toBe('orders_shipments');
+    expect(OrdersShipmentsResource.model).toBe(Shipment);
   });
 
   describe('.create()', () => {
     mock.onPost(`/orders/${props.orderId}/shipments`).reply(200, response._embedded.shipments[0]);
 
     it('should return a shipment instance', () =>
-      ordersShipments.create(props).then(result => {
+      ordersShipments.create(props).then((result) => {
         expect(result).toBeInstanceOf(Shipment);
         expect(result).toMatchSnapshot();
       }));
 
-    it('should work with a callback', done => {
+    it('should work with a callback', (done) => {
       ordersShipments.create(props, (err, result) => {
         expect(result).toBeInstanceOf(Shipment);
         expect(result).toMatchSnapshot();
@@ -58,7 +57,7 @@ describe('orders_shipments', () => {
     mock.onGet(`/orders/${props.orderId}/shipments/foo`).reply(500, error);
 
     it('should return a shipment instance', () =>
-      ordersShipments.get(props.id, { orderId: props.orderId }).then(result => {
+      ordersShipments.get(props.id, { orderId: props.orderId }).then((result) => {
         expect(result).toBeInstanceOf(Shipment);
         expect(result).toMatchSnapshot();
       }));
@@ -69,33 +68,33 @@ describe('orders_shipments', () => {
         .then(() => {
           throw new Error('Should reject');
         })
-        .catch(err => {
+        .catch((err) => {
           expect(err).toEqual(error);
         }));
   });
 
   describe('.list()', () => {
-    const error =  {"error": {"message": "The order id is invalid"}};
+    const error = { error: { message: 'The order id is invalid' } };
     mock.onGet(`/orders/${props.orderId}/shipments`).reply(200, response);
 
     it('should return a list of all payment refunds', () =>
-      ordersShipments.list({ orderId: props.orderId }).then(result => {
+      ordersShipments.list({ orderId: props.orderId }).then((result) => {
         expect(result).toBeInstanceOf(Array);
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
       }));
 
-    it('should throw an error if "paymentId" is not set', done => {
+    it('should throw an error if "paymentId" is not set', (done) => {
       ordersShipments.list(undefined)
         .then(() => {
           throw new Error('This should error out instead');
-        }).catch(err => {
-        expect(err).toEqual(error);
-        done();
-      });
+        }).catch((err) => {
+          expect(err).toEqual(error);
+          done();
+        });
     });
 
-    it('should work with a callback', done => {
+    it('should work with a callback', (done) => {
       ordersShipments
         .withParent({
           resource: 'order',
@@ -110,7 +109,7 @@ describe('orders_shipments', () => {
         });
     });
 
-    it('should work with a callback', done => {
+    it('should work with a callback', (done) => {
       ordersShipments
         .withParent({
           resource: 'order',
@@ -125,7 +124,7 @@ describe('orders_shipments', () => {
         });
     });
 
-    it('should work with a Promise and with .withParent()', done => {
+    it('should work with a Promise and with .withParent()', (done) => {
       ordersShipments
         .withParent({
           resource: 'order',
@@ -138,7 +137,7 @@ describe('orders_shipments', () => {
           expect(result).toMatchSnapshot();
           done();
         })
-        .catch(err => {
+        .catch((err) => {
           expect(err).toBeNull();
         });
     });

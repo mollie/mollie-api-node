@@ -38,14 +38,16 @@ export default class Refund extends Model implements IRefund {
    *
    * @public ✓ This method is part of the public API
    */
-  constructor(props?: Partial<IRefund>) {
+  public constructor(props?: Partial<IRefund>) {
     super();
 
     Object.assign(this, props);
 
     if (this._embedded != null && typeof this._embedded === 'object') {
       if (Array.isArray(this._embedded.payments)) {
+        // eslint-disable-next-line array-callback-return
         this._embedded.payments.map((payment, key, payments) => {
+          // eslint-disable-next-line no-param-reassign
           payments[key] = new Payment(payment);
         });
       }

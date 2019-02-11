@@ -35,18 +35,18 @@ describe('orders_refunds', () => {
 
     it('should return a refund instance', done =>
       ordersRefunds.create(props)
-        .then(result => {
+        .then((result) => {
           expect(result).toBeInstanceOf(PaymentRefund);
           expect(result).toMatchSnapshot();
           done();
         })
-        .catch(err => {
+        .catch((err) => {
           expect(err).toBeUndefined();
           done();
         })
     );
 
-    it('should work with a callback', done => {
+    it('should work with a callback', (done) => {
       ordersRefunds.create(props, (err, result) => {
         expect(result).toBeInstanceOf(PaymentRefund);
         expect(result).toMatchSnapshot();
@@ -56,29 +56,29 @@ describe('orders_refunds', () => {
   });
 
   describe('.all()', () => {
-    const error = {"error": {"message": "The order id is invalid"}};
+    const error = { error: { message: 'The order id is invalid' } };
     mock.onGet(`/orders/${props.orderId}/refunds`).reply(200, response);
 
     it('should return a list of all order refunds', () =>
-      ordersRefunds.all({ orderId: props.orderId }).then(result => {
+      ordersRefunds.all({ orderId: props.orderId }).then((result) => {
         expect(result).toBeInstanceOf(Array);
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
       }));
 
-    it('should throw an error if "orderId" is not set', done => {
+    it('should throw an error if "orderId" is not set', (done) => {
       ordersRefunds
         .all(undefined)
         .then(() => {
           throw new Error('Should crash here');
         })
-        .catch(err => {
+        .catch((err) => {
           expect(err).toEqual(error);
           done();
         });
     });
 
-    it('should work with a callback', done => {
+    it('should work with a callback', (done) => {
       ordersRefunds.all({ orderId: props.orderId }, (err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Array);
@@ -91,7 +91,7 @@ describe('orders_refunds', () => {
     /**
      * @deprecated 3.0.0
      */
-    it('should work with a Promise and with .withParent()', done => {
+    it('should work with a Promise and with .withParent()', (done) => {
       ordersRefunds
         .withParent({
           resource: 'order',
@@ -104,7 +104,7 @@ describe('orders_refunds', () => {
           expect(result).toMatchSnapshot();
           done();
         })
-        .catch(err => {
+        .catch((err) => {
           expect(err).toBeUndefined();
           done();
         });

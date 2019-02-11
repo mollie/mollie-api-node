@@ -33,9 +33,9 @@
     "test:cov": "jest --coverage",
     "test:unit:cov": "jest ./tests/unit --coverage",
     "build": "rollup -c",
-    "lint:prettier": "prettier --write \"{src,tests,examples}/**/*.ts\"",
-    "lint:tslint": "tslint --config .tslintrc.json {src,test,examples}/**/*.ts",
-    "lint": "yarn lint:tslint && yarn lint:prettier"
+    "lint:eslint": "eslint --ext .ts,.js src/ tests/ examples/",
+    "lint:eslint:fix": "eslint --ext .ts,.js --fix src/ tests/ examples/",
+    "lint": "yarn lint:eslint:fix"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -47,20 +47,23 @@
     "@babel/plugin-proposal-class-properties": "^7.3.0",
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-typescript": "^7.1.0",
+    "@mollie/eslint-config-base": "^0.0.1-alpha.3",
     "@types/jest": "^23.3.13",
     "@types/lodash": "^4.14.120",
     "@types/qs": "^6.5.1",
+    "@typescript-eslint/eslint-plugin": "^1.3.0",
+    "@typescript-eslint/parser": "^1.3.0",
     "axios-mock-adapter": "^1.16.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
     "commitizen": "^3.0.5",
     "cz-conventional-changelog": "^2.1.0",
     "dotenv": "^6.2.0",
+    "eslint": "^5.13.0",
     "husky": "^1.3.1",
     "jest": "^23.6.0",
     "jest-cli": "^23.6.0",
     "lint-staged": "^8.1.0",
-    "prettier": "^1.16.1",
     "rollup": "^1.1.2",
     "rollup-plugin-copy-glob": "^0.3.0",
     "rollup-plugin-includepaths": "^0.2.3",
@@ -70,9 +73,7 @@
     "ts-jest": "^23.10.5",
     "ts-node": "^8.0.1",
     "tslib": "^1.9.3",
-    "tslint": "^5.12.1",
-    "tslint-eslint-rules": "^5.4.0",
-    "typescript": "^3.2.4"
+    "typescript": "^3.3.3"
   },
   "husky": {
     "hooks": {
@@ -80,13 +81,16 @@
     }
   },
   "lint-staged": {
-    "{src,test}/**/*.ts": [
-      "tslint --config .tslintrc.json",
-      "prettier --write",
+    "src/**/*.ts": [
+      "eslint --ext .js,.ts --fix src/",
+      "git add"
+    ],
+    "tests/**/*.ts": [
+      "eslint --ext .js,.ts --fix tests/",
       "git add"
     ],
     "examples/**/*.js": [
-      "prettier --write",
+      "eslint --ext .js,.ts --fix examples/",
       "git add"
     ]
   },
@@ -98,11 +102,10 @@
     ],
     "moduleFileExtensions": [
       "ts",
-      "tsx",
       "js"
     ],
     "transform": {
-      "^.+\\.(js|ts|tsx)$": "ts-jest",
+      "^.+\\.(js|ts)$": "ts-jest",
       "^.+\\.pem$": "<rootDir>/tests/unit/__stubs__/fileTransformer.js"
     },
     "globals": {
@@ -111,7 +114,7 @@
       }
     },
     "testMatch": [
-      "<rootDir>/tests/**/*.(ts|tsx)"
+      "<rootDir>/tests/**/*.(ts)"
     ]
   },
   "config": {

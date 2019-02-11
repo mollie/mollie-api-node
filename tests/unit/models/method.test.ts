@@ -46,7 +46,7 @@ describe('method model', () => {
           description: 'The Netherlands',
           fixed: {
             value: '0.29',
-            currency: 'EUR'
+            currency: 'EUR',
           },
           variable: '0',
         },

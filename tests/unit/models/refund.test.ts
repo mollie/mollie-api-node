@@ -18,7 +18,7 @@ describe('refund model', () => {
       id: 're_4qqhO89gsT',
       amount: {
         currency: 'EUR',
-        value: '5.95'
+        value: '5.95',
       },
       status: RefundStatus.pending,
       createdAt: '2018-03-14T17:09:02.0Z',
@@ -27,17 +27,17 @@ describe('refund model', () => {
       _links: {
         self: {
           href: 'https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT',
-          type: 'application/hal+json'
+          type: 'application/hal+json',
         },
         payment: {
           href: 'https://api.mollie.com/v2/payments/tr_WDqYK6vllg',
-          type: 'application/hal+json'
+          type: 'application/hal+json',
         },
         documentation: {
           href: 'https://docs.mollie.com/reference/v2/refunds-api/get-refund',
-          type: 'text/html'
-        }
-      }
+          type: 'text/html',
+        },
+      },
     };
     const refund = new Refund(refundProps);
 

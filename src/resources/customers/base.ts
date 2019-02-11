@@ -13,7 +13,7 @@ export default class CustomersBaseResource extends Resource {
    */
   protected setParent(params: any = {}): void {
     if (!params.customerId && !this.hasParentId()) {
-      throw TypeError('Missing parameter "customerId".');
+      throw new TypeError('Missing parameter "customerId".');
     } else if (params.customerId) {
       this.setParentId(params.customerId);
     }

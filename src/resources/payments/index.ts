@@ -28,7 +28,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * @public ✓ This method is part of the public API
    * @alias list
    */
-  all = this.list;
+  public all = this.list;
   /**
    * Retrieve all payments created with the current website profile, ordered from newest to oldest.
    * This is just an alias of the `list` method.
@@ -39,7 +39,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * @public ✓ This method is part of the public API
    * @alias list
    */
-  page = this.list;
+  public page = this.list;
   /**
    * Delete the given Payment. This is just an alias of the 'cancel' method.
    *
@@ -51,7 +51,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * @public ✓ This method is part of the public API
    * @alias cancel
    */
-  delete = this.cancel;
+  public delete = this.cancel;
 
   /**
    * Create a payment in Mollie.
@@ -89,7 +89,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Payment.resourcePrefix)) {
-        Resource.errorHandler(
+        throw Resource.errorHandler(
           { error: { message: 'The payment id is invalid' } },
           typeof params === 'function' ? params : cb,
         );
@@ -103,7 +103,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
     }
 
     if (!startsWith(id, Payment.resourcePrefix)) {
-      Resource.errorHandler({ error: { message: 'The payment id is invalid' } });
+      throw Resource.errorHandler({ error: { message: 'The payment id is invalid' } });
     }
 
     return super.get(id, params, cb) as Promise<Payment>;
@@ -154,7 +154,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
    */
   public async cancel(id: string, params?: ICancelParams, cb?: CancelCallback): Promise<Payment> {
     if (!startsWith(id, Payment.resourcePrefix)) {
-      Resource.errorHandler(
+      throw Resource.errorHandler(
         { error: { message: 'The payment id is invalid' } },
         typeof params === 'function' ? params : cb,
       );

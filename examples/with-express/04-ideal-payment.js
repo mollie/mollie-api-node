@@ -16,20 +16,18 @@ app.get('/', (req, res) => {
     mollieClient.methods
       .all({ include: 'issuers' })
       .then(methods => methods.filter(({ id }) => id === 'ideal'))
-      .then(methods => {
+      .then((methods) => {
         res.send(`<form>
         ${methods.map(
-          method => `
-          <h2>Select ${method.description} issuer</h2>
-          <select name="issuer">${method.issuers.map(
-            issuer => `<option value="${issuer.id}">${issuer.name}</option>`,
-          )}</select>
+    method => `
+<h2>Select ${method.description} issuer</h2>
+<select name="issuer">${method.issuers.map(issuer => `<option value="${issuer.id}">${issuer.name}</option>`)}</select>
         `,
-        )}
+  )}
         <button>Select issuer</button>
         </form>`);
       })
-      .catch(error => {
+      .catch((error) => {
         // Do some proper error handling.
         res.send(error);
       });
@@ -50,11 +48,11 @@ app.get('/', (req, res) => {
       method: 'ideal',
       issuer: selectedIssuer,
     })
-    .then(payment => {
+    .then((payment) => {
       // Redirect the consumer to complete the payment using `payment.getPaymentUrl()`.
       res.redirect(payment.getPaymentUrl());
     })
-    .catch(error => {
+    .catch((error) => {
       // Do some proper error handling.
       res.send(error);
     });

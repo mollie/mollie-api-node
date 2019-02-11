@@ -1,11 +1,9 @@
 import Resource from '../resource';
 import Refund from '../models/Refund';
 import List from '../models/List';
-
 import ApiException from '../exceptions/ApiException';
 import { IListParams } from '../types/refund/params';
 import { ListCallback } from '../types/refund/callback';
-import { AxiosInstance } from 'axios';
 
 /**
  * The `refunds` resource
@@ -25,7 +23,7 @@ export default class RefundsResource extends Resource {
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
    * @public
    */
-  all = this.list;
+  public all = this.list;
   /**
    * List Refunds
    *
@@ -34,11 +32,7 @@ export default class RefundsResource extends Resource {
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
    * @public
    */
-  page = this.list;
-
-  public constructor(httpClient: AxiosInstance) {
-    super(httpClient);
-  }
+  public page = this.list;
 
   /**
    * List Refunds

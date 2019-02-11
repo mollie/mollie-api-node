@@ -27,7 +27,7 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customer-payments
    * @public ✓ This method is part of the public API
    */
-  all = this.list;
+  public all = this.list;
   /**
    * Get all of a customer's payments.
    *
@@ -36,7 +36,7 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customer-payments
    * @public ✓ This method is part of the public API
    */
-  page = this.list;
+  public page = this.list;
 
   /**
    * Create a customer payment.
@@ -56,7 +56,7 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        Resource.errorHandler(
+        throw Resource.errorHandler(
           { error: { message: 'The customer id is invalid' } },
           typeof params === 'function' ? params : cb,
         );
@@ -95,7 +95,7 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        Resource.errorHandler(
+        throw Resource.errorHandler(
           { error: { message: 'The customer id is invalid' } },
           typeof params === 'function' ? params : cb,
         );
@@ -111,7 +111,7 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
     const { customerId, ...parameters } = defaults(params, { customerId: this.parentId });
     if (!startsWith(customerId, Customer.resourcePrefix)) {
-      Resource.errorHandler({ error: { message: 'The customer id is invalid' } });
+      throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } });
     }
     this.setParentId(customerId);
 

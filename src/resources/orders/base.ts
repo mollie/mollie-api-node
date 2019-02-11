@@ -11,9 +11,9 @@ export default class OrdersBaseResource extends Resource {
    *
    * @deprecated 2.2.0 Please use setParentId instead
    */
-  setParent(params: any = {}) {
+  protected setParent(params: any = {}): void{
     if (!params.orderId && !this.hasParentId()) {
-      throw TypeError('Missing parameter "orderId".');
+      throw new TypeError('Missing parameter "orderId".');
     } else if (params.orderId) {
       this.setParentId(params.orderId);
     }

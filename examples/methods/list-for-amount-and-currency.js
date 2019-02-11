@@ -1,10 +1,11 @@
 /**
  * @docs https://docs.mollie.com/payments/multicurrency#filtering-payment-methods
  */
-(async () => {
-  const mollie = require('@mollie/api-client');
-  const mollieClient = mollie({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+const mollie = require('@mollie/api-client');
 
+const mollieClient = mollie({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+
+(async () => {
   try {
     const filteredMethods = await mollieClient.methods.all({
       include: 'issuers',

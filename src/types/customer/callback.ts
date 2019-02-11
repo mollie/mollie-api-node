@@ -1,5 +1,5 @@
 import { ICustomer } from '../customer';
-import { List } from '../list';
+import { IList } from '../list';
 
 /**
  * @deprecated since 2.2.0 - All callbacks will be removed in a future version
@@ -20,4 +20,4 @@ export type DeleteCallback = (error: any, success?: boolean) => void;
 /**
  * @deprecated since 2.2.0 - All callbacks will be removed in a future version
  */
-export type ListCallback = (error: any, customers?: List<ICustomer>) => void;
+export type ListCallback = (error: any, customers?: IList<ICustomer>) => void;

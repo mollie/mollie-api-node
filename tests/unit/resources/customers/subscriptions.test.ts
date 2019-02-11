@@ -39,7 +39,7 @@ describe('customers_subscriptions', () => {
       .reply(200, response._embedded.subscriptions[0]);
 
     it('should return a subscription instance', () =>
-      customersSubscriptions.create(props).then(result => {
+      customersSubscriptions.create(props).then((result) => {
         expect(result).toBeInstanceOf(Subscription);
         expect(result).toMatchSnapshot();
       }));
@@ -56,7 +56,7 @@ describe('customers_subscriptions', () => {
     mock.onGet(`/customers/${props.customerId}/subscriptions/foo`).reply(500, error);
 
     it('should return a subscription instance', () =>
-      customersSubscriptions.get(props.id, { customerId: props.customerId }).then(result => {
+      customersSubscriptions.get(props.id, { customerId: props.customerId }).then((result) => {
         expect(result).toBeInstanceOf(Subscription);
         expect(result).toMatchSnapshot();
       }));
@@ -66,13 +66,13 @@ describe('customers_subscriptions', () => {
     mock.onGet(`/customers/${props.customerId}/subscriptions`).reply(200, response);
 
     it('should return a list of all customer subscriptions', () =>
-      customersSubscriptions.all({ customerId: props.customerId }).then(result => {
+      customersSubscriptions.all({ customerId: props.customerId }).then((result) => {
         expect(result).toBeInstanceOf(Array);
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
       }));
 
-    it('should work with a callback', done => {
+    it('should work with a callback', (done) => {
       customersSubscriptions
         .withParent({
           resource: 'customer',
@@ -87,20 +87,20 @@ describe('customers_subscriptions', () => {
         });
     });
 
-    it('should work with a Promise and with .withParent()', done => {
+    it('should work with a Promise and with .withParent()', (done) => {
       customersSubscriptions
         .withParent({
           resource: 'customer',
           id: props.customerId,
         })
         .all()
-        .then(result => {
+        .then((result) => {
           expect(result).toBeInstanceOf(Array);
           expect(result).toHaveProperty('links');
           expect(result).toMatchSnapshot();
           done();
         })
-        .catch(err => {
+        .catch((err) => {
           expect(err).toBeNull();
           done();
         });
@@ -113,12 +113,12 @@ describe('customers_subscriptions', () => {
       .reply(200, response._embedded.subscriptions[0]);
 
     it('should return a subscription instance', () =>
-      customersSubscriptions.delete(props.id, { customerId: props.customerId }).then(result => {
+      customersSubscriptions.delete(props.id, { customerId: props.customerId }).then((result) => {
         expect(result).toBeInstanceOf(Subscription);
         expect(result).toMatchSnapshot();
       }));
 
-    it('should work with a callback', done => {
+    it('should work with a callback', (done) => {
       customersSubscriptions
         .withParent({
           resource: 'customer',

@@ -36,12 +36,12 @@ describe('customers_payments', () => {
       .reply(200, response._embedded.payments[0]);
 
     it('should return a payment instance', () =>
-      customersPayments.create(props).then(result => {
+      customersPayments.create(props).then((result) => {
         expect(result).toBeInstanceOf(Payment);
         expect(result).toMatchSnapshot();
       }));
 
-    it('should work with a callback', done => {
+    it('should work with a callback', (done) => {
       customersPayments.create(props, (err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Payment);
@@ -50,7 +50,7 @@ describe('customers_payments', () => {
       });
     });
 
-    it('should work with withParent', done => {
+    it('should work with withParent', (done) => {
       customersPayments
         .withParent({
           resource: 'customer',
@@ -66,12 +66,12 @@ describe('customers_payments', () => {
   });
 
   describe('.list()', () => {
-    const error = {"error": {"message": "The customer id is invalid"}};
+    const error = { error: { message: 'The customer id is invalid' } };
     mock.onGet(`/customers/${props.customerId}/payments`).reply(200, response);
 
-    it('should return a list of all customer payments', done => {
+    it('should return a list of all customer payments', (done) => {
       customersPayments.list({ customerId: props.customerId })
-        .then(result => {
+        .then((result) => {
           expect(result).toBeInstanceOf(Array);
           expect(result).toHaveProperty('links');
           expect(result).toMatchSnapshot();
@@ -80,18 +80,18 @@ describe('customers_payments', () => {
         .catch(err => expect(err).toBeUndefined());
     });
 
-    it('should throw an error if "customerId" is not set', done => {
+    it('should throw an error if "customerId" is not set', (done) => {
       customersPayments.list(undefined)
         .then(() => {
           throw Error('Should error out');
         })
-        .catch(err => {
+        .catch((err) => {
           expect(err).toEqual(error);
           done();
         });
     });
 
-    it('should work with a callback', done => {
+    it('should work with a callback', (done) => {
       customersPayments.list(props, (err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Array);
@@ -104,7 +104,7 @@ describe('customers_payments', () => {
     /**
      * @deprecated 3.0.0
      */
-    it('should work with .withParent()', done => {
+    it('should work with .withParent()', (done) => {
       customersPayments
         .withParent({
           resource: 'customer',
@@ -122,20 +122,20 @@ describe('customers_payments', () => {
     /**
      * @deprecated 3.0.0
      */
-    it('should work with a Promise and with .withParent()', done => {
+    it('should work with a Promise and with .withParent()', (done) => {
       customersPayments
         .withParent({
           resource: 'customer',
           id: props.customerId,
         })
         .list(undefined)
-        .then(result => {
+        .then((result) => {
           expect(result).toBeInstanceOf(Array);
           expect(result).toHaveProperty('links');
           expect(result).toMatchSnapshot();
           done();
         })
-        .catch(err => {
+        .catch((err) => {
           expect(err).toBeNull();
           done();
         });

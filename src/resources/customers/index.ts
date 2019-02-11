@@ -30,7 +30,7 @@ export default class CustomersResource extends CustomersBaseResource {
    * @public ✓ This method is part of the public API
    * @alias list
    */
-  all = this.list;
+  public all = this.list;
   /**
    * List Customers.
    *
@@ -40,7 +40,7 @@ export default class CustomersResource extends CustomersBaseResource {
    * @public ✓ This method is part of the public API
    * @alias list
    */
-  page = this.list;
+  public page = this.list;
   /**
    * Delete a Customer.
    *
@@ -50,7 +50,7 @@ export default class CustomersResource extends CustomersBaseResource {
    * @public ✓ This method is part of the public API
    * @alias delete
    */
-  cancel = this.delete;
+  public cancel = this.delete;
 
   /**
    * Creates a simple minimal representation of a customer in the Mollie API
@@ -94,7 +94,7 @@ export default class CustomersResource extends CustomersBaseResource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Customer.resourcePrefix)) {
-        Resource.errorHandler(
+        throw Resource.errorHandler(
           { error: { message: 'The customer id is invalid' } },
           typeof params === 'function' ? params : cb,
         );
@@ -108,7 +108,7 @@ export default class CustomersResource extends CustomersBaseResource {
     }
 
     if (!startsWith(id, Customer.resourcePrefix)) {
-      Resource.errorHandler({ error: { message: 'The customer id is invalid' } });
+      throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } });
     }
     return super.get(id, params, cb) as Promise<Customer>;
   }
@@ -158,7 +158,7 @@ export default class CustomersResource extends CustomersBaseResource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Customer.resourcePrefix)) {
-        Resource.errorHandler(
+        throw Resource.errorHandler(
           { error: { message: 'The customer id is invalid' } },
           typeof params === 'function' ? params : cb,
         );
@@ -172,7 +172,7 @@ export default class CustomersResource extends CustomersBaseResource {
     }
 
     if (!startsWith(id, Customer.resourcePrefix)) {
-      Resource.errorHandler({ error: { message: 'The customer id is invalid' } });
+      throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } });
     }
     return super.update(id, params, cb) as Promise<Customer>;
   }
@@ -196,7 +196,7 @@ export default class CustomersResource extends CustomersBaseResource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Customer.resourcePrefix)) {
-        Resource.errorHandler(
+        throw Resource.errorHandler(
           { error: { message: 'The customer id is invalid' } },
           typeof params === 'function' ? params : cb,
         );
@@ -210,7 +210,7 @@ export default class CustomersResource extends CustomersBaseResource {
     }
 
     if (!startsWith(id, Customer.resourcePrefix)) {
-      Resource.errorHandler({ error: { message: 'The customer id is invalid' } });
+      throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } });
     }
 
     return !!(await super.delete(id, params, cb));

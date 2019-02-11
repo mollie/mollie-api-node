@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { IAmount, IUrl } from '../../global';
 import { OrderStatus } from '../../order';
 

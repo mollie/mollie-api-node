@@ -34,7 +34,7 @@ export default class Customer extends Model implements ICustomer {
    *
    * @public ✓ This method is part of the public API
    */
-  constructor(props?: Partial<ICustomer>) {
+  public constructor(props?: Partial<ICustomer>) {
     super();
 
     Object.assign(this, props);

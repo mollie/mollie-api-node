@@ -28,7 +28,7 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions-payments
    * @public ✓ This method is part of the public API
    */
-  all = this.list;
+  public all = this.list;
   /**
    * Get all customer's subscriptions.
    *
@@ -37,7 +37,7 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions-payments
    * @public ✓ This method is part of the public API
    */
-  page = this.list;
+  public page = this.list;
 
   /**
    * Get all customer's subscriptions.
@@ -59,13 +59,13 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
       const customerId = get(params, 'customerId') || this.parentId;
       const subscriptionId = get(params, 'subscriptionId') || this.subscriptionId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        Resource.errorHandler(
+        throw Resource.errorHandler(
           { error: { message: 'The customer id is invalid' } },
           typeof params === 'function' ? params : cb,
         );
       }
       if (!startsWith(subscriptionId, Subscription.resourcePrefix)) {
-        Resource.errorHandler(
+        throw Resource.errorHandler(
           { error: { message: 'The subscription id is invalid' } },
           typeof params === 'function' ? params : cb,
         );
@@ -81,10 +81,10 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
 
     const { customerId, subscriptionId, ...parameters } = params;
     if (!startsWith(customerId, Customer.resourcePrefix)) {
-      Resource.errorHandler({ error: { message: 'The customer id is invalid' } });
+      throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } });
     }
     if (!startsWith(subscriptionId, Subscription.resourcePrefix)) {
-      Resource.errorHandler({ error: { message: 'The subscription id is invalid' } });
+      throw Resource.errorHandler({ error: { message: 'The subscription id is invalid' } });
     }
     this.setParentId(customerId);
     this.setSubscriptionId(subscriptionId);

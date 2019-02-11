@@ -27,7 +27,7 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
    * @see https://docs.mollie.com/reference/v2/shipments-api/list-shipments
    * @public
    */
-  all = this.list;
+  public all = this.list;
   /**
    * List order shipments
    *
@@ -36,7 +36,7 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
    * @see https://docs.mollie.com/reference/v2/shipments-api/list-shipments
    * @public
    */
-  page = this.list;
+  public page = this.list;
 
   /**
    * In addition to the
@@ -65,7 +65,7 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
     if (typeof params === 'function' || typeof cb === 'function') {
       const orderId = get(params, 'orderId') || this.parentId;
       if (!startsWith(orderId, Order.resourcePrefix)) {
-        Resource.errorHandler(
+        throw Resource.errorHandler(
           { error: { message: 'The order id  is invalid' } },
           typeof params === 'function' ? params : cb,
         );
@@ -81,7 +81,7 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
     const { orderId, ...parameters } = defaults(params, { orderId: this.parentId });
     if (!startsWith(orderId, Order.resourcePrefix)) {
-      Resource.errorHandler(
+      throw Resource.errorHandler(
         { error: { message: 'The order id is invalid' } },
         typeof params === 'function' ? params : cb,
       );
@@ -109,14 +109,14 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Shipment.resourcePrefix)) {
-        Resource.errorHandler(
+        throw Resource.errorHandler(
           { error: { message: 'The orders_shipments id is invalid' } },
           typeof params === 'function' ? params : cb,
         );
       }
       const orderId = get(params, 'orderId') || this.parentId;
       if (!startsWith(orderId, Order.resourcePrefix)) {
-        Resource.errorHandler(
+        throw Resource.errorHandler(
           { error: { message: 'The order id is invalid' } },
           typeof params === 'function' ? params : cb,
         );
@@ -131,12 +131,12 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
     }
 
     if (!startsWith(id, Shipment.resourcePrefix)) {
-      Resource.errorHandler({ error: { message: 'The orders_shipments id is invalid' } });
+      throw Resource.errorHandler({ error: { message: 'The orders_shipments id is invalid' } });
     }
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
     const { orderId, ...parameters } = defaults(params, { orderId: this.parentId });
     if (!startsWith(orderId, Order.resourcePrefix)) {
-      Resource.errorHandler({ error: { message: 'The order id is invalid' } });
+      throw Resource.errorHandler({ error: { message: 'The order id is invalid' } });
     }
     this.setParentId(orderId);
 
@@ -161,11 +161,11 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Shipment.resourcePrefix)) {
-        Resource.errorHandler(Resource.errorHandler({ error: { message: 'The orders_shipments id is invalid' } }, cb));
+        throw Resource.errorHandler({ error: { message: 'The orders_shipments id is invalid' } }, cb);
       }
       const orderId = get(params, 'orderId') || this.parentId;
       if (!startsWith(orderId, Order.resourcePrefix)) {
-        Resource.errorHandler(
+        throw Resource.errorHandler(
           { error: { message: 'The order id is invalid' } },
           typeof params === 'function' ? params : cb,
         );
@@ -180,12 +180,12 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
     }
 
     if (!startsWith(id, Shipment.resourcePrefix)) {
-      Resource.errorHandler(Resource.errorHandler({ error: { message: 'The orders_shipments id is invalid' } }, cb));
+      throw Resource.errorHandler(Resource.errorHandler({ error: { message: 'The orders_shipments id is invalid' } }, cb));
     }
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
     const { orderId, ...parameters } = defaults(params, { orderId: this.parentId });
     if (!startsWith(orderId, Order.resourcePrefix)) {
-      Resource.errorHandler({ error: { message: 'The order id is invalid' } });
+      throw Resource.errorHandler({ error: { message: 'The order id is invalid' } });
     }
     this.setParentId(orderId);
 
@@ -211,7 +211,7 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
     if (typeof params === 'function' || typeof cb === 'function') {
       const orderId = get(params, 'orderId') || this.parentId;
       if (!startsWith(orderId, Order.resourcePrefix)) {
-        Resource.errorHandler(
+        throw Resource.errorHandler(
           { error: { message: 'The order id is invalid' } },
           typeof params === 'function' ? params : cb,
         );
@@ -227,7 +227,7 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
     const { orderId, ...parameters } = defaults(params, { orderId: this.parentId });
     if (!startsWith(orderId, Order.resourcePrefix)) {
-      Resource.errorHandler(
+      throw Resource.errorHandler(
         { error: { message: 'The order id is invalid' } },
         typeof params === 'function' ? params : cb,
       );

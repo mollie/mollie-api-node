@@ -25,7 +25,7 @@ export default class OrdersLinesResource extends OrdersResource {
    * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order-lines
    * @public ✓ This method is part of the public API
    */
-  delete = this.cancel;
+  public delete = this.cancel;
 
   /**
    * Update order lines
@@ -46,7 +46,7 @@ export default class OrdersLinesResource extends OrdersResource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Order.resourcePrefix)) {
-        Resource.errorHandler(
+        throw Resource.errorHandler(
           { error: { message: 'The order id is invalid' } },
           typeof params === 'function' ? params : cb,
         );
@@ -62,7 +62,7 @@ export default class OrdersLinesResource extends OrdersResource {
 
     const { ...parameters } = params;
     if (!startsWith(id, Order.resourcePrefix)) {
-      Resource.errorHandler({ error: { message: 'The order id is invalid' } });
+      throw Resource.errorHandler({ error: { message: 'The order id is invalid' } });
     }
 
     this.setParentId(id);
@@ -88,7 +88,7 @@ export default class OrdersLinesResource extends OrdersResource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Order.resourcePrefix)) {
-        Resource.errorHandler(
+        throw Resource.errorHandler(
           { error: { message: 'The order id is invalid' } },
           typeof params === 'function' ? params : cb,
         );
@@ -103,7 +103,7 @@ export default class OrdersLinesResource extends OrdersResource {
     }
 
     if (!startsWith(id, Order.resourcePrefix)) {
-      Resource.errorHandler(
+      throw Resource.errorHandler(
         { error: { message: 'The order id is invalid' } },
         typeof params === 'function' ? params : cb,
       );

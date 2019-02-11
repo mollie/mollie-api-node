@@ -15,7 +15,7 @@ export default class Model {
    * @returns {Object}
    * @public ✓ This method is part of the public API
    */
-  public toPlainObject() {
+  public toPlainObject(): this {
     return toPlainObject(this);
   }
 }

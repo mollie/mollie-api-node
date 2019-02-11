@@ -1,10 +1,11 @@
 /**
  * @docs https://docs.mollie.com/reference/v2/mandates-api/get-mandate
  */
-(async () => {
-  const mollie = require('@mollie/api-client');
-  const mollieClient = mollie({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+const mollie = require('@mollie/api-client');
 
+const mollieClient = mollie({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+
+(async () => {
   try {
     const mandate = await mollieClient.customers_mandates.get('mdt_7UmCdnzAfH', {
       customerId: 'cst_pzhEvnttJ2',

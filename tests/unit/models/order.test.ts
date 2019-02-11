@@ -138,12 +138,12 @@ describe('order model', () => {
           cancelableQuantity: 0,
           unitPrice: {
             value: '329.99',
-            currency: 'EUR'
+            currency: 'EUR',
           },
           vatRate: '21.00',
           vatAmount: {
             value: '57.27',
-            currency: 'EUR'
+            currency: 'EUR',
           },
           totalAmount: {
             value: '329.99',

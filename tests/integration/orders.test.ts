@@ -22,7 +22,7 @@ dotenv.config();
 const mollieClient = mollie({ apiKey: process.env.API_KEY });
 
 describe('orders', () => {
-  it('should integrate', done => {
+  it('should integrate', (done) => {
     mollieClient.orders
       .all()
       .then((orders: Array<Order>) => {
@@ -91,7 +91,7 @@ describe('orders', () => {
               },
               embed: [OrderEmbed.payments],
             })
-            .then(order => {
+            .then((order) => {
               expect(order).toBeDefined();
               expect(order.id).toBeUndefined();
 
@@ -122,7 +122,7 @@ describe('orders', () => {
 
           mollieClient.payments_refunds
             .all({ paymentId: payment.id })
-            .then(paymentRefunds => {
+            .then((paymentRefunds) => {
               let refundExists;
 
               if (!paymentRefunds.length) {
@@ -131,7 +131,7 @@ describe('orders', () => {
                     paymentId: payment.id,
                     amount: { value: '5.00', currency: payment.amount.currency },
                   })
-                  .then(refund => {
+                  .then((refund) => {
                     expect(refund).toBeDefined();
 
                     return refund;
@@ -141,41 +141,41 @@ describe('orders', () => {
                 refundExists = Promise.resolve(paymentRefunds[0]);
               }
 
-              refundExists.then(paymentRefund => {
+              refundExists.then((paymentRefund) => {
                 mollieClient.payments_refunds
                   .get(paymentRefund.id, {
                     paymentId: payment.id,
                   })
-                  .then(result => {
+                  .then((result) => {
                     expect(result).toBeDefined();
                     done();
                   })
-                  .catch(err => {
+                  .catch((err) => {
                     expect(err).toBeUndefined();
                     done();
                   });
               });
             })
-            .catch(err => {
+            .catch((err) => {
               expect(err).toBeUndefined();
               done();
             });
         });
       })
-      .catch(err => {
+      .catch((err) => {
         expect(err).toBeUndefined();
         done();
       });
   });
 
-  it('should paginate', done => {
+  it('should paginate', (done) => {
     let nextPaymentCursor;
 
     mollieClient.orders
       .all({
         limit: 2,
       })
-      .then(orders => {
+      .then((orders) => {
         expect(orders.length).toEqual(2);
         expect(orders.nextPageCursor).toBeDefined();
         expect(orders.previousPageCursor).toBeUndefined();
@@ -185,26 +185,26 @@ describe('orders', () => {
         // Second page
         orders
           .nextPage()
-          .then(nextOrdersList => {
+          .then((nextOrdersList) => {
             expect(nextOrdersList.length).toEqual(2);
             expect(nextOrdersList[0].id).toEqual(nextPaymentCursor);
             expect(nextOrdersList.nextPageCursor).toBeDefined();
             expect(nextOrdersList.previousPageCursor).toBeDefined();
 
             // Third (and last) page
-            nextOrdersList.nextPage().then(lastOrdersList => {
+            nextOrdersList.nextPage().then((lastOrdersList) => {
               expect(lastOrdersList.length).toEqual(2);
               expect(nextOrdersList.nextPageCursor).toEqual(lastOrdersList[0].id);
 
               done();
             });
           })
-          .catch(err => {
+          .catch((err) => {
             expect(err).toBeUndefined();
             done();
           });
       })
-      .catch(err => {
+      .catch((err) => {
         expect(err).toBeUndefined();
         done();
       });

@@ -1,5 +1,7 @@
+/* eslint-disable new-cap */
 import qs from 'qs';
 import { AxiosInstance, AxiosResponse } from 'axios';
+import { cloneDeep } from 'lodash';
 
 import Model from './model';
 import List from './models/List';
@@ -48,20 +50,20 @@ export default class Resource {
   /**
    * Constructor
    */
-  constructor(httpClient: AxiosInstance) {
+  public constructor(httpClient: AxiosInstance) {
     this.httpClient = httpClient;
   }
 
   /**
    * Error handler
    */
-  protected static errorHandler(response: any, cb?: Function) {
+  protected static errorHandler(response: any, cb?: Function): any {
     const error = (response && response.data) || response;
 
     if (cb) {
       return cb(error);
     }
-    throw error;
+    return error;
   }
 
   /**
@@ -90,7 +92,8 @@ export default class Resource {
    *
    * @public ✓ This method is part of the public API
    */
-  public async create(params: any, cb?: ResourceCallback): Promise<Model> {
+  public async create(prms: any, cb?: ResourceCallback): Promise<Model> {
+    const params = cloneDeep(prms);
     const callback = typeof params === 'function' ? params : cb;
     const query: any = {};
     if (params !== null && typeof params === 'object') {
@@ -110,6 +113,7 @@ export default class Resource {
         params,
       );
 
+      // noinspection JSPotentiallyInvalidConstructorUsage
       const model = new (this.constructor as any).model(response.data);
 
       if (callback) {
@@ -117,7 +121,7 @@ export default class Resource {
       }
       return model;
     } catch (error) {
-      Resource.errorHandler(error.response, callback);
+      throw Resource.errorHandler(error.response, callback);
     }
   }
 
@@ -132,7 +136,8 @@ export default class Resource {
    *
    * @since 1.0.0
    */
-  public async get(id: string, params?: any, cb?: ResourceCallback): Promise<Model> {
+  public async get(id: string, prms?: any, cb?: ResourceCallback): Promise<Model> {
+    const params = cloneDeep(prms);
     const callback = typeof params === 'function' ? params : cb;
     const query: any = {};
     if (params != null && typeof params === 'object') {
@@ -151,6 +156,7 @@ export default class Resource {
         `${this.getResourceUrl()}/${id}${qs.stringify(query, { addQueryPrefix: true })}`,
       );
 
+      // noinspection JSPotentiallyInvalidConstructorUsage
       const model = new (this.constructor as any).model(response.data);
 
       if (callback) {
@@ -159,25 +165,26 @@ export default class Resource {
 
       return model;
     } catch (error) {
-      Resource.errorHandler(error.response, callback);
+      throw Resource.errorHandler(error.response, callback);
     }
   }
 
   /**
    * List resources
    *
-   * @param params - Resource-specific parameters
+   * @param prms - Resource-specific parameters
    * @param cb - (DEPRECATED SINCE 2.2.0) Optional callback function
    *
    * @returns Resource list
    *
    * @since 1.0.0
    */
-  public async list(params?: any, cb?: ResourceCallback): Promise<List<Model>> {
+  public async list(prms?: any, cb?: ResourceCallback): Promise<List<Model>> {
+    const params = cloneDeep(prms);
     try {
       const query: any = {};
       if (params != null && typeof params === 'object') {
-        if (typeof params.include === 'string') {
+        if (typeof params.include === 'string' || Array.isArray(params.include)) {
           query.include = params.include;
           delete params.include;
         }
@@ -214,7 +221,7 @@ export default class Resource {
 
       return list;
     } catch (error) {
-      Resource.errorHandler(error, cb);
+      throw Resource.errorHandler(error, cb);
     }
   }
 
@@ -233,6 +240,7 @@ export default class Resource {
     try {
       const response: AxiosResponse = await this.getClient().post(`${this.getResourceUrl()}/${id}`, params);
 
+      // noinspection JSPotentiallyInvalidConstructorUsage
       const model = new (this.constructor as any).model(response.data);
 
       if (typeof cb === 'function') {
@@ -241,7 +249,7 @@ export default class Resource {
 
       return model;
     } catch (error) {
-      Resource.errorHandler(error.response, cb);
+      throw Resource.errorHandler(error.response, cb);
     }
   }
 
@@ -262,6 +270,7 @@ export default class Resource {
     try {
       const response: AxiosResponse = await this.getClient().delete(`${this.getResourceUrl()}/${id}`);
 
+      // noinspection JSPotentiallyInvalidConstructorUsage
       const model = new (this.constructor as any).model(response.data);
 
       if (cb) {
@@ -270,7 +279,7 @@ export default class Resource {
 
       return model;
     } catch (error) {
-      Resource.errorHandler(error.response, cb);
+      throw Resource.errorHandler(error.response, cb);
     }
   }
 

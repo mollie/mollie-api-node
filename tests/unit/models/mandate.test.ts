@@ -18,7 +18,7 @@ describe('mandate model', () => {
       details: {
         consumerName: 'John Doe',
         consumerAccount: 'NL55INGB0000000000',
-        consumerBic: 'INGBNL2A'
+        consumerBic: 'INGBNL2A',
       },
       mandateReference: 'YOUR-COMPANY-MD1380',
       signatureDate: '2018-05-07',
@@ -35,8 +35,8 @@ describe('mandate model', () => {
         documentation: {
           href: 'https://docs.mollie.com/reference/v2/mandates-api/get-mandate',
           type: 'text/html',
-        }
-      }
+        },
+      },
     };
     const mandate = new Mandate(mandateProps);
 

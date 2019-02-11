@@ -16,11 +16,11 @@ describe('capture model', () => {
       mode: ApiMode.live,
       amount: {
         value: '1027.99',
-        currency: 'EUR'
+        currency: 'EUR',
       },
       settlementAmount: {
         value: '399.00',
-        currency: 'EUR'
+        currency: 'EUR',
       },
       paymentId: 'tr_WDqYK6vllg',
       shipmentId: 'shp_3wmsgCJN4U',

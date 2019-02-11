@@ -21,7 +21,7 @@ export default class CustomersSubscriptionsBaseResource extends CustomersBaseRes
    *
    * @since 2.2.0
    */
-  protected setSubscriptionId(subscriptionId: string) {
+  protected setSubscriptionId(subscriptionId: string): void {
     this.subscriptionId = subscriptionId;
   }
 

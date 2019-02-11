@@ -27,7 +27,7 @@ export default class OrdersRefundsResource extends OrdersResource {
    * @see https://docs.mollie.com/reference/v2/orders-api/list-order-refunds
    * @public ✓ This method is part of the public API
    */
-  all = this.list;
+  public all = this.list;
   /**
    * Get all order refunds
    *
@@ -36,7 +36,7 @@ export default class OrdersRefundsResource extends OrdersResource {
    * @see https://docs.mollie.com/reference/v2/orders-api/list-order-refunds
    * @public ✓ This method is part of the public API
    */
-  page = this.list;
+  public page = this.list;
 
   /**
    * Create an order refund
@@ -56,7 +56,7 @@ export default class OrdersRefundsResource extends OrdersResource {
     if (typeof params === 'function' || typeof cb === 'function') {
       const orderId = get(params, 'orderId') || this.parentId;
       if (!startsWith(orderId, Order.resourcePrefix)) {
-        Resource.errorHandler(
+        throw Resource.errorHandler(
           { error: { message: 'The order id is invalid' } },
           typeof params === 'function' ? params : cb,
         );
@@ -72,7 +72,7 @@ export default class OrdersRefundsResource extends OrdersResource {
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
     const { orderId, ...parameters } = defaults(params, { orderId: this.parentId });
     if (!startsWith(orderId, Order.resourcePrefix)) {
-      Resource.errorHandler(Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb));
+      throw Resource.errorHandler(Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb));
     }
     this.setParentId(orderId);
 
@@ -111,7 +111,7 @@ export default class OrdersRefundsResource extends OrdersResource {
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
     const { orderId, ...parameters } = defaults(params, { orderId: this.parentId });
     if (!startsWith(orderId, Order.resourcePrefix)) {
-      Resource.errorHandler({ error: { message: 'The order id is invalid' } });
+      throw Resource.errorHandler({ error: { message: 'The order id is invalid' } });
     }
     this.setParentId(orderId);
 
@@ -121,28 +121,28 @@ export default class OrdersRefundsResource extends OrdersResource {
   /**
    * @deprecated This method is not available
    */
-  async get(): Promise<Refund> {
+  public async get(): Promise<Refund> {
     throw new ApiException(`The method "get" does not exist on the "${this.apiName}"`);
   }
 
   /**
    * @deprecated This method is not available
    */
-  async update(): Promise<Refund> {
+  public async update(): Promise<Refund> {
     throw new ApiException(`The method "update" does not exist on the "${this.apiName}"`);
   }
 
   /**
    * @deprecated This method is not available
    */
-  async delete(): Promise<boolean> {
+  public async delete(): Promise<boolean> {
     throw new ApiException(`The method "delete" does not exist on the "${this.apiName}"`);
   }
 
   /**
    * @deprecated This method is not available
    */
-  async cancel(): Promise<boolean> {
+  public async cancel(): Promise<boolean> {
     throw new ApiException(`The method "cancel" does not exist on the "${this.apiName}"`);
   }
 }

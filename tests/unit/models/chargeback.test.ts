@@ -13,11 +13,11 @@ describe('chargeback model', () => {
       id: 'chb_n9z0tp',
       amount: {
         currency: 'USD',
-        value: '43.38'
+        value: '43.38',
       },
       settlementAmount: {
         currency: 'EUR',
-        value: '-35.07'
+        value: '-35.07',
       },
       createdAt: '2018-03-14T17:00:52.0Z',
       reversedAt: null,
@@ -34,8 +34,8 @@ describe('chargeback model', () => {
         documentation: {
           href: 'https://docs.mollie.com/reference/v2/chargebacks-api/get-chargeback',
           type: 'text/html',
-        }
-      }
+        },
+      },
     };
     const chargeback = new Chargeback(chargebackProps);
 

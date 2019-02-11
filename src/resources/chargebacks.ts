@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars, @typescript-eslint/no-unused-vars */
 import Resource from '../resource';
 import Chargeback from '../models/Chargeback';
 import List from '../models/List';
@@ -25,7 +26,7 @@ export default class ChargebacksResource extends Resource {
    * @public ✓ This method is part of the public API
    * @alias list
    */
-  all = this.list;
+  public all = this.list;
   /**
    * List chargebacks
    *
@@ -35,7 +36,7 @@ export default class ChargebacksResource extends Resource {
    * @public ✓ This method is part of the public API
    * @alias list
    */
-  page = this.list;
+  public page = this.list;
 
   /**
    * List chargebacks

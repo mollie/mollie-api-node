@@ -110,13 +110,13 @@ describe('orders', () => {
     mock.onPost('/orders').reply(200, response._embedded.orders[0]);
 
     it('should return an order instance', () =>
-      orders.create(props).then(result => {
+      orders.create(props).then((result) => {
         expect(result).toBeInstanceOf(Order);
         expect(result.amount.value).toBe(props.amount.value);
         expect(result).toMatchSnapshot();
       }));
 
-    it('should work with a callback', done => {
+    it('should work with a callback', (done) => {
       orders.create(props, (err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Order);
@@ -136,7 +136,7 @@ describe('orders', () => {
         .then(() => {
           throw new Error('Should reject');
         })
-        .catch(err => {
+        .catch((err) => {
           expect(err).toEqual(error);
           expect(err.error.field).toBe('amount');
         }));
@@ -150,12 +150,12 @@ describe('orders', () => {
     mock.onGet('/orders/foo').reply(500, error);
 
     it('should return an order instance', () =>
-      orders.get(props.id).then(result => {
+      orders.get(props.id).then((result) => {
         expect(result).toBeInstanceOf(Order);
         expect(result).toMatchSnapshot();
       }));
 
-    it('should work with a callback', done => {
+    it('should work with a callback', (done) => {
       orders.get(props.id, (err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Order);
@@ -170,12 +170,12 @@ describe('orders', () => {
         .then(() => {
           throw new Error('Should reject');
         })
-        .catch(err => {
+        .catch((err) => {
           expect(err).toEqual(error);
           done();
         }));
 
-    it('should return an error with a callback for non-existing IDs', done => {
+    it('should return an error with a callback for non-existing IDs', (done) => {
       orders.get('foo', (err, result) => {
         expect(err).toEqual(error);
         expect(result).toBeUndefined();
@@ -188,14 +188,14 @@ describe('orders', () => {
     mock.onGet('/orders').reply(200, response);
 
     it('should return a list of all orders', done =>
-      orders.list().then(result => {
+      orders.list().then((result) => {
         expect(result).toBeInstanceOf(Array);
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
         done();
       }));
 
-    it('should work with a callback', done => {
+    it('should work with a callback', (done) => {
       orders.list((err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Array);
@@ -217,7 +217,7 @@ describe('orders', () => {
         .then(() => {
           throw new Error('Should reject');
         })
-        .catch(err => {
+        .catch((err) => {
           expect(err).toEqual(error);
         }));
   });

@@ -34,7 +34,7 @@ export default class MethodsResource extends Resource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!id) {
-        Resource.errorHandler(
+        throw Resource.errorHandler(
           { error: { message: 'The method id is invalid' } },
           typeof params === 'function' ? params : cb,
         );
@@ -48,7 +48,7 @@ export default class MethodsResource extends Resource {
     }
 
     if (!id) {
-      Resource.errorHandler({ error: { message: 'The method id is invalid' } });
+      throw Resource.errorHandler({ error: { message: 'The method id is invalid' } });
     }
 
     return super.get(id, params, cb) as Promise<Method>;
@@ -62,7 +62,7 @@ export default class MethodsResource extends Resource {
    * @see https://docs.mollie.com/reference/v2/methods-api/list-methods
    * @public ✓ This method is part of the public API
    */
-  all = this.list;
+  public all = this.list;
   /**
    * Retrieve a list of Payment Methods
    *
@@ -71,7 +71,7 @@ export default class MethodsResource extends Resource {
    * @see https://docs.mollie.com/reference/v2/methods-api/list-methods
    * @public ✓ This method is part of the public API
    */
-  page = this.list;
+  public page = this.list;
 
   /**
    * Retrieve a list of Payment Methods
