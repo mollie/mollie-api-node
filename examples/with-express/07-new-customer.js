@@ -14,9 +14,9 @@ mollieClient.customers
       isJedi: true,
     },
   })
-  .then(customer => {
+  .then((customer) => {
     // New customer created with ID `customer.id` and name `customer.name`.
   })
-  .catch(error => {
+  .catch((error) => {
     // Do some proper error handling.
   });

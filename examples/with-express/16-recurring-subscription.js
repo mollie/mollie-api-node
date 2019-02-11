@@ -6,7 +6,7 @@ const mollie = require('@mollie/api-client');
 
 const mollieClient = mollie({ apiKey: 'test_buC3bBQfSQhd4dDUeMctJjDCn3GhP4' });
 
-mollieClient.customers.all().then(customers => {
+mollieClient.customers.all().then((customers) => {
   mollieClient.customers_subscriptions
     .create({
       customerId: customers[0].id,
@@ -19,7 +19,7 @@ mollieClient.customers.all().then(customers => {
     .then(({ id }) => {
       // i.e. send confirmation email
     })
-    .catch(error => {
+    .catch((error) => {
       // Do some proper error handling
     });
 });

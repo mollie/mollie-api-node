@@ -83,15 +83,15 @@
   "lint-staged": {
     "src/**/*.ts": [
       "eslint --ext .js,.ts --fix src/",
-      "git add"
+      "git add src/"
     ],
     "tests/**/*.ts": [
       "eslint --ext .js,.ts --fix tests/",
-      "git add"
+      "git add tests/"
     ],
     "examples/**/*.js": [
       "eslint --ext .js,.ts --fix examples/",
-      "git add"
+      "git add examples/"
     ]
   },
   "jest": {

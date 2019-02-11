@@ -11,9 +11,9 @@ mollieClient.customers_payments
     count: 50,
     customerId: 'cst_cu5t0m3r',
   })
-  .then(payments => {
+  .then((payments) => {
     // List the customer's payments.
   })
-  .catch(error => {
+  .catch((error) => {
     // Do some proper error handling.
   });
