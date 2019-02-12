@@ -11,7 +11,7 @@ Object {
   "id": null,
   "lines": null,
   "orderId": null,
-  "resource": null,
+  "resource": "shipment",
   "toPlainObject": [Function],
   "tracking": null,
 }

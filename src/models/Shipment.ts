@@ -9,7 +9,7 @@ import { IShipment } from '../types/shipment';
 export default class Shipment extends Model implements IShipment {
   public static resourcePrefix = 'shp_';
 
-  public resource = null;
+  public resource = 'shipment';
   public id = null;
   public orderId = null;
   public createdAt = null;
