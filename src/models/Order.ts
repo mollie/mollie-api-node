@@ -1,3 +1,5 @@
+import { isPlainObject } from 'lodash';
+
 import Model from '../model';
 import { IOrder } from '../types/order';
 import { IAmount } from '../types/global';
@@ -55,7 +57,7 @@ export default class Order extends Model implements IOrder {
 
     Object.assign(this, props);
 
-    if (this._embedded != null && typeof this._embedded === 'object') {
+    if (this._embedded != null && isPlainObject(this._embedded)) {
       if (Array.isArray(this._embedded.payments)) {
         this._embedded.payments.forEach((payment, key, payments) => {
           // eslint-disable-next-line no-param-reassign

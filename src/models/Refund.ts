@@ -1,3 +1,5 @@
+import { isPlainObject } from 'lodash';
+
 import Model from '../model';
 import { RefundStatus } from '../types/refund';
 import { IRefund } from '../types/payment/refund';
@@ -43,7 +45,7 @@ export default class Refund extends Model implements IRefund {
 
     Object.assign(this, props);
 
-    if (this._embedded != null && typeof this._embedded === 'object') {
+    if (this._embedded != null && isPlainObject(this._embedded)) {
       if (Array.isArray(this._embedded.payments)) {
         // eslint-disable-next-line array-callback-return
         this._embedded.payments.map((payment, key, payments) => {

@@ -1,7 +1,7 @@
 /* eslint-disable new-cap */
 import qs from 'qs';
 import { AxiosInstance, AxiosResponse } from 'axios';
-import { cloneDeep } from 'lodash';
+import { cloneDeep, isPlainObject } from 'lodash';
 
 import Model from './model';
 import List from './models/List';
@@ -96,7 +96,7 @@ export default class Resource {
     const params = cloneDeep(prms);
     const callback = typeof params === 'function' ? params : cb;
     const query: any = {};
-    if (params !== null && typeof params === 'object') {
+    if (isPlainObject(params)) {
       if (typeof params.include === 'string') {
         query.include = params.include;
         delete params.include;
@@ -140,7 +140,7 @@ export default class Resource {
     const params = cloneDeep(prms);
     const callback = typeof params === 'function' ? params : cb;
     const query: any = {};
-    if (params != null && typeof params === 'object') {
+    if (isPlainObject(params)) {
       if (typeof params.include === 'string') {
         query.include = params.include;
         delete params.include;
@@ -183,7 +183,7 @@ export default class Resource {
     const params = cloneDeep(prms);
     try {
       const query: any = {};
-      if (params != null && typeof params === 'object') {
+      if (isPlainObject(params)) {
         if (typeof params.include === 'string' || Array.isArray(params.include)) {
           query.include = params.include;
           delete params.include;
