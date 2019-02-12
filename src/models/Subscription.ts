@@ -41,7 +41,7 @@ export default class Subscription extends Model implements ISubscription {
   /**
    * Subscription constructor
    *
-   * @public ✓ This method is part of the public API
+   * @public ✓ This constructor is part of the public API
    */
   public constructor(props?: Partial<ISubscription>) {
     super();
