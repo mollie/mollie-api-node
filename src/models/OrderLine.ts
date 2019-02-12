@@ -2,7 +2,7 @@ import Model from '../model';
 import { IOrderLine } from '../types/order/line';
 
 /**
- * The `orderline` model
+ * The `OrderLine` model
  *
  * {@link IOrderLine}
  */
