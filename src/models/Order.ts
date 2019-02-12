@@ -6,7 +6,7 @@ import { IAmount } from '../types/global';
 import Payment from './Payment';
 
 /**
- * The `order` model
+ * The `Order` model
  *
  * {@link IOrder}
  */
