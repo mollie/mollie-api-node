@@ -27,7 +27,7 @@ export default class Shipment extends Model implements IShipment {
   /**
    * Shipment constructor
    *
-   * @public ✓ This method is part of the public API
+   * @public ✓ This constructor is part of the public API
    */
   public constructor(props?: Partial<IShipment>) {
     super();
