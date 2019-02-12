@@ -72,7 +72,7 @@ export default class Payment extends Model implements IPayment {
   /**
    * Payment constructor
    *
-   * @public ✓ This method is part of the public API
+   * @public ✓ This constructor is part of the public API
    */
   public constructor(props?: Partial<IPayment>) {
     super();
