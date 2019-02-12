@@ -11,7 +11,7 @@ import Payment from './Payment';
  * {@link IRefund}
  */
 export default class Refund extends Model implements IRefund {
-  public static resourcePrefix = '';
+  public static resourcePrefix = 're_';
 
   public resource = 'refund';
   public id = null;

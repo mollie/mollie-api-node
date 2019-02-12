@@ -9,7 +9,7 @@ import { ICapture } from '../types/payment/capture';
 export default class Capture extends Model implements ICapture {
   public static resourcePrefix = 'cpt_';
 
-  public resource = null;
+  public resource = 'capture';
   public id = null;
   public mode = null;
   public amount = null;

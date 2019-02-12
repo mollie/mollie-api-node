@@ -9,7 +9,7 @@ import { IOrderLine } from '../types/order/line';
 export default class OrderLine extends Model implements IOrderLine {
   public static resourcePrefix = 'odl_';
 
-  public resource = null;
+  public resource = 'orderline';
   public id = null;
   public name = null;
   public quantity = null;

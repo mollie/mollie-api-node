@@ -8,6 +8,7 @@ import { IChargeback } from '../types/chargeback';
  */
 export default class Chargeback extends Model implements IChargeback {
   public static resourcePrefix = 'chb_';
+
   public resource = 'chargeback';
   public id = null;
   public amount = null;
