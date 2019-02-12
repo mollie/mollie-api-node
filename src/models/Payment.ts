@@ -79,7 +79,7 @@ export default class Payment extends Model implements IPayment {
 
     Object.assign(this, props);
 
-    if (this._embedded != null && isPlainObject(this._embedded)) {
+    if (isPlainObject(this._embedded)) {
       if (Array.isArray(this._embedded.refunds)) {
         this._embedded.refunds.forEach((refund, key, refunds) => {
           // eslint-disable-next-line no-param-reassign
