@@ -2,7 +2,7 @@ import Model from '../model';
 import { IShipment } from '../types/shipment';
 
 /**
- * The `shipment` model
+ * The `Shipment` model
  *
  * {@link IShipment}
  */
