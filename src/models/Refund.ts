@@ -38,7 +38,7 @@ export default class Refund extends Model implements IRefund {
   /**
    * Refund constructor
    *
-   * @public ✓ This method is part of the public API
+   * @public ✓ This constructor is part of the public API
    */
   public constructor(props?: Partial<IRefund>) {
     super();
