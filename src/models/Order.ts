@@ -50,7 +50,7 @@ export default class Order extends Model implements IOrder {
   /**
    * Order constructor
    *
-   * @public ✓ This method is part of the public API
+   * @public ✓ This constructor is part of the public API
    */
   public constructor(props?: Partial<IOrder>) {
     super();
