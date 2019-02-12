@@ -12,7 +12,7 @@ Object {
   "id": null,
   "mode": null,
   "paymentId": null,
-  "resource": null,
+  "resource": "capture",
   "settlementAmount": null,
   "settlementId": null,
   "shipmentId": null,

@@ -90,7 +90,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Refund.resourcePrefix)) {
         throw Resource.errorHandler(
-          { error: { message: 'The refund id is invalid' } },
+          { error: { message: 'The payments_refund id is invalid' } },
           typeof params === 'function' ? params : cb,
         );
       }
@@ -111,7 +111,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
     }
 
     if (!startsWith(id, Refund.resourcePrefix)) {
-      throw Resource.errorHandler({ error: { message: 'The refund id is invalid' } }, cb);
+      throw Resource.errorHandler({ error: { message: 'The payments_refund id is invalid' } }, cb);
     }
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
     const { paymentId, ...parameters } = defaults(params, { paymentId: this.parentId });
@@ -183,7 +183,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Refund.resourcePrefix)) {
         throw Resource.errorHandler(
-          { error: { message: 'The refund id is invalid' } },
+          { error: { message: 'The payments_refund id is invalid' } },
           typeof params === 'function' ? params : cb,
         );
       }
@@ -203,7 +203,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
     }
 
     if (!startsWith(id, Refund.resourcePrefix)) {
-      throw Resource.errorHandler({ error: { message: 'The refund id is invalid' } });
+      throw Resource.errorHandler({ error: { message: 'The payments_refund id is invalid' } });
     }
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
     const { paymentId, ...parameters } = defaults(params, { paymentId: this.parentId });
