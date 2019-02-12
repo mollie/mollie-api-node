@@ -4,6 +4,7 @@ import Model from '../model';
 import { IOrder } from '../types/order';
 import { IAmount } from '../types/global';
 import Payment from './Payment';
+import Refund from './Refund';
 
 /**
  * The `Order` model
@@ -57,11 +58,17 @@ export default class Order extends Model implements IOrder {
 
     Object.assign(this, props);
 
-    if (this._embedded != null && isPlainObject(this._embedded)) {
+    if (isPlainObject(this._embedded)) {
       if (Array.isArray(this._embedded.payments)) {
         this._embedded.payments.forEach((payment, key, payments) => {
           // eslint-disable-next-line no-param-reassign
           payments[key] = new Payment(payment);
+        });
+      }
+      if (Array.isArray(this._embedded.refunds)) {
+        this._embedded.refunds.forEach((refund, key, refunds) => {
+          // eslint-disable-next-line no-param-reassign
+          refunds[key] = new Refund(refund);
         });
       }
     }
