@@ -13,8 +13,8 @@ export default {
     json(),
     typescript(),
     copy([
-      { files: 'src/cacert.pem', dest: 'dist/cjs/src'},
-      { files: 'src/cacert.pem', dest: 'dist/esm/src'},
+      { files: 'src/cacert.pem', dest: 'dist/cjs/src' },
+      { files: 'src/cacert.pem', dest: 'dist/esm/src' },
     ]),
   ],
 };
