@@ -10,8 +10,6 @@ export interface IMollieRequestConfig extends AxiosRequestConfig {
   apiKey: string;
 }
 
-declare let window: any;
-
 /**
  * Create pre-configured httpClient instance
  *
@@ -30,12 +28,9 @@ export default function createHttpClient(options: IMollieRequestConfig): AxiosIn
     'X-Mollie-User-Agent': `mollie/${version}`,
   };
 
-  // Setting the root CA certificate will fail in a browser environment
-  if (typeof window !== 'undefined' && typeof fs !== 'undefined' && typeof fs.readFileSync !== 'undefined') {
-    newOptions.httpsAgent = new https.Agent({
-      cert: fs.readFileSync(path.resolve(__dirname, './cacert.pem'), 'utf8'),
-    });
-  }
+  newOptions.httpsAgent = new https.Agent({
+    cert: fs.readFileSync(path.resolve(__dirname, './cacert.pem'), 'utf8'),
+  });
 
   return axios.create(newOptions);
 }
