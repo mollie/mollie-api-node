@@ -1,11 +1,6 @@
 {
   "extends": [
-    "plugin:@typescript-eslint/recommended",
-    "@mollie/eslint-config-base"
-  ],
-  "parser": "@typescript-eslint/parser",
-  "plugins": [
-    "@typescript-eslint"
+    "@mollie/eslint-config-typescript"
   ],
   "rules": {
     "max-len": ["warn", { "code": 140, "comments": 400 }],
@@ -13,18 +8,6 @@
     "import/prefer-default-export": "off",
     "no-plusplus": "off",
     "no-shadow": "off",
-    "@typescript-eslint/interface-name-prefix": [
-      "error",
-      "always"
-    ],
-    "@typescript-eslint/indent": [
-      "error",
-      2
-    ],
-    "@typescript-eslint/array-type": [
-      "error",
-      "generic"
-    ],
     "@typescript-eslint/no-explicit-any": "off",
     "no-console": "off"
   },
