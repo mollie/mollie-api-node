@@ -93,35 +93,35 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
   }
 
   /**
-   * @deprecated This method is not available
+   * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async create(): Promise<Payment> {
     throw new ApiException(`The method "create" does not exist on the "${this.apiName}"`);
   }
 
   /**
-   * @deprecated This method is not available
+   * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async get(): Promise<Payment> {
     throw new ApiException(`The method "get" does not exist on the "${this.apiName}"`);
   }
 
   /**
-   * @deprecated This method is not available
+   * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async update(): Promise<Payment> {
     throw new ApiException(`The method "update" does not exist on the "${this.apiName}"`);
   }
 
   /**
-   * @deprecated This method is not available
+   * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async delete(): Promise<boolean> {
     throw new ApiException(`The method "delete" does not exist on the "${this.apiName}"`);
   }
 
   /**
-   * @deprecated This method is not available
+   * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async cancel(): Promise<boolean> {
     throw new ApiException(`The method "cancel" does not exist on the "${this.apiName}"`);

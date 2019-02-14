@@ -71,7 +71,7 @@ export default class Resource {
    *
    * @since 1.1.1
    *
-   * @deprecated This method is not available
+   * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public withParent(parent: IParentParams): this {
     if (parent && parent.id) {

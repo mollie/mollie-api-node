@@ -229,7 +229,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
   }
 
   /**
-   * @deprecated This method is not available
+   * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async update(): Promise<Mandate> {
     throw new ApiException(`The method "update" is not available on the "${this.apiName}"`);

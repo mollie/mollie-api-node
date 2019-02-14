@@ -100,28 +100,28 @@ export default class MethodsResource extends Resource {
   }
 
   /**
-   * @deprecated This method is not available
+   * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async create(): Promise<Method> {
     throw new ApiException(`The method "create" is not available on the "${this.apiName}"`);
   }
 
   /**
-   * @deprecated This method is not available
+   * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async update(): Promise<Method> {
     throw new ApiException(`The method "update" is not available on the "${this.apiName}"`);
   }
 
   /**
-   * @deprecated This method is not available
+   * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async cancel(): Promise<boolean> {
     throw new ApiException(`The method "cancel" is not available on the "${this.apiName}"`);
   }
 
   /**
-   * @deprecated This method is not available
+   * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async delete(): Promise<boolean> {
     throw new ApiException(`The method "delete" is not available on the "${this.apiName}"`);

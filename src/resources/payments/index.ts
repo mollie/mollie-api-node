@@ -164,7 +164,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
   }
 
   /**
-   * @deprecated This method is not available
+   * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async update(): Promise<Payment> {
     throw new ApiException(`The method "update" does not exist on the "${this.apiName}"`);
