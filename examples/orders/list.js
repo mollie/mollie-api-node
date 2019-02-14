@@ -7,7 +7,7 @@ const mollieClient = mollie({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
 
 (async () => {
   try {
-    const mostRecentOrders = await mollieClient.orders.page();
+    const mostRecentOrders = await mollieClient.orders.all();
     const previousOrders = await mostRecentOrders.nextPage();
 
     console.log(mostRecentOrders);

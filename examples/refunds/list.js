@@ -9,7 +9,7 @@ const mollieClient = mollie({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
 (async () => {
   try {
     // Payment refunds
-    const paymentRefunds = await mollieClient.payments_refunds.page({ paymentId: 'tr_WDqYK6vllg' });
+    const paymentRefunds = await mollieClient.payments_refunds.all({ paymentId: 'tr_WDqYK6vllg' });
     console.log(paymentRefunds);
 
     // Order refunds
