@@ -10,7 +10,6 @@ describe('create-http-client', () => {
   it('should have some default headers set', () => {
     expect(httpClient.defaults.headers).toHaveProperty('Authorization');
     expect(httpClient.defaults.headers).toHaveProperty('User-Agent');
-    expect(httpClient.defaults.headers).toHaveProperty('X-Mollie-User-Agent');
     expect(httpClient.defaults.headers).toHaveProperty('Accept-Encoding');
     expect(httpClient.defaults.headers).toHaveProperty('Content-Type');
   });

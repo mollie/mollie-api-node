@@ -24,8 +24,7 @@ export default function createHttpClient(options: IMollieRequestConfig): AxiosIn
     Authorization: `Bearer ${options.apiKey}`,
     'Accept-Encoding': 'gzip',
     'Content-Type': 'application/json',
-    'User-Agent': `node.js/${process.version}`,
-    'X-Mollie-User-Agent': `mollie/${version}`,
+    'User-Agent': `Node/${process.version} Mollie/${version}`,
   };
 
   newOptions.httpsAgent = new https.Agent({
