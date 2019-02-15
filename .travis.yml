@@ -5,7 +5,7 @@ sudo: false
 matrix:
   include:
     - node_js: 6.9
-      env: RUN_THE_ACTUAL_BUILD=true
+      env: RUN_THE_ACTUAL_BUILD=true PUBLISH_TO_NPM=true
     - node_js: 8
       env: RUN_THE_ACTUAL_BUILD=true
     - node_js: 10
@@ -43,4 +43,4 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
-    node: "6.9"
+    condition: $PUBLISH_TO_NPM = true
