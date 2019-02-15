@@ -4,7 +4,7 @@ import createHttpClient from '../../src/create-http-client';
 const httpClient = createHttpClient({ apiKey: 'test' });
 const mollie = createMollieApi({ httpClient });
 
-describe('mollie', () => {
+describe('create-mollie-api', () => {
   it('should add a version string', () => {
     httpClient.defaults.headers['User-Agent'] = '';
     mollie.addVersionString('ReactionCommerce/1.16.0');
