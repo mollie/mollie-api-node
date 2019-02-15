@@ -2,8 +2,14 @@ import axios from 'axios';
 import httpAdapter from 'axios/lib/adapters/http';
 import dotenv from 'dotenv';
 
-import mollie from '../../src/mollie';
 import Payment from '../../src/models/Payment';
+
+let mollie;
+if (process.env.RUN_THE_ACTUAL_BUILD === 'true' || process.env.RUN_THE_ACTUAL_BUILD === 'cjs') {
+  mollie = require('../../dist/cjs/mollie');
+} else {
+  mollie = require('../../src/mollie').default;
+}
 
 /**
  * Overwrite the default XMLHttpRequestAdapter

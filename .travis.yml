@@ -1,11 +1,40 @@
-sudo: false
 language: node_js
-node_js:
-  - "node"
-cache: yarn
+dist: xenial
+sudo: false
+
+matrix:
+  include:
+    - node_js: 6.9
+      env: RUN_THE_ACTUAL_BUILD=true
+    - node_js: 8
+      env: RUN_THE_ACTUAL_BUILD=true
+    - node_js: 10
+      env: RUN_THE_ACTUAL_BUILD=true
+    - node_js: 11
+      env: RUN_THE_ACTUAL_BUILD=true
+    - node_js: 11
+      env: RUN_THE_ACTUAL_BUILD=false
+
+before_install:
+  - >
+    if $(dpkg --compare-versions "${TRAVIS_NODE_VERSION}" "le" "11"); then
+      nvm install 11
+      nvm use 11
+    fi
+
+before_script:
+  - nvm use ${TRAVIS_NODE_VERSION}
+
 script:
-   - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then yarn run test:unit:cov; fi'
-   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then yarn run test:cov; fi'
+   - >
+     if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then
+       npm run test:unit:cov
+     fi
+   - >
+     if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then
+       npm run test:cov
+     fi
+
 deploy:
   provider: npm
   api_key:
@@ -14,4 +43,4 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
-    node: "4.8"
+    node: "6.9"
