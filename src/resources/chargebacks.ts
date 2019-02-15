@@ -6,6 +6,7 @@ import ApiException from '../exceptions/ApiException';
 
 import { IListParams } from '../types/chargeback/params';
 import { ListCallback } from '../types/chargeback/callback';
+import NotImplementedException from '../exceptions/NotImplementedException';
 
 /**
  * The `chargebacks` resource
@@ -65,34 +66,34 @@ export default class ChargebacksResource extends Resource {
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async create(): Promise<Chargeback> {
-    throw new ApiException(`The method "create" does not exist on the "${this.apiName}"`);
+    throw new NotImplementedException('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async update(id: string, data: any, cb?: Function): Promise<Chargeback> {
-    throw new ApiException(`The method "update" does not exist on the "${this.apiName}"`);
+    throw new NotImplementedException('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async get(id: string, params: any, cb?: Function): Promise<Chargeback> {
-    throw new ApiException(`The method "get" does not exist on the "${this.apiName}"`);
+    throw new NotImplementedException('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async cancel(): Promise<boolean> {
-    throw new ApiException(`The method "cancel" does not exist on the "${this.apiName}"`);
+    throw new NotImplementedException('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async delete(): Promise<boolean> {
-    throw new ApiException(`The method "delete" does not exist on the "${this.apiName}"`);
+    throw new NotImplementedException('This method does not exist', this.apiName);
   }
 }

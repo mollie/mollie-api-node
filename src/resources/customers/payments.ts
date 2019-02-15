@@ -3,11 +3,11 @@ import { defaults, get, startsWith } from 'lodash';
 import CustomersBaseResource from './base';
 import Payment from '../../models/Payment';
 import List from '../../models/List';
-import ApiException from '../../exceptions/ApiException';
 import { ICreateParams, IListParams } from '../../types/customer/payment/params';
 import { CreateCallback, ListCallback } from '../../types/customer/payment/callback';
 import Customer from '../../models/Customer';
 import Resource from '../../resource';
+import NotImplementedException from '../../exceptions/NotImplementedException';
 
 /**
  * The `customers_payments` resource.
@@ -110,27 +110,27 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async get(): Promise<Payment> {
-    throw new ApiException(`The method "get" does not exist on the "${this.apiName}"`);
+    throw new NotImplementedException('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async update(): Promise<Payment> {
-    throw new ApiException(`The method "update" does not exist on the "${this.apiName}"`);
+    throw new NotImplementedException('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async delete(): Promise<boolean> {
-    throw new ApiException(`The method "delete" does not exist on the "${this.apiName}"`);
+    throw new NotImplementedException('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async cancel(): Promise<boolean> {
-    throw new ApiException(`The method "cancel" does not exist on the "${this.apiName}"`);
+    throw new NotImplementedException('This method does not exist', this.apiName);
   }
 }

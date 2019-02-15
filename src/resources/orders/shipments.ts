@@ -2,12 +2,12 @@ import { defaults, get, startsWith } from 'lodash';
 
 import Shipment from '../../models/Shipment';
 import List from '../../models/List';
-import ApiException from '../../exceptions/ApiException';
 import OrdersBaseResource from './base';
 import { ICreateParams, IGetParams, IListParams, IUpdateParams } from '../../types/shipment/params';
 import { CreateCallback, GetCallback, ListCallback, UpdateCallback } from '../../types/shipment/callback';
 import Order from '../../models/Order';
 import Resource from '../../resource';
+import NotImplementedException from '../../exceptions/NotImplementedException';
 
 /**
  * The `order_shipments` resource
@@ -206,13 +206,13 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async cancel(): Promise<boolean> {
-    throw new ApiException(`The method "cancel" does not exist on the "${this.apiName}"`);
+    throw new NotImplementedException('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async delete(): Promise<boolean> {
-    throw new ApiException(`The method "delete" does not exist on the "${this.apiName}"`);
+    throw new NotImplementedException('This method does not exist', this.apiName);
   }
 }

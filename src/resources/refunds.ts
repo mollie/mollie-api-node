@@ -1,9 +1,9 @@
 import Resource from '../resource';
 import Refund from '../models/Refund';
 import List from '../models/List';
-import ApiException from '../exceptions/ApiException';
 import { IListParams } from '../types/refund/params';
 import { ListCallback } from '../types/refund/callback';
+import NotImplementedException from '../exceptions/NotImplementedException';
 
 /**
  * The `refunds` resource
@@ -61,34 +61,34 @@ export default class RefundsResource extends Resource {
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async create(): Promise<Refund> {
-    throw new ApiException(`The method "create" does not exist on the "${this.apiName}"`);
+    throw new NotImplementedException('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async get(): Promise<Refund> {
-    throw new ApiException(`The method "get" does not exist on the "${this.apiName}"`);
+    throw new NotImplementedException('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async update(): Promise<Refund> {
-    throw new ApiException(`The method "update" does not exist on the "${this.apiName}"`);
+    throw new NotImplementedException('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async cancel(): Promise<boolean> {
-    throw new ApiException(`The method "cancel" does not exist on the "${this.apiName}"`);
+    throw new NotImplementedException('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async delete(): Promise<boolean> {
-    throw new ApiException(`The method "delete" does not exist on the "${this.apiName}"`);
+    throw new NotImplementedException('This method does not exist', this.apiName);
   }
 }

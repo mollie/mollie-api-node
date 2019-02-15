@@ -3,11 +3,11 @@ import { defaults, get, startsWith } from 'lodash';
 import CustomersBaseResource from './base';
 import List from '../../models/List';
 import Mandate from '../../models/Mandate';
-import ApiException from '../../exceptions/ApiException';
 import { ICreateParams, IGetParams, IListParams, IRevokeParams } from '../../types/mandate/params';
 import { CreateCallback, GetCallback, ListCallback, RevokeCallback } from '../../types/mandate/callback';
 import Customer from '../../models/Customer';
 import Resource from '../../resource';
+import NotImplementedException from '../../exceptions/NotImplementedException';
 
 /**
  * The `customers_mandates` resource
@@ -206,6 +206,6 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async update(): Promise<Mandate> {
-    throw new ApiException(`The method "update" is not available on the "${this.apiName}"`);
+    throw new NotImplementedException('This method does not exist', this.apiName);
   }
 }

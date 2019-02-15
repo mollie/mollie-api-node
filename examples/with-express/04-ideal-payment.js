@@ -18,7 +18,12 @@ app.get('/', (req, res) => {
       .then(methods => methods.filter(({ id }) => id === 'ideal'))
       .then(methods => {
         res.send(`<form>
-        ${methods.map(method => `<h2>Select ${method.description} issuer</h2><select name="issuer">${method.issuers.map(issuer => `<option value="${issuer.id}">${issuer.name}</option>`)}</select>`)}
+        ${methods.map(
+          method => `
+          <h2>Select ${method.description} issuer</h2>
+          <select name="issuer">${method.issuers.map(issuer => `<option value="${issuer.id}">${issuer.name}</option>`)}</select>
+        `,
+        )}
         <button>Select issuer</button>
         </form>`);
       })

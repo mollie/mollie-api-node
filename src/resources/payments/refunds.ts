@@ -3,11 +3,11 @@ import { defaults, get, startsWith } from 'lodash';
 import PaymentsResource from './base';
 import Refund from '../../models/Refund';
 import List from '../../models/List';
-import ApiException from '../../exceptions/ApiException';
 import { ICancelParams, ICreateParams, IGetParams, IListParams } from '../../types/payment/refund/params';
 import { CancelCallback, CreateCallback, GetCallback, ListCallback } from '../../types/payment/refund/callback';
 import Payment from '../../models/Payment';
 import Resource from '../../resource';
+import NotImplementedException from '../../exceptions/NotImplementedException';
 
 /**
  * The `payments_refunds` resource
@@ -193,6 +193,6 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async update(): Promise<Refund> {
-    throw new ApiException(`The method "update" does not exist on the "${this.apiName}"`);
+    throw new NotImplementedException('This method does not exist', this.apiName);
   }
 }

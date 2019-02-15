@@ -1,9 +1,9 @@
 import Resource from '../resource';
 import Method from '../models/Method';
 import List from '../models/List';
-import ApiException from '../exceptions/ApiException';
 import { IGetParams, IListParams } from '../types/method/params';
 import { GetCallback, ListCallback } from '../types/method/callback';
+import NotImplementedException from '../exceptions/NotImplementedException';
 
 /**
  * The `methods` resource
@@ -93,27 +93,27 @@ export default class MethodsResource extends Resource {
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async create(): Promise<Method> {
-    throw new ApiException(`The method "create" is not available on the "${this.apiName}"`);
+    throw new NotImplementedException('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async update(): Promise<Method> {
-    throw new ApiException(`The method "update" is not available on the "${this.apiName}"`);
+    throw new NotImplementedException('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async cancel(): Promise<boolean> {
-    throw new ApiException(`The method "cancel" is not available on the "${this.apiName}"`);
+    throw new NotImplementedException('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async delete(): Promise<boolean> {
-    throw new ApiException(`The method "delete" is not available on the "${this.apiName}"`);
+    throw new NotImplementedException('This method does not exist', this.apiName);
   }
 }

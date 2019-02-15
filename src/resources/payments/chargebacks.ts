@@ -1,13 +1,13 @@
 import { defaults, get, startsWith } from 'lodash';
 
 import PaymentsBaseResource from '../../resources/payments/base';
-import ApiException from '../../exceptions/ApiException';
 import Chargeback from '../../models/Chargeback';
 import List from '../../models/List';
 import Payment from '../../models/Payment';
 import { IGetParams, IListParams } from '../../types/payment/chargeback/params';
 import { GetCallback, ListCallback } from '../../types/payment/chargeback/callback';
 import Resource from '../../resource';
+import NotImplementedException from '../../exceptions/NotImplementedException';
 
 /**
  * The `payments_chargebacks` resource
@@ -122,27 +122,27 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async create(): Promise<Chargeback> {
-    throw new ApiException(`The method "create" does not exist on the "${this.apiName}"`);
+    throw new NotImplementedException('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async update(): Promise<Chargeback> {
-    throw new ApiException(`The method "update" does not exist on the "${this.apiName}"`);
+    throw new NotImplementedException('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async cancel(): Promise<boolean> {
-    throw new ApiException(`The method "cancel" does not exist on the "${this.apiName}"`);
+    throw new NotImplementedException('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async delete(): Promise<boolean> {
-    throw new ApiException(`The method "delete" does not exist on the "${this.apiName}"`);
+    throw new NotImplementedException('This method does not exist', this.apiName);
   }
 }
