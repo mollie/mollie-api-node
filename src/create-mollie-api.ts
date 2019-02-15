@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { AxiosInstance } from 'axios';
+import { trimStart } from 'lodash';
 
 import PaymentsResource from './resources/payments';
 import PaymentsRefundsResource from './resources/payments/refunds';
@@ -22,6 +23,8 @@ interface ICreateMollieApi {
 }
 
 export interface IMollieApiClient {
+  addVersionString(versionString: string): void;
+
   payments: PaymentsResource;
   methods: MethodsResource;
   payments_refunds: PaymentsRefundsResource;
@@ -48,6 +51,25 @@ export interface IMollieApiClient {
  */
 export default function createMollieApi({ httpClient }: ICreateMollieApi): IMollieApiClient {
   return {
+    addVersionString(versionString: string): void {
+      // Validate the version string
+      if (versionString.split('/').length !== 2) {
+        throw new Error('Invalid version string. It needs to consist of a name and version separated by a forward slash, e.g. PHP/7.1.12');
+      }
+      if (/\s/.test(versionString.split('/')[1])) {
+        throw new Error('Invalid version string. The version may not contain any whitespace.');
+      }
+
+      // Replace whitespace in platform name with camelCase (first char stays untouched)
+      const platform = versionString
+        .split('/')[0]
+        .replace(/(?:^\w|[A-Z]|\b\w)/g, (letter, index) => (index > 0 ? letter.toUpperCase() : letter))
+        .replace(/\s+/g, '');
+      const version = versionString.split('/')[1];
+
+      httpClient.defaults.headers['User-Agent'] = trimStart(`${httpClient.defaults.headers['User-Agent'] || ''} ${platform}/${version}`);
+    },
+
     // Payments API
     payments: new PaymentsResource(httpClient),
     // Methods API
