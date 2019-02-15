@@ -36,11 +36,12 @@ export enum PaymentMethod {
   ideal = 'ideal',
   inghomepay = 'inghomepay',
   kbc = 'kbc',
-  paypal = 'paypal',
-  paysafecard = 'paysafecard',
-  sofort = 'sofort',
   klarnapaylater = 'klarnapaylater',
   klarnasliceit = 'klarnasliceit',
+  paypal = 'paypal',
+  paysafecard = 'paysafecard',
+  przelewy24 = 'przelewy24',
+  sofort = 'sofort',
 }
 
 export enum ApiMode {
