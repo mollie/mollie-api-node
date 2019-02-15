@@ -3,20 +3,8 @@ import { defaults, get, startsWith } from 'lodash';
 import CustomersBaseResource from './base';
 import Subscription from '../../../models/Subscription';
 import List from '../../../models/List';
-import {
-  ICancelParams,
-  ICreateParams,
-  IGetParams,
-  IListParams,
-  IUpdateParams,
-} from '../../../types/subscription/params';
-import {
-  CancelCallback,
-  CreateCallback,
-  GetCallback,
-  ListCallback,
-  UpdateCallback,
-} from '../../../types/subscription/callback';
+import { ICancelParams, ICreateParams, IGetParams, IListParams, IUpdateParams } from '../../../types/subscription/params';
+import { CancelCallback, CreateCallback, GetCallback, ListCallback, UpdateCallback } from '../../../types/subscription/callback';
 import Customer from '../../../models/Customer';
 import Resource from '../../../resource';
 
@@ -102,24 +90,14 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(id, Subscription.resourcePrefix)) {
-        throw Resource.errorHandler(
-          { error: { message: 'The subscription id is invalid' } },
-          typeof params === 'function' ? params : cb,
-        );
+        throw Resource.errorHandler({ error: { message: 'The subscription id is invalid' } }, typeof params === 'function' ? params : cb);
       }
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        throw Resource.errorHandler(
-          { error: { message: 'The customer id is invalid' } },
-          typeof params === 'function' ? params : cb,
-        );
+        throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, typeof params === 'function' ? params : cb);
       }
       this.setParentId(customerId);
 
-      return super.get(
-        id,
-        typeof params === 'function' ? null : params,
-        typeof params === 'function' ? params : cb,
-      ) as Promise<Subscription>;
+      return super.get(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Subscription>;
     }
 
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
@@ -158,10 +136,7 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
       }
       this.setParentId(customerId);
 
-      return super.list(
-        typeof params === 'function' ? null : params,
-        typeof params === 'function' ? params : cb,
-      ) as Promise<List<Subscription>>;
+      return super.list(typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<List<Subscription>>;
     }
 
     const { customerId, ...parameters } = defaults(params, { customerId: this.parentId });
@@ -193,24 +168,14 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(id, Subscription.resourcePrefix)) {
-        throw Resource.errorHandler(
-          { error: { message: 'The subscription id is invalid' } },
-          typeof params === 'function' ? params : cb,
-        );
+        throw Resource.errorHandler({ error: { message: 'The subscription id is invalid' } }, typeof params === 'function' ? params : cb);
       }
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        throw Resource.errorHandler(
-          { error: { message: 'The customer id is invalid' } },
-          typeof params === 'function' ? params : cb,
-        );
+        throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, typeof params === 'function' ? params : cb);
       }
       this.setParentId(customerId);
 
-      return super.update(
-        id,
-        typeof params === 'function' ? null : params,
-        typeof params === 'function' ? params : cb,
-      ) as Promise<Subscription>;
+      return super.update(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Subscription>;
     }
 
     if (!startsWith(id, Subscription.resourcePrefix)) {
@@ -245,25 +210,15 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Subscription.resourcePrefix)) {
-        throw Resource.errorHandler(
-          { error: { message: 'The subscription id is invalid' } },
-          typeof params === 'function' ? params : cb,
-        );
+        throw Resource.errorHandler({ error: { message: 'The subscription id is invalid' } }, typeof params === 'function' ? params : cb);
       }
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        throw Resource.errorHandler(
-          { error: { message: 'The customer id is invalid' } },
-          typeof params === 'function' ? params : cb,
-        );
+        throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, typeof params === 'function' ? params : cb);
       }
       this.setParentId(customerId);
 
-      return super.delete(
-        id,
-        typeof params === 'function' ? null : params,
-        typeof params === 'function' ? params : cb,
-      ) as Promise<Subscription>;
+      return super.delete(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Subscription>;
     }
 
     if (!startsWith(id, Subscription.resourcePrefix)) {

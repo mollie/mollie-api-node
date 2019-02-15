@@ -4,13 +4,7 @@ import CustomersBaseResource from './base';
 import Customer from '../../models/Customer';
 import List from '../../models/List';
 import { ICreateParams, IDeleteParams, IGetParams, IListParams, IUpdateParams } from '../../types/customer/params';
-import {
-  CreateCallback,
-  DeleteCallback,
-  GetCallback,
-  ListCallback,
-  UpdateCallback,
-} from '../../types/customer/callback';
+import { CreateCallback, DeleteCallback, GetCallback, ListCallback, UpdateCallback } from '../../types/customer/callback';
 import Resource from '../../resource';
 
 /**
@@ -94,17 +88,10 @@ export default class CustomersResource extends CustomersBaseResource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Customer.resourcePrefix)) {
-        throw Resource.errorHandler(
-          { error: { message: 'The customer id is invalid' } },
-          typeof params === 'function' ? params : cb,
-        );
+        throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, typeof params === 'function' ? params : cb);
       }
 
-      return super.get(
-        id,
-        typeof params === 'function' ? null : params,
-        typeof params === 'function' ? params : cb,
-      ) as Promise<Customer>;
+      return super.get(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Customer>;
     }
 
     if (!startsWith(id, Customer.resourcePrefix)) {
@@ -130,10 +117,7 @@ export default class CustomersResource extends CustomersBaseResource {
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Customer>> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
-      return super.list(
-        typeof params === 'function' ? null : params,
-        typeof params === 'function' ? params : cb,
-      ) as Promise<List<Customer>>;
+      return super.list(typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<List<Customer>>;
     }
 
     return super.list(params, cb) as Promise<List<Customer>>;
@@ -158,17 +142,10 @@ export default class CustomersResource extends CustomersBaseResource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Customer.resourcePrefix)) {
-        throw Resource.errorHandler(
-          { error: { message: 'The customer id is invalid' } },
-          typeof params === 'function' ? params : cb,
-        );
+        throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, typeof params === 'function' ? params : cb);
       }
 
-      return super.update(
-        id,
-        typeof params === 'function' ? null : params,
-        typeof params === 'function' ? params : cb,
-      ) as Promise<Customer>;
+      return super.update(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Customer>;
     }
 
     if (!startsWith(id, Customer.resourcePrefix)) {
@@ -196,17 +173,10 @@ export default class CustomersResource extends CustomersBaseResource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Customer.resourcePrefix)) {
-        throw Resource.errorHandler(
-          { error: { message: 'The customer id is invalid' } },
-          typeof params === 'function' ? params : cb,
-        );
+        throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, typeof params === 'function' ? params : cb);
       }
 
-      return super.delete(
-        id,
-        typeof params === 'function' ? null : params,
-        typeof params === 'function' ? params : cb,
-      ) as Promise<boolean>;
+      return super.delete(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<boolean>;
     }
 
     if (!startsWith(id, Customer.resourcePrefix)) {

@@ -83,22 +83,7 @@ export interface IAddress {
   country: string;
 }
 
-export type CardLabel =
-  | 'American'
-  | 'Express'
-  | 'Carta Si'
-  | 'Carte Bleue'
-  | 'Dankort'
-  | 'Diners'
-  | 'Club'
-  | 'Discover'
-  | 'JCB'
-  | 'Laser'
-  | 'Maestro'
-  | 'Mastercard'
-  | 'Unionpay'
-  | 'Visa'
-  | null;
+export type CardLabel = 'American' | 'Express' | 'Carta Si' | 'Carte Bleue' | 'Dankort' | 'Diners' | 'Club' | 'Discover' | 'JCB' | 'Laser' | 'Maestro' | 'Mastercard' | 'Unionpay' | 'Visa' | null;
 
 export type CardFailureReason =
   | 'invalid_card_number'

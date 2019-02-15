@@ -55,10 +55,7 @@ export default class ChargebacksResource extends Resource {
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Chargeback>> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
-      return super.list(
-        typeof params === 'function' ? null : params,
-        typeof params === 'function' ? params : cb,
-      ) as Promise<List<Chargeback>>;
+      return super.list(typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<List<Chargeback>>;
     }
 
     return super.list(params, cb) as Promise<List<Chargeback>>;

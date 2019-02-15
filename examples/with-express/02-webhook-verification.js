@@ -18,7 +18,7 @@ const mollieClient = mollie({ apiKey: 'test_buC3bBQfSQhd4dDUeMctJjDCn3GhP4' });
 app.post('/webhook', (req, res) => {
   mollieClient.payments
     .get(req.body.id)
-    .then((payment) => {
+    .then(payment => {
       if (payment.isPaid()) {
         // Hooray, you've received a payment! You can start shipping to the consumer.
       } else if (!payment.isOpen()) {
@@ -26,7 +26,7 @@ app.post('/webhook', (req, res) => {
       }
       res.send(payment.status);
     })
-    .catch((error) => {
+    .catch(error => {
       // Do some proper error handling.
       res.send(error);
     });

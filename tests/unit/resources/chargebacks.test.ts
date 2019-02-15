@@ -19,20 +19,21 @@ describe('chargebacks', () => {
   describe('.list()', () => {
     mock.onGet('/chargebacks').reply(200, response);
 
-    it('should return a list of all chargebacks', (done) => {
-      chargebacks.list()
-        .then((result) => {
+    it('should return a list of all chargebacks', done => {
+      chargebacks
+        .list()
+        .then(result => {
           expect(result).toBeInstanceOf(Array);
           expect(result).toHaveProperty('links');
           expect(result).toMatchSnapshot();
           done();
         })
-        .catch((error) => {
+        .catch(error => {
           expect(error).toBeUndefined();
         });
     });
 
-    it('should work with a callback', (done) => {
+    it('should work with a callback', done => {
       chargebacks.list(null, (err: any, chargebacks: List<Chargeback>) => {
         expect(err).toBeNull();
         expect(chargebacks).toBeInstanceOf(Array);

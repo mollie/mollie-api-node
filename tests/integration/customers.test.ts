@@ -25,7 +25,7 @@ describe('customers', () => {
   it('should integrate', done =>
     mollieClient.customers
       .all()
-      .then((customers) => {
+      .then(customers => {
         expect(customers).toBeDefined();
 
         const mandates = mollieClient.customers_mandates.list({
@@ -44,19 +44,9 @@ describe('customers', () => {
             expect(payments).toBeDefined();
             expect(subscriptions).toBeDefined();
 
-            const mandate = mandates[0]
-              ? mollieClient.customers_mandates.get(mandates[0].id, {
-                customerId: customers[0].id,
-              })
-              : Promise.resolve('true');
-            const payment = payments[0]
-              ? mollieClient.payments.get(payments[0].id)
-              : Promise.resolve('true');
-            const subscription = subscriptions[0]
-              ? mollieClient.customers_subscriptions.get(subscriptions[0].id, {
-                customerId: customers[0].id,
-              })
-              : Promise.resolve('true');
+            const mandate = mandates[0] ? mollieClient.customers_mandates.get(mandates[0].id, { customerId: customers[0].id }) : Promise.resolve('true');
+            const payment = payments[0] ? mollieClient.payments.get(payments[0].id) : Promise.resolve('true');
+            const subscription = subscriptions[0] ? mollieClient.customers_subscriptions.get(subscriptions[0].id, { customerId: customers[0].id }) : Promise.resolve('true');
 
             // @ts-ignore
             Promise.all([mandate, payment, subscription])
@@ -66,7 +56,7 @@ describe('customers', () => {
                 expect(subscription).toBeDefined();
                 done();
               })
-              .catch((err) => {
+              .catch(err => {
                 expect(err).toEqual({
                   error: {
                     message: 'The subscription has been cancelled',
@@ -76,12 +66,12 @@ describe('customers', () => {
                 done();
               });
           })
-          .catch((err) => {
+          .catch(err => {
             expect(err).toBeUndefined();
             done();
           });
       })
-      .catch((err) => {
+      .catch(err => {
         expect(err).toBeUndefined();
         done();
       }));

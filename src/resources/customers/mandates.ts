@@ -98,25 +98,15 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Mandate.resourcePrefix)) {
-        throw Resource.errorHandler(
-          { error: { message: 'The customers_mandate id is invalid' } },
-          typeof params === 'function' ? params : cb,
-        );
+        throw Resource.errorHandler({ error: { message: 'The customers_mandate id is invalid' } }, typeof params === 'function' ? params : cb);
       }
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        throw Resource.errorHandler(
-          { error: { message: 'The customer id is invalid' } },
-          typeof params === 'function' ? params : cb,
-        );
+        throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, typeof params === 'function' ? params : cb);
       }
       this.setParentId(customerId);
 
-      return super.get(
-        id,
-        typeof params === 'function' ? null : params,
-        typeof params === 'function' ? params : cb,
-      ) as Promise<Mandate>;
+      return super.get(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Mandate>;
     }
 
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
@@ -151,17 +141,11 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        throw Resource.errorHandler(
-          { error: { message: 'The customer id is invalid' } },
-          typeof params === 'function' ? params : cb,
-        );
+        throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, typeof params === 'function' ? params : cb);
       }
       this.setParentId(customerId);
 
-      return super.list(
-        typeof params === 'function' ? null : params,
-        typeof params === 'function' ? params : cb,
-      ) as Promise<List<Mandate>>;
+      return super.list(typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<List<Mandate>>;
     }
 
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
@@ -195,24 +179,14 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(id, Mandate.resourcePrefix)) {
-        throw Resource.errorHandler(
-          { error: { message: 'The customers_mandate id is invalid' } },
-          typeof params === 'function' ? params : cb,
-        );
+        throw Resource.errorHandler({ error: { message: 'The customers_mandate id is invalid' } }, typeof params === 'function' ? params : cb);
       }
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        throw Resource.errorHandler(
-          { error: { message: 'The customer id is invalid' } },
-          typeof params === 'function' ? params : cb,
-        );
+        throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, typeof params === 'function' ? params : cb);
       }
       this.setParentId(customerId);
 
-      return super.delete(
-        id,
-        typeof params === 'function' ? null : params,
-        typeof params === 'function' ? params : cb,
-      ) as Promise<Mandate>;
+      return super.delete(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Mandate>;
     }
 
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)

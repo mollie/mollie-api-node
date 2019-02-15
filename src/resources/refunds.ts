@@ -51,10 +51,7 @@ export default class RefundsResource extends Resource {
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Refund>> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
-      return super.list(
-        typeof params === 'function' ? null : params,
-        typeof params === 'function' ? params : cb,
-      ) as Promise<List<Refund>>;
+      return super.list(typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<List<Refund>>;
     }
 
     return super.list(params, cb);

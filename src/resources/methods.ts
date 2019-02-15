@@ -34,17 +34,10 @@ export default class MethodsResource extends Resource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!id) {
-        throw Resource.errorHandler(
-          { error: { message: 'The method id is invalid' } },
-          typeof params === 'function' ? params : cb,
-        );
+        throw Resource.errorHandler({ error: { message: 'The method id is invalid' } }, typeof params === 'function' ? params : cb);
       }
 
-      return super.get(
-        id,
-        typeof params === 'function' ? null : params,
-        typeof params === 'function' ? params : cb,
-      ) as Promise<Method>;
+      return super.get(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Method>;
     }
 
     if (!id) {
@@ -90,10 +83,7 @@ export default class MethodsResource extends Resource {
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Method>> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
-      return super.list(
-        typeof params === 'function' ? null : params,
-        typeof params === 'function' ? params : cb,
-      ) as Promise<List<Method>>;
+      return super.list(typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<List<Method>>;
     }
 
     return super.list(params, cb) as Promise<List<Method>>;

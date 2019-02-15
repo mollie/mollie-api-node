@@ -31,13 +31,13 @@ describe('refunds', () => {
     mock.onGet('/refunds').reply(200, response);
 
     it('should return a list of all payment refunds', () =>
-      refunds.all().then((result) => {
+      refunds.all().then(result => {
         expect(result).toBeInstanceOf(Array);
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
       }));
 
-    it('should work with a callback', (done) => {
+    it('should work with a callback', done => {
       refunds
         .withParent({
           resource: 'payment',

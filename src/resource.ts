@@ -108,10 +108,7 @@ export default class Resource {
     }
 
     try {
-      const response: AxiosResponse = await this.getClient().post(
-        `${this.getResourceUrl()}${qs.stringify(query, { addQueryPrefix: true })}`,
-        params,
-      );
+      const response: AxiosResponse = await this.getClient().post(`${this.getResourceUrl()}${qs.stringify(query, { addQueryPrefix: true })}`, params);
 
       // noinspection JSPotentiallyInvalidConstructorUsage
       const model = new (this.constructor as any).model(response.data);
@@ -152,9 +149,7 @@ export default class Resource {
     }
 
     try {
-      const response: AxiosResponse = await this.getClient().get(
-        `${this.getResourceUrl()}/${id}${qs.stringify(query, { addQueryPrefix: true })}`,
-      );
+      const response: AxiosResponse = await this.getClient().get(`${this.getResourceUrl()}/${id}${qs.stringify(query, { addQueryPrefix: true })}`);
 
       // noinspection JSPotentiallyInvalidConstructorUsage
       const model = new (this.constructor as any).model(response.data);
@@ -202,9 +197,7 @@ export default class Resource {
         }
       }
 
-      const response: AxiosResponse = await this.getClient().get(
-        `${this.getResourceUrl()}${qs.stringify(query, { addQueryPrefix: true })}`,
-      );
+      const response: AxiosResponse = await this.getClient().get(`${this.getResourceUrl()}${qs.stringify(query, { addQueryPrefix: true })}`);
       const resourceName = this.getResourceName();
       const list = List.buildResourceList({
         response: response.data,

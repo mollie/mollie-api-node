@@ -56,17 +56,11 @@ export default class OrdersRefundsResource extends OrdersResource {
     if (typeof params === 'function' || typeof cb === 'function') {
       const orderId = get(params, 'orderId') || this.parentId;
       if (!startsWith(orderId, Order.resourcePrefix)) {
-        throw Resource.errorHandler(
-          { error: { message: 'The order id is invalid' } },
-          typeof params === 'function' ? params : cb,
-        );
+        throw Resource.errorHandler({ error: { message: 'The order id is invalid' } }, typeof params === 'function' ? params : cb);
       }
       this.setParentId(orderId);
 
-      return super.create(
-        typeof params === 'function' ? null : params,
-        typeof params === 'function' ? params : cb,
-      ) as Promise<Refund>;
+      return super.create(typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Refund>;
     }
 
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
@@ -102,10 +96,7 @@ export default class OrdersRefundsResource extends OrdersResource {
       }
       this.setParentId(orderId);
 
-      return super.list(
-        typeof params === 'function' ? null : params,
-        typeof params === 'function' ? params : cb,
-      ) as Promise<List<Order>>;
+      return super.list(typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<List<Order>>;
     }
 
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)

@@ -32,12 +32,12 @@ describe('payments_refunds', () => {
     mock.onPost(`/payments/${props.paymentId}/refunds`).reply(200, response._embedded.refunds[0]);
 
     it('should return a refund instance', () =>
-      paymentsRefunds.create(props).then((result) => {
+      paymentsRefunds.create(props).then(result => {
         expect(result).toBeInstanceOf(PaymentRefund);
         expect(result).toMatchSnapshot();
       }));
 
-    it('should work with a callback', (done) => {
+    it('should work with a callback', done => {
       paymentsRefunds.create(props, (err, result) => {
         expect(result).toBeInstanceOf(PaymentRefund);
         expect(result).toMatchSnapshot();
@@ -49,13 +49,11 @@ describe('payments_refunds', () => {
   describe('.get()', () => {
     const error = { error: { message: 'The payments_refund id is invalid' } };
 
-    mock
-      .onGet(`/payments/${props.paymentId}/refunds/${props.id}`)
-      .reply(200, response._embedded.refunds[0]);
+    mock.onGet(`/payments/${props.paymentId}/refunds/${props.id}`).reply(200, response._embedded.refunds[0]);
     mock.onGet(`/payments/${props.paymentId}/refunds/foo`).reply(500, error);
 
     it('should return a refund instance', () =>
-      paymentsRefunds.get(props.id, { paymentId: props.paymentId }).then((result) => {
+      paymentsRefunds.get(props.id, { paymentId: props.paymentId }).then(result => {
         expect(result).toBeInstanceOf(PaymentRefund);
         expect(result).toMatchSnapshot();
       }));
@@ -66,7 +64,7 @@ describe('payments_refunds', () => {
         .then(() => {
           throw new Error('Should reject');
         })
-        .catch((err) => {
+        .catch(err => {
           expect(err).toEqual(error);
         }));
   });
@@ -76,24 +74,25 @@ describe('payments_refunds', () => {
     mock.onGet(`/payments/${props.paymentId}/refunds`).reply(200, response);
 
     it('should return a list of all payment refunds', () =>
-      paymentsRefunds.all({ paymentId: props.paymentId }).then((result) => {
+      paymentsRefunds.all({ paymentId: props.paymentId }).then(result => {
         expect(result).toBeInstanceOf(Array);
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
       }));
 
-    it('should throw an error if "paymentId" is not set', (done) => {
-      paymentsRefunds.all(undefined)
+    it('should throw an error if "paymentId" is not set', done => {
+      paymentsRefunds
+        .all(undefined)
         .then(() => {
           throw new Error('This should error out instead');
         })
-        .catch((err) => {
+        .catch(err => {
           expect(err).toEqual(error);
           done();
         });
     });
 
-    it('should work with a callback', (done) => {
+    it('should work with a callback', done => {
       paymentsRefunds
         .withParent({
           resource: 'payment',
@@ -108,20 +107,20 @@ describe('payments_refunds', () => {
         });
     });
 
-    it('should work with a Promise and with .withParent()', (done) => {
+    it('should work with a Promise and with .withParent()', done => {
       paymentsRefunds
         .withParent({
           resource: 'payment',
           id: props.paymentId,
         })
         .all(undefined)
-        .then((result) => {
+        .then(result => {
           expect(result).toBeInstanceOf(Array);
           expect(result).toHaveProperty('links');
           expect(result).toMatchSnapshot();
           done();
         })
-        .catch((err) => {
+        .catch(err => {
           expect(err).toBeUndefined();
           done();
         });
@@ -129,17 +128,15 @@ describe('payments_refunds', () => {
   });
 
   describe('.cancel()', () => {
-    mock
-      .onDelete(`/payments/${props.paymentId}/refunds/${props.id}`)
-      .reply(200, response._embedded.refunds[0]);
+    mock.onDelete(`/payments/${props.paymentId}/refunds/${props.id}`).reply(200, response._embedded.refunds[0]);
 
     it('should return a refund instance', () =>
-      paymentsRefunds.cancel(props.id, { paymentId: props.paymentId }).then((result) => {
+      paymentsRefunds.cancel(props.id, { paymentId: props.paymentId }).then(result => {
         expect(result).toBeInstanceOf(PaymentRefund);
         expect(result).toMatchSnapshot();
       }));
 
-    it('should work with a callback and legacy delete', (done) => {
+    it('should work with a callback and legacy delete', done => {
       paymentsRefunds
         .withParent({
           resource: 'payment',

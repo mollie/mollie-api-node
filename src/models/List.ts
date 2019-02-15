@@ -3,7 +3,9 @@ import { IListLinks } from '../types/global';
 import Model from '../model';
 import { ResourceCallback } from '../resource';
 
-interface IInstantiable<T = any> { new (...args: Array<any>): T }
+interface IInstantiable<T = any> {
+  new (...args: Array<any>): T;
+}
 
 interface IResourceListParams {
   response: {
@@ -47,14 +49,7 @@ export default class List<T> extends Array {
     return {};
   }
 
-  public static buildResourceList({
-    response,
-    resourceName,
-    params,
-    callback,
-    getResources,
-    Model,
-  }: IResourceListParams): List<Model> {
+  public static buildResourceList({ response, resourceName, params, callback, getResources, Model }: IResourceListParams): List<Model> {
     const { _embedded, count, _links } = response;
     const resources = _embedded[resourceName];
     const list = new List();

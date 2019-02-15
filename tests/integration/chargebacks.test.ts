@@ -25,11 +25,11 @@ describe('chargebacks', () => {
   it('should integrate', done =>
     mollieClient.chargebacks
       .all()
-      .then((chargebacks) => {
+      .then(chargebacks => {
         expect(chargebacks).toBeDefined();
         done();
       })
-      .catch((err) => {
+      .catch(err => {
         expect(err).toBeUndefined();
         done();
       }));

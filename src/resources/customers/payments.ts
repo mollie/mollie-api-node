@@ -56,17 +56,11 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        throw Resource.errorHandler(
-          { error: { message: 'The customer id is invalid' } },
-          typeof params === 'function' ? params : cb,
-        );
+        throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, typeof params === 'function' ? params : cb);
       }
       this.setParentId(customerId);
 
-      return super.create(
-        typeof params === 'function' ? null : params,
-        typeof params === 'function' ? params : cb,
-      ) as Promise<Payment>;
+      return super.create(typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Payment>;
     }
 
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
@@ -95,17 +89,11 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        throw Resource.errorHandler(
-          { error: { message: 'The customer id is invalid' } },
-          typeof params === 'function' ? params : cb,
-        );
+        throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, typeof params === 'function' ? params : cb);
       }
       this.setParentId(customerId);
 
-      return super.list(
-        typeof params === 'function' ? null : params,
-        typeof params === 'function' ? params : cb,
-      ) as Promise<List<Payment>>;
+      return super.list(typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<List<Payment>>;
     }
 
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)

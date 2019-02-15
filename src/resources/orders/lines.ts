@@ -46,18 +46,11 @@ export default class OrdersLinesResource extends OrdersResource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Order.resourcePrefix)) {
-        throw Resource.errorHandler(
-          { error: { message: 'The order id is invalid' } },
-          typeof params === 'function' ? params : cb,
-        );
+        throw Resource.errorHandler({ error: { message: 'The order id is invalid' } }, typeof params === 'function' ? params : cb);
       }
       this.setParentId(id);
 
-      return super.update(
-        id,
-        typeof params === 'function' ? null : params,
-        typeof params === 'function' ? params : cb,
-      ) as Promise<Order>;
+      return super.update(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Order>;
     }
 
     const { ...parameters } = params;
@@ -88,25 +81,15 @@ export default class OrdersLinesResource extends OrdersResource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Order.resourcePrefix)) {
-        throw Resource.errorHandler(
-          { error: { message: 'The order id is invalid' } },
-          typeof params === 'function' ? params : cb,
-        );
+        throw Resource.errorHandler({ error: { message: 'The order id is invalid' } }, typeof params === 'function' ? params : cb);
       }
       this.setParentId(id);
 
-      return super.delete(
-        id,
-        typeof params === 'function' ? null : params,
-        typeof params === 'function' ? params : cb,
-      ) as Promise<boolean>;
+      return super.delete(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<boolean>;
     }
 
     if (!startsWith(id, Order.resourcePrefix)) {
-      throw Resource.errorHandler(
-        { error: { message: 'The order id is invalid' } },
-        typeof params === 'function' ? params : cb,
-      );
+      throw Resource.errorHandler({ error: { message: 'The order id is invalid' } }, typeof params === 'function' ? params : cb);
     }
 
     const { ...parameters } = params;

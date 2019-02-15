@@ -58,25 +58,15 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Capture.resourcePrefix)) {
-        throw Resource.errorHandler(
-          { error: { message: 'The capture id is invalid' } },
-          typeof params === 'function' ? params : cb,
-        );
+        throw Resource.errorHandler({ error: { message: 'The capture id is invalid' } }, typeof params === 'function' ? params : cb);
       }
       const paymentId = get(params, 'paymentId') || this.parentId;
       if (!startsWith(paymentId, Payment.resourcePrefix)) {
-        throw Resource.errorHandler(
-          { error: { message: 'The payment id is invalid' } },
-          typeof params === 'function' ? params : cb,
-        );
+        throw Resource.errorHandler({ error: { message: 'The payment id is invalid' } }, typeof params === 'function' ? params : cb);
       }
       this.setParentId(paymentId);
 
-      return super.get(
-        id,
-        typeof params === 'function' ? null : params,
-        typeof params === 'function' ? params : cb,
-      ) as Promise<Capture>;
+      return super.get(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Capture>;
     }
 
     if (!startsWith(id, Capture.resourcePrefix)) {
@@ -111,17 +101,11 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
     if (typeof params === 'function' || typeof cb === 'function') {
       const paymentId = get(params, 'paymentId') || this.parentId;
       if (!startsWith(paymentId, Payment.resourcePrefix)) {
-        throw Resource.errorHandler(
-          { error: { message: 'The payment id is invalid' } },
-          typeof params === 'function' ? params : cb,
-        );
+        throw Resource.errorHandler({ error: { message: 'The payment id is invalid' } }, typeof params === 'function' ? params : cb);
       }
       this.setParentId(paymentId);
 
-      return super.list(
-        typeof params === 'function' ? null : params,
-        typeof params === 'function' ? params : cb,
-      ) as Promise<List<Capture>>;
+      return super.list(typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<List<Capture>>;
     }
 
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)

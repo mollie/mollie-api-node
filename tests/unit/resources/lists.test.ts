@@ -21,45 +21,43 @@ describe('lists', () => {
     mock.onGet('/customers?limit=3&from=cst_kEn1PlbGa').reply(200, page1);
     mock.onGet('/customers?limit=3&from=cst_l4J9zsdzO').reply(200, page2);
     mock.onGet('/customers?limit=3&from=cst_1DVwgVBLS').reply(200, page3);
-    mock.onGet().reply((req) => {
+    mock.onGet().reply(req => {
       throw new Error(`${req.url} does not exist`);
     });
 
-    it('should retrieve a limited list', (done) => {
+    it('should retrieve a limited list', done => {
       customers
         .list({ limit: 3 })
-        .then((result) => {
+        .then(result => {
           expect(result[2].resource).toEqual('customer');
           expect(result[3]).toBeUndefined();
           done();
         })
-        .catch((err) => {
+        .catch(err => {
           expect(err).toBeUndefined();
           done();
         });
     });
 
-    it('should retrieve the next page', (done) => {
+    it('should retrieve the next page', done => {
       customers
         .list({ limit: 3 })
-        .then((result) => {
-          result
-            .nextPage()
-            .then((list) => {
-              expect(list[0].id).toEqual('cst_l4J9zsdzO');
-              done();
-            });
+        .then(result => {
+          result.nextPage().then(list => {
+            expect(list[0].id).toEqual('cst_l4J9zsdzO');
+            done();
+          });
         })
-        .catch((err) => {
+        .catch(err => {
           expect(err).toBeUndefined();
           done();
         });
     });
 
-    it('should retrieve the next page', (done) => {
+    it('should retrieve the next page', done => {
       customers
         .list({ limit: 3 })
-        .then((result) => {
+        .then(result => {
           result
             .nextPage()
             .then((list: List<any>) => {
@@ -67,16 +65,16 @@ describe('lists', () => {
               expect(list.nextPageCursor).toEqual('cst_1DVwgVBLS');
               done();
             })
-            .catch((err) => {
+            .catch(err => {
               expect(err).toBeUndefined();
             });
         })
-        .catch((err) => {
+        .catch(err => {
           expect(err).toBeUndefined();
         });
     });
 
-    it('should retrieve all pages with a callback', (done) => {
+    it('should retrieve all pages with a callback', done => {
       let i = 0;
       const expected = ['cst_kEn1PlbGa', 'cst_l4J9zsdzO', 'cst_1DVwgVBLS', undefined];
 

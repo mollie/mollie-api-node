@@ -17,10 +17,7 @@ describe('customer model', () => {
       email: 'customer@example.org',
       locale: Locale.nl_NL,
       metadata: null,
-      recentlyUsedMethods: [
-        PaymentMethod.creditcard,
-        PaymentMethod.ideal,
-      ],
+      recentlyUsedMethods: [PaymentMethod.creditcard, PaymentMethod.ideal],
       createdAt: '2018-04-06T13:23:21.0Z',
       _links: {
         self: {

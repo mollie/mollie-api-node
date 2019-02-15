@@ -19,11 +19,11 @@ app.get('/', (req, res) => {
       webhookUrl: `http://example.org/webhook?orderId=${orderId}`,
       metadata: { orderId },
     })
-    .then((payment) => {
+    .then(payment => {
       // Redirect the consumer to complete the payment using `payment.getPaymentUrl()`.
       res.redirect(payment.getPaymentUrl());
     })
-    .catch((error) => {
+    .catch(error => {
       // Do some proper error handling.
       res.send(error);
     });

@@ -1,16 +1,4 @@
-import {
-  ApiMode,
-  CardAudience,
-  CardFailureReason,
-  CardLabel,
-  FeeRegion,
-  IAmount,
-  ILinks,
-  IUrl,
-  Locale,
-  PaymentMethod,
-  SequenceType,
-} from '../global';
+import { ApiMode, CardAudience, CardFailureReason, CardLabel, FeeRegion, IAmount, ILinks, IUrl, Locale, PaymentMethod, SequenceType } from '../global';
 import { IRefund } from './refund';
 import { IChargeback } from '../chargeback';
 

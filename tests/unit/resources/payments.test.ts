@@ -48,25 +48,17 @@ describe('payments', () => {
         }),
       )
       .reply(500, error);
-    mock
-      .onPost(
-        '/payments'
-      )
-      .reply(200, response._embedded.payments[0]);
-    mock
-      .onPost(
-        '/payments?include=details.qrCode'
-      )
-      .reply(200, response._embedded.payments[1]);
+    mock.onPost('/payments').reply(200, response._embedded.payments[0]);
+    mock.onPost('/payments?include=details.qrCode').reply(200, response._embedded.payments[1]);
 
     it('should return a payment instance', () =>
-      payments.create(props).then((result) => {
+      payments.create(props).then(result => {
         expect(result).toBeInstanceOf(Payment);
         expect(result.amount.value).toBe(props.amount.value);
         expect(result).toMatchSnapshot();
       }));
 
-    it('should work with a callback', (done) => {
+    it('should work with a callback', done => {
       payments.create(props, (err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Payment);
@@ -86,21 +78,23 @@ describe('payments', () => {
         .then(() => {
           throw new Error('Should reject');
         })
-        .catch((err) => {
+        .catch(err => {
           expect(err).toEqual(error);
           expect(err.error.field).toBe('amount');
         }));
 
     it('should return a QR code', () =>
-      payments.create({
-        ...props,
-        include: 'details.qrCode',
-      }).then((result) => {
-        expect(result).toBeInstanceOf(Payment);
-        expect(result.amount.value).toBe(props.amount.value);
-        expect(result.details.qrCode.width).toBe(180);
-        expect(result).toMatchSnapshot();
-      }));
+      payments
+        .create({
+          ...props,
+          include: 'details.qrCode',
+        })
+        .then(result => {
+          expect(result).toBeInstanceOf(Payment);
+          expect(result.amount.value).toBe(props.amount.value);
+          expect(result.details.qrCode.width).toBe(180);
+          expect(result).toMatchSnapshot();
+        }));
 
     /**
      * "details": {
@@ -120,12 +114,12 @@ describe('payments', () => {
     mock.onGet('/payments/foo').reply(500, error);
 
     it('should return a payment instance', () =>
-      payments.get(props.id).then((result) => {
+      payments.get(props.id).then(result => {
         expect(result).toBeInstanceOf(Payment);
         expect(result).toMatchSnapshot();
       }));
 
-    it('should work with a callback', (done) => {
+    it('should work with a callback', done => {
       payments.get(props.id, (err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Payment);
@@ -140,11 +134,11 @@ describe('payments', () => {
         .then(() => {
           throw new Error('Should reject');
         })
-        .catch((err) => {
+        .catch(err => {
           expect(err).toEqual(error);
         }));
 
-    it('should return an error with a callback for non-existing IDs', (done) => {
+    it('should return an error with a callback for non-existing IDs', done => {
       payments.get('foo', (err, result) => {
         expect(err).toEqual(error);
         expect(result).toBeUndefined();
@@ -157,13 +151,13 @@ describe('payments', () => {
     mock.onGet('/payments').reply(200, response);
 
     it('should return a list of all payments', () =>
-      payments.all().then((result) => {
+      payments.all().then(result => {
         expect(result).toBeInstanceOf(Array);
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
       }));
 
-    it('should work with a callback', (done) => {
+    it('should work with a callback', done => {
       payments.all((err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Array);
@@ -185,7 +179,7 @@ describe('payments', () => {
         .then(() => {
           throw new Error('Should reject');
         })
-        .catch((err) => {
+        .catch(err => {
           expect(err).toEqual(error);
         }));
   });

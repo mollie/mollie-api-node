@@ -29,19 +29,19 @@ describe('payments_captures', () => {
     mock.onGet(`/payments/${props.paymentId}/captures/${props.id}`).reply(200, response._embedded.captures[0]);
 
     it('should return a capture instance', done =>
-      paymentsCaptures.get(props.id, { paymentId: props.paymentId })
-        .then((result) => {
+      paymentsCaptures
+        .get(props.id, { paymentId: props.paymentId })
+        .then(result => {
           expect(result).toBeInstanceOf(Capture);
           expect(result).toMatchSnapshot();
           done();
         })
-        .catch((err) => {
+        .catch(err => {
           expect(err).toBeUndefined();
           done();
-        })
-    );
+        }));
 
-    it('should work with a callback', (done) => {
+    it('should work with a callback', done => {
       paymentsCaptures.get(props.id, { paymentId: props.paymentId }, (err, result) => {
         expect(result).toBeInstanceOf(Capture);
         expect(result).toMatchSnapshot();
@@ -54,13 +54,13 @@ describe('payments_captures', () => {
     mock.onGet(`/payments/${props.paymentId}/captures`).reply(200, response);
 
     it('should return a list of all order refunds', () =>
-      paymentsCaptures.list({ paymentId: props.paymentId }).then((result) => {
+      paymentsCaptures.list({ paymentId: props.paymentId }).then(result => {
         expect(result).toBeInstanceOf(Array);
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
       }));
 
-    it('should work with a callback', (done) => {
+    it('should work with a callback', done => {
       paymentsCaptures.list({ paymentId: props.paymentId }, (err, result) => {
         expect(err).toBeNull();
         expect(result).toBeInstanceOf(Array);
@@ -70,7 +70,7 @@ describe('payments_captures', () => {
       });
     });
 
-    it('should work with .withParent() and a callback', (done) => {
+    it('should work with .withParent() and a callback', done => {
       paymentsCaptures
         .withParent({
           resource: 'payment',
@@ -85,20 +85,20 @@ describe('payments_captures', () => {
         });
     });
 
-    it('should work with a Promise and with .withParent()', (done) => {
+    it('should work with a Promise and with .withParent()', done => {
       paymentsCaptures
         .withParent({
           resource: 'payment',
           id: props.paymentId,
         })
         .list(undefined)
-        .then((result) => {
+        .then(result => {
           expect(result).toBeInstanceOf(Array);
           expect(result).toHaveProperty('links');
           expect(result).toMatchSnapshot();
           done();
         })
-        .catch((err) => {
+        .catch(err => {
           expect(err).toBeUndefined();
           done();
         });

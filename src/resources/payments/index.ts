@@ -89,17 +89,10 @@ export default class PaymentsResource extends PaymentsBaseResource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Payment.resourcePrefix)) {
-        throw Resource.errorHandler(
-          { error: { message: 'The payment id is invalid' } },
-          typeof params === 'function' ? params : cb,
-        );
+        throw Resource.errorHandler({ error: { message: 'The payment id is invalid' } }, typeof params === 'function' ? params : cb);
       }
 
-      return super.get(
-        id,
-        typeof params === 'function' ? null : params,
-        typeof params === 'function' ? params : cb,
-      ) as Promise<Payment>;
+      return super.get(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Payment>;
     }
 
     if (!startsWith(id, Payment.resourcePrefix)) {
@@ -126,10 +119,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
   public async list(params?: IListParams, cb?: ListCallback): Promise<List<Payment>> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
-      return super.list(
-        typeof params === 'function' ? null : params,
-        typeof params === 'function' ? params : cb,
-      ) as Promise<List<Chargeback>>;
+      return super.list(typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<List<Chargeback>>;
     }
 
     return super.list(params);
@@ -154,10 +144,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
    */
   public async cancel(id: string, params?: ICancelParams, cb?: CancelCallback): Promise<Payment> {
     if (!startsWith(id, Payment.resourcePrefix)) {
-      throw Resource.errorHandler(
-        { error: { message: 'The payment id is invalid' } },
-        typeof params === 'function' ? params : cb,
-      );
+      throw Resource.errorHandler({ error: { message: 'The payment id is invalid' } }, typeof params === 'function' ? params : cb);
     }
 
     return super.delete(id, typeof params === 'function' ? params : cb) as Promise<Payment>;

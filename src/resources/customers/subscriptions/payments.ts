@@ -59,24 +59,15 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
       const customerId = get(params, 'customerId') || this.parentId;
       const subscriptionId = get(params, 'subscriptionId') || this.subscriptionId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        throw Resource.errorHandler(
-          { error: { message: 'The customer id is invalid' } },
-          typeof params === 'function' ? params : cb,
-        );
+        throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, typeof params === 'function' ? params : cb);
       }
       if (!startsWith(subscriptionId, Subscription.resourcePrefix)) {
-        throw Resource.errorHandler(
-          { error: { message: 'The subscription id is invalid' } },
-          typeof params === 'function' ? params : cb,
-        );
+        throw Resource.errorHandler({ error: { message: 'The subscription id is invalid' } }, typeof params === 'function' ? params : cb);
       }
       this.setParentId(customerId);
       this.setSubscriptionId(subscriptionId);
 
-      return super.list(
-        typeof params === 'function' ? null : params,
-        typeof params === 'function' ? params : cb,
-      ) as Promise<List<Payment>>;
+      return super.list(typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<List<Payment>>;
     }
 
     const { customerId, subscriptionId, ...parameters } = params;

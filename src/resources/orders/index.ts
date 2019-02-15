@@ -97,17 +97,10 @@ export default class Orders extends Resource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Order.resourcePrefix)) {
-        throw Resource.errorHandler(
-          { error: { message: 'The order id is invalid' } },
-          typeof params === 'function' ? params : cb,
-        );
+        throw Resource.errorHandler({ error: { message: 'The order id is invalid' } }, typeof params === 'function' ? params : cb);
       }
 
-      return super.get(
-        id,
-        typeof params === 'function' ? null : params,
-        typeof params === 'function' ? params : cb,
-      ) as Promise<Order>;
+      return super.get(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Order>;
     }
 
     if (!startsWith(id, Order.resourcePrefix)) {
@@ -134,10 +127,7 @@ export default class Orders extends Resource {
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Order>> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
-      return super.list(
-        typeof params === 'function' ? null : params,
-        typeof params === 'function' ? params : cb,
-      ) as Promise<List<Order>>;
+      return super.list(typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<List<Order>>;
     }
 
     return super.list(params) as Promise<List<Order>>;
@@ -162,17 +152,10 @@ export default class Orders extends Resource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Order.resourcePrefix)) {
-        throw Resource.errorHandler(
-          { error: { message: 'The order id is invalid' } },
-          typeof params === 'function' ? params : cb,
-        );
+        throw Resource.errorHandler({ error: { message: 'The order id is invalid' } }, typeof params === 'function' ? params : cb);
       }
 
-      return super.update(
-        id,
-        typeof params === 'function' ? null : params,
-        typeof params === 'function' ? params : cb,
-      ) as Promise<Order>;
+      return super.update(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Order>;
     }
 
     if (!startsWith(id, Order.resourcePrefix)) {
@@ -204,11 +187,7 @@ export default class Orders extends Resource {
 
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
-      return super.delete(
-        id,
-        typeof params === 'function' ? null : params,
-        typeof params === 'function' ? params : cb,
-      ) as Promise<Order>;
+      return super.delete(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Order>;
     }
 
     return super.delete(id, params) as Promise<Order>;
