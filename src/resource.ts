@@ -98,11 +98,11 @@ export default class Resource {
     const query: any = {};
     if (isPlainObject(params)) {
       if (typeof params.include === 'string') {
-        query.include = params.include;
+        query.include = Array.isArray(params.include) ? params.include.join(';') : params.include;
         delete params.include;
       }
-      if (typeof params.embed !== 'undefined' && Array.isArray(params.embed)) {
-        query.embed = params.embed.join(';');
+      if (typeof params.embed === 'string' || Array.isArray(params.embed)) {
+        query.embed = Array.isArray(params.embed) ? params.embed.join(';') : params.embed;
         delete params.embed;
       }
     }
@@ -138,12 +138,12 @@ export default class Resource {
     const callback = typeof params === 'function' ? params : cb;
     const query: any = {};
     if (isPlainObject(params)) {
-      if (typeof params.include === 'string') {
-        query.include = params.include;
+      if (typeof params.include === 'string' || Array.isArray(params.include)) {
+        query.include = Array.isArray(params.include) ? params.include.join(';') : params.include;
         delete params.include;
       }
-      if (typeof params.embed !== 'undefined' && Array.isArray(params.embed)) {
-        query.embed = params.embed.join(';');
+      if (typeof params.embed === 'string' || Array.isArray(params.embed)) {
+        query.embed = Array.isArray(params.embed) ? params.embed.join(';') : params.embed;
         delete params.embed;
       }
     }
@@ -180,11 +180,11 @@ export default class Resource {
       const query: any = {};
       if (isPlainObject(params)) {
         if (typeof params.include === 'string' || Array.isArray(params.include)) {
-          query.include = params.include;
+          query.include = Array.isArray(params.include) ? params.include.join(';') : params.include;
           delete params.include;
         }
-        if (typeof params.embed !== 'undefined' && Array.isArray(params.embed)) {
-          query.embed = params.embed.join(';');
+        if (typeof params.embed === 'string' || Array.isArray(params.embed)) {
+          query.embed = Array.isArray(params.embed) ? params.embed.join(';') : params.embed;
           delete params.embed;
         }
         if (typeof params.limit === 'number' || typeof params.limit === 'string') {
