@@ -59,8 +59,10 @@ Shipment {
       "vatRate": "21.00",
     },
   ],
+  "mode": undefined,
   "orderId": "ord_kEn1PlbGa",
   "resource": "shipment",
+  "testmode": undefined,
   "tracking": Object {
     "carrier": "PostNL",
     "code": "3SKABA000000000",
@@ -128,8 +130,10 @@ Shipment {
       "vatRate": "21.00",
     },
   ],
+  "mode": undefined,
   "orderId": "ord_kEn1PlbGa",
   "resource": "shipment",
+  "testmode": undefined,
   "tracking": Object {
     "carrier": "PostNL",
     "code": "3SKABA000000000",
@@ -197,8 +201,10 @@ Shipment {
       "vatRate": "21.00",
     },
   ],
+  "mode": undefined,
   "orderId": "ord_kEn1PlbGa",
   "resource": "shipment",
+  "testmode": undefined,
   "tracking": Object {
     "carrier": "PostNL",
     "code": "3SKABA000000000",
@@ -208,7 +214,7 @@ Shipment {
 `;
 
 exports[`orders_shipments .list() should return a list of all payment refunds 1`] = `
-Array [
+List [
   Shipment {
     "_links": Object {
       "documentation": Object {
@@ -267,8 +273,10 @@ Array [
         "vatRate": "21.00",
       },
     ],
+    "mode": undefined,
     "orderId": "ord_kEn1PlbGa",
     "resource": "shipment",
+    "testmode": undefined,
     "tracking": Object {
       "carrier": "PostNL",
       "code": "3SKABA000000000",
@@ -279,7 +287,7 @@ Array [
 `;
 
 exports[`orders_shipments .list() should work with a Promise and with .withParent() 1`] = `
-Array [
+List [
   Shipment {
     "_links": Object {
       "documentation": Object {
@@ -338,8 +346,10 @@ Array [
         "vatRate": "21.00",
       },
     ],
+    "mode": undefined,
     "orderId": "ord_kEn1PlbGa",
     "resource": "shipment",
+    "testmode": undefined,
     "tracking": Object {
       "carrier": "PostNL",
       "code": "3SKABA000000000",
@@ -350,7 +360,7 @@ Array [
 `;
 
 exports[`orders_shipments .list() should work with a callback 1`] = `
-Array [
+List [
   Shipment {
     "_links": Object {
       "documentation": Object {
@@ -409,8 +419,10 @@ Array [
         "vatRate": "21.00",
       },
     ],
+    "mode": undefined,
     "orderId": "ord_kEn1PlbGa",
     "resource": "shipment",
+    "testmode": undefined,
     "tracking": Object {
       "carrier": "PostNL",
       "code": "3SKABA000000000",
@@ -421,7 +433,7 @@ Array [
 `;
 
 exports[`orders_shipments .list() should work with a callback 2`] = `
-Array [
+List [
   Shipment {
     "_links": Object {
       "documentation": Object {
@@ -480,8 +492,10 @@ Array [
         "vatRate": "21.00",
       },
     ],
+    "mode": undefined,
     "orderId": "ord_kEn1PlbGa",
     "resource": "shipment",
+    "testmode": undefined,
     "tracking": Object {
       "carrier": "PostNL",
       "code": "3SKABA000000000",

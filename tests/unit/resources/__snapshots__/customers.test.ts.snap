@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`customers .list() should return a list of all customers 1`] = `
-Array [
+List [
   Customer {
     "_links": Object {
       "documentation": Object {
@@ -25,12 +25,13 @@ Array [
       "ideal",
     ],
     "resource": "customer",
+    "testmode": undefined,
   },
 ]
 `;
 
 exports[`customers .list() should work with a callback 1`] = `
-Array [
+List [
   Customer {
     "_links": Object {
       "documentation": Object {
@@ -54,6 +55,7 @@ Array [
       "ideal",
     ],
     "resource": "customer",
+    "testmode": undefined,
   },
 ]
 `;
@@ -82,6 +84,7 @@ Customer {
     "ideal",
   ],
   "resource": "customer",
+  "testmode": undefined,
 }
 `;
 
@@ -109,5 +112,6 @@ Customer {
     "ideal",
   ],
   "resource": "customer",
+  "testmode": undefined,
 }
 `;

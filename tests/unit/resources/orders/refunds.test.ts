@@ -1,10 +1,10 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import OrdersRefunds from '../../../../src/resources/orders/refunds';
-import PaymentRefund from '../../../../src/models/Refund';
-
-import response from '../../__stubs__/orders_refunds.json';
+import OrdersRefunds from '@resources/orders/refunds';
+import PaymentRefund from '@models/Refund';
+import response from '@tests/unit/__stubs__/orders_refunds.json';
+import ApiError from '@errors/ApiError';
 
 const mock = new MockAdapter(axios);
 
@@ -56,7 +56,7 @@ describe('orders_refunds', () => {
   });
 
   describe('.all()', () => {
-    const error = { error: { message: 'The order id is invalid' } };
+    const error = { detail: 'The order id is invalid' };
     mock.onGet(`/orders/${props.orderId}/refunds`).reply(200, response);
 
     it('should return a list of all order refunds', () =>
@@ -69,11 +69,10 @@ describe('orders_refunds', () => {
     it('should throw an error if "orderId" is not set', done => {
       ordersRefunds
         .all(undefined)
-        .then(() => {
-          throw new Error('Should crash here');
-        })
+        .then(result => expect(result).toBeUndefined())
         .catch(err => {
-          expect(err).toEqual(error);
+          expect(err).toBeInstanceOf(ApiError);
+          expect(err.getMessage()).toEqual(error.detail);
           done();
         });
     });

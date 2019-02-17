@@ -1,7 +1,7 @@
-import Shipment from '../../../src/models/Shipment';
-import { IShipment } from '../../../src/types/shipment';
-import { OrderStatus } from '../../../src/types/order';
-import { OrderLineType } from '../../../src/types/order/line';
+import Shipment from '@models/Shipment';
+import { IShipment } from '@mollie-types/shipment';
+import { OrderStatus } from '@mollie-types/order';
+import { OrderLineType } from '@mollie-types/order/line';
 
 describe('shipment model', () => {
   it('should instantiate with default values', () => {

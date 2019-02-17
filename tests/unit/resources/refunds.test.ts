@@ -1,10 +1,9 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import Refunds from '../../../src/resources/refunds';
-import PaymentRefund from '../../../src/models/Refund';
-
-import response from '../__stubs__/payments_refunds.json';
+import Refunds from '@resources/refunds';
+import PaymentRefund from '@models/Refund';
+import response from '@tests/unit/__stubs__/payments_refunds.json';
 
 const mock = new MockAdapter(axios);
 

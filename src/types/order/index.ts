@@ -1,6 +1,6 @@
-import { ApiMode, IAddress, IAmount, ILinks, IUrl } from '../global';
+import { ApiMode, IAddress, IAmount, ILinks, IUrl } from '@mollie-types/global';
 import { IOrderLine } from './line';
-import { IPayment } from '../payment';
+import { IPayment } from '@mollie-types/payment';
 
 /**
  * Order Response object.

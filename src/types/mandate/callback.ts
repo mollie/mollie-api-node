@@ -1,5 +1,5 @@
-import { IMandate } from '../mandate';
-import { IList } from '../list';
+import { IMandate } from '@mollie-types/mandate';
+import { IList } from '@mollie-types/list';
 
 /**
  * @deprecated since 2.2.0 - All callbacks will be removed in a future version

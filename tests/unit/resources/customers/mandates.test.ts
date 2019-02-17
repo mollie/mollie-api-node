@@ -1,11 +1,12 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import CustomersMandatesResource from '../../../../src/resources/customers/mandates';
-import Mandate from '../../../../src/models/Mandate';
+import CustomersMandatesResource from '@resources/customers/mandates';
+import Mandate from '@models/Mandate';
+import response from '@tests/unit/__stubs__/customers_mandates.json';
+import ApiError from '@errors/ApiError';
 
-import response from '../../__stubs__/customers_mandates.json';
-import { MandateMethod } from '../../../../src/types/mandate';
+import { MandateMethod } from '@mollie-types/mandate';
 
 const mock = new MockAdapter(axios);
 
@@ -69,7 +70,7 @@ describe('customers_mandates', () => {
   });
 
   describe('.get()', () => {
-    const error = { error: { message: 'The customers_mandate id is invalid' } };
+    const error = { detail: 'The customers_mandate id is invalid' };
 
     mock.onGet(`/customers/${props.customerId}/mandates/${props.id}`).reply(200, response._embedded.mandates[0]);
     mock.onGet(`/customers/${props.customerId}/mandates/foo`).reply(500, error);
@@ -92,16 +93,16 @@ describe('customers_mandates', () => {
     it('should return an error for non-existing IDs', () =>
       customersMandates
         .get('foo', { customerId: props.customerId })
-        .then(() => {
-          throw new Error('Should reject');
-        })
+        .then(result => expect(result).toBeUndefined())
         .catch(err => {
-          expect(err).toEqual(error);
+          expect(err).toBeInstanceOf(ApiError);
+          expect(err.getMessage()).toEqual(error.detail);
         }));
 
     it('should return an error with a callback for non-existing IDs', done => {
       customersMandates.get('foo', { customerId: props.customerId }, (err, result) => {
-        expect(err).toEqual(error);
+        expect(err).toBeInstanceOf(ApiError);
+        expect(err.getMessage()).toEqual(error.detail);
         expect(result).toBeUndefined();
         done();
       });
@@ -151,7 +152,7 @@ describe('customers_mandates', () => {
   describe('.revoke()', () => {
     mock.onDelete(`/customers/${props.customerId}/mandates/${props.id}`).reply(200, response._embedded.mandates[0]);
 
-    it('should return a mandate instance', () =>
+    it('should return a mandate instance when successful', () =>
       customersMandates.revoke(props.id, { customerId: props.customerId }).then(result => {
         expect(result).toBeInstanceOf(Mandate);
         expect(result).toMatchSnapshot();
@@ -169,6 +170,13 @@ describe('customers_mandates', () => {
           expect(result).toMatchSnapshot();
           done();
         });
+    });
+
+    it('should fail when unsuccessful', () => {
+      customersMandates.revoke(props.id, { customerId: props.customerId }).then(result => {
+        expect(result).toBeInstanceOf(Mandate);
+        expect(result).toMatchSnapshot();
+      });
     });
   });
 });

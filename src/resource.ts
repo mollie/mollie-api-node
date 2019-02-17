@@ -1,10 +1,11 @@
 /* eslint-disable new-cap */
 import qs from 'qs';
 import { AxiosInstance, AxiosResponse } from 'axios';
-import { cloneDeep, isPlainObject } from 'lodash';
+import { cloneDeep, isPlainObject, has } from 'lodash';
 
-import Model from './model';
-import List from './models/List';
+import Model from '@root/model';
+import List from '@models/List';
+import ApiError from '@errors/ApiError';
 
 /**
  * @deprecated since 2.2.0
@@ -58,12 +59,20 @@ export default class Resource {
    * Error handler
    */
   protected static errorHandler(response: any, cb?: Function): any {
-    const error = (response && response.data) || response;
+    let error;
+    if (response instanceof ApiError) {
+      error = response;
+    } else if (has(response, 'response.data')) {
+      error = ApiError.createFromError(response.response.data);
+    } else {
+      error = response && response.data ? ApiError.createFromError(response.data) : ApiError.createFromError(response);
+    }
 
     if (cb) {
       return cb(error);
     }
-    return error;
+
+    throw error;
   }
 
   /**
@@ -118,7 +127,7 @@ export default class Resource {
       }
       return model;
     } catch (error) {
-      throw Resource.errorHandler(error.response, callback);
+      Resource.errorHandler(error.response, callback);
     }
   }
 
@@ -160,7 +169,7 @@ export default class Resource {
 
       return model;
     } catch (error) {
-      throw Resource.errorHandler(error.response, callback);
+      Resource.errorHandler(error, callback);
     }
   }
 
@@ -214,7 +223,7 @@ export default class Resource {
 
       return list;
     } catch (error) {
-      throw Resource.errorHandler(error, cb);
+      Resource.errorHandler(error, cb);
     }
   }
 
@@ -242,7 +251,7 @@ export default class Resource {
 
       return model;
     } catch (error) {
-      throw Resource.errorHandler(error.response, cb);
+      Resource.errorHandler(error.response, cb);
     }
   }
 
@@ -263,8 +272,12 @@ export default class Resource {
     try {
       const response: AxiosResponse = await this.getClient().delete(`${this.getResourceUrl()}/${id}`);
 
-      // noinspection JSPotentiallyInvalidConstructorUsage
-      const model = new (this.constructor as any).model(response.data);
+      let model;
+      if (response.status !== 204) {
+        model = new (this.constructor as any).model(response.data);
+      } else {
+        model = true;
+      }
 
       if (cb) {
         cb(null, model);
@@ -272,7 +285,7 @@ export default class Resource {
 
       return model;
     } catch (error) {
-      throw Resource.errorHandler(error.response, cb);
+      Resource.errorHandler(error, cb);
     }
   }
 

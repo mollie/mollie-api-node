@@ -1,7 +1,7 @@
-import List from '../../../src/models/List';
+import List from '@models/List';
 import page1 from '../__stubs__/list/customers_page_1.json';
-import CustomersResource from '../../../src/resources/customers';
-import Customer from '../../../src/models/Customer';
+import CustomersResource from '@resources/customers';
+import Customer from '@models/Customer';
 
 describe('lists', () => {
   it('should instantiate with given values', () => {

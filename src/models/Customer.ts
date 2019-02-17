@@ -1,5 +1,5 @@
-import Model from '../model';
-import { ICustomer } from '../types/customer';
+import Model from '@root/model';
+import { ICustomer } from '@mollie-types/customer';
 
 /**
  * The `Customer` model

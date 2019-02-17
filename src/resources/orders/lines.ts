@@ -1,11 +1,11 @@
 import { startsWith } from 'lodash';
 
-import OrderLine from '../../models/OrderLine';
+import OrderLine from '@models/OrderLine';
 import OrdersResource from './base';
-import Order from '../../models/Order';
-import { ICancelParams, IUpdateParams } from '../../types/order/line/params';
-import { CancelCallback, UpdateCallback } from '../../types/order/line/callback';
-import Resource from '../../resource';
+import Order from '@models/Order';
+import { ICancelParams, IUpdateParams } from '@mollie-types/order/line/params';
+import { CancelCallback, UpdateCallback } from '@mollie-types/order/line/callback';
+import Resource from '@root/resource';
 
 /**
  * The `orders_lines` resource
@@ -46,7 +46,7 @@ export default class OrdersLinesResource extends OrdersResource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Order.resourcePrefix)) {
-        throw Resource.errorHandler({ error: { message: 'The order id is invalid' } }, typeof params === 'function' ? params : cb);
+        Resource.errorHandler({ detail: 'The order id is invalid' }, typeof params === 'function' ? params : cb);
       }
       this.setParentId(id);
 
@@ -55,7 +55,7 @@ export default class OrdersLinesResource extends OrdersResource {
 
     const { ...parameters } = params;
     if (!startsWith(id, Order.resourcePrefix)) {
-      throw Resource.errorHandler({ error: { message: 'The order id is invalid' } });
+      Resource.errorHandler({ detail: 'The order id is invalid' });
     }
 
     this.setParentId(id);
@@ -81,7 +81,7 @@ export default class OrdersLinesResource extends OrdersResource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Order.resourcePrefix)) {
-        throw Resource.errorHandler({ error: { message: 'The order id is invalid' } }, typeof params === 'function' ? params : cb);
+        Resource.errorHandler({ detail: 'The order id is invalid' }, typeof params === 'function' ? params : cb);
       }
       this.setParentId(id);
 
@@ -89,7 +89,7 @@ export default class OrdersLinesResource extends OrdersResource {
     }
 
     if (!startsWith(id, Order.resourcePrefix)) {
-      throw Resource.errorHandler({ error: { message: 'The order id is invalid' } }, typeof params === 'function' ? params : cb);
+      Resource.errorHandler({ detail: 'The order id is invalid' }, typeof params === 'function' ? params : cb);
     }
 
     const { ...parameters } = params;

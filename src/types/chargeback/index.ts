@@ -1,4 +1,4 @@
-import { IAmount, ILinks, IUrl } from '../global';
+import { IAmount, ILinks, IUrl } from '@mollie-types/global';
 
 /**
  * Chargeback Response object.

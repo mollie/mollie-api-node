@@ -1,7 +1,8 @@
 import { parse } from 'url';
-import { IListLinks } from '../types/global';
-import Model from '../model';
-import { ResourceCallback } from '../resource';
+
+import Model from '@root/model';
+import { ResourceCallback } from '@root/resource';
+import { IListLinks } from '@mollie-types/global';
 
 interface IInstantiable<T = any> {
   new (...args: Array<any>): T;

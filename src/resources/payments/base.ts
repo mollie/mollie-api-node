@@ -1,4 +1,4 @@
-import Resource from '../../resource';
+import Resource from '@root/resource';
 
 /**
  * Payments base resource

@@ -1,10 +1,9 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import CustomersSubscriptions from '../../../../src/resources/customers/subscriptions';
-import Subscription from '../../../../src/models/Subscription';
-
-import response from '../../__stubs__/customers_subscriptions.json';
+import CustomersSubscriptions from '@resources/customers/subscriptions';
+import Subscription from '@models/Subscription';
+import response from '@tests/unit/__stubs__/customers_subscriptions.json';
 
 const mock = new MockAdapter(axios);
 
@@ -45,7 +44,7 @@ describe('customers_subscriptions', () => {
 
   describe('.get()', () => {
     const error = {
-      error: { message: 'The customers_subscription id is invalid' },
+      error: { detail: 'The customers_subscription id is invalid' },
     };
 
     mock.onGet(`/customers/${props.customerId}/subscriptions/${props.id}`).reply(200, response._embedded.subscriptions[0]);
@@ -106,7 +105,7 @@ describe('customers_subscriptions', () => {
   describe('.cancel()', () => {
     mock.onDelete(`/customers/${props.customerId}/subscriptions/${props.id}`).reply(200, response._embedded.subscriptions[0]);
 
-    it('should return a subscription instance', () =>
+    it('should return a subscription instance when successfully canceled', () =>
       customersSubscriptions.delete(props.id, { customerId: props.customerId }).then(result => {
         expect(result).toBeInstanceOf(Subscription);
         expect(result).toMatchSnapshot();
@@ -124,6 +123,12 @@ describe('customers_subscriptions', () => {
           expect(result).toMatchSnapshot();
           done();
         });
+    });
+
+    it('should return the status when it could not be canceled', () => {
+      customersSubscriptions.delete('alreadycanceled', { customerId: props.customerId }).then(result => {
+        expect(result).toEqual(false);
+      });
     });
   });
 });

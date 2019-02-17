@@ -1,13 +1,13 @@
 import { defaults, get, startsWith } from 'lodash';
 
 import PaymentsResource from './base';
-import Refund from '../../models/Refund';
-import List from '../../models/List';
-import { ICancelParams, ICreateParams, IGetParams, IListParams } from '../../types/payment/refund/params';
-import { CancelCallback, CreateCallback, GetCallback, ListCallback } from '../../types/payment/refund/callback';
-import Payment from '../../models/Payment';
-import Resource from '../../resource';
-import NotImplementedException from '../../exceptions/NotImplementedException';
+import Refund from '@models/Refund';
+import List from '@models/List';
+import { ICancelParams, ICreateParams, IGetParams, IListParams } from '@mollie-types/payment/refund/params';
+import { CancelCallback, CreateCallback, GetCallback, ListCallback } from '@mollie-types/payment/refund/callback';
+import Payment from '@models/Payment';
+import Resource from '@root/resource';
+import NotImplementedError from '@errors/NotImplementedError';
 
 /**
  * The `payments_refunds` resource
@@ -65,7 +65,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
     const { paymentId, ...parameters } = defaults(params, { paymentId: this.parentId });
     if (!startsWith(paymentId, Payment.resourcePrefix)) {
-      throw Resource.errorHandler({ error: { message: 'The payment id is invalid' } }, cb);
+      Resource.errorHandler({ detail: 'The payment id is invalid' }, cb);
     }
     this.setParentId(paymentId);
 
@@ -89,11 +89,11 @@ export default class PaymentsRefundsResource extends PaymentsResource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Refund.resourcePrefix)) {
-        throw Resource.errorHandler({ error: { message: 'The payments_refund id is invalid' } }, typeof params === 'function' ? params : cb);
+        Resource.errorHandler({ detail: 'The payments_refund id is invalid' }, typeof params === 'function' ? params : cb);
       }
       const paymentId = get(params, 'paymentId') || this.parentId;
       if (!startsWith(paymentId, Payment.resourcePrefix)) {
-        throw Resource.errorHandler({ error: { message: 'The payment id is invalid' } }, typeof params === 'function' ? params : cb);
+        Resource.errorHandler({ detail: 'The payment id is invalid' }, typeof params === 'function' ? params : cb);
       }
       this.setParentId(paymentId);
 
@@ -101,12 +101,12 @@ export default class PaymentsRefundsResource extends PaymentsResource {
     }
 
     if (!startsWith(id, Refund.resourcePrefix)) {
-      throw Resource.errorHandler({ error: { message: 'The payments_refund id is invalid' } }, cb);
+      Resource.errorHandler({ detail: 'The payments_refund id is invalid' }, cb);
     }
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
     const { paymentId, ...parameters } = defaults(params, { paymentId: this.parentId });
     if (!startsWith(paymentId, Payment.resourcePrefix)) {
-      throw Resource.errorHandler({ error: { message: 'The payment id is invalid' } }, cb);
+      Resource.errorHandler({ detail: 'The payment id is invalid' }, cb);
     }
     this.setParentId(paymentId);
 
@@ -130,7 +130,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
     if (typeof params === 'function' || typeof cb === 'function') {
       const paymentId = get(params, 'paymentId') || this.parentId;
       if (!startsWith(paymentId, Payment.resourcePrefix)) {
-        throw Resource.errorHandler({ error: { message: 'The payment id is invalid' } }, typeof params === 'function' ? params : cb);
+        Resource.errorHandler({ detail: 'The payment id is invalid' }, typeof params === 'function' ? params : cb);
       }
       this.setParentId(paymentId);
 
@@ -140,7 +140,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
     const { paymentId, ...parameters } = defaults(params, { paymentId: this.parentId });
     if (!startsWith(paymentId, Payment.resourcePrefix)) {
-      throw Resource.errorHandler({ error: { message: 'The payment id is invalid' } });
+      Resource.errorHandler({ detail: 'The payment id is invalid' });
     }
     this.setParentId(paymentId);
 
@@ -166,23 +166,23 @@ export default class PaymentsRefundsResource extends PaymentsResource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Refund.resourcePrefix)) {
-        throw Resource.errorHandler({ error: { message: 'The payments_refund id is invalid' } }, typeof params === 'function' ? params : cb);
+        Resource.errorHandler({ detail: 'The payments_refund id is invalid' }, typeof params === 'function' ? params : cb);
       }
       const paymentId = get(params, 'paymentId') || this.parentId;
       if (!startsWith(paymentId, Payment.resourcePrefix)) {
-        throw Resource.errorHandler({ error: { message: 'The payment id is invalid' } }, typeof params === 'function' ? params : cb);
+        Resource.errorHandler({ detail: 'The payment id is invalid' }, typeof params === 'function' ? params : cb);
       }
 
       return super.delete(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Refund>;
     }
 
     if (!startsWith(id, Refund.resourcePrefix)) {
-      throw Resource.errorHandler({ error: { message: 'The payments_refund id is invalid' } });
+      Resource.errorHandler({ detail: 'The payments_refund id is invalid' });
     }
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
     const { paymentId, ...parameters } = defaults(params, { paymentId: this.parentId });
     if (!startsWith(paymentId, Payment.resourcePrefix)) {
-      throw Resource.errorHandler({ error: { message: 'The payment id is invalid' } });
+      Resource.errorHandler({ detail: 'The payment id is invalid' });
     }
     this.setParentId(paymentId);
 
@@ -193,6 +193,6 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async update(): Promise<Refund> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 }

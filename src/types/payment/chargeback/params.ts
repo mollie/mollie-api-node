@@ -1,4 +1,4 @@
-import { PaymentChargebackEmbed } from '../chargeback';
+import { PaymentChargebackEmbed } from '@mollie-types/payment/chargeback';
 
 /**
  * Get Chargeback parameters

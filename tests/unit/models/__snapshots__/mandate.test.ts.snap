@@ -10,14 +10,13 @@ Object {
   "createdAt": null,
   "details": null,
   "id": null,
-  "isValid": [Function],
   "mandateReference": null,
   "method": null,
   "mode": null,
   "resource": "mandate",
   "signatureDate": null,
   "status": null,
-  "toPlainObject": [Function],
+  "testmode": undefined,
 }
 `;
 
@@ -44,13 +43,12 @@ Object {
     "consumerName": "John Doe",
   },
   "id": "mdt_h3gAaD5zP",
-  "isValid": [Function],
   "mandateReference": "YOUR-COMPANY-MD1380",
   "method": "directdebit",
   "mode": null,
   "resource": "mandate",
   "signatureDate": "2018-05-07",
   "status": "valid",
-  "toPlainObject": [Function],
+  "testmode": undefined,
 }
 `;

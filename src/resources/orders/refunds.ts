@@ -1,14 +1,14 @@
 import { defaults, get, startsWith } from 'lodash';
 
-import Refund from '../../models/Refund';
+import Refund from '@models/Refund';
 import OrdersResource from './base';
-import List from '../../models/List';
-import { CreateCallback, ListCallback } from '../../types/order/refund/callback';
-import ApiException from '../../exceptions/ApiException';
-import { ICreateParams, IListParams } from '../../types/order/refund/params';
-import Order from '../../models/Order';
-import Resource from '../../resource';
-import NotImplementedException from '../../exceptions/NotImplementedException';
+import List from '@models/List';
+import { CreateCallback, ListCallback } from '@mollie-types/order/refund/callback';
+import { ICreateParams, IListParams } from '@mollie-types/order/refund/params';
+import Order from '@models/Order';
+import Resource from '@root/resource';
+import ApiError from '../../errors/ApiError';
+import NotImplementedError from '../../errors/NotImplementedError';
 
 /**
  * The `orders_refunds` resource
@@ -57,7 +57,7 @@ export default class OrdersRefundsResource extends OrdersResource {
     if (typeof params === 'function' || typeof cb === 'function') {
       const orderId = get(params, 'orderId') || this.parentId;
       if (!startsWith(orderId, Order.resourcePrefix)) {
-        throw Resource.errorHandler({ error: { message: 'The order id is invalid' } }, typeof params === 'function' ? params : cb);
+        Resource.errorHandler({ detail: 'The order id is invalid' }, typeof params === 'function' ? params : cb);
       }
       this.setParentId(orderId);
 
@@ -67,7 +67,7 @@ export default class OrdersRefundsResource extends OrdersResource {
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
     const { orderId, ...parameters } = defaults(params, { orderId: this.parentId });
     if (!startsWith(orderId, Order.resourcePrefix)) {
-      throw Resource.errorHandler(Resource.errorHandler({ error: { message: 'The order id is invalid' } }, cb));
+      Resource.errorHandler({ detail: 'The order id is invalid' }, cb);
     }
     this.setParentId(orderId);
 
@@ -93,7 +93,7 @@ export default class OrdersRefundsResource extends OrdersResource {
     if (typeof params === 'function' || typeof cb === 'function') {
       const orderId = get(params, 'orderId') || this.parentId;
       if (!orderId) {
-        throw new ApiException('Order ID is not set');
+        throw new ApiError('Order ID is not set');
       }
       this.setParentId(orderId);
 
@@ -103,7 +103,7 @@ export default class OrdersRefundsResource extends OrdersResource {
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
     const { orderId, ...parameters } = defaults(params, { orderId: this.parentId });
     if (!startsWith(orderId, Order.resourcePrefix)) {
-      throw Resource.errorHandler({ error: { message: 'The order id is invalid' } });
+      Resource.errorHandler({ detail: 'The order id is invalid' });
     }
     this.setParentId(orderId);
 
@@ -114,27 +114,27 @@ export default class OrdersRefundsResource extends OrdersResource {
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async get(): Promise<Refund> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async update(): Promise<Refund> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async delete(): Promise<boolean> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async cancel(): Promise<boolean> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 }

@@ -1,4 +1,4 @@
-import { IOrder } from '../../order';
+import { IOrder } from '@mollie-types/order';
 
 /**
  * @deprecated since 2.2.0 - All callbacks will be removed in a future version

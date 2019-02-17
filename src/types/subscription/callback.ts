@@ -1,5 +1,5 @@
-import { IList } from '../list';
-import { ISubscription } from '../subscription';
+import { IList } from '@mollie-types/list';
+import { ISubscription } from '@mollie-types/subscription';
 
 /**
  * @deprecated since 2.2.0 - All callbacks will be removed in a future version

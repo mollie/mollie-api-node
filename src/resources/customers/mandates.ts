@@ -1,13 +1,13 @@
 import { defaults, get, startsWith } from 'lodash';
 
-import CustomersBaseResource from './base';
-import List from '../../models/List';
-import Mandate from '../../models/Mandate';
-import { ICreateParams, IGetParams, IListParams, IRevokeParams } from '../../types/mandate/params';
-import { CreateCallback, GetCallback, ListCallback, RevokeCallback } from '../../types/mandate/callback';
-import Customer from '../../models/Customer';
-import Resource from '../../resource';
-import NotImplementedException from '../../exceptions/NotImplementedException';
+import Resource from '@root/resource';
+import CustomersBaseResource from '@resources/customers/base';
+import List from '@models/List';
+import Mandate from '@models/Mandate';
+import Customer from '@models/Customer';
+import NotImplementedError from '@errors/NotImplementedError';
+import { ICreateParams, IGetParams, IListParams, IRevokeParams } from '@mollie-types/mandate/params';
+import { CreateCallback, GetCallback, ListCallback, RevokeCallback } from '@mollie-types/mandate/callback';
 
 /**
  * The `customers_mandates` resource
@@ -98,11 +98,11 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Mandate.resourcePrefix)) {
-        throw Resource.errorHandler({ error: { message: 'The customers_mandate id is invalid' } }, typeof params === 'function' ? params : cb);
+        Resource.errorHandler({ detail: 'The customers_mandate id is invalid' }, typeof params === 'function' ? params : cb);
       }
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, typeof params === 'function' ? params : cb);
+        Resource.errorHandler({ detail: 'The customer id is invalid' }, typeof params === 'function' ? params : cb);
       }
       this.setParentId(customerId);
 
@@ -112,10 +112,10 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
     const { customerId, ...parameters } = defaults(params, { customerId: this.parentId });
     if (!startsWith(id, Mandate.resourcePrefix)) {
-      throw Resource.errorHandler({ error: { message: 'The customers_mandate id is invalid' } });
+      Resource.errorHandler({ detail: 'The customers_mandate id is invalid' });
     }
     if (!startsWith(customerId, Customer.resourcePrefix)) {
-      throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } });
+      Resource.errorHandler({ detail: 'The customer id is invalid' });
     }
     this.setParentId(customerId);
 
@@ -141,7 +141,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, typeof params === 'function' ? params : cb);
+        Resource.errorHandler({ detail: 'The customer id is invalid' }, typeof params === 'function' ? params : cb);
       }
       this.setParentId(customerId);
 
@@ -151,7 +151,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
     const { customerId, ...parameters } = defaults(params, { customerId: this.parentId });
     if (!startsWith(customerId, Customer.resourcePrefix)) {
-      throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } });
+      Resource.errorHandler({ detail: 'The customer id is invalid' });
     }
 
     this.setParentId(customerId);
@@ -179,10 +179,10 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(id, Mandate.resourcePrefix)) {
-        throw Resource.errorHandler({ error: { message: 'The customers_mandate id is invalid' } }, typeof params === 'function' ? params : cb);
+        Resource.errorHandler({ detail: 'The customers_mandate id is invalid' }, typeof params === 'function' ? params : cb);
       }
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, typeof params === 'function' ? params : cb);
+        Resource.errorHandler({ detail: 'The customer id is invalid' }, typeof params === 'function' ? params : cb);
       }
       this.setParentId(customerId);
 
@@ -192,10 +192,10 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
     const { customerId } = defaults(params, { customerId: this.parentId });
     if (!startsWith(id, Mandate.resourcePrefix)) {
-      throw Resource.errorHandler({ error: { message: 'The customers_mandate id is invalid' } });
+      Resource.errorHandler({ detail: 'The customers_mandate id is invalid' });
     }
     if (!startsWith(customerId, Customer.resourcePrefix)) {
-      throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } });
+      Resource.errorHandler({ detail: 'The customer id is invalid' });
     }
     this.setParentId(customerId);
 
@@ -206,6 +206,6 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async update(): Promise<Mandate> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 }

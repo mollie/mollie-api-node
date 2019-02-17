@@ -1,6 +1,6 @@
-import { ApiMode, CardAudience, CardFailureReason, CardLabel, FeeRegion, IAmount, ILinks, IUrl, Locale, PaymentMethod, SequenceType } from '../global';
+import { ApiMode, CardAudience, CardFailureReason, CardLabel, FeeRegion, IAmount, ILinks, IUrl, Locale, PaymentMethod, SequenceType } from '@mollie-types/global';
 import { IRefund } from './refund';
-import { IChargeback } from '../chargeback';
+import { IChargeback } from '@mollie-types/chargeback';
 
 /**
  * Payment Response Object.

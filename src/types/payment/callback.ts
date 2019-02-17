@@ -1,5 +1,5 @@
-import { IPayment } from '../payment';
-import { IList } from '../list';
+import { IPayment } from '@mollie-types/payment';
+import { IList } from '@mollie-types/list';
 
 /**
  * @deprecated since 2.2.0 - All callbacks will be removed in a future version

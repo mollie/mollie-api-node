@@ -1,13 +1,13 @@
 import { defaults, get, startsWith } from 'lodash';
 
-import PaymentsBaseResource from '../../resources/payments/base';
-import Chargeback from '../../models/Chargeback';
-import List from '../../models/List';
-import Payment from '../../models/Payment';
-import { IGetParams, IListParams } from '../../types/payment/chargeback/params';
-import { GetCallback, ListCallback } from '../../types/payment/chargeback/callback';
-import Resource from '../../resource';
-import NotImplementedException from '../../exceptions/NotImplementedException';
+import PaymentsBaseResource from '@resources/payments/base';
+import Chargeback from '@models/Chargeback';
+import List from '@models/List';
+import Payment from '@models/Payment';
+import { IGetParams, IListParams } from '@mollie-types/payment/chargeback/params';
+import { GetCallback, ListCallback } from '@mollie-types/payment/chargeback/callback';
+import Resource from '@root/resource';
+import NotImplementedError from '@errors/NotImplementedError';
 
 /**
  * The `payments_chargebacks` resource
@@ -60,10 +60,10 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
     if (typeof params === 'function' || typeof cb === 'function') {
       const paymentId = get(params, 'paymentId') || this.parentId;
       if (!startsWith(id, Chargeback.resourcePrefix)) {
-        throw Resource.errorHandler({ error: { message: 'The chargeback id is invalid' } }, typeof params === 'function' ? params : cb);
+        Resource.errorHandler({ detail: 'The chargeback id is invalid' }, typeof params === 'function' ? params : cb);
       }
       if (!startsWith(paymentId, Payment.resourcePrefix)) {
-        throw Resource.errorHandler({ error: { message: 'The payment id is invalid' } }, typeof params === 'function' ? params : cb);
+        Resource.errorHandler({ detail: 'The payment id is invalid' }, typeof params === 'function' ? params : cb);
       }
       this.setParentId(paymentId);
 
@@ -73,10 +73,10 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
     const { paymentId, ...parameters } = defaults(params, { paymentId: this.parentId });
     if (!startsWith(id, Chargeback.resourcePrefix)) {
-      throw Resource.errorHandler({ error: { message: 'The chargeback id is invalid' } });
+      Resource.errorHandler({ detail: 'The chargeback id is invalid' });
     }
     if (!startsWith(paymentId, Payment.resourcePrefix)) {
-      throw Resource.errorHandler({ error: { message: 'The payment id is invalid' } });
+      Resource.errorHandler({ detail: 'The payment id is invalid' });
     }
     this.setParentId(paymentId);
 
@@ -101,7 +101,7 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
     if (typeof params === 'function' || typeof cb === 'function') {
       const paymentId = get(params, 'paymentId') || this.parentId;
       if (!startsWith(paymentId, Payment.resourcePrefix)) {
-        throw Resource.errorHandler({ error: { message: 'The payment id is invalid' } }, typeof params === 'function' ? params : cb);
+        Resource.errorHandler({ detail: 'The payment id is invalid' }, typeof params === 'function' ? params : cb);
       }
       this.setParentId(paymentId);
 
@@ -111,7 +111,7 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
     const { paymentId, ...parameters } = defaults(params, { paymentId: this.parentId });
     if (!startsWith(paymentId, Payment.resourcePrefix)) {
-      throw Resource.errorHandler({ error: { message: 'The payment id is invalid' } });
+      Resource.errorHandler({ detail: 'The payment id is invalid' });
     }
     this.setParentId(paymentId);
 
@@ -122,27 +122,27 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async create(): Promise<Chargeback> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async update(): Promise<Chargeback> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async cancel(): Promise<boolean> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async delete(): Promise<boolean> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 }

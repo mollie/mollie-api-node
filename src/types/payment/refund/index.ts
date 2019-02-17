@@ -1,7 +1,7 @@
-import { IAmount, ILinks, IUrl } from '../../global';
-import { RefundStatus } from '../../refund';
-import { IOrderLine } from '../../order/line';
-import { IPayment } from '../index';
+import { IAmount, ILinks, IUrl } from '@mollie-types/global';
+import { RefundStatus } from '@mollie-types/refund';
+import { IOrderLine } from '@mollie-types/order/line';
+import { IPayment } from '@mollie-types/payment';
 
 /**
  * Payment Refund object.

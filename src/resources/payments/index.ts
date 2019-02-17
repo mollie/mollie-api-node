@@ -1,14 +1,14 @@
 import { startsWith } from 'lodash';
 
-import Payment from '../../models/Payment';
-import PaymentsBaseResource from '../../resources/payments/base';
+import Payment from '@models/Payment';
+import PaymentsBaseResource from '@resources/payments/base';
 
-import { ICancelParams, ICreateParams, IGetParams, IListParams } from '../../types/payment/params';
+import { ICancelParams, ICreateParams, IGetParams, IListParams } from '@mollie-types/payment/params';
 import { CancelCallback, CreateCallback, GetCallback, ListCallback } from '../..//types/payment/callback';
-import List from '../../models/List';
-import Resource from '../../resource';
-import Chargeback from '../../models/Chargeback';
-import NotImplementedException from '../../exceptions/NotImplementedException';
+import List from '@models/List';
+import Resource from '@root/resource';
+import Chargeback from '@models/Chargeback';
+import NotImplementedError from '@errors/NotImplementedError';
 
 /**
  * The `payments` resource
@@ -43,7 +43,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
   /**
    * Delete the given Payment. This is just an alias of the 'cancel' method.
    *
-   * Will throw an ApiException if the payment ID is invalid or if the resource cannot be found.
+   * Will throw an ApiError if the payment ID is invalid or if the resource cannot be found.
    *
    * @since 2.0.0
    *
@@ -89,14 +89,14 @@ export default class PaymentsResource extends PaymentsBaseResource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Payment.resourcePrefix)) {
-        throw Resource.errorHandler({ error: { message: 'The payment id is invalid' } }, typeof params === 'function' ? params : cb);
+        Resource.errorHandler({ detail: 'The payment id is invalid' }, typeof params === 'function' ? params : cb);
       }
 
       return super.get(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Payment>;
     }
 
     if (!startsWith(id, Payment.resourcePrefix)) {
-      throw Resource.errorHandler({ error: { message: 'The payment id is invalid' } });
+      Resource.errorHandler({ detail: 'The payment id is invalid' });
     }
 
     return super.get(id, params, cb) as Promise<Payment>;
@@ -128,7 +128,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
   /**
    * Cancel the given payment.
    *
-   * Will throw a ApiException if the payment id is invalid or the resource cannot be found.
+   * Will throw a ApiError if the payment id is invalid or the resource cannot be found.
    * Returns with HTTP status No Content (204) if successful.
    *
    * @param id - Payment Id
@@ -144,7 +144,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
    */
   public async cancel(id: string, params?: ICancelParams, cb?: CancelCallback): Promise<Payment> {
     if (!startsWith(id, Payment.resourcePrefix)) {
-      throw Resource.errorHandler({ error: { message: 'The payment id is invalid' } }, typeof params === 'function' ? params : cb);
+      Resource.errorHandler({ detail: 'The payment id is invalid' }, typeof params === 'function' ? params : cb);
     }
 
     return super.delete(id, typeof params === 'function' ? params : cb) as Promise<Payment>;
@@ -154,6 +154,6 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async update(): Promise<Payment> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 }

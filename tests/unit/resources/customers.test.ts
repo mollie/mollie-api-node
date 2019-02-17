@@ -1,10 +1,11 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import CustomersResource from '../../../src/resources/customers';
-import Customer from '../../../src/models/Customer';
-
-import response from '../__stubs__/customers.json';
+import CustomersResource from '@resources/customers';
+import Customer from '@models/Customer';
+import ApiError from '@errors/ApiError';
+import response from '@tests/unit/__stubs__/customers.json';
+import List from '@models/List';
 
 const mock = new MockAdapter(axios);
 
@@ -37,10 +38,7 @@ describe('customers', () => {
           expect(result.email).toBe(props.email);
           done();
         })
-        .catch(error => {
-          expect(error).toBeUndefined();
-          done();
-        });
+        .catch(err => expect(err).toBeUndefined());
     });
 
     it('should work with a callback', done => {
@@ -55,7 +53,7 @@ describe('customers', () => {
   });
 
   describe('.get()', () => {
-    const error = { error: { message: 'The customer id is invalid' } };
+    const error = { detail: 'The customer id is invalid' };
 
     mock.onGet(`/customers/${props.id}`).reply(200, response._embedded.customers[0]);
     mock.onGet('/customers/foo').reply(500, error);
@@ -68,10 +66,7 @@ describe('customers', () => {
           expect(result.id).toBe(props.id);
           done();
         })
-        .catch(error => {
-          expect(error).toBeUndefined();
-          done();
-        });
+        .catch(err => expect(err).toBeUndefined());
     });
 
     it('should work with a callback', done => {
@@ -83,20 +78,21 @@ describe('customers', () => {
       });
     });
 
-    it('should return an error for non-existing IDs', () => {
+    it('should return an error for non-existing IDs', done => {
       customers
         .get('foo')
-        .then(() => {
-          throw new Error('Should reject');
-        })
+        .then(result => expect(result).toBeUndefined())
         .catch(err => {
-          expect(err).toEqual(error);
+          expect(err).toBeInstanceOf(ApiError);
+          expect(err.getMessage()).toEqual(error.detail);
+          done();
         });
     });
 
     it('should return an error with a callback for non-existing IDs', done => {
       customers.get('foo', (err, result) => {
-        expect(err).toEqual(error);
+        expect(err).toBeInstanceOf(ApiError);
+        expect(err.getMessage()).toEqual(error.detail);
         expect(result).toBeUndefined();
         done();
       });
@@ -104,7 +100,7 @@ describe('customers', () => {
   });
 
   describe('.update()', () => {
-    const error = { error: { message: 'The customer id is invalid' } };
+    const error = { detail: 'The customer id is invalid' };
 
     mock.onPost(`/customers/${props.id}`).reply(200, response._embedded.customers[0]);
     mock.onPost('/customers/foo').reply(500, error);
@@ -117,10 +113,7 @@ describe('customers', () => {
           expect(result).toMatchSnapshot();
           done();
         })
-        .catch(err => {
-          expect(err).toBeUndefined();
-          done();
-        });
+        .catch(err => expect(err).toBeUndefined());
     });
 
     it('should work with a callback', done => {
@@ -132,20 +125,21 @@ describe('customers', () => {
       });
     });
 
-    it('should return an error for non-existing IDs', () => {
+    it('should return an error for non-existing IDs', done => {
       customers
         .update('foo', null)
-        .then(() => {
-          throw new Error('Should reject');
-        })
+        .then(result => expect(result).toBeUndefined())
         .catch(err => {
-          expect(err).toEqual(error);
+          expect(err).toBeInstanceOf(ApiError);
+          expect(err.getMessage()).toEqual(error.detail);
+          done();
         });
     });
 
     it('should return an error with a callback for non-existing IDs', done => {
       customers.update('foo', (err, result) => {
-        expect(err).toEqual(error);
+        expect(err).toBeInstanceOf(ApiError);
+        expect(err.getMessage()).toEqual(error.detail);
         expect(result).toBeUndefined();
         done();
       });
@@ -157,7 +151,7 @@ describe('customers', () => {
 
     it('should return a list of all customers', () => {
       customers.list().then(result => {
-        expect(result).toBeInstanceOf(Array);
+        expect(result).toBeInstanceOf(List);
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
       });
@@ -166,11 +160,60 @@ describe('customers', () => {
     it('should work with a callback', done => {
       customers.list((err, result) => {
         expect(err).toBeNull();
-        expect(result).toBeInstanceOf(Array);
+        expect(result).toBeInstanceOf(List);
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
         done();
       });
+    });
+  });
+
+  describe('.delete()', () => {
+    const doesNotExistError = {
+      status: 404,
+      title: 'Not Found',
+      detail: 'No customer exists with token notexists.',
+      _links: {
+        documentation: {
+          href: 'https://docs.mollie.com/guides/handling-errors',
+          type: 'text/html',
+        },
+      },
+    };
+
+    mock.onDelete('/customers/cst_exists').reply(204);
+    mock.onDelete('/customers/cst_notexists').reply(doesNotExistError.status, doesNotExistError);
+
+    it('should return the status when the customer could be deleted', done => {
+      customers
+        .delete('cst_exists')
+        .then(result => {
+          expect(result).toEqual(true);
+          done();
+        })
+        .catch(error => expect(error).toBeUndefined());
+    });
+
+    it('should throw an error when the customer ID was not found', done => {
+      customers
+        .delete('cst_notexists')
+        .then(result => expect(result).toBeUndefined())
+        .catch(error => {
+          expect(error).toBeInstanceOf(ApiError);
+          expect(error.getMessage()).toEqual(doesNotExistError.detail);
+          done();
+        });
+    });
+
+    it('should return the status when the customer could not be deleted', done => {
+      customers
+        .delete('cst_notexists')
+        .then(result => expect(result).toBeUndefined())
+        .catch(err => {
+          expect(err).toBeInstanceOf(ApiError);
+          expect(err.getMessage()).toEqual(doesNotExistError.detail);
+          done();
+        });
     });
   });
 });

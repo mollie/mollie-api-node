@@ -1,4 +1,4 @@
-import { SequenceType } from '../../global';
+import { SequenceType } from '@mollie-types/global';
 
 /**
  * Create Customer Payment parameters

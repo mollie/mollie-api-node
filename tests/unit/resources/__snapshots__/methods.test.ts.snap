@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`methods .all() should return a list of all methods 1`] = `
-Array [
+List [
   Method {
     "_links": Object {
       "self": Object {
@@ -15,6 +15,7 @@ Array [
       "size1x": "https://www.mollie.com/images/payscreen/methods/ideal.png",
       "size2x": "https://www.mollie.com/images/payscreen/methods/ideal%402x.png",
     },
+    "mode": undefined,
     "resource": "method",
   },
   Method {
@@ -30,6 +31,7 @@ Array [
       "size1x": "https://www.mollie.com/images/payscreen/methods/creditcard.png",
       "size2x": "https://www.mollie.com/images/payscreen/methods/creditcard%402x.png",
     },
+    "mode": undefined,
     "resource": "method",
   },
   Method {
@@ -45,6 +47,7 @@ Array [
       "size1x": "https://www.mollie.com/images/payscreen/methods/banktransfer.png",
       "size2x": "https://www.mollie.com/images/payscreen/methods/banktransfer%402x.png",
     },
+    "mode": undefined,
     "resource": "method",
   },
   Method {
@@ -60,6 +63,7 @@ Array [
       "size1x": "https://www.mollie.com/images/payscreen/methods/bitcoin.png",
       "size2x": "https://www.mollie.com/images/payscreen/methods/bitcoin%402x.png",
     },
+    "mode": undefined,
     "resource": "method",
   },
   Method {
@@ -75,13 +79,14 @@ Array [
       "size1x": "https://www.mollie.com/images/payscreen/methods/inghomepay.png",
       "size2x": "https://www.mollie.com/images/payscreen/methods/inghomepay%402x.png",
     },
+    "mode": undefined,
     "resource": "method",
   },
 ]
 `;
 
 exports[`methods .all() should work with a callback 1`] = `
-Array [
+List [
   Method {
     "_links": Object {
       "self": Object {
@@ -95,6 +100,7 @@ Array [
       "size1x": "https://www.mollie.com/images/payscreen/methods/ideal.png",
       "size2x": "https://www.mollie.com/images/payscreen/methods/ideal%402x.png",
     },
+    "mode": undefined,
     "resource": "method",
   },
   Method {
@@ -110,6 +116,7 @@ Array [
       "size1x": "https://www.mollie.com/images/payscreen/methods/creditcard.png",
       "size2x": "https://www.mollie.com/images/payscreen/methods/creditcard%402x.png",
     },
+    "mode": undefined,
     "resource": "method",
   },
   Method {
@@ -125,6 +132,7 @@ Array [
       "size1x": "https://www.mollie.com/images/payscreen/methods/banktransfer.png",
       "size2x": "https://www.mollie.com/images/payscreen/methods/banktransfer%402x.png",
     },
+    "mode": undefined,
     "resource": "method",
   },
   Method {
@@ -140,6 +148,7 @@ Array [
       "size1x": "https://www.mollie.com/images/payscreen/methods/bitcoin.png",
       "size2x": "https://www.mollie.com/images/payscreen/methods/bitcoin%402x.png",
     },
+    "mode": undefined,
     "resource": "method",
   },
   Method {
@@ -155,6 +164,7 @@ Array [
       "size1x": "https://www.mollie.com/images/payscreen/methods/inghomepay.png",
       "size2x": "https://www.mollie.com/images/payscreen/methods/inghomepay%402x.png",
     },
+    "mode": undefined,
     "resource": "method",
   },
 ]
@@ -174,6 +184,7 @@ Method {
     "size1x": "https://www.mollie.com/images/payscreen/methods/ideal.png",
     "size2x": "https://www.mollie.com/images/payscreen/methods/ideal%402x.png",
   },
+  "mode": undefined,
   "resource": "method",
 }
 `;
@@ -192,6 +203,7 @@ Method {
     "size1x": "https://www.mollie.com/images/payscreen/methods/ideal.png",
     "size2x": "https://www.mollie.com/images/payscreen/methods/ideal%402x.png",
   },
+  "mode": undefined,
   "resource": "method",
 }
 `;

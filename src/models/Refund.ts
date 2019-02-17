@@ -1,9 +1,9 @@
 import { isPlainObject } from 'lodash';
 
-import Model from '../model';
-import { RefundStatus } from '../types/refund';
-import { IRefund } from '../types/payment/refund';
-import Payment from './Payment';
+import Model from '@root/model';
+import Payment from '@models/Payment';
+import { RefundStatus } from '@mollie-types/refund';
+import { IRefund } from '@mollie-types/payment/refund';
 
 /**
  * The `Refund` model

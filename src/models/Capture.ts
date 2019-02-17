@@ -1,5 +1,5 @@
-import Model from '../model';
-import { ICapture } from '../types/payment/capture';
+import Model from '@root/model';
+import { ICapture } from '@mollie-types/payment/capture';
 
 /**
  * The `capture` model

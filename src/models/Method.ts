@@ -1,5 +1,5 @@
-import Model from '../model';
-import { IMethod, MethodImageSize } from '../types/method';
+import Model from '@root/model';
+import { IMethod, MethodImageSize } from '@mollie-types/method';
 
 /**
  * The `Method` model

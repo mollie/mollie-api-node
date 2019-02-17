@@ -1,5 +1,5 @@
-import { IAmount, Locale, SequenceType } from '../global';
-import { MethodInclude } from '../method';
+import { IAmount, Locale, SequenceType } from '@mollie-types/global';
+import { MethodInclude } from '@mollie-types/method';
 
 /**
  * Get Method parameters

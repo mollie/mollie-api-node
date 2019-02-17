@@ -10,7 +10,7 @@
  *
  * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
  */
-import { PaymentChargebackEmbed } from '../payment/chargeback';
+import { PaymentChargebackEmbed } from '@mollie-types/payment/chargeback';
 
 export interface IListParams {
   from?: string;

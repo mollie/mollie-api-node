@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`refunds .all() should return a list of all payment refunds 1`] = `
-Array [
+List [
   Refund {
     "_embedded": null,
     "_links": Object {
@@ -26,6 +26,7 @@ Array [
     "description": "Order",
     "id": "re_4qqhO89gsT",
     "lines": null,
+    "mode": undefined,
     "orderId": null,
     "paymentId": "tr_WDqYK6vllg",
     "resource": "refund",
@@ -36,7 +37,7 @@ Array [
 `;
 
 exports[`refunds .all() should work with a callback 1`] = `
-Array [
+List [
   Refund {
     "_embedded": null,
     "_links": Object {
@@ -61,6 +62,7 @@ Array [
     "description": "Order",
     "id": "re_4qqhO89gsT",
     "lines": null,
+    "mode": undefined,
     "orderId": null,
     "paymentId": "tr_WDqYK6vllg",
     "resource": "refund",

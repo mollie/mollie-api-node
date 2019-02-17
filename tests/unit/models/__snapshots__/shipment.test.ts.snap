@@ -10,9 +10,10 @@ Object {
   "createdAt": null,
   "id": null,
   "lines": null,
+  "mode": undefined,
   "orderId": null,
   "resource": "shipment",
-  "toPlainObject": [Function],
+  "testmode": undefined,
   "tracking": null,
 }
 `;
@@ -152,9 +153,10 @@ Object {
       "vatRate": "21.00",
     },
   ],
+  "mode": undefined,
   "orderId": "ord_kEn1PlbGa",
   "resource": "shipment",
-  "toPlainObject": [Function],
+  "testmode": undefined,
   "tracking": Object {
     "carrier": "PostNL",
     "code": "3SKABA000000000",

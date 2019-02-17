@@ -17,18 +17,13 @@ Object {
   "createdAt": null,
   "description": null,
   "id": null,
-  "isFailed": [Function],
-  "isPending": [Function],
-  "isProcessing": [Function],
-  "isQueued": [Function],
-  "isRefunded": [Function],
   "lines": null,
+  "mode": undefined,
   "orderId": null,
   "paymentId": null,
   "resource": "refund",
   "settlementAmount": null,
   "status": null,
-  "toPlainObject": [Function],
 }
 `;
 
@@ -56,17 +51,12 @@ Object {
   "createdAt": "2018-03-14T17:09:02.0Z",
   "description": "Order",
   "id": "re_4qqhO89gsT",
-  "isFailed": [Function],
-  "isPending": [Function],
-  "isProcessing": [Function],
-  "isQueued": [Function],
-  "isRefunded": [Function],
   "lines": null,
+  "mode": undefined,
   "orderId": null,
   "paymentId": "tr_WDqYK6vllg",
   "resource": "refund",
   "settlementAmount": null,
   "status": "pending",
-  "toPlainObject": [Function],
 }
 `;

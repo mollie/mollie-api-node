@@ -1,4 +1,4 @@
-import { IMollieApiClient } from '../../src/create-mollie-api';
+import { IMollieApiClient } from '@root/create-mollie-api';
 
 let mollie;
 if (process.env.RUN_THE_ACTUAL_BUILD === 'true' || process.env.RUN_THE_ACTUAL_BUILD === 'cjs') {

@@ -1,10 +1,10 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import PaymentsRefundsResource from '../../../../src/resources/payments/refunds';
-import PaymentRefund from '../../../../src/models/Refund';
-
-import response from '../../__stubs__/payments_refunds.json';
+import PaymentsRefundsResource from '@resources/payments/refunds';
+import PaymentRefund from '@models/Refund';
+import response from '@tests/unit/__stubs__/payments_refunds.json';
+import ApiError from '@errors/ApiError';
 
 const mock = new MockAdapter(axios);
 
@@ -47,7 +47,7 @@ describe('payments_refunds', () => {
   });
 
   describe('.get()', () => {
-    const error = { error: { message: 'The payments_refund id is invalid' } };
+    const error = { detail: 'The payments_refund id is invalid' };
 
     mock.onGet(`/payments/${props.paymentId}/refunds/${props.id}`).reply(200, response._embedded.refunds[0]);
     mock.onGet(`/payments/${props.paymentId}/refunds/foo`).reply(500, error);
@@ -58,19 +58,19 @@ describe('payments_refunds', () => {
         expect(result).toMatchSnapshot();
       }));
 
-    it('should return an error for non-existing IDs', () =>
+    it('should return an error for non-existing IDs', done =>
       paymentsRefunds
         .get('foo', { paymentId: props.paymentId })
-        .then(() => {
-          throw new Error('Should reject');
-        })
+        .then(result => expect(result).toBeUndefined())
         .catch(err => {
-          expect(err).toEqual(error);
+          expect(err).toBeInstanceOf(ApiError);
+          expect(err.getMessage()).toEqual(error.detail);
+          done();
         }));
   });
 
   describe('.all()', () => {
-    const error = { error: { message: 'The payment id is invalid' } };
+    const error = { detail: 'The payment id is invalid' };
     mock.onGet(`/payments/${props.paymentId}/refunds`).reply(200, response);
 
     it('should return a list of all payment refunds', () =>
@@ -83,11 +83,10 @@ describe('payments_refunds', () => {
     it('should throw an error if "paymentId" is not set', done => {
       paymentsRefunds
         .all(undefined)
-        .then(() => {
-          throw new Error('This should error out instead');
-        })
+        .then(result => expect(result).toBeUndefined())
         .catch(err => {
-          expect(err).toEqual(error);
+          expect(err).toBeInstanceOf(ApiError);
+          expect(err.getMessage()).toEqual(error.detail);
           done();
         });
     });
@@ -130,10 +129,11 @@ describe('payments_refunds', () => {
   describe('.cancel()', () => {
     mock.onDelete(`/payments/${props.paymentId}/refunds/${props.id}`).reply(200, response._embedded.refunds[0]);
 
-    it('should return a refund instance', () =>
+    it('should return a refund instance when successful', done =>
       paymentsRefunds.cancel(props.id, { paymentId: props.paymentId }).then(result => {
         expect(result).toBeInstanceOf(PaymentRefund);
         expect(result).toMatchSnapshot();
+        done();
       }));
 
     it('should work with a callback and legacy delete', done => {
@@ -146,6 +146,16 @@ describe('payments_refunds', () => {
           expect(err).toBeNull();
           expect(result).toBeInstanceOf(PaymentRefund);
           expect(result).toMatchSnapshot();
+          done();
+        });
+    });
+
+    it('should throw an error when it could not be canceled', done => {
+      paymentsRefunds
+        .cancel(props.id, { paymentId: 'tr_expired' })
+        .then(result => expect(result).toBeUndefined())
+        .catch(err => {
+          expect(err).toBeInstanceOf(ApiError);
           done();
         });
     });

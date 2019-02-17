@@ -1,9 +1,9 @@
 import Resource from '../resource';
-import Refund from '../models/Refund';
-import List from '../models/List';
-import { IListParams } from '../types/refund/params';
-import { ListCallback } from '../types/refund/callback';
-import NotImplementedException from '../exceptions/NotImplementedException';
+import Refund from '@models/Refund';
+import List from '@models/List';
+import { IListParams } from '@mollie-types/refund/params';
+import { ListCallback } from '@mollie-types/refund/callback';
+import NotImplementedError from '@errors/NotImplementedError';
 
 /**
  * The `refunds` resource
@@ -61,34 +61,34 @@ export default class RefundsResource extends Resource {
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async create(): Promise<Refund> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async get(): Promise<Refund> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async update(): Promise<Refund> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async cancel(): Promise<boolean> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async delete(): Promise<boolean> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 }

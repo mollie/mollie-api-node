@@ -1,4 +1,4 @@
-import { ApiMode, CardLabel, ILinks, IUrl } from '../global';
+import { ApiMode, CardLabel, ILinks, IUrl } from '@mollie-types/global';
 
 /**
  * Mandate Response object

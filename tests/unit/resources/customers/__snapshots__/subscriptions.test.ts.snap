@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`customers_subscriptions .cancel() should return a subscription instance 1`] = `
+exports[`customers_subscriptions .cancel() should return a subscription instance when successfully canceled 1`] = `
 Subscription {
   "_links": Object {
     "customer": Object {
@@ -29,6 +29,7 @@ Subscription {
   "resource": "subscription",
   "startDate": null,
   "status": "active",
+  "testmode": undefined,
   "times": 4,
   "timesRemaining": null,
   "webhookUrl": "https://webshop.example.org/subscriptions/webhook",
@@ -64,6 +65,7 @@ Subscription {
   "resource": "subscription",
   "startDate": null,
   "status": "active",
+  "testmode": undefined,
   "times": 4,
   "timesRemaining": null,
   "webhookUrl": "https://webshop.example.org/subscriptions/webhook",
@@ -99,6 +101,7 @@ Subscription {
   "resource": "subscription",
   "startDate": null,
   "status": "active",
+  "testmode": undefined,
   "times": 4,
   "timesRemaining": null,
   "webhookUrl": "https://webshop.example.org/subscriptions/webhook",
@@ -134,6 +137,7 @@ Subscription {
   "resource": "subscription",
   "startDate": null,
   "status": "active",
+  "testmode": undefined,
   "times": 4,
   "timesRemaining": null,
   "webhookUrl": "https://webshop.example.org/subscriptions/webhook",
@@ -141,7 +145,7 @@ Subscription {
 `;
 
 exports[`customers_subscriptions .list() should return a list of all customer subscriptions 1`] = `
-Array [
+List [
   Subscription {
     "_links": Object {
       "customer": Object {
@@ -170,6 +174,7 @@ Array [
     "resource": "subscription",
     "startDate": null,
     "status": "active",
+    "testmode": undefined,
     "times": 4,
     "timesRemaining": null,
     "webhookUrl": "https://webshop.example.org/subscriptions/webhook",
@@ -178,7 +183,7 @@ Array [
 `;
 
 exports[`customers_subscriptions .list() should work with a Promise and with .withParent() 1`] = `
-Array [
+List [
   Subscription {
     "_links": Object {
       "customer": Object {
@@ -207,6 +212,7 @@ Array [
     "resource": "subscription",
     "startDate": null,
     "status": "active",
+    "testmode": undefined,
     "times": 4,
     "timesRemaining": null,
     "webhookUrl": "https://webshop.example.org/subscriptions/webhook",
@@ -215,7 +221,7 @@ Array [
 `;
 
 exports[`customers_subscriptions .list() should work with a callback 1`] = `
-Array [
+List [
   Subscription {
     "_links": Object {
       "customer": Object {
@@ -244,6 +250,7 @@ Array [
     "resource": "subscription",
     "startDate": null,
     "status": "active",
+    "testmode": undefined,
     "times": 4,
     "timesRemaining": null,
     "webhookUrl": "https://webshop.example.org/subscriptions/webhook",

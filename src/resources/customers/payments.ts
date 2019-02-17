@@ -1,13 +1,13 @@
 import { defaults, get, startsWith } from 'lodash';
 
-import CustomersBaseResource from './base';
-import Payment from '../../models/Payment';
-import List from '../../models/List';
-import { ICreateParams, IListParams } from '../../types/customer/payment/params';
-import { CreateCallback, ListCallback } from '../../types/customer/payment/callback';
-import Customer from '../../models/Customer';
-import Resource from '../../resource';
-import NotImplementedException from '../../exceptions/NotImplementedException';
+import Resource from '@root/resource';
+import CustomersBaseResource from '@resources/customers/base';
+import Payment from '@models/Payment';
+import List from '@models/List';
+import Customer from '@models/Customer';
+import NotImplementedError from '@errors/NotImplementedError';
+import { ICreateParams, IListParams } from '@mollie-types/customer/payment/params';
+import { CreateCallback, ListCallback } from '@mollie-types/customer/payment/callback';
 
 /**
  * The `customers_payments` resource.
@@ -56,7 +56,7 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, typeof params === 'function' ? params : cb);
+        Resource.errorHandler({ detail: 'The customer id is invalid' }, typeof params === 'function' ? params : cb);
       }
       this.setParentId(customerId);
 
@@ -89,7 +89,7 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, typeof params === 'function' ? params : cb);
+        Resource.errorHandler({ detail: 'The customer id is invalid' }, typeof params === 'function' ? params : cb);
       }
       this.setParentId(customerId);
 
@@ -99,7 +99,7 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
     const { customerId, ...parameters } = defaults(params, { customerId: this.parentId });
     if (!startsWith(customerId, Customer.resourcePrefix)) {
-      throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } });
+      Resource.errorHandler({ detail: 'The customer id is invalid' });
     }
     this.setParentId(customerId);
 
@@ -110,27 +110,27 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async get(): Promise<Payment> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async update(): Promise<Payment> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async delete(): Promise<boolean> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async cancel(): Promise<boolean> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 }

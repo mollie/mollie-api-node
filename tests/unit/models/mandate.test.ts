@@ -1,5 +1,5 @@
-import Mandate from '../../../src/models/Mandate';
-import { MandateMethod, MandateStatus } from '../../../src/types/mandate';
+import Mandate from '@models/Mandate';
+import { MandateMethod, MandateStatus } from '@mollie-types/mandate';
 
 describe('mandate model', () => {
   it('should instantiate with default values', () => {

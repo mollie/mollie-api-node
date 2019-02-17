@@ -1,5 +1,5 @@
-import Model from '../model';
-import { IOrderLine } from '../types/order/line';
+import Model from '@root/model';
+import { IOrderLine } from '@mollie-types/order/line';
 
 /**
  * The `OrderLine` model

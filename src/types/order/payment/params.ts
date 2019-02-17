@@ -1,4 +1,4 @@
-import { IAmount, PaymentMethod } from '../../global';
+import { IAmount, PaymentMethod } from '@mollie-types/global';
 
 /**
  * Create Order Payment parameters

@@ -1,10 +1,10 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import CustomersPayments from '../../../../src/resources/customers/payments';
-import Payment from '../../../../src/models/Payment';
-
-import response from '../../__stubs__/customers_payments.json';
+import CustomersPayments from '@resources/customers/payments';
+import Payment from '@models/Payment';
+import response from '@tests/unit/__stubs__/customers_payments.json';
+import ApiError from '@errors/ApiError';
 
 const mock = new MockAdapter(axios);
 
@@ -64,7 +64,7 @@ describe('customers_payments', () => {
   });
 
   describe('.list()', () => {
-    const error = { error: { message: 'The customer id is invalid' } };
+    const error = { detail: 'The customer id is invalid' };
     mock.onGet(`/customers/${props.customerId}/payments`).reply(200, response);
 
     it('should return a list of all customer payments', done => {
@@ -86,7 +86,8 @@ describe('customers_payments', () => {
           throw Error('Should error out');
         })
         .catch(err => {
-          expect(err).toEqual(error);
+          expect(err).toBeInstanceOf(ApiError);
+          expect(err.getMessage()).toEqual(error.detail);
           done();
         });
     });

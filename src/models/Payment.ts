@@ -1,9 +1,9 @@
 import { get, isPlainObject } from 'lodash';
 
-import Model from '../model';
-import { IPayment, PaymentStatus } from '../types/payment';
-import Chargeback from './Chargeback';
-import Refund from './Refund';
+import Model from '@root/model';
+import Chargeback from '@models/Chargeback';
+import Refund from '@models/Refund';
+import { IPayment, PaymentStatus } from '@mollie-types/payment';
 
 /**
  * The `Payment` model

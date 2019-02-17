@@ -10,7 +10,7 @@
     "no-shadow": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "no-console": "off",
-    "@typescript-eslint/indent": "off"
+    "@typescript-eslint/indent": "off",
   },
   "settings": {
     "import/resolver": {

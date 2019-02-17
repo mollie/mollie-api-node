@@ -1,21 +1,21 @@
 import { get, startsWith } from 'lodash';
 
-import CustomersBaseResource from './base';
-import Subscription from '../../../models/Subscription';
-import List from '../../../models/List';
-import Payment from '../../../models/Payment';
-import { IListParams } from '../../../types/subscription/payment/params';
-import { ListCallback } from '../../../types/subscription/payment/callback';
-import Customer from '../../../models/Customer';
-import Resource from '../../../resource';
-import NotImplementedException from '../../../exceptions/NotImplementedException';
+import Resource from '@root/resource';
+import CustomersSubscriptionsBaseResource from '@resources/customers/subscriptions/base';
+import Subscription from '@models/Subscription';
+import List from '@models/List';
+import Payment from '@models/Payment';
+import Customer from '@models/Customer';
+import NotImplementedError from '@errors/NotImplementedError';
+import { IListParams } from '@mollie-types/subscription/payment/params';
+import { ListCallback } from '@mollie-types/subscription/payment/callback';
 
 /**
  * The `customers_subscriptions` resource.
  *
  * @since 1.3.2
  */
-export default class CustomersSubscriptionsResource extends CustomersBaseResource {
+export default class CustomersSubscriptionsResource extends CustomersSubscriptionsBaseResource {
   public static resource = 'customers_subscriptions';
   public static model = Subscription;
   public apiName = 'Subscriptions API (Payments section)';
@@ -59,10 +59,10 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
       const customerId = get(params, 'customerId') || this.parentId;
       const subscriptionId = get(params, 'subscriptionId') || this.subscriptionId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, typeof params === 'function' ? params : cb);
+        Resource.errorHandler({ detail: 'The customer id is invalid' }, typeof params === 'function' ? params : cb);
       }
       if (!startsWith(subscriptionId, Subscription.resourcePrefix)) {
-        throw Resource.errorHandler({ error: { message: 'The subscription id is invalid' } }, typeof params === 'function' ? params : cb);
+        Resource.errorHandler({ detail: 'The subscription id is invalid' }, typeof params === 'function' ? params : cb);
       }
       this.setParentId(customerId);
       this.setSubscriptionId(subscriptionId);
@@ -72,10 +72,10 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
 
     const { customerId, subscriptionId, ...parameters } = params;
     if (!startsWith(customerId, Customer.resourcePrefix)) {
-      throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } });
+      Resource.errorHandler({ detail: 'The customer id is invalid' });
     }
     if (!startsWith(subscriptionId, Subscription.resourcePrefix)) {
-      throw Resource.errorHandler({ error: { message: 'The subscription id is invalid' } });
+      Resource.errorHandler({ detail: 'The subscription id is invalid' });
     }
     this.setParentId(customerId);
     this.setSubscriptionId(subscriptionId);
@@ -87,34 +87,34 @@ export default class CustomersSubscriptionsResource extends CustomersBaseResourc
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async create(): Promise<Payment> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async get(): Promise<Payment> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async update(): Promise<Payment> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async delete(): Promise<boolean> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async cancel(): Promise<boolean> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 }

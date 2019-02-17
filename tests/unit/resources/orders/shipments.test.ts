@@ -1,10 +1,10 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import OrdersShipmentsResource from '../../../../src/resources/orders/shipments';
-import Shipment from '../../../../src/models/Shipment';
-
-import response from '../../__stubs__/shipments.json';
+import OrdersShipmentsResource from '@resources/orders/shipments';
+import Shipment from '@models/Shipment';
+import response from '@tests/unit/__stubs__/shipments.json';
+import ApiError from '@errors/ApiError';
 
 const mock = new MockAdapter(axios);
 
@@ -49,7 +49,7 @@ describe('orders_shipments', () => {
   });
 
   describe('.get()', () => {
-    const error = { error: { message: 'The orders_shipments id is invalid' } };
+    const error = { detail: 'The orders_shipments id is invalid' };
 
     mock.onGet(`/orders/${props.orderId}/shipments/${props.id}`).reply(200, response._embedded.shipments[0]);
     mock.onGet(`/orders/${props.orderId}/shipments/foo`).reply(500, error);
@@ -60,19 +60,18 @@ describe('orders_shipments', () => {
         expect(result).toMatchSnapshot();
       }));
 
-    it('should return an error for non-existing IDs', () =>
+    it('should return an error for non-existing IDs', done =>
       ordersShipments
         .get('foo', { orderId: props.orderId })
-        .then(() => {
-          throw new Error('Should reject');
-        })
-        .catch(err => {
-          expect(err).toEqual(error);
+        .then(result => expect(result).toBeUndefined())
+        .catch(error => {
+          expect(error).toBeInstanceOf(ApiError);
+          done();
         }));
   });
 
   describe('.list()', () => {
-    const error = { error: { message: 'The order id is invalid' } };
+    const error = { detail: 'The order id is invalid' };
     mock.onGet(`/orders/${props.orderId}/shipments`).reply(200, response);
 
     it('should return a list of all payment refunds', () =>
@@ -85,11 +84,10 @@ describe('orders_shipments', () => {
     it('should throw an error if "paymentId" is not set', done => {
       ordersShipments
         .list(undefined)
-        .then(() => {
-          throw new Error('This should error out instead');
-        })
+        .then(result => expect(result).toBeUndefined())
         .catch(err => {
-          expect(err).toEqual(error);
+          expect(err).toBeInstanceOf(ApiError);
+          expect(err.getMessage()).toEqual(error.detail);
           done();
         });
     });
@@ -137,9 +135,7 @@ describe('orders_shipments', () => {
           expect(result).toMatchSnapshot();
           done();
         })
-        .catch(err => {
-          expect(err).toBeNull();
-        });
+        .catch(error => expect(error).toBeUndefined());
     });
   });
 });

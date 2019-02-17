@@ -85,7 +85,7 @@ Capture {
 `;
 
 exports[`payments_captures .list() should return a list of all order refunds 1`] = `
-Array [
+List [
   Capture {
     "_links": Object {
       "documentation": Object {
@@ -129,7 +129,7 @@ Array [
 `;
 
 exports[`payments_captures .list() should work with .withParent() and a callback 1`] = `
-Array [
+List [
   Capture {
     "_links": Object {
       "documentation": Object {
@@ -173,7 +173,7 @@ Array [
 `;
 
 exports[`payments_captures .list() should work with a Promise and with .withParent() 1`] = `
-Array [
+List [
   Capture {
     "_links": Object {
       "documentation": Object {
@@ -217,7 +217,7 @@ Array [
 `;
 
 exports[`payments_captures .list() should work with a callback 1`] = `
-Array [
+List [
   Capture {
     "_links": Object {
       "documentation": Object {

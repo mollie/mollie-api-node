@@ -1,9 +1,10 @@
 import Resource from '../resource';
-import Method from '../models/Method';
-import List from '../models/List';
-import { IGetParams, IListParams } from '../types/method/params';
-import { GetCallback, ListCallback } from '../types/method/callback';
-import NotImplementedException from '../exceptions/NotImplementedException';
+import Method from '@models/Method';
+import List from '@models/List';
+import { IGetParams, IListParams } from '@mollie-types/method/params';
+import { GetCallback, ListCallback } from '@mollie-types/method/callback';
+import NotImplementedError from '@errors/NotImplementedError';
+import ApiError from '@errors/ApiError';
 
 /**
  * The `methods` resource
@@ -34,14 +35,14 @@ export default class MethodsResource extends Resource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!id) {
-        throw Resource.errorHandler({ error: { message: 'The method id is invalid' } }, typeof params === 'function' ? params : cb);
+        Resource.errorHandler(ApiError.createResourceNotFoundError('method', id), typeof params === 'function' ? params : cb);
       }
 
       return super.get(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Method>;
     }
 
     if (!id) {
-      throw Resource.errorHandler({ error: { message: 'The method id is invalid' } });
+      Resource.errorHandler(ApiError.createResourceNotFoundError('method', id));
     }
 
     return super.get(id, params, cb) as Promise<Method>;
@@ -93,27 +94,27 @@ export default class MethodsResource extends Resource {
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async create(): Promise<Method> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async update(): Promise<Method> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async cancel(): Promise<boolean> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async delete(): Promise<boolean> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 }

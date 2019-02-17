@@ -1,12 +1,12 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import CustomersResource from '../../../src/resources/customers';
+import CustomersResource from '@resources/customers';
 
-import page1 from '../__stubs__/list/customers_page_1.json';
-import page2 from '../__stubs__/list/customers_page_2.json';
-import page3 from '../__stubs__/list/customers_page_3.json';
-import List from '../../../src/models/List';
+import page1 from '@tests/unit/__stubs__/list/customers_page_1.json';
+import page2 from '@tests/unit/__stubs__/list/customers_page_2.json';
+import page3 from '@tests/unit/__stubs__/list/customers_page_3.json';
+import List from '@models/List';
 
 const mock = new MockAdapter(axios);
 
@@ -21,9 +21,6 @@ describe('lists', () => {
     mock.onGet('/customers?limit=3&from=cst_kEn1PlbGa').reply(200, page1);
     mock.onGet('/customers?limit=3&from=cst_l4J9zsdzO').reply(200, page2);
     mock.onGet('/customers?limit=3&from=cst_1DVwgVBLS').reply(200, page3);
-    mock.onGet().reply(req => {
-      throw new Error(`${req.url} does not exist`);
-    });
 
     it('should retrieve a limited list', done => {
       customers
@@ -45,6 +42,7 @@ describe('lists', () => {
         .then(result => {
           result.nextPage().then(list => {
             expect(list[0].id).toEqual('cst_l4J9zsdzO');
+            expect(list).toMatchSnapshot();
             done();
           });
         })
@@ -63,6 +61,7 @@ describe('lists', () => {
             .then((list: List<any>) => {
               expect(list[0].id).toEqual('cst_l4J9zsdzO');
               expect(list.nextPageCursor).toEqual('cst_1DVwgVBLS');
+              expect(list).toMatchSnapshot();
               done();
             })
             .catch(err => {

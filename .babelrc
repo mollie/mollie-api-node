@@ -1,9 +1,26 @@
 {
   "plugins": [
-    "@babel/plugin-proposal-class-properties"
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-transform-runtime",
+    [
+      "module-resolver",
+      {
+        "root": [
+          "."
+        ],
+        "alias": {
+          "@root": "./src",
+          "@errors": "./src/errors",
+          "@models": "./src/models",
+          "@resources": "./src/resources",
+          "@mollie-types": "./src/types",
+          "@tests": "./tests"
+        }
+      }
+    ]
   ],
   "presets": [
-    "@babel/typescript",
+    "@babel/preset-typescript",
     [
       "@babel/preset-env",
       {
@@ -12,23 +29,5 @@
         }
       }
     ]
-  ],
-  "env": {
-    "test": {
-      "presets": [
-        [
-          "@babel/typescript",
-          "@babel/preset-env",
-          {
-            "targets": {
-              "node": "6.9"
-            }
-          }
-        ]
-      ],
-      "plugins": [
-        "@babel/plugin-proposal-class-properties"
-      ]
-    }
-  }
+  ]
 }

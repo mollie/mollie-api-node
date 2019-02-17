@@ -1,12 +1,11 @@
 /* eslint-disable no-unused-vars, @typescript-eslint/no-unused-vars */
 import Resource from '../resource';
-import Chargeback from '../models/Chargeback';
-import List from '../models/List';
-import ApiException from '../exceptions/ApiException';
+import Chargeback from '@models/Chargeback';
+import List from '@models/List';
 
-import { IListParams } from '../types/chargeback/params';
-import { ListCallback } from '../types/chargeback/callback';
-import NotImplementedException from '../exceptions/NotImplementedException';
+import { IListParams } from '@mollie-types/chargeback/params';
+import { ListCallback } from '@mollie-types/chargeback/callback';
+import NotImplementedError from '@errors/NotImplementedError';
 
 /**
  * The `chargebacks` resource
@@ -66,34 +65,34 @@ export default class ChargebacksResource extends Resource {
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async create(): Promise<Chargeback> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async update(id: string, data: any, cb?: Function): Promise<Chargeback> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async get(id: string, params: any, cb?: Function): Promise<Chargeback> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async cancel(): Promise<boolean> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 
   /**
    * @deprecated 2.0.0. This method is not supported by the v2 API.
    */
   public async delete(): Promise<boolean> {
-    throw new NotImplementedException('This method does not exist', this.apiName);
+    throw new NotImplementedError('This method does not exist', this.apiName);
   }
 }

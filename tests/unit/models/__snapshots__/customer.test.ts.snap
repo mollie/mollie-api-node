@@ -18,7 +18,7 @@ Object {
   "name": null,
   "recentlyUsedMethods": null,
   "resource": "customer",
-  "toPlainObject": [Function],
+  "testmode": undefined,
 }
 `;
 
@@ -58,6 +58,6 @@ Object {
     "ideal",
   ],
   "resource": "customer",
-  "toPlainObject": [Function],
+  "testmode": undefined,
 }
 `;

@@ -1,0 +1,34 @@
+{
+  "resource": "payment",
+  "id": "tr_WDqYK6vllg",
+  "mode": "live",
+  "createdAt": "2018-03-19T10:18:33+00:00",
+  "amount": {
+    "value": "35.07",
+    "currency": "EUR"
+  },
+  "description": "Order 33",
+  "method": "banktransfer",
+  "metadata": null,
+  "status": "canceled",
+  "canceledAt": "2018-03-19T10:19:15+00:00",
+  "details": {
+    "bankName": "Stichting Mollie Payments",
+    "bankAccount": "NL53ABNA0627535577",
+    "bankBic": "ABNANL2A",
+    "transferReference": "RF12-3456-7890-1234"
+  },
+  "profileId": "pfl_QkEhN94Ba",
+  "sequenceType": "oneoff",
+  "redirectUrl": "https://webshop.example.org/order/33/",
+  "_links": {
+    "self": {
+      "href": "https://api.mollie.com/v2/payments/tr_WDqYK6vllg",
+      "type": "application/hal+json"
+    },
+    "documentation": {
+      "href": "https://docs.mollie.com/reference/v2/payments-api/cancel-payment",
+      "type": "text/html"
+    }
+  }
+}

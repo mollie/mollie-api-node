@@ -11,7 +11,7 @@
  *
  * @see https://docs.mollie.com/reference/v2/orders-api/create-order-refund
  */
-import { IRequestOrderLine } from '../line';
+import { IRequestOrderLine } from '@mollie-types/order/line';
 
 export interface ICreateParams {
   orderId: string;

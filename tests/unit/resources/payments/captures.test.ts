@@ -1,10 +1,9 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import PaymentsCaptures from '../../../../src/resources/payments/captures';
-import Capture from '../../../../src/models/Capture';
-
-import response from '../../__stubs__/payments_captures.json';
+import PaymentsCaptures from '@resources/payments/captures';
+import Capture from '@models/Capture';
+import response from '@tests/unit/__stubs__/payments_captures.json';
 
 const mock = new MockAdapter(axios);
 
@@ -25,7 +24,6 @@ describe('payments_captures', () => {
   });
 
   describe('.get()', () => {
-    // @ts-ignore
     mock.onGet(`/payments/${props.paymentId}/captures/${props.id}`).reply(200, response._embedded.captures[0]);
 
     it('should return a capture instance', done =>

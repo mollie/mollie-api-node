@@ -17,7 +17,7 @@
  * @see https://docs.mollie.com/reference/v2/orders-api/update-orderline
  */
 import { IOrderLine } from './index';
-import { IAmount } from '../../global';
+import { IAmount } from '@mollie-types/global';
 
 export interface IUpdateParams {
   orderId: string;

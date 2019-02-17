@@ -1,4 +1,4 @@
-import Resource from '../../src/resource';
+import Resource from '@root/resource';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 

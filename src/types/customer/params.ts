@@ -1,4 +1,4 @@
-import { Locale } from '../global';
+import { Locale } from '@mollie-types/global';
 
 /**
  * Create Customer parameters.

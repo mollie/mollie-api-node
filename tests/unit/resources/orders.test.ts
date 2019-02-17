@@ -1,10 +1,11 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import Orders from '../../../src/resources/orders';
+import Orders from '@resources/orders';
 
-import response from '../__stubs__/orders.json';
-import Order from '../../../src/models/Order';
+import response from '@tests/unit/__stubs__/orders.json';
+import Order from '@models/Order';
+import ApiError from '@errors/ApiError';
 
 const mock = new MockAdapter(axios);
 
@@ -92,21 +93,11 @@ describe('orders', () => {
 
   describe('.create()', () => {
     const error = {
-      error: {
-        field: 'amount',
-        message: 'The amount is lower than the minimum',
-      },
+      field: 'amount',
+      detail: 'The amount is lower than the minimum',
     };
 
-    mock
-      .onPost(
-        '/orders',
-        Object.assign({}, props, {
-          amount: { value: '0.05', currency: 'EUR' },
-        }),
-      )
-      .reply(500, error);
-    // @ts-ignore
+    mock.onPost('/orders', { ...props, amount: { value: '0.05', currency: 'EUR' } }).reply(500, error);
     mock.onPost('/orders').reply(200, response._embedded.orders[0]);
 
     it('should return an order instance', () =>
@@ -126,26 +117,24 @@ describe('orders', () => {
       });
     });
 
-    it('should fail with a unsupported amount', () =>
+    it('should fail with an unsupported amount', done =>
       orders
-        .create(
-          Object.assign({}, props, {
-            amount: { value: '0.05', currency: 'EUR' },
-          }),
-        )
-        .then(() => {
-          throw new Error('Should reject');
+        .create({
+          ...props,
+          amount: { value: '0.05', currency: 'EUR' },
         })
+        .then(result => expect(result).toBeUndefined())
         .catch(err => {
-          expect(err).toEqual(error);
-          expect(err.error.field).toBe('amount');
+          expect(err).toBeInstanceOf(ApiError);
+          expect(err.field).toBe('amount');
+          expect(err.getMessage()).toBe(error.detail);
+          done();
         }));
   });
 
   describe('.get()', () => {
-    const error = { error: { message: 'The order id is invalid' } };
+    const error = { detail: 'The order id is invalid' };
 
-    // @ts-ignore
     mock.onGet(`/orders/${props.id}`).reply(200, response._embedded.orders[0]);
     mock.onGet('/orders/foo').reply(500, error);
 
@@ -167,17 +156,17 @@ describe('orders', () => {
     it('should return an error for non-existing IDs', done =>
       orders
         .get('foo')
-        .then(() => {
-          throw new Error('Should reject');
-        })
+        .then(result => expect(result).toBeUndefined())
         .catch(err => {
-          expect(err).toEqual(error);
+          expect(err).toBeInstanceOf(ApiError);
+          expect(err.getMessage()).toEqual(error.detail);
           done();
         }));
 
     it('should return an error with a callback for non-existing IDs', done => {
       orders.get('foo', (err, result) => {
-        expect(err).toEqual(error);
+        expect(err).toBeInstanceOf(ApiError);
+        expect(err.getMessage()).toEqual(error.detail);
         expect(result).toBeUndefined();
         done();
       });
@@ -206,19 +195,31 @@ describe('orders', () => {
     });
   });
 
-  describe('.delete()', () => {
-    const error = { error: { message: 'Method not allowed' } };
+  describe('.cancel()', () => {
+    const error = { detail: 'Method not allowed' };
 
-    mock.onDelete(`/orders/${props.id}`).reply(500, error);
+    mock.onDelete(`/orders/${props.id}`).reply(200, response._embedded.orders[0]);
+    mock.onDelete(`/orders/ord_expired`).reply(500, error);
 
-    it('should fail', () =>
+    it('should return the canceled order when it could be canceled', done =>
       orders
         .delete(props.id)
-        .then(() => {
-          throw new Error('Should reject');
+        .then(order => {
+          expect(order).toBeInstanceOf(Order);
+          expect(order).toMatchSnapshot();
+          done();
         })
+        .catch(error => expect(error).toBeUndefined()));
+
+    it('should throw an error when the order could not be canceled', done => {
+      orders
+        .cancel('ord_expired')
+        .then(result => expect(result).toBeUndefined())
         .catch(err => {
-          expect(err).toEqual(error);
-        }));
+          expect(err).toBeInstanceOf(ApiError);
+          expect(err.getMessage()).toEqual(error.detail);
+          done();
+        });
+    });
   });
 });

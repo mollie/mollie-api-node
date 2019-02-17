@@ -1,5 +1,5 @@
-import Model from '../model';
-import { IShipment } from '../types/shipment';
+import Model from '@root/model';
+import { IShipment } from '@mollie-types/shipment';
 
 /**
  * The `Shipment` model

@@ -1,11 +1,10 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import Chargebacks from '../../../src/resources/chargebacks';
-
-import response from '../__stubs__/chargebacks.json';
-import Chargeback from '../../../src/models/Chargeback';
-import List from '../../../src/models/List';
+import Chargebacks from '@resources/chargebacks';
+import Chargeback from '@models/Chargeback';
+import List from '@models/List';
+import response from '@tests/unit/__stubs__/chargebacks.json';
 
 const mock = new MockAdapter(axios);
 
@@ -28,9 +27,7 @@ describe('chargebacks', () => {
           expect(result).toMatchSnapshot();
           done();
         })
-        .catch(error => {
-          expect(error).toBeUndefined();
-        });
+        .catch(err => expect(err).toBeUndefined());
     });
 
     it('should work with a callback', done => {

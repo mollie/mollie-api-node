@@ -1,11 +1,11 @@
 import { startsWith } from 'lodash';
 
-import CustomersBaseResource from './base';
-import Customer from '../../models/Customer';
-import List from '../../models/List';
-import { ICreateParams, IDeleteParams, IGetParams, IListParams, IUpdateParams } from '../../types/customer/params';
-import { CreateCallback, DeleteCallback, GetCallback, ListCallback, UpdateCallback } from '../../types/customer/callback';
-import Resource from '../../resource';
+import Resource from '@root/resource';
+import CustomersBaseResource from '@resources/customers/base';
+import Customer from '@models/Customer';
+import List from '@models/List';
+import { ICreateParams, IDeleteParams, IGetParams, IListParams, IUpdateParams } from '@mollie-types/customer/params';
+import { CreateCallback, DeleteCallback, GetCallback, ListCallback, UpdateCallback } from '@mollie-types/customer/callback';
 
 /**
  * The `customers` resource
@@ -88,14 +88,14 @@ export default class CustomersResource extends CustomersBaseResource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Customer.resourcePrefix)) {
-        throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, typeof params === 'function' ? params : cb);
+        Resource.errorHandler({ detail: 'The customer id is invalid' }, typeof params === 'function' ? params : cb);
       }
 
       return super.get(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Customer>;
     }
 
     if (!startsWith(id, Customer.resourcePrefix)) {
-      throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } });
+      Resource.errorHandler({ detail: 'The customer id is invalid' });
     }
     return super.get(id, params, cb) as Promise<Customer>;
   }
@@ -142,14 +142,14 @@ export default class CustomersResource extends CustomersBaseResource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Customer.resourcePrefix)) {
-        throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, typeof params === 'function' ? params : cb);
+        Resource.errorHandler({ detail: 'The customer id is invalid' }, typeof params === 'function' ? params : cb);
       }
 
       return super.update(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Customer>;
     }
 
     if (!startsWith(id, Customer.resourcePrefix)) {
-      throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } });
+      Resource.errorHandler({ detail: 'The customer id is invalid' });
     }
     return super.update(id, params, cb) as Promise<Customer>;
   }
@@ -173,14 +173,14 @@ export default class CustomersResource extends CustomersBaseResource {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Customer.resourcePrefix)) {
-        throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } }, typeof params === 'function' ? params : cb);
+        Resource.errorHandler({ detail: 'The customer id is invalid' }, typeof params === 'function' ? params : cb);
       }
 
       return super.delete(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<boolean>;
     }
 
     if (!startsWith(id, Customer.resourcePrefix)) {
-      throw Resource.errorHandler({ error: { message: 'The customer id is invalid' } });
+      Resource.errorHandler({ detail: 'The customer id is invalid' });
     }
 
     return !!(await super.delete(id, params, cb));

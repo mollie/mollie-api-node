@@ -84,7 +84,7 @@ export interface IAddress {
   country: string;
 }
 
-export type CardLabel = 'American' | 'Express' | 'Carta Si' | 'Carte Bleue' | 'Dankort' | 'Diners' | 'Club' | 'Discover' | 'JCB' | 'Laser' | 'Maestro' | 'Mastercard' | 'Unionpay' | 'Visa' | null;
+export type CardLabel = 'American Express' | 'Carta Si' | 'Carte Bleue' | 'Dankort' | 'Diners' | 'Club' | 'Discover' | 'JCB' | 'Laser' | 'Maestro' | 'Mastercard' | 'Unionpay' | 'Visa' | null;
 
 export type CardFailureReason =
   | 'invalid_card_number'
@@ -104,4 +104,14 @@ export enum SequenceType {
   oneoff = 'oneoff',
   first = 'first',
   recurring = 'recurring',
+}
+
+export type IMollieApiErrorLinks = { [key: string]: IUrl } | ILinks;
+
+export interface IMollieApiError {
+  status?: number;
+  title: string;
+  detail: string;
+  field?: string;
+  _links?: IMollieApiErrorLinks;
 }

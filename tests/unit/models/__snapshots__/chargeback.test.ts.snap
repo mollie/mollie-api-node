@@ -10,11 +10,11 @@ Object {
   "amount": null,
   "createdAt": null,
   "id": null,
+  "mode": undefined,
   "paymentId": null,
   "resource": "chargeback",
   "reversedAt": null,
   "settlementAmount": null,
-  "toPlainObject": [Function],
 }
 `;
 
@@ -40,6 +40,7 @@ Object {
   },
   "createdAt": "2018-03-14T17:00:52.0Z",
   "id": "chb_n9z0tp",
+  "mode": undefined,
   "paymentId": "tr_WDqYK6vllg",
   "resource": "chargeback",
   "reversedAt": null,
@@ -47,6 +48,5 @@ Object {
     "currency": "EUR",
     "value": "-35.07",
   },
-  "toPlainObject": [Function],
 }
 `;

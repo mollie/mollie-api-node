@@ -1,4 +1,4 @@
-import createHttpClient from '../../src/create-http-client';
+import createHttpClient from '@root/create-http-client';
 
 describe('create-http-client', () => {
   const httpClient = createHttpClient({ apiKey: 'test' });
