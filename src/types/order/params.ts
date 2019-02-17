@@ -117,6 +117,7 @@ export interface IListParams {
 /**
  * Update Order parameters.
  *
+ * @param orderNumber    - The order number can be updated afterwards.
  * @param billingAddress - The billing person and address for the order.
  *                         See {@link https://docs.mollie.com/reference/v2/orders-api/create-order#order-address-details Order address details} for the exact fields needed.
  * @param shippingAddress - The shipping address for the order.
@@ -128,6 +129,7 @@ export interface IListParams {
  * @see https://docs.mollie.com/reference/v2/orders-api/update-order
  */
 export interface IUpdateParams {
+  orderNumber?: string;
   billingAddress?: IOrderAddress;
   shippingAddress?: IOrderAddress;
 
