@@ -16,7 +16,7 @@ import { MethodInclude } from '@mollie-types/method';
  */
 export interface IGetParams {
   locale?: Locale;
-  include?: Array<MethodInclude>;
+  include?: Array<MethodInclude> | MethodInclude;
 
   // Access token parameters
   profileId?: string;
