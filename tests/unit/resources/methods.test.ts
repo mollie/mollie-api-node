@@ -1,7 +1,7 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import Methods from '@resources/methods';
+import MethodsResource from '@resources/methods';
 import Method from '@models/Method';
 
 import response from '@tests/unit/__stubs__/methods.json';
@@ -11,14 +11,14 @@ import List from '@models/List';
 const mock = new MockAdapter(axios);
 
 describe('methods', () => {
-  let methods;
+  let methods: MethodsResource;
   beforeEach(() => {
-    methods = new Methods(axios.create());
+    methods = new MethodsResource(axios.create());
   });
 
   it('should have a resource name and model', () => {
-    expect(Methods.resource).toBe('methods');
-    expect(Methods.model).toBe(Method);
+    expect(MethodsResource.resource).toBe('methods');
+    expect(MethodsResource.model).toBe(Method);
   });
 
   describe('.get()', () => {

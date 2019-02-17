@@ -1,8 +1,9 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import CustomersSubscriptions from '@resources/customers/subscriptions';
+import CustomersSubscriptionsResource from '@resources/customers/subscriptions';
 import Subscription from '@models/Subscription';
+import { MandateMethod } from '@root/types/mandate';
 import response from '@tests/unit/__stubs__/customers_subscriptions.json';
 
 const mock = new MockAdapter(axios);
@@ -17,19 +18,19 @@ const props = {
   times: 4,
   interval: '3 months',
   description: 'Quarterly payment',
-  method: 'creditcard',
+  method: MandateMethod.creditcard,
   webhookUrl: 'https://example.org/payments/webhook',
 };
 
 describe('customers_subscriptions', () => {
-  let customersSubscriptions;
+  let customersSubscriptions: CustomersSubscriptionsResource;
   beforeEach(() => {
-    customersSubscriptions = new CustomersSubscriptions(axios.create());
+    customersSubscriptions = new CustomersSubscriptionsResource(axios.create());
   });
 
   it('should have a resource name and model', () => {
-    expect(CustomersSubscriptions.resource).toBe('customers_subscriptions');
-    expect(CustomersSubscriptions.model).toBe(Subscription);
+    expect(CustomersSubscriptionsResource.resource).toBe('customers_subscriptions');
+    expect(CustomersSubscriptionsResource.model).toBe(Subscription);
   });
 
   describe('.create()', () => {

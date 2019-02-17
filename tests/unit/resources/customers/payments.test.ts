@@ -1,7 +1,7 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import CustomersPayments from '@resources/customers/payments';
+import CustomersPaymentsResource from '@resources/customers/payments';
 import Payment from '@models/Payment';
 import response from '@tests/unit/__stubs__/customers_payments.json';
 import ApiError from '@errors/ApiError';
@@ -20,14 +20,14 @@ const props = {
 };
 
 describe('customers_payments', () => {
-  let customersPayments: CustomersPayments;
+  let customersPayments: CustomersPaymentsResource;
   beforeEach(() => {
-    customersPayments = new CustomersPayments(axios.create());
+    customersPayments = new CustomersPaymentsResource(axios.create());
   });
 
   it('should have a resource name and model', () => {
-    expect(CustomersPayments.resource).toBe('customers_payments');
-    expect(CustomersPayments.model).toBe(Payment);
+    expect(CustomersPaymentsResource.resource).toBe('customers_payments');
+    expect(CustomersPaymentsResource.model).toBe(Payment);
   });
 
   describe('.create()', () => {

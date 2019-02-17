@@ -1,10 +1,16 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import Payments from '@resources/payments';
+import PaymentsResource from '@resources/payments';
 import Payment from '@models/Payment';
-import response from '@tests/unit/__stubs__/payments.json';
+import paymentsResponse from '@tests/unit/__stubs__/payments.json';
+import paymentsEmbedChargebackResponse from '@tests/unit/__stubs__/payments_embed_chargebacks.json';
+import paymentsEmbedsResponse from '@tests/unit/__stubs__/payments_embeds.json';
 import ApiError from '@errors/ApiError';
+import Chargeback from '@models/Chargeback';
+import Refund from '@models/Refund';
+import { PaymentMethod } from '@root/types/global';
+import { PaymentEmbed } from '@root/types/payment';
 
 const mock = new MockAdapter(axios);
 
@@ -15,21 +21,21 @@ const props = {
     value: '75.00',
   },
   description: 'Test payment',
-  method: 'ideal',
+  method: PaymentMethod.ideal,
   metadata: {
     orderId: '12345',
   },
 };
 
 describe('payments', () => {
-  let payments;
+  let payments: PaymentsResource;
   beforeEach(() => {
-    payments = new Payments(axios.create());
+    payments = new PaymentsResource(axios.create());
   });
 
   it('should have a resource name and model', () => {
-    expect(Payments.resource).toBe('payments');
-    expect(Payments.model).toBe(Payment);
+    expect(PaymentsResource.resource).toBe('payments');
+    expect(PaymentsResource.model).toBe(Payment);
   });
 
   describe('.create()', () => {
@@ -44,8 +50,8 @@ describe('payments', () => {
         amount: { value: '0.05', currency: 'EUR' },
       })
       .reply(500, error);
-    mock.onPost('/payments').reply(200, response._embedded.payments[0]);
-    mock.onPost('/payments?include=details.qrCode').reply(200, response._embedded.payments[1]);
+    mock.onPost('/payments').reply(200, paymentsResponse._embedded.payments[0]);
+    mock.onPost('/payments?include=details.qrCode').reply(200, paymentsResponse._embedded.payments[1]);
 
     it('should return a payment instance', () =>
       payments.create(props).then(result => {
@@ -87,16 +93,34 @@ describe('payments', () => {
         .then(result => {
           expect(result).toBeInstanceOf(Payment);
           expect(result.amount.value).toBe(props.amount.value);
-          expect(result.details.qrCode.width).toBe(180);
+          expect(result.details).toBeDefined();
+          expect((result.details as any).qrCode.width).toBe(180);
+          expect(result).toMatchSnapshot();
+          done();
+        }));
+
+    it('should return a QR code (alternative with array)', done =>
+      payments
+        .create({
+          ...props,
+          include: ['details.qrCode'],
+        })
+        .then(result => {
+          expect(result).toBeInstanceOf(Payment);
+          expect(result.amount.value).toBe(props.amount.value);
+          expect(result.details).toBeDefined();
+          expect((result.details as any).qrCode.width).toBe(180);
           expect(result).toMatchSnapshot();
           done();
         }));
   });
 
   describe('.get()', () => {
-    const error = new ApiError('The payment id is invalid');
+    const error = { detail: 'The payment id is invalid' };
 
-    mock.onGet(`/payments/${props.id}`).reply(200, response._embedded.payments[0]);
+    mock.onGet(`/payments/${props.id}`).reply(200, paymentsResponse._embedded.payments[0]);
+    mock.onGet(`/payments/${props.id}?embed=chargebacks`).reply(200, paymentsEmbedChargebackResponse._embedded.payments[0]);
+    mock.onGet(`/payments/${props.id}?embed=chargebacks%3Brefunds`).reply(200, paymentsEmbedsResponse._embedded.payments[0]);
     mock.onGet('/payments/foo').reply(500, error);
 
     it('should return a payment instance', () =>
@@ -126,15 +150,49 @@ describe('payments', () => {
     it('should return an error with a callback for non-existing IDs', done => {
       payments.get('foo', (err, result) => {
         expect(err).toBeInstanceOf(ApiError);
-        expect(err).toEqual(error);
+        expect(err.getMessage()).toEqual(error.detail);
         expect(result).toBeUndefined();
         done();
       });
     });
+
+    it('should return a chargeback embed', done => {
+      payments
+        .get(props.id, { embed: PaymentEmbed.chargebacks })
+        .then(result => {
+          expect(result).toBeInstanceOf(Payment);
+          expect(result._embedded.chargebacks[0]).toBeInstanceOf(Chargeback);
+          done();
+        })
+        .catch(err => expect(err).toBeUndefined());
+    });
+
+    it('should return a chargeback embed (alternative with an array)', done => {
+      payments
+        .get(props.id, { embed: [PaymentEmbed.chargebacks] })
+        .then(result => {
+          expect(result).toBeInstanceOf(Payment);
+          expect(result._embedded.chargebacks[0]).toBeInstanceOf(Chargeback);
+          done();
+        })
+        .catch(err => expect(err).toBeUndefined());
+    });
+
+    it('should return multiple embeds', done => {
+      payments
+        .get(props.id, { embed: [PaymentEmbed.chargebacks, PaymentEmbed.refunds] })
+        .then(result => {
+          expect(result).toBeInstanceOf(Payment);
+          expect(result._embedded.chargebacks[0]).toBeInstanceOf(Chargeback);
+          expect(result._embedded.refunds[0]).toBeInstanceOf(Refund);
+          done();
+        })
+        .catch(err => expect(err).toBeUndefined());
+    });
   });
 
   describe('.all()', () => {
-    mock.onGet('/payments').reply(200, response);
+    mock.onGet('/payments').reply(200, paymentsResponse);
 
     it('should return a list of all payments', () =>
       payments.all().then(result => {
@@ -158,13 +216,13 @@ describe('payments', () => {
     const error = { detail: 'Method not allowed' };
 
     mock.onDelete(`/payments/expired`).reply(500, error);
-    mock.onDelete(`/payments/${props.id}`).reply(200, response._embedded.payments[0]);
+    mock.onDelete(`/payments/${props.id}`).reply(200, paymentsResponse._embedded.payments[0]);
 
     it('should return the canceled payment when it could be canceled', done =>
       payments
         .cancel(props.id)
         .then(result => {
-          expect(result).toMatchObject(response._embedded.payments[0]);
+          expect(result).toMatchObject(paymentsResponse._embedded.payments[0]);
           expect(result).toMatchSnapshot();
           done();
         })

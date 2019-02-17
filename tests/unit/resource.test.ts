@@ -21,7 +21,7 @@ describe('resource', () => {
     });
 
     // Same signature, only this time we are returning the parent ID directly
-    resource.get = async function(id, prms, callback): Promise<any> {
+    resource.get = async function(): Promise<any> {
       return this.parentId;
     };
     resource.get('b').then(parentId => {
@@ -30,35 +30,13 @@ describe('resource', () => {
     });
   });
 
-  it.skip('should create a resource', () => {});
-
-  it.skip('should update a resource', () => {});
-
-  it.skip('should retrieve a resource', () => {});
-
-  it.skip('should retrieve a resource with an include', () => {});
-
-  it.skip('should retrieve a resource with an embed', () => {});
-
-  it.skip('should list resources', () => {});
-
-  it.skip('should accept a single include when listing resources', () => {});
-
-  it.skip('should accept includes when listing resources', () => {});
-
-  it.skip('should accept a single embed when listing resources', () => {});
-
-  it.skip('should accept embeds when listing resources', () => {});
-
-  it.skip('should paginate resources with a page number and limit', () => {});
-
   it('should delete a resource', done => {
     mock.onDelete('/resource/1').reply(204);
     Resource.resource = 'resource';
 
     const resource = new Resource(axios.create());
     resource.delete('1').then(result => {
-      expect(result).toBeTruthy();
+      expect(result).toEqual(true);
       done();
     });
   });

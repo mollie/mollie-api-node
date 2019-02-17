@@ -106,7 +106,7 @@ export default class Resource {
     const callback = typeof params === 'function' ? params : cb;
     const query: any = {};
     if (isPlainObject(params)) {
-      if (typeof params.include === 'string') {
+      if (typeof params.include === 'string' || Array.isArray(params.include)) {
         query.include = Array.isArray(params.include) ? params.include.join(';') : params.include;
         delete params.include;
       }

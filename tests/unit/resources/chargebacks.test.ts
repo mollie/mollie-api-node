@@ -1,7 +1,7 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import Chargebacks from '@resources/chargebacks';
+import ChargebacksResource from '@resources/chargebacks';
 import Chargeback from '@models/Chargeback';
 import List from '@models/List';
 import response from '@tests/unit/__stubs__/chargebacks.json';
@@ -9,10 +9,10 @@ import response from '@tests/unit/__stubs__/chargebacks.json';
 const mock = new MockAdapter(axios);
 
 describe('chargebacks', () => {
-  let chargebacks: Chargebacks;
+  let chargebacks: ChargebacksResource;
 
   beforeEach(() => {
-    chargebacks = new Chargebacks(axios.create());
+    chargebacks = new ChargebacksResource(axios.create());
   });
 
   describe('.list()', () => {

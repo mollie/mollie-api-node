@@ -265,6 +265,63 @@ Payment {
 }
 `;
 
+exports[`payments .create() should return a QR code (alternative with array) 1`] = `
+Payment {
+  "_embedded": null,
+  "_links": Object {
+    "checkout": Object {
+      "href": "https://www.mollie.com/paymentscreen/issuer/select/ideal/7UhSN1zuXS",
+      "type": "text/html",
+    },
+    "self": Object {
+      "href": "https://api.mollie.com/v2/payments/tr_7UhSN1zuXS",
+      "type": "application/hal+json",
+    },
+  },
+  "amount": Object {
+    "currency": "GBP",
+    "value": "75.00",
+  },
+  "amountCaptured": null,
+  "amountRefunded": undefined,
+  "amountRemaining": undefined,
+  "applicationFee": undefined,
+  "canceledAt": undefined,
+  "countryCode": undefined,
+  "createdAt": "2018-02-12T11:58:35.0Z",
+  "customerId": undefined,
+  "description": "test",
+  "details": Object {
+    "qrCode": Object {
+      "height": 180,
+      "src": "https://qr2.ideal.nl/ideal-qr/qr/get/3d530c37-e2c0-4f8b-b40c-d72a4bef40c2",
+      "width": 180,
+    },
+  },
+  "expiredAt": undefined,
+  "expiresAt": "2018-02-12T12:13:35.0Z",
+  "failedAt": undefined,
+  "id": "tr_7UhSN1zuXS",
+  "isCancelable": false,
+  "locale": undefined,
+  "mandateId": undefined,
+  "metadata": null,
+  "method": "ideal",
+  "mode": "test",
+  "orderId": null,
+  "paidAt": undefined,
+  "profileId": "pfl_QkEhN94Ba",
+  "redirectUrl": "https://webshop.example.org/order/12345/",
+  "resource": "payment",
+  "sequenceType": undefined,
+  "settlementAmount": undefined,
+  "settlementId": undefined,
+  "status": "open",
+  "subscriptionId": undefined,
+  "webhookUrl": undefined,
+}
+`;
+
 exports[`payments .create() should return a QR code 1`] = `
 Payment {
   "_embedded": null,

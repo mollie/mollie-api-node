@@ -1,7 +1,7 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import PaymentsCaptures from '@resources/payments/captures';
+import PaymentsCapturesResource from '@resources/payments/captures';
 import Capture from '@models/Capture';
 import response from '@tests/unit/__stubs__/payments_captures.json';
 
@@ -13,14 +13,14 @@ const props = {
 };
 
 describe('payments_captures', () => {
-  let paymentsCaptures: PaymentsCaptures;
+  let paymentsCaptures: PaymentsCapturesResource;
   beforeEach(() => {
-    paymentsCaptures = new PaymentsCaptures(axios.create());
+    paymentsCaptures = new PaymentsCapturesResource(axios.create());
   });
 
   it('should have a resource name and model', () => {
-    expect(PaymentsCaptures.resource).toBe('payments_captures');
-    expect(PaymentsCaptures.model).toBe(Capture);
+    expect(PaymentsCapturesResource.resource).toBe('payments_captures');
+    expect(PaymentsCapturesResource.model).toBe(Capture);
   });
 
   describe('.get()', () => {

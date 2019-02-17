@@ -1,7 +1,7 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import OrdersRefunds from '@resources/orders/refunds';
+import OrdersRefundsResource from '@resources/orders/refunds';
 import PaymentRefund from '@models/Refund';
 import response from '@tests/unit/__stubs__/orders_refunds.json';
 import ApiError from '@errors/ApiError';
@@ -20,14 +20,14 @@ const props = {
 };
 
 describe('orders_refunds', () => {
-  let ordersRefunds: OrdersRefunds;
+  let ordersRefunds: OrdersRefundsResource;
   beforeEach(() => {
-    ordersRefunds = new OrdersRefunds(axios.create());
+    ordersRefunds = new OrdersRefundsResource(axios.create());
   });
 
   it('should have a resource name and model', () => {
-    expect(OrdersRefunds.resource).toBe('orders_refunds');
-    expect(OrdersRefunds.model).toBe(PaymentRefund);
+    expect(OrdersRefundsResource.resource).toBe('orders_refunds');
+    expect(OrdersRefundsResource.model).toBe(PaymentRefund);
   });
 
   describe('.create()', () => {

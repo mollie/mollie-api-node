@@ -116,7 +116,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
    * @public ✓ This method is part of the public API
    */
-  public async list(params?: IListParams, cb?: ListCallback): Promise<List<Payment>> {
+  public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Payment>> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       return super.list(typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<List<Chargeback>>;

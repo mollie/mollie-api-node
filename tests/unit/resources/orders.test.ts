@@ -1,11 +1,13 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import Orders from '@resources/orders';
+import OrdersResource from '@resources/orders';
 
 import response from '@tests/unit/__stubs__/orders.json';
 import Order from '@models/Order';
 import ApiError from '@errors/ApiError';
+import { OrderLineType } from '@root/types/order/line';
+import { Locale, PaymentMethod } from '@root/types/global';
 
 const mock = new MockAdapter(axios);
 
@@ -46,14 +48,14 @@ const props = {
     description: 'Lego cars',
   },
   consumerDateOfBirth: '1958-01-31',
-  locale: 'nl_NL',
+  locale: Locale.nl_NL,
   orderNumber: '1337',
   redirectUrl: 'https://example.org/redirect',
   webhookUrl: 'https://example.org/webhook',
-  method: 'klarnapaylater',
+  method: PaymentMethod.klarnapaylater,
   lines: [
     {
-      type: 'physical',
+      type: OrderLineType.physical,
       sku: '5702016116977',
       name: 'LEGO 42083 Bugatti Chiron',
       productUrl: 'https://shop.lego.com/nl-NL/Bugatti-Chiron-42083',
@@ -81,14 +83,14 @@ const props = {
 };
 
 describe('orders', () => {
-  let orders;
+  let orders: OrdersResource;
   beforeEach(() => {
-    orders = new Orders(axios.create());
+    orders = new OrdersResource(axios.create());
   });
 
   it('should have a resource name and model', () => {
-    expect(Orders.resource).toBe('orders');
-    expect(Orders.model).toBe(Order);
+    expect(OrdersResource.resource).toBe('orders');
+    expect(OrdersResource.model).toBe(Order);
   });
 
   describe('.create()', () => {
