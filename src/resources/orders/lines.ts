@@ -23,7 +23,10 @@ export default class OrdersLinesResource extends OrdersResource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order-lines
+   *
    * @public ✓ This method is part of the public API
+   *
+   * @alias cancel
    */
   public delete = this.cancel;
 
@@ -40,6 +43,7 @@ export default class OrdersLinesResource extends OrdersResource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/update-orderline
+   *
    * @public ✓ This method is part of the public API
    */
   public async update(id: string, params: IUpdateParams | UpdateCallback, cb?: UpdateCallback): Promise<Order> {
@@ -75,6 +79,7 @@ export default class OrdersLinesResource extends OrdersResource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order-lines
+   *
    * @public ✓ This method is part of the public API
    */
   public async cancel(id: string, params?: ICancelParams, cb?: CancelCallback): Promise<boolean> {

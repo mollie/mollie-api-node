@@ -21,7 +21,10 @@ export default class RefundsResource extends Resource {
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
-   * @public
+   *
+   * @public ✓ This method is part of the public API
+   *
+   * @alias list
    */
   public all = this.list;
   /**
@@ -30,7 +33,10 @@ export default class RefundsResource extends Resource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
-   * @public
+   *
+   * @public ✓ This method is part of the public API
+   *
+   * @alias list
    */
   public page = this.list;
 
@@ -46,7 +52,8 @@ export default class RefundsResource extends Resource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
-   * @public
+   *
+   * @public ✓ This method is part of the public API
    */
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Refund>> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)

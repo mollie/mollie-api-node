@@ -25,7 +25,10 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
    * @since 1.1.1
    *
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customer-payments
+   *
    * @public ✓ This method is part of the public API
+   *
+   * @alias list
    */
   public all = this.list;
   /**
@@ -34,7 +37,10 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customer-payments
+   *
    * @public ✓ This method is part of the public API
+   *
+   * @alias list
    */
   public page = this.list;
 
@@ -49,6 +55,7 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
    * @since 1.1.1
    *
    * @see https://docs.mollie.com/reference/v2/customers-api/create-customer-payment
+   *
    * @public ✓ This method is part of the public API
    */
   public async create(params: ICreateParams, cb?: CreateCallback): Promise<Payment> {
@@ -82,6 +89,7 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customer-payments
+   *
    * @public ✓ This method is part of the public API
    */
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Payment>> {

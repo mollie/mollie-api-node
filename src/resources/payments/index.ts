@@ -25,7 +25,9 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
+   *
    * @public ✓ This method is part of the public API
+   *
    * @alias list
    */
   public all = this.list;
@@ -36,7 +38,9 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
+   *
    * @public ✓ This method is part of the public API
+   *
    * @alias list
    */
   public page = this.list;
@@ -48,7 +52,9 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/cancel-payment
+   *
    * @public ✓ This method is part of the public API
+   *
    * @alias cancel
    */
   public delete = this.cancel;
@@ -64,6 +70,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/create-payment
+   *
    * @public ✓ This method is part of the public API
    */
   public async create(params: ICreateParams, cb?: CreateCallback): Promise<Payment> {
@@ -83,6 +90,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment
+   *
    * @public ✓ This method is part of the public API
    */
   public async get(id: string, params?: IGetParams | GetCallback, cb?: GetCallback): Promise<Payment> {
@@ -114,6 +122,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
+   *
    * @public ✓ This method is part of the public API
    */
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Payment>> {
@@ -140,6 +149,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/cancel-payment
+   *
    * @public ✓ This method is part of the public API
    */
   public async cancel(id: string, params?: ICancelParams, cb?: CancelCallback): Promise<Payment> {

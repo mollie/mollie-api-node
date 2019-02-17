@@ -25,7 +25,9 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    * @since 1.1.1
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
+   *
    * @public ✓ This method is part of the public API
+   *
    * @alias list
    */
   public all = this.list;
@@ -35,7 +37,9 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
+   *
    * @public ✓ This method is part of the public API
+   *
    * @alias list
    */
   public page = this.list;
@@ -43,7 +47,9 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    * Cancel a Payment Refund by ID
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/cancel-refund
+   *
    * @public ✓ This method is part of the public API
+   *
    * @alias cancel
    */
   public delete = this.cancel;
@@ -58,7 +64,8 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    *
    * @since 1.1.1
    *
-   * @see https://docs.mollie.com/reference/v2/refunds-api/create-refund#
+   * @see https://docs.mollie.com/reference/v2/refunds-api/create-refund
+   *
    * @public ✓ This method is part of the public API
    */
   public async create(params: ICreateParams, cb?: CreateCallback): Promise<Refund> {
@@ -83,6 +90,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    * @since 1.1.1
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/get-refund
+   *
    * @public ✓ This method is part of the public API
    */
   public async get(id: string, params?: IGetParams | GetCallback, cb?: GetCallback): Promise<Refund> {
@@ -123,6 +131,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
+   *
    * @public ✓ This method is part of the public API
    */
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Refund>> {
@@ -160,6 +169,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    * @since 1.1.1
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/cancel-refund
+   *
    * @public ✓ This method is part of the public API
    */
   public async cancel(id: string, params?: ICancelParams | CancelCallback, cb?: CancelCallback): Promise<Refund> {

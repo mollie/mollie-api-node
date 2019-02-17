@@ -25,7 +25,9 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
    * @since 1.1.1
    *
    * @see https://docs.mollie.com/reference/v2/captures-api/list-captures
+   *
    * @public ✓ This method is part of the public API
+   *
    * @alias list
    */
   public all = this.list;
@@ -35,7 +37,9 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/captures-api/list-captures
+   *
    * @public ✓ This method is part of the public API
+   *
    * @alias list
    */
   public page = this.list;
@@ -52,6 +56,7 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
    * @since 1.1.1
    *
    * @see https://docs.mollie.com/reference/v2/captures-api/get-Capture
+   *
    * @public ✓ This method is part of the public API
    */
   public async get(id: string, params?: IGetParams, cb?: GetCallback): Promise<Capture> {
@@ -94,6 +99,7 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/captures-api/list-captures
+   *
    * @public ✓ This method is part of the public API
    */
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Capture>> {

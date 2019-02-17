@@ -25,7 +25,10 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    * @since 1.2.0
    *
    * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
+   *
    * @public ✓ This method is part of the public API
+   *
+   * @alias list
    */
   public all = this.list;
   /**
@@ -34,7 +37,10 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
+   *
    * @public ✓ This method is part of the public API
+   *
+   * @alias list
    */
   public page = this.list;
   /**
@@ -43,8 +49,10 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    * @since 1.3.2
    *
    * @see https://docs.mollie.com/reference/v2/mandates-api/revoke-mandate
+   *
    * @public ✓ This method is part of the public API
-   * @alias delete
+   *
+   * @alias revoke
    */
   public cancel = this.revoke;
   /**
@@ -53,8 +61,10 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/mandates-api/revoke-mandate
+   *
    * @public ✓ This method is part of the public API
-   * @alias delete
+   *
+   * @alias revoke
    */
   public delete = this.revoke;
 
@@ -69,6 +79,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    * @since 1.2.0
    *
    * @see https://docs.mollie.com/reference/v2/mandates-api/create-mandate
+   *
    * @public ✓ This method is part of the public API
    */
   public async create(params: ICreateParams, cb?: CreateCallback): Promise<Mandate> {
@@ -92,6 +103,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    * @since 1.2.0
    *
    * @see https://docs.mollie.com/reference/v2/mandates-api/get-mandate
+   *
    * @public ✓ This method is part of the public API
    */
   public async get(id: string, params?: IGetParams | GetCallback, cb?: GetCallback): Promise<Mandate> {
@@ -134,6 +146,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
+   *
    * @public ✓ This method is part of the public API
    */
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Mandate>> {
@@ -172,6 +185,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/mandates-api/revoke-mandate
+   *
    * @public ✓ This method is part of the public API
    */
   public async revoke(id: string, params?: IRevokeParams | RevokeCallback, cb?: RevokeCallback): Promise<Mandate> {

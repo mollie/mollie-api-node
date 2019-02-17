@@ -25,7 +25,9 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
    * @since 1.1.1
    *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
+   *
    * @public ✓ This method is part of the public API
+   *
    * @alias list
    */
   public all = this.list;
@@ -35,7 +37,9 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
+   *
    * @public ✓ This method is part of the public API
+   *
    * @alias list
    */
   public page = this.list;
@@ -53,6 +57,7 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
    * @since 1.1.1
    *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-chargeback
+   *
    * @public ✓ This method is part of the public API
    */
   public async get(id: string, params?: IGetParams | GetCallback, cb?: GetCallback): Promise<Chargeback> {
@@ -94,6 +99,7 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
+   *
    * @public ✓ This method is part of the public API
    */
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Chargeback>> {

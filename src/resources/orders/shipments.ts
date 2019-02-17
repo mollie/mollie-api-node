@@ -25,7 +25,10 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/shipments-api/list-shipments
-   * @public
+   *
+   * @public ✓ This method is part of the public API
+   *
+   * @alias list
    */
   public all = this.list;
   /**
@@ -34,7 +37,10 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/shipments-api/list-shipments
-   * @public
+   *
+   * @public ✓ This method is part of the public API
+   *
+   * @alias list
    */
   public page = this.list;
 
@@ -58,7 +64,8 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/shipments-api/create-shipment
-   * @public
+   *
+   * @public ✓ This method is part of the public API
    */
   public async create(params: ICreateParams, cb?: CreateCallback): Promise<Shipment> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
@@ -94,6 +101,7 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/shipments-api/update-shipment
+   *
    * @public ✓ This method is part of the public API
    */
   public async update(id: string, params: IUpdateParams | UpdateCallback, cb?: UpdateCallback): Promise<Shipment> {
@@ -136,6 +144,7 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/shipments-api/get-shipment
+   *
    * @public ✓ This method is part of the public API
    */
   public async get(id: string, params?: IGetParams, cb?: GetCallback): Promise<Shipment> {
@@ -178,7 +187,8 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/shipments-api/list-shipments
-   * @public
+   *
+   * @public ✓ This method is part of the public API
    */
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Shipment>> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)

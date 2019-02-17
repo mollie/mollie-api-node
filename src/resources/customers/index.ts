@@ -21,7 +21,9 @@ export default class CustomersResource extends CustomersBaseResource {
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
+   *
    * @public ✓ This method is part of the public API
+   *
    * @alias list
    */
   public all = this.list;
@@ -31,7 +33,9 @@ export default class CustomersResource extends CustomersBaseResource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
+   *
    * @public ✓ This method is part of the public API
+   *
    * @alias list
    */
   public page = this.list;
@@ -41,7 +45,9 @@ export default class CustomersResource extends CustomersBaseResource {
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/customers-api/delete-customer
+   *
    * @public ✓ This method is part of the public API
+   *
    * @alias delete
    */
   public cancel = this.delete;
@@ -63,6 +69,7 @@ export default class CustomersResource extends CustomersBaseResource {
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/customers-api/create-customer
+   *
    * @public ✓ This method is part of the public API
    */
   public async create(params: ICreateParams, cb?: CreateCallback): Promise<Customer> {
@@ -82,6 +89,7 @@ export default class CustomersResource extends CustomersBaseResource {
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/customers-api/get-customer
+   *
    * @public ✓ This method is part of the public API
    */
   public async get(id: string, params?: IGetParams | GetCallback, cb?: GetCallback): Promise<Customer> {
@@ -112,6 +120,7 @@ export default class CustomersResource extends CustomersBaseResource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
+   *
    * @public ✓ This method is part of the public API
    */
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Customer>> {
@@ -136,6 +145,7 @@ export default class CustomersResource extends CustomersBaseResource {
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/customers-api/update-customer
+   *
    * @public ✓ This method is part of the public API
    */
   public async update(id: string, params: IUpdateParams | UpdateCallback, cb?: UpdateCallback): Promise<Customer> {
@@ -167,6 +177,7 @@ export default class CustomersResource extends CustomersBaseResource {
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/customers-api/delete-customer
+   *
    * @public ✓ This method is part of the public API
    */
   public async delete(id: string, params?: IDeleteParams | DeleteCallback, cb?: DeleteCallback): Promise<boolean> {

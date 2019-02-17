@@ -29,6 +29,7 @@ export default class MethodsResource extends Resource {
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/methods-api/get-method
+   *
    * @public ✓ This method is part of the public API
    */
   public async get(id: string, params?: IGetParams | GetCallback, cb?: GetCallback): Promise<Method> {
@@ -54,6 +55,7 @@ export default class MethodsResource extends Resource {
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/methods-api/list-methods
+   *
    * @public ✓ This method is part of the public API
    */
   public all = this.list;
@@ -63,6 +65,7 @@ export default class MethodsResource extends Resource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/methods-api/list-methods
+   *
    * @public ✓ This method is part of the public API
    */
   public page = this.list;
@@ -79,6 +82,7 @@ export default class MethodsResource extends Resource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/methods-api/list-methods
+   *
    * @public ✓ This method is part of the public API
    */
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Method>> {

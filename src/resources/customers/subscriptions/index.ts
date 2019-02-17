@@ -23,7 +23,10 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
    *
    * @since 1.3.2
    *
+   * @alias cancel
+   *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/cancel-subscription
+   *
    * @public ✓ This method is part of the public API
    */
   public delete = this.cancel;
@@ -32,7 +35,10 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
    *
    * @since 1.3.2
    *
+   * @alias list
+   *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions
+   *
    * @public ✓ This method is part of the public API
    */
   public all = this.list;
@@ -41,7 +47,10 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
    *
    * @since 2.2.0
    *
+   * @alias list
+   *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions
+   *
    * @public ✓ This method is part of the public API
    */
   public page = this.list;
@@ -50,6 +59,7 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
    * Create a customer subscription.
    *
    * @param params - Create Subscription parameters
+   *
    * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns Customer Subscription
@@ -57,6 +67,7 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
    * @since 1.3.2
    *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/create-subscription
+   *
    * @public ✓ This method is part of the public API
    */
   public async create(params: ICreateParams, cb?: CreateCallback): Promise<Subscription> {
@@ -83,6 +94,7 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
    * @since 1.3.2
    *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription
+   *
    * @public ✓ This method is part of the public API
    */
   public async get(id: string, params?: IGetParams | GetCallback, cb?: GetCallback): Promise<Subscription> {
@@ -125,6 +137,7 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions
+   *
    * @public ✓ This method is part of the public API
    */
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Subscription>> {
@@ -161,6 +174,7 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/update-subscription
+   *
    * @public ✓ This method is part of the public API
    */
   public async update(id: string, params: IUpdateParams | UpdateCallback, cb?: UpdateCallback): Promise<Subscription> {
@@ -204,6 +218,7 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
    * @since 1.3.2
    *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/cancel-subscription
+   *
    * @public ✓ This method is part of the public API
    */
   public async cancel(id: string, params?: ICancelParams | CancelCallback, cb?: CancelCallback): Promise<Subscription> {

@@ -25,7 +25,10 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
    *
    * @since 2.2.0
    *
+   * @alias list
+   *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions-payments
+   *
    * @public ✓ This method is part of the public API
    */
   public all = this.list;
@@ -34,7 +37,10 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
    *
    * @since 2.2.0
    *
+   * @alias list
+   *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions-payments
+   *
    * @public ✓ This method is part of the public API
    */
   public page = this.list;
@@ -51,6 +57,7 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions-payments
+   *
    * @public ✓ This method is part of the public API
    */
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Payment>> {

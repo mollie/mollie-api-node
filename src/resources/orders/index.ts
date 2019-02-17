@@ -22,7 +22,9 @@ export default class Orders extends Resource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order
+   *
    * @public ✓ This method is part of the public API
+   *
    * @alias cancel
    */
   public delete = this.cancel;
@@ -32,7 +34,9 @@ export default class Orders extends Resource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/list-orders
+   *
    * @public ✓ This method is part of the public API
+   *
    * @alias list
    */
   public all = this.list;
@@ -42,7 +46,9 @@ export default class Orders extends Resource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/list-orders
+   *
    * @public ✓ This method is part of the public API
+   *
    * @alias list
    */
   public page = this.list;
@@ -72,6 +78,7 @@ export default class Orders extends Resource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/create-order
+   *
    * @public ✓ This method is part of the public API
    */
   public async create(params: ICreateParams, cb?: CreateCallback): Promise<Order> {
@@ -91,6 +98,7 @@ export default class Orders extends Resource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/get-order
+   *
    * @public ✓ This method is part of the public API
    */
   public async get(id: string, params?: IGetParams | GetCallback, cb?: GetCallback): Promise<Order> {
@@ -122,6 +130,7 @@ export default class Orders extends Resource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/list-orders
+   *
    * @public ✓ This method is part of the public API
    */
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Order>> {
@@ -146,6 +155,7 @@ export default class Orders extends Resource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/update-order
+   *
    * @public ✓ This method is part of the public API
    */
   public async update(id: string, params: IUpdateParams | UpdateCallback, cb?: UpdateCallback): Promise<Order> {
@@ -178,6 +188,7 @@ export default class Orders extends Resource {
    * @since 2.2.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order
+   *
    * @public ✓ This method is part of the public API
    */
   public async cancel(id: string, params?: ICancelParams | CancelCallback, cb?: CancelCallback): Promise<Order> {
