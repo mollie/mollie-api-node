@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`customers_subscriptions .all() should return a list of all customer subscriptions 1`] = `
-Array [
+List [
   Subscription {
     "_links": Object {
       "customer": Object {
@@ -34,7 +34,7 @@ Array [
 `;
 
 exports[`customers_subscriptions .all() should work with a callback 1`] = `
-Array [
+List [
   Subscription {
     "_links": Object {
       "customer": Object {
