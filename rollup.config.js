@@ -11,7 +11,7 @@ export default {
   },
   plugins: [
     json(),
-    babel({ exclude: 'node_modules/**', externalHelpers: true }),
+    babel({ exclude: 'node_modules/**', plugins: ['@babel/external-helpers'] }),
     includePaths({ paths: ['src'] }),
     url({ limit: 0, include: ['**/*.pem'] }),
   ],
