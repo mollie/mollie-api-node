@@ -4,12 +4,14 @@ import includePaths from 'rollup-plugin-includepaths';
 import url from 'rollup-plugin-url';
 
 export default {
-  entry: 'src/mollie.js',
-  format: 'cjs',
-  dest: 'dist/mollie.js',
+  input: 'src/mollie.js',
+  output: {
+    format: 'cjs',
+    file: 'dist/mollie.js',
+  },
   plugins: [
     json(),
-    babel({ exclude: 'node_modules/**' }),
+    babel({ exclude: 'node_modules/**', externalHelpers: true }),
     includePaths({ paths: ['src'] }),
     url({ limit: 0, include: ['**/*.pem'] }),
   ],

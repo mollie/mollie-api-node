@@ -19,7 +19,7 @@
   ],
   "main": "dist/mollie.js",
   "engines": {
-    "node": ">=4.8"
+    "node": ">=6.14"
   },
   "scripts": {
     "prepublish": "yarn run build",
@@ -32,12 +32,12 @@
     "test:unit:cov": "jest ./tests/unit --coverage",
     "build": "rollup -c",
     "lint:prettier": "prettier --write \"{src,tests,examples}/**/*.js\"",
-    "lint:eslint": "eslint {src,test,examples}/**/*.js",
+    "lint:eslint": "eslint {src,tests}/**/*.js",
     "lint": "yarn run lint:eslint && yarn run lint:prettier"
   },
   "dependencies": {
     "axios": "^0.16.1",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.11",
     "qs": "^6.4.0"
   },
   "devDependencies": {
@@ -51,21 +51,19 @@
     "axios-mock-adapter": "^1.8.1",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.5.0",
-    "commitizen": "^2.9.6",
-    "cz-conventional-changelog": "^2.0.0",
     "dotenv": "^4.0.0",
-    "eslint": "^3.19.0",
+    "eslint": "^5.15.3",
     "eslint-import-resolver-node": "^0.3.0",
     "eslint-plugin-import": "^2.2.0",
     "husky": "^0.13.4",
     "jest": "^24.5.0",
     "lint-staged": "^3.4.1",
     "prettier": "^1.14.0",
-    "rollup": "^0.41.6",
+    "rollup": "^1.7.3",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-includepaths": "^0.2.2",
     "rollup-plugin-json": "^2.1.1",
-    "rollup-plugin-url": "^1.1.0"
+    "rollup-plugin-url": "^2.2.0"
   },
   "lint-staged": {
     "{src,test}/**/*.js": [
@@ -86,11 +84,6 @@
     "transform": {
       "^.+\\.jsx?$": "babel-jest",
       "^.+\\.pem$": "<rootDir>/tests/unit/__stubs__/fileTransformer.js"
-    }
-  },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
     }
   }
 }
