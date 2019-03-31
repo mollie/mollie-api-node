@@ -4,6 +4,10 @@
 
 All notable changes to this project will be documented in this file.
 
+#### v2.2.0 - 2019-31-03
+  - Upgraded various dependencies (#106)
+  - Dropped support for Node 4.x. We decided not to release a new major version, as Node 4.8 has reached EOL on April 30th, 2018.
+
 #### v2.1.1 - 2018-12-04
   - Updated cacert.pem (#99)
 
