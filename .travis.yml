@@ -2,7 +2,7 @@ sudo: false
 language: node_js
 node_js:
   - "node"
-  - "4.8"
+  - "6.14"
 cache: yarn
 script:
    - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then yarn run test:unit:cov; fi'
@@ -15,4 +15,4 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
-    node: "4.8"
+    node: "6.14"
