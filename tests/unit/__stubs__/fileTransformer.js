@@ -1,5 +1,5 @@
 module.exports = {
-  process(src, filename, config, options) {
+  process(src, filename) {
     return 'module.exports = "' + filename + '";';
   },
 };
