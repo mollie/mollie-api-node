@@ -4,6 +4,9 @@
 
 All notable changes to this project will be documented in this file.
 
+#### v2.3.0 - 2019-05-01
+  - Removed the Bitcoin payment method.
+
 #### v2.2.0 - 2019-31-03
   - Upgraded various dependencies (#106)
   - Dropped support for Node 4.x. We decided not to release a new major version, as Node 4.8 has reached EOL on April 30th, 2018.
