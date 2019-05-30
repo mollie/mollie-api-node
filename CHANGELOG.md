@@ -4,6 +4,9 @@
 
 All notable changes to this project will be documented in this file.
 
+#### v2.3.1 - 2019-05-30
+  - Update dependencies.
+
 #### v2.3.0 - 2019-05-01
   - Removed the Bitcoin payment method.
 
