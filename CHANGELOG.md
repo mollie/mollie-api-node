@@ -4,6 +4,9 @@
 
 All notable changes to this project will be documented in this file.
 
+### v2.3.3 - 2019-07-14
+  - Update dependencies
+
 ### v2.3.2 - 2019-06-06
   - Update dependencies.
 
