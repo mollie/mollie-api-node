@@ -1,14 +1,14 @@
 import { get, startsWith } from 'lodash';
 
-import Resource from '@root/resource';
-import CustomersSubscriptionsBaseResource from '@resources/customers/subscriptions/base';
-import Subscription from '@models/Subscription';
-import List from '@models/List';
-import Payment from '@models/Payment';
-import Customer from '@models/Customer';
-import NotImplementedError from '@errors/NotImplementedError';
-import { IListParams } from '@mollie-types/subscription/payment/params';
-import { ListCallback } from '@mollie-types/subscription/payment/callback';
+import Resource from '../../../resource';
+import CustomersSubscriptionsBaseResource from './base';
+import Subscription from '../../../models/Subscription';
+import List from '../../../models/List';
+import Payment from '../../../models/Payment';
+import Customer from '../../../models/Customer';
+import NotImplementedError from '../../../errors/NotImplementedError';
+import { IListParams } from '../../../types/subscription/payment/params';
+import { ListCallback } from '../../../types/subscription/payment/callback';
 
 /**
  * The `customers_subscriptions` resource.

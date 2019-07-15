@@ -1,10 +1,10 @@
 import Resource from '../resource';
-import Method from '@models/Method';
-import List from '@models/List';
-import { IGetParams, IListParams } from '@mollie-types/method/params';
-import { GetCallback, ListCallback } from '@mollie-types/method/callback';
-import NotImplementedError from '@errors/NotImplementedError';
-import ApiError from '@errors/ApiError';
+import Method from '../models/Method';
+import List from '../models/List';
+import { IGetParams, IListParams } from '../types/method/params';
+import { GetCallback, ListCallback } from '../types/method/callback';
+import NotImplementedError from '../errors/NotImplementedError';
+import ApiError from '../errors/ApiError';
 
 /**
  * The `methods` resource

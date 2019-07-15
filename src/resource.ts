@@ -3,9 +3,9 @@ import qs from 'qs';
 import { AxiosInstance, AxiosResponse } from 'axios';
 import { cloneDeep, isPlainObject, has } from 'lodash';
 
-import Model from '@root/model';
-import List from '@models/List';
-import ApiError from '@errors/ApiError';
+import Model from './model';
+import List from './models/List';
+import ApiError from './errors/ApiError';
 
 /**
  * @deprecated since 2.2.0

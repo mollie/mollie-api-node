@@ -1,12 +1,12 @@
 import { defaults, get, startsWith } from 'lodash';
 
-import Resource from '@root/resource';
-import CustomersSubscriptionsBaseResource from '@resources/customers/subscriptions/base';
-import Subscription from '@models/Subscription';
-import List from '@models/List';
-import { ICancelParams, ICreateParams, IGetParams, IListParams, IUpdateParams } from '@mollie-types/subscription/params';
-import { CancelCallback, CreateCallback, GetCallback, ListCallback, UpdateCallback } from '@mollie-types/subscription/callback';
-import Customer from '@models/Customer';
+import Resource from '../../../resource';
+import CustomersSubscriptionsBaseResource from '../base';
+import Subscription from '../../../models/Subscription';
+import List from '../../../models/List';
+import { ICancelParams, ICreateParams, IGetParams, IListParams, IUpdateParams } from '../../../types/subscription/params';
+import { CancelCallback, CreateCallback, GetCallback, ListCallback, UpdateCallback } from '../../../types/subscription/callback';
+import Customer from '../../../models/Customer';
 
 /**
  * The `customers_subscriptions` resource.

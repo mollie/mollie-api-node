@@ -1,6 +1,6 @@
-import Subscription from '@models/Subscription';
-import { ApiMode } from '@mollie-types/global';
-import { SubscriptionStatus } from '@mollie-types/subscription';
+import Subscription from '../../../src/models/Subscription';
+import { ApiMode } from '../../../src/types/global';
+import { SubscriptionStatus } from '../../../src/types/subscription';
 
 describe('subscription model', () => {
   it('should instantiate with default values', () => {

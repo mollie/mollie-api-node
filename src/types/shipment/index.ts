@@ -1,5 +1,5 @@
-import { ILinks, IUrl } from '@mollie-types/global';
-import { IOrderLine } from '@mollie-types/order/line';
+import { ILinks, IUrl } from '../global';
+import { IOrderLine } from '../order/line';
 
 /**
  * Shipment Response object.

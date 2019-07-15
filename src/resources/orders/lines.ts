@@ -1,11 +1,11 @@
 import { startsWith } from 'lodash';
 
-import OrderLine from '@models/OrderLine';
+import OrderLine from '../../models/OrderLine';
 import OrdersResource from './base';
-import Order from '@models/Order';
-import { ICancelParams, IUpdateParams } from '@mollie-types/order/line/params';
-import { CancelCallback, UpdateCallback } from '@mollie-types/order/line/callback';
-import Resource from '@root/resource';
+import Order from '../../models/Order';
+import { ICancelParams, IUpdateParams } from '../../types/order/line/params';
+import { CancelCallback, UpdateCallback } from '../../types/order/line/callback';
+import Resource from '../../resource';
 
 /**
  * The `orders_lines` resource

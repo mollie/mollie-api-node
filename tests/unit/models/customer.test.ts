@@ -1,5 +1,5 @@
-import Customer from '@models/Customer';
-import { ApiMode, Locale, PaymentMethod } from '@mollie-types/global';
+import Customer from '../../../src/models/Customer';
+import { ApiMode, Locale, PaymentMethod } from '../../../src/types/global';
 
 describe('customer model', () => {
   it('should instantiate with default values', () => {

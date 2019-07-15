@@ -1,5 +1,5 @@
-import Model from '@root/model';
-import { ISubscription, SubscriptionStatus } from '@mollie-types/subscription';
+import Model from '../model';
+import { ISubscription, SubscriptionStatus } from '../types/subscription';
 
 /**
  * The `Subscription` model

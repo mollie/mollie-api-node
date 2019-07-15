@@ -1,5 +1,5 @@
-import Model from '@root/model';
-import { IMandate, MandateStatus } from '@mollie-types/mandate';
+import Model from '../model';
+import { IMandate, MandateStatus } from '../types/mandate';
 
 /**
  * The `Mandate` model

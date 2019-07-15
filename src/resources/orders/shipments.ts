@@ -1,12 +1,12 @@
 import { defaults, get, startsWith } from 'lodash';
 
-import Shipment from '@models/Shipment';
-import List from '@models/List';
+import Shipment from '../../models/Shipment';
+import List from '../../models/List';
 import OrdersBaseResource from './base';
-import { ICreateParams, IGetParams, IListParams, IUpdateParams } from '@mollie-types/shipment/params';
-import { CreateCallback, GetCallback, ListCallback, UpdateCallback } from '@mollie-types/shipment/callback';
-import Order from '@models/Order';
-import Resource from '@root/resource';
+import { ICreateParams, IGetParams, IListParams, IUpdateParams } from '../../types/shipment/params';
+import { CreateCallback, GetCallback, ListCallback, UpdateCallback } from '../../types/shipment/callback';
+import Order from '../../models/Order';
+import Resource from '../../resource';
 import NotImplementedError from '../../errors/NotImplementedError';
 
 /**

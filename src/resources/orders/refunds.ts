@@ -1,12 +1,12 @@
 import { defaults, get, startsWith } from 'lodash';
 
-import Refund from '@models/Refund';
+import Refund from '../../models/Refund';
 import OrdersResource from './base';
-import List from '@models/List';
-import { CreateCallback, ListCallback } from '@mollie-types/order/refund/callback';
-import { ICreateParams, IListParams } from '@mollie-types/order/refund/params';
-import Order from '@models/Order';
-import Resource from '@root/resource';
+import List from '../../models/List';
+import { CreateCallback, ListCallback } from '../../types/order/refund/callback';
+import { ICreateParams, IListParams } from '../../types/order/refund/params';
+import Order from '../../models/Order';
+import Resource from '../../resource';
 import ApiError from '../../errors/ApiError';
 import NotImplementedError from '../../errors/NotImplementedError';
 

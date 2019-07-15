@@ -1,10 +1,10 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import OrdersRefundsResource from '@resources/orders/refunds';
-import PaymentRefund from '@models/Refund';
-import response from '@tests/unit/__stubs__/orders_refunds.json';
-import ApiError from '@errors/ApiError';
+import OrdersRefundsResource from '../../../../src/resources/orders/refunds';
+import PaymentRefund from '../../../../src/models/Refund';
+import response from '../../__stubs__/orders_refunds.json';
+import ApiError from '../../../../src/errors/ApiError';
 
 const mock = new MockAdapter(axios);
 

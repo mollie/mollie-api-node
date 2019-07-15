@@ -1,13 +1,13 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import OrdersResource from '@resources/orders';
+import OrdersResource from '../../../src/resources/orders';
 
-import response from '@tests/unit/__stubs__/orders.json';
-import Order from '@models/Order';
-import ApiError from '@errors/ApiError';
-import { OrderLineType } from '@root/types/order/line';
-import { Locale, PaymentMethod } from '@root/types/global';
+import response from '../__stubs__/orders.json';
+import Order from '../../../src/models/Order';
+import ApiError from '../../../src/errors/ApiError';
+import { OrderLineType } from '../../../src/types/order/line';
+import { Locale, PaymentMethod } from '../../../src/types/global';
 
 const mock = new MockAdapter(axios);
 

@@ -1,11 +1,11 @@
 import { startsWith } from 'lodash';
 
-import Resource from '@root/resource';
-import CustomersBaseResource from '@resources/customers/base';
-import Customer from '@models/Customer';
-import List from '@models/List';
-import { ICreateParams, IDeleteParams, IGetParams, IListParams, IUpdateParams } from '@mollie-types/customer/params';
-import { CreateCallback, DeleteCallback, GetCallback, ListCallback, UpdateCallback } from '@mollie-types/customer/callback';
+import Resource from '../../resource';
+import CustomersBaseResource from '../../resources/customers/base';
+import Customer from '../../models/Customer';
+import List from '../../models/List';
+import { ICreateParams, IDeleteParams, IGetParams, IListParams, IUpdateParams } from '../../types/customer/params';
+import { CreateCallback, DeleteCallback, GetCallback, ListCallback, UpdateCallback } from '../../types/customer/callback';
 
 /**
  * The `customers` resource

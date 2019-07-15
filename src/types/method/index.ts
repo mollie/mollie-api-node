@@ -1,4 +1,4 @@
-import { IAmount, IImage, ILinks, PaymentMethod as PaymentMethodEnum } from '@mollie-types/global';
+import { IAmount, IImage, ILinks, PaymentMethod as PaymentMethodEnum } from '../global';
 
 /**
  * Method Response object.

@@ -2,23 +2,12 @@
   "compilerOptions": {
     "outDir": "dist/",
     "target": "esnext",
-    "declaration": false,
+    "declaration": true,
     "resolveJsonModule": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
     "pretty": true,
-    "baseUrl": ".",
-    "paths": {
-      "@root/*": ["src/*"],
-      "@errors/*": ["src/errors/*"],
-      "@models/*": ["src/models/*"],
-      "@resources/*": ["src/resources/*"],
-      "@mollie-types/*": ["src/types/*"],
-      "@tests/*": ["tests/*"]
-    }
+    "baseUrl": "."
   },
-  "include": [
-    "src/",
-    "tests/"
-  ]
+  "include": ["src/", "tests/"]
 }

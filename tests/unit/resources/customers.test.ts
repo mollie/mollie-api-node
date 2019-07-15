@@ -1,11 +1,11 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import CustomersResource from '@resources/customers';
-import Customer from '@models/Customer';
-import ApiError from '@errors/ApiError';
-import response from '@tests/unit/__stubs__/customers.json';
-import List from '@models/List';
+import CustomersResource from '../../../src/resources/customers';
+import Customer from '../../../src/models/Customer';
+import ApiError from '../../../src/errors/ApiError';
+import response from '../__stubs__/customers.json';
+import List from '../../../src/models/List';
 
 const mock = new MockAdapter(axios);
 

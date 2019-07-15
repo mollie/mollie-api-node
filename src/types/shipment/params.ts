@@ -1,5 +1,5 @@
-import { IShipmentTracking } from '@mollie-types/shipment';
-import { IOrderLine } from '@mollie-types/order/line';
+import { IShipmentTracking } from '../shipment';
+import { IOrderLine } from '../order/line';
 
 /**
  * Create Shipment parameters

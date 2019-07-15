@@ -1,10 +1,10 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import CustomersSubscriptionsResource from '@resources/customers/subscriptions';
-import Subscription from '@models/Subscription';
-import { MandateMethod } from '@root/types/mandate';
-import response from '@tests/unit/__stubs__/customers_subscriptions.json';
+import CustomersSubscriptionsResource from '../../../../src/resources/customers/subscriptions';
+import Subscription from '../../../../src/models/Subscription';
+import { MandateMethod } from '../../../../src/types/mandate';
+import response from '../../__stubs__/customers_subscriptions.json';
 
 const mock = new MockAdapter(axios);
 

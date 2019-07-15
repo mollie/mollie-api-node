@@ -1,5 +1,5 @@
-import Refund from '@models/Refund';
-import { RefundStatus } from '@mollie-types/refund';
+import Refund from '../../../src/models/Refund';
+import { RefundStatus } from '../../../src/types/refund';
 
 describe('refund model', () => {
   it('should instantiate with default values', () => {

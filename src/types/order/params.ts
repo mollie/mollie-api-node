@@ -1,5 +1,5 @@
-import { IAmount, Locale, PaymentMethod } from '@mollie-types/global';
-import { IPayment } from '@mollie-types/payment';
+import { IAmount, Locale, PaymentMethod } from '../global';
+import { IPayment } from '../payment';
 import { IOrderAddress, OrderEmbed } from './index';
 import { ICreateOrderLine } from './line';
 

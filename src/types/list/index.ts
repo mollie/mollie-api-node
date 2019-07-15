@@ -1,5 +1,5 @@
-import { IListLinks } from '@mollie-types/global';
-import Model from '@root/model';
+import { IListLinks } from '../global';
+import Model from '../../model';
 
 export interface IList<T> extends Array<T> {
   getNextPageParams(links: IListLinks): any;

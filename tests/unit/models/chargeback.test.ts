@@ -1,4 +1,4 @@
-import Chargeback from '@models/Chargeback';
+import Chargeback from '../../../src/models/Chargeback';
 
 describe('chargeback model', () => {
   it('should instantiate with default values', () => {

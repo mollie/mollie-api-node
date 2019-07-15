@@ -1,24 +1,5 @@
 {
-  "plugins": [
-    "@babel/plugin-proposal-class-properties",
-    "@babel/plugin-transform-runtime",
-    [
-      "module-resolver",
-      {
-        "root": [
-          "."
-        ],
-        "alias": {
-          "@root": "./src",
-          "@errors": "./src/errors",
-          "@models": "./src/models",
-          "@resources": "./src/resources",
-          "@mollie-types": "./src/types",
-          "@tests": "./tests"
-        }
-      }
-    ]
-  ],
+  "plugins": ["@babel/plugin-proposal-class-properties", "@babel/plugin-transform-runtime"],
   "presets": [
     "@babel/preset-typescript",
     [

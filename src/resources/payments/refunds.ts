@@ -1,13 +1,13 @@
 import { defaults, get, startsWith } from 'lodash';
 
 import PaymentsResource from './base';
-import Refund from '@models/Refund';
-import List from '@models/List';
-import { ICancelParams, ICreateParams, IGetParams, IListParams } from '@mollie-types/payment/refund/params';
-import { CancelCallback, CreateCallback, GetCallback, ListCallback } from '@mollie-types/payment/refund/callback';
-import Payment from '@models/Payment';
-import Resource from '@root/resource';
-import NotImplementedError from '@errors/NotImplementedError';
+import Refund from '../../models/Refund';
+import List from '../../models/List';
+import { ICancelParams, ICreateParams, IGetParams, IListParams } from '../../types/payment/refund/params';
+import { CancelCallback, CreateCallback, GetCallback, ListCallback } from '../../types/payment/refund/callback';
+import Payment from '../../models/Payment';
+import Resource from '../../resource';
+import NotImplementedError from '../../errors/NotImplementedError';
 
 /**
  * The `payments_refunds` resource

@@ -1,13 +1,13 @@
 import { defaults, get, startsWith } from 'lodash';
 
-import Resource from '@root/resource';
-import PaymentsBaseResource from '@resources/payments/base';
-import Capture from '@models/Capture';
-import List from '@models/List';
-import Payment from '@models/Payment';
-import NotImplementedError from '@errors/NotImplementedError';
-import { IGetParams, IListParams } from '@mollie-types/payment/capture/params';
-import { GetCallback, ListCallback } from '@mollie-types/payment/capture/callback';
+import Resource from '../../resource';
+import PaymentsBaseResource from './base';
+import Capture from '../../models/Capture';
+import List from '../../models/List';
+import Payment from '../../models/Payment';
+import NotImplementedError from '../../errors/NotImplementedError';
+import { IGetParams, IListParams } from '../../types/payment/capture/params';
+import { GetCallback, ListCallback } from '../../types/payment/capture/callback';
 
 /**
  * The `payments_captures` resource

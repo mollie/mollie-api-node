@@ -1,13 +1,13 @@
 import { defaults, get, startsWith } from 'lodash';
 
-import Resource from '@root/resource';
-import CustomersBaseResource from '@resources/customers/base';
-import Payment from '@models/Payment';
-import List from '@models/List';
-import Customer from '@models/Customer';
-import NotImplementedError from '@errors/NotImplementedError';
-import { ICreateParams, IListParams } from '@mollie-types/customer/payment/params';
-import { CreateCallback, ListCallback } from '@mollie-types/customer/payment/callback';
+import Resource from '../../resource';
+import CustomersBaseResource from './base';
+import Payment from '../../models/Payment';
+import List from '../../models/List';
+import Customer from '../../models/Customer';
+import NotImplementedError from '../../errors/NotImplementedError';
+import { ICreateParams, IListParams } from '../../types/customer/payment/params';
+import { CreateCallback, ListCallback } from '../../types/customer/payment/callback';
 
 /**
  * The `customers_payments` resource.

@@ -1,5 +1,5 @@
 import { cloneDeep, get, has } from 'lodash';
-import { IMollieApiError, IMollieApiErrorLinks, IUrl } from '@mollie-types/global';
+import { IMollieApiError, IMollieApiErrorLinks, IUrl } from '../types/global';
 
 /**
  * @since 2.2.0

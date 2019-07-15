@@ -1,5 +1,5 @@
-import { IMethod } from '@mollie-types/method';
-import { IList } from '@mollie-types/list';
+import { IMethod } from '../method';
+import { IList } from '../list';
 
 /**
  * @deprecated since 2.2.0 - All callbacks will be removed in a future version

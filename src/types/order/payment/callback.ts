@@ -1,4 +1,4 @@
-import { IPayment } from '@mollie-types/payment';
+import { IPayment } from '../../payment';
 
 /**
  * @deprecated since 2.2.0 - All callbacks will be removed in a future version

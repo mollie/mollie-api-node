@@ -1,4 +1,4 @@
-import { ApiMode, ILinks, IUrl, Locale, PaymentMethod } from '@mollie-types/global';
+import { ApiMode, ILinks, IUrl, Locale, PaymentMethod } from '../global';
 
 /**
  * Customer Response object.

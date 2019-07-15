@@ -1,10 +1,10 @@
 import { isPlainObject } from 'lodash';
 
-import Model from '@root/model';
-import Payment from '@models/Payment';
-import Refund from '@models/Refund';
-import { IOrder } from '@mollie-types/order';
-import { IAmount } from '@mollie-types/global';
+import Model from '../model';
+import Payment from '../models/Payment';
+import Refund from '../models/Refund';
+import { IOrder } from '../types/order';
+import { IAmount } from '../types/global';
 
 /**
  * The `Order` model

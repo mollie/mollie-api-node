@@ -1,16 +1,16 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import PaymentsResource from '@resources/payments';
-import Payment from '@models/Payment';
-import paymentsResponse from '@tests/unit/__stubs__/payments.json';
-import paymentsEmbedChargebackResponse from '@tests/unit/__stubs__/payments_embed_chargebacks.json';
-import paymentsEmbedsResponse from '@tests/unit/__stubs__/payments_embeds.json';
-import ApiError from '@errors/ApiError';
-import Chargeback from '@models/Chargeback';
-import Refund from '@models/Refund';
-import { PaymentMethod } from '@root/types/global';
-import { PaymentEmbed } from '@root/types/payment';
+import PaymentsResource from '../../../src/resources/payments';
+import Payment from '../../../src/models/Payment';
+import paymentsResponse from '../__stubs__/payments.json';
+import paymentsEmbedChargebackResponse from '../__stubs__/payments_embed_chargebacks.json';
+import paymentsEmbedsResponse from '../__stubs__/payments_embeds.json';
+import ApiError from '../../../src/errors/ApiError';
+import Chargeback from '../../../src/models/Chargeback';
+import Refund from '../../../src/models/Refund';
+import { PaymentMethod } from '../../../src/types/global';
+import { PaymentEmbed } from '../../../src/types/payment';
 
 const mock = new MockAdapter(axios);
 

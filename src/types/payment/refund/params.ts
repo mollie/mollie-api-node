@@ -1,5 +1,5 @@
-import { IAmount } from '@mollie-types/global';
-import { RefundEmbed } from '@mollie-types/refund';
+import { IAmount } from '../../global';
+import { RefundEmbed } from '../../refund';
 
 /**
  * Create Payment Refund parameters.

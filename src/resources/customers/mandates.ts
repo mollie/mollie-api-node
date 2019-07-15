@@ -1,13 +1,13 @@
 import { defaults, get, startsWith } from 'lodash';
 
-import Resource from '@root/resource';
-import CustomersBaseResource from '@resources/customers/base';
-import List from '@models/List';
-import Mandate from '@models/Mandate';
-import Customer from '@models/Customer';
-import NotImplementedError from '@errors/NotImplementedError';
-import { ICreateParams, IGetParams, IListParams, IRevokeParams } from '@mollie-types/mandate/params';
-import { CreateCallback, GetCallback, ListCallback, RevokeCallback } from '@mollie-types/mandate/callback';
+import Resource from '../../resource';
+import CustomersBaseResource from './base';
+import List from '../../models/List';
+import Mandate from '../../models/Mandate';
+import Customer from '../../models/Customer';
+import NotImplementedError from '../../errors/NotImplementedError';
+import { ICreateParams, IGetParams, IListParams, IRevokeParams } from '../../types/mandate/params';
+import { CreateCallback, GetCallback, ListCallback, RevokeCallback } from '../../types/mandate/callback';
 
 /**
  * The `customers_mandates` resource

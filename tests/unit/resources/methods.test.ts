@@ -1,12 +1,12 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import MethodsResource from '@resources/methods';
-import Method from '@models/Method';
+import MethodsResource from '../../../src/resources/methods';
+import Method from '../../../src/models/Method';
 
-import response from '@tests/unit/__stubs__/methods.json';
-import ApiError from '@errors/ApiError';
-import List from '@models/List';
+import response from '../__stubs__/methods.json';
+import ApiError from '../../../src/errors/ApiError';
+import List from '../../../src/models/List';
 
 const mock = new MockAdapter(axios);
 

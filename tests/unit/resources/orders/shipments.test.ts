@@ -1,10 +1,10 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import OrdersShipmentsResource from '@resources/orders/shipments';
-import Shipment from '@models/Shipment';
-import response from '@tests/unit/__stubs__/shipments.json';
-import ApiError from '@errors/ApiError';
+import OrdersShipmentsResource from '../../../../src/resources/orders/shipments';
+import Shipment from '../../../../src/models/Shipment';
+import response from '../../__stubs__/shipments.json';
+import ApiError from '../../../../src/errors/ApiError';
 
 const mock = new MockAdapter(axios);
 

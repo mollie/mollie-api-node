@@ -1,5 +1,5 @@
-import Method from '@models/Method';
-import { PaymentMethod } from '@mollie-types/global';
+import Method from '../../../src/models/Method';
+import { PaymentMethod } from '../../../src/types/global';
 
 describe('method model', () => {
   it('should instantiate with default values', () => {

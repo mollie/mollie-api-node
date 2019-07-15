@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { IAmount, IUrl } from '@mollie-types/global';
-import { OrderStatus } from '@mollie-types/order';
+import { IAmount, IUrl } from '../../global';
+import { OrderStatus } from '../';
 
 /**
  * OrderLine Response object.

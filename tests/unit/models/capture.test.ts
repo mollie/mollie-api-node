@@ -1,6 +1,6 @@
-import Capture from '@models/Capture';
-import { ApiMode } from '@mollie-types/global';
-import { ICapture } from '@mollie-types/payment/capture';
+import Capture from '../../../src/models/Capture';
+import { ApiMode } from '../../../src/types/global';
+import { ICapture } from '../../../src/types/payment/capture';
 
 describe('capture model', () => {
   it('should instantiate with default values', () => {

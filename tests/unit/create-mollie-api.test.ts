@@ -1,5 +1,5 @@
-import createMollieApi from '@root/create-mollie-api';
-import createHttpClient from '@root/create-http-client';
+import createMollieApi from '../../src/create-mollie-api';
+import createHttpClient from '../../src/create-http-client';
 
 const httpClient = createHttpClient({ apiKey: 'test' });
 const mollie = createMollieApi({ httpClient });

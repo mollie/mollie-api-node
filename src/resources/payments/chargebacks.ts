@@ -1,13 +1,13 @@
 import { defaults, get, startsWith } from 'lodash';
 
-import PaymentsBaseResource from '@resources/payments/base';
-import Chargeback from '@models/Chargeback';
-import List from '@models/List';
-import Payment from '@models/Payment';
-import { IGetParams, IListParams } from '@mollie-types/payment/chargeback/params';
-import { GetCallback, ListCallback } from '@mollie-types/payment/chargeback/callback';
-import Resource from '@root/resource';
-import NotImplementedError from '@errors/NotImplementedError';
+import PaymentsBaseResource from './base';
+import Chargeback from '../../models/Chargeback';
+import List from '../../models/List';
+import Payment from '../../models/Payment';
+import { IGetParams, IListParams } from '../../types/payment/chargeback/params';
+import { GetCallback, ListCallback } from '../../types/payment/chargeback/callback';
+import Resource from '../../resource';
+import NotImplementedError from '../../errors/NotImplementedError';
 
 /**
  * The `payments_chargebacks` resource

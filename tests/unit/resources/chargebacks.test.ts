@@ -1,10 +1,10 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import ChargebacksResource from '@resources/chargebacks';
-import Chargeback from '@models/Chargeback';
-import List from '@models/List';
-import response from '@tests/unit/__stubs__/chargebacks.json';
+import ChargebacksResource from '../../../src/resources/chargebacks';
+import Chargeback from '../../../src/models/Chargeback';
+import List from '../../../src/models/List';
+import response from '../__stubs__/chargebacks.json';
 
 const mock = new MockAdapter(axios);
 

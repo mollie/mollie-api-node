@@ -1,8 +1,8 @@
-import { ApiMode, Locale, PaymentMethod, SequenceType } from '@mollie-types/global';
-import Order from '@models/Order';
-import { IOrder, OrderStatus } from '@mollie-types/order';
-import { PaymentStatus } from '@mollie-types/payment';
-import { OrderLineType } from '@mollie-types/order/line';
+import { ApiMode, Locale, PaymentMethod, SequenceType } from '../../../src/types/global';
+import Order from '../../../src/models/Order';
+import { IOrder, OrderStatus } from '../../../src/types/order';
+import { PaymentStatus } from '../../../src/types/payment';
+import { OrderLineType } from '../../../src/types/order/line';
 
 describe('order model', () => {
   it('should instantiate with default values', () => {

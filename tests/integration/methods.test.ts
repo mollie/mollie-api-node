@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 
 let mollie;
 if (process.env.RUN_THE_ACTUAL_BUILD === 'true' || process.env.RUN_THE_ACTUAL_BUILD === 'cjs') {
-  mollie = require('../../dist/cjs/mollie');
+  mollie = require('../../dist/mollie.cjs');
 } else {
   mollie = require('../../src/mollie').default;
 }

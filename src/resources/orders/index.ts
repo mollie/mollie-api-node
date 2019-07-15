@@ -1,10 +1,10 @@
 import { startsWith } from 'lodash';
 
-import Resource from '@root/resource';
-import Order from '@models/Order';
-import List from '@models/List';
-import { ICancelParams, ICreateParams, IGetParams, IListParams, IUpdateParams } from '@mollie-types/order/params';
-import { CancelCallback, CreateCallback, GetCallback, ListCallback, UpdateCallback } from '@mollie-types/order/callback';
+import Resource from '../../resource';
+import Order from '../../models/Order';
+import List from '../../models/List';
+import { ICancelParams, ICreateParams, IGetParams, IListParams, IUpdateParams } from '../../types/order/params';
+import { CancelCallback, CreateCallback, GetCallback, ListCallback, UpdateCallback } from '../../types/order/callback';
 
 /**
  * The `orders` resource

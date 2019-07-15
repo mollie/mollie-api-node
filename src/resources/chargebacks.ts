@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars, @typescript-eslint/no-unused-vars */
 import Resource from '../resource';
-import Chargeback from '@models/Chargeback';
-import List from '@models/List';
+import Chargeback from '../models/Chargeback';
+import List from '../models/List';
 
-import { IListParams } from '@mollie-types/chargeback/params';
-import { ListCallback } from '@mollie-types/chargeback/callback';
-import NotImplementedError from '@errors/NotImplementedError';
+import { IListParams } from '../types/chargeback/params';
+import { ListCallback } from '../types/chargeback/callback';
+import NotImplementedError from '../errors/NotImplementedError';
 
 /**
  * The `chargebacks` resource

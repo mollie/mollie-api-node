@@ -1,5 +1,5 @@
-import Model from '@root/model';
-import { IChargeback } from '@mollie-types/chargeback';
+import Model from '../model';
+import { IChargeback } from '../types/chargeback';
 
 /**
  * The `Chargeback` model

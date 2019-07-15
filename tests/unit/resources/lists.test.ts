@@ -1,12 +1,12 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import CustomersResource from '@resources/customers';
+import CustomersResource from '../../../src/resources/customers';
 
-import page1 from '@tests/unit/__stubs__/list/customers_page_1.json';
-import page2 from '@tests/unit/__stubs__/list/customers_page_2.json';
-import page3 from '@tests/unit/__stubs__/list/customers_page_3.json';
-import List from '@models/List';
+import page1 from '../__stubs__/list/customers_page_1.json';
+import page2 from '../__stubs__/list/customers_page_2.json';
+import page3 from '../__stubs__/list/customers_page_3.json';
+import List from '../../../src/models/List';
 
 const mock = new MockAdapter(axios);
 

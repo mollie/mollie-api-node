@@ -1,6 +1,6 @@
-import { PaymentEmbed, PaymentInclude } from '@mollie-types/payment';
-import { IAddress, IAmount, Locale, PaymentMethod } from '@mollie-types/global';
-import { Issuer } from '@mollie-types/issuer';
+import { PaymentEmbed, PaymentInclude } from '../payment';
+import { IAddress, IAmount, Locale, PaymentMethod } from '../global';
+import { Issuer } from '../issuer';
 
 /**
  * Create Payment parameters.

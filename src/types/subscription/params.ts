@@ -1,6 +1,6 @@
-import { IAmount } from '@mollie-types/global';
-import { MandateMethod } from '@mollie-types/mandate';
-import { ISubscription } from '@mollie-types/subscription';
+import { IAmount } from '../global';
+import { MandateMethod } from '../mandate';
+import { ISubscription } from '../subscription';
 
 /**
  * Create Subscription parameters

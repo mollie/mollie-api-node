@@ -1,12 +1,12 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import CustomersMandatesResource from '@resources/customers/mandates';
-import Mandate from '@models/Mandate';
-import response from '@tests/unit/__stubs__/customers_mandates.json';
-import ApiError from '@errors/ApiError';
+import CustomersMandatesResource from '../../../../src/resources/customers/mandates';
+import Mandate from '../../../../src/models/Mandate';
+import response from '../../__stubs__/customers_mandates.json';
+import ApiError from '../../../../src/errors/ApiError';
 
-import { MandateMethod } from '@mollie-types/mandate';
+import { MandateMethod } from '../../../../src/types/mandate';
 
 const mock = new MockAdapter(axios);
 

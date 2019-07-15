@@ -1,4 +1,4 @@
-import Resource from '@root/resource';
+import Resource from '../../resource';
 
 /**
  * Orders base resource

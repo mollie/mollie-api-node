@@ -1,4 +1,4 @@
-import { MandateMethod } from '@mollie-types/mandate';
+import { MandateMethod } from '../mandate';
 
 /**
  * Create Mandate parameters

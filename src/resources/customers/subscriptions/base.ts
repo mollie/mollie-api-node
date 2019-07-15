@@ -1,4 +1,4 @@
-import CustomersBaseResource from '@resources/customers/base';
+import CustomersBaseResource from '../base';
 
 /**
  * Customers base resource.

@@ -1,4 +1,4 @@
-import { ApiMode, IAmount, ILinks, IUrl } from '@mollie-types/global';
+import { ApiMode, IAmount, ILinks, IUrl } from '../global';
 
 /**
  * Subscription Response object.

@@ -2,15 +2,15 @@ import axios from 'axios';
 import httpAdapter from 'axios/lib/adapters/http';
 import dotenv from 'dotenv';
 
-import Order from '@models/Order';
-import { Locale, PaymentMethod } from '@mollie-types/global';
-import { OrderLineType } from '@mollie-types/order/line';
-import { OrderEmbed } from '@mollie-types/order';
-import Payment from '@models/Payment';
+import Order from '../../src/models/Order';
+import { Locale, PaymentMethod } from '../../src/types/global';
+import { OrderLineType } from '../../src/types/order/line';
+import { OrderEmbed } from '../../src/types/order';
+import Payment from '../../src/models/Payment';
 
 let mollie;
 if (process.env.RUN_THE_ACTUAL_BUILD === 'true' || process.env.RUN_THE_ACTUAL_BUILD === 'cjs') {
-  mollie = require('../../dist/cjs/mollie');
+  mollie = require('../../dist/mollie.cjs');
 } else {
   mollie = require('../../src/mollie').default;
 }

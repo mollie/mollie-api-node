@@ -1,5 +1,5 @@
-import { IOrder } from '@mollie-types/order';
-import { IList } from '@mollie-types/list';
+import { IOrder } from '../order';
+import { IList } from '../list';
 
 /**
  * @deprecated since 2.2.0 - All callbacks will be removed in a future version

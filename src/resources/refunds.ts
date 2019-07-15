@@ -1,9 +1,9 @@
 import Resource from '../resource';
-import Refund from '@models/Refund';
-import List from '@models/List';
-import { IListParams } from '@mollie-types/refund/params';
-import { ListCallback } from '@mollie-types/refund/callback';
-import NotImplementedError from '@errors/NotImplementedError';
+import Refund from '../models/Refund';
+import List from '../models/List';
+import { IListParams } from '../types/refund/params';
+import { ListCallback } from '../types/refund/callback';
+import NotImplementedError from '../errors/NotImplementedError';
 
 /**
  * The `refunds` resource

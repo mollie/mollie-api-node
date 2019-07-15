@@ -17,10 +17,10 @@
     "payments",
     "gateway"
   ],
-  "main": "dist/cjs/mollie.js",
-  "module": "dist/esm/mollie.js",
-  "jsnext:main": "dist/esm/mollie.js",
-  "types": "dist/esm/src/mollie.d.ts",
+  "main": "dist/mollie.cjs.js",
+  "module": "dist/mollie.esm.js",
+  "jsnext:main": "dist/mollie.esm.js",
+  "types": "dist/src/mollie",
   "engines": {
     "node": ">=6.9.0"
   },

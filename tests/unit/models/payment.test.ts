@@ -1,6 +1,6 @@
-import Payment from '@models/Payment';
-import { ApiMode, SequenceType } from '@mollie-types/global';
-import { PaymentStatus } from '@mollie-types/payment';
+import Payment from '../../../src/models/Payment';
+import { ApiMode, SequenceType } from '../../../src/types/global';
+import { PaymentStatus } from '../../../src/types/payment';
 
 describe('payment model', () => {
   it('should instantiate with default values', () => {
