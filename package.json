@@ -45,10 +45,8 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/plugin-transform-runtime": "^7.2.0",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-typescript": "^7.3.3",
-    "@babel/runtime": "^7.5.5",
     "@mollie/eslint-config-typescript": "^1.1.0",
     "@types/jest": "^24.0.16",
     "@types/lodash": "^4.14.136",
