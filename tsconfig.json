@@ -1,13 +1,8 @@
 {
   "compilerOptions": {
-    "outDir": "dist/",
-    "target": "esnext",
-    "declaration": true,
     "resolveJsonModule": true,
-    "moduleResolution": "node",
     "esModuleInterop": true,
-    "pretty": true,
-    "baseUrl": "."
-  },
-  "include": ["src/", "tests/"]
+    "target": "esnext",
+    "moduleResolution": "node"
+  }
 }
