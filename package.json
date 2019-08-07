@@ -39,9 +39,9 @@
     "lint": "yarn lint:eslint:fix && yarn lint:prettier"
   },
   "dependencies": {
-    "axios": "^0.18.0",
-    "lodash": "^4.17.11",
-    "qs": "^6.6.0"
+    "axios": "^0.19.0",
+    "lodash": "^4.17.15",
+    "qs": "^6.7.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.5.5",
