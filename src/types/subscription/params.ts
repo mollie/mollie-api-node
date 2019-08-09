@@ -28,7 +28,7 @@ import { ISubscription } from '../subscription';
  * @param profileId - The website profile’s unique identifier, for example `pfl_3RkSN1zuPE`. This field is mandatory.
  * @param testmode - Set this to `true` to create a test mode subscription.
  *
- * @see https://docs.mollie.com/reference/v2/subscriptions-api/create-subscription#
+ * @see https://docs.mollie.com/reference/v2/subscriptions-api/create-subscription
  */
 export interface ICreateParams {
   customerId: string;
@@ -38,7 +38,7 @@ export interface ICreateParams {
   interval: string;
   startDate?: string;
   description: string;
-  method: MandateMethod | null;
+  method?: MandateMethod | null;
   mandateId?: string;
   webhookUrl?: string;
   metadata?: string;
