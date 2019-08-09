@@ -240,7 +240,7 @@ export default class Resource {
    */
   public async update(id: string, params: any, cb?: ResourceCallback): Promise<Model> {
     try {
-      const response: AxiosResponse = await this.getClient().post(`${this.getResourceUrl()}/${id}`, params);
+      const response: AxiosResponse = await this.getClient().patch(`${this.getResourceUrl()}/${id}`, params);
 
       // noinspection JSPotentiallyInvalidConstructorUsage
       const model = new (this.constructor as any).model(response.data);
