@@ -100,6 +100,6 @@ export default class Subscription extends Model implements ISubscription {
    * @public ✓ This method is part of the public API
    */
   public isCanceled(): boolean {
-    return !!this.canceledAt;
+    return SubscriptionStatus.canceled == this.status;
   }
 }
