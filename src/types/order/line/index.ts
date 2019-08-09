@@ -60,6 +60,12 @@ export interface IRequestOrderLine {
   amount?: IAmount;
 }
 
+export interface ICancelOrderLine {
+  id: string;
+  quantity?: number;
+  amount?: IAmount;
+}
+
 export enum OrderLineType {
   physical = 'physical',
   discount = 'discount',

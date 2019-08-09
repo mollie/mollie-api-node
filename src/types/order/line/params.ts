@@ -1,3 +1,6 @@
+import { ICancelOrderLine } from './index';
+import { IAmount } from '../../global';
+
 /**
  * Update Order Line parameters
  *
@@ -16,9 +19,6 @@
  *
  * @see https://docs.mollie.com/reference/v2/orders-api/update-orderline
  */
-import { IOrderLine } from './index';
-import { IAmount } from '../../global';
-
 export interface IUpdateParams {
   orderId: string;
 
@@ -50,7 +50,7 @@ export interface IUpdateParams {
 export interface ICancelParams {
   orderId: string;
 
-  lines: Array<IOrderLine>;
+  lines: Array<ICancelOrderLine>;
 
   // Access token parameters
   testmode?: boolean;
