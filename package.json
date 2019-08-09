@@ -109,7 +109,7 @@
       "^.+\\.(js|jsx|ts|tsx)$": "babel-jest"
     },
     "testMatch": [
-      "<rootDir>/tests/**/*.(ts)"
+      "<rootDir>/tests/**/*.test.ts"
     ]
   },
   "config": {

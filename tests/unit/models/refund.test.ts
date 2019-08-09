@@ -1,50 +1,79 @@
-import Refund from '../../../src/models/Refund';
-import { RefundStatus } from '../../../src/types/refund';
+import wireMockClient from '../../wireMockClient';
 
-describe('refund model', () => {
-  it('should instantiate with default values', () => {
-    const refund = new Refund();
+async function getRefund(status) {
+  const { adapter, client } = wireMockClient();
 
-    expect(refund.isQueued()).toBe(false);
-    expect(refund.isPending()).toBe(false);
-    expect(refund.isProcessing()).toBe(false);
-    expect(refund.isRefunded()).toBe(false);
-    expect(refund.toPlainObject()).toMatchSnapshot();
+  adapter.onGet('/refunds').reply(200, {
+    _embedded: {
+      refunds: [
+        {
+          resource: 'refund',
+          id: 're_haCsig5aru',
+          amount: {
+            value: '2.00',
+            currency: 'EUR',
+          },
+          status,
+          createdAt: '2018-03-28T10:56:10+00:00',
+          description: 'My first API payment',
+          paymentId: 'tr_44aKxzEbr8',
+          settlementAmount: {
+            value: '-2.00',
+            currency: 'EUR',
+          },
+          _links: {
+            self: {
+              href: 'https://api.mollie.com/v2/payments/tr_44aKxzEbr8/refunds/re_haCsig5aru',
+              type: 'application/hal+json',
+            },
+            payment: {
+              href: 'https://api.mollie.com/v2/payments/tr_44aKxzEbr8',
+              type: 'application/hal+json',
+            },
+          },
+        },
+      ],
+    },
+    _links: {
+      documentation: {
+        href: 'https://docs.mollie.com/reference/v2/refunds-api/list-refunds',
+        type: 'text/html',
+      },
+      self: {
+        href: 'http://api.mollie.nl/v2/refunds?limit=10',
+        type: 'application/hal+json',
+      },
+      previous: null,
+      next: null,
+    },
+    count: 1,
   });
 
-  it('should instantiate with given values', () => {
-    const refundProps = {
-      resource: 'refund',
-      id: 're_4qqhO89gsT',
-      amount: {
-        currency: 'EUR',
-        value: '5.95',
-      },
-      status: RefundStatus.pending,
-      createdAt: '2018-03-14T17:09:02.0Z',
-      description: 'Order',
-      paymentId: 'tr_WDqYK6vllg',
-      _links: {
-        self: {
-          href: 'https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT',
-          type: 'application/hal+json',
-        },
-        payment: {
-          href: 'https://api.mollie.com/v2/payments/tr_WDqYK6vllg',
-          type: 'application/hal+json',
-        },
-        documentation: {
-          href: 'https://docs.mollie.com/reference/v2/refunds-api/get-refund',
-          type: 'text/html',
-        },
-      },
-    };
-    const refund = new Refund(refundProps);
+  return await client.refunds.list().then(refunds => refunds[0]);
+}
 
-    expect(refund.isQueued()).toBe(false);
-    expect(refund.isPending()).toBe(true);
-    expect(refund.isProcessing()).toBe(false);
-    expect(refund.isRefunded()).toBe(false);
-    expect(refund.toPlainObject()).toMatchSnapshot();
-  });
+test('refundStatuses', () => {
+  return Promise.all(
+    [
+      ['pending', 'isPending', true],
+      ['pending', 'isProcessing', false],
+      ['pending', 'isQueued', false],
+
+      ['processing', 'isPending', false],
+      ['processing', 'isProcessing', true],
+      ['processing', 'isQueued', false],
+
+      ['queued', 'isPending', false],
+      ['queued', 'isProcessing', false],
+      ['queued', 'isQueued', true],
+
+      ['refunded', 'isPending', false],
+      ['refunded', 'isProcessing', false],
+      ['refunded', 'isQueued', false],
+    ].map(async ([status, method, expectedResult]) => {
+      const refund = await getRefund(status);
+
+      expect(refund[method as string]()).toBe(expectedResult);
+    }),
+  );
 });

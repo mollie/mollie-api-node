@@ -1,241 +1,293 @@
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
+import wireMockClient from '../../wireMockClient';
+import callAsync from '../../callAsync';
 
-import PaymentsResource from '../../../src/resources/payments';
-import Payment from '../../../src/models/Payment';
-import paymentsResponse from '../__stubs__/payments.json';
-import paymentsEmbedChargebackResponse from '../__stubs__/payments_embed_chargebacks.json';
-import paymentsEmbedsResponse from '../__stubs__/payments_embeds.json';
-import ApiError from '../../../src/errors/ApiError';
-import Chargeback from '../../../src/models/Chargeback';
-import Refund from '../../../src/models/Refund';
-import { PaymentMethod } from '../../../src/types/global';
-import { PaymentEmbed } from '../../../src/types/payment';
+test('createPayment', async () => {
+  const { adapter, client } = wireMockClient();
 
-const mock = new MockAdapter(axios);
-
-const props = {
-  id: 'tr_nBeryjMVjr',
-  amount: {
-    currency: 'GBP',
-    value: '75.00',
-  },
-  description: 'Test payment',
-  method: PaymentMethod.ideal,
-  metadata: {
-    orderId: '12345',
-  },
-};
-
-describe('payments', () => {
-  let payments: PaymentsResource;
-  beforeEach(() => {
-    payments = new PaymentsResource(axios.create());
+  adapter.onPost('/payments').reply(201, {
+    resource: 'payment',
+    id: 'tr_44aKxzEbr8',
+    mode: 'test',
+    createdAt: '2018-03-13T14:02:29+00:00',
+    amount: {
+      value: '20.00',
+      currency: 'EUR',
+    },
+    description: 'My first API payment',
+    method: null,
+    metadata: {
+      order_id: '1234',
+    },
+    status: 'open',
+    isCancelable: false,
+    expiresAt: '2018-03-13T14:17:29+00:00',
+    details: null,
+    profileId: 'pfl_2A1gacu42V',
+    sequenceType: 'oneoff',
+    redirectUrl: 'https://example.org/redirect',
+    webhookUrl: 'https://example.org/webhook',
+    _links: {
+      self: {
+        href: 'https://api.mollie.com/v2/payments/tr_44aKxzEbr8',
+        type: 'application/hal+json',
+      },
+      checkout: {
+        href: 'https://www.mollie.com/payscreen/select-method/44aKxzEbr8',
+        type: 'text/html',
+      },
+      documentation: {
+        href: 'https://docs.mollie.com/reference/v2/payments-api/create-payment',
+        type: 'text/html',
+      },
+    },
   });
 
-  it('should have a resource name and model', () => {
-    expect(PaymentsResource.resource).toBe('payments');
-    expect(PaymentsResource.model).toBe(Payment);
+  const payment = await callAsync(client.payments.create, client.payments, {
+    amount: {
+      currency: 'EUR',
+      value: '20.00',
+    },
+    description: 'My first API payment',
+    redirectUrl: 'https://example.org/redirect',
+    webhookUrl: 'https://example.org/webhook',
+    metadata: {
+      order_id: '1234',
+    },
   });
 
-  describe('.create()', () => {
-    const error = {
-      field: 'amount',
-      detail: 'The amount is lower than the minimum',
-    };
+  expect(payment.id).toBe('tr_44aKxzEbr8');
+  expect(payment.mode).toBe('test');
+  expect(payment.createdAt).toBe('2018-03-13T14:02:29+00:00');
 
-    mock
-      .onPost('/payments', {
-        ...props,
-        amount: { value: '0.05', currency: 'EUR' },
-      })
-      .reply(500, error);
-    mock.onPost('/payments').reply(200, paymentsResponse._embedded.payments[0]);
-    mock.onPost('/payments?include=details.qrCode').reply(200, paymentsResponse._embedded.payments[1]);
+  expect(payment.amount).toEqual({ value: '20.00', currency: 'EUR' });
 
-    it('should return a payment instance', () =>
-      payments.create(props).then(result => {
-        expect(result).toBeInstanceOf(Payment);
-        expect(result.amount.value).toBe(props.amount.value);
-        expect(result).toMatchSnapshot();
-      }));
+  expect(payment.description).toBe('My first API payment');
+  expect(payment.method).toBeNull();
+  expect(payment.metadata).toEqual({ order_id: '1234' });
+  expect(payment.status).toBe('open');
+  expect(payment.isCancelable).toBe(false);
+  expect(payment.expiresAt).toBe('2018-03-13T14:17:29+00:00');
+  expect(payment.details).toBeNull();
+  expect(payment.profileId).toBe('pfl_2A1gacu42V');
+  expect(payment.sequenceType).toBe('oneoff');
+  expect(payment.redirectUrl).toBe('https://example.org/redirect');
+  expect(payment.webhookUrl).toBe('https://example.org/webhook');
 
-    it('should work with a callback', done => {
-      payments.create(props, (err, result) => {
-        expect(err).toBeNull();
-        expect(result).toBeInstanceOf(Payment);
-        expect(result.amount.value).toBe(props.amount.value);
-        expect(result).toMatchSnapshot();
-        done();
-      });
-    });
+  expect(payment._links.self).toEqual({ href: 'https://api.mollie.com/v2/payments/tr_44aKxzEbr8', type: 'application/hal+json' });
 
-    it('should fail with a unsupported amount', done =>
-      payments
-        .create({
-          ...props,
-          amount: { value: '0.05', currency: 'EUR' },
-        })
-        .then(result => expect(result).toBeUndefined())
-        .catch(err => {
-          expect(err).toBeInstanceOf(ApiError);
-          expect(err.getMessage()).toEqual(error.detail);
-          expect(err.getField()).toBe(error.field);
-          done();
-        }));
+  expect(payment._links.checkout).toEqual({ href: 'https://www.mollie.com/payscreen/select-method/44aKxzEbr8', type: 'text/html' });
 
-    it('should return a QR code', done =>
-      payments
-        .create({
-          ...props,
-          include: 'details.qrCode',
-        })
-        .then(result => {
-          expect(result).toBeInstanceOf(Payment);
-          expect(result.amount.value).toBe(props.amount.value);
-          expect(result.details).toBeDefined();
-          expect((result.details as any).qrCode.width).toBe(180);
-          expect(result).toMatchSnapshot();
-          done();
-        }));
+  expect(payment._links.documentation).toEqual({ href: 'https://docs.mollie.com/reference/v2/payments-api/create-payment', type: 'text/html' });
+});
 
-    it('should return a QR code (alternative with array)', done =>
-      payments
-        .create({
-          ...props,
-          include: ['details.qrCode'],
-        })
-        .then(result => {
-          expect(result).toBeInstanceOf(Payment);
-          expect(result.amount.value).toBe(props.amount.value);
-          expect(result.details).toBeDefined();
-          expect((result.details as any).qrCode.width).toBe(180);
-          expect(result).toMatchSnapshot();
-          done();
-        }));
+test('getPayment', async () => {
+  const { adapter, client } = wireMockClient();
+
+  adapter.onGet('/payments/tr_44aKxzEbr8').reply(200, {
+    resource: 'payment',
+    id: 'tr_44aKxzEbr8',
+    mode: 'test',
+    createdAt: '2018-03-13T14:02:29+00:00',
+    amount: {
+      value: '20.00',
+      currency: 'EUR',
+    },
+    description: 'My first API payment',
+    method: 'ideal',
+    metadata: {
+      order_id: '1234',
+    },
+    status: 'paid',
+    paidAt: '2018-03-19T12:18:35+00:00',
+    amountRefunded: {
+      value: '0.00',
+      currency: 'EUR',
+    },
+    amountRemaining: {
+      value: '20.00',
+      currency: 'EUR',
+    },
+    details: {
+      consumerName: 'T. TEST',
+      consumerAccount: 'NL17RABO0213698412',
+      consumerBic: 'TESTNL99',
+    },
+    locale: 'nl_NL',
+    countryCode: 'NL',
+    profileId: 'pfl_2A1gacu42V',
+    sequenceType: 'oneoff',
+    redirectUrl: 'https://example.org/redirect',
+    webhookUrl: 'https://example.org/webhook',
+    settlementAmount: {
+      value: '20.00',
+      currency: 'EUR',
+    },
+    _links: {
+      self: {
+        href: 'https://api.mollie.com/v2/payments/tr_44aKxzEbr8',
+        type: 'application/hal+json',
+      },
+      documentation: {
+        href: 'https://docs.mollie.com/reference/v2/payments-api/get-payment',
+        type: 'text/html',
+      },
+    },
   });
 
-  describe('.get()', () => {
-    const error = { detail: 'The payment id is invalid' };
+  const payment = await callAsync(client.payments.get, client.payments, 'tr_44aKxzEbr8');
 
-    mock.onGet(`/payments/${props.id}`).reply(200, paymentsResponse._embedded.payments[0]);
-    mock.onGet(`/payments/${props.id}?embed=chargebacks`).reply(200, paymentsEmbedChargebackResponse._embedded.payments[0]);
-    mock.onGet(`/payments/${props.id}?embed=chargebacks%3Brefunds`).reply(200, paymentsEmbedsResponse._embedded.payments[0]);
-    mock.onGet('/payments/foo').reply(500, error);
+  expect(payment.id).toBe('tr_44aKxzEbr8');
+  expect(payment.mode).toBe('test');
+  expect(payment.createdAt).toBe('2018-03-13T14:02:29+00:00');
 
-    it('should return a payment instance', () =>
-      payments.get(props.id).then(result => {
-        expect(result).toBeInstanceOf(Payment);
-        expect(result).toMatchSnapshot();
-      }));
+  expect(payment.amount).toEqual({ value: '20.00', currency: 'EUR' });
 
-    it('should work with a callback', done => {
-      payments.get(props.id, (err, result) => {
-        expect(err).toBeNull();
-        expect(result).toBeInstanceOf(Payment);
-        expect(result).toMatchSnapshot();
-        done();
-      });
-    });
+  expect(payment.description).toBe('My first API payment');
+  expect(payment.method).toBe('ideal');
+  expect(payment.metadata).toEqual({ order_id: '1234' });
+  expect(payment.status).toBe('paid');
 
-    it('should return an error for non-existing IDs', done =>
-      payments
-        .get('foo')
-        .then(result => expect(result).toBeUndefined())
-        .catch(err => {
-          expect(err).toBeInstanceOf(ApiError);
-          done();
-        }));
+  expect(payment.amountRefunded).toEqual({ value: '0.00', currency: 'EUR' });
+  expect(payment.amountRemaining).toEqual({ value: '20.00', currency: 'EUR' });
+  expect(payment.details).toEqual({ consumerName: 'T. TEST', consumerAccount: 'NL17RABO0213698412', consumerBic: 'TESTNL99' });
+  expect(payment.profileId).toBe('pfl_2A1gacu42V');
+  expect(payment.sequenceType).toBe('oneoff');
+  expect(payment.redirectUrl).toBe('https://example.org/redirect');
+  expect(payment.webhookUrl).toBe('https://example.org/webhook');
 
-    it('should return an error with a callback for non-existing IDs', done => {
-      payments.get('foo', (err, result) => {
-        expect(err).toBeInstanceOf(ApiError);
-        expect(err.getMessage()).toEqual(error.detail);
-        expect(result).toBeUndefined();
-        done();
-      });
-    });
+  expect(payment._links.self).toEqual({ href: 'https://api.mollie.com/v2/payments/tr_44aKxzEbr8', type: 'application/hal+json' });
 
-    it('should return a chargeback embed', done => {
-      payments
-        .get(props.id, { embed: PaymentEmbed.chargebacks })
-        .then(result => {
-          expect(result).toBeInstanceOf(Payment);
-          expect(result._embedded.chargebacks[0]).toBeInstanceOf(Chargeback);
-          done();
-        })
-        .catch(err => expect(err).toBeUndefined());
-    });
+  expect(payment._links.documentation).toEqual({ href: 'https://docs.mollie.com/reference/v2/payments-api/get-payment', type: 'text/html' });
+});
 
-    it('should return a chargeback embed (alternative with an array)', done => {
-      payments
-        .get(props.id, { embed: [PaymentEmbed.chargebacks] })
-        .then(result => {
-          expect(result).toBeInstanceOf(Payment);
-          expect(result._embedded.chargebacks[0]).toBeInstanceOf(Chargeback);
-          done();
-        })
-        .catch(err => expect(err).toBeUndefined());
-    });
+test('listPayments', async () => {
+  const { adapter, client } = wireMockClient();
 
-    it('should return multiple embeds', done => {
-      payments
-        .get(props.id, { embed: [PaymentEmbed.chargebacks, PaymentEmbed.refunds] })
-        .then(result => {
-          expect(result).toBeInstanceOf(Payment);
-          expect(result._embedded.chargebacks[0]).toBeInstanceOf(Chargeback);
-          expect(result._embedded.refunds[0]).toBeInstanceOf(Refund);
-          done();
-        })
-        .catch(err => expect(err).toBeUndefined());
-    });
+  adapter.onGet('/payments?limit=3').reply(200, {
+    _embedded: {
+      payments: [
+        {
+          resource: 'payment',
+          id: 'tr_admNa2tFfa',
+          mode: 'test',
+          createdAt: '2018-03-19T15:00:50+00:00',
+          amount: {
+            value: '100.00',
+            currency: 'EUR',
+          },
+          description: 'Payment no 1',
+          method: null,
+          metadata: null,
+          status: 'open',
+          isCancelable: false,
+          expiresAt: '2018-03-19T15:15:50+00:00',
+          details: null,
+          locale: 'nl_NL',
+          profileId: 'pfl_7N5qjbu42V',
+          sequenceType: 'oneoff',
+          redirectUrl: 'https://www.example.org/',
+          _links: {
+            self: {
+              href: 'https://api.mollie.com/v2/payments/tr_admNa2tFfa',
+              type: 'application/hal+json',
+            },
+            checkout: {
+              href: 'https://www.mollie.com/payscreen/select-method/admNa2tFfa',
+              type: 'text/html',
+            },
+          },
+        },
+        {
+          resource: 'payment',
+          id: 'tr_bcaLc7hFfa',
+          mode: 'test',
+          createdAt: '2018-03-19T15:00:50+00:00',
+          amount: {
+            value: '100.00',
+            currency: 'EUR',
+          },
+          description: 'Payment no 2',
+          method: null,
+          metadata: null,
+          status: 'open',
+          isCancelable: false,
+          expiresAt: '2018-03-19T15:15:50+00:00',
+          details: null,
+          locale: 'nl_NL',
+          profileId: 'pfl_7N5qjbu42V',
+          sequenceType: 'oneoff',
+          redirectUrl: 'https://www.example.org/',
+          _links: {
+            self: {
+              href: 'https://api.mollie.com/v2/payments/tr_bcaLc7hFfa',
+              type: 'application/hal+json',
+            },
+            checkout: {
+              href: 'https://www.mollie.com/payscreen/select-method/bcaLc7hFfa',
+              type: 'text/html',
+            },
+          },
+        },
+        {
+          resource: 'payment',
+          id: 'tr_pslHy1tFfa',
+          mode: 'test',
+          createdAt: '2018-03-19T15:00:50+00:00',
+          amount: {
+            value: '100.00',
+            currency: 'EUR',
+          },
+          description: 'Payment no 3',
+          method: null,
+          metadata: null,
+          status: 'open',
+          isCancelable: false,
+          expiresAt: '2018-03-19T15:15:50+00:00',
+          details: null,
+          locale: 'nl_NL',
+          profileId: 'pfl_7N5qjbu42V',
+          sequenceType: 'oneoff',
+          redirectUrl: 'https://www.example.org/',
+          _links: {
+            self: {
+              href: 'https://api.mollie.com/v2/payments/tr_pslHy1tFfa',
+              type: 'application/hal+json',
+            },
+            checkout: {
+              href: 'https://www.mollie.com/payscreen/select-method/pslHy1tFfa',
+              type: 'text/html',
+            },
+          },
+        },
+      ],
+    },
+    _links: {
+      documentation: {
+        href: 'https://docs.mollie.com/reference/v2/payments-api/list-payments',
+        type: 'text/html',
+      },
+      self: {
+        href: 'http://api.mollie.com/v2/payments?limit=3',
+        type: 'application/hal+json',
+      },
+      previous: null,
+      next: {
+        href: 'http://api.mollie.com/v2/payments?from=tr_eW8f5kzUkF&limit=3',
+        type: 'application/hal+json',
+      },
+    },
+    count: 3,
   });
 
-  describe('.all()', () => {
-    mock.onGet('/payments').reply(200, paymentsResponse);
+  const payments = await callAsync(client.payments.page, client.payments, { limit: 3 });
 
-    it('should return a list of all payments', () =>
-      payments.all().then(result => {
-        expect(result).toBeInstanceOf(Array);
-        expect(result).toHaveProperty('links');
-        expect(result).toMatchSnapshot();
-      }));
+  expect(payments.length).toBe(3);
 
-    it('should work with a callback', done => {
-      payments.all((err, result) => {
-        expect(err).toBeNull();
-        expect(result).toBeInstanceOf(Array);
-        expect(result).toHaveProperty('links');
-        expect(result).toMatchSnapshot();
-        done();
-      });
-    });
-  });
+  expect(payments.links.documentation).toEqual({ href: 'https://docs.mollie.com/reference/v2/payments-api/list-payments', type: 'text/html' });
 
-  describe('.cancel()', () => {
-    const error = { detail: 'Method not allowed' };
+  expect(payments.links.self).toEqual({ href: 'http://api.mollie.com/v2/payments?limit=3', type: 'application/hal+json' });
 
-    mock.onDelete(`/payments/expired`).reply(500, error);
-    mock.onDelete(`/payments/${props.id}`).reply(200, paymentsResponse._embedded.payments[0]);
+  expect(payments.links.previous).toBeNull();
 
-    it('should return the canceled payment when it could be canceled', done =>
-      payments
-        .cancel(props.id)
-        .then(result => {
-          expect(result).toMatchObject(paymentsResponse._embedded.payments[0]);
-          expect(result).toMatchSnapshot();
-          done();
-        })
-        .catch(err => expect(err).toBeUndefined()));
-
-    it('should return the status when the payment could not be canceled', done => {
-      payments
-        .cancel('expired')
-        .then(result => expect(result).toBeUndefined())
-        .catch(err => {
-          expect(err).toBeInstanceOf(ApiError);
-          done();
-        });
-    });
-  });
+  expect(payments.links.next).toEqual({ href: 'http://api.mollie.com/v2/payments?from=tr_eW8f5kzUkF&limit=3', type: 'application/hal+json' });
 });

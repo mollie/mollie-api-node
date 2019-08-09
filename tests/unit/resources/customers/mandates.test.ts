@@ -1,182 +1,166 @@
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
+import wireMockClient from '../../../wireMockClient';
+import callAsync from '../../../callAsync';
 
-import CustomersMandatesResource from '../../../../src/resources/customers/mandates';
-import Mandate from '../../../../src/models/Mandate';
-import response from '../../__stubs__/customers_mandates.json';
-import ApiError from '../../../../src/errors/ApiError';
+test('createCustomerMandate', async () => {
+  const { adapter, client } = wireMockClient();
 
-import { MandateMethod } from '../../../../src/types/mandate';
+  adapter.onPost('/customers/cst_FhQJRw4s2n/mandates').reply(200, {
+    resource: 'mandate',
+    id: 'mdt_AcQl5fdL4h',
+    status: 'valid',
+    method: 'directdebit',
+    details: {
+      consumerName: 'John Doe',
+      consumerAccount: 'NL55INGB0000000000',
+      consumerBic: 'INGBNL2A',
+    },
+    mandateReference: null,
+    signatureDate: '2018-05-07',
+    createdAt: '2018-05-07T10:49:08+00:00',
+    _links: {
+      self: {
+        href: 'https://api.mollie.com/v2/customers/cst_FhQJRw4s2n/mandates/mdt_AcQl5fdL4h',
+        type: 'application/hal+json',
+      },
+      customer: {
+        href: 'https://api.mollie.com/v2/customers/cst_FhQJRw4s2n',
+        type: 'application/hal+json',
+      },
+      documentation: {
+        href: 'https://mollie.com/en/docs/reference/customers/create-mandate',
+        type: 'text/html',
+      },
+    },
+  });
 
-const mock = new MockAdapter(axios);
-
-const props = {
-  amount: {
-    currency: 'EUR',
-    value: '10.00',
-  },
-  id: 'mdt_AcQl5fdL4h',
-  status: 'valid',
-  method: 'directdebit',
-  customerId: 'cst_R6JLAuqEgm',
-  details: {
-    consumerName: 'Hr E G H K\u00fcppers en/of MW M.J. K\u00fcppers-Veeneman',
-    consumerAccount: 'NL53INGB0618365937',
+  const mandate = await callAsync(client.customers_mandates.create, client.customers_mandates, {
+    customerId: 'cst_FhQJRw4s2n',
+    consumerName: 'John Doe',
+    method: 'directdebit',
     consumerBic: 'INGBNL2A',
-  },
-};
-
-describe('customers_mandates', () => {
-  let customersMandates: CustomersMandatesResource;
-  beforeEach(() => {
-    customersMandates = new CustomersMandatesResource(axios.create());
+    consumerAccount: 'NL55INGB0000000000',
   });
 
-  it('should have a resource name and model', () => {
-    expect(CustomersMandatesResource.resource).toBe('customers_mandates');
-    expect(CustomersMandatesResource.model).toBe(Mandate);
+  expect(mandate.resource).toBe('mandate');
+  expect(mandate.status).toBe('valid');
+  expect(mandate.details).toEqual({ consumerName: 'John Doe', consumerAccount: 'NL55INGB0000000000', consumerBic: 'INGBNL2A' });
+  expect(mandate.mandateReference).toBeNull();
+  expect(mandate.signatureDate).toBe('2018-05-07');
+  expect(mandate.createdAt).toBe('2018-05-07T10:49:08+00:00');
+
+  expect(mandate._links.self).toEqual({ href: 'https://api.mollie.com/v2/customers/cst_FhQJRw4s2n/mandates/mdt_AcQl5fdL4h', type: 'application/hal+json' });
+
+  expect(mandate._links.customer).toEqual({ href: 'https://api.mollie.com/v2/customers/cst_FhQJRw4s2n', type: 'application/hal+json' });
+
+  expect(mandate._links.documentation).toEqual({ href: 'https://mollie.com/en/docs/reference/customers/create-mandate', type: 'text/html' });
+});
+
+test('getCustomerMandate', async () => {
+  const { adapter, client } = wireMockClient();
+
+  adapter.onGet('/customers/cst_FhQJRw4s2n/mandates/mdt_AcQl5fdL4h').reply(200, {
+    resource: 'mandate',
+    id: 'mdt_AcQl5fdL4h',
+    status: 'valid',
+    method: 'directdebit',
+    details: {
+      consumerName: 'John Doe',
+      consumerAccount: 'NL55INGB0000000000',
+      consumerBic: 'INGBNL2A',
+    },
+    mandateReference: null,
+    signatureDate: '2018-05-07',
+    createdAt: '2018-05-07T10:49:08+00:00',
+    _links: {
+      self: {
+        href: 'https://api.mollie.com/v2/customers/cst_FhQJRw4s2n/mandates/mdt_AcQl5fdL4h',
+        type: 'application/hal+json',
+      },
+      customer: {
+        href: 'https://api.mollie.com/v2/customers/cst_FhQJRw4s2n',
+        type: 'application/hal+json',
+      },
+      documentation: {
+        href: 'https://mollie.com/en/docs/reference/customers/create-mandate',
+        type: 'text/html',
+      },
+    },
   });
 
-  describe('.create()', () => {
-    mock.onPost(`/customers/${props.customerId}/mandates`).reply(200, response._embedded.mandates[0]);
+  const mandate = await callAsync(client.customers_mandates.get, client.customers_mandates, 'mdt_AcQl5fdL4h', { customerId: 'cst_FhQJRw4s2n' });
 
-    it('should return a mandate instance', () =>
-      customersMandates
-        .create({
-          ...props.details,
-          customerId: props.customerId,
-          method: MandateMethod.directdebit,
-        })
-        .then(result => {
-          expect(result).toBeInstanceOf(Mandate);
-          expect(result).toMatchSnapshot();
-        }));
+  expect(mandate.resource).toBe('mandate');
+  expect(mandate.status).toBe('valid');
+  expect(mandate.method).toBe('directdebit');
+  expect(mandate.details).toEqual({ consumerName: 'John Doe', consumerAccount: 'NL55INGB0000000000', consumerBic: 'INGBNL2A' });
+  expect(mandate.mandateReference).toBeNull();
+  expect(mandate.signatureDate).toBe('2018-05-07');
+  expect(mandate.createdAt).toBe('2018-05-07T10:49:08+00:00');
 
-    it('should work with a callback', done => {
-      customersMandates.create(
+  expect(mandate._links.self).toEqual({ href: 'https://api.mollie.com/v2/customers/cst_FhQJRw4s2n/mandates/mdt_AcQl5fdL4h', type: 'application/hal+json' });
+
+  expect(mandate._links.customer).toEqual({ href: 'https://api.mollie.com/v2/customers/cst_FhQJRw4s2n', type: 'application/hal+json' });
+
+  expect(mandate._links.documentation).toEqual({ href: 'https://mollie.com/en/docs/reference/customers/create-mandate', type: 'text/html' });
+});
+
+test('getCustomerMandates', async () => {
+  const { adapter, client } = wireMockClient();
+
+  adapter.onGet('/customers/cst_FhQJRw4s2n/mandates').reply(200, {
+    _embedded: {
+      mandates: [
         {
-          ...props.details,
-          customerId: props.customerId,
-          method: MandateMethod.directdebit,
+          resource: 'mandate',
+          id: 'mdt_AcQl5fdL4h',
+          status: 'valid',
+          method: 'directdebit',
+          details: {
+            consumerName: 'John Doe',
+            consumerAccount: 'NL55INGB0000000000',
+            consumerBic: 'INGBNL2A',
+          },
+          mandateReference: null,
+          signatureDate: '2018-05-07',
+          createdAt: '2018-05-07T10:49:08+00:00',
+          _links: {
+            self: {
+              href: 'https://api.mollie.com/v2/customers/cst_FhQJRw4s2n/mandates/mdt_AcQl5fdL4h',
+              type: 'application/hal+json',
+            },
+            customer: {
+              href: 'https://api.mollie.com/v2/customers/cst_FhQJRw4s2n',
+              type: 'application/hal+json',
+            },
+          },
         },
-        (err, result) => {
-          expect(err).toBeNull();
-          expect(result).toBeInstanceOf(Mandate);
-          expect(result).toMatchSnapshot();
-          done();
-        },
-      );
-    });
+      ],
+    },
+    count: 1,
+    _links: {
+      documentation: {
+        href: 'https://mollie.com/en/docs/reference/customers/list-mandates',
+        type: 'text/html',
+      },
+      self: {
+        href: 'https://api.mollie.com/v2/customers/cst_vzEExMcxj7/mandates?limit=50',
+        type: 'application/hal+json',
+      },
+      previous: null,
+      next: null,
+    },
   });
 
-  describe('.get()', () => {
-    const error = { detail: 'The customers_mandate id is invalid' };
+  const mandates = await callAsync(client.customers_mandates.all, client.customers_mandates, { customerId: 'cst_FhQJRw4s2n' });
 
-    mock.onGet(`/customers/${props.customerId}/mandates/${props.id}`).reply(200, response._embedded.mandates[0]);
-    mock.onGet(`/customers/${props.customerId}/mandates/foo`).reply(500, error);
+  mandates.forEach(mandate => {
+    expect(mandate.resource).toBe('mandate');
+    expect(mandate.status).toBe('valid');
 
-    it('should return a mandate instance', () =>
-      customersMandates.get(props.id, { customerId: props.customerId }).then(result => {
-        expect(result).toBeInstanceOf(Mandate);
-        expect(result.id).toBe(props.id);
-      }));
-
-    it('should work with a callback', done => {
-      customersMandates.get(props.id, { customerId: props.customerId }, (err, result) => {
-        expect(err).toBeNull();
-        expect(result).toBeInstanceOf(Mandate);
-        expect(result.id).toBe(props.id);
-        done();
-      });
-    });
-
-    it('should return an error for non-existing IDs', () =>
-      customersMandates
-        .get('foo', { customerId: props.customerId })
-        .then(result => expect(result).toBeUndefined())
-        .catch(err => {
-          expect(err).toBeInstanceOf(ApiError);
-          expect(err.getMessage()).toEqual(error.detail);
-        }));
-
-    it('should return an error with a callback for non-existing IDs', done => {
-      customersMandates.get('foo', { customerId: props.customerId }, (err, result) => {
-        expect(err).toBeInstanceOf(ApiError);
-        expect(err.getMessage()).toEqual(error.detail);
-        expect(result).toBeUndefined();
-        done();
-      });
-    });
+    expect(mandate._links.customer).toEqual({ href: 'https://api.mollie.com/v2/customers/cst_FhQJRw4s2n', type: 'application/hal+json' });
   });
 
-  describe('.list()', () => {
-    mock.onGet(`/customers/${props.customerId}/mandates`).reply(200, response);
+  expect(mandates.links.self).toEqual({ href: 'https://api.mollie.com/v2/customers/cst_vzEExMcxj7/mandates?limit=50', type: 'application/hal+json' });
 
-    it('should return a list of all customer mandates', () =>
-      customersMandates.all({ customerId: props.customerId }).then(result => {
-        expect(result).toBeInstanceOf(Array);
-        expect(result).toHaveProperty('links');
-        expect(result).toMatchSnapshot();
-      }));
-
-    it('should work with a callback', done => {
-      customersMandates.all({ customerId: props.customerId }, (err, result) => {
-        expect(err).toBeNull();
-        expect(result).toBeInstanceOf(Array);
-        expect(result).toHaveProperty('links');
-        expect(result).toMatchSnapshot();
-        done();
-      });
-    });
-
-    it('should work with a Promise and with .withParent()', done => {
-      customersMandates
-        .withParent({
-          resource: 'customer',
-          id: props.customerId,
-        })
-        .all(undefined)
-        .then(result => {
-          expect(result).toBeInstanceOf(Array);
-          expect(result).toHaveProperty('links');
-          expect(result).toMatchSnapshot();
-          done();
-        })
-        .catch(err => {
-          expect(err).toBeUndefined();
-          done();
-        });
-    });
-  });
-
-  describe('.revoke()', () => {
-    mock.onDelete(`/customers/${props.customerId}/mandates/${props.id}`).reply(200, response._embedded.mandates[0]);
-
-    it('should return a mandate instance when successful', () =>
-      customersMandates.revoke(props.id, { customerId: props.customerId }).then(result => {
-        expect(result).toBeInstanceOf(Mandate);
-        expect(result).toMatchSnapshot();
-      }));
-
-    it('should work with cancel alias and a callback', done => {
-      customersMandates
-        .withParent({
-          resource: 'customer',
-          id: props.customerId,
-        })
-        .cancel(props.id, (err, result) => {
-          expect(err).toBeNull();
-          expect(result).toBeInstanceOf(Mandate);
-          expect(result).toMatchSnapshot();
-          done();
-        });
-    });
-
-    it('should fail when unsuccessful', () => {
-      customersMandates.revoke(props.id, { customerId: props.customerId }).then(result => {
-        expect(result).toBeInstanceOf(Mandate);
-        expect(result).toMatchSnapshot();
-      });
-    });
-  });
+  expect(mandates.links.documentation).toEqual({ href: 'https://mollie.com/en/docs/reference/customers/list-mandates', type: 'text/html' });
 });

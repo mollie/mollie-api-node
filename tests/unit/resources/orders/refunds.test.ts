@@ -1,112 +1,205 @@
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
+import wireMockClient from '../../../wireMockClient';
+import callAsync from '../../../callAsync';
 
-import OrdersRefundsResource from '../../../../src/resources/orders/refunds';
-import PaymentRefund from '../../../../src/models/Refund';
-import response from '../../__stubs__/orders_refunds.json';
-import ApiError from '../../../../src/errors/ApiError';
-
-const mock = new MockAdapter(axios);
-
-const props = {
-  id: 're_4qqhO89gsT',
-  orderId: 'ord_stTC2WHAuS',
-  lines: [
-    {
-      id: 'odl_dgtxyl',
-      quantity: 1,
+function composeRefundResponse(refundId, orderId) {
+  return {
+    resource: 'refund',
+    id: refundId,
+    amount: {
+      currency: 'EUR',
+      value: '698.00',
     },
-  ],
-};
+    status: 'pending',
+    createdAt: '2018-03-19T12:33:37+00:00',
+    description: 'Item not in stock, refunding',
+    paymentId: 'tr_WDqYK6vllg',
+    orderId: orderId,
+    lines: [
+      {
+        resource: 'orderline',
+        id: 'odl_dgtxyl',
+        orderId: orderId,
+        name: 'LEGO 42083 Bugatti Chiron',
+        productUrl: 'https://shop.lego.com/nl-NL/Bugatti-Chiron-42083',
+        imageUrl: 'https://sh-s7-live-s.legocdn.com/is/image//LEGO/42083_alt1?$main$',
+        sku: '5702016116977',
+        type: 'physical',
+        status: 'refunded',
+        quantity: 2,
+        unitPrice: {
+          value: '399.00',
+          currency: 'EUR',
+        },
+        vatRate: '21.00',
+        vatAmount: {
+          value: '121.14',
+          currency: 'EUR',
+        },
+        discountAmount: {
+          value: '100.00',
+          currency: 'EUR',
+        },
+        totalAmount: {
+          value: '698.00',
+          currency: 'EUR',
+        },
+        createdAt: '2018-08-02T09:29:56+00:00',
+      },
+    ],
+    _links: {
+      self: {
+        href: `https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/${refundId}`,
+        type: 'application/hal+json',
+      },
+      payment: {
+        href: 'https://api.mollie.com/v2/payments/tr_WDqYK6vllg',
+        type: 'application/hal+json',
+      },
+      order: {
+        href: `https://api.mollie.com/v2/orders/${orderId}`,
+        type: 'application/hal+json',
+      },
+      documentation: {
+        href: 'https://docs.mollie.com/reference/v2/refunds-api/get-refund',
+        type: 'text/html',
+      },
+    },
+  };
+}
 
-describe('orders_refunds', () => {
-  let ordersRefunds: OrdersRefundsResource;
-  beforeEach(() => {
-    ordersRefunds = new OrdersRefundsResource(axios.create());
+function testRefund(refund, refundId, refundStatus = 'pending') {
+  expect(refund.resource).toBe('refund');
+  expect(refund.id).toBe(refundId);
+  expect(refund.amount).toEqual({ value: '698.00', currency: 'EUR' });
+
+  expect(refund.status).toBe(refundStatus);
+  expect(refund.createdAt).toBe('2018-03-19T12:33:37+00:00');
+  expect(refund.description).toBe('Item not in stock, refunding');
+  expect(refund.paymentId).toBe('tr_WDqYK6vllg');
+
+  expect(refund._links.self).toEqual({
+    href: `https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/${refundId}`,
+    type: 'application/hal+json',
   });
 
-  it('should have a resource name and model', () => {
-    expect(OrdersRefundsResource.resource).toBe('orders_refunds');
-    expect(OrdersRefundsResource.model).toBe(PaymentRefund);
+  expect(refund._links.documentation).toEqual({
+    href: 'https://docs.mollie.com/reference/v2/refunds-api/get-refund',
+    type: 'text/html',
+  });
+}
+
+test('createPartialOrderRefund', async () => {
+  const { adapter, client } = wireMockClient();
+
+  adapter.onPost('/orders/ord_stTC2WHAuS/refunds').reply(201, composeRefundResponse('re_4qqhO89gsT', 'ord_stTC2WHAuS'));
+
+  const refund = await callAsync(client.orders_refunds.create, client.orders_refunds, { orderId: 'ord_stTC2WHAuS', lines: [{ id: 'odl_dgtxyl', quantity: 1 }] });
+
+  testRefund(refund, 're_4qqhO89gsT');
+});
+
+test('createCompleteOrderRefund', async () => {
+  const { adapter, client } = wireMockClient();
+
+  adapter.onPost('/orders/ord_stTC2WHAuS/refunds').reply(201, composeRefundResponse('re_4qqhO89gsT', 'ord_stTC2WHAuS'));
+
+  const refund = await callAsync(client.orders_refunds.create, client.orders_refunds, { orderId: 'ord_stTC2WHAuS', lines: [] });
+
+  testRefund(refund, 're_4qqhO89gsT');
+});
+
+test('listOrderRefunds', async () => {
+  const { adapter, client } = wireMockClient();
+
+  adapter.onGet('/orders/ord_stTC2WHAuS/refunds').reply(200, {
+    count: 1,
+    _embedded: {
+      refunds: [
+        {
+          resource: 'refund',
+          id: 're_4qqhO89gsT',
+          amount: {
+            currency: 'EUR',
+            value: '698.00',
+          },
+          status: 'pending',
+          createdAt: '2018-03-19T12:33:37+00:00',
+          description: 'Item not in stock, refunding',
+          paymentId: 'tr_WDqYK6vllg',
+          orderId: 'ord_pbjz8x',
+          lines: [
+            {
+              resource: 'orderline',
+              id: 'odl_dgtxyl',
+              orderId: 'ord_pbjz8x',
+              name: 'LEGO 42083 Bugatti Chiron',
+              productUrl: 'https://shop.lego.com/nl-NL/Bugatti-Chiron-42083',
+              imageUrl: 'https://sh-s7-live-s.legocdn.com/is/image//LEGO/42083_alt1?$main$',
+              sku: '5702016116977',
+              type: 'physical',
+              status: 'refunded',
+              quantity: 2,
+              unitPrice: {
+                value: '399.00',
+                currency: 'EUR',
+              },
+              vatRate: '21.00',
+              vatAmount: {
+                value: '121.14',
+                currency: 'EUR',
+              },
+              discountAmount: {
+                value: '100.00',
+                currency: 'EUR',
+              },
+              totalAmount: {
+                value: '698.00',
+                currency: 'EUR',
+              },
+              createdAt: '2018-08-02T09:29:56+00:00',
+            },
+          ],
+          _links: {
+            self: {
+              href: 'https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT',
+              type: 'application/hal+json',
+            },
+            payment: {
+              href: 'https://api.mollie.com/v2/payments/tr_WDqYK6vllg',
+              type: 'application/hal+json',
+            },
+            order: {
+              href: 'https://api.mollie.com/v2/orders/ord_pbjz8x',
+              type: 'application/hal+json',
+            },
+            documentation: {
+              href: 'https://docs.mollie.com/reference/v2/refunds-api/get-refund',
+              type: 'text/html',
+            },
+          },
+        },
+      ],
+    },
+    _links: {
+      self: {
+        href: 'https://api.mollie.com/v2/payments/tr_7UhSN1zuXS/refunds?limit=5',
+        type: 'application/hal+json',
+      },
+      previous: null,
+      next: {
+        href: 'https://api.mollie.com/v2/payments/tr_7UhSN1zuXS/refunds?from=re_APBiGPH2vV&limit=5',
+        type: 'application/hal+json',
+      },
+      documentation: {
+        href: 'https://docs.mollie.com/reference/v2/orders-api/list-order-refunds',
+        type: 'text/html',
+      },
+    },
   });
 
-  describe('.create()', () => {
-    mock.onPost(`/orders/${props.orderId}/refunds`).reply(200, response._embedded.refunds[0]);
+  const refunds = await callAsync(client.orders_refunds.all, client.orders_refunds, { orderId: 'ord_stTC2WHAuS' });
 
-    it('should return a refund instance', done =>
-      ordersRefunds
-        .create(props)
-        .then(result => {
-          expect(result).toBeInstanceOf(PaymentRefund);
-          expect(result).toMatchSnapshot();
-          done();
-        })
-        .catch(err => {
-          expect(err).toBeUndefined();
-          done();
-        }));
+  expect(refunds.length).toBe(1);
 
-    it('should work with a callback', done => {
-      ordersRefunds.create(props, (err, result) => {
-        expect(result).toBeInstanceOf(PaymentRefund);
-        expect(result).toMatchSnapshot();
-        done();
-      });
-    });
-  });
-
-  describe('.all()', () => {
-    const error = { detail: 'The order id is invalid' };
-    mock.onGet(`/orders/${props.orderId}/refunds`).reply(200, response);
-
-    it('should return a list of all order refunds', () =>
-      ordersRefunds.all({ orderId: props.orderId }).then(result => {
-        expect(result).toBeInstanceOf(Array);
-        expect(result).toHaveProperty('links');
-        expect(result).toMatchSnapshot();
-      }));
-
-    it('should throw an error if "orderId" is not set', done => {
-      ordersRefunds
-        .all(undefined)
-        .then(result => expect(result).toBeUndefined())
-        .catch(err => {
-          expect(err).toBeInstanceOf(ApiError);
-          expect(err.getMessage()).toEqual(error.detail);
-          done();
-        });
-    });
-
-    it('should work with a callback', done => {
-      ordersRefunds.all({ orderId: props.orderId }, (err, result) => {
-        expect(err).toBeNull();
-        expect(result).toBeInstanceOf(Array);
-        expect(result).toHaveProperty('links');
-        expect(result).toMatchSnapshot();
-        done();
-      });
-    });
-
-    /**
-     * @deprecated 3.0.0
-     */
-    it('should work with a Promise and with .withParent()', done => {
-      ordersRefunds
-        .withParent({
-          resource: 'order',
-          id: props.orderId,
-        })
-        .all(undefined)
-        .then(result => {
-          expect(result).toBeInstanceOf(Array);
-          expect(result).toHaveProperty('links');
-          expect(result).toMatchSnapshot();
-          done();
-        })
-        .catch(err => {
-          expect(err).toBeUndefined();
-          done();
-        });
-    });
-  });
+  testRefund(refunds[0], 're_4qqhO89gsT');
 });

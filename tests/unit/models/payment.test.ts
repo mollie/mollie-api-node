@@ -1,65 +1,200 @@
-import Payment from '../../../src/models/Payment';
-import { ApiMode, SequenceType } from '../../../src/types/global';
-import { PaymentStatus } from '../../../src/types/payment';
+import wireMockClient from '../../wireMockClient';
 
-describe('payment model', () => {
-  it('should instantiate with default values', () => {
-    const payment = new Payment();
+async function getPayment(status, additionalProperties?: object, additionalLinks?: object) {
+  const { adapter, client } = wireMockClient();
 
-    expect(payment.isOpen()).toBe(false);
-    expect(payment.isPaid()).toBe(false);
-    expect(payment.isCanceled()).toBe(false);
-    expect(payment.isExpired()).toBe(false);
-    expect(payment.getPaymentUrl()).toBeNull();
-    expect(payment.toPlainObject()).toMatchSnapshot();
+  adapter.onGet('/payments/tr_44aKxzEbr8').reply(200, {
+    resource: 'payment',
+    id: 'tr_44aKxzEbr8',
+    mode: 'test',
+    createdAt: '2018-03-13T14:02:29+00:00',
+    amount: {
+      value: '20.00',
+      currency: 'EUR',
+    },
+    description: 'My first API payment',
+    method: 'ideal',
+    metadata: {
+      order_id: '1234',
+    },
+    status,
+    amountRefunded: {
+      value: '0.00',
+      currency: 'EUR',
+    },
+    amountRemaining: {
+      value: '20.00',
+      currency: 'EUR',
+    },
+    details: {
+      consumerName: 'T. TEST',
+      consumerAccount: 'NL17RABO0213698412',
+      consumerBic: 'TESTNL99',
+    },
+    locale: 'nl_NL',
+    countryCode: 'NL',
+    profileId: 'pfl_2A1gacu42V',
+    sequenceType: 'oneoff',
+    redirectUrl: 'https://example.org/redirect',
+    webhookUrl: 'https://example.org/webhook',
+    settlementAmount: {
+      value: '20.00',
+      currency: 'EUR',
+    },
+    _links: {
+      self: {
+        href: 'https://api.mollie.com/v2/payments/tr_44aKxzEbr8',
+        type: 'application/hal+json',
+      },
+      documentation: {
+        href: 'https://docs.mollie.com/reference/v2/payments-api/get-payment',
+        type: 'text/html',
+      },
+      ...additionalLinks,
+    },
+    ...additionalProperties,
   });
 
-  it('should instantiate with given values', () => {
-    const paymentProps = {
-      resource: 'payment',
-      id: 'tr_WDqYK6vllg',
-      mode: ApiMode.test,
-      createdAt: '2018-03-20T13:13:37+00:00',
-      amount: {
-        value: '10.00',
-        currency: 'EUR',
-      },
-      description: 'Order #12345',
-      method: null,
-      metadata: {
-        order_id: '12345',
-      },
-      status: PaymentStatus.open,
-      isCancelable: false,
-      expiresAt: '2018-03-20T13:28:37+00:00',
-      details: null,
-      profileId: 'pfl_QkEhN94Ba',
-      sequenceType: SequenceType.oneoff,
-      redirectUrl: 'https://webshop.example.org/order/12345/',
-      webhookUrl: 'https://webshop.example.org/payments/webhook/',
-      _links: {
-        self: {
-          href: 'https://api.mollie.com/v2/payments/tr_WDqYK6vllg',
-          type: 'application/hal+json',
-        },
-        checkout: {
-          href: 'https://www.mollie.com/payscreen/select-method/WDqYK6vllg',
-          type: 'text/html',
-        },
-        documentation: {
-          href: 'https://docs.mollie.com/reference/v2/payments-api/get-payment',
-          type: 'text/html',
-        },
-      },
-    };
-    const payment = new Payment(paymentProps);
+  return await client.payments.get('tr_44aKxzEbr8');
+}
 
-    expect(payment.isOpen()).toBe(true);
-    expect(payment.isPaid()).toBe(false);
-    expect(payment.isCanceled()).toBe(false);
-    expect(payment.isExpired()).toBe(false);
-    expect(payment.isAuthorized()).toBe(false);
-    expect(payment.getPaymentUrl()).toBe(paymentProps._links.checkout.href);
-    expect(payment.toPlainObject()).toMatchSnapshot();
-  });
+test('paymentStatuses', () => {
+  return Promise.all(
+    [
+      ['pending', 'isPending', true],
+      ['pending', 'isAuthorized', false],
+      ['pending', 'isFailed', false],
+      ['pending', 'isOpen', false],
+      ['pending', 'isCanceled', false],
+      ['pending', 'isPaid', false],
+      ['pending', 'isExpired', false],
+
+      ['authorized', 'isPending', false],
+      ['authorized', 'isAuthorized', true],
+      ['authorized', 'isFailed', false],
+      ['authorized', 'isOpen', false],
+      ['authorized', 'isCanceled', false],
+      ['authorized', 'isPaid', false],
+      ['authorized', 'isExpired', false],
+
+      ['failed', 'isPending', false],
+      ['failed', 'isAuthorized', false],
+      ['failed', 'isFailed', true],
+      ['failed', 'isOpen', false],
+      ['failed', 'isCanceled', false],
+      ['failed', 'isPaid', false],
+      ['failed', 'isExpired', false],
+
+      ['open', 'isPending', false],
+      ['open', 'isAuthorized', false],
+      ['open', 'isFailed', false],
+      ['open', 'isOpen', true],
+      ['open', 'isCanceled', false],
+      ['open', 'isPaid', false],
+      ['open', 'isExpired', false],
+
+      // (Note that canceled payments usually have their canceledAt set.)
+      ['canceled', 'isPending', false],
+      ['canceled', 'isAuthorized', false],
+      ['canceled', 'isFailed', false],
+      ['canceled', 'isOpen', false],
+      ['canceled', 'isCanceled', true],
+      ['canceled', 'isPaid', false],
+      ['canceled', 'isExpired', false],
+
+      // (Note that expired payments usually have their expiredAt set.)
+      ['expired', 'isPending', false],
+      ['expired', 'isAuthorized', false],
+      ['expired', 'isFailed', false],
+      ['expired', 'isOpen', false],
+      ['expired', 'isCanceled', false],
+      ['expired', 'isPaid', false],
+      ['expired', 'isExpired', true],
+    ].map(async ([status, method, expectedResult]) => {
+      const payment = await getPayment(status);
+
+      expect(payment[method as string]()).toBe(expectedResult);
+    }),
+  );
+});
+
+test('paymentIsPaid', async () => {
+  const payment = await getPayment('paid', { paidAt: '2016-10-24' });
+
+  expect(payment.isPaid()).toBe(true);
+});
+
+test('paymentHasRefunds', async () => {
+  var payment = await getPayment('paid', undefined, { refunds: { href: 'https://api.mollie.com/v2/payments/tr_44aKxzEbr8/refunds', type: 'application/hal+json' } });
+
+  expect(payment.hasRefunds()).toBe(true);
+
+  payment = await getPayment('paid');
+
+  expect(payment.hasRefunds()).toBe(false);
+});
+
+test('paymentHasChargebacks', async () => {
+  var payment = await getPayment('paid', undefined, { chargebacks: { href: 'https://api.mollie.com/v2/payments/tr_44aKxzEbr8/chargebacks', type: 'application/hal+json' } });
+
+  expect(payment.hasChargebacks()).toBe(true);
+
+  payment = await getPayment('paid');
+
+  expect(payment.hasChargebacks()).toBe(false);
+});
+
+test('paymentHasSequenceType', async () => {
+  var payment = await getPayment('paid', { sequenceType: 'first' });
+
+  expect(payment.hasSequenceTypeRecurring()).toBe(false);
+  expect(payment.hasSequenceTypeFirst()).toBe(true);
+
+  payment = await getPayment('paid', { sequenceType: 'recurring' });
+
+  expect(payment.hasSequenceTypeRecurring()).toBe(true);
+  expect(payment.hasSequenceTypeFirst()).toBe(false);
+
+  payment = await getPayment('paid' /*, { sequenceType: 'oneoff' } */);
+
+  expect(payment.hasSequenceTypeRecurring()).toBe(false);
+  expect(payment.hasSequenceTypeFirst()).toBe(false);
+});
+
+test('paymentGetCheckoutUrl', async () => {
+  var payment = await getPayment('open', undefined, { checkout: { href: 'https://example.com', type: 'text/html' } });
+
+  expect(payment.getCheckoutUrl()).toBe('https://example.com');
+});
+
+test('paymentCanBeRefunded', async () => {
+  var payment = await getPayment('paid' /*, { amountRemaining: { value: '20.00', currency: 'EUR' } } */);
+
+  expect(payment.canBeRefunded()).toBe(true);
+  expect(payment.canBePartiallyRefunded()).toBe(true);
+
+  payment = await getPayment('paid', { amountRemaining: undefined, amountRefunded: { value: '20.00', currency: 'EUR' } });
+
+  expect(payment.canBeRefunded()).toBe(false);
+  expect(payment.canBePartiallyRefunded()).toBe(false);
+});
+
+test('paymentGetAmountRefunded', async () => {
+  var payment = await getPayment('paid', { amountRemaining: undefined, amountRefunded: { value: '20.00', currency: 'EUR' } });
+
+  expect(payment.getAmountRefunded()).toBeCloseTo(20.0);
+
+  payment = await getPayment('paid', { /* amountRemaining: { value: '20.00', currency: 'EUR' }, */ amountRefunded: undefined });
+
+  expect(payment.getAmountRefunded()).toBe(0);
+});
+
+test('paymentGetAmountRemaining', async () => {
+  var payment = await getPayment('paid' /*, { amountRemaining: { value: '20.00', currency: 'EUR' } } */);
+
+  expect(payment.getAmountRemaining()).toBeCloseTo(20.0);
+
+  payment = await getPayment('paid', { amountRemaining: undefined, amountRefunded: { value: '20.00', currency: 'EUR' } });
+
+  expect(payment.getAmountRemaining()).toBe(0);
 });

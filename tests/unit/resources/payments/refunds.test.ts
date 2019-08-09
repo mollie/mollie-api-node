@@ -1,163 +1,140 @@
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
+import wireMockClient from '../../../wireMockClient';
+import callAsync from '../../../callAsync';
 
-import PaymentsRefundsResource from '../../../../src/resources/payments/refunds';
-import PaymentRefund from '../../../../src/models/Refund';
-import response from '../../__stubs__/payments_refunds.json';
-import ApiError from '../../../../src/errors/ApiError';
+test('getRefund', async () => {
+  const { adapter, client } = wireMockClient();
 
-const mock = new MockAdapter(axios);
+  adapter.onGet('/payments/tr_44aKxzEbr8/refunds/re_PsAvxvLsnm').reply(200, {
+    resource: 'refund',
+    id: 're_PsAvxvLsnm',
+    amount: {
+      value: '20.00',
+      currency: 'EUR',
+    },
+    status: 'pending',
+    createdAt: '2018-03-19T12:33:37+00:00',
+    description: 'My first API payment',
+    paymentId: 'tr_44aKxzEbr8',
+    settlementAmount: {
+      value: '-20.00',
+      currency: 'EUR',
+    },
+    _links: {
+      self: {
+        href: 'https://api.mollie.com/v2/payments/tr_Tgxm3amJBT/refunds/re_PmEtpvSsnm',
+        type: 'application/hal+json',
+      },
+      payment: {
+        href: 'https://api.mollie.com/v2/payments/tr_44aKxzEbr8',
+        type: 'application/hal+json',
+      },
+      documentation: {
+        href: 'https://docs.mollie.com/reference/v2/refunds-api/get-refund',
+        type: 'text/html',
+      },
+    },
+  });
 
-const props = {
-  id: 're_4qqhO89gsT',
-  paymentId: 'tr_WDqYK6vllg',
-  amount: {
+  const refund = await callAsync(client.payments_refunds.get, client.payments_refunds, 're_PsAvxvLsnm', { paymentId: 'tr_44aKxzEbr8' });
+
+  expect(refund.id).toBe('re_PsAvxvLsnm');
+
+  expect(refund.amount).toEqual({
+    value: '20.00',
     currency: 'EUR',
-    value: '5.95',
-  },
-};
-
-describe('payments_refunds', () => {
-  let paymentsRefunds: PaymentsRefundsResource;
-  beforeEach(() => {
-    paymentsRefunds = new PaymentsRefundsResource(axios.create());
   });
 
-  it('should have a resource name and model', () => {
-    expect(PaymentsRefundsResource.resource).toBe('payments_refunds');
-    expect(PaymentsRefundsResource.model).toBe(PaymentRefund);
+  expect(refund.status).toBe('pending');
+  expect(refund.createdAt).toBe('2018-03-19T12:33:37+00:00');
+  expect(refund.description).toBe('My first API payment');
+  expect(refund.paymentId).toBe('tr_44aKxzEbr8');
+
+  expect(refund.settlementAmount).toEqual({
+    value: '-20.00',
+    currency: 'EUR',
   });
 
-  describe('.create()', () => {
-    mock.onPost(`/payments/${props.paymentId}/refunds`).reply(200, response._embedded.refunds[0]);
-
-    it('should return a refund instance', () =>
-      paymentsRefunds.create(props).then(result => {
-        expect(result).toBeInstanceOf(PaymentRefund);
-        expect(result).toMatchSnapshot();
-      }));
-
-    it('should work with a callback', done => {
-      paymentsRefunds.create(props, (err, result) => {
-        expect(result).toBeInstanceOf(PaymentRefund);
-        expect(result).toMatchSnapshot();
-        done();
-      });
-    });
+  expect(refund._links.self).toEqual({
+    href: 'https://api.mollie.com/v2/payments/tr_Tgxm3amJBT/refunds/re_PmEtpvSsnm',
+    type: 'application/hal+json',
   });
 
-  describe('.get()', () => {
-    const error = { detail: 'The payments_refund id is invalid' };
-
-    mock.onGet(`/payments/${props.paymentId}/refunds/${props.id}`).reply(200, response._embedded.refunds[0]);
-    mock.onGet(`/payments/${props.paymentId}/refunds/foo`).reply(500, error);
-
-    it('should return a refund instance', () =>
-      paymentsRefunds.get(props.id, { paymentId: props.paymentId }).then(result => {
-        expect(result).toBeInstanceOf(PaymentRefund);
-        expect(result).toMatchSnapshot();
-      }));
-
-    it('should return an error for non-existing IDs', done =>
-      paymentsRefunds
-        .get('foo', { paymentId: props.paymentId })
-        .then(result => expect(result).toBeUndefined())
-        .catch(err => {
-          expect(err).toBeInstanceOf(ApiError);
-          expect(err.getMessage()).toEqual(error.detail);
-          done();
-        }));
+  expect(refund._links.payment).toEqual({
+    href: 'https://api.mollie.com/v2/payments/tr_44aKxzEbr8',
+    type: 'application/hal+json',
   });
 
-  describe('.all()', () => {
-    const error = { detail: 'The payment id is invalid' };
-    mock.onGet(`/payments/${props.paymentId}/refunds`).reply(200, response);
+  expect(refund._links.documentation).toEqual({
+    href: 'https://docs.mollie.com/reference/v2/refunds-api/get-refund',
+    type: 'text/html',
+  });
+});
 
-    it('should return a list of all payment refunds', () =>
-      paymentsRefunds.all({ paymentId: props.paymentId }).then(result => {
-        expect(result).toBeInstanceOf(Array);
-        expect(result).toHaveProperty('links');
-        expect(result).toMatchSnapshot();
-      }));
+test('createRefund', async () => {
+  const { adapter, client } = wireMockClient();
 
-    it('should throw an error if "paymentId" is not set', done => {
-      paymentsRefunds
-        .all(undefined)
-        .then(result => expect(result).toBeUndefined())
-        .catch(err => {
-          expect(err).toBeInstanceOf(ApiError);
-          expect(err.getMessage()).toEqual(error.detail);
-          done();
-        });
-    });
-
-    it('should work with a callback', done => {
-      paymentsRefunds
-        .withParent({
-          resource: 'payment',
-          id: props.paymentId,
-        })
-        .all((err, result) => {
-          expect(err).toBeNull();
-          expect(result).toBeInstanceOf(Array);
-          expect(result).toHaveProperty('links');
-          expect(result).toMatchSnapshot();
-          done();
-        });
-    });
-
-    it('should work with a Promise and with .withParent()', done => {
-      paymentsRefunds
-        .withParent({
-          resource: 'payment',
-          id: props.paymentId,
-        })
-        .all(undefined)
-        .then(result => {
-          expect(result).toBeInstanceOf(Array);
-          expect(result).toHaveProperty('links');
-          expect(result).toMatchSnapshot();
-          done();
-        })
-        .catch(err => {
-          expect(err).toBeUndefined();
-          done();
-        });
-    });
+  adapter.onPost('/payments/tr_44aKxzEbr8/refunds').reply(201, {
+    resource: 'refund',
+    id: 're_PsAvxvLsnm',
+    amount: {
+      value: '20.00',
+      currency: 'EUR',
+    },
+    status: 'pending',
+    createdAt: '2018-03-19T12:33:37+00:00',
+    description: 'My first API payment',
+    paymentId: 'tr_44aKxzEbr8',
+    settlementAmount: {
+      value: '-20.00',
+      currency: 'EUR',
+    },
+    _links: {
+      self: {
+        href: 'https://api.mollie.com/v2/payments/tr_Tgxm3amJBT/refunds/re_PmEtpvSsnm',
+        type: 'application/hal+json',
+      },
+      payment: {
+        href: 'https://api.mollie.com/v2/payments/tr_44aKxzEbr8',
+        type: 'application/hal+json',
+      },
+      documentation: {
+        href: 'https://docs.mollie.com/reference/v2/refunds-api/create-refund',
+        type: 'text/html',
+      },
+    },
   });
 
-  describe('.cancel()', () => {
-    mock.onDelete(`/payments/${props.paymentId}/refunds/${props.id}`).reply(200, response._embedded.refunds[0]);
+  const refund = await callAsync(client.payments_refunds.create, client.payments_refunds, { paymentId: 'tr_44aKxzEbr8', amount: { currency: 'EUR', value: '20.00' } });
 
-    it('should return a refund instance when successful', done =>
-      paymentsRefunds.cancel(props.id, { paymentId: props.paymentId }).then(result => {
-        expect(result).toBeInstanceOf(PaymentRefund);
-        expect(result).toMatchSnapshot();
-        done();
-      }));
+  expect(refund.id).toBe('re_PsAvxvLsnm');
 
-    it('should work with a callback and legacy delete', done => {
-      paymentsRefunds
-        .withParent({
-          resource: 'payment',
-          id: props.paymentId,
-        })
-        .delete(props.id, (err, result) => {
-          expect(err).toBeNull();
-          expect(result).toBeInstanceOf(PaymentRefund);
-          expect(result).toMatchSnapshot();
-          done();
-        });
-    });
+  expect(refund.amount).toEqual({
+    value: '20.00',
+    currency: 'EUR',
+  });
 
-    it('should throw an error when it could not be canceled', done => {
-      paymentsRefunds
-        .cancel(props.id, { paymentId: 'tr_expired' })
-        .then(result => expect(result).toBeUndefined())
-        .catch(err => {
-          expect(err).toBeInstanceOf(ApiError);
-          done();
-        });
-    });
+  expect(refund.status).toBe('pending');
+  expect(refund.createdAt).toBe('2018-03-19T12:33:37+00:00');
+  expect(refund.description).toBe('My first API payment');
+  expect(refund.paymentId).toBe('tr_44aKxzEbr8');
+
+  expect(refund.settlementAmount).toEqual({
+    value: '-20.00',
+    currency: 'EUR',
+  });
+
+  expect(refund._links.self).toEqual({
+    href: 'https://api.mollie.com/v2/payments/tr_Tgxm3amJBT/refunds/re_PmEtpvSsnm',
+    type: 'application/hal+json',
+  });
+
+  expect(refund._links.payment).toEqual({
+    href: 'https://api.mollie.com/v2/payments/tr_44aKxzEbr8',
+    type: 'application/hal+json',
+  });
+
+  expect(refund._links.documentation).toEqual({
+    href: 'https://docs.mollie.com/reference/v2/refunds-api/create-refund',
+    type: 'text/html',
   });
 });
