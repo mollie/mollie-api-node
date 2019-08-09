@@ -1,6 +1,5 @@
 import { IAmount } from '../global';
 import { MandateMethod } from '../mandate';
-import { ISubscription } from '../subscription';
 
 /**
  * Create Subscription parameters
@@ -87,8 +86,16 @@ export interface IGetParams {
  *
  * @see https://docs.mollie.com/reference/v2/subscriptions-api/update-subscription
  */
-export interface IUpdateParams extends ISubscription {
+export interface IUpdateParams {
   customerId: string;
+
+  amount?: IAmount;
+  times?: number;
+  startDate?: string;
+  description?: string;
+  mandateId?: string;
+  webhookUrl?: string;
+  metadata?: any;
 
   // Access token parameters
   testmode?: boolean;
