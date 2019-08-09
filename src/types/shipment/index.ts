@@ -1,4 +1,4 @@
-import { ILinks, IUrl } from '../global';
+import { ILinks, IUrl, IAmount } from '../global';
 import { IOrderLine } from '../order/line';
 
 /**
@@ -28,6 +28,33 @@ export interface IShipment {
 
   // Access token parameters
   testmode?: boolean;
+}
+
+/**
+ * @param id - The API resource token of the order line, for example: `odl_jp31jz`.
+ * @param quantity - The number of items that should be shipped for this order line. When this parameter is omitted,
+ *                   the whole order line will be shipped.
+ *
+ *                   Must be less than the number of items already shipped for this order line.
+ * @param amount - The amount that you want to ship. In almost all cases, Mollie can determine the amount
+ *                 automatically.
+ *
+ *                 The amount is required only if you are partially shipping an order line which has a non-zero
+ *                 `discountAmount`.
+ *
+ *                 The amount you can ship depends on various properties of the order line and the create shipment
+ *                 request. The maximum that can be shipped is unit price x quantity to ship.
+ *
+ *                 The minimum amount depends on the discount applied to the line, the quantity already shipped or
+ *                 canceled, the amounts already shipped or canceled and the quantity you want to ship.
+ *
+ *                 If you do not send an amount, Mollie will determine the amount automatically or respond with an
+ *                 error if the amount cannot be determined automatically.
+ */
+export interface ICreateShipmentOrderLine {
+  id: string;
+  quantity?: number;
+  amount?: IAmount;
 }
 
 /**

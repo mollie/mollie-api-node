@@ -1,5 +1,4 @@
-import { IShipmentTracking } from '../shipment';
-import { IOrderLine } from '../order/line';
+import { IShipmentTracking, ICreateShipmentOrderLine } from '../shipment';
 
 /**
  * Create Shipment parameters
@@ -18,7 +17,7 @@ import { IOrderLine } from '../order/line';
 export interface ICreateParams {
   orderId: string;
 
-  lines: Array<IOrderLine>;
+  lines: Array<ICreateShipmentOrderLine>;
   tracking?: IShipmentTracking;
 
   // Access token parameters
