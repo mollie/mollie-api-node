@@ -4,6 +4,7 @@ import Model from '../model';
 import Chargeback from '../models/Chargeback';
 import Refund from '../models/Refund';
 import { IPayment, PaymentStatus } from '../types/payment';
+import { SequenceType, IUrl, IAmount } from '../types/global';
 
 /**
  * The `Payment` model
@@ -128,7 +129,7 @@ export default class Payment extends Model implements IPayment {
    * @public ✓ This method is part of the public API
    */
   public isCanceled(): boolean {
-    return !!this.canceledAt;
+    return PaymentStatus.canceled == this.status;
   }
 
   /**
@@ -137,7 +138,7 @@ export default class Payment extends Model implements IPayment {
    * @public ✓ This method is part of the public API
    */
   public isExpired(): boolean {
-    return !!this.expiredAt;
+    return PaymentStatus.expired == this.status;
   }
 
   /**
@@ -158,5 +159,116 @@ export default class Payment extends Model implements IPayment {
    */
   public getPaymentUrl(): string {
     return get(this._links, 'checkout.href', null);
+  }
+
+  /**
+   * Returns whether the payment has failed and cannot be completed with a different payment method.
+   *
+   * @public ✓ This method is part of the public API
+   */
+  public isFailed(): boolean {
+    return PaymentStatus.failed == this.status;
+  }
+
+  /**
+   * Returns whether the payment is in this temporary status that can occur when the actual payment process has been
+   * started, but has not completed yet.
+   *
+   * @public ✓ This method is part of the public API
+   */
+  public isPending(): boolean {
+    return PaymentStatus.pending == this.status;
+  }
+
+  /**
+   * Returns whether there are refunds which belong to the payment.
+   *
+   * @public ✓ This method is part of the public API
+   */
+  public hasRefunds(): boolean {
+    return undefined != this._links.refunds;
+  }
+
+  /**
+   * Returns whether there are chargebacks which belong to the payment.
+   *
+   * @public ✓ This method is part of the public API
+   */
+  public hasChargebacks(): boolean {
+    return undefined != this._links.chargebacks;
+  }
+
+  /**
+   * Returns whether `sequenceType` is set to `'first'`. If a `'first'` payment has been completed successfully, the
+   * consumer's account may be charged automatically using recurring payments.
+   *
+   * @public ✓ This method is part of the public API
+   */
+  public hasSequenceTypeFirst(): boolean {
+    return SequenceType.first == this.sequenceType;
+  }
+
+  /**
+   * Returns whether `sequenceType` is set to `'recurring'`. This type of payment is processed without involving the
+   * consumer.
+   *
+   * @public ✓ This method is part of the public API
+   */
+  public hasSequenceTypeRecurring(): boolean {
+    return SequenceType.recurring == this.sequenceType;
+  }
+
+  /**
+   * Returns the checkout URL where the customer can complete the payment.
+   *
+   * @public ✓ This method is part of the public API
+   */
+  public getCheckoutUrl(): string | null {
+    if (undefined == this._links.checkout) {
+      return null;
+    } /* if (undefined != this._links.checkout) */ else {
+      return (this._links.checkout as IUrl).href;
+    }
+  }
+
+  /**
+   * @public ✓ This method is part of the public API
+   */
+  public canBeRefunded(): boolean {
+    return undefined != this.amountRemaining;
+  }
+
+  /**
+   * @public ✓ This method is part of the public API
+   */
+  public canBePartiallyRefunded(): boolean {
+    return this.canBeRefunded();
+  }
+
+  /**
+   * Returns the total amount that is already refunded. For some payment methods, this amount may be higher than the
+   * payment amount, for example to allow reimbursement of the costs for a return shipment to the customer.
+   *
+   * @public ✓ This method is part of the public API
+   */
+  public getAmountRefunded(): number {
+    if (undefined == this.amountRefunded) {
+      return 0;
+    } else /* if (undefined != this.amountRefunded) */ {
+      return parseFloat((this.amountRefunded as IAmount).value);
+    }
+  }
+
+  /**
+   * Returns the remaining amount that can be refunded.
+   *
+   * @public ✓ This method is part of the public API
+   */
+  public getAmountRemaining(): number {
+    if (undefined == this.amountRemaining) {
+      return 0;
+    } else /* if (undefined != this.amountRemaining) */ {
+      return parseFloat((this.amountRemaining as IAmount).value);
+    }
   }
 }
