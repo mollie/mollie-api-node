@@ -53,22 +53,6 @@ List [
   Method {
     "_links": Object {
       "self": Object {
-        "href": "https://api.mollie.com/v2/methods/bitcoin",
-        "type": "application/hal+json",
-      },
-    },
-    "description": "Bitcoin",
-    "id": "bitcoin",
-    "image": Object {
-      "size1x": "https://www.mollie.com/images/payscreen/methods/bitcoin.png",
-      "size2x": "https://www.mollie.com/images/payscreen/methods/bitcoin%402x.png",
-    },
-    "mode": undefined,
-    "resource": "method",
-  },
-  Method {
-    "_links": Object {
-      "self": Object {
         "href": "https://api.mollie.com/v2/methods/inghomepay",
         "type": "application/hal+json",
       },
@@ -131,22 +115,6 @@ List [
     "image": Object {
       "size1x": "https://www.mollie.com/images/payscreen/methods/banktransfer.png",
       "size2x": "https://www.mollie.com/images/payscreen/methods/banktransfer%402x.png",
-    },
-    "mode": undefined,
-    "resource": "method",
-  },
-  Method {
-    "_links": Object {
-      "self": Object {
-        "href": "https://api.mollie.com/v2/methods/bitcoin",
-        "type": "application/hal+json",
-      },
-    },
-    "description": "Bitcoin",
-    "id": "bitcoin",
-    "image": Object {
-      "size1x": "https://www.mollie.com/images/payscreen/methods/bitcoin.png",
-      "size2x": "https://www.mollie.com/images/payscreen/methods/bitcoin%402x.png",
     },
     "mode": undefined,
     "resource": "method",

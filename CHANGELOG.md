@@ -4,7 +4,7 @@
 
 All notable changes to this project will be documented in this file.
 
-#### v2.2.0 - 2018-01-21
+#### v2.2.0 (again) - 2018-01-21
   - Migrated to TypeScript
   - Added full support for the Orders API
   - Add tests for the Orders API and base classes and a few regression tests to guard against removing deprecated functionality too soon
@@ -15,6 +15,22 @@ All notable changes to this project will be documented in this file.
   - Added pagination support
   - Added support for embedded resources (`payments`, `refunds`, `chargebacks`, etc.)
   - Add tests for base classes (Lists, Resources)
+
+### v2.3.3 - 2019-07-14
+  - Update dependencies
+
+### v2.3.2 - 2019-06-06
+  - Update dependencies.
+
+#### v2.3.1 - 2019-05-30
+  - Update dependencies.
+
+#### v2.3.0 - 2019-05-01
+  - Removed the Bitcoin payment method.
+
+#### v2.2.0 - 2019-31-03
+  - Upgraded various dependencies (#106)
+  - Dropped support for Node 4.x. We decided not to release a new major version, as Node 4.8 has reached EOL on April 30th, 2018.
 
 #### v2.1.1 - 2018-12-04
   - Updated cacert.pem (#99)

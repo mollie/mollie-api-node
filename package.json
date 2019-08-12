@@ -22,7 +22,7 @@
   "jsnext:main": "dist/mollie.esm.js",
   "types": "dist/types/src/mollie.d.ts",
   "engines": {
-    "node": ">=6.9.0"
+    "node": ">=6.14"
   },
   "scripts": {
     "prepublish": "yarn build",
@@ -106,7 +106,8 @@
       "js"
     ],
     "transform": {
-      "^.+\\.(js|jsx|ts|tsx)$": "babel-jest"
+      "^.+\\.(js|jsx|ts|tsx)$": "babel-jest",
+      "^.+\\.pem$": "<rootDir>/tests/unit/__stubs__/fileTransformer.js"
     },
     "testMatch": [
       "<rootDir>/tests/**/*.test.ts"
