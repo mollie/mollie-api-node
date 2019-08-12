@@ -254,7 +254,8 @@ export default class Payment extends Model implements IPayment {
   public getAmountRefunded(): number {
     if (undefined == this.amountRefunded) {
       return 0;
-    } /* if (undefined != this.amountRefunded) */ else {
+    } else {
+      /* if (undefined != this.amountRefunded) */
       return parseFloat((this.amountRefunded as IAmount).value);
     }
   }
@@ -267,7 +268,8 @@ export default class Payment extends Model implements IPayment {
   public getAmountRemaining(): number {
     if (undefined == this.amountRemaining) {
       return 0;
-    } /* if (undefined != this.amountRemaining) */ else {
+    } else {
+      /* if (undefined != this.amountRemaining) */
       return parseFloat((this.amountRemaining as IAmount).value);
     }
   }
