@@ -21,9 +21,12 @@ import OrdersLinesResource from './resources/orders/lines';
 import PaymentsCapturesResource from './resources/payments/captures';
 
 export interface MollieOptions extends AxiosRequestConfig {
+  /**
+   * The Mollie API key, starting with `'test_'` or `'live_'`.
+   */
   apiKey: string;
   /**
-   * One or an array of version strings of the software you are using, such as "RockenbergCommerce/3.1.12".
+   * One or an array of version strings of the software you are using, such as `'RockenbergCommerce/3.1.12'`.
    */
   versionStrings?: string | Array<string>;
 }
