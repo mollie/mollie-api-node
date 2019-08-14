@@ -1,15 +1,15 @@
-import { IMollieApiClient } from '../../src/create-mollie-api';
+import { MollieClient } from '../..';
 
 let mollie;
 if (process.env.RUN_THE_ACTUAL_BUILD === 'true' || process.env.RUN_THE_ACTUAL_BUILD === 'cjs') {
-  mollie = require('../../dist/mollie.cjs');
+  mollie = require('../..');
 } else {
-  mollie = require('../../src/mollie').default;
+  mollie = require('../../src/createMollieClient').default;
 }
 
 describe('mollie', () => {
   it('should fail when no api key is provided', () => {
-    const noApiKey = (): IMollieApiClient => mollie(undefined);
+    const noApiKey = (): MollieClient => mollie(undefined);
 
     expect(noApiKey).toThrowError(TypeError);
   });

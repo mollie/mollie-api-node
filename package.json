@@ -20,7 +20,7 @@
   "main": "dist/mollie.cjs.js",
   "module": "dist/mollie.esm.js",
   "jsnext:main": "dist/mollie.esm.js",
-  "types": "dist/types/src/mollie.d.ts",
+  "types": "dist/types/src/types.d.ts",
   "engines": {
     "node": ">=6.14"
   },
@@ -34,7 +34,7 @@
     "test:unit:cov": "jest ./tests/unit --coverage",
     "build": "yarn build:library && yarn build:declarations",
     "build:library": "rollup --config rollup.config.js",
-    "build:declarations": "tsc src/mollie.ts --declaration --declarationDir dist/types --emitDeclarationOnly --allowSyntheticDefaultImports --resolveJsonModule",
+    "build:declarations": "tsc src/types.ts --declaration --declarationDir dist/types --emitDeclarationOnly --allowSyntheticDefaultImports --resolveJsonModule",
     "lint:prettier": "prettier --write \"{src,tests,examples}/**/*.{js,ts}\"",
     "lint:eslint": "eslint --ext .ts,.js src/ tests/ examples/",
     "lint:eslint:fix": "eslint --ext .ts,.js --fix src/ tests/ examples/",
