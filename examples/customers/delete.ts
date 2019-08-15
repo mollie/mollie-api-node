@@ -1,7 +1,7 @@
 /**
  * @docs https://docs.mollie.com/reference/v2/customers-api/delete-customer
  */
-const { createMollieClient } = require('@mollie/api-client');
+import createMollieClient from '@mollie/api-client';
 
 const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
 
