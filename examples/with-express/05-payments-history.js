@@ -3,10 +3,10 @@
  */
 
 const express = require('express');
-const mollie = require('@mollie/api-client');
+const { createMollieClient } = require('@mollie/api-client');
 
 const app = express();
-const mollieClient = mollie({ apiKey: 'test_buC3bBQfSQhd4dDUeMctJjDCn3GhP4' });
+const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
 
 app.get('/', (req, res) => {
   let paymentParameters = {

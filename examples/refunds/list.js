@@ -2,9 +2,9 @@
  * @docs https://docs.mollie.com/reference/v2/refunds-api/list-refunds
  * @docs https://docs.mollie.com/reference/v2/orders-api/list-order-refunds
  */
-const mollie = require('@mollie/api-client');
+const { createMollieClient } = require('@mollie/api-client');
 
-const mollieClient = mollie({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
 
 (async () => {
   try {

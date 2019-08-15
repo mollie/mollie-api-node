@@ -2,9 +2,9 @@
  * Example 10 - How to create a first payment to allow for recurring payments later.
  */
 
-const mollie = require('@mollie/api-client');
+const { createMollieClient } = require('@mollie/api-client');
 
-const mollieClient = mollie({ apiKey: 'test_buC3bBQfSQhd4dDUeMctJjDCn3GhP4' });
+const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
 
 const orderId = new Date().getTime();
 
