@@ -48,11 +48,21 @@ import { IUpdateParams as OrderLineUpdateParams, ICancelParams as OrderLineCance
 export { OrderLine, OrderLineUpdateParams, OrderLineCancelParams };
 
 import Payment from './models/Payment';
-import { IGetParams as PaymentGetParams, IListParams as PaymentsListParams } from './types/payment/params';
+import { ICreateParams as PaymentCreateParams, IGetParams as PaymentGetParams, IListParams as PaymentsListParams, ICancelParams as PaymentCancelParams } from './types/payment/params';
 import { ICreateParams as CustomerPaymentCreateParams, IListParams as CustomerPaymentsListParams } from './types/customer/payment/params';
 import { ICreateParams as OrderPaymentCreateParams } from './types/order/payment/params';
 import { IListParams as SubscriptionPaymentsListParams } from './types/subscription/payment/params';
-export { Payment, PaymentGetParams, PaymentsListParams, CustomerPaymentCreateParams, CustomerPaymentsListParams, OrderPaymentCreateParams, SubscriptionPaymentsListParams };
+export {
+  Payment,
+  PaymentCreateParams,
+  PaymentGetParams,
+  PaymentsListParams,
+  PaymentCancelParams,
+  CustomerPaymentCreateParams,
+  CustomerPaymentsListParams,
+  OrderPaymentCreateParams,
+  SubscriptionPaymentsListParams,
+};
 
 import Refund from './models/Refund';
 import { IListParams as RefundsListParams } from './types/refund/params';
