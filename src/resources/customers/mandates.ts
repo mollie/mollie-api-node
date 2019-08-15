@@ -188,7 +188,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    *
    * @public ✓ This method is part of the public API
    */
-  public async revoke(id: string, params?: IRevokeParams | RevokeCallback, cb?: RevokeCallback): Promise<Mandate> {
+  public async revoke(id: string, params?: IRevokeParams | RevokeCallback, cb?: RevokeCallback): Promise<boolean> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
@@ -200,7 +200,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
       }
       this.setParentId(customerId);
 
-      return super.delete(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Mandate>;
+      return super.delete(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<boolean>;
     }
 
     // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
@@ -213,7 +213,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
     }
     this.setParentId(customerId);
 
-    return super.delete(id, cb) as Promise<Mandate>;
+    return super.delete(id, cb) as Promise<boolean>;
   }
 
   /**
