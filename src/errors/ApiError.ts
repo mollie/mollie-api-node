@@ -12,6 +12,7 @@ export default class ApiError extends Error {
 
   public constructor(message: string, title?: string, status?: number, field?: string, links?: IMollieApiErrorLinks) {
     super(message);
+    this.name = 'ApiError';
 
     this.title = title;
     this.status = status;
@@ -128,6 +129,10 @@ export default class ApiError extends Error {
     return get(this.getLink(key), 'href');
   }
 
+  public toString(): string {
+    return `ApiError: ${this.message}`;
+  }
+
   /**
    * Create an `ApiError` from a raw error format
    *
@@ -146,8 +151,8 @@ export default class ApiError extends Error {
   /**
    * Create a new Resource Not Found error
    *
-   * @param resource - The resource code, e.g. `payment`
-   * @param token - The resource token, e.g. `tr_1234`
+   * @param resource - The resource code, e.g. `'payment'`
+   * @param token - The resource token, e.g. `'tr_1234'`
    *
    * @returns A new `ApiError`
    *
