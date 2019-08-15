@@ -251,12 +251,17 @@ export default class Payment extends Model implements IPayment {
    *
    * @public ✓ This method is part of the public API
    */
-  public getAmountRefunded(): number {
+  public getAmountRefunded(): IAmount {
     if (undefined == this.amountRefunded) {
-      return 0;
+      return {
+        // Perhaps this zero-value should depend on the currency. If the currency is JPY (¥), for instance, the value
+        // should probably be "0"; not "0.00".
+        value: '0.00',
+        currency: this.amount.currency
+      };
     } else {
       /* if (undefined != this.amountRefunded) */
-      return parseFloat((this.amountRefunded as IAmount).value);
+      return this.amountRefunded;
     }
   }
 
@@ -265,12 +270,17 @@ export default class Payment extends Model implements IPayment {
    *
    * @public ✓ This method is part of the public API
    */
-  public getAmountRemaining(): number {
+  public getAmountRemaining(): IAmount {
     if (undefined == this.amountRemaining) {
-      return 0;
+      return {
+        // Perhaps this zero-value should depend on the currency. If the currency is JPY (¥), for instance, the value
+        // should probably be "0"; not "0.00".
+        value: '0.00',
+        currency: this.amount.currency
+      };
     } else {
       /* if (undefined != this.amountRemaining) */
-      return parseFloat((this.amountRemaining as IAmount).value);
+      return this.amountRemaining;
     }
   }
 }

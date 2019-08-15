@@ -182,19 +182,19 @@ test('paymentCanBeRefunded', async () => {
 test('paymentGetAmountRefunded', async () => {
   var payment = await getPayment('paid', { amountRemaining: undefined, amountRefunded: { value: '20.00', currency: 'EUR' } });
 
-  expect(payment.getAmountRefunded()).toBeCloseTo(20.0);
+  expect(payment.getAmountRefunded()).toEqual({ value: '20.00', currency: 'EUR' });
 
   payment = await getPayment('paid', { /* amountRemaining: { value: '20.00', currency: 'EUR' }, */ amountRefunded: undefined });
 
-  expect(payment.getAmountRefunded()).toBe(0);
+  expect(payment.getAmountRefunded()).toEqual({ value: '0.00', currency: 'EUR' });
 });
 
 test('paymentGetAmountRemaining', async () => {
   var payment = await getPayment('paid' /*, { amountRemaining: { value: '20.00', currency: 'EUR' } } */);
 
-  expect(payment.getAmountRemaining()).toBeCloseTo(20.0);
+  expect(payment.getAmountRemaining()).toEqual({ value: '20.00', currency: 'EUR' });
 
   payment = await getPayment('paid', { amountRemaining: undefined, amountRefunded: { value: '20.00', currency: 'EUR' } });
 
-  expect(payment.getAmountRemaining()).toBe(0);
+  expect(payment.getAmountRemaining()).toEqual({ value: '0.00', currency: 'EUR' });
 });
