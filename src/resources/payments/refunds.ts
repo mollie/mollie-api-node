@@ -172,7 +172,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    *
    * @public ✓ This method is part of the public API
    */
-  public async cancel(id: string, params?: ICancelParams | CancelCallback, cb?: CancelCallback): Promise<Refund> {
+  public async cancel(id: string, params?: ICancelParams | CancelCallback, cb?: CancelCallback): Promise<boolean> {
     // Using callbacks (DEPRECATED SINCE 2.2.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Refund.resourcePrefix)) {
@@ -183,7 +183,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
         Resource.errorHandler({ detail: 'The payment id is invalid' }, typeof params === 'function' ? params : cb);
       }
 
-      return super.delete(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Refund>;
+      return super.delete(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<boolean>;
     }
 
     if (!startsWith(id, Refund.resourcePrefix)) {
@@ -196,7 +196,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
     }
     this.setParentId(paymentId);
 
-    return super.delete(id, parameters, cb) as Promise<Refund>;
+    return super.delete(id, parameters, cb) as Promise<boolean>;
   }
 
   /**
