@@ -1,7 +1,7 @@
 import createMollieClient from './createMollieClient';
 export default createMollieClient;
 
-export { MollieClient, MollieOptions } from './createMollieClient';
+export * from './createMollieClient';
 
 import List from './models/List';
 export { List };
