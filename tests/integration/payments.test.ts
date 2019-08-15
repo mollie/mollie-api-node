@@ -1,15 +1,7 @@
 import axios from 'axios';
 import httpAdapter from 'axios/lib/adapters/http';
 import dotenv from 'dotenv';
-
-import Payment from '../../src/models/Payment';
-
-let mollie;
-if (process.env.RUN_THE_ACTUAL_BUILD === 'true' || process.env.RUN_THE_ACTUAL_BUILD === 'cjs') {
-  mollie = require('../..');
-} else {
-  mollie = require('../../src/createMollieClient').default;
-}
+import createMollieClient, { Payment } from '../..';
 
 /**
  * Overwrite the default XMLHttpRequestAdapter
@@ -21,7 +13,7 @@ axios.defaults.adapter = httpAdapter;
  */
 dotenv.config();
 
-const mollieClient = mollie({ apiKey: process.env.API_KEY });
+const mollieClient = createMollieClient({ apiKey: process.env.API_KEY });
 
 describe('payments', () => {
   it('should integrate', done => {

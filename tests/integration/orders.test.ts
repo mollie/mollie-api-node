@@ -1,19 +1,7 @@
 import axios from 'axios';
 import httpAdapter from 'axios/lib/adapters/http';
 import dotenv from 'dotenv';
-
-import Order from '../../src/models/Order';
-import { Locale, PaymentMethod } from '../../src/types/global';
-import { OrderLineType } from '../../src/types/order/line';
-import { OrderEmbed } from '../../src/types/order';
-import Payment from '../../src/models/Payment';
-
-let mollie;
-if (process.env.RUN_THE_ACTUAL_BUILD === 'true' || process.env.RUN_THE_ACTUAL_BUILD === 'cjs') {
-  mollie = require('../..');
-} else {
-  mollie = require('../../src/createMollieClient').default;
-}
+import createMollieClient, { Order, PaymentMethod, OrderLineType, Locale, OrderEmbed, Payment } from '../..';
 
 /**
  * Overwrite the default XMLHttpRequestAdapter
@@ -25,7 +13,7 @@ axios.defaults.adapter = httpAdapter;
  */
 dotenv.config();
 
-const mollieClient = mollie({ apiKey: process.env.API_KEY });
+const mollieClient = createMollieClient({ apiKey: process.env.API_KEY });
 
 describe('orders', () => {
   it('should integrate', done => {
