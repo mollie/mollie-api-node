@@ -141,3 +141,13 @@ export default function createMollieClient(options: MollieOptions): MollieClient
     orders_shipments: new OrdersShipmentsResource(httpClient),
   };
 }
+
+export { ApiMode, Locale, PaymentMethod, SequenceType } from './types/global';
+export { MandateMethod, MandateStatus } from './types/mandate/index';
+export { MethodImageSize, MethodInclude } from './types/method/index';
+export { OrderEmbed, OrderStatus } from './types/order/index';
+export { OrderLineType } from './types/order/line/index';
+export { PaymentEmbed, PaymentStatus } from './types/payment/index';
+export { PaymentChargebackEmbed } from './types/payment/chargeback/index';
+export { RefundEmbed, RefundStatus } from './types/refund/index';
+export { SubscriptionStatus } from './types/subscription/index';

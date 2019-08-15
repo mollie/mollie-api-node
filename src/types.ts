@@ -77,3 +77,7 @@ import {
   ICancelParams as SubscriptionCancelParams,
 } from './types/subscription/params';
 export { Subscription, SubscriptionCreateParams, SubscriptionGetParams, SubscriptionsListParams, SubscriptionUpdateParams, SubscriptionCancelParams };
+
+export { CardAudience, CardFailureReason, CardLabel, FeeRegion } from './types/global';
+export { Issuer } from './types/issuer/index';
+export { PaymentInclude } from './types/payment/index';
