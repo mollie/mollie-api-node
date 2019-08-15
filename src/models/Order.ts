@@ -4,7 +4,7 @@ import Model from '../model';
 import Payment from '../models/Payment';
 import Refund from '../models/Refund';
 import { IOrder } from '../types/order';
-import { IAmount } from '../types/global';
+import { IAmount, IUrl } from '../types/global';
 
 /**
  * The `Order` model
@@ -33,6 +33,7 @@ export default class Order extends Model implements IOrder {
   public _links = {
     self: null,
     documentation: null,
+    checkout: null,
     payment: null,
     settlement: null,
   };
@@ -71,6 +72,25 @@ export default class Order extends Model implements IOrder {
           refunds[key] = new Refund(refund);
         });
       }
+    }
+  }
+
+  /**
+   * Returns the URL your customer should visit to make the payment for the order. This is where you should redirect
+   * the customer to after creating the order.
+   *
+   * As long as order is still in the `'created'` state, this link can be used by your customer to pay for this order.
+   * You can safely share this URL with your customer.
+   *
+   * Recurring, authorized, paid and finalized orders do not have a checkout URL.
+   *
+   * @public ✓ This method is part of the public API
+   */
+  public getCheckoutUrl(): string | null {
+    if (undefined == this._links.checkout) {
+      return null;
+    } /* if (undefined != this._links.checkout) */ else {
+      return (this._links.checkout as IUrl).href;
     }
   }
 }

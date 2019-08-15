@@ -219,7 +219,9 @@ export default class Payment extends Model implements IPayment {
   }
 
   /**
-   * Returns the checkout URL where the customer can complete the payment.
+   * Returns the URL your customer should visit to make the payment. This is where you should redirect the consumer to.
+   *
+   * Recurring payments don’t have a checkout URL.
    *
    * @public ✓ This method is part of the public API
    */
@@ -257,7 +259,7 @@ export default class Payment extends Model implements IPayment {
         // Perhaps this zero-value should depend on the currency. If the currency is JPY (¥), for instance, the value
         // should probably be "0"; not "0.00".
         value: '0.00',
-        currency: this.amount.currency
+        currency: this.amount.currency,
       };
     } else {
       /* if (undefined != this.amountRefunded) */
@@ -276,7 +278,7 @@ export default class Payment extends Model implements IPayment {
         // Perhaps this zero-value should depend on the currency. If the currency is JPY (¥), for instance, the value
         // should probably be "0"; not "0.00".
         value: '0.00',
-        currency: this.amount.currency
+        currency: this.amount.currency,
       };
     } else {
       /* if (undefined != this.amountRemaining) */
