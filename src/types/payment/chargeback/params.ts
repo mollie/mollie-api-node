@@ -13,7 +13,7 @@ import { PaymentChargebackEmbed } from '../../payment/chargeback';
 export interface IGetParams {
   paymentId: string;
 
-  embed: Array<PaymentChargebackEmbed>;
+  embed?: Array<PaymentChargebackEmbed>;
 }
 
 /**
