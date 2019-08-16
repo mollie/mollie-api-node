@@ -3,7 +3,7 @@ import { isPlainObject } from 'lodash';
 import Model from '../model';
 import Payment from '../models/Payment';
 import Refund from '../models/Refund';
-import { IOrder } from '../types/order';
+import { IOrder, OrderStatus } from '../types/order';
 import { IAmount, IUrl } from '../types/global';
 
 /**
@@ -73,6 +73,82 @@ export default class Order extends Model implements IOrder {
         });
       }
     }
+  }
+
+  /**
+   * Returns whether the order has been created, but nothing else has happened yet.
+   *
+   * @public ✓ This method is part of the public API
+   */
+  public isCreated(): boolean {
+    return OrderStatus.created == this.status;
+  }
+
+  /**
+   * Returns whether the order's payment is successfully completed with a payment method that does not support
+   * authorizations.
+   *
+   * @public ✓ This method is part of the public API
+   */
+  public isPaid(): boolean {
+    return OrderStatus.paid == this.status;
+  }
+
+  /**
+   * Returns whether the order's payment is successfully completed with a payment method that does support
+   * authorizations, the order is set to this status. The money will only be transferred once a shipment is created for
+   * the order.
+   *
+   * @public ✓ This method is part of the public API
+   */
+  public isAuthorized(): boolean {
+    return OrderStatus.authorized == this.status;
+  }
+
+  /**
+   * Returns whether the order has been canceled.
+   *
+   * @public ✓ This method is part of the public API
+   */
+  public isCanceled(): boolean {
+    return OrderStatus.canceled == this.status;
+  }
+
+  /**
+   * Returns whether the first order line or part of an order line has started shipping. When the order is in this
+   * state, it means that you still have some order lines that are not shipped yet.
+   *
+   * @public ✓ This method is part of the public API
+   */
+  public isShipping(): boolean {
+    return OrderStatus.shipping == this.status;
+  }
+
+  /**
+   * Returns whether the order has been completed.
+   *
+   * @public ✓ This method is part of the public API
+   */
+  public isCompleted(): boolean {
+    return OrderStatus.completed == this.status;
+  }
+
+  /**
+   * Returns whether the order has expired.
+   *
+   * @public ✓ This method is part of the public API
+   */
+  public isExpired(): boolean {
+    return OrderStatus.expired == this.status;
+  }
+
+  /**
+   * Returns whether the the payment supplier is manually checking the order.
+   *
+   * @public ✓ This method is part of the public API
+   */
+  public isPending(): boolean {
+    return OrderStatus.pending == this.status;
   }
 
   /**

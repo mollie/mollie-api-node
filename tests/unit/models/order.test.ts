@@ -134,7 +134,7 @@ async function getOrder(status, additionalLinks?: object) {
 }
 
 // These helper methods are not yet implemented for orders.
-xtest('orderStatuses', () => {
+test('orderStatuses', () => {
   return Promise.all(
     [
       ['created', 'isCreated', true],
