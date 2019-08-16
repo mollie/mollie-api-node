@@ -21,10 +21,12 @@ const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWX
     // Create order refund
     const orderRefund: Refund = await mollieClient.orders_refunds.create({
       orderId: 'ord_stTC2WHAuS',
-      lines: [{
-        id: 'odl_dgtxyl',
-        quantity: 1,
-      }],
+      lines: [
+        {
+          id: 'odl_dgtxyl',
+          quantity: 1,
+        },
+      ],
       description: 'Required quantity not in stock, refunding one photo book.',
     });
     console.log(orderRefund);
