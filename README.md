@@ -86,7 +86,7 @@ We've already prepared this step by creating a `test` and `live` key for you in 
 Import the client and set your API key
 
 ```javascript
-const mollie = require('@mollie/api-client')({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+const mollie = require('@mollie/api-client').createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
 ```
 
 ### Create a new payment

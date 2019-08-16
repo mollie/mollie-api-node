@@ -1,3 +1,69 @@
+# Migrating from v2.3.3 to unnamed
+
+## Initialisation
+
+The factory function which creates the client is now "named".
+
+Initialising in the style of CommonJS should now be done like so:
+```diff
+- const mollie = require('@mollie/api-client')({
+-   apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM',
+- });
++ const mollie = require('@mollie/api-client').createMollieClient({
++   apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM',
++ })
+```
+
+Or like so:
+
+```diff
+- const mollie = require('@mollie/api-client')({
+-   apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM',
+- });
++ const { createMollieClient } = require('@mollie/api-client');
++
++ const mollie = createMollieClient({
++   apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM',
++ });
+```
+
+This ES-style alternative also works:
+
+```javascript
+import createMollieClient from '@mollie/api-client';
+
+const mollie = createMollieClient({
+  apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM',
+});
+```
+
+### Rationale
+
+The need for this change comes from the additional objects now available in the package, such as the `PaymentMethod` enum:
+
+```javascript
+const { createMollieClient, PaymentMethod } = require('@mollie/api-client');
+
+const mollie = createMollieClient({
+  apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM',
+});
+
+mollie.payments.create({
+  amount: {
+    currency: 'EUR',
+    value: '10.00',
+  },
+  description: 'Order #478',
+  method: PaymentMethod.ideal
+});
+```
+
+The ES-style alternative would be to replace the first line of the example above with this:
+
+```javascript
+import createMollieClient, { PaymentMethod } from '@mollie/api-client';
+```
+
 # Migrating from v1.x to v2.0
 
 Version 2.x of the Node client uses the v2 Mollie API. Please refer to  [Migrating from v1 to v2](https://docs.mollie.com/migrating-v1-to-v2) for a general overview of the changes introduced by the new Mollie API.

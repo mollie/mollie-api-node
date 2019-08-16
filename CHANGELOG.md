@@ -4,17 +4,14 @@
 
 All notable changes to this project will be documented in this file.
 
-#### v2.2.0 (again) - 2018-01-21
-  - Migrated to TypeScript
-  - Added full support for the Orders API
-  - Add tests for the Orders API and base classes and a few regression tests to guard against removing deprecated functionality too soon
-  - Added Orders API examples
-  - Add browser support (decoupled `cacert.pem`, remove node.js only dependencies)
-  - Update rollup config, dist build supports both CommonJS and ES modules
+#### unnamed - no release yet
+  - Added TypeScript type definitions
+  - Added Orders API
+  - Added browser support (decoupled `cacert.pem`, remove node.js only dependencies)
+  - Added ES module in addition to the CommonJS module
   - Added QR code support
   - Added pagination support
   - Added support for embedded resources (`payments`, `refunds`, `chargebacks`, etc.)
-  - Add tests for base classes (Lists, Resources)
 
 ### v2.3.3 - 2019-07-14
   - Update dependencies
