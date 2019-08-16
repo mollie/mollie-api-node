@@ -52,6 +52,7 @@ export enum OrderStatus {
   shipping = 'shipping',
   completed = 'completed',
   expired = 'expired',
+  pending = 'pending',
 }
 
 export interface IOrderAddress extends IAddress {
