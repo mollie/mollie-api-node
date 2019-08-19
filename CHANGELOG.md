@@ -4,7 +4,7 @@
 
 All notable changes to this project will be documented in this file.
 
-#### unnamed - no release yet
+#### v3.0.0 - no release yet
   - Added TypeScript type definitions
   - Added Orders API
   - Added browser support (decoupled `cacert.pem`, remove node.js only dependencies)

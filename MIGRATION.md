@@ -1,4 +1,4 @@
-# Migrating from v2.3.3 to unnamed
+# Migrating from v2.3.3 to v3.0.0
 
 ## Initialisation
 
@@ -7,24 +7,20 @@ The factory function which creates the client is now "named".
 Initialising in the style of CommonJS should now be done like so:
 ```diff
 - const mollie = require('@mollie/api-client')({
--   apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM',
-- });
 + const mollie = require('@mollie/api-client').createMollieClient({
-+   apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM',
-+ })
+    apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM',
+  })
 ```
 
 Or like so:
 
 ```diff
 - const mollie = require('@mollie/api-client')({
--   apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM',
-- });
 + const { createMollieClient } = require('@mollie/api-client');
 +
 + const mollie = createMollieClient({
-+   apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM',
-+ });
+    apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM',
+  });
 ```
 
 This ES-style alternative also works:
@@ -210,5 +206,5 @@ mollie.payments
   })
   .then((payments) => {
     // Returns the list of 15 payments, starting with payment `tr_8WhJKGmgBy`
-  }
+  });
 ```
