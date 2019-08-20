@@ -15,7 +15,7 @@
 
 ## Features
 
-- [Payments](https://docs.mollie.com/reference/v2/payments-api/create-payment): are the heart of the Mollie API: this is where most implementations start off. 
+- [Payments](https://docs.mollie.com/reference/v2/payments-api/create-payment): are the heart of the Mollie API: this is where most implementations start off.
 - [Methods](https://docs.mollie.com/reference/v2/methods-api/list-methods): show all the payment methods activated on the website profile. Also allows you to integrate iDEAL's bank selection screen into your own payment flow.
 - [Refunds](https://docs.mollie.com/reference/v2/refunds-api/create-refund): allow you to make refunds in relation to a payment.
 - [Customers](https://docs.mollie.com/reference/v2/customers-api/create-customer): allow you to manage your customer's details.
@@ -54,7 +54,7 @@ npm install @mollie/api-client --save
 ```
 
 Or using [yarn](https://yarnpkg.com/):
-    
+
 ```sh
 yarn add @mollie/api-client
 ```
@@ -85,14 +85,26 @@ We've already prepared this step by creating a `test` and `live` key for you in 
 
 Import the client and set your API key
 
+CommonJS-style:
+
 ```javascript
-const mollie = require('@mollie/api-client').createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+const { createMollieClient } = require('@mollie/api-client');
+
+const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+```
+
+Using JavaScript modules:
+
+```javascript
+import createMollieClient from '@mollie/api-client';
+
+const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
 ```
 
 ### Create a new payment
 
 ```javascript
-mollie.payments.create({
+mollieClient.payments.create({
   amount: {
     value:    '10.00',
     currency: 'EUR'
@@ -101,10 +113,10 @@ mollie.payments.create({
   redirectUrl: 'https://yourwebshop.example.org/order/123456',
   webhookUrl:  'https://yourwebshop.example.org/webhook'
 })
-  .then((payment) => {
-    // Forward the customer to the payment.getPaymentUrl()
+  .then(payment => {
+    // Forward the customer to the payment.getCheckoutUrl()
   })
-  .catch((err) => {
+  .catch(error => {
     // Handle the error
   });
 ```
@@ -112,11 +124,11 @@ mollie.payments.create({
 ### Retrieve a payment
 
 ```javascript
-mollie.payments.get(payment.id)
-  .then((payment) => {
+mollieClient.payments.get(payment.id)
+  .then(payment => {
     // E.g. check if the payment.isPaid()
   })
-  .catch((err) => {
+  .catch(error => {
     // Handle the error
   });
 ```
@@ -130,31 +142,31 @@ Fetching all objects of a resource can be convenient. At the same time, returnin
 If you want to programmatically browse through a list of objects, use the `nextPage` and `previousPage` methods.
 
 ```javascript
-mollie.payments
+mollieClient.payments
   .all({
     limit: 15
   })
-  .then((payments) => {
-    // Returns the first 15 payments
+  .then(payments => {
+    // "payments" contains the first 15 payments
 
-    payments.nextPage().then((nextPayments) => {
-      // Returns the next 15 payments
-    })
-  }
+    return payments.nextPage();
+  })
+  .then(payments => {
+    // "payments" contains the next 15 payments
+  });
 ```
 
 To retrieve a list of 15 payments, starting with `{ id: 'tr_8WhJKGmgBy' }`, add the first payment ID with the `from` parameter.
 
 ```javascript
-mollie.payments
+mollieClient.payments
   .all({
     limit: 15,
     from: 'tr_8WhJKGmgBy'
   })
-  .then((payments) => {
-    // Returns the list of payments
+  .then(payments => {
     console.log(`First payment on next page will be: ${payments.nextPageCursor}`);
-  }
+  });
 ```
 
 ## Documentation
@@ -172,7 +184,7 @@ This library is a wrapper around our Mollie API. Some more specific details such
 ## Migrating from v1.x
 
 The API client v2.0 was a major rewrite, with some breaking changes. While the basic functionality stayed the same and the method names did not change, some function signatures have changed.
- 
+
 See the [migration guide](MIGRATION.md) for more information.
 
 ## Contributing

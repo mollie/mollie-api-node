@@ -6,8 +6,8 @@ The factory function which creates the client is now "named".
 
 Initialising in the style of CommonJS should now be done like so:
 ```diff
-- const mollie = require('@mollie/api-client')({
-+ const mollie = require('@mollie/api-client').createMollieClient({
+- const mollieClient = require('@mollie/api-client')({
++ const mollieClient = require('@mollie/api-client').createMollieClient({
     apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM',
   })
 ```
@@ -15,20 +15,20 @@ Initialising in the style of CommonJS should now be done like so:
 Or like so:
 
 ```diff
-- const mollie = require('@mollie/api-client')({
+- const mollieClient = require('@mollie/api-client')({
 + const { createMollieClient } = require('@mollie/api-client');
 +
-+ const mollie = createMollieClient({
++ const mollieClient = createMollieClient({
     apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM',
   });
 ```
 
-This ES-style alternative also works:
+This alternative using JavaScript modules also works:
 
 ```javascript
 import createMollieClient from '@mollie/api-client';
 
-const mollie = createMollieClient({
+const mollieClient = createMollieClient({
   apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM',
 });
 ```
@@ -40,11 +40,11 @@ The need for this change comes from the additional objects now available in the 
 ```javascript
 const { createMollieClient, PaymentMethod } = require('@mollie/api-client');
 
-const mollie = createMollieClient({
+const mollieClient = createMollieClient({
   apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM',
 });
 
-mollie.payments.create({
+mollieClient.payments.create({
   amount: {
     currency: 'EUR',
     value: '10.00',
@@ -54,7 +54,7 @@ mollie.payments.create({
 });
 ```
 
-The ES-style alternative would be to replace the first line of the example above with this:
+The alternative using JavaScript modules would be to replace the first line of the example above with this:
 
 ```javascript
 import createMollieClient, { PaymentMethod } from '@mollie/api-client';
