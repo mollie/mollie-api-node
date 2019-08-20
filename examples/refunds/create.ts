@@ -16,6 +16,7 @@ const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWX
         currency: 'EUR',
       },
     });
+
     console.log(paymentRefund);
 
     // Create order refund
@@ -29,8 +30,9 @@ const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWX
       ],
       description: 'Required quantity not in stock, refunding one photo book.',
     });
+
     console.log(orderRefund);
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.warn(error);
   }
 })();

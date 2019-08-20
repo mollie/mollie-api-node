@@ -17,7 +17,7 @@ const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWX
     } else {
       console.log(`Payment is not paid, but instead it is: ${payment.status}`);
     }
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.warn(error);
   }
 })();

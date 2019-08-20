@@ -10,7 +10,7 @@ const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWX
     const order = await mollieClient.orders.get('ord_stTC2WHAuS');
 
     console.log(order);
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.warn(error);
   }
 })();

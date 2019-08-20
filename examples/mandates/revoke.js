@@ -7,12 +7,12 @@ const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWX
 
 (async () => {
   try {
-    const result = await mollieClient.customers_mandates.revoke('mdt_7UmCdnzAfH', {
+    const status = await mollieClient.customers_mandates.revoke('mdt_7UmCdnzAfH', {
       customerId: 'cst_pzhEvnttJ2',
     });
 
-    console.log(result);
-  } catch (e) {
-    console.log(e);
+    console.log(status);
+  } catch (error) {
+    console.warn(error);
   }
 })();

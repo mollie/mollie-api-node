@@ -10,7 +10,7 @@ const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWX
     const methods = await mollieClient.methods.all();
 
     console.log(methods);
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.warn(error);
   }
 })();

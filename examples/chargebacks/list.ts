@@ -8,8 +8,9 @@ const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWX
 (async () => {
   try {
     const chargebacks: List<Chargeback> = await mollieClient.chargebacks.all();
+
     console.log(chargebacks);
   } catch (error) {
-    console.error('Something went wrong', error);
+    console.warn(error);
   }
 })();

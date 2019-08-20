@@ -10,7 +10,7 @@ const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWX
     const canceledOrder: Order = await mollieClient.orders.cancel('ord_8wmqcHMN4U');
 
     console.log(canceledOrder);
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.warn(error);
   }
 })();

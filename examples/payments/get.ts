@@ -10,7 +10,7 @@ const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWX
     const payment: Payment = await mollieClient.payments.get('tr_Eq8xzWUPA4');
 
     console.log(payment);
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.warn(error);
   }
 })();

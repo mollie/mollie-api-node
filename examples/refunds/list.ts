@@ -10,12 +10,14 @@ const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWX
   try {
     // Payment refunds
     const paymentRefunds: List<Refund> = await mollieClient.payments_refunds.all({ paymentId: 'tr_WDqYK6vllg' });
+
     console.log(paymentRefunds);
 
     // Order refunds
     const orderRefunds: List<Refund> = await mollieClient.orders_refunds.all({ orderId: 'ord_stTC2WHAuS' });
+
     console.log(orderRefunds);
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.warn(error);
   }
 })();
