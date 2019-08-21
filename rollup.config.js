@@ -10,12 +10,9 @@ export default {
     // These Node.js interenals are external to our bundles…
     ...['fs', 'https', 'path', 'url'],
     // …as are the dependencies listed in our package.json.
-    ...Object.keys(require('./package.json').dependencies)
+    ...Object.keys(require('./package.json').dependencies),
   ],
-  output: [
-    { file: join('dist', 'mollie.cjs.js'), format: 'cjs' },
-    { file: join('dist', 'mollie.esm.js'), format: 'es' }
-  ],
+  output: [{ file: join('dist', 'mollie.cjs.js'), format: 'cjs' }, { file: join('dist', 'mollie.esm.js'), format: 'es' }],
   plugins: [
     json(),
     resolve({
@@ -23,10 +20,10 @@ export default {
       customResolveOptions: {
         moduleDirectory: 'src',
       },
-      preferBuiltins: true
+      preferBuiltins: true,
     }),
     babel({
-      extensions: ['.ts']
+      extensions: ['.ts'],
     }),
     copy([{ files: join('src', 'cacert.pem'), dest: 'dist' }]),
   ],
