@@ -873,10 +873,10 @@
     eslint-plugin-import "^2.8.0"
     eslint-plugin-no-only-tests "^2.3.1"
 
-"@mollie/eslint-config-typescript@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@mollie/eslint-config-typescript/-/eslint-config-typescript-1.1.0.tgz#73be9ba74f056bf7a3e91da2bb51627395e4140b"
-  integrity sha512-uv2yz7a31S0MZkZnDxCCwesU/C043d/3nidk528wFgnoNFWHvCPPauVDEK9joHxMTpCAnq7ddq0hjJKyLvgCJQ==
+"@mollie/eslint-config-typescript@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@mollie/eslint-config-typescript/-/eslint-config-typescript-1.2.0.tgz#a88b17f4dfe46a19d04bb5778b18d8e911078c9b"
+  integrity sha512-5xtGbheOYoS/MtSeR3JkBz/st23+90T1O5fuDk38RuGtGjpOGBKsNZH9VtOMper3j4UzMKHWUABDkgvthjpclA==
   dependencies:
     "@mollie/eslint-config-base" "^1.1.0"
     "@typescript-eslint/eslint-plugin" "^1.3.0"
