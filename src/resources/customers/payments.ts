@@ -34,7 +34,7 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
   /**
    * Get all of a customer's payments.
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customer-payments
    *
@@ -86,7 +86,7 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
    *
    * @returns A list of found Customer Payments
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customer-payments
    *

@@ -2,7 +2,7 @@ import Model from '../model';
 import { ICapture } from '../types/payment/capture';
 
 /**
- * The `capture` model
+ * The `Capture` model
  *
  * {@link ICapture}
  */

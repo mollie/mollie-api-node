@@ -178,7 +178,7 @@ import { Issuer } from '../issuer';
  * @param applicationFee - Adding an application fee allows you to charge the merchant a small sum
  *                         for the payment and transfer this to your own account.
  *
- * @since 2.2.0
+ * @since 3.0.0
  *
  * @see https://docs.mollie.com/reference/v2/payments-api/create-payment
  */
@@ -225,7 +225,7 @@ export interface ICreateParams {
  *                   If you omit this parameter, you can only retrieve
  *                   live mode payments.
  *
- * @since 2.2.0
+ * @since 3.0.0
  *
  * @see https://docs.mollie.com/reference/v2/payments-api/get-payment
  */
@@ -251,7 +251,7 @@ export interface IGetParams {
  *                   made in test mode.
  *                   By default, only live payments are returned.
  *
- * @since 2.2.0
+ * @since 3.0.0
  *
  * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
  */
@@ -269,7 +269,7 @@ export interface IListParams {
  *
  * @param testmode - Set this to `true` to cancel a test mode payment.
  *
- * @since 2.2.0
+ * @since 3.0.0
  *
  * @see https://docs.mollie.com/reference/v2/payments-api/cancel-payment
  */

@@ -26,23 +26,28 @@ export default class Resource {
    * @var {string} resource
    */
   public static resource: string;
+
   /**
    * Refers to a Model class
    * @var {Model} model
    */
   public static model: any;
+
   /**
    * @var {string} apiName
    */
   public readonly apiName: string;
+
   /**
    * @var {string} resourcePrefix
    */
   public readonly resourcePrefix: string;
+
   /**
    * @var {AxiosInstance} httpClient
    */
   protected readonly httpClient: AxiosInstance;
+
   /**
    * @var {string} parentId
    */

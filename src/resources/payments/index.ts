@@ -35,7 +35,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * Retrieve all payments created with the current website profile, ordered from newest to oldest.
    * This is just an alias of the `list` method.
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
    *
@@ -119,7 +119,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
    *
    * @returns A list of found Payments
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
    *

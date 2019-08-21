@@ -32,7 +32,7 @@ export default class ChargebacksResource extends Resource {
   /**
    * List chargebacks
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
    *
@@ -51,7 +51,7 @@ export default class ChargebacksResource extends Resource {
    *
    * @returns A list of found Chargebacks
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
    *

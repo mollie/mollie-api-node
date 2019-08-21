@@ -10,7 +10,7 @@ import Resource from '../../resource';
 /**
  * The `orders_lines` resource
  *
- * @since 2.2.0
+ * @since 3.0.0
  */
 export default class OrdersLinesResource extends OrdersResource {
   public static resource = 'orders_lines';
@@ -20,7 +20,7 @@ export default class OrdersLinesResource extends OrdersResource {
   /**
    * Cancel an order line by ID or multiple order lines
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order-lines
    *
@@ -40,7 +40,7 @@ export default class OrdersLinesResource extends OrdersResource {
    *
    * @returns The updated Order object
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/update-orderline
    *
@@ -76,7 +76,7 @@ export default class OrdersLinesResource extends OrdersResource {
    *
    * @returns Success status
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order-lines
    *

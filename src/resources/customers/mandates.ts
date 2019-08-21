@@ -34,7 +34,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
   /**
    * Get all of a customer's mandates
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
    *
@@ -143,7 +143,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    *
    * @returns A list of found mandates
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
    *

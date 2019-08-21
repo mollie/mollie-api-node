@@ -34,7 +34,7 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
   /**
    * Retrieve a list of Payment Captures
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/captures-api/list-captures
    *
@@ -96,7 +96,7 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
    *
    * @returns A list of found Payment Captures
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/captures-api/list-captures
    *

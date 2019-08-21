@@ -39,7 +39,7 @@ export default class Method extends Model implements IMethod {
    * @returns Url string
    *
    * @since 2.0.0
-   * @since 2.2.0 SVG support
+   * @since 3.0.0 SVG support
    *
    * @public ✓ This method is part of the public API
    */

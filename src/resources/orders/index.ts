@@ -9,7 +9,7 @@ import { CancelCallback, CreateCallback, GetCallback, ListCallback, UpdateCallba
 /**
  * The `orders` resource
  *
- * @since 2.2.0
+ * @since 3.0.0
  */
 export default class Orders extends Resource {
   public static resource = 'orders';
@@ -19,7 +19,7 @@ export default class Orders extends Resource {
   /**
    * Cancel an Order.
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order
    *
@@ -31,7 +31,7 @@ export default class Orders extends Resource {
   /**
    * List Orders.
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/list-orders
    *
@@ -43,7 +43,7 @@ export default class Orders extends Resource {
   /**
    * List Orders.
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/list-orders
    *
@@ -75,7 +75,7 @@ export default class Orders extends Resource {
    *
    * @returns The newly created Order
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/create-order
    *
@@ -95,7 +95,7 @@ export default class Orders extends Resource {
    *
    * @returns The Order
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/get-order
    *
@@ -127,7 +127,7 @@ export default class Orders extends Resource {
    *
    * @returns A list of the Orders found
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/list-orders
    *
@@ -152,7 +152,7 @@ export default class Orders extends Resource {
    *
    * @returns The updated Order
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/update-order
    *
@@ -185,7 +185,7 @@ export default class Orders extends Resource {
    *
    * @returns Updated Order object
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order
    *

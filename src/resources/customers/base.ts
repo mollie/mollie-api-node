@@ -24,7 +24,7 @@ export default class CustomersBaseResource extends Resource {
    *
    * @param parentId - Parent resource ID
    *
-   * @since 2.2.0
+   * @since 3.0.0
    */
   protected setParentId(parentId: string): void {
     super.setParentId(parentId);

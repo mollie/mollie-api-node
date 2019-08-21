@@ -2,7 +2,7 @@ import { cloneDeep, get, has } from 'lodash';
 import { IMollieApiError, IMollieApiErrorLinks, IUrl } from '../types/global';
 
 /**
- * @since 2.2.0
+ * @since 3.0.0
  */
 export default class ApiError extends Error {
   protected title: string;
@@ -25,7 +25,7 @@ export default class ApiError extends Error {
    *
    * @returns The error message
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @public ✓ This method is part of the public API
    */
@@ -38,7 +38,7 @@ export default class ApiError extends Error {
    *
    * @returns The error field
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @public ✓ This method is part of the public API
    */
@@ -51,7 +51,7 @@ export default class ApiError extends Error {
    *
    * @returns The status code
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @public ✓ This method is part of the public API
    */
@@ -64,7 +64,7 @@ export default class ApiError extends Error {
    *
    * @returns The documentation URL
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @public ✓ This method is part of the public API
    */
@@ -77,7 +77,7 @@ export default class ApiError extends Error {
    *
    * @returns The dashboard URL
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @public ✓ This method is part of the public API
    */
@@ -92,7 +92,7 @@ export default class ApiError extends Error {
    *
    * @returns Whether the link exists
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @public ✓ This method is part of the public API
    */
@@ -107,7 +107,7 @@ export default class ApiError extends Error {
    *
    * @returns A link to the resource
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @public ✓ This method is part of the public API
    */
@@ -121,7 +121,7 @@ export default class ApiError extends Error {
    *
    * @returns {string}
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @public ✓ This method is part of the public API
    */
@@ -140,7 +140,7 @@ export default class ApiError extends Error {
    *
    * @returns A new `ApiError`
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @public ✓ This method is part of the public API
    */
@@ -156,7 +156,7 @@ export default class ApiError extends Error {
    *
    * @returns A new `ApiError`
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @public ✓ This method is part of the public API
    */

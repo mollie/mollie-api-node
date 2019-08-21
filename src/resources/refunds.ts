@@ -30,7 +30,7 @@ export default class RefundsResource extends Resource {
   /**
    * List Refunds
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
    *
@@ -49,7 +49,7 @@ export default class RefundsResource extends Resource {
    *
    * @returns A list of found Refunds
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
    *

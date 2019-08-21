@@ -12,7 +12,7 @@ import NotImplementedError from '../../errors/NotImplementedError';
 /**
  * The `order_shipments` resource
  *
- * @since 2.2.0
+ * @since 3.0.0
  */
 export default class OrdersShipmentsResource extends OrdersBaseResource {
   public static resource = 'orders_shipments';
@@ -22,7 +22,7 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
   /**
    * List order shipments
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/shipments-api/list-shipments
    *
@@ -34,7 +34,7 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
   /**
    * List order shipments
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/shipments-api/list-shipments
    *
@@ -61,7 +61,7 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
    *
    * @returns The newly created Shipment object
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/shipments-api/create-shipment
    *
@@ -98,7 +98,7 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
    *
    * @returns {Promise<Shipment>}
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/shipments-api/update-shipment
    *
@@ -141,7 +141,7 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
    *
    * @returns The Shipment object
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/shipments-api/get-shipment
    *
@@ -184,7 +184,7 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
    *
    * @returns A list of found Shipments
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/shipments-api/list-shipments
    *

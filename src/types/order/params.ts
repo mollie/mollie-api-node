@@ -48,7 +48,7 @@ import { ICreateOrderLine } from './line';
  *                    This field is mandatory.
  * @param testmode - Set this to true to make this order a test order.
  *
- * @since 2.2.0
+ * @since 3.0.0
  *
  * @see https://docs.mollie.com/reference/v2/orders-api/create-order
  */
@@ -80,7 +80,7 @@ export interface ICreateParams {
  * @param embed - This endpoint also allows for embedding additional information by appending the following values via
  *                the `embed` query string parameter.
  *
- * @since 2.2.0
+ * @since 3.0.0
  *
  * @see https://docs.mollie.com/reference/v2/orders-api/get-order
  */
@@ -101,7 +101,7 @@ export interface IGetParams {
  * @param profileId - The website profile’s unique identifier, for example `pfl_3RkSN1zuPE`.
  * @param testmode - Set this to `true` to list test mode orders.
  *
- * @since 2.2.0
+ * @since 3.0.0
  *
  * @see https://docs.mollie.com/reference/v2/orders-api/list-orders
  */
@@ -124,7 +124,7 @@ export interface IListParams {
  *                          See {@link https://docs.mollie.com/reference/v2/orders-api/create-order#order-address-details Order address details}
  *                          for the exact fields needed.
  *
- * @since 2.2.0
+ * @since 3.0.0
  *
  * @see https://docs.mollie.com/reference/v2/orders-api/update-order
  */

@@ -10,7 +10,7 @@ export default class CustomersSubscriptionsBaseResource extends CustomersBaseRes
   /**
    * If the subscription ID is set
    *
-   * @since 2.2.0
+   * @since 3.0.0
    */
   protected hasSubscriptionId(): boolean {
     return !!this.subscriptionId;
@@ -19,7 +19,7 @@ export default class CustomersSubscriptionsBaseResource extends CustomersBaseRes
   /**
    * @param subscriptionId - Subscription ID
    *
-   * @since 2.2.0
+   * @since 3.0.0
    */
   protected setSubscriptionId(subscriptionId: string): void {
     this.subscriptionId = subscriptionId;

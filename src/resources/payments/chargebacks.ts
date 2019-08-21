@@ -34,7 +34,7 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
   /**
    * Retrieve a list of Payment Chargebacks
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
    *
@@ -96,7 +96,7 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
    *
    * @returns A list of found Payment Chargebacks
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
    *

@@ -45,7 +45,7 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
   /**
    * List the Customer's Subscriptions.
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @alias list
    *
@@ -134,7 +134,7 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
    *
    * @returns A list of found subscriptions
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions
    *

@@ -13,7 +13,7 @@ import NotImplementedError from '../../errors/NotImplementedError';
 /**
  * The `orders_refunds` resource
  *
- * @since 2.2.0
+ * @since 3.0.0
  */
 export default class OrdersRefundsResource extends OrdersResource {
   public static resource = 'orders_refunds';
@@ -23,7 +23,7 @@ export default class OrdersRefundsResource extends OrdersResource {
   /**
    * Get all order refunds
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/list-order-refunds
    *
@@ -35,7 +35,7 @@ export default class OrdersRefundsResource extends OrdersResource {
   /**
    * Get all order refunds
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/list-order-refunds
    *
@@ -53,7 +53,7 @@ export default class OrdersRefundsResource extends OrdersResource {
    *
    * @returns The newly created Order Refund object
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/create-order-refund
    *
@@ -90,7 +90,7 @@ export default class OrdersRefundsResource extends OrdersResource {
    *
    * @returns A list of found Order Refunds
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/list-order-refunds
    *

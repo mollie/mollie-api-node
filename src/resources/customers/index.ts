@@ -30,7 +30,7 @@ export default class CustomersResource extends CustomersBaseResource {
   /**
    * List Customers.
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
    *
@@ -117,7 +117,7 @@ export default class CustomersResource extends CustomersBaseResource {
    *
    * @returns
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
    *

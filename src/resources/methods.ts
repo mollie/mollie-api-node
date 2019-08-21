@@ -62,7 +62,7 @@ export default class MethodsResource extends Resource {
   /**
    * Retrieve a list of Payment Methods
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/methods-api/list-methods
    *
@@ -79,7 +79,7 @@ export default class MethodsResource extends Resource {
    *
    * @returns A list of found Payment Methods
    *
-   * @since 2.2.0
+   * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/methods-api/list-methods
    *
