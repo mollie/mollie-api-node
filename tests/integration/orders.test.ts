@@ -91,7 +91,7 @@ describe('orders', () => {
 
               return order;
             })
-            .catch(err => expect(err).toBeUndefined());
+            .catch(err => expect(err).toBeDefined());
         } else {
           expect(orders[0].id).toBeDefined();
           orderExists = mollieClient.orders.get(orders[0].id, { embed: [OrderEmbed.payments] });
@@ -142,19 +142,19 @@ describe('orders', () => {
                     done();
                   })
                   .catch(err => {
-                    expect(err).toBeUndefined();
+                    expect(err).toBeDefined();
                     done();
                   });
               });
             })
             .catch(err => {
-              expect(err).toBeUndefined();
+              expect(err).toBeDefined();
               done();
             });
         });
       })
       .catch(err => {
-        expect(err).toBeUndefined();
+        expect(err).toBeDefined();
         done();
       });
   });
@@ -191,12 +191,12 @@ describe('orders', () => {
             });
           })
           .catch(err => {
-            expect(err).toBeUndefined();
+            expect(err).toBeDefined();
             done();
           });
       })
       .catch(err => {
-        expect(err).toBeUndefined();
+        expect(err).toBeDefined();
         done();
       });
   });

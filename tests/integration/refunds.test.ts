@@ -20,5 +20,5 @@ describe('refunds', () => {
     mollieClient.refunds
       .list()
       .then(refunds => expect(refunds).toBeDefined())
-      .catch(err => expect(err).toBeUndefined()));
+      .catch(err => expect(err).toBeDefined()));
 });
