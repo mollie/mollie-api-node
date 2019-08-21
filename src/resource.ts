@@ -8,7 +8,7 @@ import List from './models/List';
 import ApiError from './errors/ApiError';
 
 /**
- * @deprecated since 2.2.0
+ * @deprecated since 3.0.0
  */
 export type ResourceCallback = (error: any, resource: any) => void;
 
