@@ -116,7 +116,7 @@ export default class Order extends Model implements IOrder {
 
   /**
    * Returns whether the first order line or part of an order line has started shipping. When the order is in this
-   * state, it means that you still have some order lines that are not shipped yet.
+   * state, it means that your order is partially shipped.
    *
    * @public ✓ This method is part of the public API
    */
