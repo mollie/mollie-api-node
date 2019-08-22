@@ -1,10 +1,10 @@
 # Migrating from v2.3.3 to v3.0.0
 
-## Initialisation
+## Initialization
 
 The factory function which creates the client is now "named".
 
-Initialising in the style of CommonJS should now be done like so:
+Initializing in the style of CommonJS should now be done like so:
 ```diff
 - const mollieClient = require('@mollie/api-client')({
 + const mollieClient = require('@mollie/api-client').createMollieClient({
@@ -74,15 +74,15 @@ npm install @mollie/api-client --save
 ```
 
 Or using [yarn](https://yarnpkg.com/):
-    
+
 ```sh
 yarn add @mollie/api-client
 ```
 
 
-## Initialisation change
+## Initialization change
 
-Changed the initialisation of the client to a factory method: 
+Changed the initialization of the client to a factory method:
 
 ```diff
 -var Mollie = require('mollie-api-node');
