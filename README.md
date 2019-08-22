@@ -11,16 +11,17 @@
 
 # About
 
-[Mollie](https://www.mollie.com/) builds payment products, commerce solutions and APIs that let you accept online and mobile payments, for small online stores and Fortune 500s alike. Accepting [iDEAL](https://www.mollie.com/payments/ideal), [Bancontact/Mister Cash](https://www.mollie.com/payments/bancontact), [SOFORT Banking](https://www.mollie.com/payments/sofort), [Credit Card](https://www.mollie.com/payments/credit-card), [SEPA Bank transfer](https://www.mollie.com/payments/bank-transfer), [SEPA Direct debit](https://www.mollie.com/payments/direct-debit), [PayPal](https://www.mollie.com/payments/paypal), [Belfius Direct Net](https://www.mollie.com/payments/belfius), [paysafecard](https://www.mollie.com/payments/paysafecard), [Gift Cards](https://www.mollie.com/payments/gift-cards), and [ING Home’Pay](https://www.mollie.com/payments/ing-homepay), [Giropay](https://www.mollie.com/en/payments/giropay/), [EPS](https://www.mollie.com/en/payments/eps/) and [Apple Pay](https://www.mollie.com/en/payments/apple-pay/) online payments without fixed monthly costs or any punishing registration procedures. Just use the Mollie API to receive payments directly on your website or easily refund transactions to your customers.
+[Mollie](https://www.mollie.com/) builds payment products, commerce solutions and APIs that let you accept online and mobile payments, for small online stores and Fortune 500s alike. Accepting [iDEAL][ideal], [Bancontact/Mister Cash][bancontact], [SOFORT Banking][sofort], [Credit Card][credit-card], [SEPA Bank transfer][bank-transfer], [SEPA Direct debit][direct-debit], [PayPal][paypal], [Belfius Direct Net][belfius], [paysafecard][paysafecard], [Gift Cards][gift-cards], [ING Home’Pay][ing-homepay], [Giropay][giropay], [EPS][eps] and [Apple Pay][apple-pay] online payments without fixed monthly costs or any punishing registration procedures. Just use the Mollie API to receive payments directly on your website or easily refund transactions to your customers.
 
 ## Features
 
-- [Payments](https://docs.mollie.com/reference/v2/payments-api/create-payment): are the heart of the Mollie API: this is where most implementations start off.
-- [Methods](https://docs.mollie.com/reference/v2/methods-api/list-methods): show all the payment methods activated on the website profile. Also allows you to integrate iDEAL's bank selection screen into your own payment flow.
-- [Refunds](https://docs.mollie.com/reference/v2/refunds-api/create-refund): allow you to make refunds in relation to a payment.
-- [Customers](https://docs.mollie.com/reference/v2/customers-api/create-customer): allow you to manage your customer's details.
-- [Mandates](https://docs.mollie.com/reference/v2/mandates-api/create-mandate): allow you to charge a customer's credit card or bank account recurrently.
-- [Subscriptions](https://docs.mollie.com/reference/v2/subscriptions-api/create-subscription): allow you to schedule recurring payments to take place at regular intervals.
+- [Payments][payments]: are the heart of the Mollie API: this is where most implementations start off.
+- [Methods][methods]: show all the payment methods activated on the website profile. Also allows you to integrate iDEAL's bank selection screen into your own payment flow.
+- [Refunds][refunds]: allow you to make refunds in relation to a payment.
+- [Customers][customers]: allow you to manage your customer's details.
+- [Orders][orders]: allows you to use Mollie for your order management. Pay after delivery payment methods, such as Klarna Pay later and Klarna Slice it, require orders and cannot be used with payments.
+- [Mandates][mandates]: allow you to charge a customer's credit card or bank account recurrently.
+- [Subscriptions][subscriptions]: allow you to schedule recurring payments to take place at regular intervals.
 
 # Getting started
 
@@ -179,7 +180,7 @@ For a deep dive in how our systems function we refer to our excellent [guides](h
 
 ### API reference
 
-This library is a wrapper around our Mollie API. Some more specific details such as query parameters and pagination are better explained in our [API reference](https://docs.mollie.com/reference/v2/payments-api/create-payment), and you can also get a better understanding of how the requests look under the hood.
+This library is a wrapper around our Mollie API. Some more specific details such as query parameters and pagination are better explained in our [API reference][payments], and you can also get a better understanding of how the requests look under the hood.
 
 ## Migrating from v1.x
 
@@ -198,3 +199,27 @@ Mollie is always looking for new talent to join our teams. We’re looking for i
 ## License
 
 [New BSD (Berkeley Software Distribution) License](https://opensource.org/licenses/BSD-3-Clause). Copyright 2013-2019, Mollie B.V.
+
+
+[payments]: https://docs.mollie.com/reference/v2/payments-api/create-payment
+[methods]: https://docs.mollie.com/reference/v2/methods-api/list-methods
+[refunds]: https://docs.mollie.com/reference/v2/refunds-api/create-refund
+[customers]: https://docs.mollie.com/reference/v2/customers-api/create-customer
+[orders]: https://docs.mollie.com/reference/v2/orders-api/create-order
+[mandates]: https://docs.mollie.com/reference/v2/mandates-api/create-mandate
+[subscriptions]: https://docs.mollie.com/reference/v2/subscriptions-api/create-subscription
+
+[ideal]: https://www.mollie.com/payments/ideal
+[bancontact]: https://www.mollie.com/payments/bancontact
+[sofort]: https://www.mollie.com/payments/sofort
+[credit-card]: https://www.mollie.com/payments/credit-card
+[bank-transfer]: https://www.mollie.com/payments/bank-transfer
+[direct-debit]: https://www.mollie.com/payments/direct-debit
+[paypal]: https://www.mollie.com/payments/paypal
+[belfius]: https://www.mollie.com/payments/belfius
+[paysafecard]: https://www.mollie.com/payments/paysafecard
+[gift-cards]: https://www.mollie.com/payments/gift-cards
+[ing-homepay]: https://www.mollie.com/payments/ing-homepay
+[giropay]: https://www.mollie.com/payments/giropay
+[eps]: https://www.mollie.com/payments/eps
+[apple-pay]: https://www.mollie.com/payments/apple-pay
