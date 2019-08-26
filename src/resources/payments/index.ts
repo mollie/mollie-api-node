@@ -137,7 +137,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
   /**
    * Cancel the given payment.
    *
-   * Will throw a ApiError if the payment id is invalid or the resource cannot be found.
+   * Will throw an ApiError if the payment id is invalid or the resource cannot be found.
    * Returns with HTTP status No Content (204) if successful.
    *
    * @param id - Payment Id

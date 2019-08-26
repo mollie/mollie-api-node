@@ -157,7 +157,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
   }
 
   /**
-   * Delete a payment refund by ID
+   * Cancel a payment refund by ID
    *
    * @param id - Refund ID
    * @param params - Cancel payment refund parameters

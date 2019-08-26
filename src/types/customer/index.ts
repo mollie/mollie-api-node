@@ -3,7 +3,7 @@ import { ApiMode, ILinks, IUrl, Locale, PaymentMethod } from '../global';
 /**
  * Customer Response object.
  *
- * @see http://localhost:63342/api-documentation/build/html/reference/v2/customers-api/get-customer.html
+ * @see https://docs.mollie.com/reference/v2/customers-api/get-customer
  */
 export interface ICustomer {
   resource: string;
