@@ -1,4 +1,5 @@
 import { parse } from 'url';
+import { get } from 'lodash';
 
 import Model from '../model';
 import { ResourceCallback } from '../resource';
@@ -35,18 +36,18 @@ export default class List<T> extends Array {
   public previousPageCursor?: string = null;
 
   public static getNextPageParams(links: IListLinks): any {
-    if (links.next && links.next.href) {
-      return parse(links.next.href, true).query;
+    const href = get(links, 'next.href');
+    if (href != undefined) {
+      return parse(href, true).query;
     }
-
     return {};
   }
 
   public static getPreviousPageParams(links: IListLinks): any {
-    if (links.previous && links.previous.href) {
-      return parse(links.previous.href, true).query;
+    const href = get(links, 'previous.href');
+    if (href != undefined) {
+      return parse(href, true).query;
     }
-
     return {};
   }
 
