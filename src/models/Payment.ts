@@ -228,10 +228,8 @@ export default class Payment extends Model implements IPayment {
   public getCheckoutUrl(): string | null {
     if (this._links.checkout == undefined) {
       return null;
-    } else {
-      /* if (this._links.checkout != undefined) */
-      return (this._links.checkout as IUrl).href;
     }
+    return (this._links.checkout as IUrl).href;
   }
 
   /**
@@ -262,10 +260,8 @@ export default class Payment extends Model implements IPayment {
         value: '0.00',
         currency: this.amount.currency,
       };
-    } else {
-      /* if (this.amountRefunded != undefined) */
-      return this.amountRefunded;
     }
+    return this.amountRefunded;
   }
 
   /**
@@ -281,9 +277,7 @@ export default class Payment extends Model implements IPayment {
         value: '0.00',
         currency: this.amount.currency,
       };
-    } else {
-      /* if (this.amountRemaining != undefined) */
-      return this.amountRemaining;
     }
+    return this.amountRemaining;
   }
 }

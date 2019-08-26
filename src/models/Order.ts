@@ -164,9 +164,7 @@ export default class Order extends Model implements IOrder {
   public getCheckoutUrl(): string | null {
     if (this._links.checkout == undefined) {
       return null;
-    } else {
-      /* if (this._links.checkout != undefined) */
-      return (this._links.checkout as IUrl).href;
     }
+    return (this._links.checkout as IUrl).href;
   }
 }
