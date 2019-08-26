@@ -129,7 +129,7 @@ export default class Payment extends Model implements IPayment {
    * @public ✓ This method is part of the public API
    */
   public isCanceled(): boolean {
-    return PaymentStatus.canceled == this.status;
+    return this.status == PaymentStatus.canceled;
   }
 
   /**
@@ -138,7 +138,7 @@ export default class Payment extends Model implements IPayment {
    * @public ✓ This method is part of the public API
    */
   public isExpired(): boolean {
-    return PaymentStatus.expired == this.status;
+    return this.status == PaymentStatus.expired;
   }
 
   /**
@@ -167,7 +167,7 @@ export default class Payment extends Model implements IPayment {
    * @public ✓ This method is part of the public API
    */
   public isFailed(): boolean {
-    return PaymentStatus.failed == this.status;
+    return this.status == PaymentStatus.failed;
   }
 
   /**
@@ -177,7 +177,7 @@ export default class Payment extends Model implements IPayment {
    * @public ✓ This method is part of the public API
    */
   public isPending(): boolean {
-    return PaymentStatus.pending == this.status;
+    return this.status == PaymentStatus.pending;
   }
 
   /**
@@ -186,7 +186,7 @@ export default class Payment extends Model implements IPayment {
    * @public ✓ This method is part of the public API
    */
   public hasRefunds(): boolean {
-    return undefined != this._links.refunds;
+    return this._links.refunds != undefined;
   }
 
   /**
@@ -195,7 +195,7 @@ export default class Payment extends Model implements IPayment {
    * @public ✓ This method is part of the public API
    */
   public hasChargebacks(): boolean {
-    return undefined != this._links.chargebacks;
+    return this._links.chargebacks != undefined;
   }
 
   /**
@@ -205,7 +205,7 @@ export default class Payment extends Model implements IPayment {
    * @public ✓ This method is part of the public API
    */
   public hasSequenceTypeFirst(): boolean {
-    return SequenceType.first == this.sequenceType;
+    return this.sequenceType == SequenceType.first;
   }
 
   /**
@@ -215,7 +215,7 @@ export default class Payment extends Model implements IPayment {
    * @public ✓ This method is part of the public API
    */
   public hasSequenceTypeRecurring(): boolean {
-    return SequenceType.recurring == this.sequenceType;
+    return this.sequenceType == SequenceType.recurring;
   }
 
   /**
@@ -226,9 +226,10 @@ export default class Payment extends Model implements IPayment {
    * @public ✓ This method is part of the public API
    */
   public getCheckoutUrl(): string | null {
-    if (undefined == this._links.checkout) {
+    if (this._links.checkout == undefined) {
       return null;
-    } /* if (undefined != this._links.checkout) */ else {
+    } else {
+      /* if (this._links.checkout != undefined) */
       return (this._links.checkout as IUrl).href;
     }
   }
@@ -237,7 +238,7 @@ export default class Payment extends Model implements IPayment {
    * @public ✓ This method is part of the public API
    */
   public canBeRefunded(): boolean {
-    return undefined != this.amountRemaining;
+    return this.amountRemaining != undefined;
   }
 
   /**
@@ -254,7 +255,7 @@ export default class Payment extends Model implements IPayment {
    * @public ✓ This method is part of the public API
    */
   public getAmountRefunded(): IAmount {
-    if (undefined == this.amountRefunded) {
+    if (this.amountRefunded == undefined) {
       return {
         // Perhaps this zero-value should depend on the currency. If the currency is JPY (¥), for instance, the value
         // should probably be "0"; not "0.00".
@@ -262,7 +263,7 @@ export default class Payment extends Model implements IPayment {
         currency: this.amount.currency,
       };
     } else {
-      /* if (undefined != this.amountRefunded) */
+      /* if (this.amountRefunded != undefined) */
       return this.amountRefunded;
     }
   }
@@ -273,7 +274,7 @@ export default class Payment extends Model implements IPayment {
    * @public ✓ This method is part of the public API
    */
   public getAmountRemaining(): IAmount {
-    if (undefined == this.amountRemaining) {
+    if (this.amountRemaining == undefined) {
       return {
         // Perhaps this zero-value should depend on the currency. If the currency is JPY (¥), for instance, the value
         // should probably be "0"; not "0.00".
@@ -281,7 +282,7 @@ export default class Payment extends Model implements IPayment {
         currency: this.amount.currency,
       };
     } else {
-      /* if (undefined != this.amountRemaining) */
+      /* if (this.amountRemaining != undefined) */
       return this.amountRemaining;
     }
   }

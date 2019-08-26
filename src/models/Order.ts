@@ -81,7 +81,7 @@ export default class Order extends Model implements IOrder {
    * @public ✓ This method is part of the public API
    */
   public isCreated(): boolean {
-    return OrderStatus.created == this.status;
+    return this.status == OrderStatus.created;
   }
 
   /**
@@ -91,7 +91,7 @@ export default class Order extends Model implements IOrder {
    * @public ✓ This method is part of the public API
    */
   public isPaid(): boolean {
-    return OrderStatus.paid == this.status;
+    return this.status == OrderStatus.paid;
   }
 
   /**
@@ -101,7 +101,7 @@ export default class Order extends Model implements IOrder {
    * @public ✓ This method is part of the public API
    */
   public isAuthorized(): boolean {
-    return OrderStatus.authorized == this.status;
+    return this.status == OrderStatus.authorized;
   }
 
   /**
@@ -110,7 +110,7 @@ export default class Order extends Model implements IOrder {
    * @public ✓ This method is part of the public API
    */
   public isCanceled(): boolean {
-    return OrderStatus.canceled == this.status;
+    return this.status == OrderStatus.canceled;
   }
 
   /**
@@ -120,7 +120,7 @@ export default class Order extends Model implements IOrder {
    * @public ✓ This method is part of the public API
    */
   public isShipping(): boolean {
-    return OrderStatus.shipping == this.status;
+    return this.status == OrderStatus.shipping;
   }
 
   /**
@@ -129,7 +129,7 @@ export default class Order extends Model implements IOrder {
    * @public ✓ This method is part of the public API
    */
   public isCompleted(): boolean {
-    return OrderStatus.completed == this.status;
+    return this.status == OrderStatus.completed;
   }
 
   /**
@@ -138,7 +138,7 @@ export default class Order extends Model implements IOrder {
    * @public ✓ This method is part of the public API
    */
   public isExpired(): boolean {
-    return OrderStatus.expired == this.status;
+    return this.status == OrderStatus.expired;
   }
 
   /**
@@ -147,7 +147,7 @@ export default class Order extends Model implements IOrder {
    * @public ✓ This method is part of the public API
    */
   public isPending(): boolean {
-    return OrderStatus.pending == this.status;
+    return this.status == OrderStatus.pending;
   }
 
   /**
@@ -162,9 +162,10 @@ export default class Order extends Model implements IOrder {
    * @public ✓ This method is part of the public API
    */
   public getCheckoutUrl(): string | null {
-    if (undefined == this._links.checkout) {
+    if (this._links.checkout == undefined) {
       return null;
-    } /* if (undefined != this._links.checkout) */ else {
+    } else {
+      /* if (this._links.checkout != undefined) */
       return (this._links.checkout as IUrl).href;
     }
   }
