@@ -62,6 +62,9 @@ export default class Resource {
 
   /**
    * Error handler
+   *
+   * This function throws an error if the passed callback is falsy, and calls the passed callback providing the error
+   * instead of the passed otherwise.
    */
   protected static errorHandler(response: any, cb?: Function): any {
     let error;
@@ -127,6 +130,8 @@ export default class Resource {
       // noinspection JSPotentiallyInvalidConstructorUsage
       const model = new (this.constructor as any).model(response.data);
 
+      // TODO If the passed callback throws an error, it will actually be caught here. This is probably not what we
+      // want (especially since it will probably not have a response property).
       if (callback) {
         return callback(null, model);
       }
