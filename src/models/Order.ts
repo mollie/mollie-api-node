@@ -154,8 +154,8 @@ export default class Order extends Model implements IOrder {
    * Returns the URL your customer should visit to make the payment for the order. This is where you should redirect
    * the customer to after creating the order.
    *
-   * As long as order is still in the `'created'` state, this link can be used by your customer to pay for this order.
-   * You can safely share this URL with your customer.
+   * As long as the order is still in the `'created'` state, this link can be used by your customer to pay for this
+   * order. You can safely share this URL with your customer.
    *
    * Recurring, authorized, paid and finalized orders do not have a checkout URL.
    *
