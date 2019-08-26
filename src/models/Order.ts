@@ -96,8 +96,7 @@ export default class Order extends Model implements IOrder {
 
   /**
    * Returns whether the order's payment is successfully completed with a payment method that does support
-   * authorizations, the order is set to this status. The money will only be transferred once a shipment is created for
-   * the order.
+   * authorizations. The money will only be transferred once a shipment is created for the order.
    *
    * @public ✓ This method is part of the public API
    */
