@@ -115,7 +115,7 @@ export interface IPayment {
   description: string;
   redirectUrl: string | null;
   webhookUrl?: string;
-  method: PaymentMethod;
+  method?: PaymentMethod;
   metadata: any;
   locale: Locale;
   countryCode?: string;
