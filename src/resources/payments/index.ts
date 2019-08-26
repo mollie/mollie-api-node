@@ -63,7 +63,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * Create a payment in Mollie.
    *
    * @param params - Create Payment parameters
-   * @param cb - Callback function, can be used instead of the returned `Promise` object
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns {Promise<Payment>}
    *

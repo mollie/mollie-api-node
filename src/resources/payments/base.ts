@@ -13,7 +13,7 @@ export default class PaymentsBaseResource extends Resource {
    *
    * @since 2.0.0
    *
-   * @deprecated 2.2.0 Please use setParentId instead
+   * @deprecated 3.0.0 Please use setParentId instead
    */
   protected setParent(params: any = {}): void {
     if (!params.paymentId && !this.hasParentId()) {
