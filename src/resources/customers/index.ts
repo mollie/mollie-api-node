@@ -8,7 +8,7 @@ import { ICreateParams, IDeleteParams, IGetParams, IListParams, IUpdateParams } 
 import { CreateCallback, DeleteCallback, GetCallback, ListCallback, UpdateCallback } from '../../types/customer/callback';
 
 /**
- * The `customers` resource
+ * The `Customers` resource
  */
 export default class CustomersResource extends CustomersBaseResource {
   public static resource = 'customers';
