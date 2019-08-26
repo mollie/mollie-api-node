@@ -50,7 +50,7 @@ export default class OrdersLinesResource extends OrdersResource {
     // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Order.resourcePrefix)) {
-        Resource.errorHandler({ detail: 'The order id is invalid' }, typeof params === 'function' ? params : cb);
+        Resource.createApiError('The order id is invalid', typeof params === 'function' ? params : cb);
       }
       this.setParentId(id);
 
@@ -59,7 +59,7 @@ export default class OrdersLinesResource extends OrdersResource {
 
     const { ...parameters } = params;
     if (!startsWith(id, Order.resourcePrefix)) {
-      Resource.errorHandler({ detail: 'The order id is invalid' });
+      Resource.createApiError('The order id is invalid');
     }
 
     this.setParentId(id);
@@ -86,7 +86,7 @@ export default class OrdersLinesResource extends OrdersResource {
     // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Order.resourcePrefix)) {
-        Resource.errorHandler({ detail: 'The order id is invalid' }, typeof params === 'function' ? params : cb);
+        Resource.createApiError('The order id is invalid', typeof params === 'function' ? params : cb);
       }
       this.setParentId(id);
 
@@ -94,7 +94,7 @@ export default class OrdersLinesResource extends OrdersResource {
     }
 
     if (!startsWith(id, Order.resourcePrefix)) {
-      Resource.errorHandler({ detail: 'The order id is invalid' }, typeof params === 'function' ? params : cb);
+      Resource.createApiError('The order id is invalid', typeof params === 'function' ? params : cb);
     }
 
     const { ...parameters } = params;

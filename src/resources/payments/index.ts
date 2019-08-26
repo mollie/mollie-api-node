@@ -97,14 +97,14 @@ export default class PaymentsResource extends PaymentsBaseResource {
     // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Payment.resourcePrefix)) {
-        Resource.errorHandler({ detail: 'The payment id is invalid' }, typeof params === 'function' ? params : cb);
+        Resource.createApiError('The payment id is invalid', typeof params === 'function' ? params : cb);
       }
 
       return super.get(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Payment>;
     }
 
     if (!startsWith(id, Payment.resourcePrefix)) {
-      Resource.errorHandler({ detail: 'The payment id is invalid' });
+      Resource.createApiError('The payment id is invalid');
     }
 
     return super.get(id, params, cb) as Promise<Payment>;
@@ -154,7 +154,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
    */
   public async cancel(id: string, params?: ICancelParams, cb?: CancelCallback): Promise<Payment> {
     if (!startsWith(id, Payment.resourcePrefix)) {
-      Resource.errorHandler({ detail: 'The payment id is invalid' }, typeof params === 'function' ? params : cb);
+      Resource.createApiError('The payment id is invalid', typeof params === 'function' ? params : cb);
     }
 
     return super.delete(id, typeof params === 'function' ? params : cb) as Promise<Payment>;

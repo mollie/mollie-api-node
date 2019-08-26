@@ -65,10 +65,10 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
     if (typeof params === 'function' || typeof cb === 'function') {
       const paymentId = get(params, 'paymentId') || this.parentId;
       if (!startsWith(id, Chargeback.resourcePrefix)) {
-        Resource.errorHandler({ detail: 'The chargeback id is invalid' }, typeof params === 'function' ? params : cb);
+        Resource.createApiError('The chargeback id is invalid', typeof params === 'function' ? params : cb);
       }
       if (!startsWith(paymentId, Payment.resourcePrefix)) {
-        Resource.errorHandler({ detail: 'The payment id is invalid' }, typeof params === 'function' ? params : cb);
+        Resource.createApiError('The payment id is invalid', typeof params === 'function' ? params : cb);
       }
       this.setParentId(paymentId);
 
@@ -78,10 +78,10 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
     // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { paymentId, ...parameters } = defaults(params, { paymentId: this.parentId });
     if (!startsWith(id, Chargeback.resourcePrefix)) {
-      Resource.errorHandler({ detail: 'The chargeback id is invalid' });
+      Resource.createApiError('The chargeback id is invalid');
     }
     if (!startsWith(paymentId, Payment.resourcePrefix)) {
-      Resource.errorHandler({ detail: 'The payment id is invalid' });
+      Resource.createApiError('The payment id is invalid');
     }
     this.setParentId(paymentId);
 
@@ -107,7 +107,7 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
     if (typeof params === 'function' || typeof cb === 'function') {
       const paymentId = get(params, 'paymentId') || this.parentId;
       if (!startsWith(paymentId, Payment.resourcePrefix)) {
-        Resource.errorHandler({ detail: 'The payment id is invalid' }, typeof params === 'function' ? params : cb);
+        Resource.createApiError('The payment id is invalid', typeof params === 'function' ? params : cb);
       }
       this.setParentId(paymentId);
 
@@ -117,7 +117,7 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
     // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { paymentId, ...parameters } = defaults(params, { paymentId: this.parentId });
     if (!startsWith(paymentId, Payment.resourcePrefix)) {
-      Resource.errorHandler({ detail: 'The payment id is invalid' });
+      Resource.createApiError('The payment id is invalid');
     }
     this.setParentId(paymentId);
 

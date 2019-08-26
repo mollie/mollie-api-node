@@ -63,7 +63,7 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        Resource.errorHandler({ detail: 'The customer id is invalid' }, typeof params === 'function' ? params : cb);
+        Resource.createApiError('The customer id is invalid', typeof params === 'function' ? params : cb);
       }
       this.setParentId(customerId);
 
@@ -97,7 +97,7 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        Resource.errorHandler({ detail: 'The customer id is invalid' }, typeof params === 'function' ? params : cb);
+        Resource.createApiError('The customer id is invalid', typeof params === 'function' ? params : cb);
       }
       this.setParentId(customerId);
 
@@ -107,7 +107,7 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
     // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { customerId, ...parameters } = defaults(params, { customerId: this.parentId });
     if (!startsWith(customerId, Customer.resourcePrefix)) {
-      Resource.errorHandler({ detail: 'The customer id is invalid' });
+      Resource.createApiError('The customer id is invalid');
     }
     this.setParentId(customerId);
 

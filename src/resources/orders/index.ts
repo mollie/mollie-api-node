@@ -105,14 +105,14 @@ export default class Orders extends Resource {
     // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Order.resourcePrefix)) {
-        Resource.errorHandler({ detail: 'The order id is invalid' }, typeof params === 'function' ? params : cb);
+        Resource.createApiError('The order id is invalid', typeof params === 'function' ? params : cb);
       }
 
       return super.get(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Order>;
     }
 
     if (!startsWith(id, Order.resourcePrefix)) {
-      Resource.errorHandler({ detail: 'The order id is invalid' });
+      Resource.createApiError('The order id is invalid');
     }
 
     return super.get(id, params) as Promise<Order>;
@@ -162,14 +162,14 @@ export default class Orders extends Resource {
     // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Order.resourcePrefix)) {
-        Resource.errorHandler({ detail: 'The order id is invalid' }, typeof params === 'function' ? params : cb);
+        Resource.createApiError('The order id is invalid', typeof params === 'function' ? params : cb);
       }
 
       return super.update(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Order>;
     }
 
     if (!startsWith(id, Order.resourcePrefix)) {
-      Resource.errorHandler({ detail: 'The order id is invalid' }, cb);
+      Resource.createApiError('The order id is invalid', cb);
     }
 
     return super.update(id, params) as Promise<Order>;
@@ -193,7 +193,7 @@ export default class Orders extends Resource {
    */
   public async cancel(id: string, params?: ICancelParams | CancelCallback, cb?: CancelCallback): Promise<Order> {
     if (!startsWith(id, Order.resourcePrefix)) {
-      Resource.errorHandler({ detail: 'The order id is invalid' }, cb);
+      Resource.createApiError('The order id is invalid', cb);
     }
 
     // Using callbacks (DEPRECATED SINCE 3.0.0)

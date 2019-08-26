@@ -96,14 +96,14 @@ export default class CustomersResource extends CustomersBaseResource {
     // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Customer.resourcePrefix)) {
-        Resource.errorHandler({ detail: 'The customer id is invalid' }, typeof params === 'function' ? params : cb);
+        Resource.createApiError('The customer id is invalid', typeof params === 'function' ? params : cb);
       }
 
       return super.get(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Customer>;
     }
 
     if (!startsWith(id, Customer.resourcePrefix)) {
-      Resource.errorHandler({ detail: 'The customer id is invalid' });
+      Resource.createApiError('The customer id is invalid');
     }
     return super.get(id, params, cb) as Promise<Customer>;
   }
@@ -152,14 +152,14 @@ export default class CustomersResource extends CustomersBaseResource {
     // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Customer.resourcePrefix)) {
-        Resource.errorHandler({ detail: 'The customer id is invalid' }, typeof params === 'function' ? params : cb);
+        Resource.createApiError('The customer id is invalid', typeof params === 'function' ? params : cb);
       }
 
       return super.update(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Customer>;
     }
 
     if (!startsWith(id, Customer.resourcePrefix)) {
-      Resource.errorHandler({ detail: 'The customer id is invalid' });
+      Resource.createApiError('The customer id is invalid');
     }
     return super.update(id, params, cb) as Promise<Customer>;
   }
@@ -184,14 +184,14 @@ export default class CustomersResource extends CustomersBaseResource {
     // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Customer.resourcePrefix)) {
-        Resource.errorHandler({ detail: 'The customer id is invalid' }, typeof params === 'function' ? params : cb);
+        Resource.createApiError('The customer id is invalid', typeof params === 'function' ? params : cb);
       }
 
       return super.delete(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<boolean>;
     }
 
     if (!startsWith(id, Customer.resourcePrefix)) {
-      Resource.errorHandler({ detail: 'The customer id is invalid' });
+      Resource.createApiError('The customer id is invalid');
     }
 
     return !!(await super.delete(id, params, cb));

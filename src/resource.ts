@@ -61,23 +61,39 @@ export default class Resource {
   }
 
   /**
-   * Error handler
+   * Creates an API error, based on the passed response.
    *
-   * This function throws an error if the passed callback is falsy, and calls the passed callback providing the error
-   * instead of the passed otherwise.
+   * This method throws an error if the passed callback is falsy. It calls the passed callback providing the error
+   * otherwise, and then throws the error nevertheless.
+   *
+   * In other words, this method calls the passed callback ‒ if any ‒ providing the error it creates, and then (always)
+   * throws said error.
    */
-  protected static errorHandler(response: any, cb?: Function): any {
-    let error;
-    if (response instanceof ApiError) {
-      error = response;
-    } else if (has(response, 'response.data')) {
-      error = ApiError.createFromError(response.response.data);
+  protected static createApiError(response: AxiosResponse, cb?: Function): never;
+  /**
+   * Creates an API error with the passed message.
+   *
+   * This method throws an error if the passed callback is falsy. It calls the passed callback providing the error
+   * otherwise, and then throws the error nevertheless.
+   *
+   * In other words, this method calls the passed callback ‒ if any ‒ providing the error it creates, and then (always)
+   * throws said error.
+   */
+  protected static createApiError(message: string, cb?: Function): never;
+  protected static createApiError(responseOrMessage: AxiosResponse | string, cb?: Function): never {
+    // This method is essentially a thin wrapper around either the ApiError constructor or ApiError.createFromResponse.
+    // When we implement a more generic solution for the callbacks, I think this method becomes obsolete.
+
+    var error: ApiError;
+    if (typeof responseOrMessage == 'string') {
+      error = new ApiError(responseOrMessage);
     } else {
-      error = response && response.data ? ApiError.createFromError(response.data) : ApiError.createFromError(response);
+      // if (typeof responseOrMessage == 'object')
+      error = ApiError.createFromResponse(responseOrMessage.data);
     }
 
     if (cb) {
-      return cb(error);
+      cb(error);
     }
 
     throw error;
@@ -137,7 +153,7 @@ export default class Resource {
       }
       return model;
     } catch (error) {
-      Resource.errorHandler(error.response, callback);
+      Resource.createApiError(error.response, callback);
     }
   }
 
@@ -179,7 +195,7 @@ export default class Resource {
 
       return model;
     } catch (error) {
-      Resource.errorHandler(error, callback);
+      Resource.createApiError(error.response, callback);
     }
   }
 
@@ -233,7 +249,7 @@ export default class Resource {
 
       return list;
     } catch (error) {
-      Resource.errorHandler(error, cb);
+      Resource.createApiError(error.response, cb);
     }
   }
 
@@ -261,7 +277,7 @@ export default class Resource {
 
       return model;
     } catch (error) {
-      Resource.errorHandler(error.response, cb);
+      Resource.createApiError(error.response, cb);
     }
   }
 
@@ -295,7 +311,7 @@ export default class Resource {
 
       return model;
     } catch (error) {
-      Resource.errorHandler(error, cb);
+      Resource.createApiError(error.response, cb);
     }
   }
 

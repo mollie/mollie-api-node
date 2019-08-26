@@ -74,7 +74,7 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
     // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { customerId, ...parameters } = defaults(params, { customerId: this.parentId });
     if (!startsWith(params.customerId, Customer.resourcePrefix)) {
-      Resource.errorHandler({ detail: 'The customer id is invalid' }, cb);
+      Resource.createApiError('The customer id is invalid', cb);
     }
     this.setParentId(customerId);
 
@@ -102,10 +102,10 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(id, Subscription.resourcePrefix)) {
-        Resource.errorHandler({ detail: 'The subscription id is invalid' }, typeof params === 'function' ? params : cb);
+        Resource.createApiError('The subscription id is invalid', typeof params === 'function' ? params : cb);
       }
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        Resource.errorHandler({ detail: 'The customer id is invalid' }, typeof params === 'function' ? params : cb);
+        Resource.createApiError('The customer id is invalid', typeof params === 'function' ? params : cb);
       }
       this.setParentId(customerId);
 
@@ -115,10 +115,10 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
     // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { customerId, ...parameters } = defaults(params, { customerId: this.parentId });
     if (!startsWith(id, Subscription.resourcePrefix)) {
-      Resource.errorHandler({ detail: 'The subscription id is invalid' });
+      Resource.createApiError('The subscription id is invalid');
     }
     if (!startsWith(params.customerId, Customer.resourcePrefix)) {
-      Resource.errorHandler({ detail: 'The customer id is invalid' });
+      Resource.createApiError('The customer id is invalid');
     }
     this.setParentId(customerId);
 
@@ -145,7 +145,7 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        Resource.errorHandler({ detail: 'The customer id is invalid' }, cb);
+        Resource.createApiError('The customer id is invalid', cb);
       }
       this.setParentId(customerId);
 
@@ -154,7 +154,7 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
 
     const { customerId, ...parameters } = defaults(params, { customerId: this.parentId });
     if (!startsWith(customerId, Customer.resourcePrefix)) {
-      Resource.errorHandler({ detail: 'The customer id is invalid' }, cb);
+      Resource.createApiError('The customer id is invalid', cb);
     }
     this.setParentId(customerId);
 
@@ -182,10 +182,10 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(id, Subscription.resourcePrefix)) {
-        Resource.errorHandler({ detail: 'The subscription id is invalid' }, typeof params === 'function' ? params : cb);
+        Resource.createApiError('The subscription id is invalid', typeof params === 'function' ? params : cb);
       }
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        Resource.errorHandler({ detail: 'The customer id is invalid' }, typeof params === 'function' ? params : cb);
+        Resource.createApiError('The customer id is invalid', typeof params === 'function' ? params : cb);
       }
       this.setParentId(customerId);
 
@@ -193,12 +193,12 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
     }
 
     if (!startsWith(id, Subscription.resourcePrefix)) {
-      Resource.errorHandler({ detail: 'The subscription id is invalid' });
+      Resource.createApiError('The subscription id is invalid');
     }
     // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { customerId, ...parameters } = defaults(params, { customerId: this.parentId });
     if (!startsWith(params.customerId, Customer.resourcePrefix)) {
-      Resource.errorHandler({ detail: 'The subscription id is invalid' });
+      Resource.createApiError('The subscription id is invalid');
     }
     this.setParentId(customerId);
 
@@ -225,11 +225,11 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
     // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Subscription.resourcePrefix)) {
-        Resource.errorHandler({ detail: 'The subscription id is invalid' }, typeof params === 'function' ? params : cb);
+        Resource.createApiError('The subscription id is invalid', typeof params === 'function' ? params : cb);
       }
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
-        Resource.errorHandler({ detail: 'The customer id is invalid' }, typeof params === 'function' ? params : cb);
+        Resource.createApiError('The customer id is invalid', typeof params === 'function' ? params : cb);
       }
       this.setParentId(customerId);
 
@@ -237,12 +237,12 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
     }
 
     if (!startsWith(id, Subscription.resourcePrefix)) {
-      Resource.errorHandler({ detail: 'The subscription id is invalid' });
+      Resource.createApiError('The subscription id is invalid');
     }
     // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { customerId, ...parameters } = defaults(params, { customerId: this.parentId });
     if (!startsWith(params.customerId, Customer.resourcePrefix)) {
-      Resource.errorHandler({ detail: 'The customer id is invalid' });
+      Resource.createApiError('The customer id is invalid');
     }
     this.setParentId(customerId);
 

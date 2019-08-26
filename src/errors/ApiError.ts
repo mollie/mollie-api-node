@@ -141,36 +141,8 @@ export default class ApiError extends Error {
    * @returns A new `ApiError`
    *
    * @since 3.0.0
-   *
-   * @public ✓ This method is part of the public API
    */
-  public static createFromError(error: IMollieApiError): ApiError {
+  public static createFromResponse(error: IMollieApiError): ApiError {
     return new ApiError(get(error, 'detail'), get(error, 'title'), get(error, 'status'), get(error, 'field'), cloneDeep(get(error, '_links')));
-  }
-
-  /**
-   * Create a new Resource Not Found error
-   *
-   * @param resource - The resource code, e.g. `'payment'`
-   * @param token - The resource token, e.g. `'tr_1234'`
-   *
-   * @returns A new `ApiError`
-   *
-   * @since 3.0.0
-   *
-   * @public ✓ This method is part of the public API
-   */
-  public static createResourceNotFoundError(resource: string, token: string): ApiError {
-    return ApiError.createFromError({
-      status: 404,
-      title: 'Not Found',
-      detail: `No ${resource} exists with token ${token}.`,
-      _links: {
-        documentation: {
-          href: 'https://docs.mollie.com/errors',
-          type: 'text/html',
-        },
-      },
-    });
   }
 }

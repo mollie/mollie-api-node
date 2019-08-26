@@ -64,7 +64,7 @@ export default class OrdersRefundsResource extends OrdersResource {
     if (typeof params === 'function' || typeof cb === 'function') {
       const orderId = get(params, 'orderId') || this.parentId;
       if (!startsWith(orderId, Order.resourcePrefix)) {
-        Resource.errorHandler({ detail: 'The order id is invalid' }, typeof params === 'function' ? params : cb);
+        Resource.createApiError('The order id is invalid', typeof params === 'function' ? params : cb);
       }
       this.setParentId(orderId);
 
@@ -74,7 +74,7 @@ export default class OrdersRefundsResource extends OrdersResource {
     // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { orderId, ...parameters } = defaults(params, { orderId: this.parentId });
     if (!startsWith(orderId, Order.resourcePrefix)) {
-      Resource.errorHandler({ detail: 'The order id is invalid' }, cb);
+      Resource.createApiError('The order id is invalid', cb);
     }
     this.setParentId(orderId);
 
@@ -111,7 +111,7 @@ export default class OrdersRefundsResource extends OrdersResource {
     // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { orderId, ...parameters } = defaults(params, { orderId: this.parentId });
     if (!startsWith(orderId, Order.resourcePrefix)) {
-      Resource.errorHandler({ detail: 'The order id is invalid' });
+      Resource.createApiError('The order id is invalid');
     }
     this.setParentId(orderId);
 

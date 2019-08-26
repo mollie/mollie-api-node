@@ -4,7 +4,6 @@ import List from '../models/List';
 import { IGetParams, IListParams } from '../types/method/params';
 import { GetCallback, ListCallback } from '../types/method/callback';
 import NotImplementedError from '../errors/NotImplementedError';
-import ApiError from '../errors/ApiError';
 
 /**
  * The `methods` resource
@@ -32,18 +31,40 @@ export default class MethodsResource extends Resource {
    *
    * @public ✓ This method is part of the public API
    */
-  public async get(id: string, params?: IGetParams | GetCallback, cb?: GetCallback): Promise<Method> {
+  public get(id: string, params?: IGetParams): Promise<Method>;
+  /**
+   * Retrieve a single Payment Method
+   *
+   * @param id - Method ID
+   * @param params - Retrieve Payment Method parameters
+   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
+   *
+   * @returns The Payment Method object
+   *
+   * @since 2.0.0
+   *
+   * @see https://docs.mollie.com/reference/v2/methods-api/get-method
+   *
+   * @public ✓ This method is part of the public API
+   */
+  public get(id: string, params: IGetParams | GetCallback, cb?: GetCallback): void;
+  public get(id: string, params?: IGetParams | GetCallback, cb?: GetCallback): Promise<Method> | void {
     // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!id) {
-        Resource.errorHandler(ApiError.createResourceNotFoundError('method', id), typeof params === 'function' ? params : cb);
+        Resource.createApiError('The payment id is invalid', typeof params === 'function' ? params : cb);
       }
 
       return super.get(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Method>;
     }
 
     if (!id) {
-      Resource.errorHandler(ApiError.createResourceNotFoundError('method', id));
+      try {
+        Resource.createApiError('The payment id is invalid');
+      } catch (error) {
+        return Promise.reject(error);
+      }
     }
 
     return super.get(id, params, cb) as Promise<Method>;
