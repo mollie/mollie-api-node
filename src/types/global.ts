@@ -24,6 +24,7 @@ export enum Locale {
 }
 
 export enum PaymentMethod {
+  applepay = 'applepay',
   bancontact = 'bancontact',
   banktransfer = 'banktransfer',
   belfius = 'belfius',
