@@ -15,7 +15,6 @@ List [
       "size1x": "https://www.mollie.com/images/payscreen/methods/ideal.png",
       "size2x": "https://www.mollie.com/images/payscreen/methods/ideal%402x.png",
     },
-    "mode": undefined,
     "resource": "method",
   },
   Method {
@@ -31,7 +30,6 @@ List [
       "size1x": "https://www.mollie.com/images/payscreen/methods/creditcard.png",
       "size2x": "https://www.mollie.com/images/payscreen/methods/creditcard%402x.png",
     },
-    "mode": undefined,
     "resource": "method",
   },
   Method {
@@ -47,7 +45,6 @@ List [
       "size1x": "https://www.mollie.com/images/payscreen/methods/banktransfer.png",
       "size2x": "https://www.mollie.com/images/payscreen/methods/banktransfer%402x.png",
     },
-    "mode": undefined,
     "resource": "method",
   },
   Method {
@@ -63,7 +60,6 @@ List [
       "size1x": "https://www.mollie.com/images/payscreen/methods/inghomepay.png",
       "size2x": "https://www.mollie.com/images/payscreen/methods/inghomepay%402x.png",
     },
-    "mode": undefined,
     "resource": "method",
   },
 ]
@@ -84,7 +80,6 @@ List [
       "size1x": "https://www.mollie.com/images/payscreen/methods/ideal.png",
       "size2x": "https://www.mollie.com/images/payscreen/methods/ideal%402x.png",
     },
-    "mode": undefined,
     "resource": "method",
   },
   Method {
@@ -100,7 +95,6 @@ List [
       "size1x": "https://www.mollie.com/images/payscreen/methods/creditcard.png",
       "size2x": "https://www.mollie.com/images/payscreen/methods/creditcard%402x.png",
     },
-    "mode": undefined,
     "resource": "method",
   },
   Method {
@@ -116,7 +110,6 @@ List [
       "size1x": "https://www.mollie.com/images/payscreen/methods/banktransfer.png",
       "size2x": "https://www.mollie.com/images/payscreen/methods/banktransfer%402x.png",
     },
-    "mode": undefined,
     "resource": "method",
   },
   Method {
@@ -132,7 +125,6 @@ List [
       "size1x": "https://www.mollie.com/images/payscreen/methods/inghomepay.png",
       "size2x": "https://www.mollie.com/images/payscreen/methods/inghomepay%402x.png",
     },
-    "mode": undefined,
     "resource": "method",
   },
 ]
@@ -152,7 +144,6 @@ Method {
     "size1x": "https://www.mollie.com/images/payscreen/methods/ideal.png",
     "size2x": "https://www.mollie.com/images/payscreen/methods/ideal%402x.png",
   },
-  "mode": undefined,
   "resource": "method",
 }
 `;
@@ -171,7 +162,6 @@ Method {
     "size1x": "https://www.mollie.com/images/payscreen/methods/ideal.png",
     "size2x": "https://www.mollie.com/images/payscreen/methods/ideal%402x.png",
   },
-  "mode": undefined,
   "resource": "method",
 }
 `;

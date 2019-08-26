@@ -29,6 +29,8 @@ export default class Method extends Model implements IMethod {
     super();
 
     Object.assign(this, props);
+
+    delete this.mode;
   }
 
   /**
