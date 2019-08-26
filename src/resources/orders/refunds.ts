@@ -49,7 +49,7 @@ export default class OrdersRefundsResource extends OrdersResource {
    * Create an order refund
    *
    * @param params - Create Order Refund parameters
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns The newly created Order Refund object
    *
@@ -60,7 +60,7 @@ export default class OrdersRefundsResource extends OrdersResource {
    * @public ✓ This method is part of the public API
    */
   public async create(params: ICreateParams, cb?: CreateCallback): Promise<Refund> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const orderId = get(params, 'orderId') || this.parentId;
       if (!startsWith(orderId, Order.resourcePrefix)) {
@@ -71,7 +71,7 @@ export default class OrdersRefundsResource extends OrdersResource {
       return super.create(typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Refund>;
     }
 
-    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { orderId, ...parameters } = defaults(params, { orderId: this.parentId });
     if (!startsWith(orderId, Order.resourcePrefix)) {
       Resource.errorHandler({ detail: 'The order id is invalid' }, cb);
@@ -85,8 +85,8 @@ export default class OrdersRefundsResource extends OrdersResource {
    * Get all order refunds
    *
    * @param params - List Order Refunds parameters
-   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns A list of found Order Refunds
    *
@@ -97,7 +97,7 @@ export default class OrdersRefundsResource extends OrdersResource {
    * @public ✓ This method is part of the public API
    */
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Refund>> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const orderId = get(params, 'orderId') || this.parentId;
       if (!orderId) {
@@ -108,7 +108,7 @@ export default class OrdersRefundsResource extends OrdersResource {
       return super.list(typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<List<Order>>;
     }
 
-    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { orderId, ...parameters } = defaults(params, { orderId: this.parentId });
     if (!startsWith(orderId, Order.resourcePrefix)) {
       Resource.errorHandler({ detail: 'The order id is invalid' });

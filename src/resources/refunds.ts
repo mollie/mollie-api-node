@@ -44,8 +44,8 @@ export default class RefundsResource extends Resource {
    * List Refunds
    *
    * @param params - List Refunds parameters
-   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns A list of found Refunds
    *
@@ -56,7 +56,7 @@ export default class RefundsResource extends Resource {
    * @public ✓ This method is part of the public API
    */
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Refund>> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       return super.list(typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<List<Refund>>;
     }

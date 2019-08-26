@@ -60,7 +60,7 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
    *
    * @param params - Create Subscription parameters
    *
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns Customer Subscription
    *
@@ -71,7 +71,7 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
    * @public ✓ This method is part of the public API
    */
   public async create(params: ICreateParams, cb?: CreateCallback): Promise<Subscription> {
-    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { customerId, ...parameters } = defaults(params, { customerId: this.parentId });
     if (!startsWith(params.customerId, Customer.resourcePrefix)) {
       Resource.errorHandler({ detail: 'The customer id is invalid' }, cb);
@@ -86,8 +86,8 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
    *
    * @param id - Subscription ID
    * @param params - Get Subscription parameters
-   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @return Customer Subscription
    *
@@ -98,7 +98,7 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
    * @public ✓ This method is part of the public API
    */
   public async get(id: string, params?: IGetParams | GetCallback, cb?: GetCallback): Promise<Subscription> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(id, Subscription.resourcePrefix)) {
@@ -112,7 +112,7 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
       return super.get(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Subscription>;
     }
 
-    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { customerId, ...parameters } = defaults(params, { customerId: this.parentId });
     if (!startsWith(id, Subscription.resourcePrefix)) {
       Resource.errorHandler({ detail: 'The subscription id is invalid' });
@@ -129,8 +129,8 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
    * Get all customer's subscriptions.
    *
    * @param params - List customer's subscriptions parameters
-   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns A list of found subscriptions
    *
@@ -141,7 +141,7 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
    * @public ✓ This method is part of the public API
    */
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Subscription>> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
@@ -166,8 +166,8 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
    *
    * @param id - Subscription ID
    * @param params - Update customer subscription parameters
-   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns The updated Customer Subscription object
    *
@@ -178,7 +178,7 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
    * @public ✓ This method is part of the public API
    */
   public async update(id: string, params: IUpdateParams | UpdateCallback, cb?: UpdateCallback): Promise<Subscription> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(id, Subscription.resourcePrefix)) {
@@ -195,7 +195,7 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
     if (!startsWith(id, Subscription.resourcePrefix)) {
       Resource.errorHandler({ detail: 'The subscription id is invalid' });
     }
-    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { customerId, ...parameters } = defaults(params, { customerId: this.parentId });
     if (!startsWith(params.customerId, Customer.resourcePrefix)) {
       Resource.errorHandler({ detail: 'The subscription id is invalid' });
@@ -210,8 +210,8 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
    *
    * @param id - Subscription ID
    * @param params - Delete Subscription parameters
-   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns Success status
    *
@@ -222,7 +222,7 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
    * @public ✓ This method is part of the public API
    */
   public async cancel(id: string, params?: ICancelParams | CancelCallback, cb?: CancelCallback): Promise<Subscription> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Subscription.resourcePrefix)) {
         Resource.errorHandler({ detail: 'The subscription id is invalid' }, typeof params === 'function' ? params : cb);
@@ -239,7 +239,7 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
     if (!startsWith(id, Subscription.resourcePrefix)) {
       Resource.errorHandler({ detail: 'The subscription id is invalid' });
     }
-    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { customerId, ...parameters } = defaults(params, { customerId: this.parentId });
     if (!startsWith(params.customerId, Customer.resourcePrefix)) {
       Resource.errorHandler({ detail: 'The customer id is invalid' });

@@ -98,7 +98,7 @@ export default class Resource {
    * Create a resource by ID
    *
    * @params params - Resource-specific parameters
-   * @params cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned Promise
+   * @params cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned Promise
    *
    * @returns The resource
    *
@@ -141,7 +141,7 @@ export default class Resource {
    *
    * @params id - Resource ID
    * @params params - Resource-specific parameters
-   * @params cb - (DEPRECATED SINCE 2.2.0) Optional callback function
+   * @params cb - (DEPRECATED SINCE 3.0.0) Optional callback function
    *
    * @returns {Promise<Model>}
    *
@@ -182,7 +182,7 @@ export default class Resource {
    * List resources
    *
    * @param prms - Resource-specific parameters
-   * @param cb - (DEPRECATED SINCE 2.2.0) Optional callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Optional callback function
    *
    * @returns Resource list
    *
@@ -237,7 +237,7 @@ export default class Resource {
    *
    * @param id - Resource id
    * @param params - Resource-specific parameters
-   * @param cb - (DEPRECATED SINCE 2.2.0) Optional callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Optional callback function
    *
    * @returns {Promise<Model>}
    *
@@ -265,7 +265,7 @@ export default class Resource {
    *
    * @param id - Resource ID
    * @param params - Resource-specific parameters
-   * @param cb - (DEPRECATED SINCE 2.2.0) Optional callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Optional callback function
    *
    * @returns In case the API returns the updated object it we'll return a Model.
    *          In other cases the API should respond with `204 No Content`. This is translated

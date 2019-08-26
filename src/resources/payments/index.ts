@@ -82,8 +82,8 @@ export default class PaymentsResource extends PaymentsBaseResource {
    *
    * @param id - Payment ID
    * @param params - Retrieve Payment parameters
-   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns The found Payment object
    *
@@ -94,7 +94,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * @public ✓ This method is part of the public API
    */
   public async get(id: string, params?: IGetParams | GetCallback, cb?: GetCallback): Promise<Payment> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Payment.resourcePrefix)) {
         Resource.errorHandler({ detail: 'The payment id is invalid' }, typeof params === 'function' ? params : cb);
@@ -114,8 +114,8 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * Retrieve all payments created with the current website profile, ordered from newest to oldest.
    *
    * @param params - List parameters
-   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns A list of found Payments
    *
@@ -126,7 +126,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
    * @public ✓ This method is part of the public API
    */
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Payment>> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       return super.list(typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<List<Chargeback>>;
     }
@@ -142,7 +142,7 @@ export default class PaymentsResource extends PaymentsBaseResource {
    *
    * @param id - Payment Id
    * @param params - Cancel Payment parameters
-   * @param cb - Callback function, can be used instead of the returned `Promise` object
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns The updated Payment object
    *

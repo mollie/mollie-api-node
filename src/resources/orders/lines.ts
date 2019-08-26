@@ -35,8 +35,8 @@ export default class OrdersLinesResource extends OrdersResource {
    *
    * @param id - Order ID
    * @param params - Update order parameters
-   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns The updated Order object
    *
@@ -47,7 +47,7 @@ export default class OrdersLinesResource extends OrdersResource {
    * @public ✓ This method is part of the public API
    */
   public async update(id: string, params: IUpdateParams | UpdateCallback, cb?: UpdateCallback): Promise<Order> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Order.resourcePrefix)) {
         Resource.errorHandler({ detail: 'The order id is invalid' }, typeof params === 'function' ? params : cb);
@@ -72,7 +72,7 @@ export default class OrdersLinesResource extends OrdersResource {
    *
    * @param id - Order ID
    * @param params - Cancel order lines parameters
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns Success status
    *
@@ -83,7 +83,7 @@ export default class OrdersLinesResource extends OrdersResource {
    * @public ✓ This method is part of the public API
    */
   public async cancel(id: string, params?: ICancelParams, cb?: CancelCallback): Promise<boolean> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Order.resourcePrefix)) {
         Resource.errorHandler({ detail: 'The order id is invalid' }, typeof params === 'function' ? params : cb);

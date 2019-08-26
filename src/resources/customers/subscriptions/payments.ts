@@ -49,8 +49,8 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
    * Get all customer's subscriptions.
    *
    * @param params - List Customer's Subscriptions parameters
-   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns A list of found Subscriptions
    *
@@ -61,7 +61,7 @@ export default class CustomersSubscriptionsResource extends CustomersSubscriptio
    * @public ✓ This method is part of the public API
    */
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Payment>> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       const subscriptionId = get(params, 'subscriptionId') || this.subscriptionId;

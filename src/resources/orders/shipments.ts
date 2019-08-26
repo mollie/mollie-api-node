@@ -68,7 +68,7 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
    * @public ✓ This method is part of the public API
    */
   public async create(params: ICreateParams, cb?: CreateCallback): Promise<Shipment> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const orderId = get(params, 'orderId') || this.parentId;
       if (!startsWith(orderId, Order.resourcePrefix)) {
@@ -79,7 +79,7 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
       return super.create(typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Shipment>;
     }
 
-    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { orderId, ...parameters } = defaults(params, { orderId: this.parentId });
     if (!startsWith(orderId, Order.resourcePrefix)) {
       Resource.errorHandler({ detail: 'The order id is invalid' }, typeof params === 'function' ? params : cb);
@@ -105,7 +105,7 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
    * @public ✓ This method is part of the public API
    */
   public async update(id: string, params: IUpdateParams | UpdateCallback, cb?: UpdateCallback): Promise<Shipment> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Shipment.resourcePrefix)) {
         Resource.errorHandler({ detail: 'The orders_shipments id is invalid' }, typeof params === 'function' ? params : cb);
@@ -122,7 +122,7 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
     if (!startsWith(id, Shipment.resourcePrefix)) {
       Resource.errorHandler({ detail: 'The orders_shipments id is invalid' });
     }
-    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { orderId, ...parameters } = defaults(params, { orderId: this.parentId });
     if (!startsWith(orderId, Order.resourcePrefix)) {
       Resource.errorHandler({ detail: 'The order id is invalid' });
@@ -148,7 +148,7 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
    * @public ✓ This method is part of the public API
    */
   public async get(id: string, params?: IGetParams, cb?: GetCallback): Promise<Shipment> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Shipment.resourcePrefix)) {
         Resource.errorHandler({ detail: 'The orders_shipments id is invalid' }, cb);
@@ -165,7 +165,7 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
     if (!startsWith(id, Shipment.resourcePrefix)) {
       Resource.errorHandler({ detail: 'The orders_shipments id is invalid' }, cb);
     }
-    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { orderId, ...parameters } = defaults(params, { orderId: this.parentId });
     if (!startsWith(orderId, Order.resourcePrefix)) {
       Resource.errorHandler({ detail: 'The order id is invalid' });
@@ -179,8 +179,8 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
    * List order shipments
    *
    * @param params - List Order parameters
-   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns A list of found Shipments
    *
@@ -191,7 +191,7 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
    * @public ✓ This method is part of the public API
    */
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Shipment>> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const orderId = get(params, 'orderId') || this.parentId;
       if (!startsWith(orderId, Order.resourcePrefix)) {
@@ -202,7 +202,7 @@ export default class OrdersShipmentsResource extends OrdersBaseResource {
       return super.list(typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<List<Shipment>>;
     }
 
-    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { orderId, ...parameters } = defaults(params, { orderId: this.parentId });
     if (!startsWith(orderId, Order.resourcePrefix)) {
       Resource.errorHandler({ detail: 'The order id is invalid' }, typeof params === 'function' ? params : cb);

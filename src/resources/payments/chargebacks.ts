@@ -49,8 +49,8 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
    *
    * @param id - Chargeback ID
    * @param params - Get Payment Chargeback parameters
-   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns The found Payment Chargeback object
    *
@@ -61,7 +61,7 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
    * @public ✓ This method is part of the public API
    */
   public async get(id: string, params?: IGetParams | GetCallback, cb?: GetCallback): Promise<Chargeback> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const paymentId = get(params, 'paymentId') || this.parentId;
       if (!startsWith(id, Chargeback.resourcePrefix)) {
@@ -75,7 +75,7 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
       return super.get(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Chargeback>;
     }
 
-    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { paymentId, ...parameters } = defaults(params, { paymentId: this.parentId });
     if (!startsWith(id, Chargeback.resourcePrefix)) {
       Resource.errorHandler({ detail: 'The chargeback id is invalid' });
@@ -103,7 +103,7 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
    * @public ✓ This method is part of the public API
    */
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Chargeback>> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const paymentId = get(params, 'paymentId') || this.parentId;
       if (!startsWith(paymentId, Payment.resourcePrefix)) {
@@ -114,7 +114,7 @@ export default class PaymentsChargebacksResource extends PaymentsBaseResource {
       return super.list(typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<List<Chargeback>>;
     }
 
-    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { paymentId, ...parameters } = defaults(params, { paymentId: this.parentId });
     if (!startsWith(paymentId, Payment.resourcePrefix)) {
       Resource.errorHandler({ detail: 'The payment id is invalid' });

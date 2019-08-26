@@ -49,7 +49,7 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
    *
    * @param id - Capture ID
    * @param params - Get Payment Capture parameters
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns The found Payment Capture object
    *
@@ -60,7 +60,7 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
    * @public ✓ This method is part of the public API
    */
   public async get(id: string, params?: IGetParams, cb?: GetCallback): Promise<Capture> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Capture.resourcePrefix)) {
         Resource.errorHandler({ detail: 'The capture id is invalid' }, typeof params === 'function' ? params : cb);
@@ -77,7 +77,7 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
     if (!startsWith(id, Capture.resourcePrefix)) {
       Resource.errorHandler({ detail: 'The capture id is invalid' });
     }
-    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { paymentId, ...parameters } = defaults(params, { paymentId: this.parentId });
     if (!startsWith(paymentId, Payment.resourcePrefix)) {
       Resource.errorHandler({ detail: 'The payment id is invalid' });
@@ -91,8 +91,8 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
    * Retrieve a list of Payment Captures
    *
    * @param params - Retrieve Payment Captures list parameters
-   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns A list of found Payment Captures
    *
@@ -103,7 +103,7 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
    * @public ✓ This method is part of the public API
    */
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Capture>> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const paymentId = get(params, 'paymentId') || this.parentId;
       if (!startsWith(paymentId, Payment.resourcePrefix)) {
@@ -114,7 +114,7 @@ export default class PaymentsCapturesResource extends PaymentsBaseResource {
       return super.list(typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<List<Capture>>;
     }
 
-    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { paymentId, ...parameters } = defaults(params, { paymentId: this.parentId });
     if (!startsWith(paymentId, Payment.resourcePrefix)) {
       Resource.errorHandler({ detail: 'The payment id is invalid' });

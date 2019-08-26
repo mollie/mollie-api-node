@@ -58,7 +58,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    * Create a payment refund
    *
    * @param params - Create Payment Refund parameters
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns The newly create Payment Refund
    *
@@ -69,7 +69,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    * @public ✓ This method is part of the public API
    */
   public async create(params: ICreateParams, cb?: CreateCallback): Promise<Refund> {
-    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { paymentId, ...parameters } = defaults(params, { paymentId: this.parentId });
     if (!startsWith(paymentId, Payment.resourcePrefix)) {
       Resource.errorHandler({ detail: 'The payment id is invalid' }, cb);
@@ -84,8 +84,8 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    *
    * @param id - Refund ID
    * @param params - Retrieve Payment Refund parameters
-   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @since 1.1.1
    *
@@ -94,7 +94,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    * @public ✓ This method is part of the public API
    */
   public async get(id: string, params?: IGetParams | GetCallback, cb?: GetCallback): Promise<Refund> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Refund.resourcePrefix)) {
         Resource.errorHandler({ detail: 'The payments_refund id is invalid' }, typeof params === 'function' ? params : cb);
@@ -111,7 +111,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
     if (!startsWith(id, Refund.resourcePrefix)) {
       Resource.errorHandler({ detail: 'The payments_refund id is invalid' }, cb);
     }
-    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { paymentId, ...parameters } = defaults(params, { paymentId: this.parentId });
     if (!startsWith(paymentId, Payment.resourcePrefix)) {
       Resource.errorHandler({ detail: 'The payment id is invalid' }, cb);
@@ -125,8 +125,8 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    * Get all payment refunds.
    *
    * @param params - List Payment Refunds parameters
-   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @since 3.0.0
    *
@@ -135,7 +135,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    * @public ✓ This method is part of the public API
    */
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Refund>> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const paymentId = get(params, 'paymentId') || this.parentId;
       if (!startsWith(paymentId, Payment.resourcePrefix)) {
@@ -146,7 +146,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
       return super.list(typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<List<Refund>>;
     }
 
-    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { paymentId, ...parameters } = defaults(params, { paymentId: this.parentId });
     if (!startsWith(paymentId, Payment.resourcePrefix)) {
       Resource.errorHandler({ detail: 'The payment id is invalid' });
@@ -161,8 +161,8 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    *
    * @param id - Refund ID
    * @param params - Cancel payment refund parameters
-   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @return Success status
    *
@@ -173,7 +173,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
    * @public ✓ This method is part of the public API
    */
   public async cancel(id: string, params?: ICancelParams | CancelCallback, cb?: CancelCallback): Promise<boolean> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Refund.resourcePrefix)) {
         Resource.errorHandler({ detail: 'The payments_refund id is invalid' }, typeof params === 'function' ? params : cb);
@@ -189,7 +189,7 @@ export default class PaymentsRefundsResource extends PaymentsResource {
     if (!startsWith(id, Refund.resourcePrefix)) {
       Resource.errorHandler({ detail: 'The payments_refund id is invalid' });
     }
-    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { paymentId, ...parameters } = defaults(params, { paymentId: this.parentId });
     if (!startsWith(paymentId, Payment.resourcePrefix)) {
       Resource.errorHandler({ detail: 'The payment id is invalid' });

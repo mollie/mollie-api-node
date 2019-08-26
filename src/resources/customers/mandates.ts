@@ -72,7 +72,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    * Create a customer mandate
    *
    * @param params Create customer mandate parameters
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns
    *
@@ -83,7 +83,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    * @public ✓ This method is part of the public API
    */
   public async create(params: ICreateParams, cb?: CreateCallback): Promise<Mandate> {
-    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { customerId, ...parameters } = defaults(params, { customerId: this.parentId });
     this.setParentId(customerId);
 
@@ -95,8 +95,8 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    *
    * @param id - customers_mandate id
    * @param params - Get customer mandate parameters
-   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns Customer mandate
    *
@@ -107,7 +107,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    * @public ✓ This method is part of the public API
    */
   public async get(id: string, params?: IGetParams | GetCallback, cb?: GetCallback): Promise<Mandate> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Mandate.resourcePrefix)) {
         Resource.errorHandler({ detail: 'The customers_mandate id is invalid' }, typeof params === 'function' ? params : cb);
@@ -121,7 +121,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
       return super.get(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Mandate>;
     }
 
-    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { customerId, ...parameters } = defaults(params, { customerId: this.parentId });
     if (!startsWith(id, Mandate.resourcePrefix)) {
       Resource.errorHandler({ detail: 'The customers_mandate id is invalid' });
@@ -138,8 +138,8 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    * Get all of a customer's mandates
    *
    * @param params List mandates parameters
-   *               (DEPRECATED SINCE 2.2.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   *               (DEPRECATED SINCE 3.0.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns A list of found mandates
    *
@@ -150,7 +150,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    * @public ✓ This method is part of the public API
    */
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Mandate>> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
@@ -161,7 +161,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
       return super.list(typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<List<Mandate>>;
     }
 
-    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { customerId, ...parameters } = defaults(params, { customerId: this.parentId });
     if (!startsWith(customerId, Customer.resourcePrefix)) {
       Resource.errorHandler({ detail: 'The customer id is invalid' });
@@ -177,7 +177,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    *
    * @param id - customers_mandate id
    * @param params - Delete Customer parameters
-   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
+   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
    * @param cb - Callback function, can be used instead of the returned `Promise` object
    *
    * @returns Success status
@@ -189,7 +189,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
    * @public ✓ This method is part of the public API
    */
   public async revoke(id: string, params?: IRevokeParams | RevokeCallback, cb?: RevokeCallback): Promise<boolean> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(id, Mandate.resourcePrefix)) {
@@ -203,7 +203,7 @@ export default class CustomersMandatesResource extends CustomersBaseResource {
       return super.delete(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<boolean>;
     }
 
-    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { customerId } = defaults(params, { customerId: this.parentId });
     if (!startsWith(id, Mandate.resourcePrefix)) {
       Resource.errorHandler({ detail: 'The customers_mandate id is invalid' });

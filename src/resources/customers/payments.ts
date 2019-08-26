@@ -48,7 +48,7 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
    * Create a customer payment.
    *
    * @param params - Create Customer Payment parameters
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns The newly created Payment object
    *
@@ -59,7 +59,7 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
    * @public ✓ This method is part of the public API
    */
   public async create(params: ICreateParams, cb?: CreateCallback): Promise<Payment> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
@@ -70,7 +70,7 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
       return super.create(typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Payment>;
     }
 
-    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { customerId, ...parameters } = defaults(params, { customerId: this.parentId });
     this.setParentId(customerId);
 
@@ -81,8 +81,8 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
    * Get all of a customer's payments.
    *
    * @param params - List Customer Payments parameters
-   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns A list of found Customer Payments
    *
@@ -93,7 +93,7 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
    * @public ✓ This method is part of the public API
    */
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Payment>> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       const customerId = get(params, 'customerId') || this.parentId;
       if (!startsWith(customerId, Customer.resourcePrefix)) {
@@ -104,7 +104,7 @@ export default class CustomersPaymentsResource extends CustomersBaseResource {
       return super.list(typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<List<Payment>>;
     }
 
-    // defaults for .withParent() compatibility (DEPRECATED SINCE 2.2.0)
+    // defaults for .withParent() compatibility (DEPRECATED SINCE 3.0.0)
     const { customerId, ...parameters } = defaults(params, { customerId: this.parentId });
     if (!startsWith(customerId, Customer.resourcePrefix)) {
       Resource.errorHandler({ detail: 'The customer id is invalid' });

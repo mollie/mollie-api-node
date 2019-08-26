@@ -62,7 +62,7 @@ export default class CustomersResource extends CustomersBaseResource {
    * and also see their payments and subscriptions.
    *
    * @param params - Create customer parameters
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns The newly created customer object
    *
@@ -81,8 +81,8 @@ export default class CustomersResource extends CustomersBaseResource {
    *
    * @param id - Customer ID
    * @param params - Retrieve customer parameters
-   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns Customer object
    *
@@ -93,7 +93,7 @@ export default class CustomersResource extends CustomersBaseResource {
    * @public ✓ This method is part of the public API
    */
   public async get(id: string, params?: IGetParams | GetCallback, cb?: GetCallback): Promise<Customer> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Customer.resourcePrefix)) {
         Resource.errorHandler({ detail: 'The customer id is invalid' }, typeof params === 'function' ? params : cb);
@@ -112,8 +112,8 @@ export default class CustomersResource extends CustomersBaseResource {
    * List customers
    *
    * @param params - List customer parameters
-   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns
    *
@@ -124,7 +124,7 @@ export default class CustomersResource extends CustomersBaseResource {
    * @public ✓ This method is part of the public API
    */
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Customer>> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       return super.list(typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<List<Customer>>;
     }
@@ -137,8 +137,8 @@ export default class CustomersResource extends CustomersBaseResource {
    *
    * @param id - Customer ID
    * @param params - Update customer parameters
-   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns The updated Customer object
    *
@@ -149,7 +149,7 @@ export default class CustomersResource extends CustomersBaseResource {
    * @public ✓ This method is part of the public API
    */
   public async update(id: string, params: IUpdateParams | UpdateCallback, cb?: UpdateCallback): Promise<Customer> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Customer.resourcePrefix)) {
         Resource.errorHandler({ detail: 'The customer id is invalid' }, typeof params === 'function' ? params : cb);
@@ -169,8 +169,8 @@ export default class CustomersResource extends CustomersBaseResource {
    *
    * @param id - Customer ID
    * @param params - Delete customer parameters
-   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns Success status
    *
@@ -181,7 +181,7 @@ export default class CustomersResource extends CustomersBaseResource {
    * @public ✓ This method is part of the public API
    */
   public async delete(id: string, params?: IDeleteParams | DeleteCallback, cb?: DeleteCallback): Promise<boolean> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Customer.resourcePrefix)) {
         Resource.errorHandler({ detail: 'The customer id is invalid' }, typeof params === 'function' ? params : cb);

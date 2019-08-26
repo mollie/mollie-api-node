@@ -70,7 +70,7 @@ export default class Orders extends Resource {
    * for orders that have a created status.
    *
    * @param params - Create Order parameters
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of
    *             the returned `Promise` object
    *
    * @returns The newly created Order
@@ -90,8 +90,8 @@ export default class Orders extends Resource {
    *
    * @param id - Order ID
    * @param params - Get Order parameters
-   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns The Order
    *
@@ -102,7 +102,7 @@ export default class Orders extends Resource {
    * @public ✓ This method is part of the public API
    */
   public async get(id: string, params?: IGetParams | GetCallback, cb?: GetCallback): Promise<Order> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Order.resourcePrefix)) {
         Resource.errorHandler({ detail: 'The order id is invalid' }, typeof params === 'function' ? params : cb);
@@ -122,8 +122,8 @@ export default class Orders extends Resource {
    * List Orders.
    *
    * @param params - List Order parameters
-   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns A list of the Orders found
    *
@@ -134,7 +134,7 @@ export default class Orders extends Resource {
    * @public ✓ This method is part of the public API
    */
   public async list(params?: IListParams | ListCallback, cb?: ListCallback): Promise<List<Order>> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       return super.list(typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<List<Order>>;
     }
@@ -147,8 +147,8 @@ export default class Orders extends Resource {
    *
    * @param id - Order ID
    * @param params - Update Order parameters
-   *               (DEPRECATED SINCE 2.2.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback function, can be used instead of the returned `Promise` object
+   *               (DEPRECATED SINCE 3.0.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns The updated Order
    *
@@ -159,7 +159,7 @@ export default class Orders extends Resource {
    * @public ✓ This method is part of the public API
    */
   public async update(id: string, params: IUpdateParams | UpdateCallback, cb?: UpdateCallback): Promise<Order> {
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       if (!startsWith(id, Order.resourcePrefix)) {
         Resource.errorHandler({ detail: 'The order id is invalid' }, typeof params === 'function' ? params : cb);
@@ -180,8 +180,8 @@ export default class Orders extends Resource {
    *
    * @param id - Order ID
    * @param params - Cancel Order parameters
-   *                 (DEPRECATED SINCE 2.2.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 2.2.0) Callback object, can be used instead of the returned `Promise` object
+   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback object, can be used instead of the returned `Promise` object
    *
    * @returns Updated Order object
    *
@@ -196,7 +196,7 @@ export default class Orders extends Resource {
       Resource.errorHandler({ detail: 'The order id is invalid' }, cb);
     }
 
-    // Using callbacks (DEPRECATED SINCE 2.2.0)
+    // Using callbacks (DEPRECATED SINCE 3.0.0)
     if (typeof params === 'function' || typeof cb === 'function') {
       return super.delete(id, typeof params === 'function' ? null : params, typeof params === 'function' ? params : cb) as Promise<Order>;
     }
