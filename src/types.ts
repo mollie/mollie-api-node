@@ -3,19 +3,18 @@ export default createMollieClient;
 
 export * from './createMollieClient';
 
-import List from './models/List';
-export { List };
+export { default as List } from './models/List';
 
-import Capture from './models/Capture';
+export { default as Capture } from './models/Capture';
 import { IGetParams as CaptureGetParams, IListParams as CapturesListParams } from './types/payment/capture/params';
-export { Capture, CaptureGetParams, CapturesListParams };
+export { CaptureGetParams, CapturesListParams };
 
-import Chargeback from './models/Chargeback';
+export { default as Chargeback } from './models/Chargeback';
 import { IListParams as ChargebacksListParams } from './types/chargeback/params';
 import { IGetParams as PaymentChargebackGetParams, IListParams as PaymentChargebacksListParams } from './types/payment/chargeback/params';
-export { Chargeback, ChargebacksListParams, PaymentChargebackGetParams, PaymentChargebacksListParams };
+export { ChargebacksListParams, PaymentChargebackGetParams, PaymentChargebacksListParams };
 
-import Customer from './models/Customer';
+export { default as Customer } from './models/Customer';
 import {
   ICreateParams as CustomerCreateParams,
   IGetParams as CustomerGetParams,
@@ -23,17 +22,17 @@ import {
   IUpdateParams as CustomerUpdateParams,
   IDeleteParams as CustomerDeleteParams,
 } from './types/customer/params';
-export { Customer, CustomerCreateParams, CustomerGetParams, CustomersListParams, CustomerUpdateParams, CustomerDeleteParams };
+export { CustomerCreateParams, CustomerGetParams, CustomersListParams, CustomerUpdateParams, CustomerDeleteParams };
 
-import Mandate from './models/Mandate';
+export { default as Mandate } from './models/Mandate';
 import { ICreateParams as MandateCreateParams, IGetParams as MandateGetParams, IListParams as MandatesListParams, IRevokeParams as MandateRevokeParams } from './types/mandate/params';
-export { Mandate, MandateCreateParams, MandateGetParams, MandatesListParams, MandateRevokeParams };
+export { MandateCreateParams, MandateGetParams, MandatesListParams, MandateRevokeParams };
 
-import Method from './models/Method';
+export { default as Method } from './models/Method';
 import { IGetParams as MethodGetParams, IListParams as MethodsListParams } from './types/method/params';
-export { Method, MethodGetParams, MethodsListParams };
+export { MethodGetParams, MethodsListParams };
 
-import Order from './models/Order';
+export { default as Order } from './models/Order';
 import {
   ICreateParams as OrderCreateParams,
   IGetParams as OrderGetParams,
@@ -41,19 +40,18 @@ import {
   IUpdateParams as OrderUpdateParams,
   ICancelParams as OrderCancelParams,
 } from './types/order/params';
-export { Order, OrderCreateParams, OrderGetParams, OrdersListParams, OrderUpdateParams, OrderCancelParams };
+export { OrderCreateParams, OrderGetParams, OrdersListParams, OrderUpdateParams, OrderCancelParams };
 
-import OrderLine from './models/OrderLine';
+export { default as OrderLine } from './models/OrderLine';
 import { IUpdateParams as OrderLineUpdateParams, ICancelParams as OrderLineCancelParams } from './types/order/line/params';
-export { OrderLine, OrderLineUpdateParams, OrderLineCancelParams };
+export { OrderLineUpdateParams, OrderLineCancelParams };
 
-import Payment from './models/Payment';
+export { default as Payment } from './models/Payment';
 import { ICreateParams as PaymentCreateParams, IGetParams as PaymentGetParams, IListParams as PaymentsListParams, ICancelParams as PaymentCancelParams } from './types/payment/params';
 import { ICreateParams as CustomerPaymentCreateParams, IListParams as CustomerPaymentsListParams } from './types/customer/payment/params';
 import { ICreateParams as OrderPaymentCreateParams } from './types/order/payment/params';
 import { IListParams as SubscriptionPaymentsListParams } from './types/subscription/payment/params';
 export {
-  Payment,
   PaymentCreateParams,
   PaymentGetParams,
   PaymentsListParams,
@@ -64,7 +62,7 @@ export {
   SubscriptionPaymentsListParams,
 };
 
-import Refund from './models/Refund';
+export { default as Refund } from './models/Refund';
 import { IListParams as RefundsListParams } from './types/refund/params';
 import {
   ICreateParams as PaymentRefundCreateParams,
@@ -72,13 +70,13 @@ import {
   IListParams as PaymentRefundsListParams,
   ICancelParams as PaymentRefundCancelParams,
 } from './types/payment/refund/params';
-export { Refund, RefundsListParams, PaymentRefundCreateParams, PaymentRefundGetParams, PaymentRefundsListParams, PaymentRefundCancelParams };
+export { RefundsListParams, PaymentRefundCreateParams, PaymentRefundGetParams, PaymentRefundsListParams, PaymentRefundCancelParams };
 
-import Shipment from './models/Shipment';
+export { default as Shipment } from './models/Shipment';
 import { ICreateParams as ShipmentCreateParams, IGetParams as ShipmentGetParams, IListParams as ShipmentsListParams, IUpdateParams as ShipmentUpdateParams } from './types/shipment/params';
-export { Shipment, ShipmentCreateParams, ShipmentGetParams, ShipmentsListParams, ShipmentUpdateParams };
+export { ShipmentCreateParams, ShipmentGetParams, ShipmentsListParams, ShipmentUpdateParams };
 
-import Subscription from './models/Subscription';
+export { default as Subscription } from './models/Subscription';
 import {
   ICreateParams as SubscriptionCreateParams,
   IGetParams as SubscriptionGetParams,
@@ -86,7 +84,7 @@ import {
   IUpdateParams as SubscriptionUpdateParams,
   ICancelParams as SubscriptionCancelParams,
 } from './types/subscription/params';
-export { Subscription, SubscriptionCreateParams, SubscriptionGetParams, SubscriptionsListParams, SubscriptionUpdateParams, SubscriptionCancelParams };
+export { SubscriptionCreateParams, SubscriptionGetParams, SubscriptionsListParams, SubscriptionUpdateParams, SubscriptionCancelParams };
 
 export { CardAudience, CardFailureReason, CardLabel, FeeRegion } from './types/global';
 export { Issuer } from './types/issuer/index';
