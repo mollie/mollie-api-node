@@ -1,4 +1,4 @@
-import { ApiMode, CardAudience, CardFailureReason, CardLabel, FeeRegion, IAmount, ILinks, IUrl, Locale, PaymentMethod, SequenceType } from '../global';
+import { ApiMode, CardAudience, CardFailureReason, CardLabel, FeeRegion, IAmount, ILinks, IUrl, Locale, PaymentMethod, HistoricPaymentMethod, SequenceType } from '../global';
 import { IRefund } from './refund';
 import { IChargeback } from '../chargeback';
 
@@ -115,7 +115,7 @@ export interface IPayment {
   description: string;
   redirectUrl: string | null;
   webhookUrl?: string;
-  method?: PaymentMethod;
+  method?: PaymentMethod | HistoricPaymentMethod;
   metadata: any;
   locale: Locale;
   countryCode?: string;

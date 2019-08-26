@@ -27,7 +27,6 @@ export enum PaymentMethod {
   bancontact = 'bancontact',
   banktransfer = 'banktransfer',
   belfius = 'belfius',
-  bitcoin = 'bitcoin',
   creditcard = 'creditcard',
   directdebit = 'directdebit',
   eps = 'eps',
@@ -42,6 +41,10 @@ export enum PaymentMethod {
   paysafecard = 'paysafecard',
   przelewy24 = 'przelewy24',
   sofort = 'sofort',
+}
+
+export enum HistoricPaymentMethod {
+  bitcoin = 'bitcoin',
 }
 
 export enum ApiMode {

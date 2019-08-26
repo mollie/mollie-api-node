@@ -144,7 +144,7 @@ export default function createMollieClient(options: MollieOptions): MollieClient
 
 export { createMollieClient };
 
-export { ApiMode, Locale, PaymentMethod, SequenceType } from './types/global';
+export { ApiMode, Locale, PaymentMethod, HistoricPaymentMethod, SequenceType } from './types/global';
 export { MandateMethod, MandateStatus } from './types/mandate/index';
 export { MethodImageSize, MethodInclude } from './types/method/index';
 export { OrderEmbed, OrderStatus } from './types/order/index';
