@@ -16,56 +16,47 @@ dotenv.config();
 const mollieClient = createMollieClient({ apiKey: process.env.API_KEY });
 
 describe('customers', () => {
-  it('should integrate', done =>
-    mollieClient.customers
-      .all()
-      .then(customers => {
-        expect(customers).toBeDefined();
+  it('should integrate', async () => {
+    const customers = await mollieClient.customers.all();
 
-        const mandates = mollieClient.customers_mandates.list({
-          customerId: customers[0].id,
+    expect(customers).toBeDefined();
+
+    const [mandates, payments, subscriptions] = await Promise.all([
+      mollieClient.customers_mandates.list({
+        customerId: customers[0].id,
+      }),
+      mollieClient.customers_payments.list({
+        customerId: customers[0].id,
+      }),
+      mollieClient.customers_subscriptions.list({
+        customerId: customers[0].id,
+      }),
+    ]);
+
+    expect(mandates).toBeDefined();
+    expect(payments).toBeDefined();
+    expect(subscriptions).toBeDefined();
+
+    if (mandates[0]) {
+      const mandate = await mollieClient.customers_mandates.get(mandates[0].id, { customerId: customers[0].id });
+      expect(mandate).toBeDefined();
+    }
+    if (payments[0]) {
+      const payment = await mollieClient.payments.get(payments[0].id);
+      expect(payment).toBeDefined();
+    }
+    if (subscriptions[0]) {
+      try {
+        const subscription = await mollieClient.customers_subscriptions.get(subscriptions[0].id, { customerId: customers[0].id });
+        expect(subscription).toBeDefined();
+      } catch (error) {
+        expect(error).toEqual({
+          error: {
+            message: 'The subscription has been cancelled',
+            type: 'request',
+          },
         });
-        const payments = mollieClient.customers_payments.list({
-          customerId: customers[0].id,
-        });
-        const subscriptions = mollieClient.customers_subscriptions.list({
-          customerId: customers[0].id,
-        });
-
-        Promise.all([mandates, payments, subscriptions])
-          .then(([mandates, payments, subscriptions]) => {
-            expect(mandates).toBeDefined();
-            expect(payments).toBeDefined();
-            expect(subscriptions).toBeDefined();
-
-            const mandate = mandates[0] ? mollieClient.customers_mandates.get(mandates[0].id, { customerId: customers[0].id }) : Promise.resolve('true');
-            const payment = payments[0] ? mollieClient.payments.get(payments[0].id) : Promise.resolve('true');
-            const subscription = subscriptions[0] ? mollieClient.customers_subscriptions.get(subscriptions[0].id, { customerId: customers[0].id }) : Promise.resolve('true');
-
-            Promise.all([mandate, payment, subscription])
-              .then(([mandate, payment, subscription]) => {
-                expect(mandate).toBeDefined();
-                expect(payment).toBeDefined();
-                expect(subscription).toBeDefined();
-                done();
-              })
-              .catch(err => {
-                expect(err).toEqual({
-                  error: {
-                    message: 'The subscription has been cancelled',
-                    type: 'request',
-                  },
-                });
-                done();
-              });
-          })
-          .catch(err => {
-            expect(err).toBeDefined();
-            done();
-          });
-      })
-      .catch(err => {
-        expect(err).toBeDefined();
-        done();
-      }));
+      }
+    }
+  });
 });

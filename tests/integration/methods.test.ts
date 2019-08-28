@@ -16,26 +16,12 @@ dotenv.config();
 const mollieClient = createMollieClient({ apiKey: process.env.API_KEY });
 
 describe('methods', () => {
-  it('should integrate', done => {
-    mollieClient.methods
-      .all()
-      .then(methods => {
-        expect(methods).toBeDefined();
+  it('should integrate', async () => {
+    const methods = await mollieClient.methods.all();
 
-        mollieClient.methods
-          .get(methods[0].id)
-          .then(method => {
-            expect(method).toBeDefined();
-            done();
-          })
-          .catch(err => {
-            expect(err).toBeDefined();
-            done();
-          });
-      })
-      .catch(err => {
-        expect(err).toBeDefined();
-        done();
-      });
+    expect(methods).toBeDefined();
+
+    const method = await mollieClient.methods.get(methods[0].id);
+    expect(method).toBeDefined();
   });
 });

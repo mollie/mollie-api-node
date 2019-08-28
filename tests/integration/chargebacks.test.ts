@@ -16,15 +16,9 @@ dotenv.config();
 const mollieClient = createMollieClient({ apiKey: process.env.API_KEY });
 
 describe('chargebacks', () => {
-  it('should integrate', done =>
-    mollieClient.chargebacks
-      .all()
-      .then(chargebacks => {
-        expect(chargebacks).toBeDefined();
-        done();
-      })
-      .catch(err => {
-        expect(err).toBeDefined();
-        done();
-      }));
+  it('should integrate', async () => {
+    const chargebacks = await mollieClient.chargebacks.all();
+
+    expect(chargebacks).toBeDefined();
+  });
 });

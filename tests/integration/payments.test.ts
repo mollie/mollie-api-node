@@ -1,7 +1,7 @@
 import axios from 'axios';
 import httpAdapter from 'axios/lib/adapters/http';
 import dotenv from 'dotenv';
-import createMollieClient, { Payment } from '../..';
+import createMollieClient from '../..';
 
 /**
  * Overwrite the default XMLHttpRequestAdapter
@@ -16,133 +16,99 @@ dotenv.config();
 const mollieClient = createMollieClient({ apiKey: process.env.API_KEY });
 
 describe('payments', () => {
-  it('should integrate', done => {
-    mollieClient.payments
-      .all()
-      .then((payments: Array<Payment>): void => {
-        let paymentExists;
+  it('should integrate', async () => {
+    const payments = await mollieClient.payments.all();
 
-        if (!payments.length || payments[0].isExpired()) {
-          paymentExists = mollieClient.payments
-            .create({
-              amount: { value: '10.00', currency: 'EUR' },
-              description: 'Integration test payment',
-              redirectUrl: 'https://example.com/redirect',
-            })
-            .then(
-              (payment): Payment => {
-                expect(payment).toBeDefined();
+    let paymentExists;
 
-                return payment;
-              },
-            )
-            .catch(err => expect(err).toBeDefined());
-        } else {
-          paymentExists = Promise.resolve(payments[0]);
-        }
+    if (!payments.length || payments[0].isExpired()) {
+      paymentExists = mollieClient.payments
+        .create({
+          amount: { value: '10.00', currency: 'EUR' },
+          description: 'Integration test payment',
+          redirectUrl: 'https://example.com/redirect',
+        })
+        .then(payment => {
+          expect(payment).toBeDefined();
 
-        paymentExists.then(
-          (payment): Payment => {
-            if (!payment.isPaid()) {
-              console.log('If you want to test the full flow, set the payment to paid:', payment.getPaymentUrl());
-              done();
-              return;
-            }
+          return payment;
+        })
+        .catch(fail);
+    } else {
+      paymentExists = Promise.resolve(payments[0]);
+    }
 
-            if (!payment.isRefundable()) {
-              console.log('This payment is not refundable, you cannot test the full flow.');
-              done();
-              return;
-            }
+    const payment = await paymentExists;
 
-            mollieClient.payments_refunds
-              .all({ paymentId: payment.id })
-              .then(paymentRefunds => {
-                let refundExists;
+    if (!payment.isPaid()) {
+      console.log('If you want to test the full flow, set the payment to paid:', payment.getPaymentUrl());
+      return;
+    }
 
-                if (!paymentRefunds.length) {
-                  refundExists = mollieClient.payments_refunds
-                    .create({
-                      paymentId: payments[0].id,
-                      amount: { value: '5.00', currency: payments[0].amount.currency },
-                    })
-                    .then(refund => {
-                      expect(refund).toBeDefined();
+    if (!payment.isRefundable()) {
+      console.log('This payment is not refundable, you cannot test the full flow.');
+      return;
+    }
 
-                      return refund;
-                    })
-                    .catch(err => expect(err).toBeNull());
-                } else {
-                  refundExists = Promise.resolve(paymentRefunds[0]);
-                }
+    const paymentRefunds = await mollieClient.payments_refunds.all({ paymentId: payment.id });
 
-                refundExists.then(paymentRefund => {
-                  mollieClient.payments_refunds
-                    .get(paymentRefund.id, {
-                      paymentId: payments[0].id,
-                    })
-                    .then(result => {
-                      expect(result).toBeDefined();
-                      done();
-                    })
-                    .catch(err => {
-                      expect(err).toBeDefined();
-                      done();
-                    });
-                });
-              })
-              .catch(err => {
-                expect(err).toBeDefined();
-                done();
-              });
-          },
-        );
+    var refundExists;
+
+    if (!paymentRefunds.length) {
+      refundExists = mollieClient.payments_refunds
+        .create({
+          paymentId: payments[0].id,
+          amount: { value: '5.00', currency: payments[0].amount.currency },
+        })
+        .then(refund => {
+          expect(refund).toBeDefined();
+
+          return refund;
+        })
+        .catch(fail);
+    } else {
+      refundExists = Promise.resolve(paymentRefunds[0]);
+    }
+
+    const paymentRefund = await refundExists;
+
+    await mollieClient.payments_refunds
+      .get(paymentRefund.id, {
+        paymentId: payments[0].id,
       })
-      .catch(err => {
-        expect(err).toBeDefined();
-        done();
-      });
+      .then(result => {
+        expect(result).toBeDefined();
+      })
+      .catch(fail);
   });
 
-  it('should paginate', done => {
-    let nextPaymentCursor;
+  it('should paginate', async () => {
+    var nextPageCursor;
 
-    mollieClient.payments
-      .all({
-        limit: 2,
-      })
-      .then(payments => {
-        expect(payments.length).toEqual(2);
-        expect(payments.nextPageCursor).toBeDefined();
-        expect(payments.previousPageCursor).toBeUndefined();
+    var payments = await mollieClient.payments.all({
+      limit: 2,
+    });
 
-        nextPaymentCursor = payments.nextPageCursor;
+    expect(payments.length).toEqual(2);
+    expect(payments.nextPageCursor).toBeDefined();
+    expect(payments.previousPageCursor).toBeUndefined();
 
-        // Second page
-        payments
-          .nextPage()
-          .then(nextPaymentsList => {
-            expect(nextPaymentsList.length).toEqual(2);
-            expect(nextPaymentsList[0].id).toEqual(nextPaymentCursor);
-            expect(nextPaymentsList.nextPageCursor).toBeDefined();
-            expect(nextPaymentsList.previousPageCursor).toBeDefined();
+    nextPageCursor = payments.nextPageCursor;
 
-            // Third (and last) page
-            nextPaymentsList.nextPage().then(lastPaymentsList => {
-              expect(lastPaymentsList.length).toEqual(2);
-              expect(nextPaymentsList.nextPageCursor).toEqual(lastPaymentsList[0].id);
+    // Second page
+    payments = await payments.nextPage();
 
-              done();
-            });
-          })
-          .catch(err => {
-            expect(err).toBeDefined();
-            done();
-          });
-      })
-      .catch(err => {
-        expect(err).toBeDefined();
-        done();
-      });
+    expect(payments.length).toEqual(2);
+    expect(payments[0].id).toEqual(nextPageCursor);
+    expect(payments.nextPageCursor).toBeDefined();
+    expect(payments.previousPageCursor).toBeDefined();
+
+    nextPageCursor = payments.nextPageCursor;
+
+    // Third (and last) page
+    payments = await payments.nextPage();
+
+    expect(payments.length).toEqual(2);
+    expect(payments[0].id).toEqual(nextPageCursor);
   });
 });
