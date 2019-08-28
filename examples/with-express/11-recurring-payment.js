@@ -2,9 +2,9 @@
  * Example 11 - How to create an on-demand recurring payment.
  */
 
-const mollie = require('@mollie/api-client');
+const { createMollieClient } = require('@mollie/api-client');
 
-const mollieClient = mollie({ apiKey: 'test_buC3bBQfSQhd4dDUeMctJjDCn3GhP4' });
+const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
 
 mollieClient.customers
   .all()

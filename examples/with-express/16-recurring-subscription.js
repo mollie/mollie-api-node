@@ -2,9 +2,9 @@
  * Example 16 - How to prepare a subscription with the Mollie API.
  */
 
-const mollie = require('@mollie/api-client');
+const { createMollieClient } = require('@mollie/api-client');
 
-const mollieClient = mollie({ apiKey: 'test_buC3bBQfSQhd4dDUeMctJjDCn3GhP4' });
+const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
 
 mollieClient.customers.all().then(customers => {
   mollieClient.customers_subscriptions

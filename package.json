@@ -1,6 +1,6 @@
 {
   "name": "@mollie/api-client",
-  "version": "2.3.3",
+  "version": "3.0.0-beta.1",
   "license": "BSD-3-Clause",
   "description": "Official Mollie API client for Node",
   "repository": {
@@ -17,73 +17,112 @@
     "payments",
     "gateway"
   ],
-  "main": "dist/mollie.js",
+  "main": "dist/mollie.cjs.js",
+  "module": "dist/mollie.esm.js",
+  "jsnext:main": "dist/mollie.esm.js",
+  "types": "dist/types/src/types.d.ts",
   "engines": {
     "node": ">=6.14"
   },
   "scripts": {
-    "prepublish": "yarn run build",
-    "precommit": "lint-staged",
+    "prepublish": "yarn build",
     "commit": "git-cz",
     "prepush": "yarn test",
-    "test": "yarn run build && jest",
-    "test:watch": "yarn run build && jest --watch",
-    "test:cov": "yarn run build && jest --coverage",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
     "test:unit:cov": "jest ./tests/unit --coverage",
-    "build": "rollup -c",
-    "lint:prettier": "prettier --write \"{src,tests,examples}/**/*.js\"",
-    "lint:eslint": "eslint {src,tests}/**/*.js",
-    "lint": "yarn run lint:eslint && yarn run lint:prettier"
+    "build": "yarn build:library && yarn build:declarations",
+    "build:library": "rollup --config rollup.config.js",
+    "build:declarations": "tsc src/types.ts --declaration --declarationDir dist/types --emitDeclarationOnly --allowSyntheticDefaultImports --resolveJsonModule",
+    "lint:prettier": "prettier --write \"{src,tests,examples}/**/*.{js,ts}\"",
+    "lint:eslint": "eslint --ext .ts,.js src/ tests/ examples/",
+    "lint:eslint:fix": "eslint --ext .ts,.js --fix src/ tests/ examples/",
+    "lint": "yarn lint:eslint:fix && yarn lint:prettier"
   },
   "dependencies": {
     "axios": "^0.19.0",
-    "lodash": "^4.17.11",
-    "qs": "^6.4.0"
+    "lodash": "^4.17.15",
+    "qs": "^6.7.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.0",
-    "@babel/plugin-external-helpers": "^7.2.0",
-    "@babel/plugin-proposal-class-properties": "^7.4.0",
-    "@babel/plugin-transform-runtime": "^7.4.0",
-    "@babel/preset-env": "^7.4.1",
-    "@babel/runtime": "^7.4.0",
-    "@mollie/eslint-config-node": "0.0.1-alpha.3",
-    "axios-mock-adapter": "^1.8.1",
-    "babel-eslint": "^10.0.1",
-    "babel-jest": "^24.5.0",
-    "dotenv": "^4.0.0",
-    "eslint": "^5.16.0",
-    "eslint-import-resolver-node": "^0.3.0",
-    "eslint-plugin-import": "^2.2.0",
-    "husky": "^0.13.4",
-    "jest": "^24.5.0",
-    "lint-staged": "^3.4.1",
-    "prettier": "^1.14.0",
-    "rollup": "^1.7.3",
-    "rollup-plugin-babel": "^4.3.2",
-    "rollup-plugin-includepaths": "^0.2.2",
-    "rollup-plugin-json": "^2.1.1",
-    "rollup-plugin-url": "^2.2.0"
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-typescript": "^7.3.3",
+    "@mollie/eslint-config-typescript": "^1.2.0",
+    "@types/jest": "^24.0.16",
+    "@types/lodash": "^4.14.136",
+    "@types/node": "^12.6.9",
+    "@types/qs": "^6.5.3",
+    "axios-mock-adapter": "^1.17.0",
+    "babel-jest": "^24.8.0",
+    "commitizen": "^4.0.3",
+    "cz-conventional-changelog": "^3.0.2",
+    "dotenv": "^8.0.0",
+    "eslint": "^6.1.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "husky": "^3.0.2",
+    "jest": "^24.8.0",
+    "lint-staged": "^9.2.1",
+    "prettier": "^1.18.2",
+    "rollup": "^1.18.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-copy-glob": "^0.3.1",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "typescript": "^3.5.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "lint-staged": {
-    "{src,test}/**/*.js": [
-      "eslint",
-      "prettier --write",
-      "git add"
+    "src/**/*.ts": [
+      "prettier --write \"src/**/*.{js,ts}\"",
+      "eslint --ext .js,.ts --fix src/",
+      "git add src/"
+    ],
+    "tests/**/*.ts": [
+      "prettier --write \"tests/**/*.(js|ts)\"",
+      "eslint --ext .js,.ts --fix tests/",
+      "git add tests/"
     ],
     "examples/**/*.js": [
-      "prettier --write",
-      "git add"
+      "prettier --write \"examples/**/*.(js|ts)\"",
+      "eslint --ext .js,.ts --fix examples/",
+      "git add examples/"
     ]
   },
   "jest": {
     "moduleDirectories": [
       "node_modules",
+      "dist",
       "src"
     ],
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
     "transform": {
-      "^.+\\.jsx?$": "babel-jest",
+      "^.+\\.(js|jsx|ts|tsx)$": "babel-jest",
       "^.+\\.pem$": "<rootDir>/tests/unit/__stubs__/fileTransformer.js"
+    },
+    "testMatch": [
+      "<rootDir>/tests/**/*.test.ts"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
     }
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "resolutions": {
+    "@babel/core": "^7.3.3",
+    "babel-core": "7.0.0-bridge.0"
   }
 }

@@ -3,10 +3,10 @@
  */
 
 const express = require('express');
-const mollie = require('@mollie/api-client');
+const { createMollieClient } = require('@mollie/api-client');
 
 const app = express();
-const mollieClient = mollie({ apiKey: 'test_buC3bBQfSQhd4dDUeMctJjDCn3GhP4' });
+const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
 
 app.get('/', (req, res) => {
   const selectedIssuer = req.query.issuer;
@@ -21,9 +21,7 @@ app.get('/', (req, res) => {
         ${methods.map(
           method => `
           <h2>Select ${method.description} issuer</h2>
-          <select name="issuer">${method.issuers.map(
-            issuer => `<option value="${issuer.id}">${issuer.name}</option>`,
-          )}</select>
+          <select name="issuer">${method.issuers.map(issuer => `<option value="${issuer.id}">${issuer.name}</option>`)}</select>
         `,
         )}
         <button>Select issuer</button>

@@ -3,10 +3,10 @@
  */
 
 const express = require('express');
-const mollie = require('@mollie/api-client');
+const { createMollieClient } = require('@mollie/api-client');
 
 const app = express();
-const mollieClient = mollie({ apiKey: 'test_buC3bBQfSQhd4dDUeMctJjDCn3GhP4' });
+const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
 
 app.get('/', (req, res) => {
   let paymentParameters = {
@@ -36,11 +36,7 @@ app.get('/', (req, res) => {
             )
             .join('')}
         </ul>
-        ${
-          payments.previousPageCursor
-            ? `<a href="?from=${payments.previousPageCursor}">Previous</a> | `
-            : ''
-        }
+        ${payments.previousPageCursor ? `<a href="?from=${payments.previousPageCursor}">Previous</a> | ` : ''}
         ${payments.nextPageCursor ? `<a href="?from=${payments.nextPageCursor}">Next</a>` : ''}
       `);
     })

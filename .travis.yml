@@ -1,12 +1,33 @@
-sudo: false
 language: node_js
-node_js:
-  - "node"
-  - "6.14"
-cache: yarn
+dist: xenial
+sudo: false
+
+matrix:
+  include:
+    - node_js: 6.14
+      env: PUBLISH_TO_NPM=true
+    - node_js: 12
+
+before_install:
+  - >
+    if $(dpkg --compare-versions "${TRAVIS_NODE_VERSION}" "le" "12"); then
+      nvm install 12
+      nvm use 12
+    fi
+
+before_script:
+  - nvm use ${TRAVIS_NODE_VERSION}
+
 script:
-   - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then yarn run test:unit:cov; fi'
-   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then yarn run test:cov; fi'
+  - >
+    if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then
+      npm run test:unit:cov
+    fi
+  - >
+    if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then
+      npm run test:cov
+    fi
+
 deploy:
   provider: npm
   api_key:
@@ -15,4 +36,4 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
-    node: "6.14"
+    condition: $PUBLISH_TO_NPM = true

@@ -1,0 +1,143 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`lists .list() should retrieve the next page 1`] = `
+List [
+  Customer {
+    "_links": Object {
+      "documentation": Object {
+        "href": "https://docs.mollie.com/reference/v2/customers-api/get-customer",
+        "type": "text/html",
+      },
+      "self": Object {
+        "href": "https://api.mollie.com/v2/customers/cst_l4J9zsdzO",
+        "type": "application/hal+json",
+      },
+    },
+    "createdAt": "2018-04-06T13:23:21.0Z",
+    "email": "customer4@example.org",
+    "id": "cst_l4J9zsdzO",
+    "locale": "nl_NL",
+    "metadata": null,
+    "mode": "test",
+    "name": "Customer 4",
+    "recentlyUsedMethods": null,
+    "resource": "customer",
+    "testmode": undefined,
+  },
+  Customer {
+    "_links": Object {
+      "documentation": Object {
+        "href": "https://docs.mollie.com/reference/v2/customers-api/get-customer",
+        "type": "text/html",
+      },
+      "self": Object {
+        "href": "https://api.mollie.com/v2/customers/cst_CFAhWkIKz",
+        "type": "application/hal+json",
+      },
+    },
+    "createdAt": "2018-04-06T13:23:21.0Z",
+    "email": "customer5@example.org",
+    "id": "cst_CFAhWkIKz",
+    "locale": "nl_NL",
+    "metadata": null,
+    "mode": "test",
+    "name": "Customer 5",
+    "recentlyUsedMethods": null,
+    "resource": "customer",
+    "testmode": undefined,
+  },
+  Customer {
+    "_links": Object {
+      "documentation": Object {
+        "href": "https://docs.mollie.com/reference/v2/customers-api/get-customer",
+        "type": "text/html",
+      },
+      "self": Object {
+        "href": "https://api.mollie.com/v2/customers/cst_5BsP6Y1S8",
+        "type": "application/hal+json",
+      },
+    },
+    "createdAt": "2018-04-06T13:23:21.0Z",
+    "email": "customer6@example.org",
+    "id": "cst_5BsP6Y1S8",
+    "locale": "nl_NL",
+    "metadata": null,
+    "mode": "test",
+    "name": "Customer 6",
+    "recentlyUsedMethods": null,
+    "resource": "customer",
+    "testmode": undefined,
+  },
+]
+`;
+
+exports[`lists .list() should retrieve the next page 2`] = `
+List [
+  Customer {
+    "_links": Object {
+      "documentation": Object {
+        "href": "https://docs.mollie.com/reference/v2/customers-api/get-customer",
+        "type": "text/html",
+      },
+      "self": Object {
+        "href": "https://api.mollie.com/v2/customers/cst_l4J9zsdzO",
+        "type": "application/hal+json",
+      },
+    },
+    "createdAt": "2018-04-06T13:23:21.0Z",
+    "email": "customer4@example.org",
+    "id": "cst_l4J9zsdzO",
+    "locale": "nl_NL",
+    "metadata": null,
+    "mode": "test",
+    "name": "Customer 4",
+    "recentlyUsedMethods": null,
+    "resource": "customer",
+    "testmode": undefined,
+  },
+  Customer {
+    "_links": Object {
+      "documentation": Object {
+        "href": "https://docs.mollie.com/reference/v2/customers-api/get-customer",
+        "type": "text/html",
+      },
+      "self": Object {
+        "href": "https://api.mollie.com/v2/customers/cst_CFAhWkIKz",
+        "type": "application/hal+json",
+      },
+    },
+    "createdAt": "2018-04-06T13:23:21.0Z",
+    "email": "customer5@example.org",
+    "id": "cst_CFAhWkIKz",
+    "locale": "nl_NL",
+    "metadata": null,
+    "mode": "test",
+    "name": "Customer 5",
+    "recentlyUsedMethods": null,
+    "resource": "customer",
+    "testmode": undefined,
+  },
+  Customer {
+    "_links": Object {
+      "documentation": Object {
+        "href": "https://docs.mollie.com/reference/v2/customers-api/get-customer",
+        "type": "text/html",
+      },
+      "self": Object {
+        "href": "https://api.mollie.com/v2/customers/cst_5BsP6Y1S8",
+        "type": "application/hal+json",
+      },
+    },
+    "createdAt": "2018-04-06T13:23:21.0Z",
+    "email": "customer6@example.org",
+    "id": "cst_5BsP6Y1S8",
+    "locale": "nl_NL",
+    "metadata": null,
+    "mode": "test",
+    "name": "Customer 6",
+    "recentlyUsedMethods": null,
+    "resource": "customer",
+    "testmode": undefined,
+  },
+]
+`;

@@ -1,17 +1,14 @@
 {
+  "plugins": ["@babel/plugin-proposal-class-properties"],
   "presets": [
+    "@babel/preset-typescript",
     [
       "@babel/preset-env",
       {
-        "modules": false
+        "targets": {
+          "node": "6.9"
+        }
       }
     ]
-  ],
-  "plugins": ["@babel/plugin-external-helpers", "@babel/plugin-proposal-class-properties"],
-  "env": {
-    "test": {
-      "presets": ["@babel/preset-env"],
-      "plugins": ["@babel/plugin-transform-runtime", "@babel/plugin-proposal-class-properties"]
-    }
-  }
+  ]
 }

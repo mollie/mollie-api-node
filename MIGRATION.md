@@ -1,3 +1,65 @@
+# Migrating from v2.3.3 to v3.0.0
+
+## Initialization
+
+The factory function which creates the client is now "named".
+
+Initializing in the style of CommonJS should now be done like so:
+```diff
+- const mollieClient = require('@mollie/api-client')({
++ const mollieClient = require('@mollie/api-client').createMollieClient({
+    apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM',
+  })
+```
+
+Or like so:
+
+```diff
+- const mollieClient = require('@mollie/api-client')({
++ const { createMollieClient } = require('@mollie/api-client');
++
++ const mollieClient = createMollieClient({
+    apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM',
+  });
+```
+
+This alternative using JavaScript modules also works:
+
+```javascript
+import createMollieClient from '@mollie/api-client';
+
+const mollieClient = createMollieClient({
+  apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM',
+});
+```
+
+### Rationale
+
+The need for this change comes from the additional objects now available in the package, such as the `PaymentMethod` enum:
+
+```javascript
+const { createMollieClient, PaymentMethod } = require('@mollie/api-client');
+
+const mollieClient = createMollieClient({
+  apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM',
+});
+
+mollieClient.payments.create({
+  amount: {
+    currency: 'EUR',
+    value: '10.00',
+  },
+  description: 'Order #478',
+  method: PaymentMethod.ideal
+});
+```
+
+The alternative using JavaScript modules would be to replace the first line of the example above with this:
+
+```javascript
+import createMollieClient, { PaymentMethod } from '@mollie/api-client';
+```
+
 # Migrating from v1.x to v2.0
 
 Version 2.x of the Node client uses the v2 Mollie API. Please refer to  [Migrating from v1 to v2](https://docs.mollie.com/migrating-v1-to-v2) for a general overview of the changes introduced by the new Mollie API.
@@ -12,15 +74,15 @@ npm install @mollie/api-client --save
 ```
 
 Or using [yarn](https://yarnpkg.com/):
-    
+
 ```sh
 yarn add @mollie/api-client
 ```
 
 
-## Initialisation change
+## Initialization change
 
-Changed the initialisation of the client to a factory method: 
+Changed the initialization of the client to a factory method:
 
 ```diff
 -var Mollie = require('mollie-api-node');
@@ -144,5 +206,5 @@ mollie.payments
   })
   .then((payments) => {
     // Returns the list of 15 payments, starting with payment `tr_8WhJKGmgBy`
-  }
+  });
 ```

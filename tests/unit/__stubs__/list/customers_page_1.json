@@ -1,0 +1,82 @@
+{
+  "count": 3,
+  "_embedded": {
+    "customers": [
+      {
+        "resource": "customer",
+        "id": "cst_kEn1PlbGa",
+        "mode": "test",
+        "name": "Customer 1",
+        "email": "customer1@example.org",
+        "locale": "nl_NL",
+        "metadata": null,
+        "createdAt": "2018-04-06T13:23:21.0Z",
+        "_links": {
+          "self": {
+            "href": "https://api.mollie.com/v2/customers/cst_kEn1PlbGa",
+            "type": "application/hal+json"
+          },
+          "documentation": {
+            "href": "https://docs.mollie.com/reference/v2/customers-api/get-customer",
+            "type": "text/html"
+          }
+        }
+      },
+      {
+        "resource": "customer",
+        "id": "cst_qbACLbRLS",
+        "mode": "test",
+        "name": "Customer 2",
+        "email": "customer3@example.org",
+        "locale": "nl_NL",
+        "metadata": null,
+        "createdAt": "2018-04-06T13:23:21.0Z",
+        "_links": {
+          "self": {
+            "href": "https://api.mollie.com/v2/customers/cst_qbACLbRLS",
+            "type": "application/hal+json"
+          },
+          "documentation": {
+            "href": "https://docs.mollie.com/reference/v2/customers-api/get-customer",
+            "type": "text/html"
+          }
+        }
+      },
+      {
+        "resource": "customer",
+        "id": "cst_H1fRW9jJK",
+        "mode": "test",
+        "name": "Customer 3",
+        "email": "customer3@example.org",
+        "locale": "nl_NL",
+        "metadata": null,
+        "createdAt": "2018-04-06T13:23:21.0Z",
+        "_links": {
+          "self": {
+            "href": "https://api.mollie.com/v2/customers/cst_H1fRW9jJK",
+            "type": "application/hal+json"
+          },
+          "documentation": {
+            "href": "https://docs.mollie.com/reference/v2/customers-api/get-customer",
+            "type": "text/html"
+          }
+        }
+      }
+    ]
+  },
+  "_links": {
+    "self": {
+      "href": "https://api.mollie.com/v2/customers",
+      "type": "application/hal+json"
+    },
+    "previous": null,
+    "next": {
+      "href": "https://api.mollie.com/v2/customers?from=cst_l4J9zsdzO&limit=3",
+      "type": "application/hal+json"
+    },
+    "documentation": {
+      "href": "https://docs.mollie.com/reference/v2/customers-api/list-customers",
+      "type": "text/html"
+    }
+  }
+}

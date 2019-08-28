@@ -5,10 +5,10 @@
  */
 
 const express = require('express');
-const mollie = require('@mollie/api-client');
+const { createMollieClient } = require('@mollie/api-client');
 
 const app = express();
-const mollieClient = mollie({ apiKey: 'test_buC3bBQfSQhd4dDUeMctJjDCn3GhP4' });
+const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
 
 /**
  * Your webhook will be called with a single POST-parameter named id, which for example will
@@ -24,9 +24,11 @@ app.post('/webhook', (req, res) => {
       } else if (!payment.isOpen()) {
         // The payment isn't paid and has expired. We can assume it was aborted.
       }
+      res.send(payment.status);
     })
     .catch(error => {
       // Do some proper error handling.
+      res.send(error);
     });
 });
 

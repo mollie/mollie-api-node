@@ -1,17 +1,23 @@
 /**
  * @docs https://docs.mollie.com/reference/v2/refunds-api/list-refunds
+ * @docs https://docs.mollie.com/reference/v2/orders-api/list-order-refunds
  */
+const { createMollieClient } = require('@mollie/api-client');
+
+const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+
 (async () => {
-  const mollie = require('@mollie/api-client');
-  const mollieClient = mollie({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
-
   try {
-    const refunds = await mollieClient.payments_refunds.get('re_dSRbKFhEcx', {
-      paymentId: 'tr_x5Sj9HU83J',
-    });
+    // Payment refunds
+    const paymentRefunds = await mollieClient.payments_refunds.all({ paymentId: 'tr_WDqYK6vllg' });
 
-    console.log(refunds);
-  } catch (e) {
-    console.log(e);
+    console.log(paymentRefunds);
+
+    // Order refunds
+    const orderRefunds = await mollieClient.orders_refunds.all({ orderId: 'ord_stTC2WHAuS' });
+
+    console.log(orderRefunds);
+  } catch (error) {
+    console.warn(error);
   }
 })();

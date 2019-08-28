@@ -1,17 +1,18 @@
 /**
  * @docs https://docs.mollie.com/reference/v2/subscriptions-api/cancel-subscription
  */
-(async () => {
-  const mollie = require('@mollie/api-client');
-  const mollieClient = mollie({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+const { createMollieClient } = require('@mollie/api-client');
 
+const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+
+(async () => {
   try {
     const subscription = await mollieClient.customers_subscriptions.delete('sub_PCN3U3U27K', {
       customerId: 'cst_pzhEvnttJ2',
     });
 
     console.log(subscription);
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.warn(error);
   }
 })();
