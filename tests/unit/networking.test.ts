@@ -31,7 +31,7 @@ test('defaults', async () => {
 
   // Test previously named "it should have some default headers set".
   expect(headers['Authorization']).toBe('Bearer mock-api-key');
-  expect(/^Node\/[v\d\.]+ Mollie\/[v\d\.]+$/i.test(headers['User-Agent'])).toBe(true);
+  expect(/^Node\/[v\d\.]+ Mollie\/[v\d\.]+(?:-[\w\.]+)?$/i.test(headers['User-Agent'])).toBe(true);
   expect(headers['Accept-Encoding']).toBe('gzip');
   expect(headers['Content-Type']).toBe('application/json');
 

@@ -19,7 +19,7 @@ test('errorHandling', async () => {
   } catch (error) {
     expect(error).toBeInstanceOf(Error);
     expect(error.message).toBe('No customer exists with token cst_chinchilla.');
-  };
+  }
 
   adapter.onPost('/payments').reply(422, {
     status: 422,
@@ -37,5 +37,5 @@ test('errorHandling', async () => {
     expect(error).toBeInstanceOf(Error);
     expect(error.field).toBe('amount');
     expect(error.message).toBe('The amount is required for payments');
-  };
+  }
 });
