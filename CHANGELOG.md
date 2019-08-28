@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 
 #### v3.0.0 - no release yet
   - Added TypeScript type definitions
-  - Added Orders API
+  - Added Orders, Shipments and Captures APIs
   - Added ES module in addition to the CommonJS module
   - Added QR code support
   - Added pagination support
