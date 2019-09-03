@@ -16,5 +16,5 @@ export interface IListParams {
   from?: string;
   limit?: number;
 
-  embed?: Array<PaymentChargebackEmbed>;
+  embed?: PaymentChargebackEmbed[];
 }

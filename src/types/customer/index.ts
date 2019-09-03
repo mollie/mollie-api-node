@@ -12,8 +12,8 @@ export interface ICustomer {
   name: string;
   email: string;
   locale: Locale;
-  recentlyUsedMethods: Array<PaymentMethod>;
-  metadata: any;
+  recentlyUsedMethods: PaymentMethod[];
+  metadata: Record<string, string>;
   createdAt: string;
   _links: ICustomerLinks;
 

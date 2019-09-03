@@ -1,16 +1,12 @@
 {
   "extends": [
     "@mollie/eslint-config-typescript",
+    "prettier/@typescript-eslint",
     "plugin:prettier/recommended"
   ],
   "rules": {
     "no-underscore-dangle": "off",
-    "import/prefer-default-export": "off",
-    "no-plusplus": "off",
-    "no-shadow": "off",
-    "@typescript-eslint/no-explicit-any": "off",
-    "no-console": "off",
-    "@typescript-eslint/indent": "off"
+    "import/prefer-default-export": "off"
   },
   "settings": {
     "import/resolver": {

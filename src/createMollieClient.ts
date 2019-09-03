@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import path from 'path';
 import fs from 'fs';
 import https from 'https';
@@ -28,7 +29,7 @@ export interface MollieOptions extends AxiosRequestConfig {
   /**
    * One or an array of version strings of the software you are using, such as `'RockenbergCommerce/3.1.12'`.
    */
-  versionStrings?: string | Array<string>;
+  versionStrings?: string | string[];
 }
 
 function createHttpClient(options: MollieOptions): AxiosInstance {
@@ -46,7 +47,8 @@ function createHttpClient(options: MollieOptions): AxiosInstance {
   axiosOptions.headers['Accept-Encoding'] = 'gzip';
   axiosOptions.headers['Content-Type'] = 'application/json';
 
-  var customVersionStrings = options.versionStrings;
+  let customVersionStrings = options.versionStrings;
+
   if (undefined == customVersionStrings) {
     customVersionStrings = [];
   } else if (false == Array.isArray(customVersionStrings)) {
@@ -55,7 +57,7 @@ function createHttpClient(options: MollieOptions): AxiosInstance {
   axiosOptions.headers['User-Agent'] = [
     `Node/${process.version}`,
     `Mollie/${libraryVersion}`,
-    ...(customVersionStrings as Array<string>).map(versionString => {
+    ...(customVersionStrings as string[]).map(versionString => {
       //                platform /version
       const matches = /^([^\/]+)\/([^\/\s]+)$/.exec(versionString);
 

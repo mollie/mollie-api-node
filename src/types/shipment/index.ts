@@ -23,7 +23,7 @@ export interface IShipment {
   orderId: string;
   createdAt: string;
   tracking: IShipmentTracking | null;
-  lines: Array<IOrderLine>;
+  lines: IOrderLine[];
   _links: IShipmentLinks;
 
   // Access token parameters

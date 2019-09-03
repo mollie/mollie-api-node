@@ -1,7 +1,7 @@
 /* eslint-disable new-cap */
 import qs from 'qs';
 import { AxiosInstance, AxiosResponse } from 'axios';
-import { cloneDeep, isPlainObject, has } from 'lodash';
+import { cloneDeep, isPlainObject } from 'lodash';
 
 import Model from './model';
 import List from './models/List';
@@ -84,7 +84,8 @@ export default class Resource {
     // This method is essentially a thin wrapper around either the ApiError constructor or ApiError.createFromResponse.
     // When we implement a more generic solution for the callbacks, I think this method becomes obsolete.
 
-    var error: ApiError;
+    let error: ApiError;
+
     if (typeof responseOrMessage == 'string') {
       error = new ApiError(responseOrMessage);
     } else {

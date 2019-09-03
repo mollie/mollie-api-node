@@ -6,7 +6,7 @@ import { ResourceCallback } from '../resource';
 import { IListLinks } from '../types/global';
 
 interface IInstantiable<T = any> {
-  new (...args: Array<any>): T;
+  new (...args: any[]): T;
 }
 
 interface IResourceListParams {
@@ -57,7 +57,7 @@ export default class List<T> extends Array {
     const list = new List();
     list.links = _links;
     list.count = count;
-    list.nextPage = async () =>
+    list.nextPage = async (): Promise<any> =>
       getResources(
         {
           ...params,
@@ -65,7 +65,7 @@ export default class List<T> extends Array {
         },
         callback,
       );
-    list.previousPage = async () =>
+    list.previousPage = async (): Promise<any> =>
       getResources(
         {
           ...params,

@@ -51,13 +51,13 @@ export interface IRefund {
   settlementAmount?: IAmount;
   description: string;
   status: RefundStatus;
-  lines: Array<IOrderLine>;
+  lines: IOrderLine[];
   paymentId: string;
   orderId?: string;
   createdAt: string;
   _links: IPaymentRefundLinks;
   _embedded?: {
-    payments?: Array<IPayment>;
+    payments?: IPayment[];
   };
 }
 
