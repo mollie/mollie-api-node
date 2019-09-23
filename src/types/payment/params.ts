@@ -188,7 +188,7 @@ export interface ICreateParams {
   redirectUrl?: string;
   webhookUrl?: string;
   locale?: Locale;
-  method?: PaymentMethod;
+  method?: PaymentMethod | PaymentMethod[];
   metadata?: any;
   sequenceType?: string;
   customerId?: string;
