@@ -52,7 +52,7 @@ describe('payments', () => {
 
     const paymentRefunds = await mollieClient.payments_refunds.all({ paymentId: payment.id });
 
-    var refundExists;
+    let refundExists;
 
     if (!paymentRefunds.length) {
       refundExists = mollieClient.payments_refunds
@@ -83,9 +83,9 @@ describe('payments', () => {
   });
 
   it('should paginate', async () => {
-    var nextPageCursor;
+    let nextPageCursor;
 
-    var payments = await mollieClient.payments.all({
+    let payments = await mollieClient.payments.all({
       limit: 2,
     });
 

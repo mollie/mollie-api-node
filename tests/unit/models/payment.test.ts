@@ -125,7 +125,7 @@ test('paymentIsPaid', async () => {
 });
 
 test('paymentHasRefunds', async () => {
-  var payment = await getPayment('paid', undefined, { refunds: { href: 'https://api.mollie.com/v2/payments/tr_44aKxzEbr8/refunds', type: 'application/hal+json' } });
+  let payment = await getPayment('paid', undefined, { refunds: { href: 'https://api.mollie.com/v2/payments/tr_44aKxzEbr8/refunds', type: 'application/hal+json' } });
 
   expect(payment.hasRefunds()).toBe(true);
 
@@ -135,7 +135,7 @@ test('paymentHasRefunds', async () => {
 });
 
 test('paymentHasChargebacks', async () => {
-  var payment = await getPayment('paid', undefined, { chargebacks: { href: 'https://api.mollie.com/v2/payments/tr_44aKxzEbr8/chargebacks', type: 'application/hal+json' } });
+  let payment = await getPayment('paid', undefined, { chargebacks: { href: 'https://api.mollie.com/v2/payments/tr_44aKxzEbr8/chargebacks', type: 'application/hal+json' } });
 
   expect(payment.hasChargebacks()).toBe(true);
 
@@ -145,7 +145,7 @@ test('paymentHasChargebacks', async () => {
 });
 
 test('paymentHasSequenceType', async () => {
-  var payment = await getPayment('paid', { sequenceType: 'first' });
+  let payment = await getPayment('paid', { sequenceType: 'first' });
 
   expect(payment.hasSequenceTypeRecurring()).toBe(false);
   expect(payment.hasSequenceTypeFirst()).toBe(true);
@@ -162,13 +162,13 @@ test('paymentHasSequenceType', async () => {
 });
 
 test('paymentGetCheckoutUrl', async () => {
-  var payment = await getPayment('open', undefined, { checkout: { href: 'https://example.com', type: 'text/html' } });
+  const payment = await getPayment('open', undefined, { checkout: { href: 'https://example.com', type: 'text/html' } });
 
   expect(payment.getCheckoutUrl()).toBe('https://example.com');
 });
 
 test('paymentCanBeRefunded', async () => {
-  var payment = await getPayment('paid' /*, { amountRemaining: { value: '20.00', currency: 'EUR' } } */);
+  let payment = await getPayment('paid' /*, { amountRemaining: { value: '20.00', currency: 'EUR' } } */);
 
   expect(payment.canBeRefunded()).toBe(true);
   expect(payment.canBePartiallyRefunded()).toBe(true);
@@ -180,7 +180,7 @@ test('paymentCanBeRefunded', async () => {
 });
 
 test('paymentGetAmountRefunded', async () => {
-  var payment = await getPayment('paid', { amountRemaining: undefined, amountRefunded: { value: '20.00', currency: 'EUR' } });
+  let payment = await getPayment('paid', { amountRemaining: undefined, amountRefunded: { value: '20.00', currency: 'EUR' } });
 
   expect(payment.getAmountRefunded()).toEqual({ value: '20.00', currency: 'EUR' });
 
@@ -190,7 +190,7 @@ test('paymentGetAmountRefunded', async () => {
 });
 
 test('paymentGetAmountRemaining', async () => {
-  var payment = await getPayment('paid' /*, { amountRemaining: { value: '20.00', currency: 'EUR' } } */);
+  let payment = await getPayment('paid' /*, { amountRemaining: { value: '20.00', currency: 'EUR' } } */);
 
   expect(payment.getAmountRemaining()).toEqual({ value: '20.00', currency: 'EUR' });
 

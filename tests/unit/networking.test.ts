@@ -68,7 +68,7 @@ async function requestWithVersionStrings(versionStrings) {
 
 test('customVersionStrings', async () => {
   // Test previously named "it should add a version string".
-  var headers = (await requestWithVersionStrings('ReactionCommerce/1.16.0')).headers;
+  let headers = (await requestWithVersionStrings('ReactionCommerce/1.16.0')).headers;
 
   expect(headers['User-Agent'].endsWith('ReactionCommerce/1.16.0')).toBe(true);
 
