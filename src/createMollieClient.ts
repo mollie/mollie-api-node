@@ -16,6 +16,7 @@ import CustomersSubscriptionsResource from './resources/customers/subscriptions'
 import ChargebacksResource from './resources/chargebacks';
 import OrdersShipmentsResource from './resources/orders/shipments';
 import OrdersRefundsResource from './resources/orders/refunds';
+import OrdersPaymentsResource from './resources/orders/payments';
 import OrdersResource from './resources/orders';
 import OrdersLinesResource from './resources/orders/lines';
 import PaymentsCapturesResource from './resources/payments/captures';
@@ -98,6 +99,7 @@ export interface MollieClient {
   orders_refunds: OrdersRefundsResource;
   orders_lines: OrdersLinesResource;
   orders_shipments: OrdersShipmentsResource;
+  orders_payments: OrdersPaymentsResource;
 }
 
 /**
@@ -137,6 +139,7 @@ export default function createMollieClient(options: MollieOptions): MollieClient
     orders: new OrdersResource(httpClient),
     orders_refunds: new OrdersRefundsResource(httpClient),
     orders_lines: new OrdersLinesResource(httpClient),
+    orders_payments: new OrdersPaymentsResource(httpClient),
     // Shipments API
     orders_shipments: new OrdersShipmentsResource(httpClient),
   };
