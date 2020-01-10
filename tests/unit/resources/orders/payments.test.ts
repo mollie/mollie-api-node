@@ -61,12 +61,12 @@ function testPayment(payment, paymentId, paymentStatus = 'open') {
 test('createOrderPayment', async () => {
   const { adapter, client } = wireMockClient();
 
-  adapter.onPost('/orders/ord_stTC2WHAuS/payments').reply(201, composePaymentResponse('re_4qqhO89gsT', 'ord_stTC2WHAuS'));
+  adapter.onPost('/orders/ord_stTC2WHAuS/payments').reply(201, composePaymentResponse('tr_WDqYK6vllg', 'ord_stTC2WHAuS'));
 
   const payment = await callAsync(client.orders_payments.create, client.orders_payments, {
     orderId: 'ord_stTC2WHAuS',
     method: 'banktransfer',
   });
 
-  testPayment(payment, 're_4qqhO89gsT');
+  testPayment(payment, 'tr_WDqYK6vllg');
 });
