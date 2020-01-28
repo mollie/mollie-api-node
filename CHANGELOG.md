@@ -4,6 +4,9 @@
 
 All notable changes to this project will be documented in this file.
 
+#### v3.1.0 - 2020-01-28
+  - Added Order Payments API
+
 #### v3.0.0 - 2019-11-20
   - Added TypeScript type definitions
   - Added Orders, Shipments and Captures APIs

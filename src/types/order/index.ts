@@ -25,7 +25,7 @@ export interface IOrder {
   locale: string;
   metadata: any;
   redirectUrl: string | null;
-  lines: Array<Partial<IOrderLine>>;
+  lines: Partial<IOrderLine>[];
   webhookUrl?: string;
   createdAt: string;
   expiresAt?: string;
@@ -35,7 +35,7 @@ export interface IOrder {
   canceledAt?: string;
   completedAt?: string;
   _embedded?: {
-    payments?: Array<IPayment>;
+    payments?: IPayment[];
   };
   _links: IOrderLinks;
 }

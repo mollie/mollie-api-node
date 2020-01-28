@@ -38,7 +38,7 @@ export interface ICreateParams {
  */
 export interface IGetParams {
   paymentId: string;
-  embed?: Array<RefundEmbed>;
+  embed?: RefundEmbed[];
 
   // Access token parameters
   testmode?: boolean;
@@ -68,7 +68,7 @@ export interface IListParams {
   from?: string;
   limit?: number;
 
-  embed?: Array<RefundEmbed>;
+  embed?: RefundEmbed[];
 
   // Access token parameters
   profileId?: string;

@@ -29,7 +29,7 @@ export interface MollieOptions extends AxiosRequestConfig {
   /**
    * One or an array of version strings of the software you are using, such as `'RockenbergCommerce/3.1.12'`.
    */
-  versionStrings?: string | Array<string>;
+  versionStrings?: string | string[];
 }
 
 function createHttpClient(options: MollieOptions): AxiosInstance {
@@ -56,7 +56,7 @@ function createHttpClient(options: MollieOptions): AxiosInstance {
   axiosOptions.headers['User-Agent'] = [
     `Node/${process.version}`,
     `Mollie/${libraryVersion}`,
-    ...(customVersionStrings as Array<string>).map(versionString => {
+    ...(customVersionStrings as string[]).map(versionString => {
       //                platform /version
       const matches = /^([^\/]+)\/([^\/\s]+)$/.exec(versionString);
 

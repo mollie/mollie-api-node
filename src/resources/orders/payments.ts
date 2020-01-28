@@ -12,6 +12,7 @@ import List from '../../models/List';
 /**
  * The `orders_payments` resource
  *
+ * @since 3.1.0
  */
 export default class OrdersPaymentsResource extends OrdersResource {
   public static resource = 'orders_payments';
@@ -26,6 +27,8 @@ export default class OrdersPaymentsResource extends OrdersResource {
    * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
    *
    * @returns The created Payment object
+   *
+   * @since 3.1.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/create-order-payment
    *

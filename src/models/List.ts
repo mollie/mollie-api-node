@@ -6,7 +6,7 @@ import { ResourceCallback } from '../resource';
 import { IListLinks } from '../types/global';
 
 interface IInstantiable<T = any> {
-  new (...args: Array<any>): T;
+  new (...args: any[]): T;
 }
 
 interface IResourceListParams {

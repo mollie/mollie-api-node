@@ -50,7 +50,7 @@ export interface IUpdateParams {
 export interface ICancelParams {
   orderId: string;
 
-  lines: Array<ICancelOrderLine>;
+  lines: ICancelOrderLine[];
 
   // Access token parameters
   testmode?: boolean;

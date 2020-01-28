@@ -204,7 +204,7 @@ export interface ICreateParams {
   voucherNumber?: string;
   voucherPin?: string;
 
-  include?: Array<PaymentInclude> | PaymentInclude;
+  include?: PaymentInclude[] | PaymentInclude;
 
   // Access token parameters
   profileId?: string;
@@ -231,7 +231,7 @@ export interface ICreateParams {
  */
 export interface IGetParams {
   include?: PaymentInclude;
-  embed?: Array<PaymentEmbed> | PaymentEmbed;
+  embed?: PaymentEmbed[] | PaymentEmbed;
 
   // Access token parameters
   testmode?: boolean;

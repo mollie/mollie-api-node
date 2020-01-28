@@ -48,7 +48,7 @@ export interface ICreateParams {
   locale?: Locale;
   mandateId?: string;
   metadata?: any;
-  method?: PaymentMethod | Array<PaymentMethod>;
+  method?: PaymentMethod | PaymentMethod[];
   sequenceType?: SequenceType;
   webhookUrl?: string;
   redirectUrl?: string;
