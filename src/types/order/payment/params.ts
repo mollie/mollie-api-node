@@ -30,7 +30,7 @@ export interface ICreateParams {
   orderId: string;
 
   method?: PaymentMethod | PaymentMethod[];
-  customerId: string;
+  customerId?: string;
   mandateId?: string;
 
   // Access token parameters

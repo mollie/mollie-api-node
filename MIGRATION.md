@@ -1,4 +1,4 @@
-# Migrating from v2.3.3 to v3.0.0
+# Migrating from v2.3.2 to v3.0.0
 
 ## Initialization
 

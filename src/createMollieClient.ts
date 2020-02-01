@@ -3,7 +3,11 @@ import fs from 'fs';
 import https from 'https';
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { cloneDeep } from 'lodash';
+
+// Lib
 import { version as libraryVersion } from '../package.json';
+
+// Resources
 import PaymentsResource from './resources/payments';
 import PaymentsRefundsResource from './resources/payments/refunds';
 import PaymentsChargebacksResource from './resources/payments/chargebacks';
@@ -16,6 +20,7 @@ import CustomersSubscriptionsResource from './resources/customers/subscriptions'
 import ChargebacksResource from './resources/chargebacks';
 import OrdersShipmentsResource from './resources/orders/shipments';
 import OrdersRefundsResource from './resources/orders/refunds';
+import OrdersPaymentsResource from './resources/orders/payments';
 import OrdersResource from './resources/orders';
 import OrdersLinesResource from './resources/orders/lines';
 import PaymentsCapturesResource from './resources/payments/captures';
@@ -95,6 +100,7 @@ export interface MollieClient {
   orders_refunds: OrdersRefundsResource;
   orders_lines: OrdersLinesResource;
   orders_shipments: OrdersShipmentsResource;
+  orders_payments: OrdersPaymentsResource;
 }
 
 /**
@@ -112,22 +118,28 @@ export default function createMollieClient(options: MollieOptions): MollieClient
   return {
     // Payments API
     payments: new PaymentsResource(httpClient),
+
     // Methods API
     methods: new MethodsResource(httpClient),
+
     // Refunds API
     payments_refunds: new PaymentsRefundsResource(httpClient),
     refunds: new RefundsResource(httpClient),
+
     // Chargebacks API
     payments_chargebacks: new PaymentsChargebacksResource(httpClient),
     chargebacks: new ChargebacksResource(httpClient),
+
     // Captures API
     payments_captures: new PaymentsCapturesResource(httpClient),
 
     // Customers API
     customers: new CustomersResource(httpClient),
     customers_payments: new CustomersPaymentsResource(httpClient),
+
     // Mandates API
     customers_mandates: new CustomersMandatesResource(httpClient),
+
     // Subscriptions API
     customers_subscriptions: new CustomersSubscriptionsResource(httpClient),
 
@@ -135,6 +147,8 @@ export default function createMollieClient(options: MollieOptions): MollieClient
     orders: new OrdersResource(httpClient),
     orders_refunds: new OrdersRefundsResource(httpClient),
     orders_lines: new OrdersLinesResource(httpClient),
+    orders_payments: new OrdersPaymentsResource(httpClient),
+
     // Shipments API
     orders_shipments: new OrdersShipmentsResource(httpClient),
   };

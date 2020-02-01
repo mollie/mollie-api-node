@@ -4,7 +4,10 @@
 
 All notable changes to this project will be documented in this file.
 
-#### v3.0.0 - no release yet
+#### v3.1.0 - 2020-01-28
+  - Added Order Payments API
+
+#### v3.0.0 - 2019-11-20
   - Added TypeScript type definitions
   - Added Orders, Shipments and Captures APIs
   - Added ES module in addition to the CommonJS module
@@ -35,7 +38,7 @@ All notable changes to this project will be documented in this file.
   - Fixes #69.
 
 #### v2.0.0 - 2018-08-09
-  - Migrated to the v2 API. Refer to the [migration guide](/docs/migration_v3_x.md) for a complete list of changes
+  - Migrated to the v2 API. Refer to the [migration guide](https://docs.mollie.com/migrating-v1-to-v2) for a complete list of changes
 
 #### v1.3.7 - 2018-06-01
   - Update bundled cacert.pem file.
