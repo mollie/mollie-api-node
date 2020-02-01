@@ -52,7 +52,11 @@ function createHttpClient(options: MollieOptions): AxiosInstance {
   axiosOptions.headers['Accept-Encoding'] = 'gzip';
   axiosOptions.headers['Content-Type'] = 'application/json';
 
-  const customVersionStrings = options.versionStrings || [];
+  let customVersionStrings = options.versionStrings || [];
+
+  if (customVersionStrings instanceof String) {
+    customVersionStrings = [customVersionStrings] as string[];
+  }
 
   axiosOptions.headers['User-Agent'] = [
     `Node/${process.version}`,
