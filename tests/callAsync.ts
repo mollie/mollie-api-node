@@ -15,8 +15,9 @@ import { isEqual } from 'lodash';
  */
 export default function callAsync(target: Function, thisArgument, ...passingArguments): Promise<any> {
   return new Promise((resolve, reject) => {
-    var parkedOutcome /* = undefined */;
-    var parkedOutcomeIsResult /* = undefined */;
+    let parkedOutcome;
+    let parkedOutcomeIsResult;
+
     function handleResult(value) {
       // If this is the first outcome, park it.
       if (undefined === parkedOutcome) {

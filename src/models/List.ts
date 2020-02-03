@@ -57,7 +57,7 @@ export default class List<T> extends Array {
     const list = new List();
     list.links = _links;
     list.count = count;
-    list.nextPage = async () =>
+    list.nextPage = async (): Promise<List<Model>> =>
       getResources(
         {
           ...params,
@@ -65,7 +65,7 @@ export default class List<T> extends Array {
         },
         callback,
       );
-    list.previousPage = async () =>
+    list.previousPage = async (): Promise<List<Model>> =>
       getResources(
         {
           ...params,

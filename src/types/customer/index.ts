@@ -13,7 +13,7 @@ export interface ICustomer {
   email: string;
   locale: Locale;
   recentlyUsedMethods: PaymentMethod[];
-  metadata: any;
+  metadata: Record<string, string>;
   createdAt: string;
   _links: ICustomerLinks;
 

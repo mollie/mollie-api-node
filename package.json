@@ -36,11 +36,12 @@
     "build:library": "rollup --config rollup.config.js",
     "build:declarations": "tsc src/types.ts --declaration --declarationDir dist/types --emitDeclarationOnly --allowSyntheticDefaultImports --resolveJsonModule",
     "lint:prettier": "prettier --write \"{src,tests,examples}/**/*.{js,ts}\"",
-    "lint:eslint": "eslint --ext .ts,.js src/ tests/ examples/",
-    "lint:eslint:fix": "eslint --ext .ts,.js --fix src/ tests/ examples/",
+    "lint:eslint": "eslint --ext .ts,.js src/",
+    "lint:eslint:fix": "eslint --ext .ts,.js --fix src/",
     "lint": "yarn lint:eslint:fix && yarn lint:prettier"
   },
   "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.1.0",
     "axios": "^0.19.0",
     "lodash": "^4.17.15",
     "qs": "^6.7.0"
@@ -49,7 +50,7 @@
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-typescript": "^7.3.3",
-    "@mollie/eslint-config-typescript": "^1.2.0",
+    "@mollie/eslint-config-typescript": "^1.3.2",
     "@types/jest": "^24.0.16",
     "@types/lodash": "^4.14.136",
     "@types/node": "^12.6.9",

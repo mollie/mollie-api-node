@@ -19,7 +19,7 @@ describe('orders', () => {
   it('should integrate', async () => {
     const orders = await mollieClient.orders.all();
 
-    var orderExists;
+    let orderExists;
 
     if (!orders.length) {
       orderExists = mollieClient.orders
@@ -111,7 +111,7 @@ describe('orders', () => {
 
     const paymentRefunds = await mollieClient.payments_refunds.all({ paymentId: payment.id });
 
-    var refundExists;
+    let refundExists;
 
     if (!paymentRefunds.length) {
       refundExists = mollieClient.payments_refunds
@@ -142,9 +142,9 @@ describe('orders', () => {
   });
 
   it('should paginate', async () => {
-    var nextPageCursor;
+    let nextPageCursor;
 
-    var orders = await mollieClient.orders.all({ limit: 2 });
+    let orders = await mollieClient.orders.all({ limit: 2 });
 
     expect(orders.length).toEqual(2);
     expect(orders.nextPageCursor).toBeDefined();

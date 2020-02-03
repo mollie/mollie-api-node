@@ -3,7 +3,11 @@ import fs from 'fs';
 import https from 'https';
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { cloneDeep } from 'lodash';
+
+// Lib
 import { version as libraryVersion } from '../package.json';
+
+// Resources
 import PaymentsResource from './resources/payments';
 import PaymentsRefundsResource from './resources/payments/refunds';
 import PaymentsChargebacksResource from './resources/payments/chargebacks';
@@ -40,32 +44,33 @@ function createHttpClient(options: MollieOptions): AxiosInstance {
 
   axiosOptions.baseURL = 'https://api.mollie.com:443/v2/';
 
-  if (undefined == axiosOptions.headers) {
+  if (axiosOptions.headers === undefined) {
     axiosOptions.headers = {};
   }
+
   axiosOptions.headers['Authorization'] = `Bearer ${options.apiKey}`;
   axiosOptions.headers['Accept-Encoding'] = 'gzip';
   axiosOptions.headers['Content-Type'] = 'application/json';
 
-  var customVersionStrings = options.versionStrings;
-  if (undefined == customVersionStrings) {
-    customVersionStrings = [];
-  } else if (false == Array.isArray(customVersionStrings)) {
-    customVersionStrings = [customVersionStrings as string];
+  let customVersionStrings = options.versionStrings || [];
+
+  if (!Array.isArray(customVersionStrings)) {
+    customVersionStrings = [customVersionStrings] as string[];
   }
+
   axiosOptions.headers['User-Agent'] = [
     `Node/${process.version}`,
     `Mollie/${libraryVersion}`,
     ...(customVersionStrings as string[]).map(versionString => {
-      //                platform /version
+      //                platform/version
       const matches = /^([^\/]+)\/([^\/\s]+)$/.exec(versionString);
 
-      if (null === matches) {
+      if (matches === null) {
         if (-1 == versionString.indexOf('/') || versionString.indexOf('/') != versionString.lastIndexOf('/')) {
           throw new Error('Invalid version string. It needs to consist of a name and version separated by a forward slash, e.g. RockenbergCommerce/3.1.12');
-        } else {
-          throw new Error('Invalid version string. The version may not contain any whitespace.');
         }
+
+        throw new Error('Invalid version string. The version may not contain any whitespace.');
       }
 
       // Replace whitespace in platform name with camelCase (first char stays untouched).
@@ -113,25 +118,32 @@ export default function createMollieClient(options: MollieOptions): MollieClient
 
   const httpClient = createHttpClient(options);
 
+  /* eslint-disable @typescript-eslint/camelcase */
   return {
     // Payments API
     payments: new PaymentsResource(httpClient),
+
     // Methods API
     methods: new MethodsResource(httpClient),
+
     // Refunds API
     payments_refunds: new PaymentsRefundsResource(httpClient),
     refunds: new RefundsResource(httpClient),
+
     // Chargebacks API
     payments_chargebacks: new PaymentsChargebacksResource(httpClient),
     chargebacks: new ChargebacksResource(httpClient),
+
     // Captures API
     payments_captures: new PaymentsCapturesResource(httpClient),
 
     // Customers API
     customers: new CustomersResource(httpClient),
     customers_payments: new CustomersPaymentsResource(httpClient),
+
     // Mandates API
     customers_mandates: new CustomersMandatesResource(httpClient),
+
     // Subscriptions API
     customers_subscriptions: new CustomersSubscriptionsResource(httpClient),
 
@@ -140,9 +152,11 @@ export default function createMollieClient(options: MollieOptions): MollieClient
     orders_refunds: new OrdersRefundsResource(httpClient),
     orders_lines: new OrdersLinesResource(httpClient),
     orders_payments: new OrdersPaymentsResource(httpClient),
+
     // Shipments API
     orders_shipments: new OrdersShipmentsResource(httpClient),
   };
+  /* eslint-enable @typescript-eslint/camelcase */
 }
 
 export { createMollieClient };
