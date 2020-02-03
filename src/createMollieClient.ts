@@ -54,7 +54,7 @@ function createHttpClient(options: MollieOptions): AxiosInstance {
 
   let customVersionStrings = options.versionStrings || [];
 
-  if (customVersionStrings instanceof String) {
+  if (!Array.isArray(customVersionStrings)) {
     customVersionStrings = [customVersionStrings] as string[];
   }
 
