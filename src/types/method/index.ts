@@ -18,6 +18,7 @@ export interface IMethod {
   id: PaymentMethodEnum;
   description: string;
   image: IImage;
+  pricing: IMethodPricing;
   _links: ILinks;
 }
 
