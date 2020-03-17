@@ -213,24 +213,23 @@ export default class Resource {
   public async list(prms?: any, cb?: ResourceCallback): Promise<List<Model>> {
     const params = cloneDeep(prms);
     try {
-      const query: any = {};
+      let query: any = {};
+
       if (isPlainObject(params)) {
         if (typeof params.include === 'string' || Array.isArray(params.include)) {
           query.include = Array.isArray(params.include) ? params.include.join(';') : params.include;
           delete params.include;
         }
+
         if (typeof params.embed === 'string' || Array.isArray(params.embed)) {
           query.embed = Array.isArray(params.embed) ? params.embed.join(';') : params.embed;
           delete params.embed;
         }
-        if (typeof params.limit === 'number' || typeof params.limit === 'string') {
-          query.limit = params.limit;
-          delete params.limit;
-        }
-        if (typeof params.from === 'string') {
-          query.from = params.from;
-          delete params.from;
-        }
+
+        query = {
+          ...query,
+          ...params,
+        };
       }
 
       const response: AxiosResponse = await this.getClient().get(`${this.getResourceUrl()}${qs.stringify(query, { addQueryPrefix: true })}`);
