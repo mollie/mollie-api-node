@@ -40,6 +40,7 @@ export interface MandateDetailsCreditCard {
 export enum MandateMethod {
   directdebit = 'directdebit',
   creditcard = 'creditcard',
+  paypal = 'paypal',
 }
 
 export enum MandateStatus {
