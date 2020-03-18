@@ -1,23 +1,13 @@
 import { cloneDeep, get, has } from 'lodash';
-import { IMollieApiError, IMollieApiErrorLinks, IUrl } from '../types/global';
+import { MollieApiError, MollieApiErrorLinks, Url } from '../data/global';
 
 /**
  * @since 3.0.0
  */
 export default class ApiError extends Error {
-  protected title: string;
-  protected status: number;
-  protected field: string;
-  protected links: IMollieApiErrorLinks;
-
-  public constructor(message: string, title?: string, status?: number, field?: string, links?: IMollieApiErrorLinks) {
+  public constructor(message: string, protected title?: string, protected status?: number, protected field?: string, protected links?: MollieApiErrorLinks) {
     super(message);
     this.name = 'ApiError';
-
-    this.title = title;
-    this.status = status;
-    this.field = field;
-    this.links = links;
   }
 
   /**
@@ -111,7 +101,7 @@ export default class ApiError extends Error {
    *
    * @public ✓ This method is part of the public API
    */
-  public getLink(key: string): IUrl {
+  public getLink(key: string): Url {
     return get(this.links, key);
   }
 
@@ -142,7 +132,7 @@ export default class ApiError extends Error {
    *
    * @since 3.0.0
    */
-  public static createFromResponse(error: IMollieApiError): ApiError {
-    return new ApiError(get(error, 'detail'), get(error, 'title'), get(error, 'status'), get(error, 'field'), cloneDeep(get(error, '_links')));
+  public static createFromResponse(error: MollieApiError): ApiError {
+    return new ApiError(get(error, 'data.detail'), get(error, 'data.title'), get(error, 'data.status'), get(error, 'data.field'), cloneDeep(get(error, 'data._links')));
   }
 }

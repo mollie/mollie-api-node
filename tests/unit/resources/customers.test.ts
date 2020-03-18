@@ -22,7 +22,7 @@ test('createCustomer', async () => {
     },
   });
 
-  const customer = await callAsync(client.customers.create, client.customers, {
+  const customer = await client.customers.create({
     name: 'John Doe',
     email: 'johndoe@example.org',
   });
@@ -63,7 +63,7 @@ test('getCustomer', async () => {
     },
   });
 
-  const customer = await callAsync(client.customers.get, client.customers, 'cst_FhQJRw4s2n');
+  const customer = await client.customers.get('cst_FhQJRw4s2n');
 
   expect(customer.resource).toBe('customer');
   expect(customer.id).toBe('cst_FhQJRw4s2n');
@@ -114,7 +114,7 @@ test('listCustomers', async () => {
     },
   });
 
-  const customers = await callAsync(client.customers.page, client.customers);
+  const customers = await client.customers.page();
 
   expect(customers.links.documentation).toEqual({
     href: 'https://docs.mollie.com/reference/v2/customers-api/list-customers',
@@ -156,7 +156,7 @@ test('updateCustomer', async () => {
     },
   });
 
-  const updatedCustomer = await callAsync(client.customers.update, client.customers, 'cst_FhQJRw4s2n', {
+  const updatedCustomer = await client.customers.update('cst_FhQJRw4s2n', {
     name: expectedName,
     email: expectedEmail,
   });

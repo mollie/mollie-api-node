@@ -46,7 +46,7 @@ test('createCustomerPayment', async () => {
     },
   });
 
-  const payment = await callAsync(client.customers_payments.create, client.customers_payments, {
+  const payment = await client.customers_payments.create({
     amount: {
       currency: 'EUR',
       value: '20.00',
@@ -215,7 +215,7 @@ test('listCustomerPayouts', async () => {
     count: 3,
   });
 
-  const payments = await callAsync(client.customers_payments.all, client.customers_payments, { customerId: 'cst_FhQJRw4s2n' });
+  const payments = await client.customers_payments.all({ customerId: 'cst_FhQJRw4s2n' });
 
   expect(payments.length).toBe(3);
 

@@ -105,7 +105,7 @@ test('listChargebacks', async () => {
     count: 2,
   });
 
-  const chargebacks = await callAsync(client.chargebacks.page, client.chargebacks);
+  const chargebacks = await client.chargebacks.page();
 
   expect(chargebacks.length).toBe(2);
 

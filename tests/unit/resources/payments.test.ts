@@ -42,7 +42,7 @@ test('createPayment', async () => {
     },
   });
 
-  const payment = await callAsync(client.payments.create, client.payments, {
+  const payment = await client.payments.create({
     amount: {
       currency: 'EUR',
       value: '20.00',
@@ -134,7 +134,7 @@ test('getPayment', async () => {
     },
   });
 
-  const payment = await callAsync(client.payments.get, client.payments, 'tr_44aKxzEbr8');
+  const payment = await client.payments.get('tr_44aKxzEbr8');
 
   expect(payment.id).toBe('tr_44aKxzEbr8');
   expect(payment.mode).toBe('test');
@@ -279,7 +279,7 @@ test('listPayments', async () => {
     count: 3,
   });
 
-  const payments = await callAsync(client.payments.page, client.payments, { limit: 3 });
+  const payments = await client.payments.page({ limit: 3 });
 
   expect(payments.length).toBe(3);
 

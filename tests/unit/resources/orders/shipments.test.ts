@@ -141,7 +141,7 @@ test('createShipment', async () => {
 
   adapter.onPost('/orders/ord_pbjz8x/shipments').reply(201, composeShipmentResponse('shp_3wmsgCJN4U', 'ord_pbjz8x'));
 
-  const shipment = await callAsync(client.orders_shipments.create, client.orders_shipments, {
+  const shipment = await client.orders_shipments.create({
     orderId: 'ord_pbjz8x',
     lines: [
       {
@@ -160,7 +160,7 @@ test('getShipment', async () => {
 
   adapter.onGet('/orders/ord_pbjz8x/shipments/shp_3wmsgCJN4U').reply(200, composeShipmentResponse('shp_3wmsgCJN4U', 'ord_pbjz8x'));
 
-  const shipment = await callAsync(client.orders_shipments.get, client.orders_shipments, 'shp_3wmsgCJN4U', { orderId: 'ord_pbjz8x' });
+  const shipment = await client.orders_shipments.get('shp_3wmsgCJN4U', { orderId: 'ord_pbjz8x' });
 
   testShipment(shipment, 'shp_3wmsgCJN4U', 'ord_pbjz8x');
 });

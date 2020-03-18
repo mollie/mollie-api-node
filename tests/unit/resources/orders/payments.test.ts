@@ -63,7 +63,7 @@ test('createOrderPayment', async () => {
 
   adapter.onPost('/orders/ord_stTC2WHAuS/payments').reply(201, composePaymentResponse('tr_WDqYK6vllg', 'ord_stTC2WHAuS'));
 
-  const payment = await callAsync(client.orders_payments.create, client.orders_payments, {
+  const payment = await client.orders_payments.create({
     orderId: 'ord_stTC2WHAuS',
     method: 'banktransfer',
   });

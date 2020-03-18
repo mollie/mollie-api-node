@@ -33,7 +33,7 @@ test('createCustomerMandate', async () => {
     },
   });
 
-  const mandate = await callAsync(client.customers_mandates.create, client.customers_mandates, {
+  const mandate = await client.customers_mandates.create({
     customerId: 'cst_FhQJRw4s2n',
     consumerName: 'John Doe',
     method: 'directdebit',
@@ -87,7 +87,7 @@ test('getCustomerMandate', async () => {
     },
   });
 
-  const mandate = await callAsync(client.customers_mandates.get, client.customers_mandates, 'mdt_AcQl5fdL4h', { customerId: 'cst_FhQJRw4s2n' });
+  const mandate = await client.customers_mandates.get('mdt_AcQl5fdL4h', { customerId: 'cst_FhQJRw4s2n' });
 
   expect(mandate.resource).toBe('mandate');
   expect(mandate.status).toBe('valid');
@@ -151,7 +151,7 @@ test('getCustomerMandates', async () => {
     },
   });
 
-  const mandates = await callAsync(client.customers_mandates.all, client.customers_mandates, { customerId: 'cst_FhQJRw4s2n' });
+  const mandates = await client.customers_mandates.all({ customerId: 'cst_FhQJRw4s2n' });
 
   mandates.forEach(mandate => {
     expect(mandate.resource).toBe('mandate');

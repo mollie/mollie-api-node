@@ -8,22 +8,22 @@ import { cloneDeep } from 'lodash';
 import { version as libraryVersion } from '../package.json';
 
 // Resources
-import PaymentsResource from './resources/payments';
-import PaymentsRefundsResource from './resources/payments/refunds';
-import PaymentsChargebacksResource from './resources/payments/chargebacks';
-import MethodsResource from './resources/methods';
-import RefundsResource from './resources/refunds';
-import CustomersResource from './resources/customers';
-import CustomersPaymentsResource from './resources/customers/payments';
-import CustomersMandatesResource from './resources/customers/mandates';
-import CustomersSubscriptionsResource from './resources/customers/subscriptions';
-import ChargebacksResource from './resources/chargebacks';
-import OrdersShipmentsResource from './resources/orders/shipments';
-import OrdersRefundsResource from './resources/orders/refunds';
-import OrdersPaymentsResource from './resources/orders/payments';
-import OrdersResource from './resources/orders';
-import OrdersLinesResource from './resources/orders/lines';
-import PaymentsCapturesResource from './resources/payments/captures';
+import OrdersShipmentsResource from './resources/orders/shipments/OrdersShipmentsResource';
+import OrdersRefundsResource from './resources/refunds/orders/OrdersRefundsResource';
+import OrdersPaymentsResource from './resources/payments/orders/OrdersPaymentsResource';
+import OrdersLinesResource from './resources/orders/orderlines/OrderLinesResource';
+import OrdersResource from './resources/orders/OrdersResource';
+import PaymentsResource from './resources/payments/PaymentsResource';
+import RefundsResource from './resources/refunds/RefundsResource';
+import PaymentsRefundsResource from './resources/payments/refunds/PaymentRefundsResource';
+import PaymentsChargebacksResource from './resources/payments/chargebacks/PaymentsChargebacksResource';
+import ChargebacksResource from './resources/chargebacks/ChargebacksResource';
+import PaymentsCapturesResource from './resources/payments/captures/PaymentsCapturesResource';
+import MethodsResource from './resources/methods/MethodsResource';
+import CustomersResource from './resources/customers/CustomersResource';
+import CustomersPaymentsResource from './resources/customers/payments/CustomersPaymentsResource';
+import CustomersMandatesResource from './resources/customers/mandates/CustomersMandatesResource';
+import CustomersSubscriptionsResource from './resources/customers/subscriptions/CustomersSubscriptionsResource';
 
 export interface MollieOptions extends AxiosRequestConfig {
   /**
@@ -161,12 +161,11 @@ export default function createMollieClient(options: MollieOptions): MollieClient
 
 export { createMollieClient };
 
-export { ApiMode, Locale, PaymentMethod, HistoricPaymentMethod, SequenceType } from './types/global';
-export { MandateMethod, MandateStatus } from './types/mandate/index';
-export { MethodImageSize, MethodInclude } from './types/method/index';
-export { OrderEmbed, OrderStatus } from './types/order/index';
-export { OrderLineType } from './types/order/line/index';
-export { PaymentEmbed, PaymentStatus } from './types/payment/index';
-export { PaymentChargebackEmbed } from './types/payment/chargeback/index';
-export { RefundEmbed, RefundStatus } from './types/refund/index';
-export { SubscriptionStatus } from './types/subscription/index';
+export { ApiMode, Locale, PaymentMethod, HistoricPaymentMethod, SequenceType } from './data/global';
+export { MandateMethod, MandateStatus } from './data/customers/mandates/data';
+export { MethodImageSize, MethodInclude } from './data/methods/data';
+export { OrderEmbed, OrderStatus } from './data/orders/data';
+export { OrderLineType } from './data/orders/orderlines/OrderLine';
+export { PaymentEmbed, PaymentStatus } from './data/payments/data';
+export { RefundEmbed, RefundStatus } from './data/refunds/data';
+export { SubscriptionStatus } from './data/subscription/data';

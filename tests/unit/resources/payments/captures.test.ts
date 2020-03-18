@@ -87,7 +87,7 @@ test('getCapture', async () => {
 
   adapter.onGet('/payments/tr_WDqYK6vllg/captures/cpt_4qqhO89gsT').reply(200, composeCaptureResponse('tr_WDqYK6vllg', 'cpt_4qqhO89gsT'));
 
-  const capture = await callAsync(client.payments_captures.get, client.payments_captures, 'cpt_4qqhO89gsT', { paymentId: 'tr_WDqYK6vllg' });
+  const capture = await client.payments_captures.get('cpt_4qqhO89gsT', { paymentId: 'tr_WDqYK6vllg' });
 
   testCapture(capture);
 });
@@ -114,7 +114,7 @@ test('listCaptures', async () => {
     },
   });
 
-  const captures = await callAsync(client.payments_captures.all, client.payments_captures, { paymentId: 'tr_WDqYK6vllg' });
+  const captures = await client.payments_captures.all({ paymentId: 'tr_WDqYK6vllg' });
 
   expect(captures.length).toBe(1);
 

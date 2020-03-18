@@ -93,7 +93,7 @@ test('createPartialOrderRefund', async () => {
 
   adapter.onPost('/orders/ord_stTC2WHAuS/refunds').reply(201, composeRefundResponse('re_4qqhO89gsT', 'ord_stTC2WHAuS'));
 
-  const refund = await callAsync(client.orders_refunds.create, client.orders_refunds, { orderId: 'ord_stTC2WHAuS', lines: [{ id: 'odl_dgtxyl', quantity: 1 }] });
+  const refund = await client.orders_refunds.create({ orderId: 'ord_stTC2WHAuS', lines: [{ id: 'odl_dgtxyl', quantity: 1 }] });
 
   testRefund(refund, 're_4qqhO89gsT');
 });
@@ -103,7 +103,7 @@ test('createCompleteOrderRefund', async () => {
 
   adapter.onPost('/orders/ord_stTC2WHAuS/refunds').reply(201, composeRefundResponse('re_4qqhO89gsT', 'ord_stTC2WHAuS'));
 
-  const refund = await callAsync(client.orders_refunds.create, client.orders_refunds, { orderId: 'ord_stTC2WHAuS', lines: [] });
+  const refund = await client.orders_refunds.create({ orderId: 'ord_stTC2WHAuS', lines: [] });
 
   testRefund(refund, 're_4qqhO89gsT');
 });
@@ -197,7 +197,7 @@ test('listOrderRefunds', async () => {
     },
   });
 
-  const refunds = await callAsync(client.orders_refunds.all, client.orders_refunds, { orderId: 'ord_stTC2WHAuS' });
+  const refunds = await client.orders_refunds.all({ orderId: 'ord_stTC2WHAuS' });
 
   expect(refunds.length).toBe(1);
 
