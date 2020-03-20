@@ -5,6 +5,8 @@ import { CreateParameters, GetParameters, ListParameters, CancelParameters } fro
 import checkId from '../../plumbing/checkId';
 import ApiError from '../../errors/ApiError';
 import List from '../../data/list/List';
+import renege from '../../plumbing/renege';
+import Callback from '../../types/Callback';
 
 /**
  * The `payments` resource
@@ -71,7 +73,10 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
    *
    * @public ✓ This method is part of the public API
    */
-  public create(parameters: CreateParameters): Promise<Payment> {
+  public create(parameters: CreateParameters): Promise<Payment>;
+  public create(parameters: CreateParameters, callback: (error: Error | null, payment?: Payment) => void): void;
+  public create(parameters: CreateParameters) {
+    if (renege(this, this.create, ...arguments)) return;
     return this.network.post(this.getResourceUrl(), parameters);
   }
 
@@ -91,7 +96,10 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
    *
    * @public ✓ This method is part of the public API
    */
-  public get(id: string, parameters?: GetParameters): Promise<Payment> {
+  public get(id: string, parameters?: GetParameters): Promise<Payment>;
+  public get(id: string, parameters: GetParameters, callback: Callback<Payment>): void;
+  public get(id: string, parameters?: GetParameters) {
+    if (renege(this, this.get, ...arguments)) return;
     if (!checkId(id, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }
@@ -113,9 +121,12 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
    *
    * @public ✓ This method is part of the public API
    */
-  public async list(parameters: ListParameters = {}): Promise<List<Payment>> {
-    const result = await this.network.list(this.getResourceUrl(), 'payments', parameters);
-    return this.injectPaginationHelpers(result, this.list, parameters);
+  public list(parameters?: ListParameters): Promise<List<Payment>>;
+  public list(parameters: ListParameters, callback: Callback<List<Payment>>): void;
+  public list(parameters: ListParameters = {}) {
+    if (renege(this, this.list, ...arguments)) return;
+    return this.network.list(this.getResourceUrl(), 'payments', parameters)
+    .then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 
   /**
@@ -136,7 +147,10 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
    *
    * @public ✓ This method is part of the public API
    */
-  public cancel(id: string, parameters: CancelParameters = {}): Promise<Payment> {
+  public cancel(id: string, parameters?: CancelParameters): Promise<Payment>;
+  public cancel(id: string, parameters: CancelParameters, callback: Callback<List<Payment>>): void;
+  public cancel(id: string, parameters: CancelParameters = {}) {
+    if (renege(this, this.cancel, ...arguments)) return;
     if (!checkId(id, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }

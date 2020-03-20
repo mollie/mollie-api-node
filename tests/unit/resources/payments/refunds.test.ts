@@ -1,5 +1,4 @@
 import wireMockClient from '../../../wireMockClient';
-import callAsync from '../../../callAsync';
 
 test('getRefund', async () => {
   const { adapter, client } = wireMockClient();
@@ -35,7 +34,7 @@ test('getRefund', async () => {
     },
   });
 
-  const refund = await client.payments_refunds.get('re_PsAvxvLsnm', { paymentId: 'tr_44aKxzEbr8' });
+  const refund = await bluster(client.payments_refunds.get.bind(client.payments_refunds))('re_PsAvxvLsnm', { paymentId: 'tr_44aKxzEbr8' });
 
   expect(refund.id).toBe('re_PsAvxvLsnm');
 
@@ -104,7 +103,7 @@ test('createRefund', async () => {
     },
   });
 
-  const refund = await client.payments_refunds.create({ paymentId: 'tr_44aKxzEbr8', amount: { currency: 'EUR', value: '20.00' } });
+  const refund = await bluster(client.payments_refunds.create.bind(client.payments_refunds))({ paymentId: 'tr_44aKxzEbr8', amount: { currency: 'EUR', value: '20.00' } });
 
   expect(refund.id).toBe('re_PsAvxvLsnm');
 

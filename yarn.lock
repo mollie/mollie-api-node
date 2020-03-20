@@ -1445,6 +1445,11 @@ binary-extensions@^2.0.0:
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-2.0.0.tgz#23c0df14f6a88077f5f986c0d167ec03c3d5537c"
   integrity sha512-Phlt0plgpIIBOGTT/ehfFnbNlfsDEiqmzE2KRXoX1bLIlir4X/MR+zSyBEkL05ffWgnRSf/DXv+WrUAVr93/ow==
 
+bluster@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/bluster/-/bluster-1.0.0.tgz#73956d3926117cfac3a80afcda8214add9e07592"
+  integrity sha512-gLkgzcajAvHV7ue0pQodzVC61ZxV91URQ5+/f0fNISOLOWubGnFaIMyYEq07+y9Pg0fjiKYtqdqBk1Y05bcUnA==
+
 brace-expansion@^1.1.7:
   version "1.1.11"
   resolved "https://registry.yarnpkg.com/brace-expansion/-/brace-expansion-1.1.11.tgz#3c7fcbf529d87226f3d2f52b966ff5271eb441dd"
@@ -3349,6 +3354,13 @@ istanbul-reports@^2.2.6:
   integrity sha512-SKi4rnMyLBKe0Jy2uUdx28h8oG7ph2PPuQPvIAh31d+Ci+lSiEu4C+h3oBPuJ9+mPKhOyW0M8gY4U5NM1WLeXA==
   dependencies:
     handlebars "^4.1.2"
+
+jest-bluster@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/jest-bluster/-/jest-bluster-1.0.0.tgz#9d18e8dc338fc8e516388a95fcd6b84b86b9f08e"
+  integrity sha512-P6Vr+pGuMns0e1DGAjWg4jAt98b6wZwRfuAWnIm3RftT1VRKnO65svox+giPq2Zn0OQBdtUMmShbKXhhSEPTYQ==
+  dependencies:
+    bluster "1.0.0"
 
 jest-changed-files@^24.9.0:
   version "24.9.0"

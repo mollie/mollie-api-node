@@ -1,10 +1,12 @@
 import ParentedResource from '../../ParentedResource';
 import { PaymentData } from '../../../data/payments/data';
 import Payment, { injectPrototypes } from '../../../data/payments/Payment';
-import { CreateParameters, ContextParameters } from './parameters';
+import { CreateParameters, ListParameters } from './parameters';
 import checkId from '../../../plumbing/checkId';
 import ApiError from '../../../errors/ApiError';
 import List from '../../../data/list/List';
+import renege from '../../../plumbing/renege';
+import Callback from '../../../types/Callback';
 
 /**
  * The `customers_payments` resource.
@@ -57,13 +59,16 @@ export default class CustomersPaymentsResource extends ParentedResource<PaymentD
    *
    * @public ✓ This method is part of the public API
    */
-  public create(parameters: CreateParameters): Promise<Payment> {
+  public create(parameters: CreateParameters): Promise<Payment>;
+  public create(parameters: CreateParameters, callback: Callback<Payment>): void;
+  public create(parameters: CreateParameters) {
+    if (renege(this, this.create, ...arguments)) return;
     const customerId = this.getParentId(parameters.customerId);
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...data } = parameters;
-    return this.network.post(this.getResourceUrl(customerId), data);
+    return this.network.post(this.getResourceUrl(customerId!), data);
   }
 
   /**
@@ -81,14 +86,17 @@ export default class CustomersPaymentsResource extends ParentedResource<PaymentD
    *
    * @public ✓ This method is part of the public API
    */
-  public async list(parameters: ContextParameters): Promise<List<Payment>> {
+  public list(parameters: ListParameters): Promise<List<Payment>>;
+  public list(parameters: ListParameters, callback: Callback<List<Payment>>): void;
+  public list(parameters: ListParameters) {
+    if (renege(this, this.list, ...arguments)) return;
     // parameters || {} is used here, because in case withParent is used, parameters could be omitted.
     const customerId = this.getParentId((parameters || {}).customerId);
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...query } = parameters || {};
-    const result = await this.network.list(this.getResourceUrl(customerId), 'payments', query);
-    return this.injectPaginationHelpers(result, this.list, parameters || {});
+    return this.network.list(this.getResourceUrl(customerId!), 'payments', query)
+    .then(result => this.injectPaginationHelpers(result, this.list, parameters || {}));
   }
 }

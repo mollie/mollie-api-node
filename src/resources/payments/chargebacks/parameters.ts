@@ -1,7 +1,7 @@
 import { PaymentChargebackEmbed } from '../../../types/payment/chargeback';
 import { CommonListParameters } from '../../../types/parameters';
 
-export interface ContextParameters {
+interface ContextParameters {
   paymentId: string;
 }
 

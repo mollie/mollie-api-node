@@ -1,5 +1,4 @@
 import wireMockClient from '../../wireMockClient';
-import callAsync from '../../callAsync';
 
 function testChargeback(chargeback, paymentId, chargebackId, amount) {
   expect(chargeback.resource).toBe('chargeback');

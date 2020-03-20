@@ -1,7 +1,7 @@
 import { MandateData } from '../../../data/customers/mandates/data';
 import { CommonListParameters } from '../../../types/parameters';
 
-export interface ContextParameters {
+interface ContextParameters {
   customerId: string;
   testmode?: boolean;
 }
@@ -15,4 +15,8 @@ export type CreateParameters = ContextParameters &
     mandateReference?: string;
   };
 
+export type GetParameters = ContextParameters;
+
 export type ListParameters = ContextParameters & CommonListParameters;
+
+export type RevokeParameters = ContextParameters;

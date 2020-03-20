@@ -4,6 +4,8 @@ import ParentedResource from '../../ParentedResource';
 import Payment, { injectPrototypes } from '../../../data/payments/Payment';
 import { PaymentData } from '../../../data/payments/data';
 import ApiError from '../../../errors/ApiError';
+import renege from '../../../plumbing/renege';
+import Callback from '../../../types/Callback';
 
 /**
  * The `orders_payments` resource
@@ -32,12 +34,15 @@ export default class OrdersPaymentsResource extends ParentedResource<PaymentData
    *
    * @public ✓ This method is part of the public API
    */
-  public create(parameters: CreateParameters): Promise<Payment> {
+  public create(parameters: CreateParameters): Promise<Payment>;
+  public create(parameters: CreateParameters, callback: Callback<Payment>): void;
+  public create(parameters: CreateParameters) {
+    if (renege(this, this.create, ...arguments)) return;
     const orderId = this.getParentId(parameters.orderId);
     if (!checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...data } = parameters;
-    return this.network.post(this.getResourceUrl(orderId), data);
+    return this.network.post(this.getResourceUrl(orderId!), data);
   }
 }

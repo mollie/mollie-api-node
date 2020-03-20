@@ -1,9 +1,11 @@
 import ParentedResource from '../../ParentedResource';
 import Shipment, { ShipmentData, injectPrototypes } from '../../../data/orders/shipments/Shipment';
 import checkId from '../../../plumbing/checkId';
-import { ContextParameters, CreateParameters, UpdateParameters } from './parameters';
+import { CreateParameters, GetParameters, ListParameters, UpdateParameters } from './parameters';
 import ApiError from '../../../errors/ApiError';
 import List from '../../../data/list/List';
+import renege from '../../../plumbing/renege';
+import Callback from '../../../types/Callback';
 
 /**
  * The `order_shipments` resource
@@ -65,13 +67,16 @@ export default class OrdersShipmentsResource extends ParentedResource<ShipmentDa
    *
    * @public ✓ This method is part of the public API
    */
-  public create(parameters: CreateParameters): Promise<Shipment> {
+  public create(parameters: CreateParameters): Promise<Shipment>;
+  public create(parameters: CreateParameters, callback: Callback<Shipment>): void;
+  public create(parameters: CreateParameters) {
+    if (renege(this, this.create, ...arguments)) return;
     const orderId = this.getParentId(parameters.orderId);
     if (!checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...data } = parameters;
-    return this.network.post(this.getResourceUrl(orderId), data);
+    return this.network.post(this.getResourceUrl(orderId!), data);
   }
 
   /**
@@ -89,7 +94,10 @@ export default class OrdersShipmentsResource extends ParentedResource<ShipmentDa
    *
    * @public ✓ This method is part of the public API
    */
-  public get(id: string, parameters: ContextParameters): Promise<Shipment> {
+  public get(id: string, parameters: GetParameters): Promise<Shipment>;
+  public get(id: string, parameters: GetParameters, callback: Callback<Shipment>): void;
+  public get(id: string, parameters: GetParameters) {
+    if (renege(this, this.get, ...arguments)) return;
     if (!checkId(id, 'shipment')) {
       throw new ApiError('The orders_shipments id is invalid');
     }
@@ -99,7 +107,7 @@ export default class OrdersShipmentsResource extends ParentedResource<ShipmentDa
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...query } = parameters || {};
-    return this.network.get(`${this.getResourceUrl(orderId)}/${id}`, query);
+    return this.network.get(`${this.getResourceUrl(orderId!)}/${id}`, query);
   }
 
   /**
@@ -117,7 +125,10 @@ export default class OrdersShipmentsResource extends ParentedResource<ShipmentDa
    *
    * @public ✓ This method is part of the public API
    */
-  public async update(id: string, parameters: UpdateParameters): Promise<Shipment> {
+  public update(id: string, parameters: UpdateParameters): Promise<Shipment>;
+  public update(id: string, parameters: UpdateParameters, callback: Callback<Shipment>): void;
+  public update(id: string, parameters: UpdateParameters) {
+    if (renege(this, this.update, ...arguments)) return;
     if (!checkId(id, 'shipment')) {
       throw new ApiError('The orders_shipments id is invalid');
     }
@@ -126,7 +137,7 @@ export default class OrdersShipmentsResource extends ParentedResource<ShipmentDa
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...data } = parameters;
-    return this.network.patch(`${this.getResourceUrl(orderId)}/${id}`, data);
+    return this.network.patch(`${this.getResourceUrl(orderId!)}/${id}`, data);
   }
 
   /**
@@ -144,14 +155,17 @@ export default class OrdersShipmentsResource extends ParentedResource<ShipmentDa
    *
    * @public ✓ This method is part of the public API
    */
-  public async list(parameters: ContextParameters): Promise<List<Shipment>> {
+  public list(parameters: ListParameters): Promise<List<Shipment>>;
+  public list(parameters: ListParameters, callback: Callback<List<Shipment>>): void;
+  public list(parameters: ListParameters) {
+    if (renege(this, this.list, ...arguments)) return;
     // parameters || {} is used here, because in case withParent is used, parameters could be omitted.
     const orderId = this.getParentId((parameters || {}).orderId);
     if (!checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...query } = parameters || {};
-    const result = await this.network.list(this.getResourceUrl(orderId), 'shipments', query);
-    return this.injectPaginationHelpers(result, this.list, parameters);
+    return this.network.list(this.getResourceUrl(orderId!), 'shipments', query)
+    .then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 }

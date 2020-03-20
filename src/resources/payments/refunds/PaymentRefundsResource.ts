@@ -1,10 +1,12 @@
 import ParentedResource from '../../ParentedResource';
 import { RefundData } from '../../../data/refunds/data';
 import Refund, { injectPrototypes } from '../../../data/refunds/Refund';
-import { CreateParameters, GetParameters, ListParameters, ContextParameters } from './parameters';
+import { CreateParameters, GetParameters, ListParameters, CancelParameters } from './parameters';
 import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import List from '../../../data/list/List';
+import renege from '../../../plumbing/renege';
+import Callback from '../../../types/Callback';
 
 /**
  * The `payments_refunds` resource
@@ -67,13 +69,16 @@ export default class PaymentsRefundsResource extends ParentedResource<RefundData
    *
    * @public ✓ This method is part of the public API
    */
-  public create(parameters: CreateParameters): Promise<Refund> {
+  public create(parameters: CreateParameters): Promise<Refund>;
+  public create(parameters: CreateParameters, callback: Callback<Refund>): void;
+  public create(parameters: CreateParameters) {
+    if (renege(this, this.create, ...arguments)) return;
     const paymentId = this.getParentId(parameters.paymentId);
     if (!checkId(paymentId, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...data } = parameters;
-    return this.network.post(this.getResourceUrl(paymentId), data);
+    return this.network.post(this.getResourceUrl(paymentId!), data);
   }
 
   /**
@@ -90,7 +95,10 @@ export default class PaymentsRefundsResource extends ParentedResource<RefundData
    *
    * @public ✓ This method is part of the public API
    */
-  public get(id: string, parameters: GetParameters): Promise<Refund> {
+  public get(id: string, parameters: GetParameters): Promise<Refund>;
+  public get(id: string, parameters: GetParameters, callback: Callback<Refund>): void;
+  public get(id: string, parameters: GetParameters) {
+    if (renege(this, this.get, ...arguments)) return;
     if (!checkId(id, 'refund')) {
       throw new ApiError('The payments_refund id is invalid');
     }
@@ -100,7 +108,7 @@ export default class PaymentsRefundsResource extends ParentedResource<RefundData
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    return this.network.get(`${this.getResourceUrl(paymentId)}/${id}`, query);
+    return this.network.get(`${this.getResourceUrl(paymentId!)}/${id}`, query);
   }
 
   /**
@@ -116,15 +124,18 @@ export default class PaymentsRefundsResource extends ParentedResource<RefundData
    *
    * @public ✓ This method is part of the public API
    */
-  public async list(parameters: ListParameters): Promise<List<Refund>> {
+  public list(parameters: ListParameters): Promise<List<Refund>>;
+  public list(parameters: ListParameters, callback: Callback<List<Refund>>): void;
+  public list(parameters: ListParameters) {
+    if (renege(this, this.list, ...arguments)) return;
     // parameters || {} is used here, because in case withParent is used, parameters could be omitted.
     const paymentId = this.getParentId((parameters || {}).paymentId);
     if (!checkId(paymentId, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    const result = await this.network.list(this.getResourceUrl(paymentId), 'refunds', query);
-    return this.injectPaginationHelpers(result, this.list, parameters);
+    return this.network.list(this.getResourceUrl(paymentId!), 'refunds', query)
+    .then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 
   /**
@@ -143,7 +154,10 @@ export default class PaymentsRefundsResource extends ParentedResource<RefundData
    *
    * @public ✓ This method is part of the public API
    */
-  public cancel(id: string, parameters: ContextParameters): Promise<true> {
+  public cancel(id: string, parameters: CancelParameters): Promise<true>;
+  public cancel(id: string, parameters: CancelParameters, callback: Callback<Promise<true>>): void;
+  public cancel(id: string, parameters: CancelParameters) {
+    if (renege(this, this.cancel, ...arguments)) return;
     if (!checkId(id, 'refund')) {
       throw new ApiError('The payments_refund id is invalid');
     }
@@ -153,6 +167,6 @@ export default class PaymentsRefundsResource extends ParentedResource<RefundData
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    return this.network.delete(`${this.getResourceUrl(paymentId)}/${id}`) as Promise<true>;
+    return this.network.delete(`${this.getResourceUrl(paymentId!)}/${id}`) as Promise<true>;
   }
 }

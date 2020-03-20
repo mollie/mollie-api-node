@@ -1,5 +1,4 @@
 import wireMockClient from '../../../wireMockClient';
-import callAsync from '../../../callAsync';
 
 test('createCustomerSubscription', async () => {
   const { adapter, client } = wireMockClient();
@@ -36,7 +35,7 @@ test('createCustomerSubscription', async () => {
     },
   });
 
-  const subscription = await client.customers_subscriptions.create({
+  const subscription = await bluster(client.customers_subscriptions.create.bind(client.customers_subscriptions))({
     customerId: 'cst_FhQJRw4s2n',
     amount: {
       value: '10.00',
@@ -100,7 +99,7 @@ test('getCustomerSubscription', async () => {
     },
   });
 
-  const subscription = await client.customers_subscriptions.get('sub_wByQa6efm6', { customerId: 'cst_FhQJRw4s2n' });
+  const subscription = await bluster(client.customers_subscriptions.get.bind(client.customers_subscriptions))('sub_wByQa6efm6', { customerId: 'cst_FhQJRw4s2n' });
 
   expect(subscription.resource).toBe('subscription');
   expect(subscription.id).toBe('sub_wByQa6efm6');
@@ -171,7 +170,7 @@ test('getCustomerSubscriptions', async () => {
     },
   });
 
-  const subscriptions = await client.customers_subscriptions.all({ customerId: 'cst_FhQJRw4s2n' });
+  const subscriptions = await bluster(client.customers_subscriptions.all.bind(client.customers_subscriptions))({ customerId: 'cst_FhQJRw4s2n' });
 
   expect(subscriptions.length).toBe(1);
 
@@ -221,7 +220,7 @@ test('cancelCustomerSubscription', async () => {
     },
   });
 
-  const subscription = await client.customers_subscriptions.cancel('sub_DRjwaT5qHx', { customerId: 'cst_VhjQebNW5j' });
+  const subscription = await bluster(client.customers_subscriptions.cancel.bind(client.customers_subscriptions))('sub_DRjwaT5qHx', { customerId: 'cst_VhjQebNW5j' });
 
   expect(subscription.resource).toBe('subscription');
   expect(subscription.id).toBe('sub_DRjwaT5qHx');
@@ -283,7 +282,7 @@ test('updateCustomerSubscription', async () => {
     },
   });
 
-  const subscription = await client.customers_subscriptions.update('sub_DRjwaT5qHx', {
+  const subscription = await bluster(client.customers_subscriptions.update.bind(client.customers_subscriptions))('sub_DRjwaT5qHx', {
     customerId: 'cst_VhjQebNW5j',
     amount: { value: expectedAmountValue, currency: expectedAmountCurrency },
     startDate: expectedStartDate,

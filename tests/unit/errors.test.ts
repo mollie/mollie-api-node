@@ -1,6 +1,5 @@
 import { PaymentCreateParams } from '../..';
 import wireMockClient from '../wireMockClient';
-import callAsync from '../callAsync';
 
 test('errorHandling', async () => {
   expect.assertions(5);
@@ -15,7 +14,7 @@ test('errorHandling', async () => {
   });
 
   try {
-    await callAsync(client.customers.get, client.customers, 'cst_chinchilla');
+    await bluster(client.customers.get.bind(client.customers))('cst_chinchilla');
   } catch (error) {
     expect(error).toBeInstanceOf(Error);
     expect(error.message).toBe('No customer exists with token cst_chinchilla.');
@@ -32,7 +31,7 @@ test('errorHandling', async () => {
   try {
     const createPaymentParams = {};
 
-    await callAsync(client.payments.create, client.payments, createPaymentParams as PaymentCreateParams);
+    await bluster(client.payments.create.bind(client.payments))(createPaymentParams as PaymentCreateParams);
   } catch (error) {
     expect(error).toBeInstanceOf(Error);
     expect(error.field).toBe('amount');

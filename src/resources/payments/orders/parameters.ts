@@ -1,7 +1,7 @@
 import { PaymentData } from '../../../data/payments/data';
 import { PaymentMethod } from '../../../data/global';
 
-export interface ContextParameters {
+interface ContextParameters {
   orderId: string;
   testmode?: boolean;
 }

@@ -2,8 +2,10 @@ import ParentedResource from '../../ParentedResource';
 import Capture, { CaptureData, injectPrototypes } from '../../../data/payments/captures/Capture';
 import checkId from '../../../plumbing/checkId';
 import ApiError from '../../../errors/ApiError';
-import { ContextParameters } from './parameters';
+import { GetParameters, ListParameters } from './parameters';
 import List from '../../../data/list/List';
+import renege from '../../../plumbing/renege';
+import Callback from '../../../types/Callback';
 
 /**
  * The `payments_captures` resource
@@ -57,7 +59,10 @@ export default class PaymentsCapturesResource extends ParentedResource<CaptureDa
    *
    * @public ✓ This method is part of the public API
    */
-  public get(id: string, parameters: ContextParameters): Promise<Capture> {
+  public get(id: string, parameters: GetParameters): Promise<Capture>;
+  public get(id: string, parameters: GetParameters, callback: Callback<Capture>): void;
+  public get(id: string, parameters: GetParameters) {
+    if (renege(this, this.get, ...arguments)) return;
     if (!checkId(id, 'capture')) {
       throw new ApiError('The capture id is invalid');
     }
@@ -67,7 +72,7 @@ export default class PaymentsCapturesResource extends ParentedResource<CaptureDa
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    return this.network.get(`${this.getResourceUrl(paymentId)}/${id}`, query);
+    return this.network.get(`${this.getResourceUrl(paymentId!)}/${id}`, query);
   }
 
   /**
@@ -85,14 +90,17 @@ export default class PaymentsCapturesResource extends ParentedResource<CaptureDa
    *
    * @public ✓ This method is part of the public API
    */
-  public async list(parameters: ContextParameters): Promise<List<Capture>> {
+  public list(parameters: ListParameters): Promise<List<Capture>>;
+  public list(parameters: ListParameters, callback: Callback<List<Capture>>): void;
+  public list(parameters: ListParameters) {
+    if (renege(this, this.list, ...arguments)) return;
     // parameters || {} is used here, because in case withParent is used, parameters could be omitted.
     const paymentId = this.getParentId((parameters || {}).paymentId);
     if (!checkId(paymentId, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    const result = await this.network.list(this.getResourceUrl(paymentId), 'captures', query);
-    return this.injectPaginationHelpers(result, this.list, parameters);
+    return this.network.list(this.getResourceUrl(paymentId!), 'captures', query)
+    .then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 }

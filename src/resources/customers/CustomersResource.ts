@@ -1,9 +1,11 @@
 import List from '../../data/list/List';
 import Customer, { CustomerData, injectPrototypes } from '../../data/customers/Customer';
 import Resource from '../Resource';
-import { CreateParameters, ContextParameters, ListParameters, UpdateParameters } from './parameters';
+import { CreateParameters, GetParameters, ListParameters, UpdateParameters, DeleteParameters } from './parameters';
 import checkId from '../../plumbing/checkId';
 import ApiError from '../../errors/ApiError';
+import renege from '../../plumbing/renege';
+import Callback from '../../types/Callback';
 
 /**
  * The `Customers` resource
@@ -72,7 +74,10 @@ export default class CustomersResource extends Resource<CustomerData, Customer> 
    *
    * @public ✓ This method is part of the public API
    */
-  public create(parameters: CreateParameters): Promise<Customer> {
+  public create(parameters: CreateParameters): Promise<Customer>;
+  public create(parameters: CreateParameters, callback: Callback<Customer>): void;
+  public create(parameters: CreateParameters) {
+    if (renege(this, this.create, ...arguments)) return;
     return this.network.post(this.getResourceUrl(), parameters);
   }
 
@@ -92,7 +97,10 @@ export default class CustomersResource extends Resource<CustomerData, Customer> 
    *
    * @public ✓ This method is part of the public API
    */
-  public get(id: string, parameters?: ContextParameters): Promise<Customer> {
+  public get(id: string, parameters?: GetParameters): Promise<Customer>;
+  public get(id: string, parameters: GetParameters, callback: Callback<Customer>): void;
+  public get(id: string, parameters?: GetParameters) {
+    if (renege(this, this.get, ...arguments)) return;
     if (!checkId(id, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
@@ -114,9 +122,12 @@ export default class CustomersResource extends Resource<CustomerData, Customer> 
    *
    * @public ✓ This method is part of the public API
    */
-  public async list(parameters: ListParameters = {}): Promise<List<Customer>> {
-    const result = await this.network.list(this.getResourceUrl(), 'customers', parameters);
-    return this.injectPaginationHelpers(result, this.list, parameters);
+  public list(parameters?: ListParameters): Promise<List<Customer>>;
+  public list(parameters: ListParameters, callback: Callback<List<Customer>>): void;
+  public list(parameters: ListParameters = {}) {
+    if (renege(this, this.list, ...arguments)) return;
+    return this.network.list(this.getResourceUrl(), 'customers', parameters)
+    .then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 
   /**
@@ -135,7 +146,10 @@ export default class CustomersResource extends Resource<CustomerData, Customer> 
    *
    * @public ✓ This method is part of the public API
    */
-  public update(id: string, parameters: UpdateParameters): Promise<Customer> {
+  public update(id: string, parameters: UpdateParameters): Promise<Customer>;
+  public update(id: string, parameters: UpdateParameters, callback: Callback<Customer>): void;
+  public update(id: string, parameters: UpdateParameters) {
+    if (renege(this, this.update, ...arguments)) return;
     if (!checkId(id, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
@@ -158,7 +172,10 @@ export default class CustomersResource extends Resource<CustomerData, Customer> 
    *
    * @public ✓ This method is part of the public API
    */
-  public delete(id: string, parameters?: ContextParameters): Promise<true> {
+  public delete(id: string, parameters?: DeleteParameters): Promise<true>;
+  public delete(id: string, parameters: DeleteParameters, callback: Callback<true>): void
+  public delete(id: string, parameters?: DeleteParameters) {
+    if (renege(this, this.delete, ...arguments)) return;
     if (!checkId(id, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }

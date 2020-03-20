@@ -1,9 +1,11 @@
-import { UpdateParameters, CancelParameters } from '../shipments/parameters';
+import { UpdateParameters, CancelParameters } from './parameters';
 import Order, { injectPrototypes } from '../../../data/orders/Order';
 import { OrderData } from '../../../data/orders/data';
 import ParentedResource from '../../ParentedResource';
 import checkId from '../../../plumbing/checkId';
 import ApiError from '../../../errors/ApiError';
+import renege from '../../../plumbing/renege';
+import Callback from '../../../types/Callback';
 
 /**
  * The `orders_lines` resource
@@ -12,7 +14,7 @@ import ApiError from '../../../errors/ApiError';
  */
 export default class OrdersLinesResource extends ParentedResource<OrderData, Order> {
   protected getResourceUrl(orderId: string): string {
-    return `orders/${orderId}/payments`;
+    return `orders/${orderId}/lines`;
   }
 
   protected injectPrototypes = injectPrototypes;
@@ -46,7 +48,10 @@ export default class OrdersLinesResource extends ParentedResource<OrderData, Ord
    *
    * @public ✓ This method is part of the public API
    */
-  public update(id: string, parameters: UpdateParameters): Promise<Order> {
+  public update(id: string, parameters: UpdateParameters): Promise<Order>;
+  public update(id: string, parameters: UpdateParameters, callback: Callback<Order>): void;
+  public update(id: string, parameters: UpdateParameters) {
+    if (renege(this, this.update, ...arguments)) return;
     if (!checkId(id, 'orderline')) {
       throw new ApiError('The orders_lines id is invalid');
     }
@@ -55,7 +60,7 @@ export default class OrdersLinesResource extends ParentedResource<OrderData, Ord
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...data } = parameters;
-    return this.network.patch(`${this.getResourceUrl(orderId)}/${id}`, data);
+    return this.network.patch(`${this.getResourceUrl(orderId!)}/${id}`, data);
   }
 
   /**
@@ -73,15 +78,15 @@ export default class OrdersLinesResource extends ParentedResource<OrderData, Ord
    *
    * @public ✓ This method is part of the public API
    */
-  public cancel(id: string, parameters: CancelParameters): Promise<true> {
-    if (!checkId(id, 'orderline')) {
-      throw new ApiError('The orders_lines id is invalid');
-    }
+  public cancel(parameters: CancelParameters): Promise<true>;
+  public cancel(parameters: CancelParameters, callback: Callback<true>): void;
+  public cancel(parameters: CancelParameters) {
+    if (renege(this, this.cancel, ...arguments)) return;
     const orderId = this.getParentId(parameters.orderId);
     if (!checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...data } = parameters;
-    return this.network.delete(`${this.getResourceUrl(orderId)}/${id}`) as Promise<true>;
+    return this.network.delete(this.getResourceUrl(orderId!)) as Promise<true>;
   }
 }

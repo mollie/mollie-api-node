@@ -4,6 +4,8 @@ import Chargeback, { ChargebackData, injectPrototypes } from '../../../data/char
 import checkId from '../../../plumbing/checkId';
 import ApiError from '../../../errors/ApiError';
 import { GetParameters, ListParameters } from './parameters';
+import renege from '../../../plumbing/renege';
+import Callback from '../../../types/Callback';
 
 /**
  * The `payments_chargebacks` resource
@@ -58,7 +60,10 @@ export default class PaymentsChargebacksResource extends ParentedResource<Charge
    *
    * @public ✓ This method is part of the public API
    */
-  public get(id: string, parameters: GetParameters): Promise<Chargeback> {
+  public get(id: string, parameters: GetParameters): Promise<Chargeback>;
+  public get(id: string, parameters: GetParameters, callback: Callback<Chargeback>): void;
+  public get(id: string, parameters: GetParameters) {
+    if (renege(this, this.get, ...arguments)) return;
     if (!checkId(id, 'refund')) {
       throw new ApiError('The payments_refund id is invalid');
     }
@@ -68,7 +73,7 @@ export default class PaymentsChargebacksResource extends ParentedResource<Charge
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    return this.network.get(`${this.getResourceUrl(paymentId)}/${id}`, query);
+    return this.network.get(`${this.getResourceUrl(paymentId!)}/${id}`, query);
   }
 
   /**
@@ -85,14 +90,17 @@ export default class PaymentsChargebacksResource extends ParentedResource<Charge
    *
    * @public ✓ This method is part of the public API
    */
-  public async list(parameters: ListParameters): Promise<List<Chargeback>> {
+  public list(parameters: ListParameters): Promise<List<Chargeback>>;
+  public list(parameters: ListParameters, callback: Callback<List<Chargeback>>): void;
+  public list(parameters: ListParameters) {
+    if (renege(this, this.list, ...arguments)) return;
     // parameters || {} is used here, because in case withParent is used, parameters could be omitted.
     const paymentId = this.getParentId((parameters || {}).paymentId);
     if (!checkId(paymentId, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    const result = await this.network.list(this.getResourceUrl(paymentId), 'chargebacks', query);
-    return this.injectPaginationHelpers(result, this.list, parameters);
+    return this.network.list(this.getResourceUrl(paymentId!), 'chargebacks', query)
+    .then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 }

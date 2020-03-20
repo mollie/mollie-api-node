@@ -1,10 +1,12 @@
 import ParentedResource from '../../ParentedResource';
 import { SubscriptionData } from '../../../data/subscription/data';
 import Subscription, { injectPrototypes } from '../../../data/subscription/Subscription';
-import { CreateParameters, ContextParameters, ListParameters, UpdateParameters } from './parameters';
+import { CreateParameters, GetParameters, ListParameters, UpdateParameters, CancelParameters } from './parameters';
 import checkId from '../../../plumbing/checkId';
 import ApiError from '../../../errors/ApiError';
 import List from '../../../data/list/List';
+import renege from '../../../plumbing/renege';
+import Callback from '../../../types/Callback';
 
 /**
  * The `customers_subscriptions` resource.
@@ -70,13 +72,16 @@ export default class CustomersSubscriptionsResource extends ParentedResource<Sub
    *
    * @public ✓ This method is part of the public API
    */
-  public create(parameters: CreateParameters): Promise<Subscription> {
+  public create(parameters: CreateParameters): Promise<Subscription>;
+  public create(parameters: CreateParameters, callback: Callback<Subscription>): void;
+  public create(parameters: CreateParameters) {
+    if (renege(this, this.create, ...arguments)) return;
     const customerId = this.getParentId(parameters.customerId);
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...data } = parameters;
-    return this.network.post(this.getResourceUrl(customerId), data);
+    return this.network.post(this.getResourceUrl(customerId!), data);
   }
 
   /**
@@ -95,7 +100,10 @@ export default class CustomersSubscriptionsResource extends ParentedResource<Sub
    *
    * @public ✓ This method is part of the public API
    */
-  public get(id: string, parameters: ContextParameters): Promise<Subscription> {
+  public get(id: string, parameters: GetParameters): Promise<Subscription>;
+  public get(id: string, parameters: GetParameters, callback: Callback<Subscription>): void;
+  public get(id: string, parameters: GetParameters) {
+    if (renege(this, this.get, ...arguments)) return;
     if (!checkId(id, 'subscription')) {
       throw new ApiError('The subscription id is invalid');
     }
@@ -105,7 +113,7 @@ export default class CustomersSubscriptionsResource extends ParentedResource<Sub
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...query } = parameters || {};
-    return this.network.get(`${this.getResourceUrl(customerId)}/${id}`, query);
+    return this.network.get(`${this.getResourceUrl(customerId!)}/${id}`, query);
   }
 
   /**
@@ -123,15 +131,18 @@ export default class CustomersSubscriptionsResource extends ParentedResource<Sub
    *
    * @public ✓ This method is part of the public API
    */
-  public async list(parameters: ListParameters): Promise<List<Subscription>> {
+  public list(parameters: ListParameters): Promise<List<Subscription>>;
+  public list(parameters: ListParameters, callback: Callback<List<Subscription>>): void;
+  public list(parameters: ListParameters) {
+    if (renege(this, this.list, ...arguments)) return;
     // parameters || {} is used here, because in case withParent is used, parameters could be omitted.
     const customerId = this.getParentId((parameters || {}).customerId);
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...query } = parameters || {};
-    const result = await this.network.list(this.getResourceUrl(customerId), 'subscriptions', query);
-    return this.injectPaginationHelpers(result, this.list, parameters || {});
+    return this.network.list(this.getResourceUrl(customerId!), 'subscriptions', query)
+    .then(result => this.injectPaginationHelpers(result, this.list, parameters || {}));
   }
 
   /**
@@ -150,7 +161,10 @@ export default class CustomersSubscriptionsResource extends ParentedResource<Sub
    *
    * @public ✓ This method is part of the public API
    */
-  public async update(id: string, parameters: UpdateParameters): Promise<Subscription> {
+  public update(id: string, parameters: UpdateParameters): Promise<Subscription>;
+  public update(id: string, parameters: UpdateParameters, callback: Callback<Subscription>): void;
+  public update(id: string, parameters: UpdateParameters) {
+    if (renege(this, this.update, ...arguments)) return;
     if (!checkId(id, 'subscription')) {
       throw new ApiError('The subscription id is invalid');
     }
@@ -159,7 +173,7 @@ export default class CustomersSubscriptionsResource extends ParentedResource<Sub
       throw new ApiError('The customer is invalid');
     }
     const { customerId: _, ...data } = parameters;
-    return this.network.patch(`${this.getResourceUrl(customerId)}/${id}`, data);
+    return this.network.patch(`${this.getResourceUrl(customerId!)}/${id}`, data);
   }
 
   /**
@@ -178,7 +192,10 @@ export default class CustomersSubscriptionsResource extends ParentedResource<Sub
    *
    * @public ✓ This method is part of the public API
    */
-  public cancel(id: string, parameters: ContextParameters): Promise<Subscription> {
+  public cancel(id: string, parameters: CancelParameters): Promise<Subscription>;
+  public cancel(id: string, parameters: CancelParameters, callback: Callback<Subscription>): void;
+  public cancel(id: string, parameters: CancelParameters) {
+    if (renege(this, this.cancel, ...arguments)) return;
     if (!checkId(id, 'subscription')) {
       throw new ApiError('The subscription id is invalid');
     }
@@ -188,6 +205,6 @@ export default class CustomersSubscriptionsResource extends ParentedResource<Sub
       throw new ApiError('The customer is invalid');
     }
     const { customerId: _, ...query } = parameters || {};
-    return this.network.delete(`${this.getResourceUrl(customerId)}/${id}`) as Promise<Subscription>;
+    return this.network.delete(`${this.getResourceUrl(customerId!)}/${id}`) as Promise<Subscription>;
   }
 }

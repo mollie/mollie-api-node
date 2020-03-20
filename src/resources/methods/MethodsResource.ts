@@ -3,6 +3,8 @@ import { MethodData } from '../../data/methods/data';
 import Method, { injectPrototypes } from '../../data/methods/Method';
 import { GetParameters, ListParameters } from './parameters';
 import List from '../../data/list/List';
+import renege from '../../plumbing/renege';
+import Callback from '../../types/Callback';
 
 /**
  * The `methods` resource
@@ -15,26 +17,6 @@ export default class MethodsResource extends Resource<MethodData, Method> {
   }
 
   protected injectPrototypes = injectPrototypes;
-
-  /**
-   * Retrieve a single Payment Method
-   *
-   * @param id - Method ID
-   * @param params - Retrieve Payment Method parameters
-   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
-   *
-   * @returns The Payment Method object
-   *
-   * @since 2.0.0
-   *
-   * @see https://docs.mollie.com/reference/v2/methods-api/get-method
-   *
-   * @public ✓ This method is part of the public API
-   */
-  public get(id: string, parameters?: GetParameters): Promise<Method> {
-    return this.network.get(`${this.getResourceUrl()}/${id}`, parameters);
-  }
 
   /**
    * Retrieve a list of Payment Methods
@@ -58,6 +40,29 @@ export default class MethodsResource extends Resource<MethodData, Method> {
   public page = this.list;
 
   /**
+   * Retrieve a single Payment Method
+   *
+   * @param id - Method ID
+   * @param params - Retrieve Payment Method parameters
+   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
+   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
+   *
+   * @returns The Payment Method object
+   *
+   * @since 2.0.0
+   *
+   * @see https://docs.mollie.com/reference/v2/methods-api/get-method
+   *
+   * @public ✓ This method is part of the public API
+   */
+  public get(id: string, parameters?: GetParameters): Promise<Method>;
+  public get(id: string, parameters: GetParameters, callback: Callback<Method>): void;
+  public get(id: string, parameters?: GetParameters) {
+    if (renege(this, this.get, ...arguments)) return;
+    return this.network.get(`${this.getResourceUrl()}/${id}`, parameters);
+  }
+
+  /**
    * Retrieve a list of Payment Methods
    *
    * @param params - Retrieve Payment Method parameters
@@ -72,8 +77,11 @@ export default class MethodsResource extends Resource<MethodData, Method> {
    *
    * @public ✓ This method is part of the public API
    */
-  public async list(parameters: ListParameters = {}): Promise<List<Method>> {
-    const result = await this.network.list(this.getResourceUrl(), 'methods', parameters);
-    return this.injectPaginationHelpers(result, this.list, parameters);
+  public list(parameters?: ListParameters): Promise<List<Method>>;
+  public list(parameters: ListParameters, callback: Callback<List<Method>>): void;
+  public list(parameters: ListParameters = {}) {
+    if (renege(this, this.list, ...arguments)) return;
+    return this.network.list(this.getResourceUrl(), 'methods', parameters)
+    .then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 }

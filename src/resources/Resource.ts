@@ -6,7 +6,7 @@ import { parse as parseUrl } from 'url';
 
 function stringifyQuery(input: Record<string, any>): string {
   return querystring.stringify(
-    Object.entries(input).reduce((result, [key, value]) => {
+    Object.entries(input).reduce<Record<string, any>>((result, [key, value]) => {
       if (Array.isArray(value)) {
         result[key] = value.join(';');
       } /* if (Array.isArray(value) == false) */ else {
@@ -33,7 +33,7 @@ export default class Resource<R, T extends R> {
         try {
           var response: AxiosResponse = await httpClient.post(url, data);
         } catch (error) {
-          throw ApiError.captureStackTrace(error.response);
+          throw ApiError.createFromResponse(error.response);
         }
         return this.injectPrototypes(response.data);
       },
@@ -87,13 +87,13 @@ export default class Resource<R, T extends R> {
   /**
    * Injects `nextPage`, `nextPageCursor`, `previousPage`, and `previousPageCursor` into the passed list.
    */
-  protected injectPaginationHelpers(
+  protected injectPaginationHelpers<P>(
     input: Omit<List<T>, 'nextPage' | 'nextPageCursor' | 'previousPage' | 'previousPageCursor'>,
-    list: (parameters: Record<string, any>) => Promise<List<T>>,
-    selfParameters: Record<string, any>,
+    list: (parameters: P) => Promise<List<T>>,
+    selfParameters: P,
   ): List<T> {
     const { links } = input;
-    let nextPage: () => Promise<List<T>> | undefined;
+    let nextPage: (() => Promise<List<T>>) | undefined;
     let nextPageCursor: string | undefined;
     if (links.next != null) {
       const { query } = parseUrl(links.next.href, true);
@@ -103,7 +103,7 @@ export default class Resource<R, T extends R> {
       });
       nextPageCursor = query.from as string;
     }
-    let previousPage: () => Promise<List<T>> | undefined;
+    let previousPage: (() => Promise<List<T>>) | undefined;
     let previousPageCursor: string | undefined;
     if (links.previous != null) {
       const { query } = parseUrl(links.previous.href, true);

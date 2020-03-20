@@ -2,7 +2,7 @@ import { RefundData, RefundEmbed } from '../../../data/refunds/data';
 import { PickOptional } from '../../../types/PickOptional';
 import { CommonListParameters } from '../../../types/parameters';
 
-export interface ContextParameters {
+interface ContextParameters {
   paymentId: string;
   testmode?: boolean;
 }
@@ -17,3 +17,5 @@ export type ListParameters = ContextParameters &
   CommonListParameters & {
     embed?: RefundEmbed[];
   };
+
+export type CancelParameters = ContextParameters;

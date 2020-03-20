@@ -2,6 +2,8 @@ import ParentedResource from '../ParentedResource';
 import Chargeback, { ChargebackData, injectPrototypes } from '../../data/chargebacks/Chargeback';
 import List from '../../data/list/List';
 import { ListParameters } from './parameters';
+import renege from '../../plumbing/renege';
+import Callback from '../../types/Callback';
 
 /**
  * The `chargebacks` resource
@@ -55,8 +57,11 @@ export default class ChargebacksResource extends ParentedResource<ChargebackData
    *
    * @public ✓ This method is part of the public API
    */
-  public async list(parameters: ListParameters = {}): Promise<List<Chargeback>> {
-    const result = await this.network.list(this.getResourceUrl(), 'chargebacks', parameters);
-    return this.injectPaginationHelpers(result, this.list, parameters);
+  public list(parameters?: ListParameters): Promise<List<Chargeback>>;
+  public list(parameters: ListParameters, callback: Callback<List<Chargeback>>): void;
+  public list(parameters: ListParameters = {}) {
+    if (renege(this, this.list, ...arguments)) return;
+    return this.network.list(this.getResourceUrl(), 'chargebacks', parameters)
+    .then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 }

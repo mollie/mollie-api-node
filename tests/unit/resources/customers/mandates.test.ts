@@ -1,5 +1,4 @@
 import wireMockClient from '../../../wireMockClient';
-import callAsync from '../../../callAsync';
 
 test('createCustomerMandate', async () => {
   const { adapter, client } = wireMockClient();
@@ -33,7 +32,7 @@ test('createCustomerMandate', async () => {
     },
   });
 
-  const mandate = await client.customers_mandates.create({
+  const mandate = await bluster(client.customers_mandates.create.bind(client.customers_mandates))({
     customerId: 'cst_FhQJRw4s2n',
     consumerName: 'John Doe',
     method: 'directdebit',
@@ -87,7 +86,7 @@ test('getCustomerMandate', async () => {
     },
   });
 
-  const mandate = await client.customers_mandates.get('mdt_AcQl5fdL4h', { customerId: 'cst_FhQJRw4s2n' });
+  const mandate = await bluster(client.customers_mandates.get.bind(client.customers_mandates))('mdt_AcQl5fdL4h', { customerId: 'cst_FhQJRw4s2n' });
 
   expect(mandate.resource).toBe('mandate');
   expect(mandate.status).toBe('valid');
@@ -151,7 +150,7 @@ test('getCustomerMandates', async () => {
     },
   });
 
-  const mandates = await client.customers_mandates.all({ customerId: 'cst_FhQJRw4s2n' });
+  const mandates = await bluster(client.customers_mandates.all.bind(client.customers_mandates))({ customerId: 'cst_FhQJRw4s2n' });
 
   mandates.forEach(mandate => {
     expect(mandate.resource).toBe('mandate');

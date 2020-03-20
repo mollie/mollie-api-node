@@ -2,7 +2,7 @@ import { RefundData } from '../../../data/refunds/data';
 import { Amount } from '../../../data/global';
 import { CommonListParameters } from '../../../types/parameters';
 
-export interface ContextParameters {
+interface ContextParameters {
   orderId: string;
   testmode?: boolean;
 }

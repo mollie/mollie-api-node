@@ -5,6 +5,8 @@ import { CreateParameters, GetParameters, UpdateParameters, ListParameters, Canc
 import ApiError from '../../errors/ApiError';
 import checkId from '../../plumbing/checkId';
 import List from '../../data/list/List';
+import renege from '../../plumbing/renege';
+import Callback from '../../types/Callback';
 
 /**
  * The `orders` resource
@@ -83,7 +85,10 @@ export default class OrdersResource extends Resource<OrderData, Order> {
    *
    * @public ✓ This method is part of the public API
    */
-  public create(parameters: CreateParameters): Promise<Order> {
+  public create(parameters: CreateParameters): Promise<Order>;
+  public create(parameters: CreateParameters): void;
+  public create(parameters: CreateParameters) {
+    if (renege(this, this.create, ...arguments)) return;
     return this.network.post(this.getResourceUrl(), parameters);
   }
 
@@ -103,7 +108,10 @@ export default class OrdersResource extends Resource<OrderData, Order> {
    *
    * @public ✓ This method is part of the public API
    */
-  public get(id: string, parameters?: GetParameters): Promise<Order> {
+  public get(id: string, parameters?: GetParameters): Promise<Order>;
+  public get(id: string, parameters: GetParameters, callback: Callback<Order>): void;
+  public get(id: string, parameters?: GetParameters) {
+    if (renege(this, this.get, ...arguments)) return;
     if (!checkId(id, 'order')) {
       throw new ApiError('The order id is invalid');
     }
@@ -125,9 +133,12 @@ export default class OrdersResource extends Resource<OrderData, Order> {
    *
    * @public ✓ This method is part of the public API
    */
-  public async list(parameters: ListParameters = {}): Promise<List<Order>> {
-    const result = await this.network.list(this.getResourceUrl(), 'orders', parameters);
-    return this.injectPaginationHelpers(result, this.list, parameters);
+  public list(parameters?: ListParameters): Promise<List<Order>>;
+  public list(parameters: ListParameters, callback: Callback<List<Order>>): void;
+  public list(parameters: ListParameters = {}) {
+    if (renege(this, this.list, ...arguments)) return;
+    return this.network.list(this.getResourceUrl(), 'orders', parameters)
+    .then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 
   /**
@@ -146,7 +157,10 @@ export default class OrdersResource extends Resource<OrderData, Order> {
    *
    * @public ✓ This method is part of the public API
    */
-  public async update(id: string, parameters: UpdateParameters): Promise<Order> {
+  public update(id: string, parameters: UpdateParameters): Promise<Order>;
+  public update(id: string, parameters: UpdateParameters, callback: Callback<Order>): void;
+  public update(id: string, parameters: UpdateParameters) {
+    if (renege(this, this.update, ...arguments)) return;
     if (!checkId(id, 'order')) {
       throw new ApiError('The order id is invalid');
     }
@@ -169,7 +183,10 @@ export default class OrdersResource extends Resource<OrderData, Order> {
    *
    * @public ✓ This method is part of the public API
    */
-  public async cancel(id: string, parameters: CancelParameters): Promise<Order> {
+  public cancel(id: string, parameters: CancelParameters): Promise<Order>;
+  public cancel(id: string, parameters: CancelParameters, callback: Callback<Order>): void;
+  public cancel(id: string, parameters: CancelParameters) {
+    if (renege(this, this.cancel, ...arguments)) return;
     if (!checkId(id, 'order')) {
       throw new ApiError('The order id is invalid');
     }

@@ -2,7 +2,7 @@ import { ShipmentData } from '../../../data/orders/shipments/Shipment';
 import { Amount } from '../../../data/global';
 import { PickRequired } from '../../../types/PickRequired';
 
-export interface ContextParameters {
+interface ContextParameters {
   orderId: string;
   testmode?: boolean;
 }
@@ -44,6 +44,10 @@ export type CreateParameters = ContextParameters &
       amount?: Amount;
     }[];
   };
+
+export type GetParameters = ContextParameters;
+
+export type ListParameters = ContextParameters;
 
 export type UpdateParameters = ContextParameters & PickRequired<ShipmentData, 'tracking'>;
 

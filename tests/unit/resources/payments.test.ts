@@ -1,5 +1,4 @@
 import wireMockClient from '../../wireMockClient';
-import callAsync from '../../callAsync';
 
 test('createPayment', async () => {
   const { adapter, client } = wireMockClient();
@@ -42,7 +41,7 @@ test('createPayment', async () => {
     },
   });
 
-  const payment = await client.payments.create({
+  const payment = await bluster(client.payments.create.bind(client.payments))({
     amount: {
       currency: 'EUR',
       value: '20.00',
@@ -134,7 +133,7 @@ test('getPayment', async () => {
     },
   });
 
-  const payment = await client.payments.get('tr_44aKxzEbr8');
+  const payment = await bluster(client.payments.get.bind(client.payments))('tr_44aKxzEbr8');
 
   expect(payment.id).toBe('tr_44aKxzEbr8');
   expect(payment.mode).toBe('test');
@@ -279,7 +278,7 @@ test('listPayments', async () => {
     count: 3,
   });
 
-  const payments = await client.payments.page({ limit: 3 });
+  const payments = await bluster(client.payments.page.bind(client.payments))({ limit: 3 });
 
   expect(payments.length).toBe(3);
 

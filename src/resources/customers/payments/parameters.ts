@@ -2,7 +2,7 @@ import { PaymentData } from '../../../data/payments/data';
 import { PickOptional } from '../../../types/PickOptional';
 import { PaymentMethod } from '../../../data/global';
 
-export interface ContextParameters {
+interface ContextParameters {
   customerId: string;
 }
 
@@ -20,3 +20,5 @@ export type CreateParameters = ContextParameters &
      */
     method: PaymentMethod | PaymentMethod[];
   };
+
+export type ListParameters = ContextParameters;

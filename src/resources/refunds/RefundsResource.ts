@@ -3,6 +3,8 @@ import { RefundData } from '../../data/refunds/data';
 import Refund, { injectPrototypes } from '../../data/refunds/Refund';
 import { ListParameters } from './parameters';
 import List from '../../data/list/List';
+import renege from '../../plumbing/renege';
+import Callback from '../../types/Callback';
 
 /**
  * The `refunds` resource
@@ -56,8 +58,11 @@ export default class RefundsResource extends Resource<RefundData, Refund> {
    *
    * @public ✓ This method is part of the public API
    */
-  public async list(parameters: ListParameters = {}): Promise<List<Refund>> {
-    const result = await this.network.list(this.getResourceUrl(), 'refunds', parameters);
-    return this.injectPaginationHelpers(result, this.list, parameters);
+  public list(parameters?: ListParameters): Promise<List<Refund>>;
+  public list(parameters: ListParameters, callback: Callback<List<Refund>>): void;
+  public list(parameters: ListParameters = {}) {
+    if (renege(this, this.list, ...arguments)) return;
+    return this.network.list(this.getResourceUrl(), 'refunds', parameters)
+    .then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 }
