@@ -1,4 +1,5 @@
 import wireMockClient from '../../wireMockClient';
+import { Payment } from '../../..';
 
 async function getPayment(status, additionalProperties?: object, additionalLinks?: object) {
   const { adapter, client } = wireMockClient();
@@ -55,7 +56,7 @@ async function getPayment(status, additionalProperties?: object, additionalLinks
     ...additionalProperties,
   });
 
-  return await client.payments.get('tr_44aKxzEbr8');
+  return await bluster(client.payments.get.bind(client.payments))('tr_44aKxzEbr8');
 }
 
 test('paymentStatuses', () => {
@@ -113,7 +114,7 @@ test('paymentStatuses', () => {
     ].map(async ([status, method, expectedResult]) => {
       const payment = await getPayment(status);
 
-      expect(payment[method as string]()).toBe(expectedResult);
+      expect(payment[method as keyof Payment]()).toBe(expectedResult);
     }),
   );
 });

@@ -1,4 +1,5 @@
 import wireMockClient from '../../wireMockClient';
+import { Refund } from '../../..';
 
 async function getRefund(status) {
   const { adapter, client } = wireMockClient();
@@ -49,7 +50,7 @@ async function getRefund(status) {
     count: 1,
   });
 
-  return await client.refunds.list().then(refunds => refunds[0]);
+  return await bluster(client.refunds.list.bind(client.refunds))().then(refunds => refunds[0]);
 }
 
 test('refundStatuses', () => {
@@ -73,7 +74,7 @@ test('refundStatuses', () => {
     ].map(async ([status, method, expectedResult]) => {
       const refund = await getRefund(status);
 
-      expect(refund[method as string]()).toBe(expectedResult);
+      expect(refund[method as keyof Refund]()).toBe(expectedResult);
     }),
   );
 });

@@ -50,7 +50,7 @@ test('listRefunds', async () => {
     count: 1,
   });
 
-  const refunds: List<Refund> = await client.refunds.page();
+  const refunds: List<Refund> = await bluster(client.refunds.page.bind(client.refunds))();
 
   expect(refunds.length).toBe(1);
 

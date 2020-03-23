@@ -1,4 +1,5 @@
 import wireMockClient from '../../wireMockClient';
+import { Subscription } from '../../..';
 
 async function getSubscription(status) {
   const { adapter, client } = wireMockClient();
@@ -35,7 +36,7 @@ async function getSubscription(status) {
     },
   });
 
-  return await client.customers_subscriptions.get('sub_wByQa6efm6', { customerId: 'cst_FhQJRw4s2n' });
+  return await bluster(client.customers_subscriptions.get.bind(client.customers_subscriptions))('sub_wByQa6efm6', { customerId: 'cst_FhQJRw4s2n' });
 }
 
 test('subscriptionStatuses', () => {
@@ -74,7 +75,7 @@ test('subscriptionStatuses', () => {
     ].map(async ([status, method, expectedResult]) => {
       const subscription = await getSubscription(status);
 
-      expect(subscription[method as string]()).toBe(expectedResult);
+      expect(subscription[method as keyof Subscription]()).toBe(expectedResult);
     }),
   );
 });

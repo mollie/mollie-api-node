@@ -182,9 +182,9 @@ export default class OrdersResource extends Resource<OrderData, Order> {
    *
    * @public ✓ This method is part of the public API
    */
-  public cancel(id: string, parameters: CancelParameters): Promise<Order>;
+  public cancel(id: string, parameters?: CancelParameters): Promise<Order>;
   public cancel(id: string, parameters: CancelParameters, callback: Callback<Order>): void;
-  public cancel(id: string, parameters: CancelParameters) {
+  public cancel(id: string, parameters: CancelParameters = {}) {
     if (renege(this, this.cancel, ...arguments)) return;
     if (!checkId(id, 'order')) {
       throw new ApiError('The order id is invalid');

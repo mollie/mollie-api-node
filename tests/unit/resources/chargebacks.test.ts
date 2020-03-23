@@ -104,7 +104,7 @@ test('listChargebacks', async () => {
     count: 2,
   });
 
-  const chargebacks = await client.chargebacks.page();
+  const chargebacks = await bluster(client.chargebacks.page.bind(client.chargebacks))();
 
   expect(chargebacks.length).toBe(2);
 

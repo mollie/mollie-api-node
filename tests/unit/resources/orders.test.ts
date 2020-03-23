@@ -645,7 +645,7 @@ test('updateOrder', async () => {
 
   adapter.onPatch('/orders/ord_pbjz8x').reply(200, composeOrderResponse('ord_pbjz8x', 'created', '16738'));
 
-  const order = await client.orders.update('ord_pbjz8x', {
+  const order = await bluster(client.orders.update.bind(client.orders))('ord_pbjz8x', {
     orderNumber: '16738',
     billingAddress: {
       organizationName: 'Organization Name LTD.',

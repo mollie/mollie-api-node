@@ -1,4 +1,5 @@
 import wireMockClient from '../../wireMockClient';
+import { Order } from '../../..';
 
 async function getOrder(status, additionalLinks?: object) {
   const { adapter, client } = wireMockClient();
@@ -130,7 +131,7 @@ async function getOrder(status, additionalLinks?: object) {
     },
   });
 
-  return await client.orders.get('ord_pbjz1x');
+  return await bluster(client.orders.get.bind(client.orders))('ord_pbjz1x');
 }
 
 // These helper methods are not yet implemented for orders.
@@ -211,7 +212,7 @@ test('orderStatuses', () => {
     ].map(async ([status, method, expectedResult]) => {
       const order = await getOrder(status);
 
-      expect(order[method as string]()).toBe(expectedResult);
+      expect(order[method as keyof Order]()).toBe(expectedResult);
     }),
   );
 });
