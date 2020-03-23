@@ -6,16 +6,11 @@ export * from './createMollieClient';
 export { default as List } from './data/list/List';
 
 export { default as Capture } from './data/payments/captures/Capture';
-import {
-  GetParameters as CapturesGetParameters,
-  ListParameters as CapturesListParameters
-} from './resources/payments/captures/parameters';
+import { GetParameters as CapturesGetParameters, ListParameters as CapturesListParameters } from './resources/payments/captures/parameters';
 export { CapturesGetParameters, CapturesListParameters };
 
 export { default as Chargeback } from './data/chargebacks/Chargeback';
-import {
-  ListParameters as ChargebacksListParameters
-} from './resources/chargebacks/parameters';
+import { ListParameters as ChargebacksListParameters } from './resources/chargebacks/parameters';
 export { ChargebacksListParameters };
 
 export { default as Customer } from './data/customers/Customer';
@@ -29,7 +24,12 @@ import {
 export { CustomerCreateParams, CustomerGetParams, CustomersListParams, CustomerUpdateParams, CustomerDeleteParams };
 
 export { default as Mandate } from './data/customers/mandates/Mandate';
-import { CreateParameters as MandateCreateParams, GetParameters as MandateGetParams, ListParameters as MandatesListParams, RevokeParameters as MandateRevokeParams } from './resources/customers/mandates/parameters';
+import {
+  CreateParameters as MandateCreateParams,
+  GetParameters as MandateGetParams,
+  ListParameters as MandatesListParams,
+  RevokeParameters as MandateRevokeParams,
+} from './resources/customers/mandates/parameters';
 export { MandateCreateParams, MandateGetParams, MandatesListParams, MandateRevokeParams };
 
 export { default as Method } from './data/methods/Method';
@@ -51,18 +51,15 @@ import { UpdateParameters as OrderLineUpdateParams, CancelParameters as OrderLin
 export { OrderLineUpdateParams, OrderLineCancelParams };
 
 export { default as Payment } from './data/payments/Payment';
-import { CreateParameters as PaymentCreateParams, GetParameters as PaymentGetParams, ListParameters as PaymentsListParams, CancelParameters as PaymentCancelParams } from './resources/payments/parameters';
+import {
+  CreateParameters as PaymentCreateParams,
+  GetParameters as PaymentGetParams,
+  ListParameters as PaymentsListParams,
+  CancelParameters as PaymentCancelParams,
+} from './resources/payments/parameters';
 import { CreateParameters as CustomerPaymentCreateParams, ListParameters as CustomerPaymentsListParams } from './resources/customers/payments/parameters';
 import { CreateParameters as OrderPaymentCreateParams } from './resources/payments/orders/parameters';
-export {
-  PaymentCreateParams,
-  PaymentGetParams,
-  PaymentsListParams,
-  PaymentCancelParams,
-  CustomerPaymentCreateParams,
-  CustomerPaymentsListParams,
-  OrderPaymentCreateParams,
-};
+export { PaymentCreateParams, PaymentGetParams, PaymentsListParams, PaymentCancelParams, CustomerPaymentCreateParams, CustomerPaymentsListParams, OrderPaymentCreateParams };
 
 export { default as Refund } from './data/refunds/Refund';
 import { ListParameters as RefundsListParams } from './resources/refunds/parameters';
@@ -75,7 +72,12 @@ import {
 export { RefundsListParams, PaymentRefundCreateParams, PaymentRefundGetParams, PaymentRefundsListParams, PaymentRefundCancelParams };
 
 export { default as Shipment } from './data/orders/shipments/Shipment';
-import { CreateParameters as ShipmentCreateParams, GetParameters as ShipmentGetParams, ListParameters as ShipmentsListParams, UpdateParameters as ShipmentUpdateParams } from './resources/orders/shipments/parameters';
+import {
+  CreateParameters as ShipmentCreateParams,
+  GetParameters as ShipmentGetParams,
+  ListParameters as ShipmentsListParams,
+  UpdateParameters as ShipmentUpdateParams,
+} from './resources/orders/shipments/parameters';
 export { ShipmentCreateParams, ShipmentGetParams, ShipmentsListParams, ShipmentUpdateParams };
 
 export { default as Subscription } from './data/subscription/Subscription';

@@ -31,7 +31,7 @@ export default class PaymentsRefundsResource extends ParentedResource<RefundData
    *
    * @alias list
    */
-  public all = this.list;
+  public all: PaymentsRefundsResource['list'] = this.list;
   /**
    * Get all payment refunds. Alias of list.
    *
@@ -43,7 +43,7 @@ export default class PaymentsRefundsResource extends ParentedResource<RefundData
    *
    * @alias list
    */
-  public page = this.list;
+  public page: PaymentsRefundsResource['list'] = this.list;
   /**
    * Cancel a Payment Refund by ID
    *
@@ -53,7 +53,7 @@ export default class PaymentsRefundsResource extends ParentedResource<RefundData
    *
    * @alias cancel
    */
-  public delete = this.cancel;
+  public delete: PaymentsRefundsResource['cancel'] = this.cancel;
 
   /**
    * Create a payment refund
@@ -134,8 +134,7 @@ export default class PaymentsRefundsResource extends ParentedResource<RefundData
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    return this.network.list(this.getResourceUrl(paymentId!), 'refunds', query)
-    .then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.network.list(this.getResourceUrl(paymentId!), 'refunds', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 
   /**

@@ -30,7 +30,7 @@ export default class OrdersShipmentsResource extends ParentedResource<ShipmentDa
    *
    * @alias list
    */
-  public all = this.list;
+  public all: OrdersShipmentsResource['list'] = this.list;
   /**
    * List order shipments
    *
@@ -42,7 +42,7 @@ export default class OrdersShipmentsResource extends ParentedResource<ShipmentDa
    *
    * @alias list
    */
-  public page = this.list;
+  public page: OrdersShipmentsResource['list'] = this.list;
 
   /**
    * In addition to the
@@ -165,7 +165,6 @@ export default class OrdersShipmentsResource extends ParentedResource<ShipmentDa
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...query } = parameters || {};
-    return this.network.list(this.getResourceUrl(orderId!), 'shipments', query)
-    .then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.network.list(this.getResourceUrl(orderId!), 'shipments', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 }

@@ -30,7 +30,7 @@ export default class PaymentsChargebacksResource extends ParentedResource<Charge
    *
    * @alias list
    */
-  public all = this.list;
+  public all: PaymentsChargebacksResource['list'] = this.list;
   /**
    * Retrieve a list of Payment Chargebacks
    *
@@ -42,7 +42,7 @@ export default class PaymentsChargebacksResource extends ParentedResource<Charge
    *
    * @alias list
    */
-  public page = this.list;
+  public page: PaymentsChargebacksResource['list'] = this.list;
 
   /**
    * Get a Payment Chargeback by ID
@@ -100,7 +100,6 @@ export default class PaymentsChargebacksResource extends ParentedResource<Charge
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    return this.network.list(this.getResourceUrl(paymentId!), 'chargebacks', query)
-    .then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.network.list(this.getResourceUrl(paymentId!), 'chargebacks', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 }

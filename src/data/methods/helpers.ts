@@ -1,5 +1,6 @@
 import { MethodData, MethodImageSize } from './data';
 import commonHelpers from '../commonHelpers';
+import ApiError from '../../errors/ApiError';
 
 export default {
   ...commonHelpers,
@@ -26,7 +27,7 @@ export default {
       case MethodImageSize.svg:
         return this.image[MethodImageSize.svg];
       default:
-        return undefined;
+        throw new ApiError(`Unexpected size: ${size}`);
     }
   },
 };

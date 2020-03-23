@@ -26,7 +26,7 @@ export default class RefundsResource extends ParentedResource<RefundData, Refund
    *
    * @alias list
    */
-  public all = this.list;
+  public all: RefundsResource['list'] = this.list;
   /**
    * Get all order refunds
    *
@@ -38,7 +38,7 @@ export default class RefundsResource extends ParentedResource<RefundData, Refund
    *
    * @alias list
    */
-  public page = this.list;
+  public page: RefundsResource['list'] = this.list;
 
   /**
    * Create an order refund
@@ -91,7 +91,6 @@ export default class RefundsResource extends ParentedResource<RefundData, Refund
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...query } = parameters || {};
-    return this.network.list(this.getResourceUrl(orderId!), 'refunds', query)
-    .then(result => this.injectPaginationHelpers(result, this.list, parameters || {}));
+    return this.network.list(this.getResourceUrl(orderId!), 'refunds', query).then(result => this.injectPaginationHelpers(result, this.list, parameters || {}));
   }
 }

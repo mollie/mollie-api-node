@@ -28,7 +28,7 @@ export default class CustomersResource extends Resource<CustomerData, Customer> 
    *
    * @alias list
    */
-  public all = this.list;
+  public all: CustomersResource['list'] = this.list;
   /**
    * List Customers.
    *
@@ -40,7 +40,7 @@ export default class CustomersResource extends Resource<CustomerData, Customer> 
    *
    * @alias list
    */
-  public page = this.list;
+  public page: CustomersResource['list'] = this.list;
   /**
    * Delete a Customer.
    *
@@ -52,7 +52,7 @@ export default class CustomersResource extends Resource<CustomerData, Customer> 
    *
    * @alias delete
    */
-  public cancel = this.delete;
+  public cancel: CustomersResource['delete'] = this.delete;
 
   /**
    * Creates a simple minimal representation of a customer in the Mollie API
@@ -126,8 +126,7 @@ export default class CustomersResource extends Resource<CustomerData, Customer> 
   public list(parameters: ListParameters, callback: Callback<List<Customer>>): void;
   public list(parameters: ListParameters = {}) {
     if (renege(this, this.list, ...arguments)) return;
-    return this.network.list(this.getResourceUrl(), 'customers', parameters)
-    .then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.network.list(this.getResourceUrl(), 'customers', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 
   /**
@@ -173,7 +172,7 @@ export default class CustomersResource extends Resource<CustomerData, Customer> 
    * @public ✓ This method is part of the public API
    */
   public delete(id: string, parameters?: DeleteParameters): Promise<true>;
-  public delete(id: string, parameters: DeleteParameters, callback: Callback<true>): void
+  public delete(id: string, parameters: DeleteParameters, callback: Callback<true>): void;
   public delete(id: string, parameters?: DeleteParameters) {
     if (renege(this, this.delete, ...arguments)) return;
     if (!checkId(id, 'customer')) {

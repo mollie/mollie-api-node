@@ -1,6 +1,6 @@
 import { CommonListParameters } from '../../types/parameters';
-import { PaymentChargebackEmbed } from '../../data/chargebacks/Chargeback';
+import { ChargebackEmbed } from '../../data/chargebacks/Chargeback';
 
 export type ListParameters = CommonListParameters & {
-  embed?: PaymentChargebackEmbed[];
+  embed?: ChargebackEmbed[];
 };

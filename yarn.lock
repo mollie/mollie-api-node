@@ -1445,10 +1445,10 @@ binary-extensions@^2.0.0:
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-2.0.0.tgz#23c0df14f6a88077f5f986c0d167ec03c3d5537c"
   integrity sha512-Phlt0plgpIIBOGTT/ehfFnbNlfsDEiqmzE2KRXoX1bLIlir4X/MR+zSyBEkL05ffWgnRSf/DXv+WrUAVr93/ow==
 
-bluster@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/bluster/-/bluster-1.0.0.tgz#73956d3926117cfac3a80afcda8214add9e07592"
-  integrity sha512-gLkgzcajAvHV7ue0pQodzVC61ZxV91URQ5+/f0fNISOLOWubGnFaIMyYEq07+y9Pg0fjiKYtqdqBk1Y05bcUnA==
+bluster@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/bluster/-/bluster-1.0.1.tgz#731a1fab4c908004414ab2669020878595d6028c"
+  integrity sha512-dbZY/5Hn74LhdtVEosRm5Z45dGAbuOrjt8HAQ1uZiN6nlRmbh1uRMduezZFE820Vffig7ctE+UHbJ5brhjAU+Q==
 
 brace-expansion@^1.1.7:
   version "1.1.11"
@@ -3355,12 +3355,12 @@ istanbul-reports@^2.2.6:
   dependencies:
     handlebars "^4.1.2"
 
-jest-bluster@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/jest-bluster/-/jest-bluster-1.0.0.tgz#9d18e8dc338fc8e516388a95fcd6b84b86b9f08e"
-  integrity sha512-P6Vr+pGuMns0e1DGAjWg4jAt98b6wZwRfuAWnIm3RftT1VRKnO65svox+giPq2Zn0OQBdtUMmShbKXhhSEPTYQ==
+jest-bluster@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/jest-bluster/-/jest-bluster-1.0.1.tgz#212192d774d09991224bcc6327f1d0812e1e0502"
+  integrity sha512-MafAKnMmVkpukRolHuh1JX/5MQGQkIpxBpTKDdirgv/siYJxZBfLHKug7gBCQIbVeS13aem6do7B+60tv2cWkg==
   dependencies:
-    bluster "1.0.0"
+    bluster "^1.0.1"
 
 jest-changed-files@^24.9.0:
   version "24.9.0"
@@ -5817,10 +5817,10 @@ type-fest@^0.6.0:
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.6.0.tgz#8d2a2370d3df886eb5c90ada1c5bf6188acf838b"
   integrity sha512-q+MB8nYR1KDLrgr4G5yemftpMC7/QLqVndBmEEdqzmNj5dcFOO4Oo8qlwZE3ULT3+Zim1F8Kq4cBnikNhlCMlg==
 
-typescript@^3.5.3:
-  version "3.5.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.5.3.tgz#c830f657f93f1ea846819e929092f5fe5983e977"
-  integrity sha512-ACzBtm/PhXBDId6a6sDJfroT2pOWt/oOnk4/dElG5G33ZL776N3Y6/6bKZJBFpd+b05F3Ct9qDjMeJmRWtE2/g==
+typescript@^3.8.3:
+  version "3.8.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.3.tgz#409eb8544ea0335711205869ec458ab109ee1061"
+  integrity sha512-MYlEfn5VrLNsgudQTVJeNaQFUAI7DkhnOjdpAp4T+ku1TfQClewlbSuTVHiA+8skNBgaf02TL/kLOvig4y3G8w==
 
 uglify-js@^3.1.4:
   version "3.7.3"

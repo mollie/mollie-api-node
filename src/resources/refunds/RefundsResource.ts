@@ -29,7 +29,7 @@ export default class RefundsResource extends Resource<RefundData, Refund> {
    *
    * @alias list
    */
-  public all = this.list;
+  public all: RefundsResource['list'] = this.list;
   /**
    * List Refunds
    *
@@ -41,7 +41,7 @@ export default class RefundsResource extends Resource<RefundData, Refund> {
    *
    * @alias list
    */
-  public page = this.list;
+  public page: RefundsResource['list'] = this.list;
 
   /**
    * List Refunds
@@ -62,7 +62,6 @@ export default class RefundsResource extends Resource<RefundData, Refund> {
   public list(parameters: ListParameters, callback: Callback<List<Refund>>): void;
   public list(parameters: ListParameters = {}) {
     if (renege(this, this.list, ...arguments)) return;
-    return this.network.list(this.getResourceUrl(), 'refunds', parameters)
-    .then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.network.list(this.getResourceUrl(), 'refunds', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 }

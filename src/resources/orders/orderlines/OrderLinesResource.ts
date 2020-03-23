@@ -30,7 +30,7 @@ export default class OrdersLinesResource extends ParentedResource<OrderData, Ord
    *
    * @alias cancel
    */
-  public delete = this.cancel;
+  public delete: OrdersLinesResource['cancel'] = this.cancel;
 
   /**
    * Update order lines

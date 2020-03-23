@@ -31,7 +31,7 @@ export default class CustomersMandatesResource extends ParentedResource<MandateD
    *
    * @alias list
    */
-  public all = this.list;
+  public all: CustomersMandatesResource['list'] = this.list;
   /**
    * Get all of a customer's mandates
    *
@@ -43,7 +43,7 @@ export default class CustomersMandatesResource extends ParentedResource<MandateD
    *
    * @alias list
    */
-  public page = this.list;
+  public page: CustomersMandatesResource['list'] = this.list;
   /**
    * Alias for revoke
    *
@@ -55,7 +55,7 @@ export default class CustomersMandatesResource extends ParentedResource<MandateD
    *
    * @alias revoke
    */
-  public cancel = this.revoke;
+  public cancel: CustomersMandatesResource['revoke'] = this.revoke;
   /**
    * Alias for revoke
    *
@@ -67,7 +67,7 @@ export default class CustomersMandatesResource extends ParentedResource<MandateD
    *
    * @alias revoke
    */
-  public delete = this.revoke;
+  public delete: CustomersMandatesResource['revoke'] = this.revoke;
 
   /**
    * Create a customer mandate
@@ -152,8 +152,7 @@ export default class CustomersMandatesResource extends ParentedResource<MandateD
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...query } = parameters || {};
-    return this.network.list(this.getResourceUrl(customerId!), 'mandates', query)
-    .then(result => this.injectPaginationHelpers(result, this.list, parameters || {}));
+    return this.network.list(this.getResourceUrl(customerId!), 'mandates', query).then(result => this.injectPaginationHelpers(result, this.list, parameters || {}));
   }
 
   /**

@@ -31,7 +31,7 @@ export default class CustomersPaymentsResource extends ParentedResource<PaymentD
    *
    * @alias list
    */
-  public all = this.list;
+  public all: CustomersPaymentsResource['list'] = this.list;
   /**
    * Get all of a customer's payments.
    *
@@ -43,7 +43,7 @@ export default class CustomersPaymentsResource extends ParentedResource<PaymentD
    *
    * @alias list
    */
-  public page = this.list;
+  public page: CustomersPaymentsResource['list'] = this.list;
 
   /**
    * Create a customer payment.
@@ -96,7 +96,6 @@ export default class CustomersPaymentsResource extends ParentedResource<PaymentD
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...query } = parameters || {};
-    return this.network.list(this.getResourceUrl(customerId!), 'payments', query)
-    .then(result => this.injectPaginationHelpers(result, this.list, parameters || {}));
+    return this.network.list(this.getResourceUrl(customerId!), 'payments', query).then(result => this.injectPaginationHelpers(result, this.list, parameters || {}));
   }
 }

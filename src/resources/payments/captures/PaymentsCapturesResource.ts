@@ -30,7 +30,7 @@ export default class PaymentsCapturesResource extends ParentedResource<CaptureDa
    *
    * @alias list
    */
-  public all = this.list;
+  public all: PaymentsCapturesResource['list'] = this.list;
   /**
    * Retrieve a list of Payment Captures
    *
@@ -42,7 +42,7 @@ export default class PaymentsCapturesResource extends ParentedResource<CaptureDa
    *
    * @alias list
    */
-  public page = this.list;
+  public page: PaymentsCapturesResource['list'] = this.list;
 
   /**
    * Get a Payment Capture by ID
@@ -100,7 +100,6 @@ export default class PaymentsCapturesResource extends ParentedResource<CaptureDa
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    return this.network.list(this.getResourceUrl(paymentId!), 'captures', query)
-    .then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.network.list(this.getResourceUrl(paymentId!), 'captures', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 }

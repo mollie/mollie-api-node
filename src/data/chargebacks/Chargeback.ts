@@ -37,11 +37,14 @@ export interface ChargebackData extends Model<'chargeback'> {
   _links: ChargebackLinks;
 }
 
-type Chargeback = Seal<ChargebackData & {
-  _embedded?: {
-    payments?: Omit<Payment, '_embedded'>[];
-  }
-}, typeof commonHelpers>;
+type Chargeback = Seal<
+  ChargebackData & {
+    _embedded?: {
+      payments?: Omit<Payment, '_embedded'>[];
+    };
+  },
+  typeof commonHelpers
+>;
 
 export default Chargeback;
 
@@ -58,7 +61,7 @@ export interface ChargebackLinks extends Links {
 }
 
 export enum ChargebackEmbed {
-  payment = 'payment'
+  payment = 'payment',
 }
 
 export function injectPrototypes(input: ChargebackData): Chargeback {

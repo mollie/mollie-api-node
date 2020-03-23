@@ -31,7 +31,7 @@ export default class CustomersSubscriptionsResource extends ParentedResource<Sub
    *
    * @public ✓ This method is part of the public API
    */
-  public delete = this.cancel;
+  public delete: CustomersSubscriptionsResource['cancel'] = this.cancel;
   /**
    * List the Customer's Subscriptions.
    *
@@ -43,7 +43,7 @@ export default class CustomersSubscriptionsResource extends ParentedResource<Sub
    *
    * @public ✓ This method is part of the public API
    */
-  public all = this.list;
+  public all: CustomersSubscriptionsResource['list'] = this.list;
   /**
    * List the Customer's Subscriptions.
    *
@@ -55,7 +55,7 @@ export default class CustomersSubscriptionsResource extends ParentedResource<Sub
    *
    * @public ✓ This method is part of the public API
    */
-  public page = this.list;
+  public page: CustomersSubscriptionsResource['list'] = this.list;
 
   /**
    * Create a customer subscription.
@@ -141,8 +141,7 @@ export default class CustomersSubscriptionsResource extends ParentedResource<Sub
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...query } = parameters || {};
-    return this.network.list(this.getResourceUrl(customerId!), 'subscriptions', query)
-    .then(result => this.injectPaginationHelpers(result, this.list, parameters || {}));
+    return this.network.list(this.getResourceUrl(customerId!), 'subscriptions', query).then(result => this.injectPaginationHelpers(result, this.list, parameters || {}));
   }
 
   /**

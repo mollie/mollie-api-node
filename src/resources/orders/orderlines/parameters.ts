@@ -51,6 +51,6 @@ export type CancelParameters = ContextParameters & {
      * amount cannot be determined automatically. The error will contain the `extra.minimumAmount` and
      * `extra.maximumAmount` properties that allow you pick the right amount.
      */
-    amount?: Amount
-  }[]
-}
+    amount?: Amount;
+  }[];
+};

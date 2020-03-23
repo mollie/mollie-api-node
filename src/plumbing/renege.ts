@@ -10,8 +10,7 @@
 export default function renege<R>(thisArgument: any, method: (...poppedArguments: any[]) => Promise<R>, ...originalArguments: any[]): boolean {
   const candidate = originalArguments.pop();
   if (typeof candidate == 'function') {
-    method.apply(thisArgument, originalArguments)
-    .then((result: R) => void candidate(null, result), candidate);
+    method.apply(thisArgument, originalArguments).then((result: R) => void candidate(null, result), candidate);
     return true;
   }
   return false;

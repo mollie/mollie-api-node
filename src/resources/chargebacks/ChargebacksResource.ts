@@ -28,7 +28,7 @@ export default class ChargebacksResource extends ParentedResource<ChargebackData
    *
    * @alias list
    */
-  public all = this.list;
+  public all: ChargebacksResource['list'] = this.list;
   /**
    * List chargebacks
    *
@@ -40,7 +40,7 @@ export default class ChargebacksResource extends ParentedResource<ChargebackData
    *
    * @alias list
    */
-  public page = this.list;
+  public page: ChargebacksResource['list'] = this.list;
 
   /**
    * List chargebacks
@@ -61,7 +61,6 @@ export default class ChargebacksResource extends ParentedResource<ChargebackData
   public list(parameters: ListParameters, callback: Callback<List<Chargeback>>): void;
   public list(parameters: ListParameters = {}) {
     if (renege(this, this.list, ...arguments)) return;
-    return this.network.list(this.getResourceUrl(), 'chargebacks', parameters)
-    .then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.network.list(this.getResourceUrl(), 'chargebacks', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 }

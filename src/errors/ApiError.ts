@@ -32,7 +32,7 @@ export default class ApiError extends Error {
    *
    * @public ✓ This method is part of the public API
    */
-  public getField(): string {
+  public getField(): string | undefined {
     return this.field;
   }
 
@@ -45,7 +45,7 @@ export default class ApiError extends Error {
    *
    * @public ✓ This method is part of the public API
    */
-  public getStatusCode(): number {
+  public getStatusCode(): number | undefined {
     return this.status;
   }
 

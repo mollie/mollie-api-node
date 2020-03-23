@@ -27,7 +27,7 @@ export default class MethodsResource extends Resource<MethodData, Method> {
    *
    * @public ✓ This method is part of the public API
    */
-  public all = this.list;
+  public all: MethodsResource['list'] = this.list;
   /**
    * Retrieve a list of Payment Methods
    *
@@ -37,7 +37,7 @@ export default class MethodsResource extends Resource<MethodData, Method> {
    *
    * @public ✓ This method is part of the public API
    */
-  public page = this.list;
+  public page: MethodsResource['list'] = this.list;
 
   /**
    * Retrieve a single Payment Method
@@ -81,7 +81,6 @@ export default class MethodsResource extends Resource<MethodData, Method> {
   public list(parameters: ListParameters, callback: Callback<List<Method>>): void;
   public list(parameters: ListParameters = {}) {
     if (renege(this, this.list, ...arguments)) return;
-    return this.network.list(this.getResourceUrl(), 'methods', parameters)
-    .then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.network.list(this.getResourceUrl(), 'methods', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 }

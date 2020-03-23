@@ -30,7 +30,7 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
    *
    * @alias list
    */
-  public all = this.list;
+  public all: PaymentsResource['list'] = this.list;
   /**
    * Retrieve all payments created with the current website profile, ordered from newest to oldest.
    * This is just an alias of the `list` method.
@@ -43,7 +43,7 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
    *
    * @alias list
    */
-  public page = this.list;
+  public page: PaymentsResource['list'] = this.list;
   /**
    * Delete the given Payment. This is just an alias of the 'cancel' method.
    *
@@ -57,7 +57,7 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
    *
    * @alias cancel
    */
-  public delete = this.cancel;
+  public delete: PaymentsResource['cancel'] = this.cancel;
 
   /**
    * Create a payment in Mollie.
@@ -125,8 +125,7 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
   public list(parameters: ListParameters, callback: Callback<List<Payment>>): void;
   public list(parameters: ListParameters = {}) {
     if (renege(this, this.list, ...arguments)) return;
-    return this.network.list(this.getResourceUrl(), 'payments', parameters)
-    .then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.network.list(this.getResourceUrl(), 'payments', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 
   /**
