@@ -6,7 +6,7 @@ import Chargeback, { injectPrototypes as injectChargebackPrototypes } from '../c
 
 type Payment = Seal<
   PaymentData & {
-    _embedded: {
+    _embedded?: {
       refunds?: Omit<Refund, '_embedded'>[];
       chargebacks?: Omit<Chargeback, '_embedded'>[];
     };
@@ -27,5 +27,5 @@ export function injectPrototypes(input: PaymentData): Payment {
       _embedded.refunds = input._embedded.refunds.map(injectRefundPrototypes);
     }
   }
-  return Object.assign(Object.create(paymentHelpers), input);
+  return Object.assign(Object.create(paymentHelpers), input, { _embedded });
 }

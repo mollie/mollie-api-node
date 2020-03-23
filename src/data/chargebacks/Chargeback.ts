@@ -2,6 +2,8 @@ import { Amount, Links, Url } from '../global';
 import Model from '../Model';
 import commonHelpers from '../commonHelpers';
 import Seal from '../../types/Seal';
+import { PaymentData } from '../payments/data';
+import Payment, { injectPrototypes as injectPaymentPrototypes } from '../payments/Payment';
 
 /**
  * Chargeback Response object.
@@ -29,10 +31,17 @@ export interface ChargebackData extends Model<'chargeback'> {
   createdAt: string;
   reversedAt: string;
   paymentId: string;
+  _embedded?: {
+    payments?: Omit<PaymentData, '_embedded'>[];
+  };
   _links: ChargebackLinks;
 }
 
-type Chargeback = Seal<ChargebackData, typeof commonHelpers>;
+type Chargeback = Seal<ChargebackData & {
+  _embedded?: {
+    payments?: Omit<Payment, '_embedded'>[];
+  }
+}, typeof commonHelpers>;
 
 export default Chargeback;
 
@@ -48,6 +57,17 @@ export interface ChargebackLinks extends Links {
   settlement?: Url;
 }
 
+export enum ChargebackEmbed {
+  payment = 'payment'
+}
+
 export function injectPrototypes(input: ChargebackData): Chargeback {
+  let _embedded: Chargeback['_embedded'];
+  if (input._embedded != undefined) {
+    _embedded = {};
+    if (input._embedded.payments != undefined) {
+      _embedded.payments = input._embedded.payments.map(injectPaymentPrototypes);
+    }
+  }
   return Object.assign(Object.create(commonHelpers), input);
 }
