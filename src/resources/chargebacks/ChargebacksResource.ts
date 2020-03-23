@@ -1,9 +1,9 @@
-import ParentedResource from '../ParentedResource';
+import { ListParameters } from './parameters';
+import Callback from '../../types/Callback';
 import Chargeback, { ChargebackData, injectPrototypes } from '../../data/chargebacks/Chargeback';
 import List from '../../data/list/List';
-import { ListParameters } from './parameters';
+import ParentedResource from '../ParentedResource';
 import renege from '../../plumbing/renege';
-import Callback from '../../types/Callback';
 
 /**
  * The `chargebacks` resource

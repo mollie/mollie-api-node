@@ -1,6 +1,6 @@
 import { MandateData } from './data';
-import mandateHelpers from './helpers';
 import Seal from '../../../types/Seal';
+import mandateHelpers from './helpers';
 
 type Mandate = Seal<MandateData, typeof mandateHelpers>;
 

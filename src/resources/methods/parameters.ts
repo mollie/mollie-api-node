@@ -1,4 +1,4 @@
-import { Locale, Amount } from '../../data/global';
+import { Amount, Locale } from '../../data/global';
 import { MethodInclude } from '../../data/methods/data';
 import { SequenceType } from '../../../ol_dist/types/src/types/global';
 

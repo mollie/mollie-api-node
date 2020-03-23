@@ -1,6 +1,6 @@
 import { PaymentData } from '../../../data/payments/data';
-import { PickOptional } from '../../../types/PickOptional';
 import { PaymentMethod } from '../../../data/global';
+import { PickOptional } from '../../../types/PickOptional';
 
 interface ContextParameters {
   customerId: string;

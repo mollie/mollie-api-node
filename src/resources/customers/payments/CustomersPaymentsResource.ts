@@ -1,12 +1,12 @@
-import ParentedResource from '../../ParentedResource';
-import { PaymentData } from '../../../data/payments/data';
-import Payment, { injectPrototypes } from '../../../data/payments/Payment';
 import { CreateParameters, ListParameters } from './parameters';
-import checkId from '../../../plumbing/checkId';
+import { PaymentData } from '../../../data/payments/data';
 import ApiError from '../../../errors/ApiError';
-import List from '../../../data/list/List';
-import renege from '../../../plumbing/renege';
 import Callback from '../../../types/Callback';
+import List from '../../../data/list/List';
+import ParentedResource from '../../ParentedResource';
+import Payment, { injectPrototypes } from '../../../data/payments/Payment';
+import checkId from '../../../plumbing/checkId';
+import renege from '../../../plumbing/renege';
 
 /**
  * The `customers_payments` resource.

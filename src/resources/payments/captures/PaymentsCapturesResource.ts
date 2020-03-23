@@ -1,11 +1,11 @@
-import ParentedResource from '../../ParentedResource';
-import Capture, { CaptureData, injectPrototypes } from '../../../data/payments/captures/Capture';
-import checkId from '../../../plumbing/checkId';
-import ApiError from '../../../errors/ApiError';
 import { GetParameters, ListParameters } from './parameters';
-import List from '../../../data/list/List';
-import renege from '../../../plumbing/renege';
+import ApiError from '../../../errors/ApiError';
 import Callback from '../../../types/Callback';
+import Capture, { CaptureData, injectPrototypes } from '../../../data/payments/captures/Capture';
+import List from '../../../data/list/List';
+import ParentedResource from '../../ParentedResource';
+import checkId from '../../../plumbing/checkId';
+import renege from '../../../plumbing/renege';
 
 /**
  * The `payments_captures` resource

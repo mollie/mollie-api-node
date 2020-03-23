@@ -1,6 +1,6 @@
-import { SubscriptionData } from '../../../data/subscription/data';
-import { PickOptional } from '../../../types/PickOptional';
 import { CommonListParameters } from '../../../types/parameters';
+import { PickOptional } from '../../../types/PickOptional';
+import { SubscriptionData } from '../../../data/subscription/data';
 
 interface ContextParameters {
   customerId: string;

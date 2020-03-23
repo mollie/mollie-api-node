@@ -1,6 +1,6 @@
 import { MethodData, MethodImageSize } from './data';
-import commonHelpers from '../commonHelpers';
 import ApiError from '../../errors/ApiError';
+import commonHelpers from '../commonHelpers';
 
 export default {
   ...commonHelpers,

@@ -1,4 +1,4 @@
-import { ApiMode, CardAudience, CardFailureReason, CardLabel, FeeRegion, Amount, Links, Url, Locale, PaymentMethod, HistoricPaymentMethod, SequenceType } from '../global';
+import { Amount, ApiMode, CardAudience, CardFailureReason, CardLabel, FeeRegion, HistoricPaymentMethod, Links, Locale, PaymentMethod, SequenceType, Url } from '../global';
 import { RefundData } from '../refunds/data';
 import Chargeback, { ChargebackData } from '../chargebacks/Chargeback';
 import Model from '../Model';

@@ -1,12 +1,12 @@
-import Resource from '../Resource';
+import { CancelParameters, CreateParameters, GetParameters, ListParameters } from './parameters';
 import { PaymentData } from '../../data/payments/data';
-import Payment, { injectPrototypes } from '../../data/payments/Payment';
-import { CreateParameters, GetParameters, ListParameters, CancelParameters } from './parameters';
-import checkId from '../../plumbing/checkId';
 import ApiError from '../../errors/ApiError';
-import List from '../../data/list/List';
-import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
+import List from '../../data/list/List';
+import Payment, { injectPrototypes } from '../../data/payments/Payment';
+import Resource from '../Resource';
+import checkId from '../../plumbing/checkId';
+import renege from '../../plumbing/renege';
 
 /**
  * The `payments` resource

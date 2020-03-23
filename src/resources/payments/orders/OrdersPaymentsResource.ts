@@ -1,11 +1,11 @@
 import { CreateParameters } from './parameters';
-import checkId from '../../../plumbing/checkId';
-import ParentedResource from '../../ParentedResource';
-import Payment, { injectPrototypes } from '../../../data/payments/Payment';
 import { PaymentData } from '../../../data/payments/data';
 import ApiError from '../../../errors/ApiError';
-import renege from '../../../plumbing/renege';
 import Callback from '../../../types/Callback';
+import ParentedResource from '../../ParentedResource';
+import Payment, { injectPrototypes } from '../../../data/payments/Payment';
+import checkId from '../../../plumbing/checkId';
+import renege from '../../../plumbing/renege';
 
 /**
  * The `orders_payments` resource

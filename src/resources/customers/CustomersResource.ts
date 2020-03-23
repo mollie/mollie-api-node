@@ -1,11 +1,11 @@
-import List from '../../data/list/List';
-import Customer, { CustomerData, injectPrototypes } from '../../data/customers/Customer';
-import Resource from '../Resource';
-import { CreateParameters, GetParameters, ListParameters, UpdateParameters, DeleteParameters } from './parameters';
-import checkId from '../../plumbing/checkId';
+import { CreateParameters, DeleteParameters, GetParameters, ListParameters, UpdateParameters } from './parameters';
 import ApiError from '../../errors/ApiError';
-import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
+import Customer, { CustomerData, injectPrototypes } from '../../data/customers/Customer';
+import List from '../../data/list/List';
+import Resource from '../Resource';
+import checkId from '../../plumbing/checkId';
+import renege from '../../plumbing/renege';
 
 /**
  * The `Customers` resource

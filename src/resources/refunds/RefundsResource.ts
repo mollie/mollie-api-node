@@ -1,10 +1,10 @@
-import Resource from '../Resource';
-import { RefundData } from '../../data/refunds/data';
-import Refund, { injectPrototypes } from '../../data/refunds/Refund';
 import { ListParameters } from './parameters';
-import List from '../../data/list/List';
-import renege from '../../plumbing/renege';
+import { RefundData } from '../../data/refunds/data';
 import Callback from '../../types/Callback';
+import List from '../../data/list/List';
+import Refund, { injectPrototypes } from '../../data/refunds/Refund';
+import Resource from '../Resource';
+import renege from '../../plumbing/renege';
 
 /**
  * The `refunds` resource

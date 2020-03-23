@@ -1,7 +1,7 @@
-import { ApiMode, Links, Url, Locale, PaymentMethod } from '../global';
+import { ApiMode, Links, Locale, PaymentMethod, Url } from '../global';
 import Model from '../Model';
-import commonHelpers from '../commonHelpers';
 import Seal from '../../types/Seal';
+import commonHelpers from '../commonHelpers';
 
 /**
  * Customer Response object.

@@ -1,5 +1,5 @@
-import { toPlainObject } from 'lodash';
 import { ApiMode } from './data/global';
+import { toPlainObject } from 'lodash';
 
 /**
  * Base model

@@ -1,9 +1,9 @@
 import { Amount, Links, Url } from '../global';
-import Model from '../Model';
-import commonHelpers from '../commonHelpers';
-import Seal from '../../types/Seal';
 import { PaymentData } from '../payments/data';
+import Model from '../Model';
 import Payment, { injectPrototypes as injectPaymentPrototypes } from '../payments/Payment';
+import Seal from '../../types/Seal';
+import commonHelpers from '../commonHelpers';
 
 /**
  * Chargeback Response object.

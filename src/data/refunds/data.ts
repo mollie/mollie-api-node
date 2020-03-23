@@ -1,7 +1,7 @@
 import { Amount, Links, Url } from '../global';
 import { OrderLineData } from '../orders/orderlines/OrderLine';
-import Model from '../Model';
 import { PaymentData } from '../payments/data';
+import Model from '../Model';
 
 /**
  * The `Refund` model

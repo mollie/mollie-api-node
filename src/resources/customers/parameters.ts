@@ -1,6 +1,6 @@
+import { CommonListParameters } from '../../types/parameters';
 import { CustomerData } from '../../data/customers/Customer';
 import { PickOptional } from '../../types/PickOptional';
-import { CommonListParameters } from '../../types/parameters';
 
 interface ContextParameters {
   testmode?: boolean;

@@ -1,11 +1,11 @@
+import { GetParameters, ListParameters } from './parameters';
+import ApiError from '../../../errors/ApiError';
+import Callback from '../../../types/Callback';
+import Chargeback, { ChargebackData, injectPrototypes } from '../../../data/chargebacks/Chargeback';
 import List from '../../../data/list/List';
 import ParentedResource from '../../ParentedResource';
-import Chargeback, { ChargebackData, injectPrototypes } from '../../../data/chargebacks/Chargeback';
 import checkId from '../../../plumbing/checkId';
-import ApiError from '../../../errors/ApiError';
-import { GetParameters, ListParameters } from './parameters';
 import renege from '../../../plumbing/renege';
-import Callback from '../../../types/Callback';
 
 /**
  * The `payments_chargebacks` resource

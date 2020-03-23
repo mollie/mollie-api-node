@@ -1,11 +1,11 @@
-import { UpdateParameters, CancelParameters } from './parameters';
-import Order, { injectPrototypes } from '../../../data/orders/Order';
+import { CancelParameters, UpdateParameters } from './parameters';
 import { OrderData } from '../../../data/orders/data';
+import ApiError from '../../../errors/ApiError';
+import Callback from '../../../types/Callback';
+import Order, { injectPrototypes } from '../../../data/orders/Order';
 import ParentedResource from '../../ParentedResource';
 import checkId from '../../../plumbing/checkId';
-import ApiError from '../../../errors/ApiError';
 import renege from '../../../plumbing/renege';
-import Callback from '../../../types/Callback';
 
 /**
  * The `orders_lines` resource

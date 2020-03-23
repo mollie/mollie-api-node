@@ -1,5 +1,5 @@
-import { cloneDeep, get, has } from 'lodash';
 import { MollieApiError, MollieApiErrorLinks, Url } from '../data/global';
+import { cloneDeep, get, has } from 'lodash';
 
 /**
  * @since 3.0.0

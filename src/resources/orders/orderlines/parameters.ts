@@ -1,6 +1,6 @@
+import { Amount } from '../../../data/global';
 import { OrderLineData } from '../../../data/orders/orderlines/OrderLine';
 import { PickOptional } from '../../../types/PickOptional';
-import { Amount } from '../../../data/global';
 
 interface ContextParameters {
   orderId: string;

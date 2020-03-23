@@ -1,7 +1,7 @@
 import { RefundData } from './data';
-import refundHelpers from './helpers';
-import Seal from '../../types/Seal';
 import OrderLine, { injectPrototypes as injectOrderLinePrototypes } from '../orders/orderlines/OrderLine';
+import Seal from '../../types/Seal';
+import refundHelpers from './helpers';
 
 type Refund = Seal<RefundData & { lines?: OrderLine[] }, typeof refundHelpers>;
 

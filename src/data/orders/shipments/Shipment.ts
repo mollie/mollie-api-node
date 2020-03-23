@@ -1,8 +1,8 @@
 import { Links, Url } from '../../global';
-import OrderLine, { OrderLineData, injectPrototypes as injectOrderLinePrototypes } from '../orderlines/OrderLine';
 import Model from '../../Model';
-import commonHelpers from '../../commonHelpers';
+import OrderLine, { OrderLineData, injectPrototypes as injectOrderLinePrototypes } from '../orderlines/OrderLine';
 import Seal from '../../../types/Seal';
+import commonHelpers from '../../commonHelpers';
 
 export interface ShipmentData extends Model<'shipment'> {
   orderId: string;

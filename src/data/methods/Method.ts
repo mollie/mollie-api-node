@@ -1,6 +1,6 @@
 import { MethodData } from './data';
-import methodHelpers from './helpers';
 import Seal from '../../types/Seal';
+import methodHelpers from './helpers';
 
 type Method = Seal<MethodData, typeof methodHelpers>;
 

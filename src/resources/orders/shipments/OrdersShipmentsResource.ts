@@ -1,11 +1,11 @@
+import { CreateParameters, GetParameters, ListParameters, UpdateParameters } from './parameters';
+import ApiError from '../../../errors/ApiError';
+import Callback from '../../../types/Callback';
+import List from '../../../data/list/List';
 import ParentedResource from '../../ParentedResource';
 import Shipment, { ShipmentData, injectPrototypes } from '../../../data/orders/shipments/Shipment';
 import checkId from '../../../plumbing/checkId';
-import { CreateParameters, GetParameters, ListParameters, UpdateParameters } from './parameters';
-import ApiError from '../../../errors/ApiError';
-import List from '../../../data/list/List';
 import renege from '../../../plumbing/renege';
-import Callback from '../../../types/Callback';
 
 /**
  * The `order_shipments` resource

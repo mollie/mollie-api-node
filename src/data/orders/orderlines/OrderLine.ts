@@ -1,8 +1,8 @@
 import { Amount, Url } from '../../global';
 import { OrderStatus } from '../data';
 import Model from '../../Model';
-import commonHelpers from '../../commonHelpers';
 import Seal from '../../../types/Seal';
+import commonHelpers from '../../commonHelpers';
 
 /**
  * OrderLine Response object.

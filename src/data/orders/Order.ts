@@ -1,8 +1,8 @@
 import { OrderData } from './data';
-import orderHelpers from './helpers';
-import Seal from '../../types/Seal';
 import OrderLine, { injectPrototypes as injectOrderLinePrototypes } from './orderlines/OrderLine';
 import Payment, { injectPrototypes as injectPaymentPrototypes } from '../payments/Payment';
+import Seal from '../../types/Seal';
+import orderHelpers from './helpers';
 
 type Order = Seal<
   OrderData & {

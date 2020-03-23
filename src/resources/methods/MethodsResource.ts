@@ -1,10 +1,10 @@
-import Resource from '../Resource';
-import { MethodData } from '../../data/methods/data';
-import Method, { injectPrototypes } from '../../data/methods/Method';
 import { GetParameters, ListParameters } from './parameters';
-import List from '../../data/list/List';
-import renege from '../../plumbing/renege';
+import { MethodData } from '../../data/methods/data';
 import Callback from '../../types/Callback';
+import List from '../../data/list/List';
+import Method, { injectPrototypes } from '../../data/methods/Method';
+import Resource from '../Resource';
+import renege from '../../plumbing/renege';
 
 /**
  * The `methods` resource

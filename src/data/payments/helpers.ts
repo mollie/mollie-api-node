@@ -1,6 +1,6 @@
-import { get } from 'lodash';
+import { Amount, SequenceType } from '../global';
 import { PaymentData, PaymentStatus } from './data';
-import { SequenceType, Amount } from '../global';
+import { get } from 'lodash';
 import commonHelpers from '../commonHelpers';
 
 export default {

@@ -1,12 +1,12 @@
+import { CreateParameters, ListParameters } from './parameters';
+import { RefundData } from '../../../data/refunds/data';
+import ApiError from '../../../errors/ApiError';
+import Callback from '../../../types/Callback';
+import List from '../../../data/list/List';
 import ParentedResource from '../../ParentedResource';
 import Refund, { injectPrototypes } from '../../../data/refunds/Refund';
-import { RefundData } from '../../../data/refunds/data';
-import { CreateParameters, ListParameters } from './parameters';
-import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
-import List from '../../../data/list/List';
 import renege from '../../../plumbing/renege';
-import Callback from '../../../types/Callback';
 
 export default class RefundsResource extends ParentedResource<RefundData, Refund> {
   protected getResourceUrl(orderId: string): string {

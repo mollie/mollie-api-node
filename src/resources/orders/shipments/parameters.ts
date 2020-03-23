@@ -1,6 +1,6 @@
-import { ShipmentData } from '../../../data/orders/shipments/Shipment';
 import { Amount } from '../../../data/global';
 import { PickRequired } from '../../../types/PickRequired';
+import { ShipmentData } from '../../../data/orders/shipments/Shipment';
 
 interface ContextParameters {
   orderId: string;

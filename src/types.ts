@@ -16,10 +16,10 @@ export { ChargebacksListParameters };
 export { default as Customer } from './data/customers/Customer';
 import {
   CreateParameters as CustomerCreateParams,
-  GetParameters as CustomerGetParams,
-  ListParameters as CustomersListParams,
-  UpdateParameters as CustomerUpdateParams,
   DeleteParameters as CustomerDeleteParams,
+  GetParameters as CustomerGetParams,
+  UpdateParameters as CustomerUpdateParams,
+  ListParameters as CustomersListParams,
 } from './resources/customers/parameters';
 export { CustomerCreateParams, CustomerGetParams, CustomersListParams, CustomerUpdateParams, CustomerDeleteParams };
 
@@ -27,8 +27,8 @@ export { default as Mandate } from './data/customers/mandates/Mandate';
 import {
   CreateParameters as MandateCreateParams,
   GetParameters as MandateGetParams,
-  ListParameters as MandatesListParams,
   RevokeParameters as MandateRevokeParams,
+  ListParameters as MandatesListParams,
 } from './resources/customers/mandates/parameters';
 export { MandateCreateParams, MandateGetParams, MandatesListParams, MandateRevokeParams };
 
@@ -38,55 +38,55 @@ export { MethodGetParams, MethodsListParams };
 
 export { default as Order } from './data/orders/Order';
 import {
+  CancelParameters as OrderCancelParams,
   CreateParameters as OrderCreateParams,
   GetParameters as OrderGetParams,
-  ListParameters as OrdersListParams,
   UpdateParameters as OrderUpdateParams,
-  CancelParameters as OrderCancelParams,
+  ListParameters as OrdersListParams,
 } from './resources/orders/parameters';
 export { OrderCreateParams, OrderGetParams, OrdersListParams, OrderUpdateParams, OrderCancelParams };
 
 export { default as OrderLine } from './data/orders/orderlines/OrderLine';
-import { UpdateParameters as OrderLineUpdateParams, CancelParameters as OrderLineCancelParams } from './resources/orders/orderlines/parameters';
+import { CancelParameters as OrderLineCancelParams, UpdateParameters as OrderLineUpdateParams } from './resources/orders/orderlines/parameters';
 export { OrderLineUpdateParams, OrderLineCancelParams };
 
 export { default as Payment } from './data/payments/Payment';
+import { CreateParameters as CustomerPaymentCreateParams, ListParameters as CustomerPaymentsListParams } from './resources/customers/payments/parameters';
+import { CreateParameters as OrderPaymentCreateParams } from './resources/payments/orders/parameters';
 import {
+  CancelParameters as PaymentCancelParams,
   CreateParameters as PaymentCreateParams,
   GetParameters as PaymentGetParams,
   ListParameters as PaymentsListParams,
-  CancelParameters as PaymentCancelParams,
 } from './resources/payments/parameters';
-import { CreateParameters as CustomerPaymentCreateParams, ListParameters as CustomerPaymentsListParams } from './resources/customers/payments/parameters';
-import { CreateParameters as OrderPaymentCreateParams } from './resources/payments/orders/parameters';
 export { PaymentCreateParams, PaymentGetParams, PaymentsListParams, PaymentCancelParams, CustomerPaymentCreateParams, CustomerPaymentsListParams, OrderPaymentCreateParams };
 
 export { default as Refund } from './data/refunds/Refund';
-import { ListParameters as RefundsListParams } from './resources/refunds/parameters';
 import {
+  CancelParameters as PaymentRefundCancelParams,
   CreateParameters as PaymentRefundCreateParams,
   GetParameters as PaymentRefundGetParams,
   ListParameters as PaymentRefundsListParams,
-  CancelParameters as PaymentRefundCancelParams,
 } from './resources/payments/refunds/parameters';
+import { ListParameters as RefundsListParams } from './resources/refunds/parameters';
 export { RefundsListParams, PaymentRefundCreateParams, PaymentRefundGetParams, PaymentRefundsListParams, PaymentRefundCancelParams };
 
 export { default as Shipment } from './data/orders/shipments/Shipment';
 import {
   CreateParameters as ShipmentCreateParams,
   GetParameters as ShipmentGetParams,
-  ListParameters as ShipmentsListParams,
   UpdateParameters as ShipmentUpdateParams,
+  ListParameters as ShipmentsListParams,
 } from './resources/orders/shipments/parameters';
 export { ShipmentCreateParams, ShipmentGetParams, ShipmentsListParams, ShipmentUpdateParams };
 
 export { default as Subscription } from './data/subscription/Subscription';
 import {
+  CancelParameters as SubscriptionCancelParams,
   CreateParameters as SubscriptionCreateParams,
   GetParameters as SubscriptionGetParams,
-  ListParameters as SubscriptionsListParams,
   UpdateParameters as SubscriptionUpdateParams,
-  CancelParameters as SubscriptionCancelParams,
+  ListParameters as SubscriptionsListParams,
 } from './resources/customers/subscriptions/parameters';
 export { SubscriptionCreateParams, SubscriptionGetParams, SubscriptionsListParams, SubscriptionUpdateParams, SubscriptionCancelParams };
 

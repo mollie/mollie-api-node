@@ -1,12 +1,12 @@
-import Resource from '../Resource';
+import { CancelParameters, CreateParameters, GetParameters, ListParameters, UpdateParameters } from './parameters';
 import { OrderData } from '../../data/orders/data';
-import Order, { injectPrototypes } from '../../data/orders/Order';
-import { CreateParameters, GetParameters, UpdateParameters, ListParameters, CancelParameters } from './parameters';
 import ApiError from '../../errors/ApiError';
-import checkId from '../../plumbing/checkId';
-import List from '../../data/list/List';
-import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
+import List from '../../data/list/List';
+import Order, { injectPrototypes } from '../../data/orders/Order';
+import Resource from '../Resource';
+import checkId from '../../plumbing/checkId';
+import renege from '../../plumbing/renege';
 
 /**
  * The `orders` resource

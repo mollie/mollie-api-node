@@ -1,4 +1,4 @@
-import { ApiMode, Amount, Links, Url } from '../global';
+import { Amount, ApiMode, Links, Url } from '../global';
 import Model from '../Model';
 
 /**

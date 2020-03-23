@@ -1,7 +1,7 @@
-import { ApiMode, Address, Amount, Links, Url } from '../global';
+import { Address, Amount, ApiMode, Links, Url } from '../global';
 import { OrderLineData } from './orderlines/OrderLine';
-import Model from '../Model';
 import { PaymentData } from '../payments/data';
+import Model from '../Model';
 
 /**
  * Order Response object.

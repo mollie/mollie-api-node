@@ -1,6 +1,6 @@
 import { SubscriptionData } from './data';
-import subscriptionHelpers from './helpers';
 import Seal from '../../types/Seal';
+import subscriptionHelpers from './helpers';
 
 type Subscription = Seal<SubscriptionData, typeof subscriptionHelpers>;
 

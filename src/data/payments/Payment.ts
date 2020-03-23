@@ -1,8 +1,8 @@
 import { PaymentData } from './data';
-import paymentHelpers from './helpers';
-import Seal from '../../types/Seal';
-import Refund, { injectPrototypes as injectRefundPrototypes } from '../refunds/Refund';
 import Chargeback, { injectPrototypes as injectChargebackPrototypes } from '../chargebacks/Chargeback';
+import Refund, { injectPrototypes as injectRefundPrototypes } from '../refunds/Refund';
+import Seal from '../../types/Seal';
+import paymentHelpers from './helpers';
 
 type Payment = Seal<
   PaymentData & {

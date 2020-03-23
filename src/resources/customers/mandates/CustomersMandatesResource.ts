@@ -1,12 +1,12 @@
-import ParentedResource from '../../ParentedResource';
-import { MandateData } from '../../../data/customers/mandates/data';
-import Mandate, { injectPrototypes } from '../../../data/customers/mandates/Mandate';
 import { CreateParameters, GetParameters, ListParameters, RevokeParameters } from './parameters';
-import checkId from '../../../plumbing/checkId';
+import { MandateData } from '../../../data/customers/mandates/data';
 import ApiError from '../../../errors/ApiError';
-import List from '../../../data/list/List';
-import renege from '../../../plumbing/renege';
 import Callback from '../../../types/Callback';
+import List from '../../../data/list/List';
+import Mandate, { injectPrototypes } from '../../../data/customers/mandates/Mandate';
+import ParentedResource from '../../ParentedResource';
+import checkId from '../../../plumbing/checkId';
+import renege from '../../../plumbing/renege';
 
 /**
  * The `customers_mandates` resource

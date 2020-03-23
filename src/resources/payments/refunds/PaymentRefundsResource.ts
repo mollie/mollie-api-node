@@ -1,12 +1,12 @@
-import ParentedResource from '../../ParentedResource';
+import { CancelParameters, CreateParameters, GetParameters, ListParameters } from './parameters';
 import { RefundData } from '../../../data/refunds/data';
-import Refund, { injectPrototypes } from '../../../data/refunds/Refund';
-import { CreateParameters, GetParameters, ListParameters, CancelParameters } from './parameters';
 import ApiError from '../../../errors/ApiError';
-import checkId from '../../../plumbing/checkId';
-import List from '../../../data/list/List';
-import renege from '../../../plumbing/renege';
 import Callback from '../../../types/Callback';
+import List from '../../../data/list/List';
+import ParentedResource from '../../ParentedResource';
+import Refund, { injectPrototypes } from '../../../data/refunds/Refund';
+import checkId from '../../../plumbing/checkId';
+import renege from '../../../plumbing/renege';
 
 /**
  * The `payments_refunds` resource

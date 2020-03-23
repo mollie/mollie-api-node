@@ -1,29 +1,29 @@
-import path from 'path';
+import { cloneDeep } from 'lodash';
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import fs from 'fs';
 import https from 'https';
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import { cloneDeep } from 'lodash';
+import path from 'path';
 
 // Lib
 import { version as libraryVersion } from '../package.json';
 
 // Resources
-import OrdersShipmentsResource from './resources/orders/shipments/OrdersShipmentsResource';
-import OrdersRefundsResource from './resources/refunds/orders/OrdersRefundsResource';
-import OrdersPaymentsResource from './resources/payments/orders/OrdersPaymentsResource';
+import ChargebacksResource from './resources/chargebacks/ChargebacksResource';
+import CustomersMandatesResource from './resources/customers/mandates/CustomersMandatesResource';
+import CustomersPaymentsResource from './resources/customers/payments/CustomersPaymentsResource';
+import CustomersResource from './resources/customers/CustomersResource';
+import CustomersSubscriptionsResource from './resources/customers/subscriptions/CustomersSubscriptionsResource';
+import MethodsResource from './resources/methods/MethodsResource';
 import OrdersLinesResource from './resources/orders/orderlines/OrderLinesResource';
+import OrdersPaymentsResource from './resources/payments/orders/OrdersPaymentsResource';
+import OrdersRefundsResource from './resources/refunds/orders/OrdersRefundsResource';
 import OrdersResource from './resources/orders/OrdersResource';
+import OrdersShipmentsResource from './resources/orders/shipments/OrdersShipmentsResource';
+import PaymentsCapturesResource from './resources/payments/captures/PaymentsCapturesResource';
+import PaymentsChargebacksResource from './resources/payments/chargebacks/PaymentsChargebacksResource';
+import PaymentsRefundsResource from './resources/payments/refunds/PaymentRefundsResource';
 import PaymentsResource from './resources/payments/PaymentsResource';
 import RefundsResource from './resources/refunds/RefundsResource';
-import PaymentsRefundsResource from './resources/payments/refunds/PaymentRefundsResource';
-import PaymentsChargebacksResource from './resources/payments/chargebacks/PaymentsChargebacksResource';
-import ChargebacksResource from './resources/chargebacks/ChargebacksResource';
-import PaymentsCapturesResource from './resources/payments/captures/PaymentsCapturesResource';
-import MethodsResource from './resources/methods/MethodsResource';
-import CustomersResource from './resources/customers/CustomersResource';
-import CustomersPaymentsResource from './resources/customers/payments/CustomersPaymentsResource';
-import CustomersMandatesResource from './resources/customers/mandates/CustomersMandatesResource';
-import CustomersSubscriptionsResource from './resources/customers/subscriptions/CustomersSubscriptionsResource';
 
 export interface MollieOptions extends AxiosRequestConfig {
   /**
