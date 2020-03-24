@@ -74,11 +74,11 @@ export default class PaymentsRefundsResource extends ParentedResource<RefundData
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
     const paymentId = this.getParentId(parameters.paymentId);
-    if (!checkId(paymentId, 'payment')) {
+    if (paymentId == undefined || !checkId(paymentId, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...data } = parameters;
-    return this.network.post(this.getResourceUrl(paymentId!), data);
+    return this.network.post(this.getResourceUrl(paymentId), data);
   }
 
   /**
@@ -104,11 +104,11 @@ export default class PaymentsRefundsResource extends ParentedResource<RefundData
     }
     // parameters || {} is used here, because in case withParent is used, parameters could be omitted.
     const paymentId = this.getParentId((parameters || {}).paymentId);
-    if (!checkId(paymentId, 'payment')) {
+    if (paymentId == undefined || !checkId(paymentId, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    return this.network.get(`${this.getResourceUrl(paymentId!)}/${id}`, query);
+    return this.network.get(`${this.getResourceUrl(paymentId)}/${id}`, query);
   }
 
   /**
@@ -130,11 +130,11 @@ export default class PaymentsRefundsResource extends ParentedResource<RefundData
     if (renege(this, this.list, ...arguments)) return;
     // parameters || {} is used here, because in case withParent is used, parameters could be omitted.
     const paymentId = this.getParentId((parameters || {}).paymentId);
-    if (!checkId(paymentId, 'payment')) {
+    if (paymentId == undefined || !checkId(paymentId, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    return this.network.list(this.getResourceUrl(paymentId!), 'refunds', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.network.list(this.getResourceUrl(paymentId), 'refunds', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 
   /**
@@ -162,10 +162,10 @@ export default class PaymentsRefundsResource extends ParentedResource<RefundData
     }
     // parameters || {} is used here, because in case withParent is used, parameters could be omitted.
     const paymentId = this.getParentId((parameters || {}).paymentId);
-    if (!checkId(paymentId, 'payment')) {
+    if (paymentId == undefined || !checkId(paymentId, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    return this.network.delete(`${this.getResourceUrl(paymentId!)}/${id}`) as Promise<true>;
+    return this.network.delete(`${this.getResourceUrl(paymentId)}/${id}`) as Promise<true>;
   }
 }

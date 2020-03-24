@@ -64,11 +64,11 @@ export default class CustomersPaymentsResource extends ParentedResource<PaymentD
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
     const customerId = this.getParentId(parameters.customerId);
-    if (!checkId(customerId, 'customer')) {
+    if (customerId == undefined || !checkId(customerId, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...data } = parameters;
-    return this.network.post(this.getResourceUrl(customerId!), data);
+    return this.network.post(this.getResourceUrl(customerId), data);
   }
 
   /**
@@ -92,10 +92,10 @@ export default class CustomersPaymentsResource extends ParentedResource<PaymentD
     if (renege(this, this.list, ...arguments)) return;
     // parameters || {} is used here, because in case withParent is used, parameters could be omitted.
     const customerId = this.getParentId((parameters || {}).customerId);
-    if (!checkId(customerId, 'customer')) {
+    if (customerId == undefined || !checkId(customerId, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...query } = parameters || {};
-    return this.network.list(this.getResourceUrl(customerId!), 'payments', query).then(result => this.injectPaginationHelpers(result, this.list, parameters || {}));
+    return this.network.list(this.getResourceUrl(customerId), 'payments', query).then(result => this.injectPaginationHelpers(result, this.list, parameters || {}));
   }
 }

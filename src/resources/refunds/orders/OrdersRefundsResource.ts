@@ -59,11 +59,11 @@ export default class RefundsResource extends ParentedResource<RefundData, Refund
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
     const orderId = this.getParentId(parameters.orderId);
-    if (!checkId(orderId, 'order')) {
+    if (orderId == undefined || !checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...data } = parameters;
-    return this.network.post(this.getResourceUrl(orderId!), data);
+    return this.network.post(this.getResourceUrl(orderId), data);
   }
 
   /**
@@ -87,10 +87,10 @@ export default class RefundsResource extends ParentedResource<RefundData, Refund
     if (renege(this, this.list, ...arguments)) return;
     // parameters || {} is used here, because in case withParent is used, parameters could be omitted.
     const orderId = this.getParentId((parameters || {}).orderId);
-    if (!checkId(orderId, 'order')) {
+    if (orderId == undefined || !checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...query } = parameters || {};
-    return this.network.list(this.getResourceUrl(orderId!), 'refunds', query).then(result => this.injectPaginationHelpers(result, this.list, parameters || {}));
+    return this.network.list(this.getResourceUrl(orderId), 'refunds', query).then(result => this.injectPaginationHelpers(result, this.list, parameters || {}));
   }
 }

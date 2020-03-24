@@ -22,6 +22,7 @@ export enum Locale {
   lv_LV = 'lv_LV',
   lt_LT = 'lt_LT',
 }
+/* eslint-enable @typescript-eslint/camelcase */
 
 export enum PaymentMethod {
   applepay = 'applepay',

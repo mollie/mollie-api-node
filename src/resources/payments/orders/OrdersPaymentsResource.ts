@@ -39,10 +39,10 @@ export default class OrdersPaymentsResource extends ParentedResource<PaymentData
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
     const orderId = this.getParentId(parameters.orderId);
-    if (!checkId(orderId, 'order')) {
+    if (orderId == undefined || !checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...data } = parameters;
-    return this.network.post(this.getResourceUrl(orderId!), data);
+    return this.network.post(this.getResourceUrl(orderId), data);
   }
 }

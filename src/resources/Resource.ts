@@ -28,8 +28,9 @@ export default class Resource<R, T extends R> {
   };
 
   constructor(protected readonly httpClient: AxiosInstance) {
+    /* eslint-disable no-var */
     this.network = {
-      post: async (url: string, data: any) => {
+      post: async (url: string, data: any): Promise<T> => {
         try {
           var response: AxiosResponse = await httpClient.post(url, data);
         } catch (error) {
@@ -37,7 +38,7 @@ export default class Resource<R, T extends R> {
         }
         return this.injectPrototypes(response.data);
       },
-      get: async (url: string, query: Record<string, any> = {}) => {
+      get: async (url: string, query: Record<string, any> = {}): Promise<T> => {
         try {
           var response: AxiosResponse = await httpClient.get(`${url}${stringifyQuery(query)}`);
         } catch (error) {
@@ -45,7 +46,7 @@ export default class Resource<R, T extends R> {
         }
         return this.injectPrototypes(response.data);
       },
-      list: async (url: string, resourceName: string, query: Record<string, any>) => {
+      list: async (url: string, resourceName: string, query: Record<string, any>): Promise<Omit<List<T>, 'nextPage' | 'previousPage'>> => {
         try {
           var response: AxiosResponse = await httpClient.get(`${url}${stringifyQuery(query)}`);
         } catch (error) {
@@ -61,7 +62,7 @@ export default class Resource<R, T extends R> {
           count,
         });
       },
-      patch: async (url: string, data: any) => {
+      patch: async (url: string, data: any): Promise<T> => {
         try {
           var response: AxiosResponse = await httpClient.patch(url, data);
         } catch (error) {
@@ -69,7 +70,7 @@ export default class Resource<R, T extends R> {
         }
         return this.injectPrototypes(response.data);
       },
-      delete: async (url: string) => {
+      delete: async (url: string): Promise<T | true> => {
         try {
           var response: AxiosResponse = await httpClient.delete(url);
         } catch (error) {
@@ -82,6 +83,7 @@ export default class Resource<R, T extends R> {
         }
       },
     };
+    /* eslint-enable no-var */
   }
 
   /**

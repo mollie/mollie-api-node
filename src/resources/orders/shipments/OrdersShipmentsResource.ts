@@ -72,11 +72,11 @@ export default class OrdersShipmentsResource extends ParentedResource<ShipmentDa
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
     const orderId = this.getParentId(parameters.orderId);
-    if (!checkId(orderId, 'order')) {
+    if (orderId == undefined || !checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...data } = parameters;
-    return this.network.post(this.getResourceUrl(orderId!), data);
+    return this.network.post(this.getResourceUrl(orderId), data);
   }
 
   /**
@@ -103,11 +103,11 @@ export default class OrdersShipmentsResource extends ParentedResource<ShipmentDa
     }
     // parameters || {} is used here, because in case withParent is used, parameters could be omitted.
     const orderId = this.getParentId((parameters || {}).orderId);
-    if (!checkId(orderId, 'order')) {
+    if (orderId == undefined || !checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...query } = parameters || {};
-    return this.network.get(`${this.getResourceUrl(orderId!)}/${id}`, query);
+    return this.network.get(`${this.getResourceUrl(orderId)}/${id}`, query);
   }
 
   /**
@@ -133,11 +133,11 @@ export default class OrdersShipmentsResource extends ParentedResource<ShipmentDa
       throw new ApiError('The orders_shipments id is invalid');
     }
     const orderId = this.getParentId(parameters.orderId);
-    if (!checkId(orderId, 'order')) {
+    if (orderId == undefined || !checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...data } = parameters;
-    return this.network.patch(`${this.getResourceUrl(orderId!)}/${id}`, data);
+    return this.network.patch(`${this.getResourceUrl(orderId)}/${id}`, data);
   }
 
   /**
@@ -161,10 +161,10 @@ export default class OrdersShipmentsResource extends ParentedResource<ShipmentDa
     if (renege(this, this.list, ...arguments)) return;
     // parameters || {} is used here, because in case withParent is used, parameters could be omitted.
     const orderId = this.getParentId((parameters || {}).orderId);
-    if (!checkId(orderId, 'order')) {
+    if (orderId == undefined || !checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...query } = parameters || {};
-    return this.network.list(this.getResourceUrl(orderId!), 'shipments', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.network.list(this.getResourceUrl(orderId), 'shipments', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 }

@@ -56,11 +56,11 @@ export default class OrdersLinesResource extends ParentedResource<OrderData, Ord
       throw new ApiError('The orders_lines id is invalid');
     }
     const orderId = this.getParentId(parameters.orderId);
-    if (!checkId(orderId, 'order')) {
+    if (orderId == undefined || !checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...data } = parameters;
-    return this.network.patch(`${this.getResourceUrl(orderId!)}/${id}`, data);
+    return this.network.patch(`${this.getResourceUrl(orderId)}/${id}`, data);
   }
 
   /**
@@ -83,10 +83,10 @@ export default class OrdersLinesResource extends ParentedResource<OrderData, Ord
   public cancel(parameters: CancelParameters) {
     if (renege(this, this.cancel, ...arguments)) return;
     const orderId = this.getParentId(parameters.orderId);
-    if (!checkId(orderId, 'order')) {
+    if (orderId == undefined || !checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...data } = parameters;
-    return this.network.delete(this.getResourceUrl(orderId!)) as Promise<true>;
+    return this.network.delete(this.getResourceUrl(orderId)) as Promise<true>;
   }
 }

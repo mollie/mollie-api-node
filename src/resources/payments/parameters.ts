@@ -1,4 +1,4 @@
-import { Address, Amount, Locale, PaymentMethod } from '../../data/global';
+import { Address, Amount, PaymentMethod } from '../../data/global';
 import { CommonListParameters } from '../../types/parameters';
 import { Issuer } from '../../data/Issuer';
 import { PaymentData, PaymentEmbed, PaymentInclude } from '../../data/payments/data';
