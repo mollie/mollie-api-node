@@ -1,13 +1,14 @@
 import { AxiosInstance, AxiosResponse } from 'axios';
 import { parse as parseUrl } from 'url';
 import ApiError from '../errors/ApiError';
+import getEntries from '../plumbing/getEntries';
 import List from '../data/list/List';
 import querystring from 'qs';
 import Maybe from '../types/Maybe';
 
 function stringifyQuery(input: Record<string, any>): string {
   return querystring.stringify(
-    Object.entries(input).reduce<Record<string, any>>((result, [key, value]) => {
+    getEntries(input).reduce<Record<string, any>>((result, [key, value]) => {
       if (Array.isArray(value)) {
         result[key] = value.join(';');
       } /* if (Array.isArray(value) == false) */ else {
