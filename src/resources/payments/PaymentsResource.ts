@@ -74,7 +74,7 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
    * @public ✓ This method is part of the public API
    */
   public create(parameters: CreateParameters): Promise<Payment>;
-  public create(parameters: CreateParameters, callback: (error: Error | null, payment?: Payment) => void): void;
+  public create(parameters: CreateParameters, callback: Callback<Payment>): void;
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
     return this.network.post(this.getResourceUrl(), parameters);

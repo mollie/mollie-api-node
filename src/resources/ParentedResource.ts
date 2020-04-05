@@ -1,17 +1,17 @@
 import Resource from './Resource';
+import Maybe from '../types/Maybe';
 
 export default class ParentedResource<R, T extends R> extends Resource<R, T> {
-  protected defaultParentId: string | undefined;
+  protected defaultParentId: Maybe<string>;
 
   /**
    * Returns the passed parent identifier, or `defaultParentId` as set by `withParent` if the former is `undefined`.
    */
-  protected getParentId(input: string | undefined): string | undefined {
-    if (input != undefined) {
-      return input;
-    } /* if (input == undefined) */ else {
+  protected getParentId(input: Maybe<string>): Maybe<string> {
+    if (input == undefined) {
       return this.defaultParentId;
     }
+    return input;
   }
 
   /**

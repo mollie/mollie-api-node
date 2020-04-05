@@ -3,6 +3,7 @@ import { parse as parseUrl } from 'url';
 import ApiError from '../errors/ApiError';
 import List from '../data/list/List';
 import querystring from 'qs';
+import Maybe from '../types/Maybe';
 
 function stringifyQuery(input: Record<string, any>): string {
   return querystring.stringify(
@@ -76,11 +77,10 @@ export default class Resource<R, T extends R> {
         } catch (error) {
           throw ApiError.captureStackTrace(error.response);
         }
-        if (response.status != 204) {
-          return this.injectPrototypes(response.data);
-        } /* if (response.status == 204) */ else {
+        if (response.status == 204) {
           return true;
         }
+        return this.injectPrototypes(response.data);
       },
     };
     /* eslint-enable no-var */
@@ -95,8 +95,8 @@ export default class Resource<R, T extends R> {
     selfParameters: P,
   ): List<T> {
     const { links } = input;
-    let nextPage: (() => Promise<List<T>>) | undefined;
-    let nextPageCursor: string | undefined;
+    let nextPage: Maybe<() => Promise<List<T>>>;
+    let nextPageCursor: Maybe<string>;
     if (links.next != null) {
       const { query } = parseUrl(links.next.href, true);
       nextPage = list.bind(this, {
@@ -105,8 +105,8 @@ export default class Resource<R, T extends R> {
       });
       nextPageCursor = query.from as string;
     }
-    let previousPage: (() => Promise<List<T>>) | undefined;
-    let previousPageCursor: string | undefined;
+    let previousPage: Maybe<() => Promise<List<T>>>;
+    let previousPageCursor: Maybe<string>;
     if (links.previous != null) {
       const { query } = parseUrl(links.previous.href, true);
       previousPage = list.bind(this, {

@@ -2,6 +2,7 @@ import { Amount, SequenceType } from '../global';
 import { PaymentData, PaymentStatus } from './data';
 import { get } from 'lodash';
 import commonHelpers from '../commonHelpers';
+import Nullable from '../../types/Nullable';
 
 export default {
   ...commonHelpers,
@@ -134,7 +135,7 @@ export default {
    *
    * @public ✓ This method is part of the public API
    */
-  getCheckoutUrl: function getCheckoutUrl(this: PaymentData): string | null {
+  getCheckoutUrl: function getCheckoutUrl(this: PaymentData): Nullable<string> {
     if (this._links.checkout == undefined) {
       return null;
     }

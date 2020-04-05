@@ -1,15 +1,17 @@
 import { Links, Url } from '../global';
+import Maybe from '../../types/Maybe';
+import Nullable from '../../types/Nullable';
 
 export default interface List<T> extends Array<T> {
   links: ListLinks;
   count: number;
-  nextPageCursor: string | undefined;
-  previousPageCursor: string | undefined;
-  nextPage: () => Promise<List<T>> | undefined;
-  previousPage: () => Promise<List<T>> | undefined;
+  nextPageCursor: Maybe<string>;
+  previousPageCursor: Maybe<string>;
+  nextPage: Maybe<() => Promise<List<T>>>;
+  previousPage: Maybe<() => Promise<List<T>>>;
 }
 
 export interface ListLinks extends Links {
-  next: Url | null;
-  previous: Url | null;
+  next: Nullable<Url>;
+  previous: Nullable<Url>;
 }

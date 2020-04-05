@@ -1,5 +1,6 @@
 import { ApiMode, CardLabel, Links, Url } from '../../global';
 import Model from '../../Model';
+import Nullable from '../../../types/Nullable';
 
 /**
  * Mandate Response object
@@ -32,7 +33,7 @@ export interface MandateDetailsDirectDebit {
 export interface MandateDetailsCreditCard {
   cardHolder: string;
   cardNumber: string;
-  cardLabel: CardLabel;
+  cardLabel: Nullable<CardLabel>;
   cardFingerprint: string;
   cardExpireDate: string;
 }

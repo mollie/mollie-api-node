@@ -2,6 +2,7 @@ import { Amount, ApiMode, CardAudience, CardFailureReason, CardLabel, FeeRegion,
 import { RefundData } from '../refunds/data';
 import { ChargebackData } from '../chargebacks/Chargeback';
 import Model from '../Model';
+import Nullable from '../../types/Nullable';
 
 /**
  * Payment Response Object.
@@ -329,8 +330,8 @@ export interface CreditCardDetails {
   cardHolder: string;
   cardNumber: string;
   cardFingerprint: string;
-  cardAudience: CardAudience;
-  cardLabel: CardLabel;
+  cardAudience: Nullable<CardAudience>;
+  cardLabel: Nullable<CardLabel>;
   cardCountryCode: string;
   cardSecurity: string;
   feeRegion: FeeRegion;

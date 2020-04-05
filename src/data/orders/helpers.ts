@@ -1,5 +1,6 @@
 import { OrderData, OrderStatus } from './data';
 import commonHelpers from '../commonHelpers';
+import Nullable from '../../types/Nullable';
 
 export default {
   ...commonHelpers,
@@ -89,7 +90,7 @@ export default {
    *
    * @public ✓ This method is part of the public API
    */
-  getCheckoutUrl: function getCheckoutUrl(this: OrderData): string | null {
+  getCheckoutUrl: function getCheckoutUrl(this: OrderData): Nullable<string> {
     if (this._links.checkout == undefined) {
       return null;
     }

@@ -1,5 +1,6 @@
 import { MollieApiError, MollieApiErrorLinks, Url } from '../data/global';
 import { cloneDeep, get, has } from 'lodash';
+import Maybe from '../types/Maybe';
 
 /**
  * @since 3.0.0
@@ -32,7 +33,7 @@ export default class ApiError extends Error {
    *
    * @public ✓ This method is part of the public API
    */
-  public getField(): string | undefined {
+  public getField(): Maybe<string> {
     return this.field;
   }
 
@@ -45,7 +46,7 @@ export default class ApiError extends Error {
    *
    * @public ✓ This method is part of the public API
    */
-  public getStatusCode(): number | undefined {
+  public getStatusCode(): Maybe<number> {
     return this.status;
   }
 

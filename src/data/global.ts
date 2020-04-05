@@ -84,7 +84,7 @@ export interface Address {
   country: string;
 }
 
-export type CardLabel = 'American Express' | 'Carta Si' | 'Carte Bleue' | 'Dankort' | 'Diners' | 'Club' | 'Discover' | 'JCB' | 'Laser' | 'Maestro' | 'Mastercard' | 'Unionpay' | 'Visa' | null;
+export type CardLabel = 'American Express' | 'Carta Si' | 'Carte Bleue' | 'Dankort' | 'Diners' | 'Club' | 'Discover' | 'JCB' | 'Laser' | 'Maestro' | 'Mastercard' | 'Unionpay' | 'Visa';
 
 export type CardFailureReason =
   | 'invalid_card_number'
@@ -96,7 +96,7 @@ export type CardFailureReason =
   | 'insufficient_funds'
   | 'inactive_card';
 
-export type CardAudience = 'consumer' | 'business' | null;
+export type CardAudience = 'consumer' | 'business';
 
 export type FeeRegion = 'intra-eu' | 'other';
 

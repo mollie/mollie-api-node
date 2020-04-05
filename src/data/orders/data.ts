@@ -2,6 +2,7 @@ import { Address, Amount, ApiMode, Links, Url } from '../global';
 import { OrderLineData } from './orderlines/OrderLine';
 import { PaymentData } from '../payments/data';
 import Model from '../Model';
+import Nullable from '../../types/Nullable';
 
 /**
  * Order Response object.
@@ -11,10 +12,10 @@ import Model from '../Model';
 export interface OrderData extends Model<'order'> {
   mode: ApiMode;
   profileId: string;
-  method: string | null;
+  method: Nullable<string>;
   amount: Amount;
-  amountCaptured?: Amount | null;
-  amountRefunded?: Amount | null;
+  amountCaptured?: Nullable<Amount>;
+  amountRefunded?: Nullable<Amount>;
   status: OrderStatus;
   isCancelable: boolean;
   billingAddress: OrderAddress;
@@ -23,7 +24,7 @@ export interface OrderData extends Model<'order'> {
   shippingAddress: OrderAddress;
   locale: string;
   metadata?: any;
-  redirectUrl: string | null;
+  redirectUrl: Nullable<string>;
   lines: OrderLineData[];
   webhookUrl?: string;
   createdAt: string;
