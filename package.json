@@ -128,6 +128,8 @@
   ],
   "resolutions": {
     "@babel/core": "^7.3.3",
-    "babel-core": "7.0.0-bridge.0"
+    "babel-core": "7.0.0-bridge.0",
+    "minimist": "^1.2.2",
+    "acorn": "^7.1.1"
   }
 }
