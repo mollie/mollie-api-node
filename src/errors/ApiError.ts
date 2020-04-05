@@ -1,4 +1,5 @@
-import { MollieApiError, MollieApiErrorLinks, Url } from '../data/global';
+import { MollieApiErrorLinks, Url } from '../data/global';
+import { AxiosResponse } from 'axios';
 import { cloneDeep, get, has } from 'lodash';
 import Maybe from '../types/Maybe';
 
@@ -125,15 +126,19 @@ export default class ApiError extends Error {
   }
 
   /**
-   * Create an `ApiError` from a raw error format
-   *
-   * @param error - A raw Mollie API error
+   * Creates and returns an `ApiError` from the passed response.
    *
    * @returns A new `ApiError`
    *
    * @since 3.0.0
    */
-  public static createFromResponse(error: MollieApiError): ApiError {
-    return new ApiError(get(error, 'data.detail'), get(error, 'data.title'), get(error, 'data.status'), get(error, 'data.field'), cloneDeep(get(error, 'data._links')));
+  public static createFromResponse(response: AxiosResponse): ApiError {
+    return new ApiError(
+      get(response, 'data.detail', 'Received an error without a message'),
+      get(response, 'data.title'),
+      get(response, 'data.status'),
+      get(response, 'data.field'),
+      cloneDeep(get(response, 'data._links')),
+    );
   }
 }

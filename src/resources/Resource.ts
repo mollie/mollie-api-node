@@ -35,7 +35,10 @@ export default class Resource<R, T extends R> {
         try {
           var response: AxiosResponse = await httpClient.post(url, data);
         } catch (error) {
-          throw ApiError.createFromResponse(error.response);
+          if (error.response != undefined) {
+            throw ApiError.createFromResponse(error.response);
+          }
+          throw new ApiError(error.message);
         }
         return this.injectPrototypes(response.data);
       },
@@ -43,7 +46,10 @@ export default class Resource<R, T extends R> {
         try {
           var response: AxiosResponse = await httpClient.get(`${url}${stringifyQuery(query)}`);
         } catch (error) {
-          throw ApiError.createFromResponse(error.response);
+          if (error.response != undefined) {
+            throw ApiError.createFromResponse(error.response);
+          }
+          throw new ApiError(error.message);
         }
         return this.injectPrototypes(response.data);
       },
@@ -51,7 +57,10 @@ export default class Resource<R, T extends R> {
         try {
           var response: AxiosResponse = await httpClient.get(`${url}${stringifyQuery(query)}`);
         } catch (error) {
-          throw ApiError.createFromResponse(error.response);
+          if (error.response != undefined) {
+            throw ApiError.createFromResponse(error.response);
+          }
+          throw new ApiError(error.message);
         }
         try {
           var { _embedded: embedded, _links: links, count } = response.data;
@@ -67,7 +76,10 @@ export default class Resource<R, T extends R> {
         try {
           var response: AxiosResponse = await httpClient.patch(url, data);
         } catch (error) {
-          throw ApiError.createFromResponse(error.response);
+          if (error.response != undefined) {
+            throw ApiError.createFromResponse(error.response);
+          }
+          throw new ApiError(error.message);
         }
         return this.injectPrototypes(response.data);
       },
@@ -75,7 +87,10 @@ export default class Resource<R, T extends R> {
         try {
           var response: AxiosResponse = await httpClient.delete(url);
         } catch (error) {
-          throw ApiError.captureStackTrace(error.response);
+          if (error.response != undefined) {
+            throw ApiError.createFromResponse(error.response);
+          }
+          throw new ApiError(error.message);
         }
         if (response.status == 204) {
           return true;
