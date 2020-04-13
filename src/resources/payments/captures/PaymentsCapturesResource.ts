@@ -68,7 +68,7 @@ export default class PaymentsCapturesResource extends ParentedResource<CaptureDa
     }
     // parameters || {} is used here, because in case withParent is used, parameters could be omitted.
     const paymentId = this.getParentId((parameters || {}).paymentId);
-    if (paymentId == undefined || !checkId(paymentId, 'payment')) {
+    if (!checkId(paymentId, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
@@ -96,7 +96,7 @@ export default class PaymentsCapturesResource extends ParentedResource<CaptureDa
     if (renege(this, this.list, ...arguments)) return;
     // parameters || {} is used here, because in case withParent is used, parameters could be omitted.
     const paymentId = this.getParentId((parameters || {}).paymentId);
-    if (paymentId == undefined || !checkId(paymentId, 'payment')) {
+    if (!checkId(paymentId, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;

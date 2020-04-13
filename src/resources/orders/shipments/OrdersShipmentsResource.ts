@@ -72,7 +72,7 @@ export default class OrdersShipmentsResource extends ParentedResource<ShipmentDa
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
     const orderId = this.getParentId(parameters.orderId);
-    if (orderId == undefined || !checkId(orderId, 'order')) {
+    if (!checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...data } = parameters;
@@ -103,7 +103,7 @@ export default class OrdersShipmentsResource extends ParentedResource<ShipmentDa
     }
     // parameters || {} is used here, because in case withParent is used, parameters could be omitted.
     const orderId = this.getParentId((parameters || {}).orderId);
-    if (orderId == undefined || !checkId(orderId, 'order')) {
+    if (!checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...query } = parameters || {};
@@ -133,7 +133,7 @@ export default class OrdersShipmentsResource extends ParentedResource<ShipmentDa
       throw new ApiError('The orders_shipments id is invalid');
     }
     const orderId = this.getParentId(parameters.orderId);
-    if (orderId == undefined || !checkId(orderId, 'order')) {
+    if (!checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...data } = parameters;
@@ -161,7 +161,7 @@ export default class OrdersShipmentsResource extends ParentedResource<ShipmentDa
     if (renege(this, this.list, ...arguments)) return;
     // parameters || {} is used here, because in case withParent is used, parameters could be omitted.
     const orderId = this.getParentId((parameters || {}).orderId);
-    if (orderId == undefined || !checkId(orderId, 'order')) {
+    if (!checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...query } = parameters || {};

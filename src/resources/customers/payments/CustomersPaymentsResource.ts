@@ -64,7 +64,7 @@ export default class CustomersPaymentsResource extends ParentedResource<PaymentD
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
     const customerId = this.getParentId(parameters.customerId);
-    if (customerId == undefined || !checkId(customerId, 'customer')) {
+    if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...data } = parameters;
@@ -92,7 +92,7 @@ export default class CustomersPaymentsResource extends ParentedResource<PaymentD
     if (renege(this, this.list, ...arguments)) return;
     // parameters || {} is used here, because in case withParent is used, parameters could be omitted.
     const customerId = this.getParentId((parameters || {}).customerId);
-    if (customerId == undefined || !checkId(customerId, 'customer')) {
+    if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...query } = parameters || {};

@@ -74,7 +74,7 @@ export default class PaymentsRefundsResource extends ParentedResource<RefundData
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
     const paymentId = this.getParentId(parameters.paymentId);
-    if (paymentId == undefined || !checkId(paymentId, 'payment')) {
+    if (!checkId(paymentId, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...data } = parameters;
@@ -104,7 +104,7 @@ export default class PaymentsRefundsResource extends ParentedResource<RefundData
     }
     // parameters || {} is used here, because in case withParent is used, parameters could be omitted.
     const paymentId = this.getParentId((parameters || {}).paymentId);
-    if (paymentId == undefined || !checkId(paymentId, 'payment')) {
+    if (!checkId(paymentId, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
@@ -130,7 +130,7 @@ export default class PaymentsRefundsResource extends ParentedResource<RefundData
     if (renege(this, this.list, ...arguments)) return;
     // parameters || {} is used here, because in case withParent is used, parameters could be omitted.
     const paymentId = this.getParentId((parameters || {}).paymentId);
-    if (paymentId == undefined || !checkId(paymentId, 'payment')) {
+    if (!checkId(paymentId, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
@@ -162,7 +162,7 @@ export default class PaymentsRefundsResource extends ParentedResource<RefundData
     }
     // parameters || {} is used here, because in case withParent is used, parameters could be omitted.
     const paymentId = this.getParentId((parameters || {}).paymentId);
-    if (paymentId == undefined || !checkId(paymentId, 'payment')) {
+    if (!checkId(paymentId, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;

@@ -15,7 +15,10 @@ const prefixes = new Map<ResourceKind, string>([
 /**
  * Returns whether the passed identifier seems plausible (`true`); or is definitely invalid (`false`).
  */
-export default function checkId(value: string, resource: ResourceKind): boolean {
+export default function checkId(value: string | undefined, resource: ResourceKind): value is string {
+  if (value == undefined) {
+    return false;
+  }
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   return value.startsWith(prefixes.get(resource)!);
 }
