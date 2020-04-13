@@ -27,14 +27,13 @@ describe('methods', () => {
         done();
       }));
 
-    // it('should work with a callback', done => {
-    //   methods.get(methodId, (err, result) => {
-    //     expect(err).toBeNull();
-    //     expect(result).toBeInstanceOf(Method);
-    //     expect(result).toMatchSnapshot();
-    //     done();
-    //   });
-    // });
+    it('should work with a callback', done => {
+      methods.get(methodId, {}, (err, result) => {
+        expect(err).toBeNull();
+        expect(result).toMatchSnapshot();
+        done();
+      });
+    });
 
     it('should throw an error for non-existent IDs', done =>
       methods
@@ -46,14 +45,14 @@ describe('methods', () => {
           done();
         }));
 
-    // it('should return an error with a callback for non-existent IDs', done => {
-    //   methods.get('foo', (err, result) => {
-    //     expect(err).toBeInstanceOf(ApiError);
-    //     expect(err.getMessage()).toEqual(error.detail);
-    //     expect(result).toBeUndefined();
-    //     done();
-    //   });
-    // });
+    it('should return an error with a callback for non-existent IDs', done => {
+      methods.get('foo', {}, (err: any, result) => {
+        expect(err).toBeInstanceOf(ApiError);
+        expect(err.getMessage()).toEqual(error.detail);
+        expect(result).toBeUndefined();
+        done();
+      });
+    });
   });
 
   describe('.all()', () => {
@@ -65,14 +64,13 @@ describe('methods', () => {
         expect(result).toMatchSnapshot();
       }));
 
-    // it('should work with a callback', done => {
-    //   methods.all((err, result) => {
-    //     expect(err).toBeNull();
-    //     expect(result).toBeInstanceOf(List);
-    //     expect(result).toHaveProperty('links');
-    //     expect(result).toMatchSnapshot();
-    //     done();
-    //   });
-    // });
+    it('should work with a callback', done => {
+      methods.all({}, (err, result) => {
+        expect(err).toBeNull();
+        expect(result).toHaveProperty('links');
+        expect(result).toMatchSnapshot();
+        done();
+      });
+    });
   });
 });

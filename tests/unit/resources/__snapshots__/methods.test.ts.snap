@@ -65,7 +65,90 @@ Array [
 ]
 `;
 
+exports[`methods .all() should work with a callback 1`] = `
+Array [
+  Object {
+    "_links": Object {
+      "self": Object {
+        "href": "https://api.mollie.com/v2/methods/ideal",
+        "type": "application/hal+json",
+      },
+    },
+    "description": "iDEAL",
+    "id": "ideal",
+    "image": Object {
+      "size1x": "https://www.mollie.com/images/payscreen/methods/ideal.png",
+      "size2x": "https://www.mollie.com/images/payscreen/methods/ideal%402x.png",
+    },
+    "resource": "method",
+  },
+  Object {
+    "_links": Object {
+      "self": Object {
+        "href": "https://api.mollie.com/v2/methods/creditcard",
+        "type": "application/hal+json",
+      },
+    },
+    "description": "Credit card",
+    "id": "creditcard",
+    "image": Object {
+      "size1x": "https://www.mollie.com/images/payscreen/methods/creditcard.png",
+      "size2x": "https://www.mollie.com/images/payscreen/methods/creditcard%402x.png",
+    },
+    "resource": "method",
+  },
+  Object {
+    "_links": Object {
+      "self": Object {
+        "href": "https://api.mollie.com/v2/methods/banktransfer",
+        "type": "application/hal+json",
+      },
+    },
+    "description": "Bank transfer",
+    "id": "banktransfer",
+    "image": Object {
+      "size1x": "https://www.mollie.com/images/payscreen/methods/banktransfer.png",
+      "size2x": "https://www.mollie.com/images/payscreen/methods/banktransfer%402x.png",
+    },
+    "resource": "method",
+  },
+  Object {
+    "_links": Object {
+      "self": Object {
+        "href": "https://api.mollie.com/v2/methods/inghomepay",
+        "type": "application/hal+json",
+      },
+    },
+    "description": "ING Home'Pay",
+    "id": "inghomepay",
+    "image": Object {
+      "size1x": "https://www.mollie.com/images/payscreen/methods/inghomepay.png",
+      "size2x": "https://www.mollie.com/images/payscreen/methods/inghomepay%402x.png",
+    },
+    "resource": "method",
+  },
+]
+`;
+
 exports[`methods .get() should return a method instance 1`] = `
+Object {
+  "_links": Object {
+    "self": Object {
+      "href": "https://api.mollie.com/v2/methods/ideal",
+      "type": "application/hal+json",
+    },
+  },
+  "description": "iDEAL",
+  "id": "ideal",
+  "image": Object {
+    "size1x": "https://www.mollie.com/images/payscreen/methods/ideal.png",
+    "size2x": "https://www.mollie.com/images/payscreen/methods/ideal%402x.png",
+  },
+  "resource": "method",
+}
+`;
+
+exports[`methods .get() should work with a callback 1`] = `
 Object {
   "_links": Object {
     "self": Object {
