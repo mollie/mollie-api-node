@@ -5,8 +5,10 @@
     "plugin:prettier/recommended"
   ],
   "rules": {
-    "no-underscore-dangle": "off",
-    "import/prefer-default-export": "off"
+    "prefer-rest-params": "off",
+    "no-unused-vars": ["warn", { "argsIgnorePattern": "^_$", "varsIgnorePattern": "^_$" }],
+    "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_$", "varsIgnorePattern": "^_$" }],
+    "@typescript-eslint/explicit-function-return-type": "off"
   },
   "settings": {
     "import/resolver": {

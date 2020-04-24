@@ -1,5 +1,4 @@
 import wireMockClient from '../../wireMockClient';
-import callAsync from '../../callAsync';
 
 function testChargeback(chargeback, paymentId, chargebackId, amount) {
   expect(chargeback.resource).toBe('chargeback');
@@ -105,7 +104,7 @@ test('listChargebacks', async () => {
     count: 2,
   });
 
-  const chargebacks = await callAsync(client.chargebacks.page, client.chargebacks);
+  const chargebacks = await bluster(client.chargebacks.page.bind(client.chargebacks))();
 
   expect(chargebacks.length).toBe(2);
 

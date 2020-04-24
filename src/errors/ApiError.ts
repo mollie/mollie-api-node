@@ -1,23 +1,15 @@
+import { MollieApiErrorLinks, Url } from '../data/global';
+import { AxiosResponse } from 'axios';
 import { cloneDeep, get, has } from 'lodash';
-import { IMollieApiError, IMollieApiErrorLinks, IUrl } from '../types/global';
+import Maybe from '../types/Maybe';
 
 /**
  * @since 3.0.0
  */
 export default class ApiError extends Error {
-  protected title: string;
-  protected status: number;
-  protected field: string;
-  protected links: IMollieApiErrorLinks;
-
-  public constructor(message: string, title?: string, status?: number, field?: string, links?: IMollieApiErrorLinks) {
+  public constructor(message: string, protected title?: string, protected status?: number, protected field?: string, protected links?: MollieApiErrorLinks) {
     super(message);
     this.name = 'ApiError';
-
-    this.title = title;
-    this.status = status;
-    this.field = field;
-    this.links = links;
   }
 
   /**
@@ -42,7 +34,7 @@ export default class ApiError extends Error {
    *
    * @public ✓ This method is part of the public API
    */
-  public getField(): string {
+  public getField(): Maybe<string> {
     return this.field;
   }
 
@@ -55,7 +47,7 @@ export default class ApiError extends Error {
    *
    * @public ✓ This method is part of the public API
    */
-  public getStatusCode(): number {
+  public getStatusCode(): Maybe<number> {
     return this.status;
   }
 
@@ -111,7 +103,7 @@ export default class ApiError extends Error {
    *
    * @public ✓ This method is part of the public API
    */
-  public getLink(key: string): IUrl {
+  public getLink(key: string): Url {
     return get(this.links, key);
   }
 
@@ -134,15 +126,19 @@ export default class ApiError extends Error {
   }
 
   /**
-   * Create an `ApiError` from a raw error format
-   *
-   * @param error - A raw Mollie API error
+   * Creates and returns an `ApiError` from the passed response.
    *
    * @returns A new `ApiError`
    *
    * @since 3.0.0
    */
-  public static createFromResponse(error: IMollieApiError): ApiError {
-    return new ApiError(get(error, 'detail'), get(error, 'title'), get(error, 'status'), get(error, 'field'), cloneDeep(get(error, '_links')));
+  public static createFromResponse(response: AxiosResponse): ApiError {
+    return new ApiError(
+      get(response, 'data.detail', 'Received an error without a message'),
+      get(response, 'data.title'),
+      get(response, 'data.status'),
+      get(response, 'data.field'),
+      cloneDeep(get(response, 'data._links')),
+    );
   }
 }

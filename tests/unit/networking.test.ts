@@ -22,7 +22,7 @@ test('defaults', async () => {
     },
   });
 
-  await client.customers.all();
+  await bluster(client.customers.all.bind(client.customers))();
 
   const { baseURL, headers, httpsAgent } = adapter.history.get[0];
 
@@ -39,7 +39,7 @@ test('defaults', async () => {
   expect(httpsAgent).toBeTruthy();
 });
 
-async function requestWithVersionStrings(versionStrings) {
+async function requestWithVersionStrings(versionStrings: string | string[] | undefined) {
   const { adapter, client } = wireMockClient(versionStrings);
 
   adapter.onGet('/customers').reply(200, {
@@ -61,7 +61,7 @@ async function requestWithVersionStrings(versionStrings) {
     },
   });
 
-  await client.customers.all();
+  await bluster(client.customers.all.bind(client.customers))();
 
   return adapter.history.get[0];
 }

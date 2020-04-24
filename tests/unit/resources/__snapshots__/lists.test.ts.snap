@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`lists .list() should retrieve the next page 1`] = `
-List [
-  Customer {
+Array [
+  Object {
     "_links": Object {
       "documentation": Object {
         "href": "https://docs.mollie.com/reference/v2/customers-api/get-customer",
@@ -20,11 +20,9 @@ List [
     "metadata": null,
     "mode": "test",
     "name": "Customer 4",
-    "recentlyUsedMethods": null,
     "resource": "customer",
-    "testmode": undefined,
   },
-  Customer {
+  Object {
     "_links": Object {
       "documentation": Object {
         "href": "https://docs.mollie.com/reference/v2/customers-api/get-customer",
@@ -42,11 +40,9 @@ List [
     "metadata": null,
     "mode": "test",
     "name": "Customer 5",
-    "recentlyUsedMethods": null,
     "resource": "customer",
-    "testmode": undefined,
   },
-  Customer {
+  Object {
     "_links": Object {
       "documentation": Object {
         "href": "https://docs.mollie.com/reference/v2/customers-api/get-customer",
@@ -64,16 +60,14 @@ List [
     "metadata": null,
     "mode": "test",
     "name": "Customer 6",
-    "recentlyUsedMethods": null,
     "resource": "customer",
-    "testmode": undefined,
   },
 ]
 `;
 
 exports[`lists .list() should retrieve the next page 2`] = `
-List [
-  Customer {
+Array [
+  Object {
     "_links": Object {
       "documentation": Object {
         "href": "https://docs.mollie.com/reference/v2/customers-api/get-customer",
@@ -91,11 +85,9 @@ List [
     "metadata": null,
     "mode": "test",
     "name": "Customer 4",
-    "recentlyUsedMethods": null,
     "resource": "customer",
-    "testmode": undefined,
   },
-  Customer {
+  Object {
     "_links": Object {
       "documentation": Object {
         "href": "https://docs.mollie.com/reference/v2/customers-api/get-customer",
@@ -113,11 +105,9 @@ List [
     "metadata": null,
     "mode": "test",
     "name": "Customer 5",
-    "recentlyUsedMethods": null,
     "resource": "customer",
-    "testmode": undefined,
   },
-  Customer {
+  Object {
     "_links": Object {
       "documentation": Object {
         "href": "https://docs.mollie.com/reference/v2/customers-api/get-customer",
@@ -135,9 +125,7 @@ List [
     "metadata": null,
     "mode": "test",
     "name": "Customer 6",
-    "recentlyUsedMethods": null,
     "resource": "customer",
-    "testmode": undefined,
   },
 ]
 `;

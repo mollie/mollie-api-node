@@ -3,89 +3,93 @@ export default createMollieClient;
 
 export * from './createMollieClient';
 
-export { default as List } from './models/List';
+export { default as List } from './data/list/List';
 
-export { default as Capture } from './models/Capture';
-import { IGetParams as CaptureGetParams, IListParams as CapturesListParams } from './types/payment/capture/params';
-export { CaptureGetParams, CapturesListParams };
+export { default as Capture } from './data/payments/captures/Capture';
+import { GetParameters as CapturesGetParameters, ListParameters as CapturesListParameters } from './resources/payments/captures/parameters';
+export { CapturesGetParameters, CapturesListParameters };
 
-export { default as Chargeback } from './models/Chargeback';
-import { IListParams as ChargebacksListParams } from './types/chargeback/params';
-import { IGetParams as PaymentChargebackGetParams, IListParams as PaymentChargebacksListParams } from './types/payment/chargeback/params';
-export { ChargebacksListParams, PaymentChargebackGetParams, PaymentChargebacksListParams };
+export { default as Chargeback } from './data/chargebacks/Chargeback';
+import { ListParameters as ChargebacksListParameters } from './resources/chargebacks/parameters';
+export { ChargebacksListParameters };
 
-export { default as Customer } from './models/Customer';
+export { default as Customer } from './data/customers/Customer';
 import {
-  ICreateParams as CustomerCreateParams,
-  IGetParams as CustomerGetParams,
-  IListParams as CustomersListParams,
-  IUpdateParams as CustomerUpdateParams,
-  IDeleteParams as CustomerDeleteParams,
-} from './types/customer/params';
+  CreateParameters as CustomerCreateParams,
+  DeleteParameters as CustomerDeleteParams,
+  GetParameters as CustomerGetParams,
+  UpdateParameters as CustomerUpdateParams,
+  ListParameters as CustomersListParams,
+} from './resources/customers/parameters';
 export { CustomerCreateParams, CustomerGetParams, CustomersListParams, CustomerUpdateParams, CustomerDeleteParams };
 
-export { default as Mandate } from './models/Mandate';
-import { ICreateParams as MandateCreateParams, IGetParams as MandateGetParams, IListParams as MandatesListParams, IRevokeParams as MandateRevokeParams } from './types/mandate/params';
+export { default as Mandate } from './data/customers/mandates/Mandate';
+import {
+  CreateParameters as MandateCreateParams,
+  GetParameters as MandateGetParams,
+  RevokeParameters as MandateRevokeParams,
+  ListParameters as MandatesListParams,
+} from './resources/customers/mandates/parameters';
 export { MandateCreateParams, MandateGetParams, MandatesListParams, MandateRevokeParams };
 
-export { default as Method } from './models/Method';
-import { IGetParams as MethodGetParams, IListParams as MethodsListParams } from './types/method/params';
+export { default as Method } from './data/methods/Method';
+import { GetParameters as MethodGetParams, ListParameters as MethodsListParams } from './resources/methods/parameters';
 export { MethodGetParams, MethodsListParams };
 
-export { default as Order } from './models/Order';
+export { default as Order } from './data/orders/Order';
 import {
-  ICreateParams as OrderCreateParams,
-  IGetParams as OrderGetParams,
-  IListParams as OrdersListParams,
-  IUpdateParams as OrderUpdateParams,
-  ICancelParams as OrderCancelParams,
-} from './types/order/params';
+  CancelParameters as OrderCancelParams,
+  CreateParameters as OrderCreateParams,
+  GetParameters as OrderGetParams,
+  UpdateParameters as OrderUpdateParams,
+  ListParameters as OrdersListParams,
+} from './resources/orders/parameters';
 export { OrderCreateParams, OrderGetParams, OrdersListParams, OrderUpdateParams, OrderCancelParams };
 
-export { default as OrderLine } from './models/OrderLine';
-import { IUpdateParams as OrderLineUpdateParams, ICancelParams as OrderLineCancelParams } from './types/order/line/params';
+export { default as OrderLine } from './data/orders/orderlines/OrderLine';
+import { CancelParameters as OrderLineCancelParams, UpdateParameters as OrderLineUpdateParams } from './resources/orders/orderlines/parameters';
 export { OrderLineUpdateParams, OrderLineCancelParams };
 
-export { default as Payment } from './models/Payment';
-import { ICreateParams as PaymentCreateParams, IGetParams as PaymentGetParams, IListParams as PaymentsListParams, ICancelParams as PaymentCancelParams } from './types/payment/params';
-import { ICreateParams as CustomerPaymentCreateParams, IListParams as CustomerPaymentsListParams } from './types/customer/payment/params';
-import { ICreateParams as OrderPaymentCreateParams } from './types/order/payment/params';
-import { IListParams as SubscriptionPaymentsListParams } from './types/subscription/payment/params';
-export {
-  PaymentCreateParams,
-  PaymentGetParams,
-  PaymentsListParams,
-  PaymentCancelParams,
-  CustomerPaymentCreateParams,
-  CustomerPaymentsListParams,
-  OrderPaymentCreateParams,
-  SubscriptionPaymentsListParams,
-};
-
-export { default as Refund } from './models/Refund';
-import { IListParams as RefundsListParams } from './types/refund/params';
+export { default as Payment } from './data/payments/Payment';
+import { CreateParameters as CustomerPaymentCreateParams, ListParameters as CustomerPaymentsListParams } from './resources/customers/payments/parameters';
+import { CreateParameters as OrderPaymentCreateParams } from './resources/payments/orders/parameters';
 import {
-  ICreateParams as PaymentRefundCreateParams,
-  IGetParams as PaymentRefundGetParams,
-  IListParams as PaymentRefundsListParams,
-  ICancelParams as PaymentRefundCancelParams,
-} from './types/payment/refund/params';
+  CancelParameters as PaymentCancelParams,
+  CreateParameters as PaymentCreateParams,
+  GetParameters as PaymentGetParams,
+  ListParameters as PaymentsListParams,
+} from './resources/payments/parameters';
+export { PaymentCreateParams, PaymentGetParams, PaymentsListParams, PaymentCancelParams, CustomerPaymentCreateParams, CustomerPaymentsListParams, OrderPaymentCreateParams };
+
+export { default as Refund } from './data/refunds/Refund';
+import {
+  CancelParameters as PaymentRefundCancelParams,
+  CreateParameters as PaymentRefundCreateParams,
+  GetParameters as PaymentRefundGetParams,
+  ListParameters as PaymentRefundsListParams,
+} from './resources/payments/refunds/parameters';
+import { ListParameters as RefundsListParams } from './resources/refunds/parameters';
 export { RefundsListParams, PaymentRefundCreateParams, PaymentRefundGetParams, PaymentRefundsListParams, PaymentRefundCancelParams };
 
-export { default as Shipment } from './models/Shipment';
-import { ICreateParams as ShipmentCreateParams, IGetParams as ShipmentGetParams, IListParams as ShipmentsListParams, IUpdateParams as ShipmentUpdateParams } from './types/shipment/params';
+export { default as Shipment } from './data/orders/shipments/Shipment';
+import {
+  CreateParameters as ShipmentCreateParams,
+  GetParameters as ShipmentGetParams,
+  UpdateParameters as ShipmentUpdateParams,
+  ListParameters as ShipmentsListParams,
+} from './resources/orders/shipments/parameters';
 export { ShipmentCreateParams, ShipmentGetParams, ShipmentsListParams, ShipmentUpdateParams };
 
-export { default as Subscription } from './models/Subscription';
+export { default as Subscription } from './data/subscription/Subscription';
 import {
-  ICreateParams as SubscriptionCreateParams,
-  IGetParams as SubscriptionGetParams,
-  IListParams as SubscriptionsListParams,
-  IUpdateParams as SubscriptionUpdateParams,
-  ICancelParams as SubscriptionCancelParams,
-} from './types/subscription/params';
+  CancelParameters as SubscriptionCancelParams,
+  CreateParameters as SubscriptionCreateParams,
+  GetParameters as SubscriptionGetParams,
+  UpdateParameters as SubscriptionUpdateParams,
+  ListParameters as SubscriptionsListParams,
+} from './resources/customers/subscriptions/parameters';
 export { SubscriptionCreateParams, SubscriptionGetParams, SubscriptionsListParams, SubscriptionUpdateParams, SubscriptionCancelParams };
 
-export { CardAudience, CardFailureReason, CardLabel, FeeRegion } from './types/global';
-export { Issuer } from './types/issuer/index';
-export { PaymentInclude } from './types/payment/index';
+export { CardAudience, CardFailureReason, CardLabel, FeeRegion } from './data/global';
+export { Issuer } from './data/Issuer';
+export { PaymentInclude } from './data/payments/data';

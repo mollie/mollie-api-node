@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`methods .all() should return a list of all methods 1`] = `
-List [
-  Method {
+Array [
+  Object {
     "_links": Object {
       "self": Object {
         "href": "https://api.mollie.com/v2/methods/ideal",
@@ -17,7 +17,7 @@ List [
     },
     "resource": "method",
   },
-  Method {
+  Object {
     "_links": Object {
       "self": Object {
         "href": "https://api.mollie.com/v2/methods/creditcard",
@@ -32,7 +32,7 @@ List [
     },
     "resource": "method",
   },
-  Method {
+  Object {
     "_links": Object {
       "self": Object {
         "href": "https://api.mollie.com/v2/methods/banktransfer",
@@ -47,7 +47,7 @@ List [
     },
     "resource": "method",
   },
-  Method {
+  Object {
     "_links": Object {
       "self": Object {
         "href": "https://api.mollie.com/v2/methods/inghomepay",
@@ -66,8 +66,8 @@ List [
 `;
 
 exports[`methods .all() should work with a callback 1`] = `
-List [
-  Method {
+Array [
+  Object {
     "_links": Object {
       "self": Object {
         "href": "https://api.mollie.com/v2/methods/ideal",
@@ -82,7 +82,7 @@ List [
     },
     "resource": "method",
   },
-  Method {
+  Object {
     "_links": Object {
       "self": Object {
         "href": "https://api.mollie.com/v2/methods/creditcard",
@@ -97,7 +97,7 @@ List [
     },
     "resource": "method",
   },
-  Method {
+  Object {
     "_links": Object {
       "self": Object {
         "href": "https://api.mollie.com/v2/methods/banktransfer",
@@ -112,7 +112,7 @@ List [
     },
     "resource": "method",
   },
-  Method {
+  Object {
     "_links": Object {
       "self": Object {
         "href": "https://api.mollie.com/v2/methods/inghomepay",
@@ -131,7 +131,7 @@ List [
 `;
 
 exports[`methods .get() should return a method instance 1`] = `
-Method {
+Object {
   "_links": Object {
     "self": Object {
       "href": "https://api.mollie.com/v2/methods/ideal",
@@ -149,7 +149,7 @@ Method {
 `;
 
 exports[`methods .get() should work with a callback 1`] = `
-Method {
+Object {
   "_links": Object {
     "self": Object {
       "href": "https://api.mollie.com/v2/methods/ideal",

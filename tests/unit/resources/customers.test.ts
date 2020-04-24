@@ -1,5 +1,4 @@
 import wireMockClient from '../../wireMockClient';
-import callAsync from '../../callAsync';
 
 test('createCustomer', async () => {
   const { adapter, client } = wireMockClient();
@@ -22,7 +21,7 @@ test('createCustomer', async () => {
     },
   });
 
-  const customer = await callAsync(client.customers.create, client.customers, {
+  const customer = await bluster(client.customers.create.bind(client.customers))({
     name: 'John Doe',
     email: 'johndoe@example.org',
   });
@@ -63,7 +62,7 @@ test('getCustomer', async () => {
     },
   });
 
-  const customer = await callAsync(client.customers.get, client.customers, 'cst_FhQJRw4s2n');
+  const customer = await bluster(client.customers.get.bind(client.customers))('cst_FhQJRw4s2n');
 
   expect(customer.resource).toBe('customer');
   expect(customer.id).toBe('cst_FhQJRw4s2n');
@@ -114,7 +113,7 @@ test('listCustomers', async () => {
     },
   });
 
-  const customers = await callAsync(client.customers.page, client.customers);
+  const customers = await bluster(client.customers.page.bind(client.customers))();
 
   expect(customers.links.documentation).toEqual({
     href: 'https://docs.mollie.com/reference/v2/customers-api/list-customers',
@@ -156,7 +155,7 @@ test('updateCustomer', async () => {
     },
   });
 
-  const updatedCustomer = await callAsync(client.customers.update, client.customers, 'cst_FhQJRw4s2n', {
+  const updatedCustomer = await bluster(client.customers.update.bind(client.customers))('cst_FhQJRw4s2n', {
     name: expectedName,
     email: expectedEmail,
   });

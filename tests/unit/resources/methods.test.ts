@@ -1,12 +1,10 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import MethodsResource from '../../../src/resources/methods';
-import Method from '../../../src/models/Method';
+import MethodsResource from '../../../src/resources/methods/MethodsResource';
 
 import response from '../__stubs__/methods.json';
 import ApiError from '../../../src/errors/ApiError';
-import List from '../../../src/models/List';
 
 const mock = new MockAdapter(axios);
 
@@ -14,11 +12,6 @@ describe('methods', () => {
   let methods: MethodsResource;
   beforeEach(() => {
     methods = new MethodsResource(axios.create());
-  });
-
-  it('should have a resource name and model', () => {
-    expect(MethodsResource.resource).toBe('methods');
-    expect(MethodsResource.model).toBe(Method);
   });
 
   describe('.get()', () => {
@@ -30,15 +23,13 @@ describe('methods', () => {
 
     it('should return a method instance', done =>
       methods.get(methodId).then(result => {
-        expect(result).toBeInstanceOf(Method);
         expect(result).toMatchSnapshot();
         done();
       }));
 
     it('should work with a callback', done => {
-      methods.get(methodId, (err, result) => {
+      methods.get(methodId, {}, (err, result) => {
         expect(err).toBeNull();
-        expect(result).toBeInstanceOf(Method);
         expect(result).toMatchSnapshot();
         done();
       });
@@ -55,7 +46,7 @@ describe('methods', () => {
         }));
 
     it('should return an error with a callback for non-existent IDs', done => {
-      methods.get('foo', (err, result) => {
+      methods.get('foo', {}, (err: any, result) => {
         expect(err).toBeInstanceOf(ApiError);
         expect(err.getMessage()).toEqual(error.detail);
         expect(result).toBeUndefined();
@@ -69,15 +60,13 @@ describe('methods', () => {
 
     it('should return a list of all methods', () =>
       methods.all().then(result => {
-        expect(result).toBeInstanceOf(List);
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
       }));
 
     it('should work with a callback', done => {
-      methods.all((err, result) => {
+      methods.all({}, (err, result) => {
         expect(err).toBeNull();
-        expect(result).toBeInstanceOf(List);
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
         done();

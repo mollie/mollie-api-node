@@ -1,5 +1,4 @@
 import wireMockClient from '../../wireMockClient';
-import callAsync from '../../callAsync';
 
 function composeOrderResponse(orderId, orderStatus = 'created', orderNumber = '1337') {
   return {
@@ -243,7 +242,7 @@ test('createOrder', async () => {
 
   adapter.onPost('/orders').reply(201, composeOrderResponse('ord_pbjz8x'));
 
-  const order = await callAsync(client.orders.create, client.orders, {
+  const order = await bluster(client.orders.create.bind(client.orders))({
     amount: {
       value: '1027.99',
       currency: 'EUR',
@@ -335,7 +334,7 @@ test('getOrder', async () => {
 
   adapter.onGet('/orders/ord_pbjz8x').reply(200, composeOrderResponse('ord_pbjz8x'));
 
-  const order = await callAsync(client.orders.get, client.orders, 'ord_pbjz8x');
+  const order = await bluster(client.orders.get.bind(client.orders))('ord_pbjz8x');
 
   testOrder(order, 'ord_pbjz8x');
 });
@@ -549,7 +548,7 @@ test('getOrderIncludingPayments', async () => {
     },
   });
 
-  const order = await callAsync(client.orders.get, client.orders, 'ord_kEn1PlbGa', { embed: ['payments'] });
+  const order = await bluster(client.orders.get.bind(client.orders))('ord_kEn1PlbGa', { embed: ['payments'] });
 
   expect(order.id).toBe('ord_kEn1PlbGa');
 
@@ -608,7 +607,7 @@ test('listOrders', async () => {
     },
   });
 
-  const orders = await callAsync(client.orders.page, client.orders);
+  const orders = await client.orders.page();
 
   expect(orders.length).toBe(3);
 
@@ -636,7 +635,7 @@ test('cancelOrder', async () => {
 
   adapter.onDelete('/orders/ord_pbjz1x').reply(200, composeOrderResponse('ord_pbjz1x', 'canceled'));
 
-  const order = await callAsync(client.orders.cancel, client.orders, 'ord_pbjz1x');
+  const order = await bluster(client.orders.cancel.bind(client.orders))('ord_pbjz1x');
 
   testOrder(order, 'ord_pbjz1x', 'canceled');
 });
@@ -646,7 +645,7 @@ test('updateOrder', async () => {
 
   adapter.onPatch('/orders/ord_pbjz8x').reply(200, composeOrderResponse('ord_pbjz8x', 'created', '16738'));
 
-  const order = await callAsync(client.orders.update, client.orders, 'ord_pbjz8x', {
+  const order = await bluster(client.orders.update.bind(client.orders))('ord_pbjz8x', {
     orderNumber: '16738',
     billingAddress: {
       organizationName: 'Organization Name LTD.',

@@ -1,5 +1,4 @@
 import wireMockClient from '../../../wireMockClient';
-import callAsync from '../../../callAsync';
 
 function composePaymentResponse(paymentId, orderId) {
   return {
@@ -63,7 +62,7 @@ test('createOrderPayment', async () => {
 
   adapter.onPost('/orders/ord_stTC2WHAuS/payments').reply(201, composePaymentResponse('tr_WDqYK6vllg', 'ord_stTC2WHAuS'));
 
-  const payment = await callAsync(client.orders_payments.create, client.orders_payments, {
+  const payment = await bluster(client.orders_payments.create.bind(client.orders_payments))({
     orderId: 'ord_stTC2WHAuS',
     method: 'banktransfer',
   });

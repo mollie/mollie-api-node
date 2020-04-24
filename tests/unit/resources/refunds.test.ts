@@ -1,5 +1,5 @@
 import wireMockClient from '../../wireMockClient';
-import callAsync from '../../callAsync';
+import { List, Refund } from '../../..';
 
 test('listRefunds', async () => {
   const { adapter, client } = wireMockClient();
@@ -50,7 +50,7 @@ test('listRefunds', async () => {
     count: 1,
   });
 
-  const refunds = await callAsync(client.refunds.page, client.refunds);
+  const refunds: List<Refund> = await bluster(client.refunds.page.bind(client.refunds))();
 
   expect(refunds.length).toBe(1);
 
