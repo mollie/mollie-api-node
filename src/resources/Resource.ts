@@ -22,17 +22,17 @@ function stringifyQuery(input: Record<string, any>): string {
 
 export default class Resource<R, T extends R> {
   protected readonly network: {
-    post: (url: string, data: any) => Promise<T>;
+    post: <S extends T | true = T>(url: string, data: any) => Promise<S>;
     get: (url: string, query?: Record<string, any>) => Promise<T>;
     list: (url: string, resourceName: string, query: Record<string, any>) => Promise<Omit<List<T>, 'nextPage' | 'previousPage'>>;
     patch: (url: string, data: any) => Promise<T>;
-    delete: (url: string) => Promise<T | true>;
+    delete: <S extends T | true>(url: string) => Promise<S>;
   };
 
   constructor(protected readonly httpClient: AxiosInstance) {
     /* eslint-disable no-var */
     this.network = {
-      post: async (url: string, data: any): Promise<T> => {
+      post: async <S extends T | true = T>(url: string, data: any): Promise<S> => {
         try {
           var response: AxiosResponse = await httpClient.post(url, data);
         } catch (error) {
@@ -41,7 +41,10 @@ export default class Resource<R, T extends R> {
           }
           throw new ApiError(error.message);
         }
-        return this.injectPrototypes(response.data);
+        if (response.status == 204) {
+          return true as S;
+        }
+        return this.injectPrototypes(response.data) as S;
       },
       get: async (url: string, query: Record<string, any> = {}): Promise<T> => {
         try {
@@ -84,7 +87,7 @@ export default class Resource<R, T extends R> {
         }
         return this.injectPrototypes(response.data);
       },
-      delete: async (url: string): Promise<T | true> => {
+      delete: async <S extends T | true>(url: string): Promise<S> => {
         try {
           var response: AxiosResponse = await httpClient.delete(url);
         } catch (error) {
@@ -94,9 +97,9 @@ export default class Resource<R, T extends R> {
           throw new ApiError(error.message);
         }
         if (response.status == 204) {
-          return true;
+          return true as S;
         }
-        return this.injectPrototypes(response.data);
+        return this.injectPrototypes(response.data) as S;
       },
     };
     /* eslint-enable no-var */

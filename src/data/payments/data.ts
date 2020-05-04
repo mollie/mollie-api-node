@@ -1,4 +1,4 @@
-import { Amount, ApiMode, CardAudience, CardFailureReason, CardLabel, FeeRegion, HistoricPaymentMethod, Links, Locale, PaymentMethod, SequenceType, Url } from '../global';
+import { Address, Amount, ApiMode, CardAudience, CardFailureReason, CardLabel, FeeRegion, HistoricPaymentMethod, Links, Locale, PaymentMethod, SequenceType, Url } from '../global';
 import { RefundData } from '../refunds/data';
 import { ChargebackData } from '../chargebacks/Chargeback';
 import Model from '../Model';
@@ -193,6 +193,7 @@ export type Details =
   | IdealDetails
   | IngHomePayDetails
   | KbcCbcPaymentButtonDetails
+  | KlarnaDetails
   | PayPalDetails
   | PaysafecardDetails
   | SepaDirectDebitDetails
@@ -403,6 +404,22 @@ export interface KbcCbcPaymentButtonDetails {
 }
 
 /**
+ * For some industries, additional purchase information can be sent to Klarna to increase the authorization rate. You
+ * can submit your extra data in this field if you have agreed upon this with Klarna. This field should be an object
+ * containing any of the allowed keys and sub objects described at the
+ * [Klarna Developer Documentation](https://developers.klarna.com/api/#payments-api__create-a-new-credit-sessionattachment__body)
+ * under `attachment.body`.
+ *
+ * Note that Klarna needs to do some work to make sure this information is incorporated in their risk decisions, so
+ * there is no point in sending it without making agreements with Klarna first.
+ *
+ * Please reach out to your account manager at Mollie to enable this feature with Klarna.
+ */
+export interface KlarnaDetails {
+  extraMerchantData?: any;
+}
+
+/**
  * PayPal details
  *
  * @param consumerName - Only available if the payment has been completed – The consumer’s first and last name.
@@ -410,9 +427,37 @@ export interface KbcCbcPaymentButtonDetails {
  * @param paypalReference - PayPal’s reference for the transaction, for instance `9AL35361CF606152E`.
  */
 export interface PayPalDetails {
+  /**
+   * Only available if the payment has been completed – The consumer's first and last name.
+   */
   consumerName: string;
+  /**
+   * Only available if the payment has been completed – The consumer's email address.
+   */
   consumerAccount: string;
+  /**
+   * PayPal's reference for the transaction, for instance `'9AL35361CF606152E'`.
+   */
   paypalReference: string;
+  /**
+   * ID for the consumer's PayPal account, for instance `'WDJJHEBZ4X2LY'`.
+   */
+  paypalPayerId: string;
+  /**
+   * Indicates if the payment is eligible for PayPal's Seller Protection.
+   *
+   * This parameter is omitted if we did not received the information from PayPal.
+   */
+  sellerProtection?: 'Eligible' | 'Ineligible' | 'Partially Eligible - INR Only' | 'Partially Eligible - Unauth Only' | 'PartiallyEligible' | 'None' | 'Active Fraud Control - Unauth Premium Eligible';
+  /**
+   * The shipping address details.
+   */
+  shippingAddress: Address;
+  /**
+   * The amount of fee PayPal will charge for this transaction. This field is omitted if PayPal will not charge a fee
+   * for this transaction.
+   */
+  paypalFee?: Amount;
 }
 
 /**

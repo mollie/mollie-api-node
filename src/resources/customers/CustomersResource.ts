@@ -178,6 +178,6 @@ export default class CustomersResource extends Resource<CustomerData, Customer> 
     if (!checkId(id, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
-    return this.network.delete(`${this.getResourceUrl()}/${id}`) as Promise<true>;
+    return this.network.delete<true>(`${this.getResourceUrl()}/${id}`);
   }
 }

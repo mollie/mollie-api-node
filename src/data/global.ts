@@ -87,18 +87,21 @@ export interface Address {
 export type CardLabel = 'American Express' | 'Carta Si' | 'Carte Bleue' | 'Dankort' | 'Diners' | 'Club' | 'Discover' | 'JCB' | 'Laser' | 'Maestro' | 'Mastercard' | 'Unionpay' | 'Visa';
 
 export type CardFailureReason =
-  | 'invalid_card_number'
-  | 'invalid_cvv'
-  | 'invalid_card_holder_name'
+  | 'authentication_failed'
   | 'card_expired'
-  | 'invalid_card_type'
-  | 'refused_by_issuer'
+  | 'inactive_card'
   | 'insufficient_funds'
-  | 'inactive_card';
+  | 'invalid_card_holder_name'
+  | 'invalid_card_number'
+  | 'invalid_card_type'
+  | 'invalid_cvv'
+  | 'possible_fraud'
+  | 'refused_by_issuer'
+  | 'unknown_reason';
 
 export type CardAudience = 'consumer' | 'business';
 
-export type FeeRegion = 'intra-eu' | 'other';
+export type FeeRegion = 'american-express' | 'carte-bancaire' | 'intra-eu' | 'maestro' | 'other';
 
 export enum SequenceType {
   oneoff = 'oneoff',

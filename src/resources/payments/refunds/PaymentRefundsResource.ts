@@ -166,6 +166,6 @@ export default class PaymentsRefundsResource extends ParentedResource<RefundData
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    return this.network.delete(`${this.getResourceUrl(paymentId)}/${id}`) as Promise<true>;
+    return this.network.delete<true>(`${this.getResourceUrl(paymentId)}/${id}`);
   }
 }

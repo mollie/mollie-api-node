@@ -189,6 +189,6 @@ export default class OrdersResource extends Resource<OrderData, Order> {
     if (!checkId(id, 'order')) {
       throw new ApiError('The order id is invalid');
     }
-    return this.network.delete(`${this.getResourceUrl()}/${id}`) as Promise<Order>;
+    return this.network.delete<Order>(`${this.getResourceUrl()}/${id}`);
   }
 }

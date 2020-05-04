@@ -1,6 +1,8 @@
 import { Address, Amount, ApiMode, Links, Url } from '../global';
 import { OrderLineData } from './orderlines/OrderLine';
 import { PaymentData } from '../payments/data';
+import { RefundData } from '../refunds/data';
+import { ShipmentData } from './shipments/Shipment';
 import Model from '../Model';
 import Nullable from '../../types/Nullable';
 
@@ -35,6 +37,8 @@ export interface OrderData extends Model<'order'> {
   completedAt?: string;
   _embedded?: {
     payments?: Omit<PaymentData, '_embedded'>[];
+    refunds?: Omit<RefundData, '_embedded'>[];
+    shipments?: Omit<ShipmentData, '_embedded'>[];
   };
   _links: OrderLinks;
 }
@@ -65,4 +69,6 @@ export interface OrderAddress extends Address {
 
 export enum OrderEmbed {
   payments = 'payments',
+  refunds = 'refunds',
+  shipments = 'shipments',
 }

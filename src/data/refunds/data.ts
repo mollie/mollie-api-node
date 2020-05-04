@@ -10,8 +10,18 @@ import Model from '../Model';
  */
 export interface RefundData extends Model<'refund'> {
   amount: Amount;
+  /**
+   * The identifier referring to the settlement this payment was settled with. For example, `'stl_BkEjN2eBb'`. This
+   * field is omitted if the refund is not settled (yet).
+   */
+  settlementId?: string;
   settlementAmount?: Amount;
   description: string;
+  /**
+   * The optional metadata you provided upon refund creation. Metadata can for example be used to link an bookkeeping
+   * ID to a refund.
+   */
+  metadata?: any;
   status: RefundStatus;
   lines?: OrderLineData[];
   paymentId: string;

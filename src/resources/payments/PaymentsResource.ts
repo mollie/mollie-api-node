@@ -1,4 +1,4 @@
-import { CancelParameters, CreateParameters, GetParameters, ListParameters } from './parameters';
+import { CancelParameters, CreateParameters, GetParameters, ListParameters, UpdateParameters } from './parameters';
 import { PaymentData } from '../../data/payments/data';
 import ApiError from '../../errors/ApiError';
 import Callback from '../../types/Callback';
@@ -129,6 +129,25 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
   }
 
   /**
+   * Update some details of a created payment.
+   *
+   * @since 3.2.0
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/update-payment
+   *
+   * @public ✓ This method is part of the public API
+   */
+  public update(id: string, parameters: UpdateParameters): Promise<Payment>;
+  public update(id: string, parameters: UpdateParameters, callback: Callback<Payment>): void;
+  public update(id: string, parameters: UpdateParameters) {
+    if (renege(this, this.update, ...arguments)) return;
+    if (!checkId(id, 'payment')) {
+      throw new ApiError('The payment id is invalid');
+    }
+    return this.network.patch(`${this.getResourceUrl()}/${id}`, parameters);
+  }
+
+  /**
    * Cancel the given payment.
    *
    * Will throw an ApiError if the payment id is invalid or the resource cannot be found.
@@ -153,6 +172,6 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
     if (!checkId(id, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }
-    return this.network.delete(id) as Promise<Payment>;
+    return this.network.delete<Payment>(`${this.getResourceUrl()}/${id}`);
   }
 }

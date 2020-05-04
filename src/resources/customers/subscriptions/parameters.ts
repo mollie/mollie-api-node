@@ -1,6 +1,6 @@
 import { CommonListParameters } from '../../../types/parameters';
-import { PickOptional } from '../../../types/PickOptional';
 import { SubscriptionData } from '../../../data/subscription/data';
+import PickOptional from '../../../types/PickOptional';
 
 interface ContextParameters {
   customerId: string;
@@ -15,6 +15,8 @@ export type GetParameters = ContextParameters;
 
 export type ListParameters = ContextParameters & CommonListParameters;
 
-export type UpdateParameters = ContextParameters & Pick<SubscriptionData, 'mandateId'> & PickOptional<SubscriptionData, 'amount' | 'times' | 'startDate' | 'description' | 'webhookUrl' | 'metadata'>;
+export type UpdateParameters = ContextParameters &
+  Pick<SubscriptionData, 'mandateId'> &
+  PickOptional<SubscriptionData, 'amount' | 'description' | 'interval' | 'metadata' | 'startDate' | 'times' | 'webhookUrl'>;
 
 export type CancelParameters = ContextParameters;

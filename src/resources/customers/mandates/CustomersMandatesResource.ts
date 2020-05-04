@@ -184,6 +184,6 @@ export default class CustomersMandatesResource extends ParentedResource<MandateD
       throw new ApiError('The customer is invalid');
     }
     const { customerId: _, ...query } = parameters || {};
-    return this.network.delete(`${this.getResourceUrl(customerId)}/${id}`) as Promise<true>;
+    return this.network.delete<true>(`${this.getResourceUrl(customerId)}/${id}`);
   }
 }

@@ -1,4 +1,4 @@
-export default interface Model<R extends string, I extends string = string> {
+export default interface Model<R extends string, I extends string | undefined = string> {
   /**
    * Indicates the kind of entity this is.
    */

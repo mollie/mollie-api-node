@@ -1,5 +1,6 @@
-import { Amount, Image, Links, PaymentMethod as PaymentMethodEnum } from '../global';
+import { Amount, FeeRegion, Image, Links, PaymentMethod as PaymentMethodEnum } from '../global';
 import Model from '../Model';
+import Nullable from '../../types/Nullable';
 
 /**
  * Method Response object.
@@ -16,6 +17,16 @@ import Model from '../Model';
  */
 export interface MethodData extends Model<'method', PaymentMethodEnum> {
   description: string;
+  /**
+   * An object containing `value` and `currency`. It represents the minimum payment amount required to use this payment
+   * method.
+   */
+  minimumAmount: Amount;
+  /**
+   * An object containing `value` and `currency`. It represents the maximum payment amount allowed when using this
+   * payment method.
+   */
+  maximumAmount: Nullable<Amount>;
   image: Image;
   pricing: MethodPricing;
   _links: Links;
@@ -43,4 +54,8 @@ export interface MethodPricing {
   description: string;
   fixed: Amount;
   variable: string;
+  /**
+   * This value is only available for credit card rates.
+   */
+  feeRegion: FeeRegion;
 }
