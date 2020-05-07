@@ -15,23 +15,16 @@ const prefixes = new Map<ResourceKind, string>([
   ['subscription', 'sub_'],
 ]);
 /**
- * Retruns whether the passed permission identifier seems plausible (`true`); or is definitely invalid (`false`).
- */
-const checkPermissionId = (() => {
-  const pattern = /^[a-z.]+$/;
-  return function checkPermissionId(value: string) {
-    return pattern.test(value);
-  };
-})();
-/**
  * Returns whether the passed identifier seems plausible (`true`); or is definitely invalid (`false`).
  */
 export default function checkId(value: string | undefined, resource: ResourceKind): value is string {
-  if (value == undefined) {
+  if (typeof value != 'string') {
     return false;
   }
+  // Examples of permission identifiers are 'payments.read' and 'refunds.write'. This function currently relies on the
+  // API to return an error if the identifier is unexpected, instead of returning a client-side check.
   if (resource == 'permission') {
-    return checkPermissionId(value);
+    return true;
   }
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   return value.startsWith(prefixes.get(resource)!);
