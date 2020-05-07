@@ -20,7 +20,7 @@ export default class OrganizationsResource extends Resource<OrganizationData, Or
    *
    * @since 3.2.0
    *
-   * @see https://docs.mollie.com/reference/v2/permissions-api/get-permission
+   * @see https://docs.mollie.com/reference/v2/organizations-api/get-organization
    */
   public get(id: string): Promise<Organization>;
   public get(id: string, callback: Callback<Organization>): void;

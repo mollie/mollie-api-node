@@ -48,7 +48,7 @@ export default class ProfilesResource extends Resource<ProfileData, Profile> {
   public get(id: string) {
     if (renege(this, this.get, ...arguments)) return;
     if (!checkId(id, 'profile')) {
-      throw new ApiError('The payment id is invalid');
+      throw new ApiError('The profile id is invalid');
     }
     return this.network.get(`${this.getResourceUrl()}/${id}`);
   }
@@ -101,7 +101,7 @@ export default class ProfilesResource extends Resource<ProfileData, Profile> {
   public update(id: string, parameters: UpdateParameters) {
     if (renege(this, this.update, ...arguments)) return;
     if (!checkId(id, 'profile')) {
-      throw new ApiError('The payment id is invalid');
+      throw new ApiError('The profile id is invalid');
     }
     return this.network.patch(`${this.getResourceUrl()}/${id}`, parameters);
   }
