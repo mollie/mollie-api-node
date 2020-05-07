@@ -43,7 +43,7 @@ type Organization = Seal<OrganizationData, typeof commonHelpers>;
 
 export default Organization;
 
-export interface OrganizationLinks extends Links {}
+export type OrganizationLinks = Links;
 
 export function injectPrototypes(input: OrganizationData): Organization {
   return Object.assign(Object.create(commonHelpers), input);

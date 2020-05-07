@@ -25,7 +25,7 @@ type Permission = Seal<PermissionData, typeof commonHelpers>;
 
 export default Permission;
 
-export interface PermissionLinks extends Links {}
+export type PermissionLinks = Links;
 
 export function injectPrototypes(input: PermissionData): Permission {
   return Object.assign(Object.create(commonHelpers), input);

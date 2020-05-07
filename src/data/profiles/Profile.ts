@@ -82,7 +82,7 @@ type Permission = Seal<ProfileData, typeof commonHelpers>;
 
 export default Permission;
 
-export interface PermissionLinks extends Links {}
+export type PermissionLinks = Links;
 
 export function injectPrototypes(input: ProfileData): Permission {
   return Object.assign(Object.create(commonHelpers), input);
