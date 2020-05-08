@@ -63,9 +63,9 @@ export default class ProfilesResource extends Resource<ProfileData, Profile> {
    *
    * @public ✓ This method is part of the public API
    */
-  public getCurrent(id: string): Promise<Profile>;
-  public getCurrent(id: string, callback: Callback<Profile>): void;
-  public getCurrent(id: string) {
+  public getCurrent(): Promise<Profile>;
+  public getCurrent(callback: Callback<Profile>): void;
+  public getCurrent() {
     if (renege(this, this.getCurrent, ...arguments)) return;
     return this.network.get(`${this.getResourceUrl()}/me`);
   }
