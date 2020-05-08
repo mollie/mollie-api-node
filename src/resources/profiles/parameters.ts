@@ -6,4 +6,4 @@ export type CreateParameters = Pick<ProfileData, 'name' | 'website' | 'email' | 
 
 export type ListParameters = CommonListParameters;
 
-export type UpdateParameters = Pick<ProfileData, 'name' | 'website' | 'email' | 'phone'> & PickOptional<ProfileData, 'categoryCode' | 'mode'>;
+export type UpdateParameters = PickOptional<ProfileData, 'name' | 'website' | 'email' | 'phone' | 'categoryCode' | 'mode'>;
