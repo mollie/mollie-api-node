@@ -37,7 +37,7 @@ export default class OnboardingResource extends Resource<OnboardingData, Onboard
    *
    * @see https://docs.mollie.com/reference/v2/onboarding-api/submit-onboarding-data
    */
-  public submit(parameters: SubmitParameters): Promise<true>;
+  public submit(parameters?: SubmitParameters): Promise<true>;
   public submit(parameters: SubmitParameters, callback: Callback<true>): void;
   public submit(parameters: SubmitParameters) {
     if (renege(this, this.submit, ...arguments)) return;

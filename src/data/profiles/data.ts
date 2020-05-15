@@ -1,4 +1,4 @@
-import { ApiMode, Links } from '../global';
+import { ApiMode, Links, Url } from '../global';
 import Model from '../Model';
 import Nullable from '../../types/Nullable';
 
@@ -74,6 +74,28 @@ export interface ProfileData extends Model<'profile', string> {
    * The profile's date and time of creation, in ISO 8601 format.
    */
   createdAt: string;
+  _links: PermissionLinks;
 }
 
-export type PermissionLinks = Links;
+export interface PermissionLinks extends Links {
+  /**
+   * The API resource URL of the chargebacks that belong to this profile.
+   */
+  chargebacks: Url;
+  /**
+   * The API resource URL of the methods that are enabled for this profile.
+   */
+  methods: Url;
+  /**
+   * The API resource URL of the payments that belong to this profile.
+   */
+  payments: Url;
+  /**
+   * The API resource URL of the refunds that belong to this profile.
+   */
+  refunds: Url;
+  /**
+   * The Checkout preview URL. You need to be logged in to access this page.
+   */
+  checkoutPreviewUrl: Url;
+}

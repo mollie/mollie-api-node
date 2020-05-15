@@ -15,7 +15,7 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
      * but will only show the methods specified in the array. For example, you can use this functionality to only show
      * payment methods from a specific country to your customer `['bancontact', 'belfius', 'inghomepay']`.
      */
-    method: PaymentMethod | PaymentMethod[];
+    method?: PaymentMethod | PaymentMethod[];
     /**
      * For digital goods in most jurisdictions, you must apply the VAT rate from your customer's country. Choose the VAT
      * rates you have used for the order to ensure your customer's country matches the VAT country. Use this parameter to

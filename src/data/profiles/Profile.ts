@@ -2,10 +2,10 @@ import { ProfileData } from './data';
 import Seal from '../../types/Seal';
 import profileHelpers from './helpers';
 
-type Permission = Seal<ProfileData, typeof profileHelpers>;
+type Profile = Seal<ProfileData, typeof profileHelpers>;
 
-export default Permission;
+export default Profile;
 
-export function injectPrototypes(input: ProfileData): Permission {
+export function injectPrototypes(input: ProfileData): Profile {
   return Object.assign(Object.create(profileHelpers), input);
 }
