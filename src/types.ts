@@ -2,6 +2,7 @@ import createMollieClient from './createMollieClient';
 export default createMollieClient;
 
 export * from './createMollieClient';
+export type MollieClient = ReturnType<typeof createMollieClient>;
 
 export { default as List } from './data/list/List';
 
