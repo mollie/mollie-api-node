@@ -13,7 +13,7 @@ import renege from '../../plumbing/renege';
  */
 export default class ProfilesResource extends Resource<ProfileData, Profile> {
   protected getResourceUrl(): string {
-    return 'profile';
+    return 'profiles';
   }
 
   protected injectPrototypes = injectPrototypes;
