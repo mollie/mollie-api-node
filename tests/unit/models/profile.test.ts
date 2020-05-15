@@ -46,7 +46,7 @@ async function getProfile(status) {
     },
   });
 
-  return await bluster(client.profiles.get.bind(client.profiles, 'pfl_ahe8z8OPut'))();
+  return await bluster(client.profiles.get.bind(client.profiles))('pfl_ahe8z8OPut');
 }
 
 test('profileStatuses', () => {
