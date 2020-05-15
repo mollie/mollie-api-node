@@ -1,8 +1,9 @@
 import { CreateParameters, ListParameters, UpdateParameters } from './parameters';
+import { ProfileData } from '../../data/profiles/data';
 import ApiError from '../../errors/ApiError';
 import Callback from '../../types/Callback';
 import List from '../../data/list/List';
-import Profile, { injectPrototypes, ProfileData } from '../../data/profiles/Profile';
+import Profile, { injectPrototypes } from '../../data/profiles/Profile';
 import Resource from '../Resource';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';

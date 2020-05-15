@@ -1,6 +1,7 @@
+import { OnboardingData } from '../../data/onboarding/data';
 import { SubmitParameters } from './parameters';
 import Callback from '../../types/Callback';
-import Onboarding, { injectPrototypes, OnboardingData } from '../../data/onboarding/Onboarding';
+import Onboarding, { injectPrototypes } from '../../data/onboarding/Onboarding';
 import Resource from '../Resource';
 import renege from '../../plumbing/renege';
 
