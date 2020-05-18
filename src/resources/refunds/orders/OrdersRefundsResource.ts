@@ -21,10 +21,6 @@ export default class RefundsResource extends ParentedResource<RefundData, Refund
    * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/list-order-refunds
-   *
-   * @public ✓ This method is part of the public API
-   *
-   * @alias list
    */
   public all: RefundsResource['list'] = this.list;
   /**
@@ -33,26 +29,15 @@ export default class RefundsResource extends ParentedResource<RefundData, Refund
    * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/list-order-refunds
-   *
-   * @public ✓ This method is part of the public API
-   *
-   * @alias list
    */
   public page: RefundsResource['list'] = this.list;
 
   /**
    * Create an order refund
    *
-   * @param params - Create Order Refund parameters
-   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
-   *
-   * @returns The newly created Order Refund object
-   *
    * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/create-order-refund
-   *
-   * @public ✓ This method is part of the public API
    */
   public create(parameters: CreateParameters): Promise<Refund>;
   public create(parameters: CreateParameters, callback: Callback<Refund>): void;
@@ -69,17 +54,9 @@ export default class RefundsResource extends ParentedResource<RefundData, Refund
   /**
    * Get all order refunds
    *
-   * @param params - List Order Refunds parameters
-   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
-   *
-   * @returns A list of found Order Refunds
-   *
    * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/list-order-refunds
-   *
-   * @public ✓ This method is part of the public API
    */
   public list(parameters: ListParameters): Promise<List<Refund>>;
   public list(parameters: ListParameters, callback: Callback<List<Refund>>): void;

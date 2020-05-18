@@ -7,11 +7,6 @@ import ParentedResource from '../../ParentedResource';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 
-/**
- * The `payments_captures` resource
- *
- * @since 1.1.1
- */
 export default class PaymentsCapturesResource extends ParentedResource<CaptureData, Capture> {
   protected getResourceUrl(paymentId: string): string {
     return `payments/${paymentId}/captures`;
@@ -25,10 +20,6 @@ export default class PaymentsCapturesResource extends ParentedResource<CaptureDa
    * @since 1.1.1
    *
    * @see https://docs.mollie.com/reference/v2/captures-api/list-captures
-   *
-   * @public ✓ This method is part of the public API
-   *
-   * @alias list
    */
   public all: PaymentsCapturesResource['list'] = this.list;
   /**
@@ -37,27 +28,15 @@ export default class PaymentsCapturesResource extends ParentedResource<CaptureDa
    * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/captures-api/list-captures
-   *
-   * @public ✓ This method is part of the public API
-   *
-   * @alias list
    */
   public page: PaymentsCapturesResource['list'] = this.list;
 
   /**
    * Get a Payment Capture by ID
    *
-   * @param id - Capture ID
-   * @param params - Get Payment Capture parameters
-   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
-   *
-   * @returns The found Payment Capture object
-   *
    * @since 1.1.1
    *
    * @see https://docs.mollie.com/reference/v2/captures-api/get-Capture
-   *
-   * @public ✓ This method is part of the public API
    */
   public get(id: string, parameters: GetParameters): Promise<Capture>;
   public get(id: string, parameters: GetParameters, callback: Callback<Capture>): void;
@@ -78,17 +57,9 @@ export default class PaymentsCapturesResource extends ParentedResource<CaptureDa
   /**
    * Retrieve a list of Payment Captures
    *
-   * @param params - Retrieve Payment Captures list parameters
-   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
-   *
-   * @returns A list of found Payment Captures
-   *
    * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/captures-api/list-captures
-   *
-   * @public ✓ This method is part of the public API
    */
   public list(parameters: ListParameters): Promise<List<Capture>>;
   public list(parameters: ListParameters, callback: Callback<List<Capture>>): void;

@@ -2,7 +2,7 @@ import { CommonListParameters } from '../../types/parameters';
 import { OrderAddress, OrderData, OrderEmbed } from '../../data/orders/data';
 import { PaymentData } from '../../data/payments/data';
 import { PaymentMethod } from '../../data/global';
-import { PickOptional } from '../../types/PickOptional';
+import PickOptional from '../../types/PickOptional';
 
 export type CreateParameters = Pick<OrderData, 'amount' | 'orderNumber' | 'lines' | 'billingAddress' | 'webhookUrl' | 'locale' | 'metadata'> & {
   /**

@@ -3,9 +3,6 @@ import Model from './Model';
 export default {
   /**
    * Converts this object to a plain one.
-   *
-   * @returns {Object}
-   * @public ✓ This method is part of the public API
    */
   toPlainObject: function toPlainObject(this: Model<any>): object {
     // Previously, we used Lodash' toPlainObject here. However, back then we used classes for our models instead of

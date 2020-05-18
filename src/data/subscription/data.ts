@@ -32,6 +32,15 @@ export interface SubscriptionData extends Model<'subscription'> {
  */
 export interface SubscriptionLinks extends Links {
   customer: Url;
+  /**
+   * The API resource URL of the website profile on which this subscription was created.
+   */
+  profile?: Url;
+  /**
+   * The API resource URL of the payments that are created by this subscription. Not present if no payments yet
+   * created.
+   */
+  payments?: Url;
 }
 
 export enum SubscriptionStatus {

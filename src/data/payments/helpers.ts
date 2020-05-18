@@ -8,8 +8,6 @@ export default {
   ...commonHelpers,
   /**
    * If the payment is open
-   *
-   * @public ✓ This method is part of the public API
    */
   isOpen: function isOpen(this: PaymentData): boolean {
     return this.status === PaymentStatus.open;
@@ -17,8 +15,6 @@ export default {
 
   /**
    * If the payment is authorized
-   *
-   * @public ✓ This method is part of the public API
    */
   isAuthorized: function isAuthorized(this: PaymentData): boolean {
     return this.status === PaymentStatus.authorized;
@@ -26,8 +22,6 @@ export default {
 
   /**
    * If the payment is paid
-   *
-   * @public ✓ This method is part of the public API
    */
   isPaid: function isPaid(this: PaymentData): boolean {
     return this.paidAt != undefined;
@@ -35,8 +29,6 @@ export default {
 
   /**
    * If the payment is canceled
-   *
-   * @public ✓ This method is part of the public API
    */
   isCanceled: function isCanceled(this: PaymentData): boolean {
     return this.status == PaymentStatus.canceled;
@@ -44,8 +36,6 @@ export default {
 
   /**
    * If the payment is expired
-   *
-   * @public ✓ This method is part of the public API
    */
   isExpired: function isExpired(this: PaymentData): boolean {
     return this.status == PaymentStatus.expired;
@@ -53,8 +43,6 @@ export default {
 
   /**
    * If the payment is refundable
-   *
-   * @public ✓ This method is part of the public API
    *
    * @since 2.0.0-rc.2
    */
@@ -64,8 +52,6 @@ export default {
 
   /**
    * Get the payment URL
-   *
-   * @public ✓ This method is part of the public API
    */
   getPaymentUrl: function getPaymentUrl(this: PaymentData): string {
     return get(this._links, 'checkout.href', null);
@@ -73,8 +59,6 @@ export default {
 
   /**
    * Returns whether the payment has failed and cannot be completed with a different payment method.
-   *
-   * @public ✓ This method is part of the public API
    */
   isFailed: function isFailed(this: PaymentData): boolean {
     return this.status == PaymentStatus.failed;
@@ -83,8 +67,6 @@ export default {
   /**
    * Returns whether the payment is in this temporary status that can occur when the actual payment process has been
    * started, but has not completed yet.
-   *
-   * @public ✓ This method is part of the public API
    */
   isPending: function isPending(this: PaymentData): boolean {
     return this.status == PaymentStatus.pending;
@@ -92,8 +74,6 @@ export default {
 
   /**
    * Returns whether there are refunds which belong to the payment.
-   *
-   * @public ✓ This method is part of the public API
    */
   hasRefunds: function hasRefunds(this: PaymentData): boolean {
     return this._links.refunds != undefined;
@@ -101,8 +81,6 @@ export default {
 
   /**
    * Returns whether there are chargebacks which belong to the payment.
-   *
-   * @public ✓ This method is part of the public API
    */
   hasChargebacks: function hasChargebacks(this: PaymentData): boolean {
     return this._links.chargebacks != undefined;
@@ -111,8 +89,6 @@ export default {
   /**
    * Returns whether `sequenceType` is set to `'first'`. If a `'first'` payment has been completed successfully, the
    * consumer's account may be charged automatically using recurring payments.
-   *
-   * @public ✓ This method is part of the public API
    */
   hasSequenceTypeFirst: function hasSequenceTypeFirst(this: PaymentData): boolean {
     return this.sequenceType == SequenceType.first;
@@ -121,8 +97,6 @@ export default {
   /**
    * Returns whether `sequenceType` is set to `'recurring'`. This type of payment is processed without involving the
    * consumer.
-   *
-   * @public ✓ This method is part of the public API
    */
   hasSequenceTypeRecurring: function hasSequenceTypeRecurring(this: PaymentData): boolean {
     return this.sequenceType == SequenceType.recurring;
@@ -132,8 +106,6 @@ export default {
    * Returns the URL your customer should visit to make the payment. This is where you should redirect the consumer to.
    *
    * Recurring payments don’t have a checkout URL.
-   *
-   * @public ✓ This method is part of the public API
    */
   getCheckoutUrl: function getCheckoutUrl(this: PaymentData): Nullable<string> {
     if (this._links.checkout == undefined) {
@@ -142,16 +114,10 @@ export default {
     return this._links.checkout.href;
   },
 
-  /**
-   * @public ✓ This method is part of the public API
-   */
   canBeRefunded: function canBeRefunded(this: PaymentData): boolean {
     return this.amountRemaining != undefined;
   },
 
-  /**
-   * @public ✓ This method is part of the public API
-   */
   canBePartiallyRefunded: function canBePartiallyRefunded(this: PaymentData): boolean {
     return this.amountRemaining != undefined;
   },
@@ -159,8 +125,6 @@ export default {
   /**
    * Returns the total amount that is already refunded. For some payment methods, this amount may be higher than the
    * payment amount, for example to allow reimbursement of the costs for a return shipment to the customer.
-   *
-   * @public ✓ This method is part of the public API
    */
   getAmountRefunded: function getAmountRefunded(this: PaymentData): Amount {
     if (this.amountRefunded == undefined) {
@@ -176,8 +140,6 @@ export default {
 
   /**
    * Returns the remaining amount that can be refunded.
-   *
-   * @public ✓ This method is part of the public API
    */
   getAmountRemaining: function getAmountRemaining(this: PaymentData): Amount {
     if (this.amountRemaining == undefined) {

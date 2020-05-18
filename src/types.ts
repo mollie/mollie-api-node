@@ -2,6 +2,7 @@ import createMollieClient from './createMollieClient';
 export default createMollieClient;
 
 export * from './createMollieClient';
+export type MollieClient = ReturnType<typeof createMollieClient>;
 
 export { default as List } from './data/list/List';
 
@@ -36,6 +37,10 @@ export { default as Method } from './data/methods/Method';
 import { GetParameters as MethodGetParams, ListParameters as MethodsListParams } from './resources/methods/parameters';
 export { MethodGetParams, MethodsListParams };
 
+export { default as Onboarding } from './data/onboarding/Onboarding';
+import { SubmitParameters as OnboardingSubmitParameters } from './resources/onboarding/parameters';
+export { OnboardingSubmitParameters };
+
 export { default as Order } from './data/orders/Order';
 import {
   CancelParameters as OrderCancelParams,
@@ -50,6 +55,8 @@ export { default as OrderLine } from './data/orders/orderlines/OrderLine';
 import { CancelParameters as OrderLineCancelParams, UpdateParameters as OrderLineUpdateParams } from './resources/orders/orderlines/parameters';
 export { OrderLineUpdateParams, OrderLineCancelParams };
 
+export { default as Organization } from './data/organizations/Organizations';
+
 export { default as Payment } from './data/payments/Payment';
 import { CreateParameters as CustomerPaymentCreateParams, ListParameters as CustomerPaymentsListParams } from './resources/customers/payments/parameters';
 import { CreateParameters as OrderPaymentCreateParams } from './resources/payments/orders/parameters';
@@ -60,6 +67,12 @@ import {
   ListParameters as PaymentsListParams,
 } from './resources/payments/parameters';
 export { PaymentCreateParams, PaymentGetParams, PaymentsListParams, PaymentCancelParams, CustomerPaymentCreateParams, CustomerPaymentsListParams, OrderPaymentCreateParams };
+
+export { default as Permission } from './data/permissions/Permission';
+
+export { default as Profile } from './data/profiles/Profile';
+import { CreateParameters as ProfileCreateParameters, ListParameters as ProfileListParameters, UpdateParameters as ProfileUpdateParameters } from './resources/profiles/parameters';
+export { ProfileCreateParameters, ProfileListParameters, ProfileUpdateParameters };
 
 export { default as Refund } from './data/refunds/Refund';
 import {

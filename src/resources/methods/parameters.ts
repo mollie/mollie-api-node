@@ -19,6 +19,11 @@ export interface GetParameters {
   include?: MethodInclude[] | MethodInclude;
   profileId?: string;
   testmode?: boolean;
+  /**
+   * The currency to receiving the `minimumAmount` and `maximumAmount` in. We will return an error when the currency is
+   * not supported by the payment method.
+   */
+  currency?: string;
 }
 
 /**

@@ -7,14 +7,8 @@ export default {
   /**
    * Method image URL
    *
-   * @param size
-   *
-   * @returns Url string
-   *
    * @since 2.0.0
    * @since 3.0.0 SVG support
-   *
-   * @public ✓ This method is part of the public API
    */
   getImage: function getImage(this: MethodData, size: MethodImageSize | '1x' | '2x' = MethodImageSize.size2x): string {
     switch (size) {

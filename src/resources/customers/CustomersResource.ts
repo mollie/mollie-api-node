@@ -7,9 +7,6 @@ import Resource from '../Resource';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
 
-/**
- * The `Customers` resource
- */
 export default class CustomersResource extends Resource<CustomerData, Customer> {
   protected getResourceUrl(): string {
     return 'customers';
@@ -23,10 +20,6 @@ export default class CustomersResource extends Resource<CustomerData, Customer> 
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
-   *
-   * @public ✓ This method is part of the public API
-   *
-   * @alias list
    */
   public all: CustomersResource['list'] = this.list;
   /**
@@ -35,10 +28,6 @@ export default class CustomersResource extends Resource<CustomerData, Customer> 
    * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
-   *
-   * @public ✓ This method is part of the public API
-   *
-   * @alias list
    */
   public page: CustomersResource['list'] = this.list;
   /**
@@ -47,10 +36,6 @@ export default class CustomersResource extends Resource<CustomerData, Customer> 
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/customers-api/delete-customer
-   *
-   * @public ✓ This method is part of the public API
-   *
-   * @alias delete
    */
   public cancel: CustomersResource['delete'] = this.delete;
 
@@ -63,16 +48,9 @@ export default class CustomersResource extends Resource<CustomerData, Customer> 
    * where you can manage their details,
    * and also see their payments and subscriptions.
    *
-   * @param params - Create customer parameters
-   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
-   *
-   * @returns The newly created customer object
-   *
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/customers-api/create-customer
-   *
-   * @public ✓ This method is part of the public API
    */
   public create(parameters: CreateParameters): Promise<Customer>;
   public create(parameters: CreateParameters, callback: Callback<Customer>): void;
@@ -84,18 +62,9 @@ export default class CustomersResource extends Resource<CustomerData, Customer> 
   /**
    * Retrieve a single customer by its ID
    *
-   * @param id - Customer ID
-   * @param params - Retrieve customer parameters
-   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
-   *
-   * @returns Customer object
-   *
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/customers-api/get-customer
-   *
-   * @public ✓ This method is part of the public API
    */
   public get(id: string, parameters?: GetParameters): Promise<Customer>;
   public get(id: string, parameters: GetParameters, callback: Callback<Customer>): void;
@@ -110,17 +79,9 @@ export default class CustomersResource extends Resource<CustomerData, Customer> 
   /**
    * List customers
    *
-   * @param params - List customer parameters
-   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
-   *
-   * @returns
-   *
    * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
-   *
-   * @public ✓ This method is part of the public API
    */
   public list(parameters?: ListParameters): Promise<List<Customer>>;
   public list(parameters: ListParameters, callback: Callback<List<Customer>>): void;
@@ -132,18 +93,9 @@ export default class CustomersResource extends Resource<CustomerData, Customer> 
   /**
    * Update a customer
    *
-   * @param id - Customer ID
-   * @param params - Update customer parameters
-   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
-   *
-   * @returns The updated Customer object
-   *
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/customers-api/update-customer
-   *
-   * @public ✓ This method is part of the public API
    */
   public update(id: string, parameters: UpdateParameters): Promise<Customer>;
   public update(id: string, parameters: UpdateParameters, callback: Callback<Customer>): void;
@@ -158,18 +110,9 @@ export default class CustomersResource extends Resource<CustomerData, Customer> 
   /**
    * Delete a customer
    *
-   * @param id - Customer ID
-   * @param params - Delete customer parameters
-   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
-   *
-   * @returns Success status
-   *
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/customers-api/delete-customer
-   *
-   * @public ✓ This method is part of the public API
    */
   public delete(id: string, parameters?: DeleteParameters): Promise<true>;
   public delete(id: string, parameters: DeleteParameters, callback: Callback<true>): void;
@@ -178,6 +121,6 @@ export default class CustomersResource extends Resource<CustomerData, Customer> 
     if (!checkId(id, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
-    return this.network.delete(`${this.getResourceUrl()}/${id}`) as Promise<true>;
+    return this.network.delete<true>(`${this.getResourceUrl()}/${id}`);
   }
 }
