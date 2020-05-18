@@ -4,6 +4,17 @@
 
 All notable changes to this project will be documented in this file.
 
+#### v3.2.0-beta.1 - 2020-05-18
+  - Added the following APIs:
+    - Permissions APIs
+    - Organizations APIs
+    - Profiles APIs
+    - Onboarding APIs
+  - Implemented the update Payment endpoint
+  - Changed the internal architecture of the library. We're now using interfaced data, which solves the following problems:
+    - Make the library easier to maintain
+    - Export better type definitions
+
 #### v3.1.0 - 2020-01-28
   - Added Order Payments API
 
