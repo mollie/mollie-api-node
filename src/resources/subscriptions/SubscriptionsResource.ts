@@ -6,11 +6,6 @@ import List from '../../data/list/List';
 import ParentedResource from '../ParentedResource';
 import renege from '../../plumbing/renege';
 
-/**
- * The `subscriptions` resource
- *
- * @since 3.2.0
- */
 export default class SubscriptionsResource extends ParentedResource<SubscriptionData, Subscription> {
   protected getResourceUrl(): string {
     return 'subscriptions';
@@ -22,10 +17,6 @@ export default class SubscriptionsResource extends ParentedResource<Subscription
    * Retrieves all subscriptions, ordered from newest to oldest.
    *
    * @since 3.2.0
-   *
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-all-subscriptions
-   *
-   * @public ✓ This method is part of the public API
    */
   public list(parameters?: ListParameters): Promise<List<Subscription>>;
   public list(parameters: ListParameters, callback: Callback<List<Subscription>>): void;

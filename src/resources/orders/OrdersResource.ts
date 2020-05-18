@@ -8,11 +8,6 @@ import Resource from '../Resource';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
 
-/**
- * The `orders` resource
- *
- * @since 3.0.0
- */
 export default class OrdersResource extends Resource<OrderData, Order> {
   protected getResourceUrl(): string {
     return 'orders';
@@ -26,10 +21,6 @@ export default class OrdersResource extends Resource<OrderData, Order> {
    * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order
-   *
-   * @public ✓ This method is part of the public API
-   *
-   * @alias cancel
    */
   public delete: OrdersResource['cancel'] = this.cancel;
   /**
@@ -38,10 +29,6 @@ export default class OrdersResource extends Resource<OrderData, Order> {
    * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/list-orders
-   *
-   * @public ✓ This method is part of the public API
-   *
-   * @alias list
    */
   public all: OrdersResource['list'] = this.list;
   /**
@@ -50,10 +37,6 @@ export default class OrdersResource extends Resource<OrderData, Order> {
    * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/list-orders
-   *
-   * @public ✓ This method is part of the public API
-   *
-   * @alias list
    */
   public page: OrdersResource['list'] = this.list;
 
@@ -73,17 +56,9 @@ export default class OrdersResource extends Resource<OrderData, Order> {
    * a new payment using the Create order payment API. This is only possible
    * for orders that have a created status.
    *
-   * @param params - Create Order parameters
-   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of
-   *             the returned `Promise` object
-   *
-   * @returns The newly created Order
-   *
    * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/create-order
-   *
-   * @public ✓ This method is part of the public API
    */
   public create(parameters: CreateParameters): Promise<Order>;
   public create(parameters: CreateParameters): void;
@@ -95,18 +70,9 @@ export default class OrdersResource extends Resource<OrderData, Order> {
   /**
    * Retrieve an Order.
    *
-   * @param id - Order ID
-   * @param params - Get Order parameters
-   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
-   *
-   * @returns The Order
-   *
    * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/get-order
-   *
-   * @public ✓ This method is part of the public API
    */
   public get(id: string, parameters?: GetParameters): Promise<Order>;
   public get(id: string, parameters: GetParameters, callback: Callback<Order>): void;
@@ -121,17 +87,9 @@ export default class OrdersResource extends Resource<OrderData, Order> {
   /**
    * List Orders.
    *
-   * @param params - List Order parameters
-   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
-   *
-   * @returns A list of the Orders found
-   *
    * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/list-orders
-   *
-   * @public ✓ This method is part of the public API
    */
   public list(parameters?: ListParameters): Promise<List<Order>>;
   public list(parameters: ListParameters, callback: Callback<List<Order>>): void;
@@ -143,18 +101,9 @@ export default class OrdersResource extends Resource<OrderData, Order> {
   /**
    * Update an Order.
    *
-   * @param id - Order ID
-   * @param params - Update Order parameters
-   *               (DEPRECATED SINCE 3.0.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
-   *
-   * @returns The updated Order
-   *
    * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/update-order
-   *
-   * @public ✓ This method is part of the public API
    */
   public update(id: string, parameters: UpdateParameters): Promise<Order>;
   public update(id: string, parameters: UpdateParameters, callback: Callback<Order>): void;
@@ -169,18 +118,9 @@ export default class OrdersResource extends Resource<OrderData, Order> {
   /**
    * Cancel an Order.
    *
-   * @param id - Order ID
-   * @param params - Cancel Order parameters
-   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 3.0.0) Callback object, can be used instead of the returned `Promise` object
-   *
-   * @returns Updated Order object
-   *
    * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order
-   *
-   * @public ✓ This method is part of the public API
    */
   public cancel(id: string, parameters?: CancelParameters): Promise<Order>;
   public cancel(id: string, parameters: CancelParameters, callback: Callback<Order>): void;

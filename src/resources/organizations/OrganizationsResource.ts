@@ -5,9 +5,6 @@ import Organization, { injectPrototypes, OrganizationData } from '../../data/org
 import Resource from '../Resource';
 import renege from '../../plumbing/renege';
 
-/**
- * @since 3.2.0
- */
 export default class OrganizationsResource extends Resource<OrganizationData, Organization> {
   protected getResourceUrl(): string {
     return 'organizations';

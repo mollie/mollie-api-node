@@ -7,11 +7,6 @@ import ParentedResource from '../../ParentedResource';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 
-/**
- * The `payments_chargebacks` resource
- *
- * @since 1.1.1
- */
 export default class PaymentsChargebacksResource extends ParentedResource<ChargebackData, Chargeback> {
   protected getResourceUrl(paymentId: string): string {
     return `payments/${paymentId}/chargebacks`;
@@ -25,10 +20,6 @@ export default class PaymentsChargebacksResource extends ParentedResource<Charge
    * @since 1.1.1
    *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
-   *
-   * @public ✓ This method is part of the public API
-   *
-   * @alias list
    */
   public all: PaymentsChargebacksResource['list'] = this.list;
   /**
@@ -37,28 +28,15 @@ export default class PaymentsChargebacksResource extends ParentedResource<Charge
    * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
-   *
-   * @public ✓ This method is part of the public API
-   *
-   * @alias list
    */
   public page: PaymentsChargebacksResource['list'] = this.list;
 
   /**
    * Get a Payment Chargeback by ID
    *
-   * @param id - Chargeback ID
-   * @param params - Get Payment Chargeback parameters
-   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
-   *
-   * @returns The found Payment Chargeback object
-   *
    * @since 1.1.1
    *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-chargeback
-   *
-   * @public ✓ This method is part of the public API
    */
   public get(id: string, parameters: GetParameters): Promise<Chargeback>;
   public get(id: string, parameters: GetParameters, callback: Callback<Chargeback>): void;
@@ -79,16 +57,9 @@ export default class PaymentsChargebacksResource extends ParentedResource<Charge
   /**
    * Retrieve a list of Payment Chargebacks
    *
-   * @param params - Retrieve Payment Chargebacks list parameters
-   * @param cb - Callback function, can be used instead of the returned `Promise` object
-   *
-   * @returns A list of found Payment Chargebacks
-   *
    * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
-   *
-   * @public ✓ This method is part of the public API
    */
   public list(parameters: ListParameters): Promise<List<Chargeback>>;
   public list(parameters: ListParameters, callback: Callback<List<Chargeback>>): void;

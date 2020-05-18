@@ -8,11 +8,6 @@ import ParentedResource from '../../ParentedResource';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 
-/**
- * The `customers_mandates` resource
- *
- * @since 1.2.0
- */
 export default class CustomersMandatesResource extends ParentedResource<MandateData, Mandate> {
   protected getResourceUrl(customerId: string): string {
     return `customers/${customerId}/mandates`;
@@ -26,10 +21,6 @@ export default class CustomersMandatesResource extends ParentedResource<MandateD
    * @since 1.2.0
    *
    * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
-   *
-   * @public ✓ This method is part of the public API
-   *
-   * @alias list
    */
   public all: CustomersMandatesResource['list'] = this.list;
   /**
@@ -38,10 +29,6 @@ export default class CustomersMandatesResource extends ParentedResource<MandateD
    * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
-   *
-   * @public ✓ This method is part of the public API
-   *
-   * @alias list
    */
   public page: CustomersMandatesResource['list'] = this.list;
   /**
@@ -50,10 +37,6 @@ export default class CustomersMandatesResource extends ParentedResource<MandateD
    * @since 1.3.2
    *
    * @see https://docs.mollie.com/reference/v2/mandates-api/revoke-mandate
-   *
-   * @public ✓ This method is part of the public API
-   *
-   * @alias revoke
    */
   public cancel: CustomersMandatesResource['revoke'] = this.revoke;
   /**
@@ -62,26 +45,15 @@ export default class CustomersMandatesResource extends ParentedResource<MandateD
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/mandates-api/revoke-mandate
-   *
-   * @public ✓ This method is part of the public API
-   *
-   * @alias revoke
    */
   public delete: CustomersMandatesResource['revoke'] = this.revoke;
 
   /**
    * Create a customer mandate
    *
-   * @param params Create customer mandate parameters
-   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
-   *
-   * @returns
-   *
    * @since 1.2.0
    *
    * @see https://docs.mollie.com/reference/v2/mandates-api/create-mandate
-   *
-   * @public ✓ This method is part of the public API
    */
   public create(parameters: CreateParameters): Promise<Mandate>;
   public create(parameters: CreateParameters, callback: Callback<Mandate>): void;
@@ -98,18 +70,9 @@ export default class CustomersMandatesResource extends ParentedResource<MandateD
   /**
    * Get a customer mandate by ID
    *
-   * @param id - customers_mandate id
-   * @param params - Get customer mandate parameters
-   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
-   *
-   * @returns Customer mandate
-   *
    * @since 1.2.0
    *
    * @see https://docs.mollie.com/reference/v2/mandates-api/get-mandate
-   *
-   * @public ✓ This method is part of the public API
    */
   public get(id: string, parameters: GetParameters): Promise<Mandate>;
   public get(id: string, parameters: GetParameters, callback: Callback<Mandate>): void;
@@ -130,17 +93,9 @@ export default class CustomersMandatesResource extends ParentedResource<MandateD
   /**
    * Get all of a customer's mandates
    *
-   * @param params List mandates parameters
-   *               (DEPRECATED SINCE 3.0.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
-   *
-   * @returns A list of found mandates
-   *
    * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
-   *
-   * @public ✓ This method is part of the public API
    */
   public list(parameters: ListParameters): Promise<List<Mandate>>;
   public list(parameters: ListParameters, callback: Callback<List<Mandate>>): void;
@@ -158,18 +113,9 @@ export default class CustomersMandatesResource extends ParentedResource<MandateD
   /**
    * Delete a customer subscription
    *
-   * @param id - customers_mandate id
-   * @param params - Delete Customer parameters
-   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
-   * @param cb - Callback function, can be used instead of the returned `Promise` object
-   *
-   * @returns Success status
-   *
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/mandates-api/revoke-mandate
-   *
-   * @public ✓ This method is part of the public API
    */
   public revoke(id: string, parameters: RevokeParameters): Promise<true>;
   public revoke(id: string, parameters: RevokeParameters, callback: Callback<true>): void;

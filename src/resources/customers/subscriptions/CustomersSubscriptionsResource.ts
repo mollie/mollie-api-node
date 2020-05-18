@@ -8,11 +8,6 @@ import Subscription, { injectPrototypes } from '../../../data/subscription/Subsc
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 
-/**
- * The `customers_subscriptions` resource.
- *
- * @since 1.3.2
- */
 export default class CustomersSubscriptionsResource extends ParentedResource<SubscriptionData, Subscription> {
   protected getResourceUrl(customerId: string): string {
     return `customers/${customerId}/subscriptions`;
@@ -25,11 +20,7 @@ export default class CustomersSubscriptionsResource extends ParentedResource<Sub
    *
    * @since 1.3.2
    *
-   * @alias cancel
-   *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/cancel-subscription
-   *
-   * @public ✓ This method is part of the public API
    */
   public delete: CustomersSubscriptionsResource['cancel'] = this.cancel;
   /**
@@ -37,11 +28,7 @@ export default class CustomersSubscriptionsResource extends ParentedResource<Sub
    *
    * @since 1.3.2
    *
-   * @alias list
-   *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions
-   *
-   * @public ✓ This method is part of the public API
    */
   public all: CustomersSubscriptionsResource['list'] = this.list;
   /**
@@ -49,28 +36,16 @@ export default class CustomersSubscriptionsResource extends ParentedResource<Sub
    *
    * @since 3.0.0
    *
-   * @alias list
-   *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions
-   *
-   * @public ✓ This method is part of the public API
    */
   public page: CustomersSubscriptionsResource['list'] = this.list;
 
   /**
    * Create a customer subscription.
    *
-   * @param params - Create Subscription parameters
-   *
-   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
-   *
-   * @returns Customer Subscription
-   *
    * @since 1.3.2
    *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/create-subscription
-   *
-   * @public ✓ This method is part of the public API
    */
   public create(parameters: CreateParameters): Promise<Subscription>;
   public create(parameters: CreateParameters, callback: Callback<Subscription>): void;
@@ -87,18 +62,9 @@ export default class CustomersSubscriptionsResource extends ParentedResource<Sub
   /**
    * Get a customer subscription.
    *
-   * @param id - Subscription ID
-   * @param params - Get Subscription parameters
-   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
-   *
-   * @return Customer Subscription
-   *
    * @since 1.3.2
    *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription
-   *
-   * @public ✓ This method is part of the public API
    */
   public get(id: string, parameters: GetParameters): Promise<Subscription>;
   public get(id: string, parameters: GetParameters, callback: Callback<Subscription>): void;
@@ -119,17 +85,9 @@ export default class CustomersSubscriptionsResource extends ParentedResource<Sub
   /**
    * Get all customer's subscriptions.
    *
-   * @param params - List customer's subscriptions parameters
-   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
-   *
-   * @returns A list of found subscriptions
-   *
    * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions
-   *
-   * @public ✓ This method is part of the public API
    */
   public list(parameters: ListParameters): Promise<List<Subscription>>;
   public list(parameters: ListParameters, callback: Callback<List<Subscription>>): void;
@@ -147,18 +105,9 @@ export default class CustomersSubscriptionsResource extends ParentedResource<Sub
   /**
    * Update a customer's subscription.
    *
-   * @param id - Subscription ID
-   * @param params - Update customer subscription parameters
-   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
-   *
-   * @returns The updated Customer Subscription object
-   *
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/update-subscription
-   *
-   * @public ✓ This method is part of the public API
    */
   public update(id: string, parameters: UpdateParameters): Promise<Subscription>;
   public update(id: string, parameters: UpdateParameters, callback: Callback<Subscription>): void;
@@ -178,18 +127,9 @@ export default class CustomersSubscriptionsResource extends ParentedResource<Sub
   /**
    * Cancel a Subscription
    *
-   * @param id - Subscription ID
-   * @param params - Delete Subscription parameters
-   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
-   *
-   * @returns Success status
-   *
    * @since 1.3.2
    *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/cancel-subscription
-   *
-   * @public ✓ This method is part of the public API
    */
   public cancel(id: string, parameters: CancelParameters): Promise<Subscription>;
   public cancel(id: string, parameters: CancelParameters, callback: Callback<Subscription>): void;

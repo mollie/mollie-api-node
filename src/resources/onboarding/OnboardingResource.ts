@@ -5,9 +5,6 @@ import Onboarding, { injectPrototypes } from '../../data/onboarding/Onboarding';
 import Resource from '../Resource';
 import renege from '../../plumbing/renege';
 
-/**
- * @since 3.2.0
- */
 export default class OnboardingResource extends Resource<OnboardingData, Onboarding> {
   protected getResourceUrl(): string {
     return 'onboarding/me';

@@ -7,11 +7,6 @@ import Payment, { injectPrototypes } from '../../../data/payments/Payment';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 
-/**
- * The `orders_payments` resource
- *
- * @since 3.1.0
- */
 export default class OrdersPaymentsResource extends ParentedResource<PaymentData, Payment> {
   protected getResourceUrl(orderId: string): string {
     return `orders/${orderId}/payments`;
@@ -22,17 +17,9 @@ export default class OrdersPaymentsResource extends ParentedResource<PaymentData
   /**
    * Create order payment
    *
-   * @param params - Create order payment parameters
-   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
-   *
-   * @returns The created Payment object
-   *
    * @since 3.1.0
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/create-order-payment
-   *
-   * @public ✓ This method is part of the public API
    */
   public create(parameters: CreateParameters): Promise<Payment>;
   public create(parameters: CreateParameters, callback: Callback<Payment>): void;

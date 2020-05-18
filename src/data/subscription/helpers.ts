@@ -5,8 +5,6 @@ export default {
   ...commonHelpers,
   /**
    * Get the webhook url
-   *
-   * @public ✓ This method is part of the public API
    */
   getWebhookUrl: function getWebhookUrl(this: SubscriptionData): string {
     return this.webhookUrl;
@@ -14,8 +12,6 @@ export default {
 
   /**
    * If the subscription is active
-   *
-   * @public ✓ This method is part of the public API
    */
   isActive: function isActive(this: SubscriptionData): boolean {
     return this.status === SubscriptionStatus.active;
@@ -23,8 +19,6 @@ export default {
 
   /**
    * If the subscription is pending
-   *
-   * @public ✓ This method is part of the public API
    */
   isPending: function isPending(this: SubscriptionData): boolean {
     return this.status === SubscriptionStatus.pending;
@@ -32,8 +26,6 @@ export default {
 
   /**
    * If the subscription is completed
-   *
-   * @public ✓ This method is part of the public API
    */
   isCompleted: function isCompleted(this: SubscriptionData): boolean {
     return this.status === SubscriptionStatus.completed;
@@ -41,8 +33,6 @@ export default {
 
   /**
    * If the subscription is suspended
-   *
-   * @public ✓ This method is part of the public API
    */
   isSuspended: function isSuspended(this: SubscriptionData): boolean {
     return this.status === SubscriptionStatus.suspended;
@@ -50,8 +40,6 @@ export default {
 
   /**
    * If the subscription is canceled
-   *
-   * @public ✓ This method is part of the public API
    */
   isCanceled: function isCanceled(this: SubscriptionData): boolean {
     return SubscriptionStatus.canceled == this.status;

@@ -6,9 +6,6 @@ import Permission, { injectPrototypes, PermissionData } from '../../data/permiss
 import Resource from '../Resource';
 import renege from '../../plumbing/renege';
 
-/**
- * @since 3.2.0
- */
 export default class PermissionsResource extends Resource<PermissionData, Permission> {
   protected getResourceUrl(): string {
     return 'permissions';

@@ -8,9 +8,6 @@ import Resource from '../Resource';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
 
-/**
- * The `payments` resource
- */
 export default class PaymentsResource extends Resource<PaymentData, Payment> {
   protected getResourceUrl(): string {
     return 'payments';
@@ -25,10 +22,6 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
-   *
-   * @public ✓ This method is part of the public API
-   *
-   * @alias list
    */
   public all: PaymentsResource['list'] = this.list;
   /**
@@ -38,10 +31,6 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
    * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
-   *
-   * @public ✓ This method is part of the public API
-   *
-   * @alias list
    */
   public page: PaymentsResource['list'] = this.list;
   /**
@@ -52,26 +41,15 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/cancel-payment
-   *
-   * @public ✓ This method is part of the public API
-   *
-   * @alias cancel
    */
   public delete: PaymentsResource['cancel'] = this.cancel;
 
   /**
    * Create a payment in Mollie.
    *
-   * @param params - Create Payment parameters
-   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
-   *
-   * @returns {Promise<Payment>}
-   *
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/create-payment
-   *
-   * @public ✓ This method is part of the public API
    */
   public create(parameters: CreateParameters): Promise<Payment>;
   public create(parameters: CreateParameters, callback: Callback<Payment>): void;
@@ -83,18 +61,9 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
   /**
    * Retrieve a single payment from Mollie.
    *
-   * @param id - Payment ID
-   * @param params - Retrieve Payment parameters
-   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
-   *
-   * @returns The found Payment object
-   *
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment
-   *
-   * @public ✓ This method is part of the public API
    */
   public get(id: string, parameters?: GetParameters): Promise<Payment>;
   public get(id: string, parameters: GetParameters, callback: Callback<Payment>): void;
@@ -109,17 +78,9 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
   /**
    * Retrieve all payments created with the current website profile, ordered from newest to oldest.
    *
-   * @param params - List parameters
-   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
-   *
-   * @returns A list of found Payments
-   *
    * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
-   *
-   * @public ✓ This method is part of the public API
    */
   public list(parameters?: ListParameters): Promise<List<Payment>>;
   public list(parameters: ListParameters, callback: Callback<List<Payment>>): void;
@@ -134,8 +95,6 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
    * @since 3.2.0
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/update-payment
-   *
-   * @public ✓ This method is part of the public API
    */
   public update(id: string, parameters: UpdateParameters): Promise<Payment>;
   public update(id: string, parameters: UpdateParameters, callback: Callback<Payment>): void;
@@ -153,17 +112,9 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
    * Will throw an ApiError if the payment id is invalid or the resource cannot be found.
    * Returns with HTTP status No Content (204) if successful.
    *
-   * @param id - Payment Id
-   * @param params - Cancel Payment parameters
-   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
-   *
-   * @returns The updated Payment object
-   *
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/cancel-payment
-   *
-   * @public ✓ This method is part of the public API
    */
   public cancel(id: string, parameters?: CancelParameters): Promise<Payment>;
   public cancel(id: string, parameters: CancelParameters, callback: Callback<List<Payment>>): void;

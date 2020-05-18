@@ -8,9 +8,6 @@ import Resource from '../Resource';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
 
-/**
- * @since 3.2.0
- */
 export default class ProfilesResource extends Resource<ProfileData, Profile> {
   protected getResourceUrl(): string {
     return 'profiles';
@@ -25,8 +22,6 @@ export default class ProfilesResource extends Resource<ProfileData, Profile> {
    * @since 3.2.0
    *
    * @see https://docs.mollie.com/reference/v2/profiles-api/create-profile
-   *
-   * @public ✓ This method is part of the public API
    */
   public create(parameters: CreateParameters): Promise<Profile>;
   public create(parameters: CreateParameters, callback: Callback<Profile>): void;
@@ -41,8 +36,6 @@ export default class ProfilesResource extends Resource<ProfileData, Profile> {
    * @since 3.2.0
    *
    * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile
-   *
-   * @public ✓ This method is part of the public API
    */
   public get(id: string): Promise<Profile>;
   public get(id: string, callback: Callback<Profile>): void;
@@ -61,8 +54,6 @@ export default class ProfilesResource extends Resource<ProfileData, Profile> {
    * @since 3.2.0
    *
    * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile-me
-   *
-   * @public ✓ This method is part of the public API
    */
   public getCurrent(): Promise<Profile>;
   public getCurrent(callback: Callback<Profile>): void;
@@ -77,8 +68,6 @@ export default class ProfilesResource extends Resource<ProfileData, Profile> {
    * @since 3.2.0
    *
    * @see https://docs.mollie.com/reference/v2/profiles-api/list-profiles
-   *
-   * @public ✓ This method is part of the public API
    */
   public list(parameters?: ListParameters): Promise<List<Profile>>;
   public list(parameters: ListParameters, callback: Callback<List<Profile>>): void;
@@ -94,8 +83,6 @@ export default class ProfilesResource extends Resource<ProfileData, Profile> {
    * @since 3.2.0
    *
    * @see https://docs.mollie.com/reference/v2/profiles-api/update-profile
-   *
-   * @public ✓ This method is part of the public API
    */
   public update(id: string, parameters: UpdateParameters): Promise<Profile>;
   public update(id: string, parameters: UpdateParameters, callback: Callback<Profile>): void;
@@ -113,8 +100,6 @@ export default class ProfilesResource extends Resource<ProfileData, Profile> {
    * @since 3.2.0
    *
    * @see https://docs.mollie.com/reference/v2/profiles-api/delete-profile
-   *
-   * @public ✓ This method is part of the public API
    */
   public delete(id: string): Promise<true>;
   public delete(id: string, callback: Callback<List<true>>): void;

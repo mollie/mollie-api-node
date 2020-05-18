@@ -6,11 +6,6 @@ import Refund, { injectPrototypes } from '../../data/refunds/Refund';
 import Resource from '../Resource';
 import renege from '../../plumbing/renege';
 
-/**
- * The `refunds` resource
- *
- * @since 2.0.0
- */
 export default class RefundsResource extends Resource<RefundData, Refund> {
   protected getResourceUrl(): string {
     return 'refunds';
@@ -24,10 +19,6 @@ export default class RefundsResource extends Resource<RefundData, Refund> {
    * @since 2.0.0
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
-   *
-   * @public ✓ This method is part of the public API
-   *
-   * @alias list
    */
   public all: RefundsResource['list'] = this.list;
   /**
@@ -36,27 +27,15 @@ export default class RefundsResource extends Resource<RefundData, Refund> {
    * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
-   *
-   * @public ✓ This method is part of the public API
-   *
-   * @alias list
    */
   public page: RefundsResource['list'] = this.list;
 
   /**
    * List Refunds
    *
-   * @param params - List Refunds parameters
-   *                 (DEPRECATED SINCE 3.0.0) Can also be a callback function
-   * @param cb - (DEPRECATED SINCE 3.0.0) Callback function, can be used instead of the returned `Promise` object
-   *
-   * @returns A list of found Refunds
-   *
    * @since 3.0.0
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
-   *
-   * @public ✓ This method is part of the public API
    */
   public list(parameters?: ListParameters): Promise<List<Refund>>;
   public list(parameters: ListParameters, callback: Callback<List<Refund>>): void;
