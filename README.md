@@ -51,13 +51,13 @@ To use the Mollie API client, the following things are required:
 Using [npm](https://npmjs.org/):
 
 ```sh
-npm install @mollie/api-client@beta --save
+npm install @mollie/api-client --save
 ```
 
 Or using [yarn](https://yarnpkg.com/):
 
 ```sh
-yarn add @mollie/api-client@beta
+yarn add @mollie/api-client
 ```
 
 This will add `@mollie/api-client` to your project's dependencies.
