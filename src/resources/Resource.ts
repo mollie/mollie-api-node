@@ -10,7 +10,7 @@ function stringifyQuery(input: Record<string, any>): string {
   return querystring.stringify(
     getEntries(input).reduce<Record<string, any>>((result, [key, value]) => {
       if (Array.isArray(value)) {
-        result[key] = value.join(';');
+        result[key] = value.join();
       } /* if (Array.isArray(value) == false) */ else {
         result[key] = value;
       }
