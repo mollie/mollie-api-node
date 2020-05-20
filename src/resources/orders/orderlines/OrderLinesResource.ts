@@ -61,6 +61,6 @@ export default class OrdersLinesResource extends ParentedResource<OrderData, Ord
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...data } = parameters;
-    return this.network.delete<true>(this.getResourceUrl(orderId));
+    return this.network.delete<true>(this.getResourceUrl(orderId), data);
   }
 }

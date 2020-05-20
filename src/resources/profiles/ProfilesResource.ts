@@ -108,6 +108,6 @@ export default class ProfilesResource extends Resource<ProfileData, Profile> {
     if (!checkId(id, 'profile')) {
       throw new ApiError('The profile id is invalid');
     }
-    return this.network.delete<true>(`${this.getResourceUrl()}/${id}`);
+    return this.network.delete<true>(`${this.getResourceUrl()}/${id}`, undefined);
   }
 }

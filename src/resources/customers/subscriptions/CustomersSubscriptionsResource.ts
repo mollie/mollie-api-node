@@ -143,7 +143,7 @@ export default class CustomersSubscriptionsResource extends ParentedResource<Sub
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer is invalid');
     }
-    const { customerId: _, ...query } = parameters || {};
-    return this.network.delete<Subscription>(`${this.getResourceUrl(customerId)}/${id}`);
+    const { customerId: _, ...context } = parameters || {};
+    return this.network.delete<Subscription>(`${this.getResourceUrl(customerId)}/${id}`, context);
   }
 }
