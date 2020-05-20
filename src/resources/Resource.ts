@@ -24,9 +24,9 @@ export default class Resource<R, T extends R> {
   protected readonly network: {
     post: <S extends T | true = T>(url: string, data: any) => Promise<S>;
     get: (url: string, query?: Record<string, any>) => Promise<T>;
-    list: (url: string, resourceName: string, query: Record<string, any>) => Promise<Omit<List<T>, 'nextPage' | 'previousPage'>>;
+    list: (url: string, resourceName: string, query?: Record<string, any>) => Promise<Omit<List<T>, 'nextPage' | 'previousPage'>>;
     patch: (url: string, data: any) => Promise<T>;
-    delete: <S extends T | true>(url: string, context: any) => Promise<S>;
+    delete: <S extends T | true>(url: string, context?: any) => Promise<S>;
   };
 
   constructor(protected readonly httpClient: AxiosInstance) {
@@ -57,7 +57,7 @@ export default class Resource<R, T extends R> {
         }
         return this.injectPrototypes(response.data);
       },
-      list: async (url: string, resourceName: string, query: Record<string, any>): Promise<Omit<List<T>, 'nextPage' | 'previousPage'>> => {
+      list: async (url: string, resourceName: string, query: Record<string, any> = {}): Promise<Omit<List<T>, 'nextPage' | 'previousPage'>> => {
         try {
           var response: AxiosResponse = await httpClient.get(`${url}${stringifyQuery(query)}`);
         } catch (error) {
@@ -87,7 +87,7 @@ export default class Resource<R, T extends R> {
         }
         return this.injectPrototypes(response.data);
       },
-      delete: async <S extends T | true>(url: string, context: any): Promise<S> => {
+      delete: async <S extends T | true>(url: string, context?: any): Promise<S> => {
         try {
           var response: AxiosResponse = await httpClient.delete(url, { data: context });
         } catch (error) {
