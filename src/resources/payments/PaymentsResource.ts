@@ -118,11 +118,11 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
    */
   public cancel(id: string, parameters?: CancelParameters): Promise<Payment>;
   public cancel(id: string, parameters: CancelParameters, callback: Callback<List<Payment>>): void;
-  public cancel(id: string, parameters: CancelParameters = {}) {
+  public cancel(id: string, parameters?: CancelParameters) {
     if (renege(this, this.cancel, ...arguments)) return;
     if (!checkId(id, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }
-    return this.network.delete<Payment>(`${this.getResourceUrl()}/${id}`);
+    return this.network.delete<Payment>(`${this.getResourceUrl()}/${id}`, parameters);
   }
 }
