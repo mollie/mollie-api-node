@@ -4,6 +4,9 @@
 
 All notable changes to this project will be documented in this file.
 
+#### v3.2.0-beta.3 - 2020-05-21
+  - Provide data in DELETE requests
+
 #### v3.2.0-beta.2 - 2020-05-19
   - Fixed embedding multiple resources
 
