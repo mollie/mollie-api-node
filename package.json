@@ -70,7 +70,6 @@
     "prettier": "^1.18.2",
     "rollup": "^1.18.0",
     "rollup-plugin-babel": "^4.3.3",
-    "rollup-plugin-copy-glob": "^0.3.1",
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "typescript": "^3.8.3"

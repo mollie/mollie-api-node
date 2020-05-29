@@ -1,11 +1,11 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import fs from 'fs';
 import https from 'https';
-import path from 'path';
 
 // Lib
 import { version as libraryVersion } from '../package.json';
 import Xor from './types/Xor';
+
+import cert from './cacert.pem';
 
 // Resources
 import ChargebacksResource from './resources/chargebacks/ChargebacksResource';
@@ -99,7 +99,7 @@ function createHttpClient({ apiKey, accessToken, versionStrings, ...axiosOptions
   axiosOptions.headers['Content-Type'] = 'application/json';
 
   axiosOptions.httpsAgent = new https.Agent({
-    cert: fs.readFileSync(path.resolve(__dirname, './cacert.pem'), 'utf8'),
+    cert,
   });
 
   return axios.create(axiosOptions);
