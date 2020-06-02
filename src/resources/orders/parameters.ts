@@ -4,7 +4,7 @@ import { PaymentData } from '../../data/payments/data';
 import { PaymentMethod } from '../../data/global';
 import PickOptional from '../../types/PickOptional';
 
-export type CreateParameters = Pick<OrderData, 'amount' | 'orderNumber' | 'lines' | 'billingAddress' | 'webhookUrl' | 'locale' | 'metadata'> & {
+export type CreateParameters = Pick<OrderData, 'amount' | 'orderNumber' | 'lines' | 'billingAddress' | 'webhookUrl' | 'locale' | 'metadata' | 'expiresAt'> & {
   /**
    * The shipping address for the order. If omitted, it is assumed to be identical to the `billingAddress`.
    */
