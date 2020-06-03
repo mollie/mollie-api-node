@@ -11,11 +11,13 @@ All notable changes to this project will be documented in this file.
     - Profiles APIs
     - Onboarding APIs
   - Implemented the update Payment endpoint
-  - Changed the internal architecture of the library. We're now using interfaced data, which solves the following problems:
-    - Make the library easier to maintain
-    - Export better type definitions
-  - Fixed embedding multiple resources
-  - Provide data in DELETE requests
+  - Changed the internal architecture of the library. We're now using interfaced data, which:
+    - Makes the library easier to maintain
+    - Exports better type definitions
+  - Fixed several bugs:
+    - DELETE requests can now include data (#147)
+    - Embedding multiple resources simultaneously now works (#144)
+    - GET requests now include all data (#137)
 
 #### v3.1.0 - 2020-01-28
   - Added Order Payments API
