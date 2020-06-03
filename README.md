@@ -31,8 +31,6 @@ In the typical setup, you will make calls to Mollie ‒ through one of our libra
 
 If you include this library in a website or app, however, your API key will be shipped to users. With this key, users will be able to act on your behalf.
 
-Before you look for workarounds for errors such as "`readFileSync is not a function`" or "`This dependency was not found: * fs`", make sure your design is secure.
-
 # Getting started
 
 - [Requirements](#requirements)
