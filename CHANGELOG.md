@@ -4,13 +4,7 @@
 
 All notable changes to this project will be documented in this file.
 
-#### v3.2.0-beta.3 - 2020-05-21
-  - Provide data in DELETE requests
-
-#### v3.2.0-beta.2 - 2020-05-19
-  - Fixed embedding multiple resources
-
-#### v3.2.0-beta.1 - 2020-05-18
+#### v3.2.0 - 2020-06-03
   - Added the following APIs:
     - Permissions APIs
     - Organizations APIs
@@ -20,6 +14,8 @@ All notable changes to this project will be documented in this file.
   - Changed the internal architecture of the library. We're now using interfaced data, which solves the following problems:
     - Make the library easier to maintain
     - Export better type definitions
+  - Fixed embedding multiple resources
+  - Provide data in DELETE requests
 
 #### v3.1.0 - 2020-01-28
   - Added Order Payments API
