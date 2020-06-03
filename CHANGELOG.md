@@ -30,10 +30,10 @@ All notable changes to this project will be documented in this file.
   - Added pagination support
   - Added support for embedded resources (`payments`, `refunds`, `chargebacks`, etc.)
 
-### v2.3.3 - 2019-07-14
+#### v2.3.3 - 2019-07-14
   - Update dependencies
 
-### v2.3.2 - 2019-06-06
+#### v2.3.2 - 2019-06-06
   - Update dependencies.
 
 #### v2.3.1 - 2019-05-30
