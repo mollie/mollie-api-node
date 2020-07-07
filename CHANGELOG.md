@@ -4,6 +4,9 @@
 
 All notable changes to this project will be documented in this file.
 
+### v3.2.1 - 20202-07-07
+  - Upgraded `kinda-of` dependency (#158)
+
 #### v3.2.0 - 2020-06-03
   - Added the following APIs:
     - Permissions APIs
