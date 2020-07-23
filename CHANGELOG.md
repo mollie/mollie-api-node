@@ -4,6 +4,9 @@
 
 All notable changes to this project will be documented in this file.
 
+### V3.2.3 - 2020-07-23
+  - Bump `lodash` from 4.17.15 to 4.17.19 (#160)
+
 ### v3.2.2 - 2020-07-09
   - Fix types for mollieClient.orders.create (#159)
 
