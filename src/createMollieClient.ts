@@ -5,7 +5,7 @@ import https from 'https';
 import { version as libraryVersion } from '../package.json';
 import Xor from './types/Xor';
 
-import cert from './cacert.pem';
+import caCertificates from './cacert.pem';
 
 // Resources
 import ChargebacksResource from './resources/chargebacks/ChargebacksResource';
@@ -99,7 +99,7 @@ function createHttpClient({ apiKey, accessToken, versionStrings, ...axiosOptions
   axiosOptions.headers['Content-Type'] = 'application/json';
 
   axiosOptions.httpsAgent = new https.Agent({
-    cert,
+    ca: caCertificates,
   });
 
   // Detect stub polyfills of https.Agent. Using a polyfill (such as https://github.com/jhiesey/stream-http) in itself
