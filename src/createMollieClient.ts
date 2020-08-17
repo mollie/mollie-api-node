@@ -102,6 +102,15 @@ function createHttpClient({ apiKey, accessToken, versionStrings, ...axiosOptions
     cert,
   });
 
+  // Detect stub polyfills of https.Agent. Using a polyfill (such as https://github.com/jhiesey/stream-http) in itself
+  // is not an issue, although it may not respect the certificates and thereby reduce security somewhat. The purpose of
+  // this check is to catch cases where this library is integrated into a frontend app.
+  if (axiosOptions.httpsAgent?.requests == undefined) {
+    throw new Error(
+      'Unable to create HTTPS agent. This may indicate that the Mollie API client is integrated into a website or app. This is not recommended, please see https://github.com/mollie/mollie-api-node/#a-note-on-use-outside-of-nodejs. If this is a mistake, please let us know: https://github.com/mollie/mollie-api-node/issues',
+    );
+  }
+
   return axios.create(axiosOptions);
 }
 
