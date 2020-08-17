@@ -4,22 +4,29 @@
 
 All notable changes to this project will be documented in this file.
 
-#### v3.2.0-beta.3 - 2020-05-21
-  - Provide data in DELETE requests
+### V3.2.3 - 2020-07-23
+  - Bump `lodash` from 4.17.15 to 4.17.19 (#160)
 
-#### v3.2.0-beta.2 - 2020-05-19
-  - Fixed embedding multiple resources
+### v3.2.2 - 2020-07-09
+  - Fix types for mollieClient.orders.create (#159)
 
-#### v3.2.0-beta.1 - 2020-05-18
+### v3.2.1 - 2020-07-07
+  - Upgraded `kinda-of` dependency (#158)
+
+#### v3.2.0 - 2020-06-03
   - Added the following APIs:
     - Permissions APIs
     - Organizations APIs
     - Profiles APIs
     - Onboarding APIs
   - Implemented the update Payment endpoint
-  - Changed the internal architecture of the library. We're now using interfaced data, which solves the following problems:
-    - Make the library easier to maintain
-    - Export better type definitions
+  - Changed the internal architecture of the library. We're now using interfaced data, which:
+    - Makes the library easier to maintain
+    - Exports better type definitions
+  - Fixed several bugs:
+    - DELETE requests can now include data (#147)
+    - Embedding multiple resources simultaneously now works (#144)
+    - GET requests now include all data (#137)
 
 #### v3.1.0 - 2020-01-28
   - Added Order Payments API
@@ -32,10 +39,10 @@ All notable changes to this project will be documented in this file.
   - Added pagination support
   - Added support for embedded resources (`payments`, `refunds`, `chargebacks`, etc.)
 
-### v2.3.3 - 2019-07-14
+#### v2.3.3 - 2019-07-14
   - Update dependencies
 
-### v2.3.2 - 2019-06-06
+#### v2.3.2 - 2019-06-06
   - Update dependencies.
 
 #### v2.3.1 - 2019-05-30

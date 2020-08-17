@@ -1,10 +1,17 @@
 import { CommonListParameters } from '../../types/parameters';
 import { OrderAddress, OrderData, OrderEmbed } from '../../data/orders/data';
+import { OrderLineData } from '../../data/orders/orderlines/OrderLine';
 import { PaymentData } from '../../data/payments/data';
 import { PaymentMethod } from '../../data/global';
 import PickOptional from '../../types/PickOptional';
 
-export type CreateParameters = Pick<OrderData, 'amount' | 'orderNumber' | 'lines' | 'billingAddress' | 'webhookUrl' | 'locale' | 'metadata'> & {
+export type CreateParameters = Pick<OrderData, 'amount' | 'orderNumber' | 'billingAddress' | 'webhookUrl' | 'locale' | 'metadata' | 'expiresAt'> & {
+  lines: (Pick<OrderLineData, 'name' | 'quantity' | 'unitPrice' | 'totalAmount' | 'vatRate' | 'vatAmount'> &
+    PickOptional<OrderLineData, 'type' | 'discountAmount' | 'sku' | 'metadata'> & {
+      category?: string;
+      imageUrl?: string;
+      productUrl?: string;
+    })[];
   /**
    * The shipping address for the order. If omitted, it is assumed to be identical to the `billingAddress`.
    */
