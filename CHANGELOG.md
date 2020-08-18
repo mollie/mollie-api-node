@@ -4,6 +4,10 @@
 
 All notable changes to this project will be documented in this file.
 
+### v3.2.4 - 2020-08-18
+  - Inlined CAs (#162)
+  - Use Node.js' `querystring` modules instead of the external `qs` (#163)
+
 ### V3.2.3 - 2020-07-23
   - Bump `lodash` from 4.17.15 to 4.17.19 (#160)
 
