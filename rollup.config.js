@@ -8,7 +8,7 @@ export default {
   input: join('src', 'createMollieClient.ts'),
   external: [
     // These Node.js interenals are external to our bundles…
-    ...['fs', 'https', 'path', 'url'],
+    ...['fs', 'https', 'path', 'querystring', 'url'],
     // …as are the dependencies listed in our package.json.
     ...Object.keys(require('./package.json').dependencies),
   ],
