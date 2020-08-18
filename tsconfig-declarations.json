@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.json",
-  "files": ["src/types.ts"],
+  "files": ["src/types.ts", "src/certs.d.ts"],
   "compilerOptions": {
     "emitDeclarationOnly": true,
     "declaration": true,

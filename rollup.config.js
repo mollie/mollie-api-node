@@ -2,13 +2,12 @@ import { join } from 'path';
 import json from 'rollup-plugin-json';
 import resolve from 'rollup-plugin-node-resolve';
 import babel from 'rollup-plugin-babel';
-import copy from 'rollup-plugin-copy-glob';
 
 export default {
   input: join('src', 'createMollieClient.ts'),
   external: [
     // These Node.js interenals are external to our bundles…
-    ...['fs', 'https', 'path', 'querystring', 'url'],
+    'https', 'querystring', 'url',
     // …as are the dependencies listed in our package.json.
     ...Object.keys(require('./package.json').dependencies),
   ],
@@ -25,6 +24,17 @@ export default {
     babel({
       extensions: ['.ts'],
     }),
-    copy([{ files: join('src', 'cacert.pem'), dest: 'dist' }]),
+    {
+      name: 'cert',
+      transform(code, id) {
+        if (id.endsWith('.pem') == false) {
+          return null;
+        }
+        return {
+          code: `export default ${JSON.stringify(code)}`,
+          map: { mappings: '' }
+        };
+      }
+    }
   ],
 };

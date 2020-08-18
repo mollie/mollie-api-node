@@ -1,11 +1,11 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import fs from 'fs';
 import https from 'https';
-import path from 'path';
 
 // Lib
 import { version as libraryVersion } from '../package.json';
 import Xor from './types/Xor';
+
+import caCertificates from './cacert.pem';
 
 // Resources
 import ChargebacksResource from './resources/chargebacks/ChargebacksResource';
@@ -99,7 +99,7 @@ function createHttpClient({ apiKey, accessToken, versionStrings, ...axiosOptions
   axiosOptions.headers['Content-Type'] = 'application/json';
 
   axiosOptions.httpsAgent = new https.Agent({
-    cert: fs.readFileSync(path.resolve(__dirname, './cacert.pem'), 'utf8'),
+    ca: caCertificates,
   });
 
   return axios.create(axiosOptions);
@@ -110,6 +110,13 @@ function createHttpClient({ apiKey, accessToken, versionStrings, ...axiosOptions
  * @since 2.0.0
  */
 export default function createMollieClient(options: MollieOptions) {
+  // Attempt to catch cases where this library is integrated into a frontend app.
+  if (['node', 'io.js'].indexOf(process?.release?.name) == -1) {
+    throw new Error(
+      `Unexpected process release name ${process?.release?.name}. This may indicate that the Mollie API client is integrated into a website or app. This is not recommended, please see https://github.com/mollie/mollie-api-node/#a-note-on-use-outside-of-nodejs. If this is a mistake, please let us know: https://github.com/mollie/mollie-api-node/issues`,
+    );
+  }
+
   if (!options.apiKey && !options.accessToken) {
     throw new TypeError('Missing parameter "apiKey" or "accessToken".');
   }
