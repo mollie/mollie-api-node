@@ -29,6 +29,7 @@ import PermissionsResource from './resources/permissions/PermissionResource';
 import ProfilesResource from './resources/profiles/ProfilesResource';
 import RefundsResource from './resources/refunds/RefundsResource';
 import SubscriptionsResource from './resources/subscriptions/SubscriptionsResource';
+import SubscriptionsPaymentsResource from './resources/subscriptions/payments/SubscriptionsPaymentsResource';
 
 export type MollieOptions = AxiosRequestConfig & {
   /**
@@ -151,6 +152,7 @@ export default function createMollieClient(options: MollieOptions) {
 
     // Subscriptions API
     subscription: new SubscriptionsResource(httpClient),
+    subscriptions_payments: new SubscriptionsPaymentsResource(httpClient),
     customers_subscriptions: new CustomersSubscriptionsResource(httpClient),
 
     // Orders API
