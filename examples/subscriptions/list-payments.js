@@ -1,5 +1,5 @@
 /**
- * @docs https://docs.mollie.com/reference/v2/customers-api/list-customer-payments
+ * @docs https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions-payments
  */
 const { createMollieClient } = require('@mollie/api-client');
 
