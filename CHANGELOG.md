@@ -4,6 +4,9 @@
 
 All notable changes to this project will be documented in this file.
 
+### v3.3.0 - 2020-10-30
+  - Add subscriptions_payments api (#166)
+
 ### v3.2.4 - 2020-08-18
   - Inlined CAs (#162)
   - Use Node.js' `querystring` modules instead of the external `qs` (#163)
