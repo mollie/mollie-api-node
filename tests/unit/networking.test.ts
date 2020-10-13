@@ -40,7 +40,7 @@ test('defaults', async () => {
 });
 
 async function requestWithVersionStrings(versionStrings: string | string[] | undefined) {
-  const { adapter, client } = wireMockClient(versionStrings);
+  const { adapter, client } = wireMockClient({ versionStrings });
 
   adapter.onGet('/customers').reply(200, {
     _embedded: {
@@ -90,4 +90,31 @@ test('customVersionStrings', async () => {
   headers = (await requestWithVersionStrings('php cookbook for node users/7.3.4')).headers;
 
   expect(headers['User-Agent'].endsWith('phpCookbookForNodeUsers/7.3.4')).toBe(true);
+});
+
+test('customApiEndpoint', async () => {
+  const { adapter, client } = wireMockClient({ apiEndpoint: 'https://null.house/' });
+
+  adapter.onGet('/customers').reply(200, {
+    _embedded: {
+      customers: [],
+    },
+    count: 0,
+    _links: {
+      documentation: {
+        href: 'https://docs.mollie.com/reference/v2/customers-api/list-customers',
+        type: 'text/html',
+      },
+      self: {
+        href: 'https://api.mollie.com/v2/customers?limit=50',
+        type: 'application/hal+json',
+      },
+      previous: null,
+      next: null,
+    },
+  });
+
+  await bluster(client.customers.all.bind(client.customers))();
+
+  expect(adapter.history.get[0].baseURL).toBe('https://null.house/');
 });

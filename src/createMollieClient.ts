@@ -31,25 +31,29 @@ import RefundsResource from './resources/refunds/RefundsResource';
 import SubscriptionsResource from './resources/subscriptions/SubscriptionsResource';
 import SubscriptionsPaymentsResource from './resources/subscriptions/payments/SubscriptionsPaymentsResource';
 
-export type MollieOptions = AxiosRequestConfig & {
+export type MollieOptions = Xor<
+  {
+    /**
+     * The Mollie API key, starting with `'test_'` or `'live_'`.
+     */
+    apiKey: string;
+  },
+  {
+    /**
+     * OAuth access token, starting with `'access_''.
+     */
+    accessToken: string;
+  }
+> & {
   /**
    * One or an array of version strings of the software you are using, such as `'RockenbergCommerce/3.1.12'`.
    */
   versionStrings?: string | string[];
-} & Xor<
-    {
-      /**
-       * The Mollie API key, starting with `'test_'` or `'live_'`.
-       */
-      apiKey: string;
-    },
-    {
-      /**
-       * OAuth access token, starting with `'access_''.
-       */
-      accessToken: string;
-    }
-  >;
+  /**
+   * The URL of the root of the Mollie API. Default: `'https://api.mollie.com:443/v2/'`.
+   */
+  apiEndpoint?: string;
+} & Pick<AxiosRequestConfig, 'adapter' | 'headers' | 'proxy' | 'socketPath' | 'timeout'>;
 
 function preprocessVersionStrings(input: string | string[] | undefined): string[] {
   if (Array.isArray(input)) {
@@ -60,14 +64,10 @@ function preprocessVersionStrings(input: string | string[] | undefined): string[
   }
   return [];
 }
-function createHttpClient({ apiKey, accessToken, versionStrings, ...axiosOptions }: MollieOptions): AxiosInstance {
-  axiosOptions.baseURL = 'https://api.mollie.com:443/v2/';
+function createHttpClient({ apiKey, accessToken, versionStrings, apiEndpoint = 'https://api.mollie.com:443/v2/', ...axiosOptions }: MollieOptions): AxiosInstance {
+  const headers: Record<string, string> = axiosOptions.headers ?? {};
 
-  if (axiosOptions.headers == undefined) {
-    axiosOptions.headers = {};
-  }
-
-  axiosOptions.headers['User-Agent'] = [
+  headers['User-Agent'] = [
     `Node/${process.version}`,
     `Mollie/${libraryVersion}`,
     ...preprocessVersionStrings(versionStrings).map(versionString => {
@@ -91,19 +91,22 @@ function createHttpClient({ apiKey, accessToken, versionStrings, ...axiosOptions
   ].join(' ');
 
   if (apiKey != undefined) {
-    axiosOptions.headers['Authorization'] = `Bearer ${apiKey}`;
+    headers['Authorization'] = `Bearer ${apiKey}`;
   } /* if (accessToken != undefined) */ else {
-    axiosOptions.headers['Authorization'] = `Bearer ${accessToken}`;
-    axiosOptions.headers['User-Agent'] += ' OAuth/2.0';
+    headers['Authorization'] = `Bearer ${accessToken}`;
+    headers['User-Agent'] += ' OAuth/2.0';
   }
-  axiosOptions.headers['Accept-Encoding'] = 'gzip';
-  axiosOptions.headers['Content-Type'] = 'application/json';
+  headers['Accept-Encoding'] = 'gzip';
+  headers['Content-Type'] = 'application/json';
 
-  axiosOptions.httpsAgent = new https.Agent({
-    ca: caCertificates,
+  return axios.create({
+    ...axiosOptions,
+    baseURL: apiEndpoint,
+    headers,
+    httpsAgent: new https.Agent({
+      ca: caCertificates,
+    }),
   });
-
-  return axios.create(axiosOptions);
 }
 
 /**
@@ -112,7 +115,7 @@ function createHttpClient({ apiKey, accessToken, versionStrings, ...axiosOptions
  */
 export default function createMollieClient(options: MollieOptions) {
   // Attempt to catch cases where this library is integrated into a frontend app.
-  if (['node', 'io.js'].indexOf(process?.release?.name) == -1) {
+  if (['node', 'io.js'].includes(process?.release?.name) == false) {
     throw new Error(
       `Unexpected process release name ${process?.release?.name}. This may indicate that the Mollie API client is integrated into a website or app. This is not recommended, please see https://github.com/mollie/mollie-api-node/#a-note-on-use-outside-of-nodejs. If this is a mistake, please let us know: https://github.com/mollie/mollie-api-node/issues`,
     );
