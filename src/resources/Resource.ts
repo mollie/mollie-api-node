@@ -15,7 +15,9 @@ function stringifyQuery(input: Record<string, any>): string {
     entries.reduce<Record<string, any>>((result, [key, value]) => {
       if (Array.isArray(value)) {
         result[key] = value.join();
-      } /* if (Array.isArray(value) == false) */ else {
+      } else if (/* Array.isArray(value) == false && */ typeof value == 'object') {
+        getEntries(value).forEach(([innerKey, innerValue]) => (result[`${key}[${innerKey}]`] = innerValue));
+      } /* if (typeof value != 'object') */ else {
         result[key] = value;
       }
       return result;

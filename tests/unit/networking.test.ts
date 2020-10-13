@@ -1,4 +1,36 @@
+import { MethodInclude } from '../..';
 import wireMockClient from '../wireMockClient';
+
+test('queryString', async () => {
+  const { adapter, client } = wireMockClient();
+
+  adapter.onGet('/methods?include=issuers%2Cpricing&amount%5Bvalue%5D=10.00&amount%5Bcurrency%5D=SEK').reply(200, {
+    _embedded: {
+      methods: [],
+    },
+    count: 0,
+    _links: {
+      documentation: {
+        href: 'https://docs.mollie.com/reference/v2/methods-api/list-methods',
+        type: 'text/html',
+      },
+      self: {
+        href: 'https://api.mollie.com/v2/methods?include=issuers%2Cpricing&amount%5Bvalue%5D=10.00&amount%5Bcurrency%5D=SEK',
+        type: 'application/hal+json',
+      },
+    },
+  });
+
+  const methods = await bluster(client.methods.all.bind(client.methods))({
+    include: [MethodInclude.issuers, MethodInclude.pricing],
+    amount: {
+      value: '10.00',
+      currency: 'SEK',
+    },
+  });
+
+  expect(methods.links.self.href).toBe('https://api.mollie.com/v2/methods?include=issuers%2Cpricing&amount%5Bvalue%5D=10.00&amount%5Bcurrency%5D=SEK');
+});
 
 test('defaults', async () => {
   const { adapter, client } = wireMockClient();
