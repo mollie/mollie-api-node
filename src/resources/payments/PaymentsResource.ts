@@ -1,5 +1,5 @@
 import { CancelParameters, CreateParameters, GetParameters, ListParameters, UpdateParameters } from './parameters';
-import { PaymentData } from '../../data/payments/data';
+import { PaymentData, PaymentInclude } from '../../data/payments/data';
 import ApiError from '../../errors/ApiError';
 import Callback from '../../types/Callback';
 import List from '../../data/list/List';
@@ -55,7 +55,12 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
   public create(parameters: CreateParameters, callback: Callback<Payment>): void;
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
-    return this.network.post(this.getResourceUrl(), parameters);
+    const { include, ...data } = parameters;
+    let query: { include: PaymentInclude[] | PaymentInclude } | undefined = undefined;
+    if (include != undefined) {
+      query = { include };
+    }
+    return this.network.post(this.getResourceUrl(), data, query);
   }
 
   /**
