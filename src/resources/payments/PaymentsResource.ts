@@ -55,7 +55,9 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
   public create(parameters: CreateParameters, callback: Callback<Payment>): void;
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
-    return this.network.post(this.getResourceUrl(), parameters);
+    const { include, ...data } = parameters;
+    const query = include != undefined ? { include } : undefined;
+    return this.network.post(this.getResourceUrl(), data, query);
   }
 
   /**

@@ -27,7 +27,7 @@ function stringifyQuery(input: Record<string, any>): string {
 
 export default class Resource<R, T extends R> {
   protected readonly network: {
-    post: <S extends T | true = T>(url: string, data: any) => Promise<S>;
+    post: <S extends T | true = T>(url: string, data: any, query?: Record<string, any>) => Promise<S>;
     get: (url: string, query?: Record<string, any>) => Promise<T>;
     list: (url: string, resourceName: string, query?: Record<string, any>) => Promise<Omit<List<T>, 'nextPage' | 'previousPage'>>;
     patch: (url: string, data: any) => Promise<T>;
@@ -37,7 +37,7 @@ export default class Resource<R, T extends R> {
   constructor(protected readonly httpClient: AxiosInstance) {
     /* eslint-disable no-var */
     this.network = {
-      post: async <S extends T | true = T>(url: string, data: any): Promise<S> => {
+      post: async <S extends T | true = T>(url: string, data: any, query: Record<string, any> = {}): Promise<S> => {
         try {
           var response: AxiosResponse = await httpClient.post(url, data);
         } catch (error) {
