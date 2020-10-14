@@ -1,4 +1,4 @@
-import { Address, Links, Locale, Url } from '../global';
+import { Address, Links, Locale } from '../global';
 import Model from '../Model';
 import Seal from '../../types/Seal';
 import commonHelpers from '../commonHelpers';
