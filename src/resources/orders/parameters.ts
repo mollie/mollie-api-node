@@ -47,7 +47,7 @@ export interface GetParameters {
   embed?: OrderEmbed[];
 }
 
-export type UpdateParameters = PickOptional<OrderData, 'billingAddress' | 'shippingAddress'> & {
+export type UpdateParameters = PickOptional<OrderData, 'billingAddress' | 'shippingAddress' | 'redirectUrl' | 'webhookUrl'> & {
   orderNumber?: string;
   testmode?: boolean;
 };
