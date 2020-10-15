@@ -4,7 +4,7 @@
 
 All notable changes to this project will be documented in this file.
 
-### v3.4.0 - 2020-10-14
+### v3.4.0 - 2020-10-15
   - Fix bug in mollieClient.methods.all (#170)
   - Fix bug in mollieClient.payments.create (#172)
   - Fix types for mollieClient.orders.update (#173)
