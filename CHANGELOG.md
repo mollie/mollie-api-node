@@ -4,7 +4,13 @@
 
 All notable changes to this project will be documented in this file.
 
-### v3.3.0 - 2020-10-30
+### v3.4.0 - 2020-10-15
+  - Fix bug in mollieClient.methods.all (#170)
+  - Fix bug in mollieClient.payments.create (#172)
+  - Fix types for mollieClient.orders.update (#173)
+  - Add `apiEndpoint` option (#167)
+
+### v3.3.0 - 2020-09-30
   - Add subscriptions_payments api (#166)
 
 ### v3.2.4 - 2020-08-18
