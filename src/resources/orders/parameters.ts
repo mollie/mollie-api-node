@@ -40,6 +40,8 @@ export type CreateParameters = Pick<OrderData, 'amount' | 'orderNumber' | 'billi
    * only.
    */
   shopperCountryMustMatchBillingCountry?: boolean;
+  profileId?: string;
+  testmode?: boolean;
 };
 
 export interface GetParameters {
