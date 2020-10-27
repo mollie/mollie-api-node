@@ -64,7 +64,9 @@ export default class OrdersResource extends Resource<OrderData, Order> {
   public create(parameters: CreateParameters): void;
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
-    return this.network.post(this.getResourceUrl(), parameters);
+    const { embed, ...data } = parameters;
+    const query = include != undefined ? { embed } : undefined;
+    return this.network.post(this.getResourceUrl(), data, query);
   }
 
   /**
