@@ -40,6 +40,7 @@ export type CreateParameters = Pick<OrderData, 'amount' | 'orderNumber' | 'billi
    * only.
    */
   shopperCountryMustMatchBillingCountry?: boolean;
+  embed?: OrderEmbed[];
   profileId?: string;
   testmode?: boolean;
 };
