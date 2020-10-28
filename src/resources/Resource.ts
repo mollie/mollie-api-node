@@ -39,7 +39,7 @@ export default class Resource<R, T extends R> {
     this.network = {
       post: async <S extends T | true = T>(url: string, data: any, query: Record<string, any> = {}): Promise<S> => {
         try {
-          var response: AxiosResponse = await httpClient.post(url, data);
+          var response: AxiosResponse = await httpClient.post(`${url}${stringifyQuery(query)}`, data);
         } catch (error) {
           if (error.response != undefined) {
             throw ApiError.createFromResponse(error.response);
