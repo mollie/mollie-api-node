@@ -4,27 +4,28 @@
 
 All notable changes to this project will be documented in this file.
 
-### v3.4.0 - 2020-10-15
-  - Fix bug in mollieClient.methods.all (#170)
-  - Fix bug in mollieClient.payments.create (#172)
-  - Fix types for mollieClient.orders.update (#173)
-  - Add `apiEndpoint` option (#167)
+### v3.4.0 - 2020-10-28
+  - Add `embed`, `profileId`, and `testMode` to mollieClient.orders.create ([#176](https://github.com/mollie/mollie-api-node/pull/176)/[#177](https://github.com/mollie/mollie-api-node/pull/177))
+  - Fix bug in mollieClient.methods.all ([#170](https://github.com/mollie/mollie-api-node/pull/170))
+  - Fix bug in mollieClient.payments.create ([#172](https://github.com/mollie/mollie-api-node/pull/172))
+  - Fix types for mollieClient.orders.update ([#173](https://github.com/mollie/mollie-api-node/pull/173))
+  - Add `apiEndpoint` option ([#167](https://github.com/mollie/mollie-api-node/pull/167))
 
 ### v3.3.0 - 2020-09-30
-  - Add subscriptions_payments api (#166)
+  - Add subscriptions_payments api ([#166](https://github.com/mollie/mollie-api-node/pull/166))
 
 ### v3.2.4 - 2020-08-18
-  - Inlined CAs (#162)
-  - Use Node.js' `querystring` modules instead of the external `qs` (#163)
+  - Inlined CAs ([#162](https://github.com/mollie/mollie-api-node/pull/162))
+  - Use Node.js' `querystring` modules instead of the external `qs` ([#163](https://github.com/mollie/mollie-api-node/pull/163))
 
 ### V3.2.3 - 2020-07-23
-  - Bump `lodash` from 4.17.15 to 4.17.19 (#160)
+  - Bump `lodash` from 4.17.15 to 4.17.19 ([#160](https://github.com/mollie/mollie-api-node/pull/160))
 
 ### v3.2.2 - 2020-07-09
-  - Fix types for mollieClient.orders.create (#159)
+  - Fix types for mollieClient.orders.create ([#159](https://github.com/mollie/mollie-api-node/pull/159))
 
 ### v3.2.1 - 2020-07-07
-  - Upgraded `kinda-of` dependency (#158)
+  - Upgraded `kinda-of` dependency ([#158](https://github.com/mollie/mollie-api-node/pull/158))
 
 #### v3.2.0 - 2020-06-03
   - Added the following APIs:
@@ -37,9 +38,9 @@ All notable changes to this project will be documented in this file.
     - Makes the library easier to maintain
     - Exports better type definitions
   - Fixed several bugs:
-    - DELETE requests can now include data (#147)
-    - Embedding multiple resources simultaneously now works (#144)
-    - GET requests now include all data (#137)
+    - DELETE requests can now include data ([#147](https://github.com/mollie/mollie-api-node/issues/147))
+    - Embedding multiple resources simultaneously now works ([#144](https://github.com/mollie/mollie-api-node/issues/144))
+    - GET requests now include all data ([#137](https://github.com/mollie/mollie-api-node/issues/137))
 
 #### v3.1.0 - 2020-01-28
   - Added Order Payments API
@@ -65,14 +66,14 @@ All notable changes to this project will be documented in this file.
   - Removed the Bitcoin payment method.
 
 #### v2.2.0 - 2019-31-03
-  - Upgraded various dependencies (#106)
+  - Upgraded various dependencies ([#106](https://github.com/mollie/mollie-api-node/pull/106))
   - Dropped support for Node 4.x. We decided not to release a new major version, as Node 4.8 has reached EOL on April 30th, 2018.
 
 #### v2.1.1 - 2018-12-04
-  - Updated cacert.pem (#99)
+  - Updated cacert.pem ([#99](https://github.com/mollie/mollie-api-node/pull/99))
 
 #### v2.0.1 - 2018-08-17
-  - Fixes #69.
+  - Fixes [#69](https://github.com/mollie/mollie-api-node/issues/69).
 
 #### v2.0.0 - 2018-08-09
   - Migrated to the v2 API. Refer to the [migration guide](https://docs.mollie.com/migrating-v1-to-v2) for a complete list of changes
