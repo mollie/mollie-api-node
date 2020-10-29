@@ -14,7 +14,7 @@ export type CreateParameters = ContextParameters &
      * array, the entire order will be shipped. If the order is already partially shipped, any remaining lines will be
      * shipped.
      */
-    lines: {
+    lines?: {
       /**
        * The API resource token of the order line, for example: `'odl_jp31jz'`.
        */
