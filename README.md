@@ -142,6 +142,19 @@ mollieClient.payments.get(payment.id)
   });
 ```
 
+
+### Retrieve a payment with refunds:
+
+```javascript
+mollieClient.payments.get(payment.id, { embed: "refunds" })
+  .then(payment => {
+    // E.g. check if the payment.isPaid()
+  })
+  .catch(error => {
+    // Handle the error
+  });
+```
+
 That's it!
 
 ## Pagination
