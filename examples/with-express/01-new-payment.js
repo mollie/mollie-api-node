@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
 
   mollieClient.payments
     .create({
-      amount: { value: '10.00', currency: 'USD' },
+      amount: { value: '10.00', currency: 'EUR' },
       description: 'New payment',
       redirectUrl: `https://example.org/redirect?orderId=${orderId}`,
       webhookUrl: `http://example.org/webhook?orderId=${orderId}`,
