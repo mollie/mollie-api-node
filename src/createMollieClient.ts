@@ -1,11 +1,8 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import https from 'https';
-
 // Lib
 import { version as libraryVersion } from '../package.json';
-import Xor from './types/Xor';
-
 import caCertificates from './cacert.pem';
+import NetworkClient from './NetworkClient';
+import Options from './Options';
 
 // Resources
 import ChargebacksResource from './resources/chargebacks/ChargebacksResource';
@@ -31,89 +28,11 @@ import RefundsResource from './resources/refunds/RefundsResource';
 import SubscriptionsResource from './resources/subscriptions/SubscriptionsResource';
 import SubscriptionsPaymentsResource from './resources/subscriptions/payments/SubscriptionsPaymentsResource';
 
-export type MollieOptions = Xor<
-  {
-    /**
-     * The Mollie API key, starting with `'test_'` or `'live_'`.
-     */
-    apiKey: string;
-  },
-  {
-    /**
-     * OAuth access token, starting with `'access_''.
-     */
-    accessToken: string;
-  }
-> & {
-  /**
-   * One or an array of version strings of the software you are using, such as `'RockenbergCommerce/3.1.12'`.
-   */
-  versionStrings?: string | string[];
-  /**
-   * The URL of the root of the Mollie API. Default: `'https://api.mollie.com:443/v2/'`.
-   */
-  apiEndpoint?: string;
-} & Pick<AxiosRequestConfig, 'adapter' | 'headers' | 'proxy' | 'socketPath' | 'timeout'>;
-
-function preprocessVersionStrings(input: string | string[] | undefined): string[] {
-  if (Array.isArray(input)) {
-    return input;
-  }
-  if (typeof input == 'string') {
-    return [input];
-  }
-  return [];
-}
-function createHttpClient({ apiKey, accessToken, versionStrings, apiEndpoint = 'https://api.mollie.com:443/v2/', ...axiosOptions }: MollieOptions): AxiosInstance {
-  const headers: Record<string, string> = axiosOptions.headers ?? {};
-
-  headers['User-Agent'] = [
-    `Node/${process.version}`,
-    `Mollie/${libraryVersion}`,
-    ...preprocessVersionStrings(versionStrings).map(versionString => {
-      //                platform/version
-      const matches = /^([^\/]+)\/([^\/\s]+)$/.exec(versionString);
-
-      if (matches === null) {
-        if (-1 == versionString.indexOf('/') || versionString.indexOf('/') != versionString.lastIndexOf('/')) {
-          throw new Error('Invalid version string. It needs to consist of a name and version separated by a forward slash, e.g. RockenbergCommerce/3.1.12');
-        }
-
-        throw new Error('Invalid version string. The version may not contain any whitespace.');
-      }
-
-      // Replace whitespace in platform name with camelCase (first char stays untouched).
-      const platform = matches[1].replace(/([^^])(\b\w)/g, (_, boundary, character) => `${boundary}${character.toUpperCase()}`).replace(/\s+/g, '');
-      const version = matches[2];
-
-      return `${platform}/${version}`;
-    }),
-  ].join(' ');
-
-  if (apiKey != undefined) {
-    headers['Authorization'] = `Bearer ${apiKey}`;
-  } /* if (accessToken != undefined) */ else {
-    headers['Authorization'] = `Bearer ${accessToken}`;
-    headers['User-Agent'] += ' OAuth/2.0';
-  }
-  headers['Accept-Encoding'] = 'gzip';
-  headers['Content-Type'] = 'application/json';
-
-  return axios.create({
-    ...axiosOptions,
-    baseURL: apiEndpoint,
-    headers,
-    httpsAgent: new https.Agent({
-      ca: caCertificates,
-    }),
-  });
-}
-
 /**
  * Create Mollie client.
  * @since 2.0.0
  */
-export default function createMollieClient(options: MollieOptions) {
+export default function createMollieClient(options: Options) {
   // Attempt to catch cases where this library is integrated into a frontend app.
   if (['node', 'io.js'].includes(process?.release?.name) == false) {
     throw new Error(
@@ -125,59 +44,59 @@ export default function createMollieClient(options: MollieOptions) {
     throw new TypeError('Missing parameter "apiKey" or "accessToken".');
   }
 
-  const httpClient = createHttpClient(options);
+  const networkClient = new NetworkClient(Object.assign({}, options, { libraryVersion, nodeVersion: process.version, caCertificates }));
 
   /* eslint-disable @typescript-eslint/camelcase */
   return {
     // Payments API
-    payments: new PaymentsResource(httpClient),
+    payments: new PaymentsResource(networkClient),
 
     // Methods API
-    methods: new MethodsResource(httpClient),
+    methods: new MethodsResource(networkClient),
 
     // Refunds API
-    payments_refunds: new PaymentsRefundsResource(httpClient),
-    refunds: new RefundsResource(httpClient),
+    payments_refunds: new PaymentsRefundsResource(networkClient),
+    refunds: new RefundsResource(networkClient),
 
     // Chargebacks API
-    payments_chargebacks: new PaymentsChargebacksResource(httpClient),
-    chargebacks: new ChargebacksResource(httpClient),
+    payments_chargebacks: new PaymentsChargebacksResource(networkClient),
+    chargebacks: new ChargebacksResource(networkClient),
 
     // Captures API
-    payments_captures: new PaymentsCapturesResource(httpClient),
+    payments_captures: new PaymentsCapturesResource(networkClient),
 
     // Customers API
-    customers: new CustomersResource(httpClient),
-    customers_payments: new CustomersPaymentsResource(httpClient),
+    customers: new CustomersResource(networkClient),
+    customers_payments: new CustomersPaymentsResource(networkClient),
 
     // Mandates API
-    customers_mandates: new CustomersMandatesResource(httpClient),
+    customers_mandates: new CustomersMandatesResource(networkClient),
 
     // Subscriptions API
-    subscription: new SubscriptionsResource(httpClient),
-    subscriptions_payments: new SubscriptionsPaymentsResource(httpClient),
-    customers_subscriptions: new CustomersSubscriptionsResource(httpClient),
+    subscription: new SubscriptionsResource(networkClient),
+    subscriptions_payments: new SubscriptionsPaymentsResource(networkClient),
+    customers_subscriptions: new CustomersSubscriptionsResource(networkClient),
 
     // Orders API
-    orders: new OrdersResource(httpClient),
-    orders_refunds: new OrdersRefundsResource(httpClient),
-    orders_lines: new OrdersLinesResource(httpClient),
-    orders_payments: new OrdersPaymentsResource(httpClient),
+    orders: new OrdersResource(networkClient),
+    orders_refunds: new OrdersRefundsResource(networkClient),
+    orders_lines: new OrdersLinesResource(networkClient),
+    orders_payments: new OrdersPaymentsResource(networkClient),
 
     // Shipments API
-    orders_shipments: new OrdersShipmentsResource(httpClient),
+    orders_shipments: new OrdersShipmentsResource(networkClient),
 
     // Permissions API
-    permissions: new PermissionsResource(httpClient),
+    permissions: new PermissionsResource(networkClient),
 
     // Organizations API
-    organizations: new OrganizationsResource(httpClient),
+    organizations: new OrganizationsResource(networkClient),
 
     // Profiles API
-    profiles: new ProfilesResource(httpClient),
+    profiles: new ProfilesResource(networkClient),
 
     // Onboarding API
-    onboarding: new OnboardingResource(httpClient),
+    onboarding: new OnboardingResource(networkClient),
   };
   /* eslint-enable @typescript-eslint/camelcase */
 }

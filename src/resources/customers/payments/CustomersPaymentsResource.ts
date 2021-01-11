@@ -3,17 +3,21 @@ import { PaymentData } from '../../../data/payments/data';
 import ApiError from '../../../errors/ApiError';
 import Callback from '../../../types/Callback';
 import List from '../../../data/list/List';
+import NetworkClient from '../../../NetworkClient';
 import ParentedResource from '../../ParentedResource';
 import Payment, { injectPrototypes } from '../../../data/payments/Payment';
+import TransformingNetworkClient from '../../../TransformingNetworkClient';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 
 export default class CustomersPaymentsResource extends ParentedResource<PaymentData, Payment> {
+  constructor(networkClient: NetworkClient) {
+    super(new TransformingNetworkClient(networkClient, injectPrototypes));
+  }
+
   protected getResourceUrl(customerId: string): string {
     return `customers/${customerId}/payments`;
   }
-
-  protected injectPrototypes = injectPrototypes;
 
   /**
    * Get all of a customer's payments.
@@ -48,7 +52,7 @@ export default class CustomersPaymentsResource extends ParentedResource<PaymentD
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...data } = parameters;
-    return this.network.post(this.getResourceUrl(customerId), data);
+    return this.networkClient.post<Payment>(this.getResourceUrl(customerId), data);
   }
 
   /**
@@ -62,12 +66,12 @@ export default class CustomersPaymentsResource extends ParentedResource<PaymentD
   public list(parameters: ListParameters, callback: Callback<List<Payment>>): void;
   public list(parameters: ListParameters) {
     if (renege(this, this.list, ...arguments)) return;
-    // parameters || {} is used here, because in case withParent is used, parameters could be omitted.
-    const customerId = this.getParentId((parameters || {}).customerId);
+    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
+    const customerId = this.getParentId((parameters ?? {}).customerId);
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
-    const { customerId: _, ...query } = parameters || {};
-    return this.network.list(this.getResourceUrl(customerId), 'payments', query).then(result => this.injectPaginationHelpers(result, this.list, parameters || {}));
+    const { customerId: _, ...query } = parameters ?? {};
+    return this.networkClient.list(this.getResourceUrl(customerId), 'payments', query).then(result => this.injectPaginationHelpers(result, this.list, parameters ?? {}));
   }
 }

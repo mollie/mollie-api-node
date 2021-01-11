@@ -3,17 +3,24 @@ import { OrderData } from '../../data/orders/data';
 import ApiError from '../../errors/ApiError';
 import Callback from '../../types/Callback';
 import List from '../../data/list/List';
+import NetworkClient from '../../NetworkClient';
 import Order, { injectPrototypes } from '../../data/orders/Order';
 import Resource from '../Resource';
+import TransformingNetworkClient from '../../TransformingNetworkClient';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
 
+/**
+ * @see https://docs.mollie.com/orders/overview#orders-api
+ */
 export default class OrdersResource extends Resource<OrderData, Order> {
+  constructor(networkClient: NetworkClient) {
+    super(new TransformingNetworkClient(networkClient, injectPrototypes));
+  }
+
   protected getResourceUrl(): string {
     return 'orders';
   }
-
-  protected injectPrototypes = injectPrototypes;
 
   /**
    * Cancel an Order.
@@ -66,7 +73,7 @@ export default class OrdersResource extends Resource<OrderData, Order> {
     if (renege(this, this.create, ...arguments)) return;
     const { embed, ...data } = parameters;
     const query = embed != undefined ? { embed } : undefined;
-    return this.network.post(this.getResourceUrl(), data, query);
+    return this.networkClient.post<Order>(this.getResourceUrl(), data, query);
   }
 
   /**
@@ -83,7 +90,7 @@ export default class OrdersResource extends Resource<OrderData, Order> {
     if (!checkId(id, 'order')) {
       throw new ApiError('The order id is invalid');
     }
-    return this.network.get(`${this.getResourceUrl()}/${id}`, parameters);
+    return this.networkClient.get(`${this.getResourceUrl()}/${id}`, parameters);
   }
 
   /**
@@ -97,7 +104,7 @@ export default class OrdersResource extends Resource<OrderData, Order> {
   public list(parameters: ListParameters, callback: Callback<List<Order>>): void;
   public list(parameters: ListParameters = {}) {
     if (renege(this, this.list, ...arguments)) return;
-    return this.network.list(this.getResourceUrl(), 'orders', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.networkClient.list(this.getResourceUrl(), 'orders', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 
   /**
@@ -114,7 +121,7 @@ export default class OrdersResource extends Resource<OrderData, Order> {
     if (!checkId(id, 'order')) {
       throw new ApiError('The order id is invalid');
     }
-    return this.network.patch(`${this.getResourceUrl()}/${id}`, parameters);
+    return this.networkClient.patch(`${this.getResourceUrl()}/${id}`, parameters);
   }
 
   /**
@@ -131,6 +138,6 @@ export default class OrdersResource extends Resource<OrderData, Order> {
     if (!checkId(id, 'order')) {
       throw new ApiError('The order id is invalid');
     }
-    return this.network.delete<Order>(`${this.getResourceUrl()}/${id}`, parameters);
+    return this.networkClient.delete<Order>(`${this.getResourceUrl()}/${id}`, parameters);
   }
 }

@@ -3,16 +3,20 @@ import ApiError from '../../errors/ApiError';
 import Callback from '../../types/Callback';
 import Customer, { CustomerData, injectPrototypes } from '../../data/customers/Customer';
 import List from '../../data/list/List';
+import NetworkClient from '../../NetworkClient';
 import Resource from '../Resource';
+import TransformingNetworkClient from '../../TransformingNetworkClient';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
 
 export default class CustomersResource extends Resource<CustomerData, Customer> {
+  constructor(networkClient: NetworkClient) {
+    super(new TransformingNetworkClient(networkClient, injectPrototypes));
+  }
+
   protected getResourceUrl(): string {
     return 'customers';
   }
-
-  protected injectPrototypes = injectPrototypes;
 
   /**
    * List Customers.
@@ -56,7 +60,7 @@ export default class CustomersResource extends Resource<CustomerData, Customer> 
   public create(parameters: CreateParameters, callback: Callback<Customer>): void;
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
-    return this.network.post(this.getResourceUrl(), parameters);
+    return this.networkClient.post<Customer>(this.getResourceUrl(), parameters);
   }
 
   /**
@@ -73,7 +77,7 @@ export default class CustomersResource extends Resource<CustomerData, Customer> 
     if (!checkId(id, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
-    return this.network.get(`${this.getResourceUrl()}/${id}`, parameters);
+    return this.networkClient.get(`${this.getResourceUrl()}/${id}`, parameters);
   }
 
   /**
@@ -87,7 +91,7 @@ export default class CustomersResource extends Resource<CustomerData, Customer> 
   public list(parameters: ListParameters, callback: Callback<List<Customer>>): void;
   public list(parameters: ListParameters = {}) {
     if (renege(this, this.list, ...arguments)) return;
-    return this.network.list(this.getResourceUrl(), 'customers', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.networkClient.list(this.getResourceUrl(), 'customers', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 
   /**
@@ -104,7 +108,7 @@ export default class CustomersResource extends Resource<CustomerData, Customer> 
     if (!checkId(id, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
-    return this.network.patch(`${this.getResourceUrl()}/${id}`, parameters);
+    return this.networkClient.patch(`${this.getResourceUrl()}/${id}`, parameters);
   }
 
   /**
@@ -121,6 +125,6 @@ export default class CustomersResource extends Resource<CustomerData, Customer> 
     if (!checkId(id, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
-    return this.network.delete<true>(`${this.getResourceUrl()}/${id}`, parameters);
+    return this.networkClient.delete<true>(`${this.getResourceUrl()}/${id}`, parameters);
   }
 }

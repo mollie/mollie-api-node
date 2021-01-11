@@ -4,16 +4,20 @@ import ApiError from '../../../errors/ApiError';
 import Callback from '../../../types/Callback';
 import List from '../../../data/list/List';
 import Mandate, { injectPrototypes } from '../../../data/customers/mandates/Mandate';
+import NetworkClient from '../../../NetworkClient';
 import ParentedResource from '../../ParentedResource';
+import TransformingNetworkClient from '../../../TransformingNetworkClient';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 
 export default class CustomersMandatesResource extends ParentedResource<MandateData, Mandate> {
+  constructor(networkClient: NetworkClient) {
+    super(new TransformingNetworkClient(networkClient, injectPrototypes));
+  }
+
   protected getResourceUrl(customerId: string): string {
     return `customers/${customerId}/mandates`;
   }
-
-  protected injectPrototypes = injectPrototypes;
 
   /**
    * Get all of a customer's mandates
@@ -64,7 +68,7 @@ export default class CustomersMandatesResource extends ParentedResource<MandateD
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...data } = parameters;
-    return this.network.post(this.getResourceUrl(customerId), data);
+    return this.networkClient.post<Mandate>(this.getResourceUrl(customerId), data);
   }
 
   /**
@@ -81,13 +85,13 @@ export default class CustomersMandatesResource extends ParentedResource<MandateD
     if (!checkId(id, 'mandate')) {
       throw new ApiError('The customers_mandate id is invalid');
     }
-    // parameters || {} is used here, because in case withParent is used, parameters could be omitted.
-    const customerId = this.getParentId((parameters || {}).customerId);
+    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
+    const customerId = this.getParentId((parameters ?? {}).customerId);
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
-    const { customerId: _, ...query } = parameters || {};
-    return this.network.get(`${this.getResourceUrl(customerId)}/${id}`, query);
+    const { customerId: _, ...query } = parameters ?? {};
+    return this.networkClient.get(`${this.getResourceUrl(customerId)}/${id}`, query);
   }
 
   /**
@@ -101,13 +105,13 @@ export default class CustomersMandatesResource extends ParentedResource<MandateD
   public list(parameters: ListParameters, callback: Callback<List<Mandate>>): void;
   public list(parameters: ListParameters) {
     if (renege(this, this.list, ...arguments)) return;
-    // parameters || {} is used here, because in case withParent is used, parameters could be omitted.
-    const customerId = this.getParentId((parameters || {}).customerId);
+    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
+    const customerId = this.getParentId((parameters ?? {}).customerId);
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
-    const { customerId: _, ...query } = parameters || {};
-    return this.network.list(this.getResourceUrl(customerId), 'mandates', query).then(result => this.injectPaginationHelpers(result, this.list, parameters || {}));
+    const { customerId: _, ...query } = parameters ?? {};
+    return this.networkClient.list(this.getResourceUrl(customerId), 'mandates', query).then(result => this.injectPaginationHelpers(result, this.list, parameters ?? {}));
   }
 
   /**
@@ -124,12 +128,12 @@ export default class CustomersMandatesResource extends ParentedResource<MandateD
     if (!checkId(id, 'mandate')) {
       throw new ApiError('The customers_mandate id is invalid');
     }
-    // parameters || {} is used here, because in case withParent is used, parameters could be omitted.
-    const customerId = this.getParentId((parameters || {}).customerId);
+    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
+    const customerId = this.getParentId((parameters ?? {}).customerId);
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer is invalid');
     }
-    const { customerId: _, ...context } = parameters || {};
-    return this.network.delete<true>(`${this.getResourceUrl(customerId)}/${id}`, context);
+    const { customerId: _, ...context } = parameters ?? {};
+    return this.networkClient.delete<true>(`${this.getResourceUrl(customerId)}/${id}`, context);
   }
 }

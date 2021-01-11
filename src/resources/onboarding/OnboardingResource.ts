@@ -1,16 +1,20 @@
 import { OnboardingData } from '../../data/onboarding/data';
 import { SubmitParameters } from './parameters';
 import Callback from '../../types/Callback';
+import NetworkClient from '../../NetworkClient';
 import Onboarding, { injectPrototypes } from '../../data/onboarding/Onboarding';
 import Resource from '../Resource';
+import TransformingNetworkClient from '../../TransformingNetworkClient';
 import renege from '../../plumbing/renege';
 
 export default class OnboardingResource extends Resource<OnboardingData, Onboarding> {
+  constructor(networkClient: NetworkClient) {
+    super(new TransformingNetworkClient(networkClient, injectPrototypes));
+  }
+
   protected getResourceUrl(): string {
     return 'onboarding/me';
   }
-
-  protected injectPrototypes = injectPrototypes;
 
   /**
    * Get the status of onboarding of the authenticated organization.
@@ -23,7 +27,7 @@ export default class OnboardingResource extends Resource<OnboardingData, Onboard
   public get(callback: Callback<Onboarding>): void;
   public get() {
     if (renege(this, this.get, ...arguments)) return;
-    return this.network.get(this.getResourceUrl());
+    return this.networkClient.get(this.getResourceUrl());
   }
 
   /**
@@ -38,6 +42,6 @@ export default class OnboardingResource extends Resource<OnboardingData, Onboard
   public submit(parameters: SubmitParameters, callback: Callback<true>): void;
   public submit(parameters: SubmitParameters) {
     if (renege(this, this.submit, ...arguments)) return;
-    return this.network.post<true>(this.getResourceUrl(), parameters);
+    return this.networkClient.post<true>(this.getResourceUrl(), parameters);
   }
 }

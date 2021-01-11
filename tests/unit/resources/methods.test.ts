@@ -2,6 +2,7 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import MethodsResource from '../../../src/resources/methods/MethodsResource';
+import NetworkClient from '../../../src/NetworkClient';
 
 import response from '../__stubs__/methods.json';
 import ApiError from '../../../src/errors/ApiError';
@@ -11,7 +12,7 @@ const mock = new MockAdapter(axios);
 describe('methods', () => {
   let methods: MethodsResource;
   beforeEach(() => {
-    methods = new MethodsResource(axios.create());
+    methods = new MethodsResource(new NetworkClient({ apiKey: 'mock-api-key', nodeVersion: process.version, libraryVersion: 'mock' }));
   });
 
   describe('.get()', () => {

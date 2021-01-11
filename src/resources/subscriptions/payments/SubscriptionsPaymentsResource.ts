@@ -3,17 +3,21 @@ import { PaymentData } from '../../../data/payments/data';
 import ApiError from '../../../errors/ApiError';
 import Callback from '../../../types/Callback';
 import List from '../../../data/list/List';
+import NetworkClient from '../../../NetworkClient';
 import ParentedResource from '../../ParentedResource';
 import Payment, { injectPrototypes } from '../../../data/payments/Payment';
+import TransformingNetworkClient from '../../../TransformingNetworkClient';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 
 export default class SubscriptionsPaymentsResource extends ParentedResource<PaymentData, Payment> {
+  constructor(networkClient: NetworkClient) {
+    super(new TransformingNetworkClient(networkClient, injectPrototypes));
+  }
+
   protected getResourceUrl(customerId: string, subscriptionId: string): string {
     return `customers/${customerId}/subscriptions/${subscriptionId}/payments`;
   }
-
-  protected injectPrototypes = injectPrototypes;
 
   /**
    * Retrieve all payments of a specific subscriptions of a customer.
@@ -35,6 +39,6 @@ export default class SubscriptionsPaymentsResource extends ParentedResource<Paym
       throw new ApiError('The subscription id is invalid');
     }
     const { customerId: _, subscriptionId: __, ...query } = parameters;
-    return this.network.list(this.getResourceUrl(customerId, subscriptionId), 'payments', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.networkClient.list(this.getResourceUrl(customerId, subscriptionId), 'payments', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 }

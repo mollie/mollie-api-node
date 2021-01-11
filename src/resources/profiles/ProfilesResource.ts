@@ -3,17 +3,21 @@ import { ProfileData } from '../../data/profiles/data';
 import ApiError from '../../errors/ApiError';
 import Callback from '../../types/Callback';
 import List from '../../data/list/List';
+import NetworkClient from '../../NetworkClient';
 import Profile, { injectPrototypes } from '../../data/profiles/Profile';
 import Resource from '../Resource';
+import TransformingNetworkClient from '../../TransformingNetworkClient';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
 
 export default class ProfilesResource extends Resource<ProfileData, Profile> {
+  constructor(networkClient: NetworkClient) {
+    super(new TransformingNetworkClient(networkClient, injectPrototypes));
+  }
+
   protected getResourceUrl(): string {
     return 'profiles';
   }
-
-  protected injectPrototypes = injectPrototypes;
 
   /**
    * In order to process payments, you need to create a website profile. A website profile can easily be created via
@@ -27,7 +31,7 @@ export default class ProfilesResource extends Resource<ProfileData, Profile> {
   public create(parameters: CreateParameters, callback: Callback<Profile>): void;
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
-    return this.network.post(this.getResourceUrl(), parameters);
+    return this.networkClient.post<Profile>(this.getResourceUrl(), parameters);
   }
 
   /**
@@ -44,7 +48,7 @@ export default class ProfilesResource extends Resource<ProfileData, Profile> {
     if (!checkId(id, 'profile')) {
       throw new ApiError('The profile id is invalid');
     }
-    return this.network.get(`${this.getResourceUrl()}/${id}`);
+    return this.networkClient.get(`${this.getResourceUrl()}/${id}`);
   }
 
   /**
@@ -59,7 +63,7 @@ export default class ProfilesResource extends Resource<ProfileData, Profile> {
   public getCurrent(callback: Callback<Profile>): void;
   public getCurrent() {
     if (renege(this, this.getCurrent, ...arguments)) return;
-    return this.network.get(`${this.getResourceUrl()}/me`);
+    return this.networkClient.get(`${this.getResourceUrl()}/me`);
   }
 
   /**
@@ -73,7 +77,7 @@ export default class ProfilesResource extends Resource<ProfileData, Profile> {
   public list(parameters: ListParameters, callback: Callback<List<Profile>>): void;
   public list(parameters: ListParameters = {}) {
     if (renege(this, this.list, ...arguments)) return;
-    return this.network.list(this.getResourceUrl(), 'profiles', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.networkClient.list(this.getResourceUrl(), 'profiles', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 
   /**
@@ -91,7 +95,7 @@ export default class ProfilesResource extends Resource<ProfileData, Profile> {
     if (!checkId(id, 'profile')) {
       throw new ApiError('The profile id is invalid');
     }
-    return this.network.patch(`${this.getResourceUrl()}/${id}`, parameters);
+    return this.networkClient.patch(`${this.getResourceUrl()}/${id}`, parameters);
   }
 
   /**
@@ -108,6 +112,6 @@ export default class ProfilesResource extends Resource<ProfileData, Profile> {
     if (!checkId(id, 'profile')) {
       throw new ApiError('The profile id is invalid');
     }
-    return this.network.delete<true>(`${this.getResourceUrl()}/${id}`);
+    return this.networkClient.delete<true>(`${this.getResourceUrl()}/${id}`);
   }
 }
