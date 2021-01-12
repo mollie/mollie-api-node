@@ -3,17 +3,21 @@ import { PaymentData } from '../../data/payments/data';
 import ApiError from '../../errors/ApiError';
 import Callback from '../../types/Callback';
 import List from '../../data/list/List';
+import NetworkClient from '../../NetworkClient';
 import Payment, { injectPrototypes } from '../../data/payments/Payment';
 import Resource from '../Resource';
+import TransformingNetworkClient from '../../TransformingNetworkClient';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
 
 export default class PaymentsResource extends Resource<PaymentData, Payment> {
+  constructor(networkClient: NetworkClient) {
+    super(new TransformingNetworkClient(networkClient, injectPrototypes));
+  }
+
   protected getResourceUrl(): string {
     return 'payments';
   }
-
-  protected injectPrototypes = injectPrototypes;
 
   /**
    * Retrieve all payments created with the current website profile, ordered from newest to oldest.
@@ -57,7 +61,7 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
     if (renege(this, this.create, ...arguments)) return;
     const { include, ...data } = parameters;
     const query = include != undefined ? { include } : undefined;
-    return this.network.post(this.getResourceUrl(), data, query);
+    return this.networkClient.post<Payment>(this.getResourceUrl(), data, query);
   }
 
   /**
@@ -74,7 +78,7 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
     if (!checkId(id, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }
-    return this.network.get(`${this.getResourceUrl()}/${id}`, parameters);
+    return this.networkClient.get(`${this.getResourceUrl()}/${id}`, parameters);
   }
 
   /**
@@ -88,7 +92,7 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
   public list(parameters: ListParameters, callback: Callback<List<Payment>>): void;
   public list(parameters: ListParameters = {}) {
     if (renege(this, this.list, ...arguments)) return;
-    return this.network.list(this.getResourceUrl(), 'payments', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.networkClient.list(this.getResourceUrl(), 'payments', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 
   /**
@@ -105,7 +109,7 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
     if (!checkId(id, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }
-    return this.network.patch(`${this.getResourceUrl()}/${id}`, parameters);
+    return this.networkClient.patch(`${this.getResourceUrl()}/${id}`, parameters);
   }
 
   /**
@@ -125,6 +129,6 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
     if (!checkId(id, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }
-    return this.network.delete<Payment>(`${this.getResourceUrl()}/${id}`, parameters);
+    return this.networkClient.delete<Payment>(`${this.getResourceUrl()}/${id}`, parameters);
   }
 }

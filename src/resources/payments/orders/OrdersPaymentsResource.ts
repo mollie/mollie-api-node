@@ -2,17 +2,21 @@ import { CreateParameters } from './parameters';
 import { PaymentData } from '../../../data/payments/data';
 import ApiError from '../../../errors/ApiError';
 import Callback from '../../../types/Callback';
+import NetworkClient from '../../../NetworkClient';
 import ParentedResource from '../../ParentedResource';
 import Payment, { injectPrototypes } from '../../../data/payments/Payment';
+import TransformingNetworkClient from '../../../TransformingNetworkClient';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 
 export default class OrdersPaymentsResource extends ParentedResource<PaymentData, Payment> {
+  constructor(networkClient: NetworkClient) {
+    super(new TransformingNetworkClient(networkClient, injectPrototypes));
+  }
+
   protected getResourceUrl(orderId: string): string {
     return `orders/${orderId}/payments`;
   }
-
-  protected injectPrototypes = injectPrototypes;
 
   /**
    * Create order payment
@@ -30,6 +34,6 @@ export default class OrdersPaymentsResource extends ParentedResource<PaymentData
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...data } = parameters;
-    return this.network.post(this.getResourceUrl(orderId), data);
+    return this.networkClient.post<Payment>(this.getResourceUrl(orderId), data);
   }
 }

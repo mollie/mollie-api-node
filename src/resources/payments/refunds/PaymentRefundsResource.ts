@@ -3,17 +3,21 @@ import { RefundData } from '../../../data/refunds/data';
 import ApiError from '../../../errors/ApiError';
 import Callback from '../../../types/Callback';
 import List from '../../../data/list/List';
+import NetworkClient from '../../../NetworkClient';
 import ParentedResource from '../../ParentedResource';
 import Refund, { injectPrototypes } from '../../../data/refunds/Refund';
+import TransformingNetworkClient from '../../../TransformingNetworkClient';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 
 export default class PaymentsRefundsResource extends ParentedResource<RefundData, Refund> {
+  constructor(networkClient: NetworkClient) {
+    super(new TransformingNetworkClient(networkClient, injectPrototypes));
+  }
+
   protected getResourceUrl(paymentId: string): string {
     return `payments/${paymentId}/refunds`;
   }
-
-  protected injectPrototypes = injectPrototypes;
 
   /**
    * Get all payment refunds. Alias of list.
@@ -54,7 +58,7 @@ export default class PaymentsRefundsResource extends ParentedResource<RefundData
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...data } = parameters;
-    return this.network.post(this.getResourceUrl(paymentId), data);
+    return this.networkClient.post(this.getResourceUrl(paymentId), data);
   }
 
   /**
@@ -71,13 +75,13 @@ export default class PaymentsRefundsResource extends ParentedResource<RefundData
     if (!checkId(id, 'refund')) {
       throw new ApiError('The payments_refund id is invalid');
     }
-    // parameters || {} is used here, because in case withParent is used, parameters could be omitted.
-    const paymentId = this.getParentId((parameters || {}).paymentId);
+    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
+    const paymentId = this.getParentId((parameters ?? {}).paymentId);
     if (!checkId(paymentId, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    return this.network.get(`${this.getResourceUrl(paymentId)}/${id}`, query);
+    return this.networkClient.get(`${this.getResourceUrl(paymentId)}/${id}`, query);
   }
 
   /**
@@ -91,13 +95,13 @@ export default class PaymentsRefundsResource extends ParentedResource<RefundData
   public list(parameters: ListParameters, callback: Callback<List<Refund>>): void;
   public list(parameters: ListParameters) {
     if (renege(this, this.list, ...arguments)) return;
-    // parameters || {} is used here, because in case withParent is used, parameters could be omitted.
-    const paymentId = this.getParentId((parameters || {}).paymentId);
+    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
+    const paymentId = this.getParentId((parameters ?? {}).paymentId);
     if (!checkId(paymentId, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    return this.network.list(this.getResourceUrl(paymentId), 'refunds', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.networkClient.list(this.getResourceUrl(paymentId), 'refunds', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 
   /**
@@ -114,12 +118,12 @@ export default class PaymentsRefundsResource extends ParentedResource<RefundData
     if (!checkId(id, 'refund')) {
       throw new ApiError('The payments_refund id is invalid');
     }
-    // parameters || {} is used here, because in case withParent is used, parameters could be omitted.
-    const paymentId = this.getParentId((parameters || {}).paymentId);
+    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
+    const paymentId = this.getParentId((parameters ?? {}).paymentId);
     if (!checkId(paymentId, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...context } = parameters;
-    return this.network.delete<true>(`${this.getResourceUrl(paymentId)}/${id}`, context);
+    return this.networkClient.delete<true>(`${this.getResourceUrl(paymentId)}/${id}`, context);
   }
 }

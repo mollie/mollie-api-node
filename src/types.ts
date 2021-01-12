@@ -3,6 +3,7 @@ export default createMollieClient;
 
 export * from './createMollieClient';
 export type MollieClient = ReturnType<typeof createMollieClient>;
+export { default as MollieOptions } from './Options';
 
 export { default as List } from './data/list/List';
 

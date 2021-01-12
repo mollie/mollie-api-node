@@ -8,10 +8,7 @@ export default class ParentedResource<R, T extends R> extends Resource<R, T> {
    * Returns the passed parent identifier, or `defaultParentId` as set by `withParent` if the former is `undefined`.
    */
   protected getParentId(input: Maybe<string>): Maybe<string> {
-    if (input == undefined) {
-      return this.defaultParentId;
-    }
-    return input;
+    return input ?? this.defaultParentId;
   }
 
   /**

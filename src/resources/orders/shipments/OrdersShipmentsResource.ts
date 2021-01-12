@@ -2,17 +2,21 @@ import { CreateParameters, GetParameters, ListParameters, UpdateParameters } fro
 import ApiError from '../../../errors/ApiError';
 import Callback from '../../../types/Callback';
 import List from '../../../data/list/List';
+import NetworkClient from '../../../NetworkClient';
 import ParentedResource from '../../ParentedResource';
 import Shipment, { ShipmentData, injectPrototypes } from '../../../data/orders/shipments/Shipment';
+import TransformingNetworkClient from '../../../TransformingNetworkClient';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 
 export default class OrdersShipmentsResource extends ParentedResource<ShipmentData, Shipment> {
+  constructor(networkClient: NetworkClient) {
+    super(new TransformingNetworkClient(networkClient, injectPrototypes));
+  }
+
   protected getResourceUrl(orderId: string): string {
     return `orders/${orderId}/shipments`;
   }
-
-  protected injectPrototypes = injectPrototypes;
 
   /**
    * List order shipments
@@ -56,7 +60,7 @@ export default class OrdersShipmentsResource extends ParentedResource<ShipmentDa
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...data } = parameters;
-    return this.network.post(this.getResourceUrl(orderId), data);
+    return this.networkClient.post<Shipment>(this.getResourceUrl(orderId), data);
   }
 
   /**
@@ -73,13 +77,13 @@ export default class OrdersShipmentsResource extends ParentedResource<ShipmentDa
     if (!checkId(id, 'shipment')) {
       throw new ApiError('The orders_shipments id is invalid');
     }
-    // parameters || {} is used here, because in case withParent is used, parameters could be omitted.
-    const orderId = this.getParentId((parameters || {}).orderId);
+    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
+    const orderId = this.getParentId((parameters ?? {}).orderId);
     if (!checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
-    const { orderId: _, ...query } = parameters || {};
-    return this.network.get(`${this.getResourceUrl(orderId)}/${id}`, query);
+    const { orderId: _, ...query } = parameters ?? {};
+    return this.networkClient.get(`${this.getResourceUrl(orderId)}/${id}`, query);
   }
 
   /**
@@ -101,7 +105,7 @@ export default class OrdersShipmentsResource extends ParentedResource<ShipmentDa
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...data } = parameters;
-    return this.network.patch(`${this.getResourceUrl(orderId)}/${id}`, data);
+    return this.networkClient.patch(`${this.getResourceUrl(orderId)}/${id}`, data);
   }
 
   /**
@@ -115,12 +119,12 @@ export default class OrdersShipmentsResource extends ParentedResource<ShipmentDa
   public list(parameters: ListParameters, callback: Callback<List<Shipment>>): void;
   public list(parameters: ListParameters) {
     if (renege(this, this.list, ...arguments)) return;
-    // parameters || {} is used here, because in case withParent is used, parameters could be omitted.
-    const orderId = this.getParentId((parameters || {}).orderId);
+    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
+    const orderId = this.getParentId((parameters ?? {}).orderId);
     if (!checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
-    const { orderId: _, ...query } = parameters || {};
-    return this.network.list(this.getResourceUrl(orderId), 'shipments', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    const { orderId: _, ...query } = parameters ?? {};
+    return this.networkClient.list(this.getResourceUrl(orderId), 'shipments', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 }

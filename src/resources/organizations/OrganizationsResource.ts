@@ -1,16 +1,20 @@
 import ApiError from '../../errors/ApiError';
 import Callback from '../../types/Callback';
 import checkId from '../../plumbing/checkId';
+import NetworkClient from '../../NetworkClient';
 import Organization, { injectPrototypes, OrganizationData } from '../../data/organizations/Organizations';
 import Resource from '../Resource';
+import TransformingNetworkClient from '../../TransformingNetworkClient';
 import renege from '../../plumbing/renege';
 
 export default class OrganizationsResource extends Resource<OrganizationData, Organization> {
+  constructor(networkClient: NetworkClient) {
+    super(new TransformingNetworkClient(networkClient, injectPrototypes));
+  }
+
   protected getResourceUrl(): string {
     return 'organizations';
   }
-
-  protected injectPrototypes = injectPrototypes;
 
   /**
    * Retrieve an organization by its ID.
@@ -26,7 +30,7 @@ export default class OrganizationsResource extends Resource<OrganizationData, Or
     if (!checkId(id, 'organization')) {
       throw new ApiError('The organization id is invalid');
     }
-    return this.network.get(`${this.getResourceUrl()}/${id}`);
+    return this.networkClient.get(`${this.getResourceUrl()}/${id}`);
   }
 
   /**
@@ -40,6 +44,6 @@ export default class OrganizationsResource extends Resource<OrganizationData, Or
   public getCurrent(callback: Callback<Organization>): void;
   public getCurrent() {
     if (renege(this, this.getCurrent, ...arguments)) return;
-    return this.network.get(`${this.getResourceUrl()}/me`);
+    return this.networkClient.get(`${this.getResourceUrl()}/me`);
   }
 }

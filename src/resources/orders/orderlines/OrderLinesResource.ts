@@ -2,17 +2,21 @@ import { CancelParameters, UpdateParameters } from './parameters';
 import { OrderData } from '../../../data/orders/data';
 import ApiError from '../../../errors/ApiError';
 import Callback from '../../../types/Callback';
+import NetworkClient from '../../../NetworkClient';
 import Order, { injectPrototypes } from '../../../data/orders/Order';
 import ParentedResource from '../../ParentedResource';
+import TransformingNetworkClient from '../../../TransformingNetworkClient';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 
 export default class OrdersLinesResource extends ParentedResource<OrderData, Order> {
+  constructor(networkClient: NetworkClient) {
+    super(new TransformingNetworkClient(networkClient, injectPrototypes));
+  }
+
   protected getResourceUrl(orderId: string): string {
     return `orders/${orderId}/lines`;
   }
-
-  protected injectPrototypes = injectPrototypes;
 
   /**
    * Cancel an order line by ID or multiple order lines
@@ -42,7 +46,7 @@ export default class OrdersLinesResource extends ParentedResource<OrderData, Ord
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...data } = parameters;
-    return this.network.patch(`${this.getResourceUrl(orderId)}/${id}`, data);
+    return this.networkClient.patch(`${this.getResourceUrl(orderId)}/${id}`, data);
   }
 
   /**
@@ -61,6 +65,6 @@ export default class OrdersLinesResource extends ParentedResource<OrderData, Ord
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...data } = parameters;
-    return this.network.delete<true>(this.getResourceUrl(orderId), data);
+    return this.networkClient.delete<true>(this.getResourceUrl(orderId), data);
   }
 }

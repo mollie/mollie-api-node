@@ -2,18 +2,19 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import CustomersResource from '../../../src/resources/customers/CustomersResource';
+import NetworkClient from '../../../src/NetworkClient';
 
 import page1 from '../__stubs__/list/customers_page_1.json';
 import page2 from '../__stubs__/list/customers_page_2.json';
 import page3 from '../__stubs__/list/customers_page_3.json';
-import List from '../../../src/data/List';
+import List from '../../../src/data/list/List';
 
 const mock = new MockAdapter(axios);
 
 describe('lists', () => {
   let customers: CustomersResource;
   beforeEach(() => {
-    customers = new CustomersResource(axios.create());
+    customers = new CustomersResource(new NetworkClient({ apiKey: 'mock-api-key', nodeVersion: process.version, libraryVersion: 'mock' }));
   });
 
   describe('.list()', () => {
