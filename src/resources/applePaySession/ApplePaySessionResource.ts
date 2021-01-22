@@ -1,3 +1,5 @@
+import { ValidateParameters } from './parameters';
+import Callback from '../../types/Callback';
 import ApplePaySession, { ApplePaySessionData, injectPrototypes } from '../../data/applePaySession/ApplePaySession';
 import NetworkClient from '../../NetworkClient';
 import ParentedResource from '../ParentedResource';
@@ -13,5 +15,13 @@ export default class ApplePaySessionResource extends ParentedResource<ApplePaySe
     return 'wallets/applepay/sessions';
   }
 
-  
+  public validate(parameters: ValidateParameters): Promise<ApplePaySession>;
+  public validate(parameters: ValidateParameters, callback: Callback<ApplePaySession>): void;
+  public validate(parameters: ValidateParameters) {
+    if (renege(this, this.validate, ...arguments)) return;
+    const test = this.networkClient.post(this.getResourceUrl(), parameters);
+
+    console.log(test);
+    return test;
+  }
 }
