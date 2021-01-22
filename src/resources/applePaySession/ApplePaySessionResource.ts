@@ -19,9 +19,6 @@ export default class ApplePaySessionResource extends ParentedResource<ApplePaySe
   public validate(parameters: ValidateParameters, callback: Callback<ApplePaySession>): void;
   public validate(parameters: ValidateParameters) {
     if (renege(this, this.validate, ...arguments)) return;
-    const test = this.networkClient.post(this.getResourceUrl(), parameters);
-
-    console.log(test);
-    return test;
+    return this.networkClient.post(this.getResourceUrl(), parameters);
   }
 }
