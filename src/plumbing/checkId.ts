@@ -22,7 +22,7 @@ export default function checkId(value: string | undefined, resource: ResourceKin
     return false;
   }
   // Examples of permission identifiers are 'payments.read' and 'refunds.write'. This function currently relies on the
-  // API to return an error if the identifier is unexpected, instead of returning a client-side check.
+  // API to return an error if the identifier is unexpected, instead of performing a client-side check.
   if (resource == 'permission') {
     return true;
   }

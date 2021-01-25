@@ -18,27 +18,45 @@ export default class RefundsResource extends Resource<RefundData, Refund> {
   }
 
   /**
-   * List Refunds
+   * Retrieve Refunds.
+   *
+   * -   If the payment-specific endpoint is used, only Refunds for that specific Payment are returned.
+   * -   When using the top level endpoint `v2/refunds` with an API key, only refunds for the corresponding website profile and mode are returned.
+   * -   When using the top level endpoint with OAuth, you can specify the profile and mode with the `profileId` and `testmode` parameters respectively. If you omit `profileId`, you will get all
+   *     Refunds for the Organization.
+   *
+   * The results are paginated. See pagination for more information.
    *
    * @since 2.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
    */
   public all: RefundsResource['list'] = this.list;
   /**
-   * List Refunds
+   * Retrieve Refunds.
+   *
+   * -   If the payment-specific endpoint is used, only Refunds for that specific Payment are returned.
+   * -   When using the top level endpoint `v2/refunds` with an API key, only refunds for the corresponding website profile and mode are returned.
+   * -   When using the top level endpoint with OAuth, you can specify the profile and mode with the `profileId` and `testmode` parameters respectively. If you omit `profileId`, you will get all
+   *     Refunds for the Organization.
+   *
+   * The results are paginated. See pagination for more information.
    *
    * @since 3.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
    */
   public page: RefundsResource['list'] = this.list;
 
   /**
-   * List Refunds
+   * Retrieve Refunds.
+   *
+   * -   If the payment-specific endpoint is used, only Refunds for that specific Payment are returned.
+   * -   When using the top level endpoint `v2/refunds` with an API key, only refunds for the corresponding website profile and mode are returned.
+   * -   When using the top level endpoint with OAuth, you can specify the profile and mode with the `profileId` and `testmode` parameters respectively. If you omit `profileId`, you will get all
+   *     Refunds for the Organization.
+   *
+   * The results are paginated. See pagination for more information.
    *
    * @since 3.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
    */
   public list(parameters?: ListParameters): Promise<List<Refund>>;

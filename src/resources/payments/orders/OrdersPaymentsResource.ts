@@ -19,10 +19,13 @@ export default class OrdersPaymentsResource extends ParentedResource<PaymentData
   }
 
   /**
-   * Create order payment
+   * An order has an automatically created payment that your customer can use to pay for the order. When the payment expires you can create a new payment for the order using this endpoint.
+   *
+   * A new payment can only be created while the status of the order is `created`, and when the status of the existing payment is either `expired`, `canceled` or `failed`.
+   *
+   * Note that order details (for example `amount` or `webhookUrl`) can not be changed using this endpoint.
    *
    * @since 3.1.0
-   *
    * @see https://docs.mollie.com/reference/v2/orders-api/create-order-payment
    */
   public create(parameters: CreateParameters): Promise<Payment>;

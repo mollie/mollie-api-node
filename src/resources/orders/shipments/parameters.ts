@@ -10,9 +10,10 @@ interface ContextParameters {
 export type CreateParameters = ContextParameters &
   Pick<ShipmentData, 'tracking'> & {
     /**
-     * An array of objects containing the order line details you want to create a shipment for. If you send an empty
-     * array, the entire order will be shipped. If the order is already partially shipped, any remaining lines will be
-     * shipped.
+     * An array of objects containing the order line details you want to create a shipment for. If you leave out this parameter, the entire order will be shipped. If the order is already partially
+     * shipped, any remaining lines will be shipped.
+     *
+     * @see https://docs.mollie.com/reference/v2/shipments-api/create-shipment?path=lines#parameters
      */
     lines?: {
       /**

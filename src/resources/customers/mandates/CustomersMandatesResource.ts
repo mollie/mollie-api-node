@@ -20,43 +20,45 @@ export default class CustomersMandatesResource extends ParentedResource<MandateD
   }
 
   /**
-   * Get all of a customer's mandates
+   * Retrieve all mandates for the given `customerId`, ordered from newest to oldest.
+   *
+   * The results are paginated. See pagination for more information.
    *
    * @since 1.2.0
-   *
    * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
    */
   public all: CustomersMandatesResource['list'] = this.list;
   /**
-   * Get all of a customer's mandates
+   * Retrieve all mandates for the given `customerId`, ordered from newest to oldest.
+   *
+   * The results are paginated. See pagination for more information.
    *
    * @since 3.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
    */
   public page: CustomersMandatesResource['list'] = this.list;
   /**
-   * Alias for revoke
+   * Revoke a customer's mandate. You will no longer be able to charge the consumer's bank account or credit card with this mandate and all connected subscriptions will be canceled.
    *
    * @since 1.3.2
-   *
    * @see https://docs.mollie.com/reference/v2/mandates-api/revoke-mandate
    */
   public cancel: CustomersMandatesResource['revoke'] = this.revoke;
   /**
-   * Alias for revoke
+   * Revoke a customer's mandate. You will no longer be able to charge the consumer's bank account or credit card with this mandate and all connected subscriptions will be canceled.
    *
    * @since 2.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/mandates-api/revoke-mandate
    */
   public delete: CustomersMandatesResource['revoke'] = this.revoke;
 
   /**
-   * Create a customer mandate
+   * Create a mandate for a specific customer. Mandates allow you to charge a customer's credit card, PayPal account or bank account recurrently.
+   *
+   * It is only possible to create mandates for IBANs and PayPal billing agreements with this endpoint. To create mandates for credit cards, have your customers perform a 'first payment' with their
+   * credit card.
    *
    * @since 1.2.0
-   *
    * @see https://docs.mollie.com/reference/v2/mandates-api/create-mandate
    */
   public create(parameters: CreateParameters): Promise<Mandate>;
@@ -72,10 +74,9 @@ export default class CustomersMandatesResource extends ParentedResource<MandateD
   }
 
   /**
-   * Get a customer mandate by ID
+   * Retrieve a mandate by its ID and its customer's ID. The mandate will either contain IBAN or credit card details, depending on the type of mandate.
    *
    * @since 1.2.0
-   *
    * @see https://docs.mollie.com/reference/v2/mandates-api/get-mandate
    */
   public get(id: string, parameters: GetParameters): Promise<Mandate>;
@@ -95,10 +96,11 @@ export default class CustomersMandatesResource extends ParentedResource<MandateD
   }
 
   /**
-   * Get all of a customer's mandates
+   * Retrieve all mandates for the given `customerId`, ordered from newest to oldest.
+   *
+   * The results are paginated. See pagination for more information.
    *
    * @since 3.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
    */
   public list(parameters: ListParameters): Promise<List<Mandate>>;
@@ -115,10 +117,9 @@ export default class CustomersMandatesResource extends ParentedResource<MandateD
   }
 
   /**
-   * Delete a customer subscription
+   * Revoke a customer's mandate. You will no longer be able to charge the consumer's bank account or credit card with this mandate and all connected subscriptions will be canceled.
    *
    * @since 2.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/mandates-api/revoke-mandate
    */
   public revoke(id: string, parameters: RevokeParameters): Promise<true>;

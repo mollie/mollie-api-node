@@ -19,41 +19,36 @@ export default class CustomersResource extends Resource<CustomerData, Customer> 
   }
 
   /**
-   * List Customers.
+   * Retrieve all customers created.
+   *
+   * The results are paginated. See pagination for more information.
    *
    * @since 2.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
    */
   public all: CustomersResource['list'] = this.list;
   /**
-   * List Customers.
+   * Retrieve all customers created.
+   *
+   * The results are paginated. See pagination for more information.
    *
    * @since 3.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
    */
   public page: CustomersResource['list'] = this.list;
   /**
-   * Delete a Customer.
+   * Delete a customer. All mandates and subscriptions created for this customer will be canceled as well.
    *
    * @since 2.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/customers-api/delete-customer
    */
   public cancel: CustomersResource['delete'] = this.delete;
 
   /**
-   * Creates a simple minimal representation of a customer in the Mollie API
-   * to use for the {@link https://www.mollie.com/en/checkout Mollie Checkout}
-   * and Recurring features.
-   * These customers will appear in your
-   * {@link https://www.mollie.com/dashboard/ Mollie Dashboard}
-   * where you can manage their details,
-   * and also see their payments and subscriptions.
+   * Creates a simple minimal representation of a customer in the Mollie API to use for the [Mollie Checkout](https://www.mollie.com/en/checkout) and Recurring features. These customers will appear in
+   * your [Mollie Dashboard](https://www.mollie.com/dashboard/) where you can manage their details, and also see their payments and subscriptions.
    *
    * @since 2.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/customers-api/create-customer
    */
   public create(parameters: CreateParameters): Promise<Customer>;
@@ -64,10 +59,9 @@ export default class CustomersResource extends Resource<CustomerData, Customer> 
   }
 
   /**
-   * Retrieve a single customer by its ID
+   * Retrieve a single customer by its ID.
    *
    * @since 2.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/customers-api/get-customer
    */
   public get(id: string, parameters?: GetParameters): Promise<Customer>;
@@ -81,10 +75,11 @@ export default class CustomersResource extends Resource<CustomerData, Customer> 
   }
 
   /**
-   * List customers
+   * Retrieve all customers created.
+   *
+   * The results are paginated. See pagination for more information.
    *
    * @since 3.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
    */
   public list(parameters?: ListParameters): Promise<List<Customer>>;
@@ -95,10 +90,9 @@ export default class CustomersResource extends Resource<CustomerData, Customer> 
   }
 
   /**
-   * Update a customer
+   * Update an existing customer.
    *
    * @since 2.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/customers-api/update-customer
    */
   public update(id: string, parameters: UpdateParameters): Promise<Customer>;
@@ -112,10 +106,9 @@ export default class CustomersResource extends Resource<CustomerData, Customer> 
   }
 
   /**
-   * Delete a customer
+   * Delete a customer. All mandates and subscriptions created for this customer will be canceled as well.
    *
    * @since 2.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/customers-api/delete-customer
    */
   public delete(id: string, parameters?: DeleteParameters): Promise<true>;

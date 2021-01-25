@@ -9,6 +9,11 @@ interface ContextParameters {
 
 export type CreateParameters = ContextParameters &
   Pick<RefundData, 'description'> & {
+    /**
+     * An array of objects containing the order line details you want to create a refund for. If you send an empty array, the entire order will be refunded.
+     *
+     * @see https://docs.mollie.com/reference/v2/orders-api/create-order-refund?path=lines#parameters
+     */
     lines: {
       /**
        * The API resource token of the order line, for example: `'odl_jp31jz'`.

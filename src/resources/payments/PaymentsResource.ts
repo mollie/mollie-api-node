@@ -21,38 +21,41 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
 
   /**
    * Retrieve all payments created with the current website profile, ordered from newest to oldest.
-   * This is just an alias of the `list` method.
+   *
+   * The results are paginated. See pagination for more information.
    *
    * @since 2.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
    */
   public all: PaymentsResource['list'] = this.list;
   /**
    * Retrieve all payments created with the current website profile, ordered from newest to oldest.
-   * This is just an alias of the `list` method.
+   *
+   * The results are paginated. See pagination for more information.
    *
    * @since 3.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
    */
   public page: PaymentsResource['list'] = this.list;
   /**
-   * Delete the given Payment. This is just an alias of the 'cancel' method.
+   * Some payment methods can be canceled by the merchant for a certain amount of time, usually until the next business day. Or as long as the payment status is `open`. Payments may be canceled
+   * manually from the Mollie Dashboard, or programmatically by using this endpoint.
    *
-   * Will throw an ApiError if the payment ID is invalid or if the resource cannot be found.
+   * The `isCancelable` property on the Payment object will indicate if the payment can be canceled.
    *
    * @since 2.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/payments-api/cancel-payment
    */
   public delete: PaymentsResource['cancel'] = this.cancel;
 
   /**
-   * Create a payment in Mollie.
+   * Payment creation is elemental to the Mollie API: this is where most payment implementations start off.
+   *
+   * Once you have created a payment, you should redirect your customer to the URL in the `_links.checkout` property from the response.
+   *
+   * To wrap your head around the payment process, an explanation and flow charts can be found in the Payments API Overview.
    *
    * @since 2.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/payments-api/create-payment
    */
   public create(parameters: CreateParameters): Promise<Payment>;
@@ -65,10 +68,9 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
   }
 
   /**
-   * Retrieve a single payment from Mollie.
+   * Retrieve a single payment object by its payment token.
    *
    * @since 2.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment
    */
   public get(id: string, parameters?: GetParameters): Promise<Payment>;
@@ -84,8 +86,9 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
   /**
    * Retrieve all payments created with the current website profile, ordered from newest to oldest.
    *
-   * @since 3.0.0
+   * The results are paginated. See pagination for more information.
    *
+   * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
    */
   public list(parameters?: ListParameters): Promise<List<Payment>>;
@@ -96,10 +99,9 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
   }
 
   /**
-   * Update some details of a created payment.
+   * This endpoint can be used to update some details of a created payment.
    *
    * @since 3.2.0
-   *
    * @see https://docs.mollie.com/reference/v2/payments-api/update-payment
    */
   public update(id: string, parameters: UpdateParameters): Promise<Payment>;
@@ -113,13 +115,12 @@ export default class PaymentsResource extends Resource<PaymentData, Payment> {
   }
 
   /**
-   * Cancel the given payment.
+   * Some payment methods can be canceled by the merchant for a certain amount of time, usually until the next business day. Or as long as the payment status is `open`. Payments may be canceled
+   * manually from the Mollie Dashboard, or programmatically by using this endpoint.
    *
-   * Will throw an ApiError if the payment id is invalid or the resource cannot be found.
-   * Returns with HTTP status No Content (204) if successful.
+   * The `isCancelable` property on the Payment object will indicate if the payment can be canceled.
    *
    * @since 2.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/payments-api/cancel-payment
    */
   public cancel(id: string, parameters?: CancelParameters): Promise<Payment>;

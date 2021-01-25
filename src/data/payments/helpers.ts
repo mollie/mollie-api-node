@@ -7,42 +7,42 @@ import Nullable from '../../types/Nullable';
 export default {
   ...commonHelpers,
   /**
-   * If the payment is open
+   * Returns whether the payment has been created, but nothing else has happened with it yet.
    */
   isOpen: function isOpen(this: PaymentData): boolean {
     return this.status === PaymentStatus.open;
   },
 
   /**
-   * If the payment is authorized
+   * Returns whether new captures can be created for this payment.
    */
   isAuthorized: function isAuthorized(this: PaymentData): boolean {
     return this.status === PaymentStatus.authorized;
   },
 
   /**
-   * If the payment is paid
+   * Returns whether the payment is successfully paid.
    */
   isPaid: function isPaid(this: PaymentData): boolean {
     return this.paidAt != undefined;
   },
 
   /**
-   * If the payment is canceled
+   * Returns whether the payment has been canceled by the customer.
    */
   isCanceled: function isCanceled(this: PaymentData): boolean {
     return this.status == PaymentStatus.canceled;
   },
 
   /**
-   * If the payment is expired
+   * Returns whether the payment has expired, e.g. the customer has abandoned the payment.
    */
   isExpired: function isExpired(this: PaymentData): boolean {
     return this.status == PaymentStatus.expired;
   },
 
   /**
-   * If the payment is refundable
+   * Returns whether the payment is refundable.
    *
    * @since 2.0.0-rc.2
    */
@@ -51,7 +51,7 @@ export default {
   },
 
   /**
-   * Get the payment URL
+   * Returns the URL the customer should visit to make the payment. This is to where you should redirect the consumer.
    */
   getPaymentUrl: function getPaymentUrl(this: PaymentData): string {
     return get(this._links, 'checkout.href', null);

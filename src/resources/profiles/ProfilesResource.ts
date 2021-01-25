@@ -20,11 +20,10 @@ export default class ProfilesResource extends Resource<ProfileData, Profile> {
   }
 
   /**
-   * In order to process payments, you need to create a website profile. A website profile can easily be created via
-   * the Dashboard manually. However, the Mollie API also allows automatic profile creation via the Profiles API.
+   * In order to process payments, you need to create a website profile. A website profile can easily be created via the Dashboard manually. However, the Mollie API also allows automatic profile
+   * creation via the Profiles API.
    *
    * @since 3.2.0
-   *
    * @see https://docs.mollie.com/reference/v2/profiles-api/create-profile
    */
   public create(parameters: CreateParameters): Promise<Profile>;
@@ -38,7 +37,6 @@ export default class ProfilesResource extends Resource<ProfileData, Profile> {
    * Retrieve details of a profile, using the profile's identifier.
    *
    * @since 3.2.0
-   *
    * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile
    */
   public get(id: string): Promise<Profile>;
@@ -52,11 +50,12 @@ export default class ProfilesResource extends Resource<ProfileData, Profile> {
   }
 
   /**
-   * Use this API if you are creating a plugin or SaaS application that allows users to enter a Mollie API key, and you
-   * want to give a confirmation of the website profile that will be used in your plugin or application.
+   * Use this API if you are creating a plugin or SaaS application that allows users to enter a Mollie API key, and you want to give a confirmation of the website profile that will be used in your
+   * plugin or application.
+   *
+   * This is similar to the Get current organization endpoint for OAuth.
    *
    * @since 3.2.0
-   *
    * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile-me
    */
   public getCurrent(): Promise<Profile>;
@@ -69,8 +68,9 @@ export default class ProfilesResource extends Resource<ProfileData, Profile> {
   /**
    * Retrieve all profiles available on the account.
    *
-   * @since 3.2.0
+   * The results are paginated. See pagination for more information.
    *
+   * @since 3.2.0
    * @see https://docs.mollie.com/reference/v2/profiles-api/list-profiles
    */
   public list(parameters?: ListParameters): Promise<List<Profile>>;
@@ -81,11 +81,10 @@ export default class ProfilesResource extends Resource<ProfileData, Profile> {
   }
 
   /**
-   * A profile is required to process payments. A profile can easily be created and updated via the Dashboard manually.
-   * However, the Mollie API also allows automatic profile creation and updates via the Profiles API.
+   * A profile is required to process payments. A profile can easily be created and updated via the Dashboard manually. However, the Mollie API also allows automatic profile creation and updates via
+   * the Profiles API.
    *
    * @since 3.2.0
-   *
    * @see https://docs.mollie.com/reference/v2/profiles-api/update-profile
    */
   public update(id: string, parameters: UpdateParameters): Promise<Profile>;
@@ -102,7 +101,6 @@ export default class ProfilesResource extends Resource<ProfileData, Profile> {
    * This endpoint enables profile deletions, rendering the profile unavailable for further API calls and transactions.
    *
    * @since 3.2.0
-   *
    * @see https://docs.mollie.com/reference/v2/profiles-api/delete-profile
    */
   public delete(id: string): Promise<true>;

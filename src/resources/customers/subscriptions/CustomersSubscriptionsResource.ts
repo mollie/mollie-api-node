@@ -20,35 +20,41 @@ export default class CustomersSubscriptionsResource extends ParentedResource<Sub
   }
 
   /**
-   * Delete a customer subscription.
+   * A subscription can be canceled any time by calling `DELETE` on the resource endpoint.
    *
    * @since 1.3.2
-   *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/cancel-subscription
    */
   public delete: CustomersSubscriptionsResource['cancel'] = this.cancel;
   /**
-   * List the Customer's Subscriptions.
+   * Retrieve all subscriptions of a customer.
    *
    * @since 1.3.2
-   *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions
    */
   public all: CustomersSubscriptionsResource['list'] = this.list;
   /**
-   * List the Customer's Subscriptions.
+   * Retrieve all subscriptions of a customer.
    *
    * @since 3.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions
    */
   public page: CustomersSubscriptionsResource['list'] = this.list;
 
   /**
-   * Create a customer subscription.
+   * With subscriptions, you can schedule recurring payments to take place at regular intervals.
+   *
+   * For example, by simply specifying an `amount` and an `interval`, you can create an endless subscription to charge a monthly fee, until you cancel the subscription.
+   *
+   * Or, you could use the `times` parameter to only charge a limited number of times, for example to split a big transaction in multiple parts.
+   *
+   * A few example usages:
+   *
+   * -   `amount[currency]="EUR" amount[value]="5.00" interval="2 weeks"` Your consumer will be charged €5 once every two weeks.
+   * -   `amount[currency]="EUR" amount[value]="20.00" interval="1 day" times=5` Your consumer will be charged €20 every day, for five consecutive days.
+   * -   `amount[currency]="EUR" amount[value]="10.00" interval="1 month" startDate="2018-04-30"` Your consumer will be charged €10 on the last day of each month, starting in April 2018.
    *
    * @since 1.3.2
-   *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/create-subscription
    */
   public create(parameters: CreateParameters): Promise<Subscription>;
@@ -64,10 +70,9 @@ export default class CustomersSubscriptionsResource extends ParentedResource<Sub
   }
 
   /**
-   * Get a customer subscription.
+   * Retrieve a subscription by its ID and its customer's ID.
    *
    * @since 1.3.2
-   *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription
    */
   public get(id: string, parameters: GetParameters): Promise<Subscription>;
@@ -87,10 +92,9 @@ export default class CustomersSubscriptionsResource extends ParentedResource<Sub
   }
 
   /**
-   * Get all customer's subscriptions.
+   * Retrieve all subscriptions of a customer.
    *
    * @since 3.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions
    */
   public list(parameters: ListParameters): Promise<List<Subscription>>;
@@ -107,10 +111,11 @@ export default class CustomersSubscriptionsResource extends ParentedResource<Sub
   }
 
   /**
-   * Update a customer's subscription.
+   * Some fields of a subscription can be updated by calling `PATCH` on the resource endpoint. Each field is optional.
+   *
+   * You cannot update a canceled subscription.
    *
    * @since 2.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/update-subscription
    */
   public update(id: string, parameters: UpdateParameters): Promise<Subscription>;
@@ -129,10 +134,9 @@ export default class CustomersSubscriptionsResource extends ParentedResource<Sub
   }
 
   /**
-   * Cancel a Subscription
+   * A subscription can be canceled any time by calling `DELETE` on the resource endpoint.
    *
    * @since 1.3.2
-   *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/cancel-subscription
    */
   public cancel(id: string, parameters: CancelParameters): Promise<Subscription>;

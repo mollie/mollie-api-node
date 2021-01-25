@@ -20,7 +20,6 @@ export default class OnboardingResource extends Resource<OnboardingData, Onboard
    * Get the status of onboarding of the authenticated organization.
    *
    * @since 3.2.0
-   *
    * @see https://docs.mollie.com/reference/v2/onboarding-api/get-onboarding-status
    */
   public get(): Promise<Onboarding>;
@@ -31,11 +30,9 @@ export default class OnboardingResource extends Resource<OnboardingData, Onboard
   }
 
   /**
-   * Submit data that will be prefilled in the merchant's onboarding. Please note that the data you submit will only be
-   * processed when the onboarding status is `'needs-data'`.
+   * Submit data that will be prefilled in the merchant's onboarding. Please note that the data you submit will only be processed when the onboarding status is `needs-data`.
    *
    * @since 3.2.0
-   *
    * @see https://docs.mollie.com/reference/v2/onboarding-api/submit-onboarding-data
    */
   public submit(parameters?: SubmitParameters): Promise<true>;

@@ -4,37 +4,35 @@ import commonHelpers from '../commonHelpers';
 export default {
   ...commonHelpers,
   /**
-   * The refund is queued until there is enough balance to process te refund.
-   * You can still cancel the refund.
+   * Returns whether the refund is queued due to a lack of balance. A queued refund can be canceled.
    */
   isQueued: function isQueued(this: RefundData): boolean {
     return this.status === RefundStatus.queued;
   },
 
   /**
-   * The refund will be sent to the bank on the next business day. You can still cancel the refund.
+   * Returns whether the refund is ready to be sent to the bank. You can still cancel the refund if you like.
    */
   isPending: function isPending(this: RefundData): boolean {
     return this.status === RefundStatus.pending;
   },
 
   /**
-   * The refund has been sent to the bank. The refund amount will be transferred to the consumer
-   * account as soon as possible.
+   * Returns whether the refund is being processed. Cancellation is no longer possible if so.
    */
   isProcessing: function isProcessing(this: RefundData): boolean {
     return this.status === RefundStatus.processing;
   },
 
   /**
-   * The refund amount has been transferred to the consumer.
+   * Returns whether the refund has been settled to your customer.
    */
   isRefunded: function isRefunded(this: RefundData): boolean {
     return this.status === RefundStatus.refunded;
   },
 
   /**
-   * The refund has failed during processing.
+   * Returns whether the refund has failed after processing.
    */
   isFailed: function isFailed(this: RefundData): boolean {
     return this.status === RefundStatus.failed;

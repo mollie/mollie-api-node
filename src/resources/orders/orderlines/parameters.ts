@@ -11,10 +11,14 @@ export type UpdateParameters = ContextParameters &
   PickOptional<OrderLineData, 'name' | 'quantity' | 'unitPrice' | 'discountAmount' | 'totalAmount' | 'vatAmount' | 'vatRate'> & {
     /**
      * A link pointing to an image of the product sold.
+     *
+     * @see https://docs.mollie.com/reference/v2/orders-api/update-orderline?path=imageUrl#parameters
      */
     imageUrl?: string;
     /**
      * A link pointing to the product page in your web shop of the product sold.
+     *
+     * @see https://docs.mollie.com/reference/v2/orders-api/update-orderline?path=productUrl#parameters
      */
     productUrl?: string;
   };
@@ -22,6 +26,8 @@ export type UpdateParameters = ContextParameters &
 export type CancelParameters = ContextParameters & {
   /**
    * An array of objects containing the order line details you want to cancel.
+   *
+   * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order-lines?path=lines#parameters
    */
   lines: {
     /**

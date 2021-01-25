@@ -8,10 +8,35 @@ interface ContextParameters {
 
 export type CreateParameters = ContextParameters &
   Pick<MandateData, 'method'> & {
+    /**
+     * The consumer's name.
+     *
+     * @see https://docs.mollie.com/reference/v2/mandates-api/create-mandate?path=consumerName#parameters
+     */
     consumerName?: string;
+    /**
+     * The consumer's IBAN.
+     *
+     * @see https://docs.mollie.com/reference/v2/mandates-api/create-mandate?path=consumerAccount#parameters
+     */
     consumerAccount?: string;
+    /**
+     * The consumer's bank's BIC.
+     *
+     * @see https://docs.mollie.com/reference/v2/mandates-api/create-mandate?path=consumerBic#parameters
+     */
     consumerBic?: string;
+    /**
+     * The date when the mandate was signed in `YYYY-MM-DD` format.
+     *
+     * @see https://docs.mollie.com/reference/v2/mandates-api/create-mandate?path=signatureDate#parameters
+     */
     signatureDate?: string;
+    /**
+     * A custom mandate reference. Use an unique `mandateReference` as some banks decline a Direct Debit payment if the `mandateReference` is not unique.
+     *
+     * @see https://docs.mollie.com/reference/v2/mandates-api/create-mandate?path=mandateReference#parameters
+     */
     mandateReference?: string;
   };
 

@@ -2,19 +2,58 @@ import { ApiMode, CardLabel, Links, Url } from '../../global';
 import Model from '../../Model';
 import Nullable from '../../../types/Nullable';
 
-/**
- * Mandate Response object
- *
- * @see https://docs.mollie.com/reference/v2/mandates-api/get-mandate
- */
 export interface MandateData extends Model<'mandate'> {
+  /**
+   * The mode used to create this mandate.
+   *
+   * @see https://docs.mollie.com/reference/v2/mandates-api/get-mandate?path=mode#response
+   */
   mode: ApiMode;
+  /**
+   * The status of the mandate. Please note that a status can be `pending` for mandates when the first payment is not yet finalized or when we did not received the IBAN yet.
+   *
+   * Possible values: `valid` `pending` `invalid`
+   *
+   * @see https://docs.mollie.com/reference/v2/mandates-api/get-mandate?path=status#response
+   */
   status: MandateStatus;
+  /**
+   * Payment method of the mandate.
+   *
+   * Possible values: `directdebit` `creditcard` `paypal`
+   *
+   * @see https://docs.mollie.com/reference/v2/mandates-api/get-mandate?path=method#response
+   */
   method: MandateMethod;
+  /**
+   * The mandate detail object contains different fields per payment method. See the list below.
+   *
+   * @see https://docs.mollie.com/reference/v2/mandates-api/get-mandate?path=details#response
+   */
   details: MandateDetails;
+  /**
+   * The mandate's custom reference, if this was provided when creating the mandate.
+   *
+   * @see https://docs.mollie.com/reference/v2/mandates-api/get-mandate?path=mandateReference#response
+   */
   mandateReference: string;
+  /**
+   * The signature date of the mandate in `YYYY-MM-DD` format.
+   *
+   * @see https://docs.mollie.com/reference/v2/mandates-api/get-mandate?path=signatureDate#response
+   */
   signatureDate: string;
+  /**
+   * The mandate's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+   *
+   * @see https://docs.mollie.com/reference/v2/mandates-api/get-mandate?path=createdAt#response
+   */
   createdAt: string;
+  /**
+   * An object with several URL objects relevant to the mandate. Every URL object will contain an `href` and a `type` field.
+   *
+   * @see https://docs.mollie.com/reference/v2/mandates-api/get-mandate?path=_links#response
+   */
   _links: MandateLinks;
 }
 

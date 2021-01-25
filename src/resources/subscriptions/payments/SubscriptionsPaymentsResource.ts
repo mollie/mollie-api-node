@@ -23,7 +23,6 @@ export default class SubscriptionsPaymentsResource extends ParentedResource<Paym
    * Retrieve all payments of a specific subscriptions of a customer.
    *
    * @since 3.3.0
-   *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions-payments
    */
   public list(parameters: ListParameters): Promise<List<Payment>>;
