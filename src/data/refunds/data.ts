@@ -104,7 +104,22 @@ export enum RefundEmbed {
 }
 
 export interface PaymentRefundLinks extends Links {
+  /**
+   * The API resource URL of the payment the refund belongs to.
+   *
+   * @see https://docs.mollie.com/reference/v2/refunds-api/get-refund?path=_links/payment#response
+   */
   payment: Url;
+  /**
+   * The API resource URL of the settlement this payment has been settled with. Not present if not yet settled.
+   *
+   * @see https://docs.mollie.com/reference/v2/refunds-api/get-refund?path=_links/settlement#response
+   */
   settlement?: Url;
+  /**
+   * The API resource URL of the order the refund belongs to. Not present if the refund does not belong to an order.
+   *
+   * @see https://docs.mollie.com/reference/v2/refunds-api/get-refund?path=_links/order#response
+   */
   order?: Url;
 }

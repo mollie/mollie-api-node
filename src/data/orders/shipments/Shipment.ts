@@ -45,12 +45,32 @@ type Shipment = Seal<ShipmentData & { lines: OrderLine[] }, typeof commonHelpers
 export default Shipment;
 
 export interface ShipmentLinks extends Links {
+  /**
+   * The resource URL of the order this shipment was created for.
+   *
+   * @see https://docs.mollie.com/reference/v2/shipments-api/get-shipment?path=_links/order#response
+   */
   order: Url;
 }
 
 export interface ShipmentTracking {
+  /**
+   * The name of the postal carrier.
+   *
+   * @see https://docs.mollie.com/reference/v2/shipments-api/get-shipment?path=tracking/carrier#response
+   */
   carrier: string;
+  /**
+   * The track and trace code for the shipment.
+   *
+   * @see https://docs.mollie.com/reference/v2/shipments-api/get-shipment?path=tracking/code#response
+   */
   code: string;
+  /**
+   * The URL where your customer can track the shipment.
+   *
+   * @see https://docs.mollie.com/reference/v2/shipments-api/get-shipment?path=tracking/url#response
+   */
   url?: string;
 }
 

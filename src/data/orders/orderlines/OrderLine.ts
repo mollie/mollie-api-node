@@ -158,7 +158,17 @@ type OrderLine = Seal<OrderLineData, typeof commonHelpers>;
 export default OrderLine;
 
 export interface OrderLineLinks {
+  /**
+   * A link pointing to the product page in your web shop of the product sold.
+   *
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=_links/productUrl#order-line-details
+   */
   productUrl: Url;
+  /**
+   * A link pointing to an image of the product sold.
+   *
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=_links/imageUrl#order-line-details
+   */
   imageUrl: Url;
 }
 

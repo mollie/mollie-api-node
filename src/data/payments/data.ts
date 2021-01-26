@@ -222,18 +222,72 @@ export interface PaymentData extends Model<'payment'> {
   };
 }
 
-interface PaymentLinks {
-  self: Url;
-  documentation?: Url; // TODO: check if this should become a required field, even as an embedded object
+interface PaymentLinks extends Links {
+  /**
+   * The URL your customer should visit to make the payment. This is where you should redirect the consumer to.
+   *
+   * Recurring payments do not have a checkout URL.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/checkout#response
+   */
   checkout?: Url;
+  /**
+   * Recurring payments do not have a checkout URL, because these payments are executed without any user interaction. This link is included for test mode recurring payments, and allows you to set the
+   * final payment state for such payments.
+   *
+   * This link is also included for paid test mode payments. This allows you to create a refund or chargeback for the payment. This works for all payment types that can be charged back and/or
+   * refunded.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/changePaymentState#response
+   */
   changePaymentState?: Url;
+  /**
+   * The API resource URL of the refunds that belong to this payment.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/refunds#response
+   */
   refunds?: Url;
+  /**
+   * The API resource URL of the chargebacks that belong to this payment.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/chargebacks#response
+   */
   chargebacks?: Url;
+  /**
+   * The API resource URL of the captures that belong to this payment.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/captures#response
+   */
   captures?: Url;
+  /**
+   * The API resource URL of the settlement this payment has been settled with. Not present if not yet settled.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/settlement#response
+   */
   settlement?: Url;
+  /**
+   * The API resource URL of the mandate linked to this payment. Not present if a one-off payment.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/mandate#response
+   */
   mandate?: Url;
+  /**
+   * The API resource URL of the subscription this payment is part of. Not present if not a subscription payment.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/subscription#response
+   */
   subscription?: Url;
+  /**
+   * The API resource URL of the customer this payment belongs to. Not present if not linked to a customer.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/customer#response
+   */
   customer?: Url;
+  /**
+   * The API resource URL of the order this payment was created for. Not present if not created for an order.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/order#response
+   */
   order?: Url;
 }
 
@@ -254,34 +308,128 @@ export type Details =
   | SofortBankingDetails;
 
 export interface BancontactDetails {
+  /**
+   * Only available if the payment is completed - The last four digits of the card number.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/cardNumber#bancontact
+   */
   cardNumber: string;
+  /**
+   * Only available if the payment is completed - Unique alphanumeric representation of card, usable for identifying returning customers.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/cardFingerprint#bancontact
+   */
   cardFingerprint: string;
+  /**
+   * Only available if requested during payment creation - The QR code that can be scanned by the mobile Bancontact application. This enables the desktop to mobile feature.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/qrCode#bancontact
+   */
   qrCode: QrCode;
+  /**
+   * Only available if the payment is completed – The consumer's name.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerName#bancontact
+   */
   consumerName: string;
+  /**
+   * Only available if the payment is completed – The consumer's bank account. This may be an IBAN, or it may be a domestic account number.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerAccount#bancontact
+   */
   consumerAccount: string;
+  /**
+   * Only available if the payment is completed – The consumer's bank's BIC / SWIFT code.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerBic#bancontact
+   */
   consumerBic: string;
 }
 
 export interface BankTransferLinks extends Links {
+  /**
+   * A link to a hosted payment page where your customer can check the status of their payment.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/status#bank-transfer
+   */
   status: Url;
+  /**
+   * A link to a hosted payment page where your customer can finish the payment using an alternative payment method also activated on your website profile.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/payOnline#bank-transfer
+   */
   payOnline: Url;
 }
 
 export interface BankTransferDetails {
+  /**
+   * The name of the bank the consumer should wire the amount to.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/bankName#bank-transfer
+   */
   bankName: string;
+  /**
+   * The IBAN the consumer should wire the amount to.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/bankAccount#bank-transfer
+   */
   bankAccount: string;
+  /**
+   * The BIC of the bank the consumer should wire the amount to.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/bankBic#bank-transfer
+   */
   bankBic: string;
+  /**
+   * The reference the consumer should use when wiring the amount. Note you should not apply any formatting here; show it to the consumer as-is.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/transferReference#bank-transfer
+   */
   transferReference: string;
+  /**
+   * Only available if the payment has been completed – The consumer's name.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerName#bank-transfer
+   */
   consumerName: string;
+  /**
+   * Only available if the payment has been completed – The consumer's bank account. This may be an IBAN, or it may be a domestic account number.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerAccount#bank-transfer
+   */
   consumerAccount: string;
+  /**
+   * Only available if the payment has been completed – The consumer's bank's BIC / SWIFT code.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerBic#bank-transfer
+   */
   consumerBic: string;
+  /**
+   * Only available if filled out in the API or by the consumer – The email address which the consumer asked the payment instructions to be sent to.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/billingEmail#bank-transfer
+   */
   billingEmail: string;
-  _links: BankTransferLinks;
 }
 
 export interface BelfiusPayButtonDetails {
+  /**
+   * Only available one banking day after the payment has been completed – The consumer's name.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerName#belfius-pay-button
+   */
   consumerName: string;
+  /**
+   * Only available one banking day after the payment has been completed – The consumer's IBAN.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerAccount#belfius-pay-button
+   */
   consumerAccount: string;
+  /**
+   * Only available one banking day after the payment has been completed – `GKCCBEBB`.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerBic#belfius-pay-button
+   */
   consumerBic: string;
 }
 
@@ -293,39 +441,161 @@ export interface BitcoinDetails {
 }
 
 export interface CreditCardDetails {
+  /**
+   * Only available if the payment has been completed - The card holder's name.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/cardHolder#Credit%20card%20v2
+   */
   cardHolder: string;
+  /**
+   * Only available if the payment has been completed - The last four digits of the card number.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/cardNumber#Credit%20card%20v2
+   */
   cardNumber: string;
+  /**
+   * Only available if the payment has been completed - Unique alphanumeric representation of card, usable for identifying returning customers.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/cardFingerprint#Credit%20card%20v2
+   */
   cardFingerprint: string;
+  /**
+   * Only available if the payment has been completed and if the data is available - The card's target audience.
+   *
+   * Possible values: `consumer` `business` `null`
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/cardAudience#Credit%20card%20v2
+   */
   cardAudience: Nullable<CardAudience>;
+  /**
+   * Only available if the payment has been completed - The card's label. Note that not all labels can be processed through Mollie.
+   *
+   * Possible values: `American Express` `Carta Si` `Carte Bleue` `Dankort` `Diners Club` `Discover` `JCB` `Laser` `Maestro` `Mastercard` `Unionpay` `Visa` `null`
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/cardLabel#Credit%20card%20v2
+   */
   cardLabel: Nullable<CardLabel>;
+  /**
+   * Only available if the payment has been completed - The [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country the card was issued in. For example:
+   * `BE`.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/cardCountryCode#Credit%20card%20v2
+   */
   cardCountryCode: string;
+  /**
+   * Only available if the payment has been completed – The type of security used during payment processing.
+   *
+   * Possible values: `normal` `3dsecure`
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/cardSecurity#Credit%20card%20v2
+   */
   cardSecurity: string;
+  /**
+   * Only available if the payment has been completed – The fee region for the payment. The `intra-eu` value is for consumer cards from the EEA.
+   *
+   * Possible values: `american-express` `amex-intra-eea` `carte-bancaire` `intra-eu` `intra-eu-corporate` `domestic` `maestro` `other`
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/feeRegion#Credit%20card%20v2
+   */
   feeRegion: FeeRegion;
+  /**
+   * Only available for failed payments. Contains a failure reason code.
+   *
+   * Possible values: `authentication_failed` `card_declined` `card_expired` `inactive_card` `insufficient_funds` `invalid_card_holder_name` `invalid_card_number` `invalid_card_type` `invalid_cvv`
+   * `possible_fraud` `refused_by_issuer` `unknown_reason`
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/failureReason#Credit%20card%20v2
+   */
   failureReason: CardFailureReason;
 }
 
 export interface GiftCardDetails {
+  /**
+   * The voucher number, with the last four digits masked. When multiple gift cards are used, this is the first voucher number. Example: `606436353088147****`.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/voucherNumber#gift-cards
+   */
   voucherNumber: string;
+  /**
+   * A list of details of all giftcards that are used for this payment. Each object will contain the following properties.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/giftcards#gift-cards
+   */
   giftcards: GiftCard[];
+  /**
+   * Only available if another payment method was used to pay the remainder amount – The amount that was paid with another payment method for the remainder amount.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/remainderAmount#gift-cards
+   */
   remainderAmount: Amount;
+  /**
+   * Only available if another payment method was used to pay the remainder amount – The payment method that was used to pay the remainder amount.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/remainderMethod#gift-cards
+   */
   remainderMethod: Amount;
 }
 
 export interface IdealDetails {
+  /**
+   * Only available if the payment has been completed – The consumer's name.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerName#ideal
+   */
   consumerName: string;
+  /**
+   * Only available if the payment has been completed – The consumer's IBAN.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerAccount#ideal
+   */
   consumerAccount: string;
+  /**
+   * Only available if the payment has been completed – The consumer's bank's BIC.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerBic#ideal
+   */
   consumerBic: string;
 }
 
 export interface IngHomePayDetails {
+  /**
+   * Only available one banking day after the payment has been completed – The consumer's name.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerName#ing-homepay
+   */
   consumerName: string;
+  /**
+   * Only available one banking day after the payment has been completed – The consumer's IBAN.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerAccount#ing-homepay
+   */
   consumerAccount: string;
+  /**
+   * Only available one banking day after the payment has been completed – `BBRUBEBB`.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerBic#ing-homepay
+   */
   consumerBic: string;
 }
 
 export interface KbcCbcPaymentButtonDetails {
+  /**
+   * Only available one banking day after the payment has been completed – The consumer's name.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerName#kbccbc-payment-button
+   */
   consumerName: string;
+  /**
+   * Only available one banking day after the payment has been completed – The consumer's IBAN.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerAccount#kbccbc-payment-button
+   */
   consumerAccount: string;
+  /**
+   * Only available one banking day after the payment has been completed – The consumer's bank's BIC.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerBic#kbccbc-payment-button
+   */
   consumerBic: string;
 }
 
@@ -336,60 +606,160 @@ export interface KlarnaDetails {
 export interface PayPalDetails {
   /**
    * Only available if the payment has been completed – The consumer's first and last name.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerName#paypal
    */
   consumerName: string;
   /**
    * Only available if the payment has been completed – The consumer's email address.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerAccount#paypal
    */
   consumerAccount: string;
   /**
-   * PayPal's reference for the transaction, for instance `'9AL35361CF606152E'`.
+   * PayPal's reference for the transaction, for instance `9AL35361CF606152E`.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/paypalReference#paypal
    */
   paypalReference: string;
   /**
-   * ID for the consumer's PayPal account, for instance `'WDJJHEBZ4X2LY'`.
+   * ID for the consumer's PayPal account, for instance `WDJJHEBZ4X2LY`.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/paypalPayerId#paypal
    */
   paypalPayerId: string;
   /**
    * Indicates if the payment is eligible for PayPal's Seller Protection.
    *
+   * Possible values: `Eligible` `Ineligible` `Partially Eligible - INR Only` `Partially Eligible - Unauth Only` `PartiallyEligible` `None` `Active Fraud Control - Unauth Premium Eligible`
+   *
    * This parameter is omitted if we did not received the information from PayPal.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/sellerProtection#paypal
    */
   sellerProtection?: 'Eligible' | 'Ineligible' | 'Partially Eligible - INR Only' | 'Partially Eligible - Unauth Only' | 'PartiallyEligible' | 'None' | 'Active Fraud Control - Unauth Premium Eligible';
   /**
    * The shipping address details.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/shippingAddress#paypal
    */
   shippingAddress: Address;
   /**
-   * The amount of fee PayPal will charge for this transaction. This field is omitted if PayPal will not charge a fee
-   * for this transaction.
+   * The amount of fee PayPal will charge for this transaction. This field is omitted if PayPal will not charge a fee for this transaction.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/paypalFee#paypal
    */
   paypalFee?: Amount;
 }
 
 export interface PaysafecardDetails {
+  /**
+   * The consumer identification supplied when the payment was created.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/customerReference#paysafecard
+   */
   customerReference: string;
 }
 
 export interface SepaDirectDebitDetails {
+  /**
+   * Transfer reference used by Mollie to identify this payment.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/transferReference#sepa-direct-debit
+   */
   transferReference: string;
+  /**
+   * The creditor identifier indicates who is authorized to execute the payment. In this case, it is a reference to Mollie.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/creditorIdentifier#sepa-direct-debit
+   */
   creditorIdentifier: string;
+  /**
+   * The consumer's name.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerName#sepa-direct-debit
+   */
   consumerName: string;
+  /**
+   * The consumer's IBAN.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerAccount#sepa-direct-debit
+   */
   consumerAccount: string;
+  /**
+   * The consumer's bank's BIC.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerBic#sepa-direct-debit
+   */
   consumerBic: string;
+  /**
+   * Estimated date the payment is debited from the consumer's bank account, in `YYYY-MM-DD` format.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/dueDate#sepa-direct-debit
+   */
   dueDate: string;
+  /**
+   * Only available if the payment has been verified – Date the payment has been signed by the consumer, in `YYYY-MM-DD` format.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/signatureDate#sepa-direct-debit
+   */
   signatureDate: string;
+  /**
+   * Only available if the payment has failed – The official reason why this payment has failed. A detailed description of each reason is available on the website of the European Payments Council.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/bankReasonCode#sepa-direct-debit
+   */
   bankReasonCode: string;
+  /**
+   * Only available if the payment has failed – A textual description of the failure reason.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/bankReason#sepa-direct-debit
+   */
   bankReason: string;
+  /**
+   * Only available for batch transactions – The original end-to-end identifier that you've specified in your batch.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/endToEndIdentifier#sepa-direct-debit
+   */
   endToEndIdentifier: string;
+  /**
+   * Only available for batch transactions – The original mandate reference that you've specified in your batch.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/mandateReference#sepa-direct-debit
+   */
   mandateReference: string;
+  /**
+   * Only available for batch transactions – The original batch reference that you've specified in your batch.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/batchReference#sepa-direct-debit
+   */
   batchReference: string;
+  /**
+   * Only available for batch transactions – The original file reference that you've specified in your batch.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/fileReference#sepa-direct-debit
+   */
   fileReference: string;
 }
 
 export interface SofortBankingDetails {
+  /**
+   * Only available if the payment has been completed – The consumer's name.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerName#sofort-banking
+   */
   consumerName: string;
+  /**
+   * Only available if the payment has been completed – The consumer's IBAN.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerAccount#sofort-banking
+   */
   consumerAccount: string;
+  /**
+   * Only available if the payment has been completed – The consumer's bank's BIC.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerBic#sofort-banking
+   */
   consumerBic: string;
 }
 
@@ -417,7 +787,22 @@ export enum PaymentEmbed {
 }
 
 export interface GiftCard {
+  /**
+   * The ID of the gift card brand that was used during the payment.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/giftcards/issuer#gift-cards
+   */
   issuer: string;
+  /**
+   * The amount in EUR that was paid with this gift card.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/giftcards/amount#gift-cards
+   */
   amount: Amount;
+  /**
+   * The voucher number, with the last four digits masked. Example: `606436353088147****`
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/giftcards/voucherNumber#gift-cards
+   */
   voucherNumber: string;
 }

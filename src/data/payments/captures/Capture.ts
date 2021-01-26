@@ -62,8 +62,23 @@ type Capture = Seal<CaptureData, typeof commonHelpers>;
 export default Capture;
 
 export interface CaptureLinks extends Links {
+  /**
+   * The API resource URL of the payment the capture belongs to.
+   *
+   * @see https://docs.mollie.com/reference/v2/captures-api/get-capture?path=_links/payment#response
+   */
   payment: Url;
+  /**
+   * The API resource URL of the shipment that triggered the capture to be created.
+   *
+   * @see https://docs.mollie.com/reference/v2/captures-api/get-capture?path=_links/shipment#response
+   */
   shipment?: Url;
+  /**
+   * The API resource URL of the settlement this capture has been settled with. Not present if not yet settled.
+   *
+   * @see https://docs.mollie.com/reference/v2/captures-api/get-capture?path=_links/settlement#response
+   */
   settlement?: Url;
 }
 

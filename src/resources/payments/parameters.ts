@@ -50,7 +50,7 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
      */
     issuer?: Issuer;
     /**
-     * Used for consumer identification. Use the following guidelines to create your `customerReference`:  
+     * Used for consumer identification. Use the following guidelines to create your `customerReference`:
      * -   Has to be unique per shopper
      * -   Has to remain the same for one shopper
      * -   Should be as disconnected from personal data as possible
@@ -100,7 +100,19 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=applicationFee#access-token-parameters
      */
     applicationFee?: {
+      /**
+       * The amount in that the app wants to charge, e.g. `{"currency":"EUR", "value":"10.00"}` if the app would want to charge €10.00.
+       *
+       * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=applicationFee/amount#access-token-parameters
+       */
       amount: Amount;
+      /**
+       * The description of the application fee. This will appear on settlement reports to the merchant and to you.
+       *
+       * The maximum length is 255 characters.
+       *
+       * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=applicationFee/description#access-token-parameters
+       */
       description: string;
     };
   };

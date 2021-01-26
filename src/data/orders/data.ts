@@ -175,6 +175,17 @@ export interface OrderData extends Model<'order'> {
 }
 
 export interface OrderLinks extends Links {
+  /**
+   * The URL your customer should visit to make the payment for the order. This is where you should redirect the customer to after creating the order.
+   *
+   * As long as order is still in the `created` state, this link can be used by your customer to pay for this order. You can safely share this URL with your customer.
+   *
+   * The URL can also be retrieved and copied from the Mollie Dashboard.
+   *
+   * Recurring, authorized, paid and finalized orders do not have a checkout URL.
+   *
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=_links/checkout#response
+   */
   checkout?: Url;
 }
 
@@ -190,11 +201,41 @@ export enum OrderStatus {
 }
 
 export interface OrderAddress extends Address {
+  /**
+   * The person's organization, if applicable.
+   *
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=organizationName#addresses
+   */
   organizationName?: string;
+  /**
+   * The title of the person.
+   *
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=title#addresses
+   */
   title?: string;
+  /**
+   * The given name (first name) of the person.
+   *
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=givenName#addresses
+   */
   givenName: string;
+  /**
+   * The family name (surname) of the person.
+   *
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=familyName#addresses
+   */
   familyName: string;
+  /**
+   * The email address of the person.
+   *
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=email#addresses
+   */
   email: string;
+  /**
+   * The phone number of the person. Will be in the [E.164](https://en.wikipedia.org/wiki/E.164) format. For example `+31208202070`.
+   *
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=phone#addresses
+   */
   phone?: string;
 }
 

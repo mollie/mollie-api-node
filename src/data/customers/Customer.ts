@@ -59,8 +59,23 @@ type Customer = Seal<CustomerData, typeof commonHelpers>;
 export default Customer;
 
 export interface CustomerLinks extends Links {
+  /**
+   * The API resource URL of the mandates belonging to the Customer, if there are no mandates this parameter is omitted.
+   *
+   * @see https://docs.mollie.com/reference/v2/customers-api/get-customer?path=_links/mandates#response
+   */
   mandates: Url;
+  /**
+   * The API resource URL of the subscriptions belonging to the Customer, if there are no subscriptions this parameter is omitted.
+   *
+   * @see https://docs.mollie.com/reference/v2/customers-api/get-customer?path=_links/subscriptions#response
+   */
   subscriptions: Url;
+  /**
+   * The API resource URL of the payments belonging to the Customer, if there are no payments this parameter is omitted.
+   *
+   * @see https://docs.mollie.com/reference/v2/customers-api/get-customer?path=_links/payments#response
+   */
   payments: Url;
 }
 

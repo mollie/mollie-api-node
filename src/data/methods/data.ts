@@ -1,4 +1,4 @@
-import { Amount, FeeRegion, Image, Links, PaymentMethod as PaymentMethodEnum } from '../global';
+import { Amount, FeeRegion, Links, PaymentMethod as PaymentMethodEnum } from '../global';
 import Model from '../Model';
 import Nullable from '../../types/Nullable';
 
@@ -39,6 +39,27 @@ export interface MethodData extends Model<'method', PaymentMethodEnum> {
    * @see https://docs.mollie.com/reference/v2/methods-api/get-method?path=_links#response
    */
   _links: Links;
+}
+
+export interface Image {
+  /**
+   * The URL for a payment method icon of 32x24 pixels.
+   *
+   * @see https://docs.mollie.com/reference/v2/methods-api/get-method?path=image/size1x#response
+   */
+  size1x: string;
+  /**
+   * The URL for a payment method icon of 64x48 pixels.
+   *
+   * @see https://docs.mollie.com/reference/v2/methods-api/get-method?path=image/size2x#response
+   */
+  size2x: string;
+  /**
+   * The URL for a payment method icon in vector format. Usage of this format is preferred since it can scale to any desired size.
+   *
+   * @see https://docs.mollie.com/reference/v2/methods-api/get-method?path=image/svg#response
+   */
+  svg: string;
 }
 
 export enum MethodImageSize {

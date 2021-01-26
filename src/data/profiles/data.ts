@@ -2,11 +2,6 @@ import { ApiMode, Links, Url } from '../global';
 import Model from '../Model';
 import Nullable from '../../types/Nullable';
 
-/**
- * Retrieve details of a profile, using the profile's identifier.
- *
- * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile
- */
 export interface ProfileData extends Model<'profile', string> {
   /**
    * Indicates whether the profile is in test or production mode.
@@ -99,6 +94,16 @@ export interface ProfileData extends Model<'profile', string> {
    * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=review#response
    */
   review: Nullable<{
+    /**
+     * The status of the requested profile changes.
+     *
+     * Possible values:
+     *
+     * -   `pending` The changes are pending review. We will review your changes soon.
+     * -   `rejected` We have reviewed and rejected your changes.
+     *
+     * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=review/status#response
+     */
     status: string;
   }>;
   /**
@@ -116,9 +121,34 @@ export interface ProfileData extends Model<'profile', string> {
 }
 
 export interface PermissionLinks extends Links {
+  /**
+   * The API resource URL of the chargebacks that belong to this profile.
+   *
+   * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=_links/chargebacks#response
+   */
   chargebacks: Url;
+  /**
+   * The API resource URL of the methods that are enabled for this profile.
+   *
+   * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=_links/methods#response
+   */
   methods: Url;
+  /**
+   * The API resource URL of the payments that belong to this profile.
+   *
+   * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=_links/payments#response
+   */
   payments: Url;
+  /**
+   * The API resource URL of the refunds that belong to this profile.
+   *
+   * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=_links/refunds#response
+   */
   refunds: Url;
+  /**
+   * The Checkout preview URL. You need to be logged in to access this page.
+   *
+   * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=_links/checkoutPreviewUrl#response
+   */
   checkoutPreviewUrl: Url;
 }

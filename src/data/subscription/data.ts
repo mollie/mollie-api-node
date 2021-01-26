@@ -109,8 +109,23 @@ export interface SubscriptionData extends Model<'subscription'> {
 }
 
 export interface SubscriptionLinks extends Links {
+  /**
+   * The API resource URL of the customer the subscription is for.
+   *
+   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=_links/customer#response
+   */
   customer: Url;
+  /**
+   * The API resource URL of the website profile on which this subscription was created.
+   *
+   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=_links/profile#response
+   */
   profile?: Url;
+  /**
+   * The API resource URL of the payments that are created by this subscription. Not present if no payments yet created.
+   *
+   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=_links/payments#response
+   */
   payments?: Url;
 }
 

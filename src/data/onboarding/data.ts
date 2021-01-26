@@ -50,6 +50,16 @@ export interface OnboardingData extends Model<'onboarding', undefined> {
 }
 
 export interface OnboardingLinks extends Links {
+  /**
+   * The URL of the onboarding process in Mollie Dashboard. You can redirect your customer to here for e.g. completing the onboarding process.
+   *
+   * @see https://docs.mollie.com/reference/v2/onboarding-api/get-onboarding-status?path=_links/dashboard#response
+   */
   dashboard: Url;
+  /**
+   * The API resource URL of the organization.
+   *
+   * @see https://docs.mollie.com/reference/v2/onboarding-api/get-onboarding-status?path=_links/organization#response
+   */
   organization: Url;
 }

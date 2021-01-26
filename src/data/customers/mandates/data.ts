@@ -58,6 +58,11 @@ export interface MandateData extends Model<'mandate'> {
 }
 
 export interface MandateLinks extends Links {
+  /**
+   * The API resource URL of the customer the mandate is for.
+   *
+   * @see https://docs.mollie.com/reference/v2/mandates-api/get-mandate?path=_links/customer#response
+   */
   customer: Url;
 }
 
