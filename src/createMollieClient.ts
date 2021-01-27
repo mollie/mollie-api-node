@@ -99,7 +99,7 @@ export default function createMollieClient(options: Options) {
     // Onboarding API
     onboarding: new OnboardingResource(networkClient),
 
-    // ApplePay API
+    // Apple Pay API
     applePay: new ApplePayResource(networkClient),
   };
   /* eslint-enable @typescript-eslint/camelcase */
