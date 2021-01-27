@@ -1,4 +1,4 @@
-export type ValidateParameters = {
+export type RequestPaymentSessionParameters = {
   /**
    * The validationUrl you got from the ApplePayValidateMerchant event
    * https://developer.apple.com/documentation/apple_pay_on_the_web/applepayvalidatemerchantevent
