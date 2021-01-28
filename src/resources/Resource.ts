@@ -11,7 +11,8 @@ import TransformingNetworkClient from '../TransformingNetworkClient';
  */
 function parseQueryInUrl(url: string) {
   const result: Record<string, string> = {};
-  return new URL(url).searchParams.forEach((value, key) => result[key] = value), result;
+  new URL(url).searchParams.forEach((value, key) => (result[key] = value));
+  return result;
 }
 export default class Resource<R, T extends R> {
   constructor(protected readonly networkClient: TransformingNetworkClient<R, T>) {}
