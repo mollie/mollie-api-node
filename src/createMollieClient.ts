@@ -5,6 +5,7 @@ import NetworkClient from './NetworkClient';
 import Options from './Options';
 
 // Resources
+import ApplePayResource from './resources/applePay/ApplePayResource';
 import ChargebacksResource from './resources/chargebacks/ChargebacksResource';
 import CustomersMandatesResource from './resources/customers/mandates/CustomersMandatesResource';
 import CustomersPaymentsResource from './resources/customers/payments/CustomersPaymentsResource';
@@ -97,6 +98,9 @@ export default function createMollieClient(options: Options) {
 
     // Onboarding API
     onboarding: new OnboardingResource(networkClient),
+
+    // Apple Pay API
+    applePay: new ApplePayResource(networkClient),
   };
   /* eslint-enable @typescript-eslint/camelcase */
 }
