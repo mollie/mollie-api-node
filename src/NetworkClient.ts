@@ -34,7 +34,8 @@ const camelCase = (() => {
   };
 })();
 /**
- * Converts `{ id: 5 }` to `'?id=5'`.
+ * Returns a stringified version of the passed query to be used as the search portion of a URL. For example:
+ * `{ id: 5 }` is converted to `'?id=5'` (and `{}` is converted to `''`).
  */
 function stringifyQuery(input: Record<string, any>): string {
   const entries = getEntries(input);
