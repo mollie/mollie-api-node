@@ -5,10 +5,11 @@ import commonHelpers from '../commonHelpers';
 export default {
   ...commonHelpers,
   /**
-   * Method image URL
+   * The URLs of images representing the payment method.
    *
    * @since 2.0.0
    * @since 3.0.0 SVG support
+   * @see https://docs.mollie.com/reference/v2/methods-api/get-method?path=image#response
    */
   getImage: function getImage(this: MethodData, size: MethodImageSize | '1x' | '2x' = MethodImageSize.size2x): string {
     switch (size) {

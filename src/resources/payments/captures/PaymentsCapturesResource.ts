@@ -19,28 +19,31 @@ export default class PaymentsCapturesResource extends ParentedResource<CaptureDa
   }
 
   /**
-   * Retrieve a list of Payment Captures
+   * Retrieve all captures for a certain payment.
+   *
+   * Captures are used for payments that have the *authorize-then-capture* flow. The only payment methods at the moment that have this flow are *Klarna Pay later* and *Klarna Slice it*.
    *
    * @since 1.1.1
-   *
    * @see https://docs.mollie.com/reference/v2/captures-api/list-captures
    */
   public all: PaymentsCapturesResource['list'] = this.list;
   /**
-   * Retrieve a list of Payment Captures
+   * Retrieve all captures for a certain payment.
+   *
+   * Captures are used for payments that have the *authorize-then-capture* flow. The only payment methods at the moment that have this flow are *Klarna Pay later* and *Klarna Slice it*.
    *
    * @since 3.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/captures-api/list-captures
    */
   public page: PaymentsCapturesResource['list'] = this.list;
 
   /**
-   * Get a Payment Capture by ID
+   * Retrieve a single capture by its ID. Note the original payment's ID is needed as well.
+   *
+   * Captures are used for payments that have the *authorize-then-capture* flow. The only payment methods at the moment that have this flow are **Klarna Pay later** and **Klarna Slice it**.
    *
    * @since 1.1.1
-   *
-   * @see https://docs.mollie.com/reference/v2/captures-api/get-Capture
+   * @see https://docs.mollie.com/reference/v2/captures-api/get-capture
    */
   public get(id: string, parameters: GetParameters): Promise<Capture>;
   public get(id: string, parameters: GetParameters, callback: Callback<Capture>): void;
@@ -59,10 +62,11 @@ export default class PaymentsCapturesResource extends ParentedResource<CaptureDa
   }
 
   /**
-   * Retrieve a list of Payment Captures
+   * Retrieve all captures for a certain payment.
+   *
+   * Captures are used for payments that have the *authorize-then-capture* flow. The only payment methods at the moment that have this flow are *Klarna Pay later* and *Klarna Slice it*.
    *
    * @since 3.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/captures-api/list-captures
    */
   public list(parameters: ListParameters): Promise<List<Capture>>;

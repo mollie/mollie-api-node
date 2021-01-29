@@ -3,20 +3,23 @@ import Model from '../Model';
 import Seal from '../../types/Seal';
 import commonHelpers from '../commonHelpers';
 
-/**
- * @see https://docs.mollie.com/reference/v2/permissions-api/get-permission
- */
 export interface PermissionData extends Model<'permission', string> {
   /**
    * A short description of what the permission allows.
+   *
+   * @see https://docs.mollie.com/reference/v2/permissions-api/get-permission?path=description#response
    */
   description: string;
   /**
    * Whether this permission is granted to the app by the organization or not.
+   *
+   * @see https://docs.mollie.com/reference/v2/permissions-api/get-permission?path=granted#response
    */
   granted: boolean;
   /**
-   * An object with several URL objects relevant to the permission.
+   * An object with several URL objects relevant to the permission. Every URL object will contain an `href` and a `type` field.
+   *
+   * @see https://docs.mollie.com/reference/v2/permissions-api/get-permission?path=_links#response
    */
   _links: PermissionLinks;
 }

@@ -54,12 +54,6 @@ export enum ApiMode {
   live = 'live',
 }
 
-export interface Image {
-  size1x: string;
-  size2x: string;
-  svg: string;
-}
-
 export interface Url {
   href: string;
   type: string;

@@ -19,27 +19,30 @@ export default class PaymentsChargebacksResource extends ParentedResource<Charge
   }
 
   /**
-   * Retrieve a list of Payment Chargebacks
+   * Retrieve all received chargebacks. If the payment-specific endpoint is used, only chargebacks for that specific payment are returned.
+   *
+   * The results are paginated. See pagination for more information.
    *
    * @since 1.1.1
-   *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
    */
   public all: PaymentsChargebacksResource['list'] = this.list;
   /**
-   * Retrieve a list of Payment Chargebacks
+   * Retrieve all received chargebacks. If the payment-specific endpoint is used, only chargebacks for that specific payment are returned.
+   *
+   * The results are paginated. See pagination for more information.
    *
    * @since 3.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
    */
   public page: PaymentsChargebacksResource['list'] = this.list;
 
   /**
-   * Get a Payment Chargeback by ID
+   * Retrieve a single chargeback by its ID. Note the original payment's ID is needed as well.
+   *
+   * If you do not know the original payment's ID, you can use the chargebacks list endpoint.
    *
    * @since 1.1.1
-   *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-chargeback
    */
   public get(id: string, parameters: GetParameters): Promise<Chargeback>;
@@ -59,10 +62,11 @@ export default class PaymentsChargebacksResource extends ParentedResource<Charge
   }
 
   /**
-   * Retrieve a list of Payment Chargebacks
+   * Retrieve all received chargebacks. If the payment-specific endpoint is used, only chargebacks for that specific payment are returned.
+   *
+   * The results are paginated. See pagination for more information.
    *
    * @since 3.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
    */
   public list(parameters: ListParameters): Promise<List<Chargeback>>;

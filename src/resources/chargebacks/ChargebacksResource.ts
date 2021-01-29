@@ -17,27 +17,30 @@ export default class ChargebacksResource extends ParentedResource<ChargebackData
   }
 
   /**
-   * List chargebacks
+   * Retrieve all received chargebacks. If the payment-specific endpoint is used, only chargebacks for that specific payment are returned.
+   *
+   * The results are paginated. See pagination for more information.
    *
    * @since 2.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
    */
   public all: ChargebacksResource['list'] = this.list;
   /**
-   * List chargebacks
+   * Retrieve all received chargebacks. If the payment-specific endpoint is used, only chargebacks for that specific payment are returned.
+   *
+   * The results are paginated. See pagination for more information.
    *
    * @since 3.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
    */
   public page: ChargebacksResource['list'] = this.list;
 
   /**
-   * List chargebacks
+   * Retrieve all received chargebacks. If the payment-specific endpoint is used, only chargebacks for that specific payment are returned.
+   *
+   * The results are paginated. See pagination for more information.
    *
    * @since 3.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
    */
   public list(parameters?: ListParameters): Promise<List<Chargeback>>;

@@ -3,6 +3,8 @@ import { Address } from '../../data/global';
 export interface SubmitParameters {
   /**
    * Data of the organization you want to provide.
+   *
+   * @see https://docs.mollie.com/reference/v2/onboarding-api/submit-onboarding-data?path=organization#parameters
    */
   organization?: {
     /**
@@ -30,6 +32,8 @@ export interface SubmitParameters {
   };
   /**
    * Data of the payment profile you want to provide.
+   *
+   * @see https://docs.mollie.com/reference/v2/onboarding-api/submit-onboarding-data?path=profile#parameters
    */
   profile?: {
     /**

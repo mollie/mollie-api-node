@@ -19,8 +19,9 @@ export default class OrganizationsResource extends Resource<OrganizationData, Or
   /**
    * Retrieve an organization by its ID.
    *
-   * @since 3.2.0
+   * If you do not know the organization's ID, you can use the organizations list endpoint to retrieve all organizations that are accessible.
    *
+   * @since 3.2.0
    * @see https://docs.mollie.com/reference/v2/organizations-api/get-organization
    */
   public get(id: string): Promise<Organization>;
@@ -37,7 +38,6 @@ export default class OrganizationsResource extends Resource<OrganizationData, Or
    * Retrieve the currently authenticated organization.
    *
    * @since 3.2.0
-   *
    * @see https://docs.mollie.com/reference/v2/organizations-api/current-organization
    */
   public getCurrent(): Promise<Organization>;

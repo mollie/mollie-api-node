@@ -19,36 +19,28 @@ export default class OrdersShipmentsResource extends ParentedResource<ShipmentDa
   }
 
   /**
-   * List order shipments
+   * Retrieve all shipments for an order.
    *
    * @since 3.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/shipments-api/list-shipments
    */
   public all: OrdersShipmentsResource['list'] = this.list;
   /**
-   * List order shipments
+   * Retrieve all shipments for an order.
    *
    * @since 3.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/shipments-api/list-shipments
    */
   public page: OrdersShipmentsResource['list'] = this.list;
 
   /**
-   * In addition to the
-   * {@link https://docs.mollie.com/reference/v2/orders-api/create-order Orders API},
-   * the create shipment endpoint can be used to ship order lines.
+   * The **Create Shipment API** is used to ship order lines created by the /reference/v2/orders-api/create-order.
    *
-   * When using Klarna Pay later and Klarna Slice it this is mandatory
-   * for the order amount to be captured. An capture will automatically
-   * be created for the shipment.
+   * When using *Klarna Pay later* and *Klarna Slice it* this is mandatory for the order amount to be captured. A capture will automatically be created for the shipment.
    *
-   * The word “shipping” is used in the figurative sense here. It can also
-   * mean that a service was provided or digital content was delivered.
+   * The word "shipping" is used in the figurative sense here. It can also mean that a service was provided or digital content was delivered.
    *
    * @since 3.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/shipments-api/create-shipment
    */
   public create(parameters: CreateParameters): Promise<Shipment>;
@@ -64,10 +56,9 @@ export default class OrdersShipmentsResource extends ParentedResource<ShipmentDa
   }
 
   /**
-   * Get a Shipment by ID
+   * Retrieve a single shipment and the order lines shipped by a shipment's ID.
    *
    * @since 3.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/shipments-api/get-shipment
    */
   public get(id: string, parameters: GetParameters): Promise<Shipment>;
@@ -87,10 +78,9 @@ export default class OrdersShipmentsResource extends ParentedResource<ShipmentDa
   }
 
   /**
-   * Update a Shipment
+   * This endpoint can be used to update the tracking information of a shipment.
    *
    * @since 3.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/shipments-api/update-shipment
    */
   public update(id: string, parameters: UpdateParameters): Promise<Shipment>;
@@ -109,10 +99,9 @@ export default class OrdersShipmentsResource extends ParentedResource<ShipmentDa
   }
 
   /**
-   * List order shipments
+   * Retrieve all shipments for an order.
    *
    * @since 3.0.0
-   *
    * @see https://docs.mollie.com/reference/v2/shipments-api/list-shipments
    */
   public list(parameters: ListParameters): Promise<List<Shipment>>;
