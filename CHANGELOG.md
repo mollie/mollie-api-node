@@ -4,6 +4,12 @@
 
 All notable changes to this project will be documented in this file.
 
+### v3.5.0 - unreleased
+
+  - Add Apple Pay API ([#193](https://github.com/mollie/mollie-api-node/pull/193))
+  - Add documentation to methods and properties ([#195](https://github.com/mollie/mollie-api-node/pull/195))
+  - Replace deprecated Node.js URL API ([#196](https://github.com/mollie/mollie-api-node/pull/196))
+
 ### v3.4.0 - 2020-10-28
   - Add `embed`, `profileId`, and `testMode` to mollieClient.orders.create ([#176](https://github.com/mollie/mollie-api-node/pull/176)/[#177](https://github.com/mollie/mollie-api-node/pull/177))
   - Fix bug in mollieClient.methods.all ([#170](https://github.com/mollie/mollie-api-node/pull/170))
