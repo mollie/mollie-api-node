@@ -44,7 +44,7 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
     digitalGoods?: boolean;
 
     /**
-     * When creating a payment with the methos applepay an applePayPayment token needs to submitted.
+     * When creating a payment with the method applepay an applePayPayment token needs to submitted.
      *
      * Note that this token needs to be stringified to be accepted by the Mollie API.
      *
