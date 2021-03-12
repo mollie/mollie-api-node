@@ -42,6 +42,15 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
     billingAddress?: Address;
     shippingAddress?: Address;
     digitalGoods?: boolean;
+
+    /**
+     * When creating a payment with the methos applepay an applePayPayment token needs to submitted.
+     *
+     * Note that this token needs to be stringified to be accepted by the Mollie API.
+     *
+     * @see https://docs.mollie.com/guides/applepay-direct-integration
+     */
+    applePayPaymentToken?: string;
     /**
      * An iDEAL issuer ID, for example `ideal_INGBNL2A`. The returned payment URL will deep-link into the specific banking website (ING Bank, in this example). The full list of issuers can be
      * retrieved via the Methods API by using the optional `issuers` include.
