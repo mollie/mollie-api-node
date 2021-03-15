@@ -35,7 +35,6 @@ export enum PaymentMethod {
   giftcard = 'giftcard',
   giropay = 'giropay',
   ideal = 'ideal',
-  inghomepay = 'inghomepay',
   kbc = 'kbc',
   klarnapaylater = 'klarnapaylater',
   klarnasliceit = 'klarnasliceit',
@@ -47,6 +46,7 @@ export enum PaymentMethod {
 
 export enum HistoricPaymentMethod {
   bitcoin = 'bitcoin',
+  inghomepay = 'inghomepay',
 }
 
 export enum ApiMode {

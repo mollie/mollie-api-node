@@ -115,8 +115,8 @@ export interface PaymentData extends Model<'payment'> {
    *
    * If the payment is only partially paid with a gift card, the method remains `giftcard`.
    *
-   * Possible values: `null` `bancontact` `banktransfer` `belfius` `creditcard` `directdebit` `eps` `giftcard` `giropay` `ideal` `inghomepay` `kbc` `klarnapaylater` `klarnasliceit` `mybank` `paypal`
-   * `paysafecard` `przelewy24` `sofort`
+   * Possible values: `null` `bancontact` `banktransfer` `belfius` `creditcard` `directdebit` `eps` `giftcard` `giropay` `ideal` `kbc` `klarnapaylater` `klarnasliceit` `mybank` `paypal` `paysafecard`
+   * `przelewy24` `sofort`
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=method#response
    */
@@ -558,23 +558,8 @@ export interface IdealDetails {
 }
 
 export interface IngHomePayDetails {
-  /**
-   * Only available one banking day after the payment has been completed – The consumer's name.
-   *
-   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerName#ing-homepay
-   */
   consumerName: string;
-  /**
-   * Only available one banking day after the payment has been completed – The consumer's IBAN.
-   *
-   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerAccount#ing-homepay
-   */
   consumerAccount: string;
-  /**
-   * Only available one banking day after the payment has been completed – `BBRUBEBB`.
-   *
-   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerBic#ing-homepay
-   */
   consumerBic: string;
 }
 
