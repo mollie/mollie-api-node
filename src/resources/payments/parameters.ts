@@ -11,10 +11,9 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
      * the chosen payment method. The parameter enables you to fully integrate the payment method selection into your website.
      *
      * You can also specify the methods in an array. By doing so we will still show the payment method selection screen but will only show the methods specified in the array. For example, you can use
-     * this functionality to only show payment methods from a specific country to your customer `['bancontact', 'belfius', 'inghomepay']`.
+     * this functionality to only show payment methods from a specific country to your customer `['bancontact', 'belfius']`.
      *
-     * Possible values: `applepay` `bancontact` `banktransfer` `belfius` `creditcard` `directdebit` `eps` `giftcard` `giropay` `ideal` `inghomepay` `kbc` `mybank` `paypal` `paysafecard` `przelewy24`
-     * `sofort`
+     * Possible values: `applepay` `bancontact` `banktransfer` `belfius` `creditcard` `directdebit` `eps` `giftcard` `giropay` `ideal` `kbc` `mybank` `paypal` `paysafecard` `przelewy24` `sofort`
      *
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=method#parameters
      */
@@ -110,13 +109,13 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
     /**
      * Adding an application fee allows you to charge the merchant a small sum for the payment and transfer this to your own account.
      *
-     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=applicationFee#access-token-parameters
+     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=applicationFee#mollie-connect-parameters
      */
     applicationFee?: {
       /**
        * The amount in that the app wants to charge, e.g. `{"currency":"EUR", "value":"10.00"}` if the app would want to charge €10.00.
        *
-       * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=applicationFee/amount#access-token-parameters
+       * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=applicationFee/amount#mollie-connect-parameters
        */
       amount: Amount;
       /**
@@ -124,7 +123,7 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
        *
        * The maximum length is 255 characters.
        *
-       * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=applicationFee/description#access-token-parameters
+       * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=applicationFee/description#mollie-connect-parameters
        */
       description: string;
     };
