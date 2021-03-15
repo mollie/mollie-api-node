@@ -43,6 +43,19 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
     shippingAddress?: Address;
     digitalGoods?: boolean;
     /**
+     * The [Apple Pay Payment Token](https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypayment/1916095-token) object (encoded as JSON) that is part of the result of authorizing a
+     * payment request. The token contains the payment information needed to authorize the payment.
+     *
+     * The object should be passed encoded in a JSON string. Example:
+     *
+     * `{"paymentData": {"version": "EC_v1", "data": "vK3BbrCbI/...."}}`
+     *
+     * For documentation on how to get this token, see /guides/applepay-direct-integration.
+     *
+     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=applePayPaymentToken#apple-pay
+     */
+    applePayPaymentToken?: string;
+    /**
      * An iDEAL issuer ID, for example `ideal_INGBNL2A`. The returned payment URL will deep-link into the specific banking website (ING Bank, in this example). The full list of issuers can be
      * retrieved via the Methods API by using the optional `issuers` include.
      *
