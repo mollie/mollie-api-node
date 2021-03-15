@@ -42,13 +42,17 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
     billingAddress?: Address;
     shippingAddress?: Address;
     digitalGoods?: boolean;
-
     /**
-     * When creating a payment with the method applepay an applePayPayment token needs to submitted.
+     * The [Apple Pay Payment Token](https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypayment/1916095-token) object (encoded as JSON) that is part of the result of authorizing a
+     * payment request. The token contains the payment information needed to authorize the payment.
      *
-     * Note that this token needs to be stringified to be accepted by the Mollie API.
+     * The object should be passed encoded in a JSON string. Example:
      *
-     * @see https://docs.mollie.com/guides/applepay-direct-integration
+     * `{"paymentData": {"version": "EC_v1", "data": "vK3BbrCbI/...."}}`
+     *
+     * For documentation on how to get this token, see /guides/applepay-direct-integration.
+     *
+     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=applePayPaymentToken#apple-pay
      */
     applePayPaymentToken?: string;
     /**
