@@ -11,7 +11,7 @@
 
 # About
 
-[Mollie](https://www.mollie.com/) builds payment products, commerce solutions and APIs that let you accept online and mobile payments, for small online stores and Fortune 500s alike. Accepting [iDEAL][ideal], [Bancontact/Mister Cash][bancontact], [SOFORT Banking][sofort], [Credit Card][credit-card], [SEPA Bank transfer][bank-transfer], [SEPA Direct debit][direct-debit], [PayPal][paypal], [Belfius Direct Net][belfius], [paysafecard][paysafecard], [Gift Cards][gift-cards], [ING Home’Pay][ing-homepay], [Giropay][giropay], [EPS][eps] and [Apple Pay][apple-pay] online payments without fixed monthly costs or any punishing registration procedures. Just use the Mollie API to receive payments directly on your website or easily refund transactions to your customers.
+[Mollie](https://www.mollie.com/) builds payment products, commerce solutions and APIs that let you accept online and mobile payments, for small online stores and Fortune 500s alike. Accepting [iDEAL][ideal], [Bancontact/Mister Cash][bancontact], [SOFORT Banking][sofort], [Credit Card][credit-card], [SEPA Bank transfer][bank-transfer], [SEPA Direct debit][direct-debit], [PayPal][paypal], [Belfius Direct Net][belfius], [paysafecard][paysafecard], [Gift Cards][gift-cards], [Giropay][giropay], [EPS][eps] and [Apple Pay][apple-pay] online payments without fixed monthly costs or any punishing registration procedures. Just use the Mollie API to receive payments directly on your website or easily refund transactions to your customers.
 
 ## Features
 
@@ -227,7 +227,6 @@ Mollie is always looking for new talent to join our teams. We’re looking for i
 [belfius]: https://www.mollie.com/payments/belfius
 [paysafecard]: https://www.mollie.com/payments/paysafecard
 [gift-cards]: https://www.mollie.com/payments/gift-cards
-[ing-homepay]: https://www.mollie.com/payments/ing-homepay
 [giropay]: https://www.mollie.com/payments/giropay
 [eps]: https://www.mollie.com/payments/eps
 [apple-pay]: https://www.mollie.com/payments/apple-pay
