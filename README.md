@@ -33,12 +33,13 @@ If you include this library in a website or app, however, your API key will be s
 
 # Getting started
 
-- [Requirements](#requirements)
 - [Prerequisites](#prerequisites)
+- [Requirements](#requirements)
 - [Installation](#installation)
-- [Importing the client](#importing-the-client)
+- [How to receive payments](#how-to-receive-payments)
 - [Authentication](#authentication)
 - [Making your first request](#making-your-first-request)
+- [Pagination](#pagination)
 - [Documentation](#documentation)
 
 ## Prerequisites
