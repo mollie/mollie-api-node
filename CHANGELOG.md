@@ -4,7 +4,7 @@
 
 All notable changes to this project will be documented in this file.
 
-### v3.5.0 - unreleased
+### v3.5.0 - 2021-03-16
 
   - Add Apple Pay API ([#193](https://github.com/mollie/mollie-api-node/pull/193))
   - Add documentation to methods and properties ([#195](https://github.com/mollie/mollie-api-node/pull/195))
