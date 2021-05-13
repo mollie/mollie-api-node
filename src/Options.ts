@@ -20,8 +20,8 @@ type Options = Xor<
    */
   versionStrings?: string | string[];
   /**
-   * The headers set in the requests sent to the Mollie API. `Authorization`, `User-Agent`, `Accept-Encoding`, and
-   * `Content-Type` are set by this library directly, setting them here has no effect.
+   * The headers set in the requests sent to the Mollie API. `Authorization`, `User-Agent`, `Accept`,
+   * `Accept-Encoding`, and `Content-Type` are set by this library directly. Setting them here has no effect.
    */
   headers?: Record<string, string>;
   /**

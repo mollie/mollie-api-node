@@ -103,7 +103,7 @@ export enum SequenceType {
   recurring = 'recurring',
 }
 
-export type MollieApiErrorLinks = { [key: string]: Url } | Links;
+export type MollieApiErrorLinks = Record<string, Url> & Links;
 
 export interface MollieApiError {
   status?: number;

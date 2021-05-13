@@ -41,7 +41,7 @@ export default class ApiError extends Error {
    *
    * @since 3.0.0
    */
-  public getDocumentationUrl(): string {
+  public getDocumentationUrl(): Maybe<string> {
     return this.getUrl('documentation');
   }
 
@@ -50,7 +50,7 @@ export default class ApiError extends Error {
    *
    * @since 3.0.0
    */
-  public getDashboardUrl(): string {
+  public getDashboardUrl(): Maybe<string> {
     return this.getUrl('dashboard');
   }
 
@@ -68,15 +68,15 @@ export default class ApiError extends Error {
    *
    * @since 3.0.0
    */
-  public getLink(key: string): Url {
-    return get(this.links, key);
+  public getLink(key: string): Maybe<Url> {
+    return this.links?.[key];
   }
 
   /**
    * @since 3.0.0
    */
-  public getUrl(key: string): string {
-    return get(this.getLink(key), 'href');
+  public getUrl(key: keyof MollieApiErrorLinks): Maybe<string> {
+    return this.links?.[key]?.href;
   }
 
   public toString(): string {
