@@ -31,6 +31,14 @@ export type CreateParameters = ContextParameters &
      *
      * @see https://docs.mollie.com/reference/v2/mandates-api/create-mandate?path=signatureDate#parameters
      */
+
+    /**
+     * The consumer’s email address. Required for paypal mandates
+     *
+     * @see https://docs.mollie.com/reference/v2/mandates-api/create-mandate?path=signatureDate#parameters
+     */
+    consumerEmail?: string;
+
     signatureDate?: string;
     /**
      * A custom mandate reference. Use an unique `mandateReference` as some banks decline a Direct Debit payment if the `mandateReference` is not unique.
@@ -38,6 +46,14 @@ export type CreateParameters = ContextParameters &
      * @see https://docs.mollie.com/reference/v2/mandates-api/create-mandate?path=mandateReference#parameters
      */
     mandateReference?: string;
+
+    /**
+     * The billing agreement ID given by PayPal. For example: "B-12A34567B8901234CD".
+     * Required for paypal mandates
+     *
+     * @see https://docs.mollie.com/reference/v2/mandates-api/create-mandate?path=signatureDate#parameters
+     */
+    paypalBillingAgreementId?: string;
   };
 
 export type GetParameters = ContextParameters;
