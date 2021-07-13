@@ -6,7 +6,10 @@ import Maybe from '../types/Maybe';
 export default class ApiError extends Error {
   public constructor(message: string, protected title?: string, protected status?: number, protected field?: string, protected links?: MollieApiErrorLinks) {
     super(message);
+    // Set the name to ApiError.
     this.name = 'ApiError';
+    // Ensure the message is enumerable, making it more likely to survive serialisation.
+    Object.defineProperty(this, 'message', { enumerable: true });
   }
 
   /**
