@@ -17,7 +17,7 @@ env:
 before_install:
   - >
     if $(dpkg --compare-versions "${TRAVIS_NODE_VERSION}" "lt" "8.10.0"); then
-      nvm use v12
+      nvm use v10.16.0
     fi
 
 before_script:
