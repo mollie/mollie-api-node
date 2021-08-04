@@ -86,7 +86,7 @@ describe('orders', () => {
         })
         .then(order => {
           expect(order).toBeDefined();
-          expect(order.id).toBeUndefined();
+          expect(order.id).toBeDefined();
 
           return order;
         })
