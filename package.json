@@ -61,38 +61,14 @@
     "eslint": "^7.26.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
-    "husky": "^6.0.0",
     "jest": "24.9.0",
     "jest-bluster": "^1.0.1",
-    "lint-staged": "^11.0.0",
     "prettier": "^2.3.0",
     "rollup": "^2.47.0",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "typescript": "^4.2.4"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "src/**/*.ts": [
-      "prettier --write \"src/**/*.{js,ts}\"",
-      "eslint --ext .js,.ts --fix src/",
-      "git add src/"
-    ],
-    "tests/**/*.ts": [
-      "prettier --write \"tests/**/*.(js|ts)\"",
-      "eslint --ext .js,.ts --fix tests/",
-      "git add tests/"
-    ],
-    "examples/**/*.js": [
-      "prettier --write \"examples/**/*.(js|ts)\"",
-      "eslint --ext .js,.ts --fix examples/",
-      "git add examples/"
-    ]
   },
   "jest": {
     "moduleDirectories": [
