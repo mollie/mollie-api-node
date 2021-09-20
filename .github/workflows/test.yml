@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Node.js test
 
 on:
   push:
@@ -15,9 +15,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      # Some modules used require a greater Node.js version than the lowest supported (listed above). Switch to the
-      # second Node.js version in the tuple before installing to game the system (and switch back later before running
-      # the actual tests).
+      # Some modules used for building and testing this library require a greater Node.js version than this library
+      # itself. Switch to the second Node.js version in the tuple before installing to game the system (and switch back
+      # later before running the tests).
       - name: Use Node.js ${{ matrix.node-version[1] || matrix.node-version[0] }}
         uses: actions/setup-node@v2
         with:
