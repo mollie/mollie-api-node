@@ -27,6 +27,12 @@ export type CreateParameters = ContextParameters &
      */
     consumerBic?: string;
     /**
+     * The consumer’s email address. Required for paypal mandates
+     *
+     * @see https://docs.mollie.com/reference/v2/mandates-api/create-mandate?path=consumerEmail#parameters
+     */
+    consumerEmail?: string;
+    /**
      * The date when the mandate was signed in `YYYY-MM-DD` format.
      *
      * @see https://docs.mollie.com/reference/v2/mandates-api/create-mandate?path=signatureDate#parameters
@@ -38,6 +44,13 @@ export type CreateParameters = ContextParameters &
      * @see https://docs.mollie.com/reference/v2/mandates-api/create-mandate?path=mandateReference#parameters
      */
     mandateReference?: string;
+    /**
+     * The billing agreement ID given by PayPal. For example: "B-12A34567B8901234CD".
+     * Required for paypal mandates
+     *
+     * @see https://docs.mollie.com/reference/v2/mandates-api/create-mandate?path=paypalBillingAgreementId#parameters
+     */
+    paypalBillingAgreementId?: string;
   };
 
 export type GetParameters = ContextParameters;
