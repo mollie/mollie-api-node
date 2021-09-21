@@ -9,13 +9,13 @@ import TransformingNetworkClient from '../../../TransformingNetworkClient';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 
+function getPathSegments(orderId: string) {
+  return `orders/${orderId}/payments`;
+}
+
 export default class OrdersPaymentsBinder extends InnerBinder<PaymentData, Payment> {
   constructor(networkClient: NetworkClient) {
     super(new TransformingNetworkClient(networkClient, injectPrototypes));
-  }
-
-  protected getResourceUrl(orderId: string): string {
-    return `orders/${orderId}/payments`;
   }
 
   /**
@@ -37,6 +37,6 @@ export default class OrdersPaymentsBinder extends InnerBinder<PaymentData, Payme
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...data } = parameters;
-    return this.networkClient.post<Payment>(this.getResourceUrl(orderId), data);
+    return this.networkClient.post<Payment>(getPathSegments(orderId), data);
   }
 }

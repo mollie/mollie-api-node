@@ -8,13 +8,11 @@ import Binder from '../Binder';
 import TransformingNetworkClient from '../../TransformingNetworkClient';
 import renege from '../../plumbing/renege';
 
+const pathSegment = 'methods';
+
 export default class MethodsBinder extends Binder<MethodData, Method> {
   constructor(networkClient: NetworkClient) {
     super(new TransformingNetworkClient(networkClient, injectPrototypes));
-  }
-
-  protected getResourceUrl(): string {
-    return 'methods';
   }
 
   /**
@@ -67,7 +65,7 @@ export default class MethodsBinder extends Binder<MethodData, Method> {
   public get(id: string, parameters: GetParameters, callback: Callback<Method>): void;
   public get(id: string, parameters?: GetParameters) {
     if (renege(this, this.get, ...arguments)) return;
-    return this.networkClient.get(`${this.getResourceUrl()}/${id}`, parameters);
+    return this.networkClient.get(`${pathSegment}/${id}`, parameters);
   }
 
   /**
@@ -90,6 +88,6 @@ export default class MethodsBinder extends Binder<MethodData, Method> {
   public list(parameters: ListParameters, callback: Callback<List<Method>>): void;
   public list(parameters: ListParameters = {}) {
     if (renege(this, this.list, ...arguments)) return;
-    return this.networkClient.list(this.getResourceUrl(), 'methods', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.networkClient.list(pathSegment, 'methods', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 }

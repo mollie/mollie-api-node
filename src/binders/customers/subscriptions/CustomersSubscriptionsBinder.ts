@@ -10,13 +10,13 @@ import TransformingNetworkClient from '../../../TransformingNetworkClient';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 
+function getPathSegments(customerId: string) {
+  return `customers/${customerId}/subscriptions`;
+}
+
 export default class CustomersSubscriptionsBinder extends InnerBinder<SubscriptionData, Subscription> {
   constructor(networkClient: NetworkClient) {
     super(new TransformingNetworkClient(networkClient, injectPrototypes));
-  }
-
-  protected getResourceUrl(customerId: string): string {
-    return `customers/${customerId}/subscriptions`;
   }
 
   /**
@@ -66,7 +66,7 @@ export default class CustomersSubscriptionsBinder extends InnerBinder<Subscripti
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...data } = parameters;
-    return this.networkClient.post<Subscription>(this.getResourceUrl(customerId), data);
+    return this.networkClient.post<Subscription>(getPathSegments(customerId), data);
   }
 
   /**
@@ -88,7 +88,7 @@ export default class CustomersSubscriptionsBinder extends InnerBinder<Subscripti
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...query } = parameters ?? {};
-    return this.networkClient.get(`${this.getResourceUrl(customerId)}/${id}`, query);
+    return this.networkClient.get(`${getPathSegments(customerId)}/${id}`, query);
   }
 
   /**
@@ -107,7 +107,7 @@ export default class CustomersSubscriptionsBinder extends InnerBinder<Subscripti
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...query } = parameters ?? {};
-    return this.networkClient.list(this.getResourceUrl(customerId), 'subscriptions', query).then(result => this.injectPaginationHelpers(result, this.list, parameters ?? {}));
+    return this.networkClient.list(getPathSegments(customerId), 'subscriptions', query).then(result => this.injectPaginationHelpers(result, this.list, parameters ?? {}));
   }
 
   /**
@@ -130,7 +130,7 @@ export default class CustomersSubscriptionsBinder extends InnerBinder<Subscripti
       throw new ApiError('The customer is invalid');
     }
     const { customerId: _, ...data } = parameters;
-    return this.networkClient.patch(`${this.getResourceUrl(customerId)}/${id}`, data);
+    return this.networkClient.patch(`${getPathSegments(customerId)}/${id}`, data);
   }
 
   /**
@@ -152,6 +152,6 @@ export default class CustomersSubscriptionsBinder extends InnerBinder<Subscripti
       throw new ApiError('The customer is invalid');
     }
     const { customerId: _, ...context } = parameters ?? {};
-    return this.networkClient.delete<Subscription>(`${this.getResourceUrl(customerId)}/${id}`, context);
+    return this.networkClient.delete<Subscription>(`${getPathSegments(customerId)}/${id}`, context);
   }
 }

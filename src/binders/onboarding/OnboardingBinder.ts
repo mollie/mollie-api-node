@@ -7,13 +7,11 @@ import Binder from '../Binder';
 import TransformingNetworkClient from '../../TransformingNetworkClient';
 import renege from '../../plumbing/renege';
 
+const pathSegments = 'onboarding/me';
+
 export default class OnboardingBinder extends Binder<OnboardingData, Onboarding> {
   constructor(networkClient: NetworkClient) {
     super(new TransformingNetworkClient(networkClient, injectPrototypes));
-  }
-
-  protected getResourceUrl(): string {
-    return 'onboarding/me';
   }
 
   /**
@@ -26,7 +24,7 @@ export default class OnboardingBinder extends Binder<OnboardingData, Onboarding>
   public get(callback: Callback<Onboarding>): void;
   public get() {
     if (renege(this, this.get, ...arguments)) return;
-    return this.networkClient.get(this.getResourceUrl());
+    return this.networkClient.get(pathSegments);
   }
 
   /**
@@ -39,6 +37,6 @@ export default class OnboardingBinder extends Binder<OnboardingData, Onboarding>
   public submit(parameters: SubmitParameters, callback: Callback<true>): void;
   public submit(parameters: SubmitParameters) {
     if (renege(this, this.submit, ...arguments)) return;
-    return this.networkClient.post<true>(this.getResourceUrl(), parameters);
+    return this.networkClient.post<true>(pathSegments, parameters);
   }
 }

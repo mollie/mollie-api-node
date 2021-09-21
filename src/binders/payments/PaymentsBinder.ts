@@ -10,13 +10,11 @@ import TransformingNetworkClient from '../../TransformingNetworkClient';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
 
+const pathSegment = 'payments';
+
 export default class PaymentsBinder extends Binder<PaymentData, Payment> {
   constructor(networkClient: NetworkClient) {
     super(new TransformingNetworkClient(networkClient, injectPrototypes));
-  }
-
-  protected getResourceUrl(): string {
-    return 'payments';
   }
 
   /**
@@ -64,7 +62,7 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
     if (renege(this, this.create, ...arguments)) return;
     const { include, ...data } = parameters;
     const query = include != undefined ? { include } : undefined;
-    return this.networkClient.post<Payment>(this.getResourceUrl(), data, query);
+    return this.networkClient.post<Payment>(pathSegment, data, query);
   }
 
   /**
@@ -80,7 +78,7 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
     if (!checkId(id, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }
-    return this.networkClient.get(`${this.getResourceUrl()}/${id}`, parameters);
+    return this.networkClient.get(`${pathSegment}/${id}`, parameters);
   }
 
   /**
@@ -95,7 +93,7 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
   public list(parameters: ListParameters, callback: Callback<List<Payment>>): void;
   public list(parameters: ListParameters = {}) {
     if (renege(this, this.list, ...arguments)) return;
-    return this.networkClient.list(this.getResourceUrl(), 'payments', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.networkClient.list(pathSegment, 'payments', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 
   /**
@@ -111,7 +109,7 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
     if (!checkId(id, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }
-    return this.networkClient.patch(`${this.getResourceUrl()}/${id}`, parameters);
+    return this.networkClient.patch(`${pathSegment}/${id}`, parameters);
   }
 
   /**
@@ -130,6 +128,6 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
     if (!checkId(id, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }
-    return this.networkClient.delete<Payment>(`${this.getResourceUrl()}/${id}`, parameters);
+    return this.networkClient.delete<Payment>(`${pathSegment}/${id}`, parameters);
   }
 }

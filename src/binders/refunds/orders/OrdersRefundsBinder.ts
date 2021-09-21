@@ -10,13 +10,13 @@ import TransformingNetworkClient from '../../../TransformingNetworkClient';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 
+function getPathSegments(orderId: string) {
+  return `orders/${orderId}/refunds`;
+}
+
 export default class OrderRefundsBinder extends InnerBinder<RefundData, Refund> {
   constructor(networkClient: NetworkClient) {
     super(new TransformingNetworkClient(networkClient, injectPrototypes));
-  }
-
-  protected getResourceUrl(orderId: string): string {
-    return `orders/${orderId}/refunds`;
   }
 
   /**
@@ -60,7 +60,7 @@ export default class OrderRefundsBinder extends InnerBinder<RefundData, Refund> 
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...data } = parameters;
-    return this.networkClient.post<Refund>(this.getResourceUrl(orderId), data);
+    return this.networkClient.post<Refund>(getPathSegments(orderId), data);
   }
 
   /**
@@ -81,6 +81,6 @@ export default class OrderRefundsBinder extends InnerBinder<RefundData, Refund> 
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...query } = parameters ?? {};
-    return this.networkClient.list(this.getResourceUrl(orderId), 'refunds', query).then(result => this.injectPaginationHelpers(result, this.list, parameters ?? {}));
+    return this.networkClient.list(getPathSegments(orderId), 'refunds', query).then(result => this.injectPaginationHelpers(result, this.list, parameters ?? {}));
   }
 }

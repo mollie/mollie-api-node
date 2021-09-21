@@ -9,13 +9,13 @@ import TransformingNetworkClient from '../../../TransformingNetworkClient';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 
+function getPathSegments(paymentId: string) {
+  return `payments/${paymentId}/chargebacks`;
+}
+
 export default class PaymentsChargebacksBinder extends InnerBinder<ChargebackData, Chargeback> {
   constructor(networkClient: NetworkClient) {
     super(new TransformingNetworkClient(networkClient, injectPrototypes));
-  }
-
-  protected getResourceUrl(paymentId: string): string {
-    return `payments/${paymentId}/chargebacks`;
   }
 
   /**
@@ -58,7 +58,7 @@ export default class PaymentsChargebacksBinder extends InnerBinder<ChargebackDat
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    return this.networkClient.get(`${this.getResourceUrl(paymentId)}/${id}`, query);
+    return this.networkClient.get(`${getPathSegments(paymentId)}/${id}`, query);
   }
 
   /**
@@ -79,6 +79,6 @@ export default class PaymentsChargebacksBinder extends InnerBinder<ChargebackDat
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    return this.networkClient.list(this.getResourceUrl(paymentId), 'chargebacks', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.networkClient.list(getPathSegments(paymentId), 'chargebacks', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 }

@@ -4,6 +4,8 @@ import Callback from '../../types/Callback';
 import NetworkClient from '../../NetworkClient';
 import renege from '../../plumbing/renege';
 
+const pathSegments = 'wallets/applepay/sessions';
+
 export default class ApplePayBinder {
   constructor(protected readonly networkClient: NetworkClient) {}
 
@@ -34,6 +36,6 @@ export default class ApplePayBinder {
   public requestPaymentSession(parameters: RequestPaymentSessionParameters, callback: Callback<ApplePaySession>): void;
   public requestPaymentSession(parameters: RequestPaymentSessionParameters) {
     if (renege(this, this.requestPaymentSession, ...arguments)) return;
-    return this.networkClient.post<ApplePaySession>('wallets/applepay/sessions', parameters);
+    return this.networkClient.post<ApplePaySession>(pathSegments, parameters);
   }
 }

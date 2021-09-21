@@ -10,13 +10,13 @@ import TransformingNetworkClient from '../../../TransformingNetworkClient';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 
+function getPathSegments(customerId: string, subscriptionId: string): string {
+  return `customers/${customerId}/subscriptions/${subscriptionId}/payments`;
+}
+
 export default class SubscriptionsPaymentsBinder extends InnerBinder<PaymentData, Payment> {
   constructor(networkClient: NetworkClient) {
     super(new TransformingNetworkClient(networkClient, injectPrototypes));
-  }
-
-  protected getResourceUrl(customerId: string, subscriptionId: string): string {
-    return `customers/${customerId}/subscriptions/${subscriptionId}/payments`;
   }
 
   /**
@@ -38,6 +38,6 @@ export default class SubscriptionsPaymentsBinder extends InnerBinder<PaymentData
       throw new ApiError('The subscription id is invalid');
     }
     const { customerId: _, subscriptionId: __, ...query } = parameters;
-    return this.networkClient.list(this.getResourceUrl(customerId, subscriptionId), 'payments', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.networkClient.list(getPathSegments(customerId, subscriptionId), 'payments', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 }

@@ -8,13 +8,11 @@ import Binder from '../Binder';
 import TransformingNetworkClient from '../../TransformingNetworkClient';
 import renege from '../../plumbing/renege';
 
+const pathSegment = 'refunds';
+
 export default class RefundsBinder extends Binder<RefundData, Refund> {
   constructor(networkClient: NetworkClient) {
     super(new TransformingNetworkClient(networkClient, injectPrototypes));
-  }
-
-  protected getResourceUrl(): string {
-    return 'refunds';
   }
 
   /**
@@ -63,6 +61,6 @@ export default class RefundsBinder extends Binder<RefundData, Refund> {
   public list(parameters: ListParameters, callback: Callback<List<Refund>>): void;
   public list(parameters: ListParameters = {}) {
     if (renege(this, this.list, ...arguments)) return;
-    return this.networkClient.list(this.getResourceUrl(), 'refunds', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.networkClient.list(pathSegment, 'refunds', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 }

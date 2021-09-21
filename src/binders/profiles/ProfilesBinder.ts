@@ -10,13 +10,11 @@ import TransformingNetworkClient from '../../TransformingNetworkClient';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
 
+const pathSegment = 'profiles';
+
 export default class ProfilesBinder extends Binder<ProfileData, Profile> {
   constructor(networkClient: NetworkClient) {
     super(new TransformingNetworkClient(networkClient, injectPrototypes));
-  }
-
-  protected getResourceUrl(): string {
-    return 'profiles';
   }
 
   /**
@@ -30,7 +28,7 @@ export default class ProfilesBinder extends Binder<ProfileData, Profile> {
   public create(parameters: CreateParameters, callback: Callback<Profile>): void;
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
-    return this.networkClient.post<Profile>(this.getResourceUrl(), parameters);
+    return this.networkClient.post<Profile>(pathSegment, parameters);
   }
 
   /**
@@ -46,7 +44,7 @@ export default class ProfilesBinder extends Binder<ProfileData, Profile> {
     if (!checkId(id, 'profile')) {
       throw new ApiError('The profile id is invalid');
     }
-    return this.networkClient.get(`${this.getResourceUrl()}/${id}`);
+    return this.networkClient.get(`${pathSegment}/${id}`);
   }
 
   /**
@@ -62,7 +60,7 @@ export default class ProfilesBinder extends Binder<ProfileData, Profile> {
   public getCurrent(callback: Callback<Profile>): void;
   public getCurrent() {
     if (renege(this, this.getCurrent, ...arguments)) return;
-    return this.networkClient.get(`${this.getResourceUrl()}/me`);
+    return this.networkClient.get(`${pathSegment}/me`);
   }
 
   /**
@@ -77,7 +75,7 @@ export default class ProfilesBinder extends Binder<ProfileData, Profile> {
   public list(parameters: ListParameters, callback: Callback<List<Profile>>): void;
   public list(parameters: ListParameters = {}) {
     if (renege(this, this.list, ...arguments)) return;
-    return this.networkClient.list(this.getResourceUrl(), 'profiles', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.networkClient.list(pathSegment, 'profiles', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 
   /**
@@ -94,7 +92,7 @@ export default class ProfilesBinder extends Binder<ProfileData, Profile> {
     if (!checkId(id, 'profile')) {
       throw new ApiError('The profile id is invalid');
     }
-    return this.networkClient.patch(`${this.getResourceUrl()}/${id}`, parameters);
+    return this.networkClient.patch(`${pathSegment}/${id}`, parameters);
   }
 
   /**
@@ -110,6 +108,6 @@ export default class ProfilesBinder extends Binder<ProfileData, Profile> {
     if (!checkId(id, 'profile')) {
       throw new ApiError('The profile id is invalid');
     }
-    return this.networkClient.delete<true>(`${this.getResourceUrl()}/${id}`);
+    return this.networkClient.delete<true>(`${pathSegment}/${id}`);
   }
 }

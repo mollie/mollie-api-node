@@ -8,13 +8,11 @@ import Binder from '../Binder';
 import TransformingNetworkClient from '../../TransformingNetworkClient';
 import renege from '../../plumbing/renege';
 
+const pathSegment = 'permissions';
+
 export default class PermissionsBinder extends Binder<PermissionData, Permission> {
   constructor(networkClient: NetworkClient) {
     super(new TransformingNetworkClient(networkClient, injectPrototypes));
-  }
-
-  protected getResourceUrl(): string {
-    return 'permissions';
   }
 
   /**
@@ -31,7 +29,7 @@ export default class PermissionsBinder extends Binder<PermissionData, Permission
     if (!checkId(id, 'permission')) {
       throw new ApiError('The permission id is invalid');
     }
-    return this.networkClient.get(`${this.getResourceUrl()}/${id}`);
+    return this.networkClient.get(`${pathSegment}/${id}`);
   }
 
   /**
@@ -44,6 +42,6 @@ export default class PermissionsBinder extends Binder<PermissionData, Permission
   public list(callback: Callback<List<Permission>>): void;
   public list() {
     if (renege(this, this.list, ...arguments)) return;
-    return this.networkClient.list(this.getResourceUrl(), 'permissions', {}).then(result => this.injectPaginationHelpers<undefined>(result, this.list, undefined));
+    return this.networkClient.list(pathSegment, 'permissions', {}).then(result => this.injectPaginationHelpers<undefined>(result, this.list, undefined));
   }
 }

@@ -10,6 +10,8 @@ import TransformingNetworkClient from '../../TransformingNetworkClient';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
 
+const pathSegment = 'orders';
+
 /**
  * The **Orders API** allows you to use Mollie for your order management.
  *
@@ -31,10 +33,6 @@ import renege from '../../plumbing/renege';
 export default class OrdersBinder extends Binder<OrderData, Order> {
   constructor(networkClient: NetworkClient) {
     super(new TransformingNetworkClient(networkClient, injectPrototypes));
-  }
-
-  protected getResourceUrl(): string {
-    return 'orders';
   }
 
   /**
@@ -95,7 +93,7 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
     if (renege(this, this.create, ...arguments)) return;
     const { embed, ...data } = parameters;
     const query = embed != undefined ? { embed } : undefined;
-    return this.networkClient.post<Order>(this.getResourceUrl(), data, query);
+    return this.networkClient.post<Order>(pathSegment, data, query);
   }
 
   /**
@@ -111,7 +109,7 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
     if (!checkId(id, 'order')) {
       throw new ApiError('The order id is invalid');
     }
-    return this.networkClient.get(`${this.getResourceUrl()}/${id}`, parameters);
+    return this.networkClient.get(`${pathSegment}/${id}`, parameters);
   }
 
   /**
@@ -126,7 +124,7 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
   public list(parameters: ListParameters, callback: Callback<List<Order>>): void;
   public list(parameters: ListParameters = {}) {
     if (renege(this, this.list, ...arguments)) return;
-    return this.networkClient.list(this.getResourceUrl(), 'orders', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.networkClient.list(pathSegment, 'orders', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 
   /**
@@ -145,7 +143,7 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
     if (!checkId(id, 'order')) {
       throw new ApiError('The order id is invalid');
     }
-    return this.networkClient.patch(`${this.getResourceUrl()}/${id}`, parameters);
+    return this.networkClient.patch(`${pathSegment}/${id}`, parameters);
   }
 
   /**
@@ -173,6 +171,6 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
     if (!checkId(id, 'order')) {
       throw new ApiError('The order id is invalid');
     }
-    return this.networkClient.delete<Order>(`${this.getResourceUrl()}/${id}`, parameters);
+    return this.networkClient.delete<Order>(`${pathSegment}/${id}`, parameters);
   }
 }

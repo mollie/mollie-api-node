@@ -9,13 +9,11 @@ import TransformingNetworkClient from '../../TransformingNetworkClient';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
 
+const pathSegment = 'customers';
+
 export default class CustomersBinder extends Binder<CustomerData, Customer> {
   constructor(networkClient: NetworkClient) {
     super(new TransformingNetworkClient(networkClient, injectPrototypes));
-  }
-
-  protected getResourceUrl(): string {
-    return 'customers';
   }
 
   /**
@@ -55,7 +53,7 @@ export default class CustomersBinder extends Binder<CustomerData, Customer> {
   public create(parameters: CreateParameters, callback: Callback<Customer>): void;
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
-    return this.networkClient.post<Customer>(this.getResourceUrl(), parameters);
+    return this.networkClient.post<Customer>(pathSegment, parameters);
   }
 
   /**
@@ -71,7 +69,7 @@ export default class CustomersBinder extends Binder<CustomerData, Customer> {
     if (!checkId(id, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
-    return this.networkClient.get(`${this.getResourceUrl()}/${id}`, parameters);
+    return this.networkClient.get(`${pathSegment}/${id}`, parameters);
   }
 
   /**
@@ -86,7 +84,7 @@ export default class CustomersBinder extends Binder<CustomerData, Customer> {
   public list(parameters: ListParameters, callback: Callback<List<Customer>>): void;
   public list(parameters: ListParameters = {}) {
     if (renege(this, this.list, ...arguments)) return;
-    return this.networkClient.list(this.getResourceUrl(), 'customers', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.networkClient.list(pathSegment, 'customers', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 
   /**
@@ -102,7 +100,7 @@ export default class CustomersBinder extends Binder<CustomerData, Customer> {
     if (!checkId(id, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
-    return this.networkClient.patch(`${this.getResourceUrl()}/${id}`, parameters);
+    return this.networkClient.patch(`${pathSegment}/${id}`, parameters);
   }
 
   /**
@@ -118,6 +116,6 @@ export default class CustomersBinder extends Binder<CustomerData, Customer> {
     if (!checkId(id, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
-    return this.networkClient.delete<true>(`${this.getResourceUrl()}/${id}`, parameters);
+    return this.networkClient.delete<true>(`${pathSegment}/${id}`, parameters);
   }
 }

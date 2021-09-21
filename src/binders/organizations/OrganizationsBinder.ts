@@ -7,13 +7,11 @@ import Binder from '../Binder';
 import TransformingNetworkClient from '../../TransformingNetworkClient';
 import renege from '../../plumbing/renege';
 
+const pathSegment = 'organizations';
+
 export default class OrganizationsBinder extends Binder<OrganizationData, Organization> {
   constructor(networkClient: NetworkClient) {
     super(new TransformingNetworkClient(networkClient, injectPrototypes));
-  }
-
-  protected getResourceUrl(): string {
-    return 'organizations';
   }
 
   /**
@@ -31,7 +29,7 @@ export default class OrganizationsBinder extends Binder<OrganizationData, Organi
     if (!checkId(id, 'organization')) {
       throw new ApiError('The organization id is invalid');
     }
-    return this.networkClient.get(`${this.getResourceUrl()}/${id}`);
+    return this.networkClient.get(`${pathSegment}/${id}`);
   }
 
   /**
@@ -44,6 +42,6 @@ export default class OrganizationsBinder extends Binder<OrganizationData, Organi
   public getCurrent(callback: Callback<Organization>): void;
   public getCurrent() {
     if (renege(this, this.getCurrent, ...arguments)) return;
-    return this.networkClient.get(`${this.getResourceUrl()}/me`);
+    return this.networkClient.get(`${pathSegment}/me`);
   }
 }

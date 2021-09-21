@@ -10,13 +10,13 @@ import TransformingNetworkClient from '../../../TransformingNetworkClient';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 
+function getPathSegments(customerId: string) {
+  return `customers/${customerId}/mandates`;
+}
+
 export default class CustomersMandatesBinder extends InnerBinder<MandateData, Mandate> {
   constructor(networkClient: NetworkClient) {
     super(new TransformingNetworkClient(networkClient, injectPrototypes));
-  }
-
-  protected getResourceUrl(customerId: string): string {
-    return `customers/${customerId}/mandates`;
   }
 
   /**
@@ -70,7 +70,7 @@ export default class CustomersMandatesBinder extends InnerBinder<MandateData, Ma
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...data } = parameters;
-    return this.networkClient.post<Mandate>(this.getResourceUrl(customerId), data);
+    return this.networkClient.post<Mandate>(getPathSegments(customerId), data);
   }
 
   /**
@@ -92,7 +92,7 @@ export default class CustomersMandatesBinder extends InnerBinder<MandateData, Ma
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...query } = parameters ?? {};
-    return this.networkClient.get(`${this.getResourceUrl(customerId)}/${id}`, query);
+    return this.networkClient.get(`${getPathSegments(customerId)}/${id}`, query);
   }
 
   /**
@@ -113,7 +113,7 @@ export default class CustomersMandatesBinder extends InnerBinder<MandateData, Ma
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...query } = parameters ?? {};
-    return this.networkClient.list(this.getResourceUrl(customerId), 'mandates', query).then(result => this.injectPaginationHelpers(result, this.list, parameters ?? {}));
+    return this.networkClient.list(getPathSegments(customerId), 'mandates', query).then(result => this.injectPaginationHelpers(result, this.list, parameters ?? {}));
   }
 
   /**
@@ -135,6 +135,6 @@ export default class CustomersMandatesBinder extends InnerBinder<MandateData, Ma
       throw new ApiError('The customer is invalid');
     }
     const { customerId: _, ...context } = parameters ?? {};
-    return this.networkClient.delete<true>(`${this.getResourceUrl(customerId)}/${id}`, context);
+    return this.networkClient.delete<true>(`${getPathSegments(customerId)}/${id}`, context);
   }
 }
