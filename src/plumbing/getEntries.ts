@@ -8,6 +8,6 @@ export default ((): (<T>(input: Record<string, T>) => [string, T][]) => {
     return Object.entries;
   }
   return function getEntries<T>(input: Record<string, T>) {
-    return Object.keys(input).map((key: string): [string, T] => [key, input[key]]);
+    return Object.keys(input).map(key => [key, input[key]]);
   };
 })();
