@@ -45,7 +45,7 @@ test('createCustomerPayment', async () => {
     },
   });
 
-  const payment = await bluster(client.customers_payments.create.bind(client.customers_payments))({
+  const payment = await bluster(client.customersPayments.create.bind(client.customersPayments))({
     amount: {
       currency: 'EUR',
       value: '20.00',
@@ -214,7 +214,7 @@ test('listCustomerPayouts', async () => {
     count: 3,
   });
 
-  const payments = await bluster(client.customers_payments.all.bind(client.customers_payments))({ customerId: 'cst_FhQJRw4s2n' });
+  const payments = await bluster(client.customersPayments.all.bind(client.customersPayments))({ customerId: 'cst_FhQJRw4s2n' });
 
   expect(payments.length).toBe(3);
 

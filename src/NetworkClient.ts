@@ -141,7 +141,7 @@ export default class NetworkClient {
     }
     return response.data;
   }
-  async list<R>(url: string, resourceName: string, query: Record<string, any> = {}): Promise<Array<R> & Pick<List<R>, 'links' | 'count'>> {
+  async list<R>(url: string, binderName: string, query: Record<string, any> = {}): Promise<Array<R> & Pick<List<R>, 'links' | 'count'>> {
     try {
       var response: AxiosResponse = await this.axiosInstance.get(`${url}${stringifyQuery(query)}`);
     } catch (error) {
@@ -155,7 +155,7 @@ export default class NetworkClient {
     } catch (error) {
       throw new ApiError('Received unexpected response from the server');
     }
-    return Object.assign(Array.from<R>(embedded[resourceName]), {
+    return Object.assign(Array.from<R>(embedded[binderName]), {
       links,
       count,
     });

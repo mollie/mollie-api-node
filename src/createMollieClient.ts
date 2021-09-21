@@ -3,31 +3,39 @@ import { version as libraryVersion } from '../package.json';
 import caCertificates from './cacert.pem';
 import NetworkClient from './NetworkClient';
 import Options from './Options';
+import buildFromEntries from './plumbing/buildFromEntries';
 
-// Resources
-import ApplePayResource from './resources/applePay/ApplePayResource';
-import ChargebacksResource from './resources/chargebacks/ChargebacksResource';
-import CustomersMandatesResource from './resources/customers/mandates/CustomersMandatesResource';
-import CustomersPaymentsResource from './resources/customers/payments/CustomersPaymentsResource';
-import CustomersResource from './resources/customers/CustomersResource';
-import CustomersSubscriptionsResource from './resources/customers/subscriptions/CustomersSubscriptionsResource';
-import MethodsResource from './resources/methods/MethodsResource';
-import OnboardingResource from './resources/onboarding/OnboardingResource';
-import OrdersLinesResource from './resources/orders/orderlines/OrderLinesResource';
-import OrdersPaymentsResource from './resources/payments/orders/OrdersPaymentsResource';
-import OrdersRefundsResource from './resources/refunds/orders/OrdersRefundsResource';
-import OrdersResource from './resources/orders/OrdersResource';
-import OrdersShipmentsResource from './resources/orders/shipments/OrdersShipmentsResource';
-import OrganizationsResource from './resources/organizations/OrganizationsResource';
-import PaymentsCapturesResource from './resources/payments/captures/PaymentsCapturesResource';
-import PaymentsChargebacksResource from './resources/payments/chargebacks/PaymentsChargebacksResource';
-import PaymentsRefundsResource from './resources/payments/refunds/PaymentRefundsResource';
-import PaymentsResource from './resources/payments/PaymentsResource';
-import PermissionsResource from './resources/permissions/PermissionResource';
-import ProfilesResource from './resources/profiles/ProfilesResource';
-import RefundsResource from './resources/refunds/RefundsResource';
-import SubscriptionsResource from './resources/subscriptions/SubscriptionsResource';
-import SubscriptionsPaymentsResource from './resources/subscriptions/payments/SubscriptionsPaymentsResource';
+// Binders
+import ApplePayBinder from './binders/applePay/ApplePayBinder';
+import ChargebacksBinder from './binders/chargebacks/ChargebacksBinder';
+import CustomersMandatesBinder from './binders/customers/mandates/CustomersMandatesBinder';
+import CustomersPaymentsBinder from './binders/customers/payments/CustomersPaymentsBinder';
+import CustomersBinder from './binders/customers/CustomersBinder';
+import CustomersSubscriptionsBinder from './binders/customers/subscriptions/CustomersSubscriptionsBinder';
+import MethodsBinder from './binders/methods/MethodsBinder';
+import OnboardingBinder from './binders/onboarding/OnboardingBinder';
+import OrdersLinesBinder from './binders/orders/orderlines/OrderLinesBinder';
+import OrdersPaymentsBinder from './binders/payments/orders/OrdersPaymentsBinder';
+import OrdersRefundsBinder from './binders/refunds/orders/OrdersRefundsBinder';
+import OrdersBinder from './binders/orders/OrdersBinder';
+import OrdersShipmentsBinder from './binders/orders/shipments/OrdersShipmentsBinder';
+import OrganizationsBinder from './binders/organizations/OrganizationsBinder';
+import PaymentsCapturesBinder from './binders/payments/captures/PaymentsCapturesBinder';
+import PaymentsChargebacksBinder from './binders/payments/chargebacks/PaymentsChargebacksBinder';
+import PaymentsRefundsBinder from './binders/payments/refunds/PaymentRefundsBinder';
+import PaymentsBinder from './binders/payments/PaymentsBinder';
+import PermissionsBinder from './binders/permissions/PermissionBinder';
+import ProfilesBinder from './binders/profiles/ProfilesBinder';
+import RefundsBinder from './binders/refunds/RefundsBinder';
+import SubscriptionsBinder from './binders/subscriptions/SubscriptionsBinder';
+import SubscriptionsPaymentsBinder from './binders/subscriptions/payments/SubscriptionsPaymentsBinder';
+
+/**
+ * Returns an object which has a property for each passed key, which share the same (passed) value.
+ */
+function alias<T, K extends string>(value: T, ...keys: K[]) {
+  return buildFromEntries(keys.map(name => [name, value])) as { [ P in K ]: T };
+}
 
 /**
  * Create Mollie client.
@@ -47,62 +55,60 @@ export default function createMollieClient(options: Options) {
 
   const networkClient = new NetworkClient(Object.assign({}, options, { libraryVersion, nodeVersion: process.version, caCertificates }));
 
-  /* eslint-disable @typescript-eslint/camelcase */
   return {
-    // Payments API
-    payments: new PaymentsResource(networkClient),
+    // Payments.
+    payments: new PaymentsBinder(networkClient),
 
-    // Methods API
-    methods: new MethodsResource(networkClient),
+    // Methods.
+    methods: new MethodsBinder(networkClient),
 
-    // Refunds API
-    payments_refunds: new PaymentsRefundsResource(networkClient),
-    refunds: new RefundsResource(networkClient),
+    // Refunds.
+    ...alias(new PaymentsRefundsBinder(networkClient), 'paymentsRefunds', 'payments_refunds'),
+    refunds: new RefundsBinder(networkClient),
 
-    // Chargebacks API
-    payments_chargebacks: new PaymentsChargebacksResource(networkClient),
-    chargebacks: new ChargebacksResource(networkClient),
+    // Chargebacks.
+    ...alias(new PaymentsChargebacksBinder(networkClient), 'paymentsChargebacks', 'payments_chargebacks'),
+    chargebacks: new ChargebacksBinder(networkClient),
 
-    // Captures API
-    payments_captures: new PaymentsCapturesResource(networkClient),
+    // Captures.
+    ...alias(new PaymentsCapturesBinder(networkClient), 'paymentsCaptures', 'payments_captures'),
 
-    // Customers API
-    customers: new CustomersResource(networkClient),
-    customers_payments: new CustomersPaymentsResource(networkClient),
+    // Customers.
+    customers: new CustomersBinder(networkClient),
+    ...alias(new CustomersPaymentsBinder(networkClient), 'customersPayments', 'customers_payments'),
 
-    // Mandates API
-    customers_mandates: new CustomersMandatesResource(networkClient),
+    // Mandates.
+    ...alias(new CustomersMandatesBinder(networkClient), 'customersMandates', 'customers_mandates'),
 
-    // Subscriptions API
-    subscription: new SubscriptionsResource(networkClient),
-    subscriptions_payments: new SubscriptionsPaymentsResource(networkClient),
-    customers_subscriptions: new CustomersSubscriptionsResource(networkClient),
+    // Subscriptions.
+    subscription: new SubscriptionsBinder(networkClient),
+    ...alias(new SubscriptionsPaymentsBinder(networkClient), 'subscriptionsPayments', 'subscriptions_payments'),
+    ...alias(new CustomersSubscriptionsBinder(networkClient), 'customersSubscriptions', 'customers_subscriptions'),
 
-    // Orders API
-    orders: new OrdersResource(networkClient),
-    orders_refunds: new OrdersRefundsResource(networkClient),
-    orders_lines: new OrdersLinesResource(networkClient),
-    orders_payments: new OrdersPaymentsResource(networkClient),
+    // Orders.
+    orders: new OrdersBinder(networkClient),
+    ...alias(new OrdersRefundsBinder(networkClient), 'ordersRefunds', 'orders_refunds'),
+    ...alias(new OrdersLinesBinder(networkClient), 'ordersLines', 'orders_lines'),
+    ...alias(new OrdersPaymentsBinder(networkClient), 'ordersPayments', 'orders_payments'),
 
-    // Shipments API
-    orders_shipments: new OrdersShipmentsResource(networkClient),
+    // Shipments.
+    ...alias(new OrdersShipmentsBinder(networkClient), 'ordersShipments', 'orders_shipments'),
 
-    // Permissions API
-    permissions: new PermissionsResource(networkClient),
+    // Permissions.
+    permissions: new PermissionsBinder(networkClient),
 
-    // Organizations API
-    organizations: new OrganizationsResource(networkClient),
+    // Organizations.
+    organizations: new OrganizationsBinder(networkClient),
 
-    // Profiles API
-    profiles: new ProfilesResource(networkClient),
+    // Profiles.
+    profiles: new ProfilesBinder(networkClient),
 
-    // Onboarding API
-    onboarding: new OnboardingResource(networkClient),
+    // Onboarding.
+    onboarding: new OnboardingBinder(networkClient),
 
-    // Apple Pay API
-    applePay: new ApplePayResource(networkClient),
+    // Apple Pay.
+    applePay: new ApplePayBinder(networkClient),
   };
-  /* eslint-enable @typescript-eslint/camelcase */
 }
 
 export { createMollieClient };

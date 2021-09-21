@@ -8,11 +8,11 @@ export { default as MollieOptions } from './Options';
 export { default as List } from './data/list/List';
 
 export { default as Capture } from './data/payments/captures/Capture';
-import { GetParameters as CapturesGetParameters, ListParameters as CapturesListParameters } from './resources/payments/captures/parameters';
+import { GetParameters as CapturesGetParameters, ListParameters as CapturesListParameters } from './binders/payments/captures/parameters';
 export { CapturesGetParameters, CapturesListParameters };
 
 export { default as Chargeback } from './data/chargebacks/Chargeback';
-import { ListParameters as ChargebacksListParameters } from './resources/chargebacks/parameters';
+import { ListParameters as ChargebacksListParameters } from './binders/chargebacks/parameters';
 export { ChargebacksListParameters };
 
 export { default as Customer } from './data/customers/Customer';
@@ -22,7 +22,7 @@ import {
   GetParameters as CustomerGetParams,
   UpdateParameters as CustomerUpdateParams,
   ListParameters as CustomersListParams,
-} from './resources/customers/parameters';
+} from './binders/customers/parameters';
 export { CustomerCreateParams, CustomerGetParams, CustomersListParams, CustomerUpdateParams, CustomerDeleteParams };
 
 export { default as Mandate } from './data/customers/mandates/Mandate';
@@ -31,15 +31,15 @@ import {
   GetParameters as MandateGetParams,
   RevokeParameters as MandateRevokeParams,
   ListParameters as MandatesListParams,
-} from './resources/customers/mandates/parameters';
+} from './binders/customers/mandates/parameters';
 export { MandateCreateParams, MandateGetParams, MandatesListParams, MandateRevokeParams };
 
 export { default as Method } from './data/methods/Method';
-import { GetParameters as MethodGetParams, ListParameters as MethodsListParams } from './resources/methods/parameters';
+import { GetParameters as MethodGetParams, ListParameters as MethodsListParams } from './binders/methods/parameters';
 export { MethodGetParams, MethodsListParams };
 
 export { default as Onboarding } from './data/onboarding/Onboarding';
-import { SubmitParameters as OnboardingSubmitParameters } from './resources/onboarding/parameters';
+import { SubmitParameters as OnboardingSubmitParameters } from './binders/onboarding/parameters';
 export { OnboardingSubmitParameters };
 
 export { default as Order } from './data/orders/Order';
@@ -49,30 +49,30 @@ import {
   GetParameters as OrderGetParams,
   UpdateParameters as OrderUpdateParams,
   ListParameters as OrdersListParams,
-} from './resources/orders/parameters';
+} from './binders/orders/parameters';
 export { OrderCreateParams, OrderGetParams, OrdersListParams, OrderUpdateParams, OrderCancelParams };
 
 export { default as OrderLine } from './data/orders/orderlines/OrderLine';
-import { CancelParameters as OrderLineCancelParams, UpdateParameters as OrderLineUpdateParams } from './resources/orders/orderlines/parameters';
+import { CancelParameters as OrderLineCancelParams, UpdateParameters as OrderLineUpdateParams } from './binders/orders/orderlines/parameters';
 export { OrderLineUpdateParams, OrderLineCancelParams };
 
 export { default as Organization } from './data/organizations/Organizations';
 
 export { default as Payment } from './data/payments/Payment';
-import { CreateParameters as CustomerPaymentCreateParams, ListParameters as CustomerPaymentsListParams } from './resources/customers/payments/parameters';
-import { CreateParameters as OrderPaymentCreateParams } from './resources/payments/orders/parameters';
+import { CreateParameters as CustomerPaymentCreateParams, ListParameters as CustomerPaymentsListParams } from './binders/customers/payments/parameters';
+import { CreateParameters as OrderPaymentCreateParams } from './binders/payments/orders/parameters';
 import {
   CancelParameters as PaymentCancelParams,
   CreateParameters as PaymentCreateParams,
   GetParameters as PaymentGetParams,
   ListParameters as PaymentsListParams,
-} from './resources/payments/parameters';
+} from './binders/payments/parameters';
 export { PaymentCreateParams, PaymentGetParams, PaymentsListParams, PaymentCancelParams, CustomerPaymentCreateParams, CustomerPaymentsListParams, OrderPaymentCreateParams };
 
 export { default as Permission } from './data/permissions/Permission';
 
 export { default as Profile } from './data/profiles/Profile';
-import { CreateParameters as ProfileCreateParameters, ListParameters as ProfileListParameters, UpdateParameters as ProfileUpdateParameters } from './resources/profiles/parameters';
+import { CreateParameters as ProfileCreateParameters, ListParameters as ProfileListParameters, UpdateParameters as ProfileUpdateParameters } from './binders/profiles/parameters';
 export { ProfileCreateParameters, ProfileListParameters, ProfileUpdateParameters };
 
 export { default as Refund } from './data/refunds/Refund';
@@ -81,8 +81,8 @@ import {
   CreateParameters as PaymentRefundCreateParams,
   GetParameters as PaymentRefundGetParams,
   ListParameters as PaymentRefundsListParams,
-} from './resources/payments/refunds/parameters';
-import { ListParameters as RefundsListParams } from './resources/refunds/parameters';
+} from './binders/payments/refunds/parameters';
+import { ListParameters as RefundsListParams } from './binders/refunds/parameters';
 export { RefundsListParams, PaymentRefundCreateParams, PaymentRefundGetParams, PaymentRefundsListParams, PaymentRefundCancelParams };
 
 export { default as Shipment } from './data/orders/shipments/Shipment';
@@ -91,7 +91,7 @@ import {
   GetParameters as ShipmentGetParams,
   UpdateParameters as ShipmentUpdateParams,
   ListParameters as ShipmentsListParams,
-} from './resources/orders/shipments/parameters';
+} from './binders/orders/shipments/parameters';
 export { ShipmentCreateParams, ShipmentGetParams, ShipmentsListParams, ShipmentUpdateParams };
 
 export { default as Subscription } from './data/subscription/Subscription';
@@ -101,7 +101,7 @@ import {
   GetParameters as SubscriptionGetParams,
   UpdateParameters as SubscriptionUpdateParams,
   ListParameters as SubscriptionsListParams,
-} from './resources/customers/subscriptions/parameters';
+} from './binders/customers/subscriptions/parameters';
 export { SubscriptionCreateParams, SubscriptionGetParams, SubscriptionsListParams, SubscriptionUpdateParams, SubscriptionCancelParams };
 
 export { CardAudience, CardFailureReason, CardLabel, FeeRegion } from './data/global';

@@ -135,7 +135,7 @@ test('listSubscriptionPayments', async () => {
     count: 2,
   });
 
-  const payments = await bluster(client.subscriptions_payments.list.bind(client.subscriptions_payments))({ customerId: 'cst_8wmqcHMN4U', subscriptionId: 'sub_8JfGzs6v3K' });
+  const payments = await bluster(client.subscriptionsPayments.list.bind(client.subscriptionsPayments))({ customerId: 'cst_8wmqcHMN4U', subscriptionId: 'sub_8JfGzs6v3K' });
 
   expect(payments.length).toBe(2);
 

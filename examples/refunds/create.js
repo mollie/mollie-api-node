@@ -9,7 +9,7 @@ const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWX
 (async () => {
   try {
     // Create payment refund
-    const paymentRefund = await mollieClient.payments_refunds.create({
+    const paymentRefund = await mollieClient.paymentsRefunds.create({
       paymentId: 'tr_WDqYK6vllg',
       amount: {
         value: '5.95',
@@ -20,7 +20,7 @@ const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWX
     console.log(paymentRefund);
 
     // Create order refund
-    const orderRefund = await mollieClient.orders_refunds.create({
+    const orderRefund = await mollieClient.ordersRefunds.create({
       orderId: 'ord_stTC2WHAuS',
       lines: [
         {

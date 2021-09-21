@@ -7,7 +7,7 @@ const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWX
 
 (async () => {
   try {
-    const subscriptions: List<Subscription> = await mollieClient.customers_subscriptions.all({
+    const subscriptions: List<Subscription> = await mollieClient.customersSubscriptions.all({
       customerId: 'cst_pzhEvnttJ2',
     });
 

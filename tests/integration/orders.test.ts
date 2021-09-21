@@ -109,12 +109,12 @@ describe('orders', () => {
       return;
     }
 
-    const paymentRefunds = await mollieClient.payments_refunds.all({ paymentId: payment.id });
+    const paymentRefunds = await mollieClient.paymentsRefunds.all({ paymentId: payment.id });
 
     let refundExists;
 
     if (!paymentRefunds.length) {
-      refundExists = mollieClient.payments_refunds
+      refundExists = mollieClient.paymentsRefunds
         .create({
           paymentId: payment.id,
           amount: { value: '5.00', currency: payment.amount.currency },
@@ -131,7 +131,7 @@ describe('orders', () => {
 
     const paymentRefund = await refundExists;
 
-    await mollieClient.payments_refunds
+    await mollieClient.paymentsRefunds
       .get(paymentRefund.id, {
         paymentId: payment.id,
       })

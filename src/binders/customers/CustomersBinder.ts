@@ -1,0 +1,123 @@
+import { CreateParameters, DeleteParameters, GetParameters, ListParameters, UpdateParameters } from './parameters';
+import ApiError from '../../errors/ApiError';
+import Callback from '../../types/Callback';
+import Customer, { CustomerData, injectPrototypes } from '../../data/customers/Customer';
+import List from '../../data/list/List';
+import NetworkClient from '../../NetworkClient';
+import Binder from '../Binder';
+import TransformingNetworkClient from '../../TransformingNetworkClient';
+import checkId from '../../plumbing/checkId';
+import renege from '../../plumbing/renege';
+
+export default class CustomersBinder extends Binder<CustomerData, Customer> {
+  constructor(networkClient: NetworkClient) {
+    super(new TransformingNetworkClient(networkClient, injectPrototypes));
+  }
+
+  protected getResourceUrl(): string {
+    return 'customers';
+  }
+
+  /**
+   * Retrieve all customers created.
+   *
+   * The results are paginated. See pagination for more information.
+   *
+   * @since 2.0.0
+   * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
+   */
+  public all: CustomersBinder['list'] = this.list;
+  /**
+   * Retrieve all customers created.
+   *
+   * The results are paginated. See pagination for more information.
+   *
+   * @since 3.0.0
+   * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
+   */
+  public page: CustomersBinder['list'] = this.list;
+  /**
+   * Delete a customer. All mandates and subscriptions created for this customer will be canceled as well.
+   *
+   * @since 2.0.0
+   * @see https://docs.mollie.com/reference/v2/customers-api/delete-customer
+   */
+  public cancel: CustomersBinder['delete'] = this.delete;
+
+  /**
+   * Creates a simple minimal representation of a customer in the Mollie API to use for the [Mollie Checkout](https://www.mollie.com/en/checkout) and Recurring features. These customers will appear in
+   * your [Mollie Dashboard](https://www.mollie.com/dashboard/) where you can manage their details, and also see their payments and subscriptions.
+   *
+   * @since 2.0.0
+   * @see https://docs.mollie.com/reference/v2/customers-api/create-customer
+   */
+  public create(parameters: CreateParameters): Promise<Customer>;
+  public create(parameters: CreateParameters, callback: Callback<Customer>): void;
+  public create(parameters: CreateParameters) {
+    if (renege(this, this.create, ...arguments)) return;
+    return this.networkClient.post<Customer>(this.getResourceUrl(), parameters);
+  }
+
+  /**
+   * Retrieve a single customer by its ID.
+   *
+   * @since 2.0.0
+   * @see https://docs.mollie.com/reference/v2/customers-api/get-customer
+   */
+  public get(id: string, parameters?: GetParameters): Promise<Customer>;
+  public get(id: string, parameters: GetParameters, callback: Callback<Customer>): void;
+  public get(id: string, parameters?: GetParameters) {
+    if (renege(this, this.get, ...arguments)) return;
+    if (!checkId(id, 'customer')) {
+      throw new ApiError('The customer id is invalid');
+    }
+    return this.networkClient.get(`${this.getResourceUrl()}/${id}`, parameters);
+  }
+
+  /**
+   * Retrieve all customers created.
+   *
+   * The results are paginated. See pagination for more information.
+   *
+   * @since 3.0.0
+   * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
+   */
+  public list(parameters?: ListParameters): Promise<List<Customer>>;
+  public list(parameters: ListParameters, callback: Callback<List<Customer>>): void;
+  public list(parameters: ListParameters = {}) {
+    if (renege(this, this.list, ...arguments)) return;
+    return this.networkClient.list(this.getResourceUrl(), 'customers', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+  }
+
+  /**
+   * Update an existing customer.
+   *
+   * @since 2.0.0
+   * @see https://docs.mollie.com/reference/v2/customers-api/update-customer
+   */
+  public update(id: string, parameters: UpdateParameters): Promise<Customer>;
+  public update(id: string, parameters: UpdateParameters, callback: Callback<Customer>): void;
+  public update(id: string, parameters: UpdateParameters) {
+    if (renege(this, this.update, ...arguments)) return;
+    if (!checkId(id, 'customer')) {
+      throw new ApiError('The customer id is invalid');
+    }
+    return this.networkClient.patch(`${this.getResourceUrl()}/${id}`, parameters);
+  }
+
+  /**
+   * Delete a customer. All mandates and subscriptions created for this customer will be canceled as well.
+   *
+   * @since 2.0.0
+   * @see https://docs.mollie.com/reference/v2/customers-api/delete-customer
+   */
+  public delete(id: string, parameters?: DeleteParameters): Promise<true>;
+  public delete(id: string, parameters: DeleteParameters, callback: Callback<true>): void;
+  public delete(id: string, parameters?: DeleteParameters) {
+    if (renege(this, this.delete, ...arguments)) return;
+    if (!checkId(id, 'customer')) {
+      throw new ApiError('The customer id is invalid');
+    }
+    return this.networkClient.delete<true>(`${this.getResourceUrl()}/${id}`, parameters);
+  }
+}

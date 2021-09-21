@@ -22,13 +22,13 @@ describe('customers', () => {
     expect(customers).toBeDefined();
 
     const [mandates, payments, subscriptions] = await Promise.all([
-      mollieClient.customers_mandates.list({
+      mollieClient.customersMandates.list({
         customerId: customers[0].id,
       }),
-      mollieClient.customers_payments.list({
+      mollieClient.customersPayments.list({
         customerId: customers[0].id,
       }),
-      mollieClient.customers_subscriptions.list({
+      mollieClient.customersSubscriptions.list({
         customerId: customers[0].id,
       }),
     ]);
@@ -38,7 +38,7 @@ describe('customers', () => {
     expect(subscriptions).toBeDefined();
 
     if (mandates[0]) {
-      const mandate = await mollieClient.customers_mandates.get(mandates[0].id, { customerId: customers[0].id });
+      const mandate = await mollieClient.customersMandates.get(mandates[0].id, { customerId: customers[0].id });
       expect(mandate).toBeDefined();
     }
     if (payments[0]) {
@@ -47,7 +47,7 @@ describe('customers', () => {
     }
     if (subscriptions[0]) {
       try {
-        const subscription = await mollieClient.customers_subscriptions.get(subscriptions[0].id, { customerId: customers[0].id });
+        const subscription = await mollieClient.customersSubscriptions.get(subscriptions[0].id, { customerId: customers[0].id });
         expect(subscription).toBeDefined();
       } catch (error) {
         expect(error).toEqual({

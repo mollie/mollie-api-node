@@ -34,7 +34,7 @@ test('getRefund', async () => {
     },
   });
 
-  const refund = await bluster(client.payments_refunds.get.bind(client.payments_refunds))('re_PsAvxvLsnm', { paymentId: 'tr_44aKxzEbr8' });
+  const refund = await bluster(client.paymentsRefunds.get.bind(client.paymentsRefunds))('re_PsAvxvLsnm', { paymentId: 'tr_44aKxzEbr8' });
 
   expect(refund.id).toBe('re_PsAvxvLsnm');
 
@@ -103,7 +103,7 @@ test('createRefund', async () => {
     },
   });
 
-  const refund = await bluster(client.payments_refunds.create.bind(client.payments_refunds))({ paymentId: 'tr_44aKxzEbr8', amount: { currency: 'EUR', value: '20.00' } });
+  const refund = await bluster(client.paymentsRefunds.create.bind(client.paymentsRefunds))({ paymentId: 'tr_44aKxzEbr8', amount: { currency: 'EUR', value: '20.00' } });
 
   expect(refund.id).toBe('re_PsAvxvLsnm');
 
