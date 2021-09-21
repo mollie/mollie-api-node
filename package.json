@@ -45,54 +45,30 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.13.0",
-    "@babel/preset-env": "^7.14.2",
-    "@babel/preset-typescript": "^7.13.0",
-    "@mollie/eslint-config-typescript": "^1.4.0",
-    "@types/jest": "^26.0.23",
-    "@types/lodash": "^4.14.169",
-    "@types/node": "^15.0.3",
-    "@typescript-eslint/eslint-plugin": "^4.23.0",
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/preset-env": "^7.14.9",
+    "@babel/preset-typescript": "^7.14.5",
+    "@mollie/eslint-config-typescript": "^1.5.1",
+    "@types/jest": "^26.0.24",
+    "@types/lodash": "^4.14.172",
+    "@types/node": "^16.4.11",
+    "@typescript-eslint/eslint-plugin": "^4.29.0",
     "axios-mock-adapter": "^1.19.0",
-    "babel-jest": "^26.6.3",
+    "babel-jest": "^27.0.6",
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.3.0",
-    "dotenv": "^9.0.2",
-    "eslint": "^7.26.0",
+    "dotenv": "^10.0.0",
+    "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
-    "husky": "^6.0.0",
     "jest": "24.9.0",
     "jest-bluster": "^1.0.1",
-    "lint-staged": "^11.0.0",
-    "prettier": "^2.3.0",
-    "rollup": "^2.47.0",
-    "rollup-plugin-babel": "^4.3.3",
+    "prettier": "^2.3.2",
+    "rollup": "^2.55.1",
+    "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-node-resolve": "^5.2.0",
-    "typescript": "^4.2.4"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "src/**/*.ts": [
-      "prettier --write \"src/**/*.{js,ts}\"",
-      "eslint --ext .js,.ts --fix src/",
-      "git add src/"
-    ],
-    "tests/**/*.ts": [
-      "prettier --write \"tests/**/*.(js|ts)\"",
-      "eslint --ext .js,.ts --fix tests/",
-      "git add tests/"
-    ],
-    "examples/**/*.js": [
-      "prettier --write \"examples/**/*.(js|ts)\"",
-      "eslint --ext .js,.ts --fix examples/",
-      "git add examples/"
-    ]
+    "typescript": "^4.3.5"
   },
   "jest": {
     "moduleDirectories": [
@@ -122,12 +98,5 @@
   },
   "files": [
     "dist/**/*"
-  ],
-  "resolutions": {
-    "@babel/core": "^7.3.3",
-    "babel-core": "7.0.0-bridge.0",
-    "minimist": "^1.2.2",
-    "acorn": "^7.1.1",
-    "kind-of": "^6.0.3"
-  }
+  ]
 }

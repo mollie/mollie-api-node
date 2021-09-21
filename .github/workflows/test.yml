@@ -1,0 +1,36 @@
+name: Node.js test
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        node-version: [[6.14, 10.x], [14.x], [16.x]]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      # Some modules used for building and testing this library require a greater Node.js version than this library
+      # itself. Switch to the second Node.js version in the tuple before installing to game the system (and switch back
+      # later before running the tests).
+      - name: Use Node.js ${{ matrix.node-version[1] || matrix.node-version[0] }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version[1] || matrix.node-version[0] }}
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+      - name: Use Node.js ${{ matrix.node-version[0] }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version[0] }}
+      - name: Run test suite
+        run: yarn test
+        env:
+          # Set the API key for the integration tests. In the future, all tests will rely on snapshots. An API key will
+          # then only be required to update those snapshots. The API key can then be removed from this file.
+          API_KEY: test_4kQQbBMEFh8QAuKVaWdpKuRpVSsdVG
