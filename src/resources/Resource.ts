@@ -1,6 +1,7 @@
 import List from '../data/list/List';
 import Maybe from '../types/Maybe';
 import TransformingNetworkClient from '../TransformingNetworkClient';
+import buildFromEntries from '../plumbing/buildFromEntries';
 
 /**
  * Returns the parsed search parameters from the passed URL. For example: `'https://example.com?id=5'` is converted to
@@ -10,9 +11,7 @@ import TransformingNetworkClient from '../TransformingNetworkClient';
  * represented in the returned object.
  */
 function parseQueryInUrl(url: string) {
-  const result: Record<string, string> = {};
-  new URL(url).searchParams.forEach((value, key) => (result[key] = value));
-  return result;
+  return buildFromEntries(new URL(url).searchParams);
 }
 export default class Resource<R, T extends R> {
   constructor(protected readonly networkClient: TransformingNetworkClient<R, T>) {}
