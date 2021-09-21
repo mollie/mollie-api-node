@@ -2,7 +2,7 @@ import { PaymentCreateParams } from '../..';
 import wireMockClient from '../wireMockClient';
 
 test('errorHandling', async () => {
-  expect.assertions(5);
+  expect.assertions(6);
 
   const { adapter, client } = wireMockClient();
 
@@ -18,6 +18,8 @@ test('errorHandling', async () => {
   } catch (error) {
     expect(error).toBeInstanceOf(Error);
     expect(error.message).toBe('No customer exists with token cst_chinchilla.');
+    // Ensure the message property survives conversion to and from JSON.
+    expect(JSON.parse(JSON.stringify(error)).message).toBe('No customer exists with token cst_chinchilla.');
   }
 
   adapter.onPost('/payments').reply(422, {
