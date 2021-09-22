@@ -34,7 +34,7 @@ import SubscriptionsPaymentsBinder from './binders/subscriptions/payments/Subscr
  * Returns an object which has a property for each passed key, which share the same (passed) value.
  */
 function alias<T, K extends string>(value: T, ...keys: K[]) {
-  return buildFromEntries(keys.map(name => [name, value])) as { [ P in K ]: T };
+  return buildFromEntries(keys.map(name => [name, value])) as { [P in K]: T };
 }
 
 /**

@@ -4,10 +4,12 @@ test('getProfile', async () => {
   const { adapter, client } = wireMockClient();
 
   await Promise.all(
-    ([
-      ['/profiles/pfl_ahe8z8OPut', bluster(client.profiles.get.bind(client.profiles)).bind(undefined, 'pfl_ahe8z8OPut')],
-      ['/profiles/me', bluster(client.profiles.getCurrent.bind(client.profiles))],
-    ] as [string, () => Promise<any>][]).map(async ([url, get]) => {
+    (
+      [
+        ['/profiles/pfl_ahe8z8OPut', bluster(client.profiles.get.bind(client.profiles)).bind(undefined, 'pfl_ahe8z8OPut')],
+        ['/profiles/me', bluster(client.profiles.getCurrent.bind(client.profiles))],
+      ] as [string, () => Promise<any>][]
+    ).map(async ([url, get]) => {
       adapter.onGet(url).reply(200, {
         resource: 'profile',
         id: 'pfl_ahe8z8OPut',
