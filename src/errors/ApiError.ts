@@ -66,7 +66,7 @@ export default class ApiError extends Error {
     return has(this.links, key);
   }
 
-  /***
+  /**
    * Retrieve a link by name
    *
    * @since 3.0.0
