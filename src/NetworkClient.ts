@@ -116,9 +116,9 @@ export default class NetworkClient {
     });
   }
   /* eslint-disable no-var */
-  async post<R>(url: string, data: any, query: Record<string, any> = {}): Promise<R | true> {
+  async post<R>(relativePath: string, data: any, query: Record<string, any> = {}): Promise<R | true> {
     try {
-      var response: AxiosResponse = await this.axiosInstance.post(`${url}${stringifyQuery(query)}`, data);
+      var response: AxiosResponse = await this.axiosInstance.post(`${relativePath}${stringifyQuery(query)}`, data);
     } catch (error) {
       if (error.response != undefined) {
         throw ApiError.createFromResponse(error.response);
@@ -130,9 +130,9 @@ export default class NetworkClient {
     }
     return response.data;
   }
-  async get<R>(url: string, query: Record<string, any> = {}): Promise<R> {
+  async get<R>(relativePath: string, query: Record<string, any> = {}): Promise<R> {
     try {
-      var response: AxiosResponse = await this.axiosInstance.get(`${url}${stringifyQuery(query)}`);
+      var response: AxiosResponse = await this.axiosInstance.get(`${relativePath}${stringifyQuery(query)}`);
     } catch (error) {
       if (error.response != undefined) {
         throw ApiError.createFromResponse(error.response);
@@ -141,9 +141,9 @@ export default class NetworkClient {
     }
     return response.data;
   }
-  async list<R>(url: string, resourceName: string, query: Record<string, any> = {}): Promise<Array<R> & Pick<List<R>, 'links' | 'count'>> {
+  async list<R>(relativePath: string, binderName: string, query: Record<string, any> = {}): Promise<Array<R> & Pick<List<R>, 'links' | 'count'>> {
     try {
-      var response: AxiosResponse = await this.axiosInstance.get(`${url}${stringifyQuery(query)}`);
+      var response: AxiosResponse = await this.axiosInstance.get(`${relativePath}${stringifyQuery(query)}`);
     } catch (error) {
       if (error.response != undefined) {
         throw ApiError.createFromResponse(error.response);
@@ -155,14 +155,14 @@ export default class NetworkClient {
     } catch (error) {
       throw new ApiError('Received unexpected response from the server');
     }
-    return Object.assign(Array.from<R>(embedded[resourceName]), {
+    return Object.assign(Array.from<R>(embedded[binderName]), {
       links,
       count,
     });
   }
-  async patch<R>(url: string, data: any): Promise<R> {
+  async patch<R>(relativePath: string, data: any): Promise<R> {
     try {
-      var response: AxiosResponse = await this.axiosInstance.patch(url, data);
+      var response: AxiosResponse = await this.axiosInstance.patch(relativePath, data);
     } catch (error) {
       if (error.response != undefined) {
         throw ApiError.createFromResponse(error.response);
@@ -171,9 +171,9 @@ export default class NetworkClient {
     }
     return response.data;
   }
-  async delete<R>(url: string, context?: any): Promise<R | true> {
+  async delete<R>(relativePath: string, context?: any): Promise<R | true> {
     try {
-      var response: AxiosResponse = await this.axiosInstance.delete(url, { data: context });
+      var response: AxiosResponse = await this.axiosInstance.delete(relativePath, { data: context });
     } catch (error) {
       if (error.response != undefined) {
         throw ApiError.createFromResponse(error.response);

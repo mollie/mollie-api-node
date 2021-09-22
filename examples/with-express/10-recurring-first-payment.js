@@ -8,7 +8,7 @@ const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWX
 
 const orderId = new Date().getTime();
 
-mollieClient.customers_payments
+mollieClient.customersPayments
   .create({
     amount: { value: '0.01', currency: 'EUR' },
     description: 'A first payment for recurring',

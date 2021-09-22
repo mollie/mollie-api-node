@@ -1,7 +1,7 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import CustomersResource from '../../../src/resources/customers/CustomersResource';
+import CustomersBinder from '../../../src/binders/customers/CustomersBinder';
 import NetworkClient from '../../../src/NetworkClient';
 
 import page1 from '../__stubs__/list/customers_page_1.json';
@@ -12,9 +12,9 @@ import List from '../../../src/data/list/List';
 const mock = new MockAdapter(axios);
 
 describe('lists', () => {
-  let customers: CustomersResource;
+  let customers: CustomersBinder;
   beforeEach(() => {
-    customers = new CustomersResource(new NetworkClient({ apiKey: 'mock-api-key', nodeVersion: process.version, libraryVersion: 'mock' }));
+    customers = new CustomersBinder(new NetworkClient({ apiKey: 'mock-api-key', nodeVersion: process.version, libraryVersion: 'mock' }));
   });
 
   describe('.list()', () => {

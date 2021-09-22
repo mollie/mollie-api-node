@@ -7,7 +7,7 @@ const { createMollieClient } = require('@mollie/api-client');
 const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
 
 mollieClient.customers.all().then(customers => {
-  mollieClient.customers_subscriptions
+  mollieClient.customersSubscriptions
     .create({
       customerId: customers[0].id,
       amount: { value: '24.00', currency: 'EUR' },

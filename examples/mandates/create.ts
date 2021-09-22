@@ -7,7 +7,7 @@ const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWX
 
 (async () => {
   try {
-    const mandate: Mandate = await mollieClient.customers_mandates.create({
+    const mandate: Mandate = await mollieClient.customersMandates.create({
       customerId: 'cst_pzhEvnttJ2',
       method: MandateMethod.directdebit,
       consumerName: 'John Doe',

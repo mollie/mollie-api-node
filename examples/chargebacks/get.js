@@ -7,7 +7,7 @@ const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWX
 
 (async () => {
   try {
-    const chargeback = await mollieClient.payments_chargebacks.get('chb_n9z0tp', {
+    const chargeback = await mollieClient.paymentsChargebacks.get('chb_n9z0tp', {
       paymentId: 'tr_23j4231',
     });
 

@@ -8,6 +8,8 @@ const { createMollieClient } = require('@mollie/api-client');
 const app = express();
 const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
 
+mollieClient.customersMandates
+
 app.get('/', (req, res) => {
   const orderId = new Date().getTime();
 

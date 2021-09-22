@@ -7,7 +7,7 @@ const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWX
 
 (async () => {
   try {
-    const payment: Payment = await mollieClient.orders_payments.create({
+    const payment: Payment = await mollieClient.ordersPayments.create({
       orderId: 'ord_kEn1PlbGa',
       method: PaymentMethod.ideal,
     });
