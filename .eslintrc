@@ -1,7 +1,6 @@
 {
   "extends": [
     "@mollie/eslint-config-typescript",
-    "prettier/@typescript-eslint",
     "plugin:prettier/recommended"
   ],
   "rules": {

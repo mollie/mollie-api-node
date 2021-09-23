@@ -172,7 +172,6 @@ export interface OrderLineLinks {
   imageUrl: Url;
 }
 
-/* eslint-disable @typescript-eslint/camelcase */
 export enum OrderLineType {
   physical = 'physical',
   discount = 'discount',
@@ -182,7 +181,6 @@ export enum OrderLineType {
   gift_card = 'gift_card',
   surcharge = 'surcharge',
 }
-/* eslint-enable @typescript-eslint/camelcase */
 
 export function injectPrototypes(input: OrderLineData): OrderLine {
   return Object.assign(Object.create(commonHelpers), input);
