@@ -79,20 +79,20 @@ function composeUserAgent(nodeVersion: string, libraryVersion: string, versionSt
   ].join(' ');
 }
 /**
- * Creates an API error based on the passed cause.
+ * Throws an API error based on the passed cause.
  */
-const createApiError = (() => {
+const throwApiError = (() => {
   /**
    * Returns whether the passed value is an object with a property with the passed name (`true`) or not (`false`).
    */
   function findProperty<K extends string>(value: unknown, name: K): value is Record<K, unknown> {
     return typeof value == 'object' && value != null && name in value;
   }
-  return function createApiError(cause: unknown) {
+  return function throwApiError(cause: unknown) {
     if (findProperty(cause, 'response')) {
-      return ApiError.createFromResponse(cause.response as AxiosResponse<any>);
+      throw ApiError.createFromResponse(cause.response as AxiosResponse<any>);
     }
-    return new ApiError(findProperty(cause, 'message') ? (cause.message as string) : 'An unknown error has occurred');
+    throw new ApiError(findProperty(cause, 'message') ? (cause.message as string) : 'An unknown error has occurred');
   };
 })();
 /**
@@ -132,33 +132,21 @@ export default class NetworkClient {
       }),
     });
   }
-  /* eslint-disable no-var */
   async post<R>(relativePath: string, data: any, query: Record<string, any> = {}): Promise<R | true> {
-    try {
-      var response = await this.axiosInstance.post(`${relativePath}${stringifyQuery(query)}`, data);
-    } catch (error) {
-      throw createApiError(error);
-    }
+    const response = await this.axiosInstance.post(`${relativePath}${stringifyQuery(query)}`, data).catch(throwApiError);
     if (response.status == 204) {
       return true;
     }
     return response.data;
   }
   async get<R>(relativePath: string, query: Record<string, any> = {}): Promise<R> {
-    try {
-      var response = await this.axiosInstance.get(`${relativePath}${stringifyQuery(query)}`);
-    } catch (error) {
-      throw createApiError(error);
-    }
+    const response = await this.axiosInstance.get(`${relativePath}${stringifyQuery(query)}`).catch(throwApiError);
     return response.data;
   }
   async list<R>(relativePath: string, binderName: string, query: Record<string, any> = {}): Promise<Array<R> & Pick<List<R>, 'links' | 'count'>> {
+    const response = await this.axiosInstance.get(`${relativePath}${stringifyQuery(query)}`).catch(throwApiError);
     try {
-      var response = await this.axiosInstance.get(`${relativePath}${stringifyQuery(query)}`);
-    } catch (error) {
-      throw createApiError(error);
-    }
-    try {
+      /* eslint-disable-next-line no-var */
       var { _embedded: embedded, _links: links, count } = response.data;
     } catch (error) {
       throw new ApiError('Received unexpected response from the server');
@@ -169,23 +157,14 @@ export default class NetworkClient {
     });
   }
   async patch<R>(relativePath: string, data: any): Promise<R> {
-    try {
-      var response = await this.axiosInstance.patch(relativePath, data);
-    } catch (error) {
-      throw createApiError(error);
-    }
+    const response = await this.axiosInstance.patch(relativePath, data).catch(throwApiError);
     return response.data;
   }
   async delete<R>(relativePath: string, context?: any): Promise<R | true> {
-    try {
-      var response = await this.axiosInstance.delete(relativePath, { data: context });
-    } catch (error) {
-      throw createApiError(error);
-    }
+    const response = await this.axiosInstance.delete(relativePath, { data: context }).catch(throwApiError);
     if (response.status == 204) {
       return true;
     }
     return response.data as R;
   }
-  /* eslint-enable no-var */
 }
