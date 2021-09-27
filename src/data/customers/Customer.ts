@@ -79,6 +79,6 @@ export interface CustomerLinks extends Links {
   payments: Url;
 }
 
-export function injectPrototypes(input: CustomerData): Customer {
+export function transform(input: CustomerData): Customer {
   return Object.assign(Object.create(commonHelpers), input);
 }

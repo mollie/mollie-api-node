@@ -6,6 +6,6 @@ type Onboarding = Seal<OnboardingData, typeof onboardingHelpers>;
 
 export default Onboarding;
 
-export function injectPrototypes(input: OnboardingData): Onboarding {
+export function transform(input: OnboardingData): Onboarding {
   return Object.assign(Object.create(onboardingHelpers), input);
 }

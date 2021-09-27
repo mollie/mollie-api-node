@@ -1,8 +1,7 @@
 import { OnboardingData } from '../../data/onboarding/data';
 import { SubmitParameters } from './parameters';
 import Callback from '../../types/Callback';
-import NetworkClient from '../../NetworkClient';
-import Onboarding, { injectPrototypes } from '../../data/onboarding/Onboarding';
+import Onboarding from '../../data/onboarding/Onboarding';
 import Binder from '../Binder';
 import TransformingNetworkClient from '../../TransformingNetworkClient';
 import renege from '../../plumbing/renege';
@@ -10,8 +9,8 @@ import renege from '../../plumbing/renege';
 const pathSegments = 'onboarding/me';
 
 export default class OnboardingBinder extends Binder<OnboardingData, Onboarding> {
-  constructor(networkClient: NetworkClient) {
-    super(new TransformingNetworkClient(networkClient, injectPrototypes));
+  constructor(protected readonly networkClient: TransformingNetworkClient) {
+    super();
   }
 
   /**
@@ -24,7 +23,7 @@ export default class OnboardingBinder extends Binder<OnboardingData, Onboarding>
   public get(callback: Callback<Onboarding>): void;
   public get() {
     if (renege(this, this.get, ...arguments)) return;
-    return this.networkClient.get(pathSegments);
+    return this.networkClient.get<OnboardingData, Onboarding>(pathSegments);
   }
 
   /**
@@ -37,6 +36,6 @@ export default class OnboardingBinder extends Binder<OnboardingData, Onboarding>
   public submit(parameters: SubmitParameters, callback: Callback<true>): void;
   public submit(parameters: SubmitParameters) {
     if (renege(this, this.submit, ...arguments)) return;
-    return this.networkClient.post<true>(pathSegments, parameters);
+    return this.networkClient.post<OnboardingData, true>(pathSegments, parameters);
   }
 }

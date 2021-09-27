@@ -3,9 +3,8 @@ import { RefundData } from '../../../data/refunds/data';
 import ApiError from '../../../errors/ApiError';
 import Callback from '../../../types/Callback';
 import List from '../../../data/list/List';
-import NetworkClient from '../../../NetworkClient';
 import InnerBinder from '../../InnerBinder';
-import Refund, { injectPrototypes } from '../../../data/refunds/Refund';
+import Refund from '../../../data/refunds/Refund';
 import TransformingNetworkClient from '../../../TransformingNetworkClient';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
@@ -15,8 +14,8 @@ function getPathSegments(paymentId: string) {
 }
 
 export default class PaymentsRefundsBinder extends InnerBinder<RefundData, Refund> {
-  constructor(networkClient: NetworkClient) {
-    super(new TransformingNetworkClient(networkClient, injectPrototypes));
+  constructor(protected readonly networkClient: TransformingNetworkClient) {
+    super();
   }
 
   /**
@@ -72,7 +71,7 @@ export default class PaymentsRefundsBinder extends InnerBinder<RefundData, Refun
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...data } = parameters;
-    return this.networkClient.post(getPathSegments(paymentId), data);
+    return this.networkClient.post<RefundData, Refund>(getPathSegments(paymentId), data);
   }
 
   /**
@@ -96,7 +95,7 @@ export default class PaymentsRefundsBinder extends InnerBinder<RefundData, Refun
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    return this.networkClient.get(`${getPathSegments(paymentId)}/${id}`, query);
+    return this.networkClient.get<RefundData, Refund>(`${getPathSegments(paymentId)}/${id}`, query);
   }
 
   /**
@@ -122,7 +121,7 @@ export default class PaymentsRefundsBinder extends InnerBinder<RefundData, Refun
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    return this.networkClient.list(getPathSegments(paymentId), 'refunds', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.networkClient.list<RefundData, Refund>(getPathSegments(paymentId), 'refunds', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 
   /**
@@ -147,6 +146,6 @@ export default class PaymentsRefundsBinder extends InnerBinder<RefundData, Refun
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...context } = parameters;
-    return this.networkClient.delete<true>(`${getPathSegments(paymentId)}/${id}`, context);
+    return this.networkClient.delete<RefundData, true>(`${getPathSegments(paymentId)}/${id}`, context);
   }
 }

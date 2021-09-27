@@ -54,6 +54,6 @@ export default Organization;
 
 export type OrganizationLinks = Links;
 
-export function injectPrototypes(input: OrganizationData): Organization {
+export function transform(input: OrganizationData): Organization {
   return Object.assign(Object.create(commonHelpers), input);
 }

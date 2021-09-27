@@ -1,6 +1,6 @@
 import { Links, Url } from '../../global';
 import Model from '../../Model';
-import OrderLine, { OrderLineData, injectPrototypes as injectOrderLinePrototypes } from '../orderlines/OrderLine';
+import OrderLine, { OrderLineData, transform as transformOrderLine } from '../orderlines/OrderLine';
 import Seal from '../../../types/Seal';
 import commonHelpers from '../../commonHelpers';
 
@@ -74,8 +74,8 @@ export interface ShipmentTracking {
   url?: string;
 }
 
-export function injectPrototypes(input: ShipmentData): Shipment {
+export function transform(input: ShipmentData): Shipment {
   return Object.assign(Object.create(commonHelpers), input, {
-    lines: input.lines.map(injectOrderLinePrototypes),
+    lines: input.lines.map(transformOrderLine),
   });
 }

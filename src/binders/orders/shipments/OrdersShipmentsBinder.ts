@@ -2,9 +2,8 @@ import { CreateParameters, GetParameters, ListParameters, UpdateParameters } fro
 import ApiError from '../../../errors/ApiError';
 import Callback from '../../../types/Callback';
 import List from '../../../data/list/List';
-import NetworkClient from '../../../NetworkClient';
 import InnerBinder from '../../InnerBinder';
-import Shipment, { ShipmentData, injectPrototypes } from '../../../data/orders/shipments/Shipment';
+import Shipment, { ShipmentData } from '../../../data/orders/shipments/Shipment';
 import TransformingNetworkClient from '../../../TransformingNetworkClient';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
@@ -14,8 +13,8 @@ function getPathSegments(orderId: string) {
 }
 
 export default class OrdersShipmentsBinder extends InnerBinder<ShipmentData, Shipment> {
-  constructor(networkClient: NetworkClient) {
-    super(new TransformingNetworkClient(networkClient, injectPrototypes));
+  constructor(protected readonly networkClient: TransformingNetworkClient) {
+    super();
   }
 
   /**
@@ -52,7 +51,7 @@ export default class OrdersShipmentsBinder extends InnerBinder<ShipmentData, Shi
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...data } = parameters;
-    return this.networkClient.post<Shipment>(getPathSegments(orderId), data);
+    return this.networkClient.post<ShipmentData, Shipment>(getPathSegments(orderId), data);
   }
 
   /**
@@ -74,7 +73,7 @@ export default class OrdersShipmentsBinder extends InnerBinder<ShipmentData, Shi
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...query } = parameters ?? {};
-    return this.networkClient.get(`${getPathSegments(orderId)}/${id}`, query);
+    return this.networkClient.get<ShipmentData, Shipment>(`${getPathSegments(orderId)}/${id}`, query);
   }
 
   /**
@@ -95,7 +94,7 @@ export default class OrdersShipmentsBinder extends InnerBinder<ShipmentData, Shi
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...data } = parameters;
-    return this.networkClient.patch(`${getPathSegments(orderId)}/${id}`, data);
+    return this.networkClient.patch<ShipmentData, Shipment>(`${getPathSegments(orderId)}/${id}`, data);
   }
 
   /**
@@ -114,6 +113,6 @@ export default class OrdersShipmentsBinder extends InnerBinder<ShipmentData, Shi
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...query } = parameters ?? {};
-    return this.networkClient.list(getPathSegments(orderId), 'shipments', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.networkClient.list<ShipmentData, Shipment>(getPathSegments(orderId), 'shipments', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 }

@@ -182,6 +182,6 @@ export enum OrderLineType {
   surcharge = 'surcharge',
 }
 
-export function injectPrototypes(input: OrderLineData): OrderLine {
+export function transform(input: OrderLineData): OrderLine {
   return Object.assign(Object.create(commonHelpers), input);
 }

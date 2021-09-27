@@ -6,6 +6,6 @@ type Subscription = Seal<SubscriptionData, typeof subscriptionHelpers>;
 
 export default Subscription;
 
-export function injectPrototypes(input: SubscriptionData): Subscription {
+export function transform(input: SubscriptionData): Subscription {
   return Object.assign(Object.create(subscriptionHelpers), input);
 }

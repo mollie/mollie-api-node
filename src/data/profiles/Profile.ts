@@ -6,6 +6,6 @@ type Profile = Seal<ProfileData, typeof profileHelpers>;
 
 export default Profile;
 
-export function injectPrototypes(input: ProfileData): Profile {
+export function transform(input: ProfileData): Profile {
   return Object.assign(Object.create(profileHelpers), input);
 }

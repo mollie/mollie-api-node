@@ -6,6 +6,6 @@ type Method = Seal<MethodData, typeof methodHelpers>;
 
 export default Method;
 
-export function injectPrototypes(input: MethodData): Method {
+export function transform(input: MethodData): Method {
   return Object.assign(Object.create(methodHelpers), input);
 }

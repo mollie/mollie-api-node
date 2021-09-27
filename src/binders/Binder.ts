@@ -18,7 +18,6 @@ function parseQueryInUrl(url: string) {
  * cetera.
  */
 export default class Binder<R, T extends R> {
-  constructor(protected readonly networkClient: TransformingNetworkClient<R, T>) {}
   /**
    * Injects `nextPage`, `nextPageCursor`, `previousPage`, and `previousPageCursor` into the passed list.
    */

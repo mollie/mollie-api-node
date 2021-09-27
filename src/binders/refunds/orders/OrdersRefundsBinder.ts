@@ -3,9 +3,8 @@ import { RefundData } from '../../../data/refunds/data';
 import ApiError from '../../../errors/ApiError';
 import Callback from '../../../types/Callback';
 import List from '../../../data/list/List';
-import NetworkClient from '../../../NetworkClient';
 import InnerBinder from '../../InnerBinder';
-import Refund, { injectPrototypes } from '../../../data/refunds/Refund';
+import Refund from '../../../data/refunds/Refund';
 import TransformingNetworkClient from '../../../TransformingNetworkClient';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
@@ -15,8 +14,8 @@ function getPathSegments(orderId: string) {
 }
 
 export default class OrderRefundsBinder extends InnerBinder<RefundData, Refund> {
-  constructor(networkClient: NetworkClient) {
-    super(new TransformingNetworkClient(networkClient, injectPrototypes));
+  constructor(protected readonly networkClient: TransformingNetworkClient) {
+    super();
   }
 
   /**
@@ -60,7 +59,7 @@ export default class OrderRefundsBinder extends InnerBinder<RefundData, Refund> 
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...data } = parameters;
-    return this.networkClient.post<Refund>(getPathSegments(orderId), data);
+    return this.networkClient.post<RefundData, Refund>(getPathSegments(orderId), data);
   }
 
   /**
@@ -81,6 +80,6 @@ export default class OrderRefundsBinder extends InnerBinder<RefundData, Refund> 
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...query } = parameters ?? {};
-    return this.networkClient.list(getPathSegments(orderId), 'refunds', query).then(result => this.injectPaginationHelpers(result, this.list, parameters ?? {}));
+    return this.networkClient.list<RefundData, Refund>(getPathSegments(orderId), 'refunds', query).then(result => this.injectPaginationHelpers(result, this.list, parameters ?? {}));
   }
 }

@@ -30,6 +30,6 @@ export default Permission;
 
 export type PermissionLinks = Links;
 
-export function injectPrototypes(input: PermissionData): Permission {
+export function transform(input: PermissionData): Permission {
   return Object.assign(Object.create(commonHelpers), input);
 }

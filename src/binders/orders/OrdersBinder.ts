@@ -3,8 +3,7 @@ import { OrderData } from '../../data/orders/data';
 import ApiError from '../../errors/ApiError';
 import Callback from '../../types/Callback';
 import List from '../../data/list/List';
-import NetworkClient from '../../NetworkClient';
-import Order, { injectPrototypes } from '../../data/orders/Order';
+import Order from '../../data/orders/Order';
 import Binder from '../Binder';
 import TransformingNetworkClient from '../../TransformingNetworkClient';
 import checkId from '../../plumbing/checkId';
@@ -31,8 +30,8 @@ const pathSegment = 'orders';
  * @see https://docs.mollie.com/orders/overview#orders-api
  */
 export default class OrdersBinder extends Binder<OrderData, Order> {
-  constructor(networkClient: NetworkClient) {
-    super(new TransformingNetworkClient(networkClient, injectPrototypes));
+  constructor(protected readonly networkClient: TransformingNetworkClient) {
+    super();
   }
 
   /**
@@ -93,7 +92,7 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
     if (renege(this, this.create, ...arguments)) return;
     const { embed, ...data } = parameters;
     const query = embed != undefined ? { embed } : undefined;
-    return this.networkClient.post<Order>(pathSegment, data, query);
+    return this.networkClient.post<OrderData, Order>(pathSegment, data, query);
   }
 
   /**
@@ -109,7 +108,7 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
     if (!checkId(id, 'order')) {
       throw new ApiError('The order id is invalid');
     }
-    return this.networkClient.get(`${pathSegment}/${id}`, parameters);
+    return this.networkClient.get<OrderData, Order>(`${pathSegment}/${id}`, parameters);
   }
 
   /**
@@ -124,7 +123,7 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
   public list(parameters: ListParameters, callback: Callback<List<Order>>): void;
   public list(parameters: ListParameters = {}) {
     if (renege(this, this.list, ...arguments)) return;
-    return this.networkClient.list(pathSegment, 'orders', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.networkClient.list<OrderData, Order>(pathSegment, 'orders', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 
   /**
@@ -143,7 +142,7 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
     if (!checkId(id, 'order')) {
       throw new ApiError('The order id is invalid');
     }
-    return this.networkClient.patch(`${pathSegment}/${id}`, parameters);
+    return this.networkClient.patch<OrderData, Order>(`${pathSegment}/${id}`, parameters);
   }
 
   /**
@@ -171,6 +170,6 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
     if (!checkId(id, 'order')) {
       throw new ApiError('The order id is invalid');
     }
-    return this.networkClient.delete<Order>(`${pathSegment}/${id}`, parameters);
+    return this.networkClient.delete<OrderData, Order>(`${pathSegment}/${id}`, parameters);
   }
 }

@@ -1,7 +1,7 @@
 import { Amount, Links, Url } from '../global';
 import { PaymentData } from '../payments/data';
 import Model from '../Model';
-import Payment, { injectPrototypes as injectPaymentPrototypes } from '../payments/Payment';
+import Payment, { transform as transformPayment } from '../payments/Payment';
 import Seal from '../../types/Seal';
 import commonHelpers from '../commonHelpers';
 
@@ -81,12 +81,12 @@ export enum ChargebackEmbed {
   payment = 'payment',
 }
 
-export function injectPrototypes(input: ChargebackData): Chargeback {
+export function transform(input: ChargebackData): Chargeback {
   let _embedded: Chargeback['_embedded'];
   if (input._embedded != undefined) {
     _embedded = {};
     if (input._embedded.payments != undefined) {
-      _embedded.payments = input._embedded.payments.map(injectPaymentPrototypes);
+      _embedded.payments = input._embedded.payments.map(transformPayment);
     }
   }
   return Object.assign(Object.create(commonHelpers), input);

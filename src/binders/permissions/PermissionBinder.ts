@@ -2,8 +2,7 @@ import ApiError from '../../errors/ApiError';
 import Callback from '../../types/Callback';
 import checkId from '../../plumbing/checkId';
 import List from '../../data/list/List';
-import NetworkClient from '../../NetworkClient';
-import Permission, { injectPrototypes, PermissionData } from '../../data/permissions/Permission';
+import Permission, { PermissionData } from '../../data/permissions/Permission';
 import Binder from '../Binder';
 import TransformingNetworkClient from '../../TransformingNetworkClient';
 import renege from '../../plumbing/renege';
@@ -11,8 +10,8 @@ import renege from '../../plumbing/renege';
 const pathSegment = 'permissions';
 
 export default class PermissionsBinder extends Binder<PermissionData, Permission> {
-  constructor(networkClient: NetworkClient) {
-    super(new TransformingNetworkClient(networkClient, injectPrototypes));
+  constructor(protected readonly networkClient: TransformingNetworkClient) {
+    super();
   }
 
   /**
@@ -29,7 +28,7 @@ export default class PermissionsBinder extends Binder<PermissionData, Permission
     if (!checkId(id, 'permission')) {
       throw new ApiError('The permission id is invalid');
     }
-    return this.networkClient.get(`${pathSegment}/${id}`);
+    return this.networkClient.get<PermissionData, Permission>(`${pathSegment}/${id}`);
   }
 
   /**
@@ -42,6 +41,6 @@ export default class PermissionsBinder extends Binder<PermissionData, Permission
   public list(callback: Callback<List<Permission>>): void;
   public list() {
     if (renege(this, this.list, ...arguments)) return;
-    return this.networkClient.list(pathSegment, 'permissions', {}).then(result => this.injectPaginationHelpers<undefined>(result, this.list, undefined));
+    return this.networkClient.list<PermissionData, Permission>(pathSegment, 'permissions', {}).then(result => this.injectPaginationHelpers<undefined>(result, this.list, undefined));
   }
 }

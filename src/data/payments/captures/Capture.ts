@@ -82,6 +82,6 @@ export interface CaptureLinks extends Links {
   settlement?: Url;
 }
 
-export function injectPrototypes(input: CaptureData): Capture {
+export function transform(input: CaptureData): Capture {
   return Object.assign(Object.create(commonHelpers), input);
 }

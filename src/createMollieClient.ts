@@ -3,7 +3,24 @@ import { version as libraryVersion } from '../package.json';
 import caCertificates from './cacert.pem';
 import NetworkClient from './NetworkClient';
 import Options from './Options';
+import TransformingNetworkClient, { Transformers } from './TransformingNetworkClient';
 import buildFromEntries from './plumbing/buildFromEntries';
+
+// Transformers
+import { transform as transformPayment } from './data/payments/Payment';
+import { transform as transformMethod } from './data/methods/Method';
+import { transform as transformRefund } from './data/refunds/Refund';
+import { transform as transformChargeback } from './data/chargebacks/Chargeback';
+import { transform as transformCapture } from './data/payments/captures/Capture';
+import { transform as transformCustomer } from './data/customers/Customer';
+import { transform as transformMandate } from './data/customers/mandates/Mandate';
+import { transform as transformSubscription } from './data/subscription/Subscription';
+import { transform as transformOrder } from './data/orders/Order';
+import { transform as transformShipment } from './data/orders/shipments/Shipment';
+import { transform as transformPermission } from './data/permissions/Permission';
+import { transform as transformOrganization } from './data/organizations/Organizations';
+import { transform as transformProfile } from './data/profiles/Profile';
+import { transform as transformOnboarding } from './data/onboarding/Onboarding';
 
 // Binders
 import ApplePayBinder from './binders/applePay/ApplePayBinder';
@@ -55,56 +72,75 @@ export default function createMollieClient(options: Options) {
 
   const networkClient = new NetworkClient(Object.assign({}, options, { libraryVersion, nodeVersion: process.version, caCertificates }));
 
+  const transformingNetworkClient = new TransformingNetworkClient(
+    networkClient,
+    new Transformers()
+      .add('payment', transformPayment)
+      .add('method', transformMethod)
+      .add('refund', transformRefund)
+      .add('chargeback', transformChargeback)
+      .add('capture', transformCapture)
+      .add('customer', transformCustomer)
+      .add('mandate', transformMandate)
+      .add('subscription', transformSubscription)
+      .add('order', transformOrder)
+      .add('shipment', transformShipment)
+      .add('permission', transformPermission)
+      .add('organization', transformOrganization)
+      .add('profile', transformProfile)
+      .add('onboarding', transformOnboarding),
+  );
+
   return {
     // Payments.
-    payments: new PaymentsBinder(networkClient),
+    payments: new PaymentsBinder(transformingNetworkClient),
 
     // Methods.
-    methods: new MethodsBinder(networkClient),
+    methods: new MethodsBinder(transformingNetworkClient),
 
     // Refunds.
-    ...alias(new PaymentsRefundsBinder(networkClient), 'paymentsRefunds', 'payments_refunds'),
-    refunds: new RefundsBinder(networkClient),
+    refunds: new RefundsBinder(transformingNetworkClient),
+    ...alias(new PaymentsRefundsBinder(transformingNetworkClient), 'paymentsRefunds', 'payments_refunds'),
 
     // Chargebacks.
-    ...alias(new PaymentsChargebacksBinder(networkClient), 'paymentsChargebacks', 'payments_chargebacks'),
-    chargebacks: new ChargebacksBinder(networkClient),
+    chargebacks: new ChargebacksBinder(transformingNetworkClient),
+    ...alias(new PaymentsChargebacksBinder(transformingNetworkClient), 'paymentsChargebacks', 'payments_chargebacks'),
 
     // Captures.
-    ...alias(new PaymentsCapturesBinder(networkClient), 'paymentsCaptures', 'payments_captures'),
+    ...alias(new PaymentsCapturesBinder(transformingNetworkClient), 'paymentsCaptures', 'payments_captures'),
 
     // Customers.
-    customers: new CustomersBinder(networkClient),
-    ...alias(new CustomersPaymentsBinder(networkClient), 'customersPayments', 'customers_payments'),
+    customers: new CustomersBinder(transformingNetworkClient),
+    ...alias(new CustomersPaymentsBinder(transformingNetworkClient), 'customersPayments', 'customers_payments'),
 
     // Mandates.
-    ...alias(new CustomersMandatesBinder(networkClient), 'customersMandates', 'customers_mandates'),
+    ...alias(new CustomersMandatesBinder(transformingNetworkClient), 'customersMandates', 'customers_mandates'),
 
     // Subscriptions.
-    subscription: new SubscriptionsBinder(networkClient),
-    ...alias(new SubscriptionsPaymentsBinder(networkClient), 'subscriptionsPayments', 'subscriptions_payments'),
-    ...alias(new CustomersSubscriptionsBinder(networkClient), 'customersSubscriptions', 'customers_subscriptions'),
+    subscription: new SubscriptionsBinder(transformingNetworkClient),
+    ...alias(new SubscriptionsPaymentsBinder(transformingNetworkClient), 'subscriptionsPayments', 'subscriptions_payments'),
+    ...alias(new CustomersSubscriptionsBinder(transformingNetworkClient), 'customersSubscriptions', 'customers_subscriptions'),
 
     // Orders.
-    orders: new OrdersBinder(networkClient),
-    ...alias(new OrdersRefundsBinder(networkClient), 'ordersRefunds', 'orders_refunds'),
-    ...alias(new OrdersLinesBinder(networkClient), 'ordersLines', 'orders_lines'),
-    ...alias(new OrdersPaymentsBinder(networkClient), 'ordersPayments', 'orders_payments'),
+    orders: new OrdersBinder(transformingNetworkClient),
+    ...alias(new OrdersRefundsBinder(transformingNetworkClient), 'ordersRefunds', 'orders_refunds'),
+    ...alias(new OrdersLinesBinder(transformingNetworkClient), 'ordersLines', 'orders_lines'),
+    ...alias(new OrdersPaymentsBinder(transformingNetworkClient), 'ordersPayments', 'orders_payments'),
 
     // Shipments.
-    ...alias(new OrdersShipmentsBinder(networkClient), 'ordersShipments', 'orders_shipments'),
+    ...alias(new OrdersShipmentsBinder(transformingNetworkClient), 'ordersShipments', 'orders_shipments'),
 
     // Permissions.
-    permissions: new PermissionsBinder(networkClient),
+    permissions: new PermissionsBinder(transformingNetworkClient),
 
     // Organizations.
-    organizations: new OrganizationsBinder(networkClient),
+    organizations: new OrganizationsBinder(transformingNetworkClient),
 
     // Profiles.
-    profiles: new ProfilesBinder(networkClient),
+    profiles: new ProfilesBinder(transformingNetworkClient),
 
     // Onboarding.
-    onboarding: new OnboardingBinder(networkClient),
+    onboarding: new OnboardingBinder(transformingNetworkClient),
 
     // Apple Pay.
     applePay: new ApplePayBinder(networkClient),

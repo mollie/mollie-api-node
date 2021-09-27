@@ -1,9 +1,8 @@
 import { GetParameters, ListParameters } from './parameters';
 import ApiError from '../../../errors/ApiError';
 import Callback from '../../../types/Callback';
-import Chargeback, { ChargebackData, injectPrototypes } from '../../../data/chargebacks/Chargeback';
+import Chargeback, { ChargebackData, transform } from '../../../data/chargebacks/Chargeback';
 import List from '../../../data/list/List';
-import NetworkClient from '../../../NetworkClient';
 import InnerBinder from '../../InnerBinder';
 import TransformingNetworkClient from '../../../TransformingNetworkClient';
 import checkId from '../../../plumbing/checkId';
@@ -14,8 +13,8 @@ function getPathSegments(paymentId: string) {
 }
 
 export default class PaymentsChargebacksBinder extends InnerBinder<ChargebackData, Chargeback> {
-  constructor(networkClient: NetworkClient) {
-    super(new TransformingNetworkClient(networkClient, injectPrototypes));
+  constructor(protected readonly networkClient: TransformingNetworkClient) {
+    super();
   }
 
   /**
@@ -58,7 +57,7 @@ export default class PaymentsChargebacksBinder extends InnerBinder<ChargebackDat
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    return this.networkClient.get(`${getPathSegments(paymentId)}/${id}`, query);
+    return this.networkClient.get<ChargebackData, Chargeback>(`${getPathSegments(paymentId)}/${id}`, query);
   }
 
   /**
@@ -79,6 +78,6 @@ export default class PaymentsChargebacksBinder extends InnerBinder<ChargebackDat
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    return this.networkClient.list(getPathSegments(paymentId), 'chargebacks', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.networkClient.list<ChargebackData, Chargeback>(getPathSegments(paymentId), 'chargebacks', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 }
