@@ -120,7 +120,7 @@ export default class NetworkClient {
       axiosOptions.headers['Authorization'] = `Bearer ${accessToken}`;
       axiosOptions.headers['User-Agent'] += ' OAuth/2.0';
     }
-    axiosOptions.headers['Accept'] = 'application/json';
+    axiosOptions.headers['Accept'] = 'application/hal+json';
     axiosOptions.headers['Accept-Encoding'] = 'gzip';
     axiosOptions.headers['Content-Type'] = 'application/json';
     // Create the axios instance.
