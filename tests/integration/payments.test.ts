@@ -82,6 +82,21 @@ describe('payments', () => {
       .catch(fail);
   });
 
+  it('should refresh', async () => {
+    // Create a payment.
+    const originalPayment = await mollieClient.payments.create({
+      amount: { value: '10.00', currency: 'EUR' },
+      description: 'Original description',
+      redirectUrl: 'https://example.com/redirect',
+    });
+    // Update the payment.
+    await mollieClient.payments.update(originalPayment.id, { description: 'Updated description' });
+    // Get the updated payment.
+    const updatedPayment = await originalPayment.refresh();
+    expect(originalPayment.description).toBe('Original description');
+    expect(updatedPayment.description).toBe('Updated description');
+  });
+
   it('should paginate', async () => {
     let nextPageCursor;
 

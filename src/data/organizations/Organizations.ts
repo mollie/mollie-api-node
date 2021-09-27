@@ -1,7 +1,8 @@
 import { Address, Links, Locale } from '../global';
 import Model from '../Model';
 import Seal from '../../types/Seal';
-import commonHelpers from '../commonHelpers';
+import Helper from '../Helper';
+import TransformingNetworkClient from '../../TransformingNetworkClient';
 
 export interface OrganizationData extends Model<'organization', string> {
   /**
@@ -48,12 +49,12 @@ export interface OrganizationData extends Model<'organization', string> {
   _links: OrganizationLinks;
 }
 
-type Organization = Seal<OrganizationData, typeof commonHelpers>;
+type Organization = Seal<OrganizationData, Helper<OrganizationData, Organization>>;
 
 export default Organization;
 
 export type OrganizationLinks = Links;
 
-export function transform(input: OrganizationData): Organization {
-  return Object.assign(Object.create(commonHelpers), input);
+export function transform(networkClient: TransformingNetworkClient, input: OrganizationData): Organization {
+  return Object.assign(new Helper<OrganizationData, Organization>(networkClient, input._links), input);
 }

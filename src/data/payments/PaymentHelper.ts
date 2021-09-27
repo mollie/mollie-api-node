@@ -1,132 +1,137 @@
 import { Amount, SequenceType } from '../global';
 import { PaymentData, PaymentStatus } from './data';
 import { get } from 'lodash';
-import commonHelpers from '../commonHelpers';
 import Nullable from '../../types/Nullable';
+import Payment from './Payment';
+import TransformingNetworkClient from '../../TransformingNetworkClient';
+import Helper from '../Helper';
 
-export default {
-  ...commonHelpers,
+export default class PaymentHelper extends Helper<PaymentData, Payment> {
+  constructor(networkClient: TransformingNetworkClient, protected readonly links: PaymentData['_links']) {
+    super(networkClient, links);
+  }
+
   /**
    * Returns whether the payment has been created, but nothing else has happened with it yet.
    */
-  isOpen: function isOpen(this: PaymentData): boolean {
+  public isOpen(this: PaymentData): boolean {
     return this.status === PaymentStatus.open;
-  },
+  }
 
   /**
    * Returns whether new captures can be created for this payment.
    */
-  isAuthorized: function isAuthorized(this: PaymentData): boolean {
+  public isAuthorized(this: PaymentData): boolean {
     return this.status === PaymentStatus.authorized;
-  },
+  }
 
   /**
    * Returns whether the payment is successfully paid.
    */
-  isPaid: function isPaid(this: PaymentData): boolean {
+  public isPaid(this: PaymentData): boolean {
     return this.paidAt != undefined;
-  },
+  }
 
   /**
    * Returns whether the payment has been canceled by the customer.
    */
-  isCanceled: function isCanceled(this: PaymentData): boolean {
+  public isCanceled(this: PaymentData): boolean {
     return this.status == PaymentStatus.canceled;
-  },
+  }
 
   /**
    * Returns whether the payment has expired, e.g. the customer has abandoned the payment.
    */
-  isExpired: function isExpired(this: PaymentData): boolean {
+  public isExpired(this: PaymentData): boolean {
     return this.status == PaymentStatus.expired;
-  },
+  }
 
   /**
    * Returns whether the payment is refundable.
    *
    * @since 2.0.0-rc.2
    */
-  isRefundable: function isRefundable(this: PaymentData): boolean {
+  public isRefundable(this: PaymentData): boolean {
     return this.amountRemaining !== null;
-  },
+  }
 
   /**
    * Returns the URL the customer should visit to make the payment. This is to where you should redirect the consumer.
    */
-  getPaymentUrl: function getPaymentUrl(this: PaymentData): string {
+  public getPaymentUrl(this: PaymentData): string {
     return get(this._links, 'checkout.href', null);
-  },
+  }
 
   /**
    * Returns whether the payment has failed and cannot be completed with a different payment method.
    */
-  isFailed: function isFailed(this: PaymentData): boolean {
+  public isFailed(this: PaymentData): boolean {
     return this.status == PaymentStatus.failed;
-  },
+  }
 
   /**
    * Returns whether the payment is in this temporary status that can occur when the actual payment process has been
    * started, but has not completed yet.
    */
-  isPending: function isPending(this: PaymentData): boolean {
+  public isPending(this: PaymentData): boolean {
     return this.status == PaymentStatus.pending;
-  },
+  }
 
   /**
    * Returns whether there are refunds which belong to the payment.
    */
-  hasRefunds: function hasRefunds(this: PaymentData): boolean {
+  public hasRefunds(this: PaymentData): boolean {
     return this._links.refunds != undefined;
-  },
+  }
 
   /**
    * Returns whether there are chargebacks which belong to the payment.
    */
-  hasChargebacks: function hasChargebacks(this: PaymentData): boolean {
+  public hasChargebacks(this: PaymentData): boolean {
     return this._links.chargebacks != undefined;
-  },
+  }
 
   /**
    * Returns whether `sequenceType` is set to `'first'`. If a `'first'` payment has been completed successfully, the
    * consumer's account may be charged automatically using recurring payments.
    */
-  hasSequenceTypeFirst: function hasSequenceTypeFirst(this: PaymentData): boolean {
+  public hasSequenceTypeFirst(this: PaymentData): boolean {
     return this.sequenceType == SequenceType.first;
-  },
+  }
 
   /**
    * Returns whether `sequenceType` is set to `'recurring'`. This type of payment is processed without involving the
    * consumer.
    */
-  hasSequenceTypeRecurring: function hasSequenceTypeRecurring(this: PaymentData): boolean {
+  public hasSequenceTypeRecurring(this: PaymentData): boolean {
     return this.sequenceType == SequenceType.recurring;
-  },
+  }
 
   /**
    * Returns the URL your customer should visit to make the payment. This is where you should redirect the consumer to.
    *
    * Recurring payments don’t have a checkout URL.
    */
-  getCheckoutUrl: function getCheckoutUrl(this: PaymentData): Nullable<string> {
+  public getCheckoutUrl(this: PaymentData): Nullable<string> {
     if (this._links.checkout == undefined) {
       return null;
     }
     return this._links.checkout.href;
-  },
+  }
 
-  canBeRefunded: function canBeRefunded(this: PaymentData): boolean {
+  public canBeRefunded(this: PaymentData): boolean {
     return this.amountRemaining != undefined;
-  },
+  }
 
-  canBePartiallyRefunded: function canBePartiallyRefunded(this: PaymentData): boolean {
+  public canBePartiallyRefunded(this: PaymentData): boolean {
     return this.amountRemaining != undefined;
-  },
+  }
 
   /**
    * Returns the total amount that is already refunded. For some payment methods, this amount may be higher than the
    * payment amount, for example to allow reimbursement of the costs for a return shipment to the customer.
    */
-  getAmountRefunded: function getAmountRefunded(this: PaymentData): Amount {
+  public getAmountRefunded(this: PaymentData): Amount {
     if (this.amountRefunded == undefined) {
       return {
         // Perhaps this zero-value should depend on the currency. If the currency is JPY (¥), for instance, the value
@@ -136,12 +141,12 @@ export default {
       };
     }
     return this.amountRefunded;
-  },
+  }
 
   /**
    * Returns the remaining amount that can be refunded.
    */
-  getAmountRemaining: function getAmountRemaining(this: PaymentData): Amount {
+  public getAmountRemaining(this: PaymentData): Amount {
     if (this.amountRemaining == undefined) {
       return {
         // Perhaps this zero-value should depend on the currency. If the currency is JPY (¥), for instance, the value
@@ -151,5 +156,5 @@ export default {
       };
     }
     return this.amountRemaining;
-  },
-};
+  }
+}

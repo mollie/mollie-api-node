@@ -2,7 +2,6 @@ import { Amount, Url } from '../../global';
 import { OrderStatus } from '../data';
 import Model from '../../Model';
 import Seal from '../../../types/Seal';
-import commonHelpers from '../../commonHelpers';
 
 export interface OrderLineData extends Model<'orderline'> {
   /**
@@ -153,7 +152,12 @@ export interface OrderLineData extends Model<'orderline'> {
   metadata: any;
 }
 
-type OrderLine = Seal<OrderLineData, typeof commonHelpers>;
+type OrderLine = Seal<
+  OrderLineData,
+  {
+    toPlainObject(): any;
+  }
+>;
 
 export default OrderLine;
 
@@ -183,5 +187,12 @@ export enum OrderLineType {
 }
 
 export function transform(input: OrderLineData): OrderLine {
-  return Object.assign(Object.create(commonHelpers), input);
+  return Object.assign(
+    Object.create({
+      toPlainObject: function toPlainObject(this: Model<any>): any {
+        return Object.assign({}, this);
+      },
+    }),
+    input,
+  );
 }

@@ -1,11 +1,12 @@
 import { SubscriptionData } from './data';
 import Seal from '../../types/Seal';
-import subscriptionHelpers from './helpers';
+import SubscriptionHelper from './SubscriptionHelper';
+import TransformingNetworkClient from '../../TransformingNetworkClient';
 
-type Subscription = Seal<SubscriptionData, typeof subscriptionHelpers>;
+type Subscription = Seal<SubscriptionData, SubscriptionHelper>;
 
 export default Subscription;
 
-export function transform(input: SubscriptionData): Subscription {
-  return Object.assign(Object.create(subscriptionHelpers), input);
+export function transform(networkClient: TransformingNetworkClient, input: SubscriptionData): Subscription {
+  return Object.assign(new SubscriptionHelper(networkClient, input._links), input);
 }

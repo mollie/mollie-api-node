@@ -3,8 +3,8 @@ import Model from './data/Model';
 import NetworkClient from './NetworkClient';
 
 export class Transformers {
-  readonly add: <R extends string, T extends Model<R, any>>(resource: R, transformer: (input: T) => any) => Transformers;
-  readonly get: (resource: string) => (input: any) => any;
+  readonly add: <R extends string, T extends Model<R, any>>(resource: R, transformer: (networkClient: TransformingNetworkClient, input: T) => any) => Transformers;
+  readonly get: (resource: string) => (networkClient: TransformingNetworkClient, input: any) => any;
   constructor() {
     const map = new Map<string, any>();
     this.add = (resource, transformer) => {
@@ -29,13 +29,13 @@ export default class TransformingNetworkClient {
     /**
      * Transforms the passed plain object returned by the Molile server into a more convenient JavaScript object.
      */
-    function transform(input: Model<any, string | undefined>) {
+    const transform = function transform(this: TransformingNetworkClient, input: Model<any, string | undefined>) {
       const transformer = transformers.get(input.resource);
       if (transformer == undefined) {
         throw new Error(`Received unexpected response from the server with resource ${input.resource}`);
       }
-      return transformer(input);
-    }
+      return transformer(this, input);
+    }.bind(this);
     this.post = async function post<R extends Model<any, any>, U extends any>(...passingArguments: Parameters<NetworkClient['get']>) {
       const response = await networkClient.post<R>(...passingArguments);
       if (response == true) {

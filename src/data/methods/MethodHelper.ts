@@ -1,9 +1,9 @@
 import { MethodData, MethodImageSize } from './data';
 import ApiError from '../../errors/ApiError';
-import commonHelpers from '../commonHelpers';
+import Helper from '../Helper';
+import Method from './Method';
 
-export default {
-  ...commonHelpers,
+export default class MethodHelper extends Helper<MethodData, Method> {
   /**
    * The URLs of images representing the payment method.
    *
@@ -11,7 +11,7 @@ export default {
    * @since 3.0.0 SVG support
    * @see https://docs.mollie.com/reference/v2/methods-api/get-method?path=image#response
    */
-  getImage: function getImage(this: MethodData, size: MethodImageSize | '1x' | '2x' = MethodImageSize.size2x): string {
+  public getImage(this: MethodData, size: MethodImageSize | '1x' | '2x' = MethodImageSize.size2x): string {
     switch (size) {
       case '1x':
       case MethodImageSize.size1x:
@@ -24,5 +24,5 @@ export default {
       default:
         throw new ApiError(`Unexpected size: ${size}`);
     }
-  },
-};
+  }
+}

@@ -1,7 +1,8 @@
 import { Amount, ApiMode, Links, Url } from '../../global';
 import Model from '../../Model';
 import Seal from '../../../types/Seal';
-import commonHelpers from '../../commonHelpers';
+import Helper from '../../Helper';
+import TransformingNetworkClient from '../../../TransformingNetworkClient';
 
 export interface CaptureData extends Model<'capture'> {
   /**
@@ -57,7 +58,7 @@ export interface CaptureData extends Model<'capture'> {
   _links: CaptureLinks;
 }
 
-type Capture = Seal<CaptureData, typeof commonHelpers>;
+type Capture = Seal<CaptureData, Helper<CaptureData, Capture>>;
 
 export default Capture;
 
@@ -82,6 +83,6 @@ export interface CaptureLinks extends Links {
   settlement?: Url;
 }
 
-export function transform(input: CaptureData): Capture {
-  return Object.assign(Object.create(commonHelpers), input);
+export function transform(networkClient: TransformingNetworkClient, input: CaptureData): Capture {
+  return Object.assign(new Helper<CaptureData, Capture>(networkClient, input._links), input);
 }

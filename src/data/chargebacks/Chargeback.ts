@@ -3,7 +3,8 @@ import { PaymentData } from '../payments/data';
 import Model from '../Model';
 import Payment, { transform as transformPayment } from '../payments/Payment';
 import Seal from '../../types/Seal';
-import commonHelpers from '../commonHelpers';
+import Helper from '../Helper';
+import TransformingNetworkClient from '../../TransformingNetworkClient';
 
 export interface ChargebackData extends Model<'chargeback'> {
   /**
@@ -57,7 +58,7 @@ type Chargeback = Seal<
       payments?: Omit<Payment, '_embedded'>[];
     };
   },
-  typeof commonHelpers
+  Helper<ChargebackData, Chargeback>
 >;
 
 export default Chargeback;
@@ -81,13 +82,13 @@ export enum ChargebackEmbed {
   payment = 'payment',
 }
 
-export function transform(input: ChargebackData): Chargeback {
+export function transform(networkClient: TransformingNetworkClient, input: ChargebackData): Chargeback {
   let _embedded: Chargeback['_embedded'];
   if (input._embedded != undefined) {
     _embedded = {};
     if (input._embedded.payments != undefined) {
-      _embedded.payments = input._embedded.payments.map(transformPayment);
+      _embedded.payments = input._embedded.payments.map(transformPayment.bind(undefined, networkClient));
     }
   }
-  return Object.assign(Object.create(commonHelpers), input);
+  return Object.assign(new Helper<ChargebackData, Chargeback>(networkClient, input._links), input, { _embedded });
 }

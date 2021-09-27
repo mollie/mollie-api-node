@@ -1,7 +1,8 @@
 import { Links } from '../global';
 import Model from '../Model';
 import Seal from '../../types/Seal';
-import commonHelpers from '../commonHelpers';
+import Helper from '../Helper';
+import TransformingNetworkClient from '../../TransformingNetworkClient';
 
 export interface PermissionData extends Model<'permission', string> {
   /**
@@ -24,12 +25,12 @@ export interface PermissionData extends Model<'permission', string> {
   _links: PermissionLinks;
 }
 
-type Permission = Seal<PermissionData, typeof commonHelpers>;
+type Permission = Seal<PermissionData, Helper<PermissionData, Permission>>;
 
 export default Permission;
 
 export type PermissionLinks = Links;
 
-export function transform(input: PermissionData): Permission {
-  return Object.assign(Object.create(commonHelpers), input);
+export function transform(networkClient: TransformingNetworkClient, input: PermissionData): Permission {
+  return Object.assign(new Helper<PermissionData, Permission>(networkClient, input._links), input);
 }
