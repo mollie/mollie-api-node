@@ -1,6 +1,6 @@
-import { ListLinks } from './data/list/List';
 import Model from './data/Model';
 import NetworkClient from './NetworkClient';
+import fling from './plumbing/fling';
 
 export class Transformers {
   readonly add: <R extends string, T extends Model<R, any>>(resource: R, transformer: (networkClient: TransformingNetworkClient, input: T) => any) => Transformers;
@@ -20,46 +20,40 @@ export class Transformers {
  * convenient JavaScript objects.
  */
 export default class TransformingNetworkClient {
-  readonly post: <R extends Model<any, any> | true, U>(...passingArguments: Parameters<NetworkClient['post']>) => Promise<U>;
-  readonly get: <R extends Model<any, any>, U>(...passingArguments: Parameters<NetworkClient['get']>) => Promise<U>;
-  readonly list: <R extends Model<any, any>, U>(...passingArguments: Parameters<NetworkClient['list']>) => Promise<U[] & { count: number; links: ListLinks }>;
-  readonly patch: <R extends Model<any, any>, U>(...passingArguments: Parameters<NetworkClient['patch']>) => Promise<U>;
-  readonly delete: <R extends Model<any, any> | true, U>(...passingArguments: Parameters<NetworkClient['delete']>) => Promise<U>;
-  constructor(networkClient: NetworkClient, transformers: Transformers) {
-    /**
-     * Transforms the passed plain object returned by the Molile server into a more convenient JavaScript object.
-     */
-    const transform = function transform(this: TransformingNetworkClient, input: Model<any, string | undefined>) {
-      const transformer = transformers.get(input.resource);
-      if (transformer == undefined) {
-        throw new Error(`Received unexpected response from the server with resource ${input.resource}`);
-      }
-      return transformer(this, input);
+  protected readonly transform: (input: Model<any, string | undefined>) => any;
+  constructor(protected readonly networkClient: NetworkClient, transformers: Transformers) {
+    this.transform = function transform(this: TransformingNetworkClient, input: Model<any, string | undefined>) {
+      return (transformers.get(input.resource) ?? fling(() => new Error(`Received unexpected response from the server with resource ${input.resource}`)))(this, input);
     }.bind(this);
-    this.post = async function post<R extends Model<any, any>, U extends any>(...passingArguments: Parameters<NetworkClient['get']>) {
-      const response = await networkClient.post<R>(...passingArguments);
-      if (response == true) {
-        return true as U;
-      }
-      return transform(response) as U;
-    };
-    this.get = function get<R extends Model<any, any>, U>(...passingArguments: Parameters<NetworkClient['get']>) {
-      return networkClient.get<R>(...passingArguments).then(transform) as Promise<U>;
-    };
-    this.list = async function list<R extends Model<any, any>, U>(...passingArguments: Parameters<NetworkClient['list']>) {
-      const response = await networkClient.list<R>(...passingArguments);
-      const { count, links } = response;
-      return Object.assign(response.map(transform) as U[], { count, links });
-    };
-    this.patch = function patch<R extends Model<any, any>, U>(...passingArguments: Parameters<NetworkClient['patch']>) {
-      return networkClient.patch<R>(...passingArguments).then(transform) as Promise<U>;
-    };
-    this['delete'] = async function <R extends Model<any, any>, U extends any>(...passingArguments: Parameters<NetworkClient['delete']>) {
-      const response = await networkClient.delete<R>(...passingArguments);
-      if (response == true) {
-        return true as U;
-      }
-      return transform(response) as U;
-    };
+  }
+
+  async post<R extends Model<any, any>, U extends any>(...passingArguments: Parameters<NetworkClient['post']>) {
+    const response = await this.networkClient.post<R>(...passingArguments);
+    if (response == true) {
+      return true as U;
+    }
+    return this.transform(response) as U;
+  }
+
+  async get<R extends Model<any, any>, U>(...passingArguments: Parameters<NetworkClient['get']>) {
+    return this.networkClient.get<R>(...passingArguments).then(this.transform) as Promise<U>;
+  }
+
+  async list<R extends Model<any, any>, U>(...passingArguments: Parameters<NetworkClient['list']>) {
+    const response = await this.networkClient.list<R>(...passingArguments);
+    const { count, links } = response;
+    return Object.assign(response.map(this.transform) as U[], { count, links });
+  }
+
+  async patch<R extends Model<any, any>, U>(...passingArguments: Parameters<NetworkClient['patch']>) {
+    return this.networkClient.patch<R>(...passingArguments).then(this.transform) as Promise<U>;
+  }
+
+  async delete<R extends Model<any, any>, U extends any>(...passingArguments: Parameters<NetworkClient['delete']>) {
+    const response = await this.networkClient.delete<R>(...passingArguments);
+    if (response == true) {
+      return true as U;
+    }
+    return this.transform(response) as U;
   }
 }
