@@ -8,7 +8,7 @@ const { createMollieClient } = require('@mollie/api-client');
 
 const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
 
-mollieClient.paymentsRefunds
+mollieClient.paymentRefunds
   .create({
     paymentId: 'tr_Vw3BTrxd9C',
     amount: {

@@ -13,7 +13,7 @@ function getPathSegments(customerId: string) {
   return `customers/${customerId}/payments`;
 }
 
-export default class CustomersPaymentsBinder extends InnerBinder<PaymentData, Payment> {
+export default class CustomerPaymentsBinder extends InnerBinder<PaymentData, Payment> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
   }
@@ -24,14 +24,14 @@ export default class CustomersPaymentsBinder extends InnerBinder<PaymentData, Pa
    * @since 1.1.1
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customer-payments
    */
-  public all: CustomersPaymentsBinder['list'] = this.list;
+  public all: CustomerPaymentsBinder['list'] = this.list;
   /**
    * Retrieve all Payments linked to the Customer.
    *
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customer-payments
    */
-  public page: CustomersPaymentsBinder['list'] = this.list;
+  public page: CustomerPaymentsBinder['list'] = this.list;
 
   /**
    * Creates a payment for the customer.

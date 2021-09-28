@@ -12,7 +12,7 @@ function getPathSegments(paymentId: string) {
   return `payments/${paymentId}/chargebacks`;
 }
 
-export default class PaymentsChargebacksBinder extends InnerBinder<ChargebackData, Chargeback> {
+export default class PaymentChargebacksBinder extends InnerBinder<ChargebackData, Chargeback> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
   }
@@ -25,7 +25,7 @@ export default class PaymentsChargebacksBinder extends InnerBinder<ChargebackDat
    * @since 1.1.1
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
    */
-  public all: PaymentsChargebacksBinder['list'] = this.list;
+  public all: PaymentChargebacksBinder['list'] = this.list;
   /**
    * Retrieve all received chargebacks. If the payment-specific endpoint is used, only chargebacks for that specific payment are returned.
    *
@@ -34,7 +34,7 @@ export default class PaymentsChargebacksBinder extends InnerBinder<ChargebackDat
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
    */
-  public page: PaymentsChargebacksBinder['list'] = this.list;
+  public page: PaymentChargebacksBinder['list'] = this.list;
 
   /**
    * Retrieve a single chargeback by its ID. Note the original payment's ID is needed as well.

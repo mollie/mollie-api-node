@@ -13,7 +13,7 @@ function getPathSegments(customerId: string) {
   return `customers/${customerId}/subscriptions`;
 }
 
-export default class CustomersSubscriptionsBinder extends InnerBinder<SubscriptionData, Subscription> {
+export default class CustomerSubscriptionsBinder extends InnerBinder<SubscriptionData, Subscription> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
   }
@@ -24,21 +24,21 @@ export default class CustomersSubscriptionsBinder extends InnerBinder<Subscripti
    * @since 1.3.2
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/cancel-subscription
    */
-  public delete: CustomersSubscriptionsBinder['cancel'] = this.cancel;
+  public delete: CustomerSubscriptionsBinder['cancel'] = this.cancel;
   /**
    * Retrieve all subscriptions of a customer.
    *
    * @since 1.3.2
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions
    */
-  public all: CustomersSubscriptionsBinder['list'] = this.list;
+  public all: CustomerSubscriptionsBinder['list'] = this.list;
   /**
    * Retrieve all subscriptions of a customer.
    *
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions
    */
-  public page: CustomersSubscriptionsBinder['list'] = this.list;
+  public page: CustomerSubscriptionsBinder['list'] = this.list;
 
   /**
    * With subscriptions, you can schedule recurring payments to take place at regular intervals.

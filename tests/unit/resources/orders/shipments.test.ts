@@ -140,7 +140,7 @@ test('createShipment', async () => {
 
   adapter.onPost('/orders/ord_pbjz8x/shipments').reply(201, composeShipmentResponse('shp_3wmsgCJN4U', 'ord_pbjz8x'));
 
-  const shipment = await bluster(client.ordersShipments.create.bind(client.ordersShipments))({
+  const shipment = await bluster(client.orderShipments.create.bind(client.orderShipments))({
     orderId: 'ord_pbjz8x',
     lines: [
       {
@@ -159,7 +159,7 @@ test('getShipment', async () => {
 
   adapter.onGet('/orders/ord_pbjz8x/shipments/shp_3wmsgCJN4U').reply(200, composeShipmentResponse('shp_3wmsgCJN4U', 'ord_pbjz8x'));
 
-  const shipment = await bluster(client.ordersShipments.get.bind(client.ordersShipments))('shp_3wmsgCJN4U', { orderId: 'ord_pbjz8x' });
+  const shipment = await bluster(client.orderShipments.get.bind(client.orderShipments))('shp_3wmsgCJN4U', { orderId: 'ord_pbjz8x' });
 
   testShipment(shipment, 'shp_3wmsgCJN4U', 'ord_pbjz8x');
 });

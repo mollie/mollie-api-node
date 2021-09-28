@@ -36,7 +36,7 @@ async function getSubscription(status) {
     },
   });
 
-  return await bluster(client.customersSubscriptions.get.bind(client.customersSubscriptions))('sub_wByQa6efm6', { customerId: 'cst_FhQJRw4s2n' });
+  return await bluster(client.customerSubscriptions.get.bind(client.customerSubscriptions))('sub_wByQa6efm6', { customerId: 'cst_FhQJRw4s2n' });
 }
 
 test('subscriptionStatuses', () => {

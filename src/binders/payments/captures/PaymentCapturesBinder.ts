@@ -12,7 +12,7 @@ function getPathSegments(paymentId: string) {
   return `payments/${paymentId}/captures`;
 }
 
-export default class PaymentsCapturesBinder extends InnerBinder<CaptureData, Capture> {
+export default class PaymentCapturesBinder extends InnerBinder<CaptureData, Capture> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
   }
@@ -25,7 +25,7 @@ export default class PaymentsCapturesBinder extends InnerBinder<CaptureData, Cap
    * @since 1.1.1
    * @see https://docs.mollie.com/reference/v2/captures-api/list-captures
    */
-  public all: PaymentsCapturesBinder['list'] = this.list;
+  public all: PaymentCapturesBinder['list'] = this.list;
   /**
    * Retrieve all captures for a certain payment.
    *
@@ -34,7 +34,7 @@ export default class PaymentsCapturesBinder extends InnerBinder<CaptureData, Cap
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/captures-api/list-captures
    */
-  public page: PaymentsCapturesBinder['list'] = this.list;
+  public page: PaymentCapturesBinder['list'] = this.list;
 
   /**
    * Retrieve a single capture by its ID. Note the original payment's ID is needed as well.

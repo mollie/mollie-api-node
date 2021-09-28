@@ -6,7 +6,7 @@ const { createMollieClient } = require('@mollie/api-client');
 
 const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
 
-mollieClient.customersPayments
+mollieClient.customerPayments
   .all({
     count: 50,
     customerId: 'cst_cu5t0m3r',

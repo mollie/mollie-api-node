@@ -12,7 +12,7 @@ function getPathSegments(orderId: string) {
   return `orders/${orderId}/shipments`;
 }
 
-export default class OrdersShipmentsBinder extends InnerBinder<ShipmentData, Shipment> {
+export default class OrderShipmentsBinder extends InnerBinder<ShipmentData, Shipment> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
   }
@@ -23,14 +23,14 @@ export default class OrdersShipmentsBinder extends InnerBinder<ShipmentData, Shi
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/shipments-api/list-shipments
    */
-  public all: OrdersShipmentsBinder['list'] = this.list;
+  public all: OrderShipmentsBinder['list'] = this.list;
   /**
    * Retrieve all shipments for an order.
    *
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/shipments-api/list-shipments
    */
-  public page: OrdersShipmentsBinder['list'] = this.list;
+  public page: OrderShipmentsBinder['list'] = this.list;
 
   /**
    * The **Create Shipment API** is used to ship order lines created by the /reference/v2/orders-api/create-order.

@@ -13,7 +13,7 @@ function getPathSegments(customerId: string, subscriptionId: string): string {
   return `customers/${customerId}/subscriptions/${subscriptionId}/payments`;
 }
 
-export default class SubscriptionsPaymentsBinder extends InnerBinder<PaymentData, Payment> {
+export default class SubscriptionPaymentsBinder extends InnerBinder<PaymentData, Payment> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
   }

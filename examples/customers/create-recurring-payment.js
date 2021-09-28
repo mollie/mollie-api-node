@@ -9,7 +9,7 @@ const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWX
   try {
     const customerId = 'cst_pzhEvnttJ2';
 
-    const payment = await mollieClient.customersPayments.create({
+    const payment = await mollieClient.customerPayments.create({
       amount: { value: '10.00', currency: 'EUR' },
       description: 'Recurring payment',
       redirectUrl: 'https://example.org/redirect',
