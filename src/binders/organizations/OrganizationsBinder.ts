@@ -1,8 +1,7 @@
 import ApiError from '../../errors/ApiError';
 import Callback from '../../types/Callback';
 import checkId from '../../plumbing/checkId';
-import NetworkClient from '../../NetworkClient';
-import Organization, { injectPrototypes, OrganizationData } from '../../data/organizations/Organizations';
+import Organization, { OrganizationData } from '../../data/organizations/Organizations';
 import Binder from '../Binder';
 import TransformingNetworkClient from '../../TransformingNetworkClient';
 import renege from '../../plumbing/renege';
@@ -10,8 +9,8 @@ import renege from '../../plumbing/renege';
 const pathSegment = 'organizations';
 
 export default class OrganizationsBinder extends Binder<OrganizationData, Organization> {
-  constructor(networkClient: NetworkClient) {
-    super(new TransformingNetworkClient(networkClient, injectPrototypes));
+  constructor(protected readonly networkClient: TransformingNetworkClient) {
+    super();
   }
 
   /**
@@ -29,7 +28,7 @@ export default class OrganizationsBinder extends Binder<OrganizationData, Organi
     if (!checkId(id, 'organization')) {
       throw new ApiError('The organization id is invalid');
     }
-    return this.networkClient.get(`${pathSegment}/${id}`);
+    return this.networkClient.get<OrganizationData, Organization>(`${pathSegment}/${id}`);
   }
 
   /**
@@ -42,6 +41,6 @@ export default class OrganizationsBinder extends Binder<OrganizationData, Organi
   public getCurrent(callback: Callback<Organization>): void;
   public getCurrent() {
     if (renege(this, this.getCurrent, ...arguments)) return;
-    return this.networkClient.get(`${pathSegment}/me`);
+    return this.networkClient.get<OrganizationData, Organization>(`${pathSegment}/me`);
   }
 }

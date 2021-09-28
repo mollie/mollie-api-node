@@ -3,9 +3,8 @@ import { PaymentData } from '../../../data/payments/data';
 import ApiError from '../../../errors/ApiError';
 import Callback from '../../../types/Callback';
 import List from '../../../data/list/List';
-import NetworkClient from '../../../NetworkClient';
 import InnerBinder from '../../InnerBinder';
-import Payment, { injectPrototypes } from '../../../data/payments/Payment';
+import Payment from '../../../data/payments/Payment';
 import TransformingNetworkClient from '../../../TransformingNetworkClient';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
@@ -15,8 +14,8 @@ function getPathSegments(customerId: string) {
 }
 
 export default class CustomersPaymentsBinder extends InnerBinder<PaymentData, Payment> {
-  constructor(networkClient: NetworkClient) {
-    super(new TransformingNetworkClient(networkClient, injectPrototypes));
+  constructor(protected readonly networkClient: TransformingNetworkClient) {
+    super();
   }
 
   /**
@@ -56,7 +55,7 @@ export default class CustomersPaymentsBinder extends InnerBinder<PaymentData, Pa
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...data } = parameters;
-    return this.networkClient.post<Payment>(getPathSegments(customerId), data);
+    return this.networkClient.post<PaymentData, Payment>(getPathSegments(customerId), data);
   }
 
   /**
@@ -75,6 +74,6 @@ export default class CustomersPaymentsBinder extends InnerBinder<PaymentData, Pa
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...query } = parameters ?? {};
-    return this.networkClient.list(getPathSegments(customerId), 'payments', query).then(result => this.injectPaginationHelpers(result, this.list, parameters ?? {}));
+    return this.networkClient.list<PaymentData, Payment>(getPathSegments(customerId), 'payments', query).then(result => this.injectPaginationHelpers(result, this.list, parameters ?? {}));
   }
 }

@@ -2,9 +2,8 @@ import { CreateParameters } from './parameters';
 import { PaymentData } from '../../../data/payments/data';
 import ApiError from '../../../errors/ApiError';
 import Callback from '../../../types/Callback';
-import NetworkClient from '../../../NetworkClient';
 import InnerBinder from '../../InnerBinder';
-import Payment, { injectPrototypes } from '../../../data/payments/Payment';
+import Payment from '../../../data/payments/Payment';
 import TransformingNetworkClient from '../../../TransformingNetworkClient';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
@@ -14,8 +13,8 @@ function getPathSegments(orderId: string) {
 }
 
 export default class OrdersPaymentsBinder extends InnerBinder<PaymentData, Payment> {
-  constructor(networkClient: NetworkClient) {
-    super(new TransformingNetworkClient(networkClient, injectPrototypes));
+  constructor(protected readonly networkClient: TransformingNetworkClient) {
+    super();
   }
 
   /**
@@ -37,6 +36,6 @@ export default class OrdersPaymentsBinder extends InnerBinder<PaymentData, Payme
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...data } = parameters;
-    return this.networkClient.post<Payment>(getPathSegments(orderId), data);
+    return this.networkClient.post<PaymentData, Payment>(getPathSegments(orderId), data);
   }
 }

@@ -3,8 +3,7 @@ import { MandateData } from '../../../data/customers/mandates/data';
 import ApiError from '../../../errors/ApiError';
 import Callback from '../../../types/Callback';
 import List from '../../../data/list/List';
-import Mandate, { injectPrototypes } from '../../../data/customers/mandates/Mandate';
-import NetworkClient from '../../../NetworkClient';
+import Mandate from '../../../data/customers/mandates/Mandate';
 import InnerBinder from '../../InnerBinder';
 import TransformingNetworkClient from '../../../TransformingNetworkClient';
 import checkId from '../../../plumbing/checkId';
@@ -15,8 +14,8 @@ function getPathSegments(customerId: string) {
 }
 
 export default class CustomersMandatesBinder extends InnerBinder<MandateData, Mandate> {
-  constructor(networkClient: NetworkClient) {
-    super(new TransformingNetworkClient(networkClient, injectPrototypes));
+  constructor(protected readonly networkClient: TransformingNetworkClient) {
+    super();
   }
 
   /**
@@ -70,7 +69,7 @@ export default class CustomersMandatesBinder extends InnerBinder<MandateData, Ma
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...data } = parameters;
-    return this.networkClient.post<Mandate>(getPathSegments(customerId), data);
+    return this.networkClient.post<MandateData, Mandate>(getPathSegments(customerId), data);
   }
 
   /**
@@ -92,7 +91,7 @@ export default class CustomersMandatesBinder extends InnerBinder<MandateData, Ma
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...query } = parameters ?? {};
-    return this.networkClient.get(`${getPathSegments(customerId)}/${id}`, query);
+    return this.networkClient.get<MandateData, Mandate>(`${getPathSegments(customerId)}/${id}`, query);
   }
 
   /**
@@ -113,7 +112,7 @@ export default class CustomersMandatesBinder extends InnerBinder<MandateData, Ma
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...query } = parameters ?? {};
-    return this.networkClient.list(getPathSegments(customerId), 'mandates', query).then(result => this.injectPaginationHelpers(result, this.list, parameters ?? {}));
+    return this.networkClient.list<MandateData, Mandate>(getPathSegments(customerId), 'mandates', query).then(result => this.injectPaginationHelpers(result, this.list, parameters ?? {}));
   }
 
   /**
@@ -135,6 +134,6 @@ export default class CustomersMandatesBinder extends InnerBinder<MandateData, Ma
       throw new ApiError('The customer is invalid');
     }
     const { customerId: _, ...context } = parameters ?? {};
-    return this.networkClient.delete<true>(`${getPathSegments(customerId)}/${id}`, context);
+    return this.networkClient.delete<MandateData, true>(`${getPathSegments(customerId)}/${id}`, context);
   }
 }

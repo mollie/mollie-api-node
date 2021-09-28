@@ -2,8 +2,7 @@ import { GetParameters, ListParameters } from './parameters';
 import { MethodData } from '../../data/methods/data';
 import Callback from '../../types/Callback';
 import List from '../../data/list/List';
-import Method, { injectPrototypes } from '../../data/methods/Method';
-import NetworkClient from '../../NetworkClient';
+import Method from '../../data/methods/Method';
 import Binder from '../Binder';
 import TransformingNetworkClient from '../../TransformingNetworkClient';
 import renege from '../../plumbing/renege';
@@ -11,8 +10,8 @@ import renege from '../../plumbing/renege';
 const pathSegment = 'methods';
 
 export default class MethodsBinder extends Binder<MethodData, Method> {
-  constructor(networkClient: NetworkClient) {
-    super(new TransformingNetworkClient(networkClient, injectPrototypes));
+  constructor(protected readonly networkClient: TransformingNetworkClient) {
+    super();
   }
 
   /**
@@ -88,6 +87,6 @@ export default class MethodsBinder extends Binder<MethodData, Method> {
   public list(parameters: ListParameters, callback: Callback<List<Method>>): void;
   public list(parameters: ListParameters = {}) {
     if (renege(this, this.list, ...arguments)) return;
-    return this.networkClient.list(pathSegment, 'methods', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.networkClient.list<MethodData, Method>(pathSegment, 'methods', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 }

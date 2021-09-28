@@ -1,11 +1,12 @@
 import { OnboardingData } from './data';
 import Seal from '../../types/Seal';
-import onboardingHelpers from './helpers';
+import OnboardingHelper from './OnboardingHelper';
+import TransformingNetworkClient from '../../TransformingNetworkClient';
 
-type Onboarding = Seal<OnboardingData, typeof onboardingHelpers>;
+type Onboarding = Seal<OnboardingData, OnboardingHelper>;
 
 export default Onboarding;
 
-export function injectPrototypes(input: OnboardingData): Onboarding {
-  return Object.assign(Object.create(onboardingHelpers), input);
+export function transform(networkClient: TransformingNetworkClient, input: OnboardingData): Onboarding {
+  return Object.assign(new OnboardingHelper(networkClient, input._links), input);
 }

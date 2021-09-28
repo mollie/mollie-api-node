@@ -1,11 +1,12 @@
 import { MethodData } from './data';
 import Seal from '../../types/Seal';
-import methodHelpers from './helpers';
+import MethodHelper from './MethodHelper';
+import TransformingNetworkClient from '../../TransformingNetworkClient';
 
-type Method = Seal<MethodData, typeof methodHelpers>;
+type Method = Seal<MethodData, MethodHelper>;
 
 export default Method;
 
-export function injectPrototypes(input: MethodData): Method {
-  return Object.assign(Object.create(methodHelpers), input);
+export function transform(networkClient: TransformingNetworkClient, input: MethodData): Method {
+  return Object.assign(new MethodHelper(networkClient, input._links), input);
 }

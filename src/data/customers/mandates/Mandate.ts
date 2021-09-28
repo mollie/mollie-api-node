@@ -1,11 +1,12 @@
 import { MandateData } from './data';
 import Seal from '../../../types/Seal';
-import mandateHelpers from './helpers';
+import MandateHelper from './MandateHelper';
+import TransformingNetworkClient from '../../../TransformingNetworkClient';
 
-type Mandate = Seal<MandateData, typeof mandateHelpers>;
+type Mandate = Seal<MandateData, MandateHelper>;
 
 export default Mandate;
 
-export function injectPrototypes(input: MandateData): Mandate {
-  return Object.assign(Object.create(mandateHelpers), input);
+export function transform(networkClient: TransformingNetworkClient, input: MandateData): Mandate {
+  return Object.assign(new MandateHelper(networkClient, input._links), input);
 }

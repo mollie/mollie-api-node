@@ -59,4 +59,18 @@ describe('customers', () => {
       }
     }
   });
+
+  it('should refresh', async () => {
+    // Create a customer.
+    const originalCustomer = await mollieClient.customers.create({
+      email: 'john@example.org',
+      name: 'John Doe',
+    });
+    // Update the customer.
+    await mollieClient.customers.update(originalCustomer.id, { name: 'Johnny Domen' });
+    // Get the updated customer.
+    const updatedCustomer = await originalCustomer.refresh();
+    expect(originalCustomer.name).toBe('John Doe');
+    expect(updatedCustomer.name).toBe('Johnny Domen');
+  });
 });

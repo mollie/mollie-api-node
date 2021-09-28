@@ -1,9 +1,8 @@
 import { ListParameters } from './parameters';
 import { SubscriptionData } from '../../data/subscription/data';
 import Callback from '../../types/Callback';
-import Subscription, { injectPrototypes } from '../../data/subscription/Subscription';
+import Subscription from '../../data/subscription/Subscription';
 import List from '../../data/list/List';
-import NetworkClient from '../../NetworkClient';
 import InnerBinder from '../InnerBinder';
 import TransformingNetworkClient from '../../TransformingNetworkClient';
 import renege from '../../plumbing/renege';
@@ -11,8 +10,8 @@ import renege from '../../plumbing/renege';
 const pathSegment = 'subscriptions';
 
 export default class SubscriptionsBinder extends InnerBinder<SubscriptionData, Subscription> {
-  constructor(networkClient: NetworkClient) {
-    super(new TransformingNetworkClient(networkClient, injectPrototypes));
+  constructor(protected readonly networkClient: TransformingNetworkClient) {
+    super();
   }
 
   /**
@@ -26,6 +25,6 @@ export default class SubscriptionsBinder extends InnerBinder<SubscriptionData, S
   public list(parameters: ListParameters, callback: Callback<List<Subscription>>): void;
   public list(parameters: ListParameters = {}) {
     if (renege(this, this.list, ...arguments)) return;
-    return this.networkClient.list(pathSegment, 'subscriptions', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.networkClient.list<SubscriptionData, Subscription>(pathSegment, 'subscriptions', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 }

@@ -1,7 +1,8 @@
 import { ApiMode, Links, Locale, PaymentMethod, Url } from '../global';
 import Model from '../Model';
 import Seal from '../../types/Seal';
-import commonHelpers from '../commonHelpers';
+import Helper from '../Helper';
+import TransformingNetworkClient from '../../TransformingNetworkClient';
 
 export interface CustomerData extends Model<'customer'> {
   /**
@@ -54,7 +55,7 @@ export interface CustomerData extends Model<'customer'> {
   _links: CustomerLinks;
 }
 
-type Customer = Seal<CustomerData, typeof commonHelpers>;
+type Customer = Seal<CustomerData, Helper<CustomerData, Customer>>;
 
 export default Customer;
 
@@ -79,6 +80,6 @@ export interface CustomerLinks extends Links {
   payments: Url;
 }
 
-export function injectPrototypes(input: CustomerData): Customer {
-  return Object.assign(Object.create(commonHelpers), input);
+export function transform(networkClient: TransformingNetworkClient, input: CustomerData): Customer {
+  return Object.assign(new Helper<CustomerData, Customer>(networkClient, input._links), input);
 }

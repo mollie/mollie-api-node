@@ -1,9 +1,8 @@
 import { GetParameters, ListParameters } from './parameters';
 import ApiError from '../../../errors/ApiError';
 import Callback from '../../../types/Callback';
-import Capture, { CaptureData, injectPrototypes } from '../../../data/payments/captures/Capture';
+import Capture, { CaptureData } from '../../../data/payments/captures/Capture';
 import List from '../../../data/list/List';
-import NetworkClient from '../../../NetworkClient';
 import InnerBinder from '../../InnerBinder';
 import TransformingNetworkClient from '../../../TransformingNetworkClient';
 import checkId from '../../../plumbing/checkId';
@@ -14,8 +13,8 @@ function getPathSegments(paymentId: string) {
 }
 
 export default class PaymentsCapturesBinder extends InnerBinder<CaptureData, Capture> {
-  constructor(networkClient: NetworkClient) {
-    super(new TransformingNetworkClient(networkClient, injectPrototypes));
+  constructor(protected readonly networkClient: TransformingNetworkClient) {
+    super();
   }
 
   /**
@@ -58,7 +57,7 @@ export default class PaymentsCapturesBinder extends InnerBinder<CaptureData, Cap
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    return this.networkClient.get(`${getPathSegments(paymentId)}/${id}`, query);
+    return this.networkClient.get<CaptureData, Capture>(`${getPathSegments(paymentId)}/${id}`, query);
   }
 
   /**
@@ -79,6 +78,6 @@ export default class PaymentsCapturesBinder extends InnerBinder<CaptureData, Cap
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    return this.networkClient.list(getPathSegments(paymentId), 'captures', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.networkClient.list<CaptureData, Capture>(getPathSegments(paymentId), 'captures', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 }

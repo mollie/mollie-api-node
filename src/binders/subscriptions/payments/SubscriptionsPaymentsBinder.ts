@@ -3,9 +3,8 @@ import { PaymentData } from '../../../data/payments/data';
 import ApiError from '../../../errors/ApiError';
 import Callback from '../../../types/Callback';
 import List from '../../../data/list/List';
-import NetworkClient from '../../../NetworkClient';
 import InnerBinder from '../../InnerBinder';
-import Payment, { injectPrototypes } from '../../../data/payments/Payment';
+import Payment from '../../../data/payments/Payment';
 import TransformingNetworkClient from '../../../TransformingNetworkClient';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
@@ -15,8 +14,8 @@ function getPathSegments(customerId: string, subscriptionId: string): string {
 }
 
 export default class SubscriptionsPaymentsBinder extends InnerBinder<PaymentData, Payment> {
-  constructor(networkClient: NetworkClient) {
-    super(new TransformingNetworkClient(networkClient, injectPrototypes));
+  constructor(protected readonly networkClient: TransformingNetworkClient) {
+    super();
   }
 
   /**
@@ -38,6 +37,6 @@ export default class SubscriptionsPaymentsBinder extends InnerBinder<PaymentData
       throw new ApiError('The subscription id is invalid');
     }
     const { customerId: _, subscriptionId: __, ...query } = parameters;
-    return this.networkClient.list(getPathSegments(customerId, subscriptionId), 'payments', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.networkClient.list<PaymentData, Payment>(getPathSegments(customerId, subscriptionId), 'payments', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 }
