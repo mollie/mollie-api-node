@@ -2,8 +2,13 @@ import { OrderData, OrderStatus } from './data';
 import Helper from '../Helper';
 import Nullable from '../../types/Nullable';
 import Order from './Order';
+import TransformingNetworkClient from '../../TransformingNetworkClient';
 
 export default class OrderHelper extends Helper<OrderData, Order> {
+  constructor(networkClient: TransformingNetworkClient, protected readonly links: OrderData['_links']) {
+    super(networkClient, links);
+  }
+
   /**
    * Returns whether the order has been created, but nothing else has happened yet.
    */
@@ -72,10 +77,10 @@ export default class OrderHelper extends Helper<OrderData, Order> {
    *
    * Recurring, authorized, paid and finalized orders do not have a checkout URL.
    */
-  public getCheckoutUrl(this: OrderData): Nullable<string> {
-    if (this._links.checkout == undefined) {
+  public getCheckoutUrl(): Nullable<string> {
+    if (this.links.checkout == undefined) {
       return null;
     }
-    return this._links.checkout.href;
+    return this.links.checkout.href;
   }
 }

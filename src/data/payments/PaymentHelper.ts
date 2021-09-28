@@ -58,8 +58,8 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
   /**
    * Returns the URL the customer should visit to make the payment. This is to where you should redirect the consumer.
    */
-  public getPaymentUrl(this: PaymentData): string {
-    return get(this._links, 'checkout.href', null);
+  public getPaymentUrl(): string {
+    return get(this.links, 'checkout.href', null);
   }
 
   /**
@@ -80,15 +80,15 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
   /**
    * Returns whether there are refunds which belong to the payment.
    */
-  public hasRefunds(this: PaymentData): boolean {
-    return this._links.refunds != undefined;
+  public hasRefunds(): boolean {
+    return this.links.refunds != undefined;
   }
 
   /**
    * Returns whether there are chargebacks which belong to the payment.
    */
-  public hasChargebacks(this: PaymentData): boolean {
-    return this._links.chargebacks != undefined;
+  public hasChargebacks(): boolean {
+    return this.links.chargebacks != undefined;
   }
 
   /**
@@ -112,11 +112,11 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
    *
    * Recurring payments don’t have a checkout URL.
    */
-  public getCheckoutUrl(this: PaymentData): Nullable<string> {
-    if (this._links.checkout == undefined) {
+  public getCheckoutUrl(): Nullable<string> {
+    if (this.links.checkout == undefined) {
       return null;
     }
-    return this._links.checkout.href;
+    return this.links.checkout.href;
   }
 
   public canBeRefunded(this: PaymentData): boolean {
