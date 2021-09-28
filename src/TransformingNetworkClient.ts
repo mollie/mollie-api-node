@@ -22,6 +22,9 @@ export class Transformers {
 export default class TransformingNetworkClient {
   protected readonly transform: (input: Model<any, string | undefined>) => any;
   constructor(protected readonly networkClient: NetworkClient, transformers: Transformers) {
+    /**
+     * Transforms the passed plain object returned by the Mollie server into a more convenient JavaScript object.
+     */
     this.transform = function transform(this: TransformingNetworkClient, input: Model<any, string | undefined>) {
       return (transformers.get(input.resource) ?? fling(() => new Error(`Received unexpected response from the server with resource ${input.resource}`)))(this, input);
     }.bind(this);
