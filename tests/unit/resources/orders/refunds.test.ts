@@ -92,7 +92,7 @@ test('createPartialOrderRefund', async () => {
 
   adapter.onPost('/orders/ord_stTC2WHAuS/refunds').reply(201, composeRefundResponse('re_4qqhO89gsT', 'ord_stTC2WHAuS'));
 
-  const refund = await bluster(client.ordersRefunds.create.bind(client.ordersRefunds))({ orderId: 'ord_stTC2WHAuS', lines: [{ id: 'odl_dgtxyl', quantity: 1 }] });
+  const refund = await bluster(client.orderRefunds.create.bind(client.orderRefunds))({ orderId: 'ord_stTC2WHAuS', lines: [{ id: 'odl_dgtxyl', quantity: 1 }] });
 
   testRefund(refund, 're_4qqhO89gsT');
 });
@@ -102,7 +102,7 @@ test('createCompleteOrderRefund', async () => {
 
   adapter.onPost('/orders/ord_stTC2WHAuS/refunds').reply(201, composeRefundResponse('re_4qqhO89gsT', 'ord_stTC2WHAuS'));
 
-  const refund = await bluster(client.ordersRefunds.create.bind(client.ordersRefunds))({ orderId: 'ord_stTC2WHAuS', lines: [] });
+  const refund = await bluster(client.orderRefunds.create.bind(client.orderRefunds))({ orderId: 'ord_stTC2WHAuS', lines: [] });
 
   testRefund(refund, 're_4qqhO89gsT');
 });
@@ -196,7 +196,7 @@ test('listOrderRefunds', async () => {
     },
   });
 
-  const refunds = await bluster(client.ordersRefunds.all.bind(client.ordersRefunds))({ orderId: 'ord_stTC2WHAuS' });
+  const refunds = await bluster(client.orderRefunds.all.bind(client.orderRefunds))({ orderId: 'ord_stTC2WHAuS' });
 
   expect(refunds.length).toBe(1);
 

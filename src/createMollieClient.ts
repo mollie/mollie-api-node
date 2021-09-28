@@ -25,27 +25,27 @@ import { transform as transformOnboarding } from './data/onboarding/Onboarding';
 // Binders
 import ApplePayBinder from './binders/applePay/ApplePayBinder';
 import ChargebacksBinder from './binders/chargebacks/ChargebacksBinder';
-import CustomersMandatesBinder from './binders/customers/mandates/CustomersMandatesBinder';
-import CustomersPaymentsBinder from './binders/customers/payments/CustomersPaymentsBinder';
+import CustomerMandatesBinder from './binders/customers/mandates/CustomerMandatesBinder';
+import CustomerPaymentsBinder from './binders/customers/payments/CustomerPaymentsBinder';
 import CustomersBinder from './binders/customers/CustomersBinder';
-import CustomersSubscriptionsBinder from './binders/customers/subscriptions/CustomersSubscriptionsBinder';
+import CustomerSubscriptionsBinder from './binders/customers/subscriptions/CustomerSubscriptionsBinder';
 import MethodsBinder from './binders/methods/MethodsBinder';
 import OnboardingBinder from './binders/onboarding/OnboardingBinder';
-import OrdersLinesBinder from './binders/orders/orderlines/OrderLinesBinder';
-import OrdersPaymentsBinder from './binders/payments/orders/OrdersPaymentsBinder';
-import OrdersRefundsBinder from './binders/refunds/orders/OrdersRefundsBinder';
+import OrderLinesBinder from './binders/orders/orderlines/OrderLinesBinder';
+import OrderPaymentsBinder from './binders/payments/orders/OrderPaymentsBinder';
+import OrderRefundsBinder from './binders/refunds/orders/OrderRefundsBinder';
 import OrdersBinder from './binders/orders/OrdersBinder';
-import OrdersShipmentsBinder from './binders/orders/shipments/OrdersShipmentsBinder';
+import OrderShipmentsBinder from './binders/orders/shipments/OrderShipmentsBinder';
 import OrganizationsBinder from './binders/organizations/OrganizationsBinder';
-import PaymentsCapturesBinder from './binders/payments/captures/PaymentsCapturesBinder';
-import PaymentsChargebacksBinder from './binders/payments/chargebacks/PaymentsChargebacksBinder';
-import PaymentsRefundsBinder from './binders/payments/refunds/PaymentRefundsBinder';
+import PaymentCapturesBinder from './binders/payments/captures/PaymentCapturesBinder';
+import PaymentChargebacksBinder from './binders/payments/chargebacks/PaymentChargebacksBinder';
+import PaymentRefundsBinder from './binders/payments/refunds/PaymentRefundsBinder';
 import PaymentsBinder from './binders/payments/PaymentsBinder';
 import PermissionsBinder from './binders/permissions/PermissionBinder';
 import ProfilesBinder from './binders/profiles/ProfilesBinder';
 import RefundsBinder from './binders/refunds/RefundsBinder';
 import SubscriptionsBinder from './binders/subscriptions/SubscriptionsBinder';
-import SubscriptionsPaymentsBinder from './binders/subscriptions/payments/SubscriptionsPaymentsBinder';
+import SubscriptionPaymentsBinder from './binders/subscriptions/payments/SubscriptionPaymentsBinder';
 
 /**
  * Returns an object which has a property for each passed key, which share the same (passed) value.
@@ -100,35 +100,35 @@ export default function createMollieClient(options: Options) {
 
     // Refunds.
     refunds: new RefundsBinder(transformingNetworkClient),
-    ...alias(new PaymentsRefundsBinder(transformingNetworkClient), 'paymentsRefunds', 'payments_refunds'),
+    ...alias(new PaymentRefundsBinder(transformingNetworkClient), 'paymentRefunds', 'payments_refunds'),
 
     // Chargebacks.
     chargebacks: new ChargebacksBinder(transformingNetworkClient),
-    ...alias(new PaymentsChargebacksBinder(transformingNetworkClient), 'paymentsChargebacks', 'payments_chargebacks'),
+    ...alias(new PaymentChargebacksBinder(transformingNetworkClient), 'paymentChargebacks', 'payments_chargebacks'),
 
     // Captures.
-    ...alias(new PaymentsCapturesBinder(transformingNetworkClient), 'paymentsCaptures', 'payments_captures'),
+    ...alias(new PaymentCapturesBinder(transformingNetworkClient), 'paymentCaptures', 'payments_captures'),
 
     // Customers.
     customers: new CustomersBinder(transformingNetworkClient),
-    ...alias(new CustomersPaymentsBinder(transformingNetworkClient), 'customersPayments', 'customers_payments'),
+    ...alias(new CustomerPaymentsBinder(transformingNetworkClient), 'customerPayments', 'customers_payments'),
 
     // Mandates.
-    ...alias(new CustomersMandatesBinder(transformingNetworkClient), 'customersMandates', 'customers_mandates'),
+    ...alias(new CustomerMandatesBinder(transformingNetworkClient), 'customerMandates', 'customers_mandates'),
 
     // Subscriptions.
     subscription: new SubscriptionsBinder(transformingNetworkClient),
-    ...alias(new SubscriptionsPaymentsBinder(transformingNetworkClient), 'subscriptionsPayments', 'subscriptions_payments'),
-    ...alias(new CustomersSubscriptionsBinder(transformingNetworkClient), 'customersSubscriptions', 'customers_subscriptions'),
+    ...alias(new SubscriptionPaymentsBinder(transformingNetworkClient), 'subscriptionPayments', 'subscriptions_payments'),
+    ...alias(new CustomerSubscriptionsBinder(transformingNetworkClient), 'customerSubscriptions', 'customers_subscriptions'),
 
     // Orders.
     orders: new OrdersBinder(transformingNetworkClient),
-    ...alias(new OrdersRefundsBinder(transformingNetworkClient), 'ordersRefunds', 'orders_refunds'),
-    ...alias(new OrdersLinesBinder(transformingNetworkClient), 'ordersLines', 'orders_lines'),
-    ...alias(new OrdersPaymentsBinder(transformingNetworkClient), 'ordersPayments', 'orders_payments'),
+    ...alias(new OrderRefundsBinder(transformingNetworkClient), 'orderRefunds', 'orders_refunds'),
+    ...alias(new OrderLinesBinder(transformingNetworkClient), 'orderLines', 'orders_lines'),
+    ...alias(new OrderPaymentsBinder(transformingNetworkClient), 'orderPayments', 'orders_payments'),
 
     // Shipments.
-    ...alias(new OrdersShipmentsBinder(transformingNetworkClient), 'ordersShipments', 'orders_shipments'),
+    ...alias(new OrderShipmentsBinder(transformingNetworkClient), 'orderShipments', 'orders_shipments'),
 
     // Permissions.
     permissions: new PermissionsBinder(transformingNetworkClient),

@@ -12,7 +12,7 @@ function getPathSegments(orderId: string) {
   return `orders/${orderId}/lines`;
 }
 
-export default class OrdersLinesBinder extends InnerBinder<OrderData, Order> {
+export default class OrderLinesBinder extends InnerBinder<OrderData, Order> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
   }
@@ -36,7 +36,7 @@ export default class OrdersLinesBinder extends InnerBinder<OrderData, Order> {
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order-lines
    */
-  public delete: OrdersLinesBinder['cancel'] = this.cancel;
+  public delete: OrderLinesBinder['cancel'] = this.cancel;
 
   /**
    * This endpoint can be used to update an order line. Only the lines that belong to an order with status `created`, `pending` or `authorized` can be updated.

@@ -32,7 +32,7 @@ test('createCustomerMandate', async () => {
     },
   });
 
-  const mandate = await bluster(client.customersMandates.create.bind(client.customersMandates))({
+  const mandate = await bluster(client.customerMandates.create.bind(client.customerMandates))({
     customerId: 'cst_FhQJRw4s2n',
     consumerName: 'John Doe',
     method: 'directdebit',
@@ -86,7 +86,7 @@ test('getCustomerMandate', async () => {
     },
   });
 
-  const mandate = await bluster(client.customersMandates.get.bind(client.customersMandates))('mdt_AcQl5fdL4h', { customerId: 'cst_FhQJRw4s2n' });
+  const mandate = await bluster(client.customerMandates.get.bind(client.customerMandates))('mdt_AcQl5fdL4h', { customerId: 'cst_FhQJRw4s2n' });
 
   expect(mandate.resource).toBe('mandate');
   expect(mandate.status).toBe('valid');
@@ -150,7 +150,7 @@ test('getCustomerMandates', async () => {
     },
   });
 
-  const mandates = await bluster(client.customersMandates.all.bind(client.customersMandates))({ customerId: 'cst_FhQJRw4s2n' });
+  const mandates = await bluster(client.customerMandates.all.bind(client.customerMandates))({ customerId: 'cst_FhQJRw4s2n' });
 
   mandates.forEach(mandate => {
     expect(mandate.resource).toBe('mandate');

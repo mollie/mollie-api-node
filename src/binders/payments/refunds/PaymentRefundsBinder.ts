@@ -13,7 +13,7 @@ function getPathSegments(paymentId: string) {
   return `payments/${paymentId}/refunds`;
 }
 
-export default class PaymentsRefundsBinder extends InnerBinder<RefundData, Refund> {
+export default class PaymentRefundsBinder extends InnerBinder<RefundData, Refund> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
   }
@@ -31,7 +31,7 @@ export default class PaymentsRefundsBinder extends InnerBinder<RefundData, Refun
    * @since 1.1.1
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
    */
-  public all: PaymentsRefundsBinder['list'] = this.list;
+  public all: PaymentRefundsBinder['list'] = this.list;
   /**
    * Retrieve Refunds.
    *
@@ -45,7 +45,7 @@ export default class PaymentsRefundsBinder extends InnerBinder<RefundData, Refun
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
    */
-  public page: PaymentsRefundsBinder['list'] = this.list;
+  public page: PaymentRefundsBinder['list'] = this.list;
   /**
    * For certain payment methods, like iDEAL, the underlying banking system will delay refunds until the next day. Until that time, refunds may be canceled manually in the [Mollie
    * Dashboard](https://www.mollie.com/dashboard), or programmatically by using this endpoint.
@@ -54,7 +54,7 @@ export default class PaymentsRefundsBinder extends InnerBinder<RefundData, Refun
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/cancel-refund
    */
-  public delete: PaymentsRefundsBinder['cancel'] = this.cancel;
+  public delete: PaymentRefundsBinder['cancel'] = this.cancel;
 
   /**
    * Creates a Refund on the Payment. The refunded amount is credited to your customer.

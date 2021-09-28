@@ -14,7 +14,7 @@ mollieClient.customers
     const customerId = customers[0].id; // Select one of your customers.
     const orderId = new Date().getTime();
 
-    mollieClient.customersPayments
+    mollieClient.customerPayments
       .create({
         amount: { value: '10.00', currency: 'EUR' },
         description: `Customer payment for ${customerId}`,

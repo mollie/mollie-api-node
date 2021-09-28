@@ -12,7 +12,7 @@ function getPathSegments(orderId: string) {
   return `orders/${orderId}/payments`;
 }
 
-export default class OrdersPaymentsBinder extends InnerBinder<PaymentData, Payment> {
+export default class OrderPaymentsBinder extends InnerBinder<PaymentData, Payment> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
   }

@@ -13,7 +13,7 @@ function getPathSegments(customerId: string) {
   return `customers/${customerId}/mandates`;
 }
 
-export default class CustomersMandatesBinder extends InnerBinder<MandateData, Mandate> {
+export default class CustomerMandatesBinder extends InnerBinder<MandateData, Mandate> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
   }
@@ -26,7 +26,7 @@ export default class CustomersMandatesBinder extends InnerBinder<MandateData, Ma
    * @since 1.2.0
    * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
    */
-  public all: CustomersMandatesBinder['list'] = this.list;
+  public all: CustomerMandatesBinder['list'] = this.list;
   /**
    * Retrieve all mandates for the given `customerId`, ordered from newest to oldest.
    *
@@ -35,21 +35,21 @@ export default class CustomersMandatesBinder extends InnerBinder<MandateData, Ma
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
    */
-  public page: CustomersMandatesBinder['list'] = this.list;
+  public page: CustomerMandatesBinder['list'] = this.list;
   /**
    * Revoke a customer's mandate. You will no longer be able to charge the consumer's bank account or credit card with this mandate and all connected subscriptions will be canceled.
    *
    * @since 1.3.2
    * @see https://docs.mollie.com/reference/v2/mandates-api/revoke-mandate
    */
-  public cancel: CustomersMandatesBinder['revoke'] = this.revoke;
+  public cancel: CustomerMandatesBinder['revoke'] = this.revoke;
   /**
    * Revoke a customer's mandate. You will no longer be able to charge the consumer's bank account or credit card with this mandate and all connected subscriptions will be canceled.
    *
    * @since 2.0.0
    * @see https://docs.mollie.com/reference/v2/mandates-api/revoke-mandate
    */
-  public delete: CustomersMandatesBinder['revoke'] = this.revoke;
+  public delete: CustomerMandatesBinder['revoke'] = this.revoke;
 
   /**
    * Create a mandate for a specific customer. Mandates allow you to charge a customer's credit card, PayPal account or bank account recurrently.
