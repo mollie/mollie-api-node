@@ -31,6 +31,18 @@ export interface ChargebackData extends Model<'chargeback'> {
    */
   createdAt: string;
   /**
+   * Reason for the chargeback as given by the bank.
+   * This field will only be returned for chargebacks where _direct debit_ was used as the original payment method.
+   *
+   * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-chargeback?path=reason#response
+   */
+  reason?: {
+    /* Bank code of the chargeback reason. */
+    code: string;
+    /* Detailed description of the reason. */
+    description: string;
+  };
+  /**
    * The date and time the chargeback was reversed if applicable, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-payment-chargeback?path=reversedAt#response
