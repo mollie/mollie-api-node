@@ -3,8 +3,9 @@ import { CommonListParameters } from '../../types/parameters';
 import { Issuer } from '../../data/Issuer';
 import { PaymentData, PaymentEmbed, PaymentInclude } from '../../data/payments/data';
 import PickOptional from '../../types/PickOptional';
+import PickRequired from '../../types/PickRequired';
 
-export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'redirectUrl' | 'webhookUrl' | 'customerId' | 'mandateId'> &
+export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'webhookUrl' | 'customerId' | 'mandateId'> & PickRequired<PaymentData,'redirectUrl' >  &
   PickOptional<PaymentData, 'locale' | 'metadata' | 'sequenceType'> & {
     /**
      * Normally, a payment method screen is shown. However, when using this parameter, you can choose a specific payment method and your customer will skip the selection screen and is sent directly to
