@@ -1,11 +1,21 @@
-import { OrderData, OrderStatus } from './data';
-import Helper from '../Helper';
-import Nullable from '../../types/Nullable';
-import Order from './Order';
+import { pathSegment as ordersPathSegment } from '../../binders/orders/OrdersBinder';
+import { getPathSegments as getOrderShipmentsPathSegments } from '../../binders/orders/shipments/OrderShipmentsBinder';
+import { getPathSegments as getOrderRefundsPathSegments } from '../../binders/refunds/orders/OrderRefundsBinder';
+import renege from '../../plumbing/renege';
+import resolveIf from '../../plumbing/resolveIf';
 import TransformingNetworkClient from '../../TransformingNetworkClient';
+import Callback from '../../types/Callback';
+import Nullable from '../../types/Nullable';
+import Helper from '../Helper';
+import Payment from '../payments/Payment';
+import { RefundData } from '../refunds/data';
+import Refund from '../refunds/Refund';
+import { OrderData, OrderEmbed, OrderStatus } from './data';
+import Order from './Order';
+import Shipment, { ShipmentData } from './shipments/Shipment';
 
 export default class OrderHelper extends Helper<OrderData, Order> {
-  constructor(networkClient: TransformingNetworkClient, protected readonly links: OrderData['_links']) {
+  constructor(networkClient: TransformingNetworkClient, protected readonly links: OrderData['_links'], protected readonly embedded: Order['_embedded']) {
     super(networkClient, links);
   }
 
@@ -82,5 +92,54 @@ export default class OrderHelper extends Helper<OrderData, Order> {
       return null;
     }
     return this.links.checkout.href;
+  }
+
+  /**
+   * Returns all payments created for the order.
+   *
+   * @since 3.6.0
+   */
+  public getPayments(): Promise<Array<Payment>>;
+  public getPayments(callback: Callback<Array<Payment>>): void;
+  public getPayments(this: OrderHelper & OrderData) {
+    if (renege(this, this.getPayments, ...arguments)) return;
+    if (this.embedded?.payments != undefined) {
+      return Promise.resolve(this.embedded.payments);
+    }
+    // Getting the payments for an order is an odd case, in the sense that the Mollie API only supports it partially.
+    // The Mollie API will embed the payments in an order if requested ‒ but unlike with other "embeddables", there is
+    // no endpoint to get those payments directly. Therefore, the line below rerequests this order, this time with
+    // payments embedded.
+    return this.networkClient.get<OrderData, Order>(`${ordersPathSegment}/${this.id}`, { embed: [OrderEmbed.payments] }).then(order => order.getPayments());
+  }
+
+  /**
+   * Returns all refunds created for this order.
+   *
+   * @since 3.6.0
+   */
+  public getRefunds(): Promise<Array<Refund>>;
+  public getRefunds(callback: Callback<Array<Refund>>): void;
+  public getRefunds(this: OrderHelper & OrderData) {
+    if (renege(this, this.getRefunds, ...arguments)) return;
+    // At the time of writing, the Mollie API does not return a link to the refunds of an order. This is why the line
+    // below constructs its own URL. If the Mollie API ever starts to return such a link, use it instead for
+    // consistency.
+    return resolveIf(this.embedded?.refunds) ?? this.networkClient.listPlain<RefundData, Refund>(getOrderRefundsPathSegments(this.id), 'refunds');
+  }
+
+  /**
+   * Returns all shipments created for this order.
+   *
+   * @since 3.6.0
+   */
+  public getShipments(): Promise<Array<Shipment>>;
+  public getShipments(callback: Callback<Array<Shipment>>): void;
+  public getShipments(this: OrderHelper & OrderData) {
+    if (renege(this, this.getShipments, ...arguments)) return;
+    // At the time of writing, the Mollie API does not return a link to the shipments of an order. This is why the line
+    // below constructs its own URL. If the Mollie API ever starts to return such a link, use it instead for
+    // consistency.
+    return resolveIf(this.embedded?.shipments) ?? this.networkClient.listPlain<ShipmentData, Shipment>(getOrderShipmentsPathSegments(this.id), 'shipments');
   }
 }

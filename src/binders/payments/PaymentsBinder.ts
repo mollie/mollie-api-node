@@ -1,13 +1,13 @@
-import { CancelParameters, CreateParameters, GetParameters, ListParameters, UpdateParameters } from './parameters';
-import { PaymentData } from '../../data/payments/data';
-import ApiError from '../../errors/ApiError';
-import Callback from '../../types/Callback';
 import List from '../../data/list/List';
+import { PaymentData } from '../../data/payments/data';
 import Payment from '../../data/payments/Payment';
-import Binder from '../Binder';
-import TransformingNetworkClient from '../../TransformingNetworkClient';
+import ApiError from '../../errors/ApiError';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
+import TransformingNetworkClient from '../../TransformingNetworkClient';
+import Callback from '../../types/Callback';
+import Binder from '../Binder';
+import { CancelParameters, CreateParameters, GetParameters, ListParameters, UpdateParameters } from './parameters';
 
 const pathSegment = 'payments';
 

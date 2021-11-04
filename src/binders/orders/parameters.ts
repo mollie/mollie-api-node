@@ -1,8 +1,8 @@
-import { CommonListParameters } from '../../types/parameters';
+import { PaymentMethod } from '../../data/global';
 import { OrderAddress, OrderData, OrderEmbed } from '../../data/orders/data';
 import { OrderLineData } from '../../data/orders/orderlines/OrderLine';
 import { PaymentData } from '../../data/payments/data';
-import { PaymentMethod } from '../../data/global';
+import { CommonListParameters } from '../../types/parameters';
 import PickOptional from '../../types/PickOptional';
 
 export type CreateParameters = Pick<OrderData, 'amount' | 'orderNumber' | 'billingAddress' | 'webhookUrl' | 'locale' | 'metadata' | 'expiresAt'> & {

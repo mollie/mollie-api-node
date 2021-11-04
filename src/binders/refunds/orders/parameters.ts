@@ -1,6 +1,6 @@
 import { Amount } from '../../../data/global';
-import { CommonListParameters } from '../../../types/parameters';
 import { RefundData } from '../../../data/refunds/data';
+import { CommonListParameters } from '../../../types/parameters';
 
 interface ContextParameters {
   orderId: string;

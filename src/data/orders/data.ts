@@ -1,10 +1,10 @@
+import Nullable from '../../types/Nullable';
 import { Address, Amount, ApiMode, Links, Url } from '../global';
-import { OrderLineData } from './orderlines/OrderLine';
+import Model from '../Model';
 import { PaymentData } from '../payments/data';
 import { RefundData } from '../refunds/data';
+import { OrderLineData } from './orderlines/OrderLine';
 import { ShipmentData } from './shipments/Shipment';
-import Model from '../Model';
-import Nullable from '../../types/Nullable';
 
 export interface OrderData extends Model<'order'> {
   /**

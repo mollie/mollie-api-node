@@ -1,15 +1,15 @@
-import { CancelParameters, CreateParameters, GetParameters, ListParameters, UpdateParameters } from './parameters';
-import { OrderData } from '../../data/orders/data';
-import ApiError from '../../errors/ApiError';
-import Callback from '../../types/Callback';
 import List from '../../data/list/List';
+import { OrderData } from '../../data/orders/data';
 import Order from '../../data/orders/Order';
-import Binder from '../Binder';
-import TransformingNetworkClient from '../../TransformingNetworkClient';
+import ApiError from '../../errors/ApiError';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
+import TransformingNetworkClient from '../../TransformingNetworkClient';
+import Callback from '../../types/Callback';
+import Binder from '../Binder';
+import { CancelParameters, CreateParameters, GetParameters, ListParameters, UpdateParameters } from './parameters';
 
-const pathSegment = 'orders';
+export const pathSegment = 'orders';
 
 /**
  * The **Orders API** allows you to use Mollie for your order management.

@@ -1,6 +1,6 @@
-import { Links, Url } from '../global';
 import Maybe from '../../types/Maybe';
 import Nullable from '../../types/Nullable';
+import { Links, Url } from '../global';
 
 export default interface List<T> extends Array<T> {
   links: ListLinks;

@@ -38,7 +38,7 @@ export default class TransformingNetworkClient {
     return this.transform(response) as U;
   }
 
-  async get<R extends Model<any, any>, U>(...passingArguments: Parameters<NetworkClient['get']>) {
+  get<R extends Model<any, any>, U>(...passingArguments: Parameters<NetworkClient['get']>) {
     return this.networkClient.get<R>(...passingArguments).then(this.transform) as Promise<U>;
   }
 
@@ -48,7 +48,11 @@ export default class TransformingNetworkClient {
     return Object.assign(response.map(this.transform) as U[], { count, links });
   }
 
-  async patch<R extends Model<any, any>, U>(...passingArguments: Parameters<NetworkClient['patch']>) {
+  listPlain<R extends Model<any, any>, U>(...passingArguments: Parameters<NetworkClient['listPlain']>) {
+    return this.networkClient.listPlain<R>(...passingArguments).then(response => response.map(this.transform) as U[]);
+  }
+
+  patch<R extends Model<any, any>, U>(...passingArguments: Parameters<NetworkClient['patch']>) {
     return this.networkClient.patch<R>(...passingArguments).then(this.transform) as Promise<U>;
   }
 

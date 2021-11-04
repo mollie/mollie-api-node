@@ -1,5 +1,5 @@
-import { PaymentData } from '../../../data/payments/data';
 import { PaymentMethod } from '../../../data/global';
+import { PaymentData } from '../../../data/payments/data';
 import PickOptional from '../../../types/PickOptional';
 
 interface ContextParameters {

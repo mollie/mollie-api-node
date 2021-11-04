@@ -1,6 +1,6 @@
+import Nullable from '../../../types/Nullable';
 import { ApiMode, CardLabel, Links, Url } from '../../global';
 import Model from '../../Model';
-import Nullable from '../../../types/Nullable';
 
 export interface MandateData extends Model<'mandate'> {
   /**

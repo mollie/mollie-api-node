@@ -1,13 +1,13 @@
-import { CreateParameters, ListParameters, UpdateParameters } from './parameters';
-import { ProfileData } from '../../data/profiles/data';
-import ApiError from '../../errors/ApiError';
-import Callback from '../../types/Callback';
 import List from '../../data/list/List';
+import { ProfileData } from '../../data/profiles/data';
 import Profile from '../../data/profiles/Profile';
-import Binder from '../Binder';
-import TransformingNetworkClient from '../../TransformingNetworkClient';
+import ApiError from '../../errors/ApiError';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
+import TransformingNetworkClient from '../../TransformingNetworkClient';
+import Callback from '../../types/Callback';
+import Binder from '../Binder';
+import { CreateParameters, ListParameters, UpdateParameters } from './parameters';
 
 const pathSegment = 'profiles';
 

@@ -1,12 +1,12 @@
-import { GetParameters, ListParameters } from './parameters';
-import ApiError from '../../../errors/ApiError';
-import Callback from '../../../types/Callback';
 import Chargeback, { ChargebackData, transform } from '../../../data/chargebacks/Chargeback';
 import List from '../../../data/list/List';
-import InnerBinder from '../../InnerBinder';
-import TransformingNetworkClient from '../../../TransformingNetworkClient';
+import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
+import TransformingNetworkClient from '../../../TransformingNetworkClient';
+import Callback from '../../../types/Callback';
+import InnerBinder from '../../InnerBinder';
+import { GetParameters, ListParameters } from './parameters';
 
 function getPathSegments(paymentId: string) {
   return `payments/${paymentId}/chargebacks`;

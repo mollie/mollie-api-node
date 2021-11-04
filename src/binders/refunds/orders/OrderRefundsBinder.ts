@@ -1,15 +1,15 @@
-import { CreateParameters, ListParameters } from './parameters';
-import { RefundData } from '../../../data/refunds/data';
-import ApiError from '../../../errors/ApiError';
-import Callback from '../../../types/Callback';
 import List from '../../../data/list/List';
-import InnerBinder from '../../InnerBinder';
+import { RefundData } from '../../../data/refunds/data';
 import Refund from '../../../data/refunds/Refund';
-import TransformingNetworkClient from '../../../TransformingNetworkClient';
+import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
+import TransformingNetworkClient from '../../../TransformingNetworkClient';
+import Callback from '../../../types/Callback';
+import InnerBinder from '../../InnerBinder';
+import { CreateParameters, ListParameters } from './parameters';
 
-function getPathSegments(orderId: string) {
+export function getPathSegments(orderId: string) {
   return `orders/${orderId}/refunds`;
 }
 

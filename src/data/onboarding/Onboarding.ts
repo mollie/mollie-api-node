@@ -1,7 +1,7 @@
-import { OnboardingData } from './data';
-import Seal from '../../types/Seal';
-import OnboardingHelper from './OnboardingHelper';
 import TransformingNetworkClient from '../../TransformingNetworkClient';
+import Seal from '../../types/Seal';
+import { OnboardingData } from './data';
+import OnboardingHelper from './OnboardingHelper';
 
 type Onboarding = Seal<OnboardingData, OnboardingHelper>;
 

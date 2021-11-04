@@ -1,13 +1,13 @@
-import { CancelParameters, CreateParameters, GetParameters, ListParameters, UpdateParameters } from './parameters';
-import { SubscriptionData } from '../../../data/subscription/data';
-import ApiError from '../../../errors/ApiError';
-import Callback from '../../../types/Callback';
 import List from '../../../data/list/List';
-import InnerBinder from '../../InnerBinder';
+import { SubscriptionData } from '../../../data/subscription/data';
 import Subscription from '../../../data/subscription/Subscription';
-import TransformingNetworkClient from '../../../TransformingNetworkClient';
+import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
+import TransformingNetworkClient from '../../../TransformingNetworkClient';
+import Callback from '../../../types/Callback';
+import InnerBinder from '../../InnerBinder';
+import { CancelParameters, CreateParameters, GetParameters, ListParameters, UpdateParameters } from './parameters';
 
 function getPathSegments(customerId: string) {
   return `customers/${customerId}/subscriptions`;

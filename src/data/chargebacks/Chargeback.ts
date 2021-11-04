@@ -1,10 +1,11 @@
-import { Amount, Links, Url } from '../global';
-import { PaymentData } from '../payments/data';
-import Model from '../Model';
-import Payment, { transform as transformPayment } from '../payments/Payment';
-import Seal from '../../types/Seal';
-import Helper from '../Helper';
 import TransformingNetworkClient from '../../TransformingNetworkClient';
+import Seal from '../../types/Seal';
+import { Amount, Links, Url } from '../global';
+import Helper from '../Helper';
+import Model from '../Model';
+import { PaymentData } from '../payments/data';
+import Payment, { transform as transformPayment } from '../payments/Payment';
+import ChargebackHelper from './ChargebackHelper';
 
 export interface ChargebackData extends Model<'chargeback'> {
   /**
@@ -42,7 +43,7 @@ export interface ChargebackData extends Model<'chargeback'> {
    */
   paymentId: string;
   _embedded?: {
-    payments?: Omit<PaymentData, '_embedded'>[];
+    payment?: Omit<PaymentData, '_embedded'>;
   };
   /**
    * An object with several URL objects relevant to the chargeback. Every URL object will contain an `href` and a `type` field.
@@ -53,9 +54,9 @@ export interface ChargebackData extends Model<'chargeback'> {
 }
 
 type Chargeback = Seal<
-  ChargebackData & {
+  Omit<ChargebackData, '_embedded'> & {
     _embedded?: {
-      payments?: Omit<Payment, '_embedded'>[];
+      payment?: Payment;
     };
   },
   Helper<ChargebackData, Chargeback>
@@ -86,9 +87,9 @@ export function transform(networkClient: TransformingNetworkClient, input: Charg
   let _embedded: Chargeback['_embedded'];
   if (input._embedded != undefined) {
     _embedded = {};
-    if (input._embedded.payments != undefined) {
-      _embedded.payments = input._embedded.payments.map(transformPayment.bind(undefined, networkClient));
+    if (input._embedded.payment != undefined) {
+      _embedded.payment = transformPayment(networkClient, input._embedded.payment);
     }
   }
-  return Object.assign(new Helper<ChargebackData, Chargeback>(networkClient, input._links), input, { _embedded });
+  return Object.assign(new ChargebackHelper(networkClient, input._links, _embedded), input, { _embedded });
 }

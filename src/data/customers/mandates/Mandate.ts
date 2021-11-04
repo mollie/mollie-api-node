@@ -1,7 +1,7 @@
-import { MandateData } from './data';
-import Seal from '../../../types/Seal';
-import MandateHelper from './MandateHelper';
 import TransformingNetworkClient from '../../../TransformingNetworkClient';
+import Seal from '../../../types/Seal';
+import { MandateData } from './data';
+import MandateHelper from './MandateHelper';
 
 type Mandate = Seal<MandateData, MandateHelper>;
 

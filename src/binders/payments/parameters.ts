@@ -1,7 +1,7 @@
 import { Address, Amount, PaymentMethod } from '../../data/global';
-import { CommonListParameters } from '../../types/parameters';
 import { Issuer } from '../../data/Issuer';
 import { PaymentData, PaymentEmbed, PaymentInclude } from '../../data/payments/data';
+import { CommonListParameters } from '../../types/parameters';
 import PickOptional from '../../types/PickOptional';
 
 export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'redirectUrl' | 'webhookUrl' | 'customerId' | 'mandateId'> &

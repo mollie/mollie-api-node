@@ -1,13 +1,13 @@
-import { CreateParameters, GetParameters, ListParameters, RevokeParameters } from './parameters';
 import { MandateData } from '../../../data/customers/mandates/data';
-import ApiError from '../../../errors/ApiError';
-import Callback from '../../../types/Callback';
-import List from '../../../data/list/List';
 import Mandate from '../../../data/customers/mandates/Mandate';
-import InnerBinder from '../../InnerBinder';
-import TransformingNetworkClient from '../../../TransformingNetworkClient';
+import List from '../../../data/list/List';
+import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
+import TransformingNetworkClient from '../../../TransformingNetworkClient';
+import Callback from '../../../types/Callback';
+import InnerBinder from '../../InnerBinder';
+import { CreateParameters, GetParameters, ListParameters, RevokeParameters } from './parameters';
 
 function getPathSegments(customerId: string) {
   return `customers/${customerId}/mandates`;

@@ -1,11 +1,11 @@
-import { ListParameters } from './parameters';
-import { RefundData } from '../../data/refunds/data';
-import Callback from '../../types/Callback';
 import List from '../../data/list/List';
+import { RefundData } from '../../data/refunds/data';
 import Refund from '../../data/refunds/Refund';
-import Binder from '../Binder';
-import TransformingNetworkClient from '../../TransformingNetworkClient';
 import renege from '../../plumbing/renege';
+import TransformingNetworkClient from '../../TransformingNetworkClient';
+import Callback from '../../types/Callback';
+import Binder from '../Binder';
+import { ListParameters } from './parameters';
 
 const pathSegment = 'refunds';
 
