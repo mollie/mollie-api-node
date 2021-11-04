@@ -1,5 +1,5 @@
-import { CommonListParameters } from '../../types/parameters';
 import { CustomerData } from '../../data/customers/Customer';
+import { CommonListParameters } from '../../types/parameters';
 import PickOptional from '../../types/PickOptional';
 
 interface ContextParameters {

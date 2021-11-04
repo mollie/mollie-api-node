@@ -1,6 +1,7 @@
-import { MollieApiErrorLinks, Url } from '../data/global';
 import { AxiosResponse } from 'axios';
 import { cloneDeep, get, has } from 'lodash';
+
+import { MollieApiErrorLinks, Url } from '../data/global';
 import Maybe from '../types/Maybe';
 
 export default class ApiError extends Error {

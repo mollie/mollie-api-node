@@ -1,8 +1,8 @@
-import { Links } from '../global';
-import Model from '../Model';
-import Seal from '../../types/Seal';
-import Helper from '../Helper';
 import TransformingNetworkClient from '../../TransformingNetworkClient';
+import Seal from '../../types/Seal';
+import { Links } from '../global';
+import Helper from '../Helper';
+import Model from '../Model';
 
 export interface PermissionData extends Model<'permission', string> {
   /**

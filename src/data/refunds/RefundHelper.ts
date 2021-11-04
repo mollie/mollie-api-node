@@ -1,15 +1,15 @@
-import { RefundData, RefundStatus } from './data';
-import Helper from '../Helper';
-import Refund from './Refund';
 import renege from '../../plumbing/renege';
 import resolveIf from '../../plumbing/resolveIf';
-import Payment from '../payments/Payment';
-import Callback from '../../types/Callback';
-import { PaymentData } from '../payments/data';
-import TransformingNetworkClient from '../../TransformingNetworkClient';
 import undefinedPromise from '../../plumbing/undefinedPromise';
-import Order from '../orders/Order';
+import TransformingNetworkClient from '../../TransformingNetworkClient';
+import Callback from '../../types/Callback';
+import Helper from '../Helper';
 import { OrderData } from '../orders/data';
+import Order from '../orders/Order';
+import { PaymentData } from '../payments/data';
+import Payment from '../payments/Payment';
+import { RefundData, RefundStatus } from './data';
+import Refund from './Refund';
 
 export default class RefundHelper extends Helper<RefundData, Refund> {
   constructor(networkClient: TransformingNetworkClient, protected readonly links: RefundData['_links'], protected readonly embedded: RefundData['_embedded']) {

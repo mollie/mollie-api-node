@@ -1,16 +1,16 @@
-import { SubscriptionData, SubscriptionStatus } from './data';
-import Helper from '../Helper';
-import Subscription from './Subscription';
-import Customer, { CustomerData } from '../customers/Customer';
-import Callback from '../../types/Callback';
 import renege from '../../plumbing/renege';
-import TransformingNetworkClient from '../../TransformingNetworkClient';
-import Profile from '../profiles/Profile';
 import undefinedPromise from '../../plumbing/undefinedPromise';
-import { ProfileData } from '../profiles/data';
-import Payment from '../payments/Payment';
-import { PaymentData } from '../payments/data';
+import TransformingNetworkClient from '../../TransformingNetworkClient';
+import Callback from '../../types/Callback';
 import Maybe from '../../types/Maybe';
+import Customer, { CustomerData } from '../customers/Customer';
+import Helper from '../Helper';
+import { PaymentData } from '../payments/data';
+import Payment from '../payments/Payment';
+import { ProfileData } from '../profiles/data';
+import Profile from '../profiles/Profile';
+import { SubscriptionData, SubscriptionStatus } from './data';
+import Subscription from './Subscription';
 
 export default class SubscriptionHelper extends Helper<SubscriptionData, Subscription> {
   constructor(networkClient: TransformingNetworkClient, protected readonly links: SubscriptionData['_links']) {

@@ -1,7 +1,7 @@
 import { Amount, Links, Url } from '../global';
+import Model from '../Model';
 import { OrderLineData } from '../orders/orderlines/OrderLine';
 import { PaymentData } from '../payments/data';
-import Model from '../Model';
 
 export interface RefundData extends Model<'refund'> {
   /**

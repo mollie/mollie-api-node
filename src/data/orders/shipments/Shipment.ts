@@ -1,9 +1,9 @@
+import TransformingNetworkClient from '../../../TransformingNetworkClient';
+import Seal from '../../../types/Seal';
 import { Links, Url } from '../../global';
+import Helper from '../../Helper';
 import Model from '../../Model';
 import OrderLine, { OrderLineData, transform as transformOrderLine } from '../orderlines/OrderLine';
-import Seal from '../../../types/Seal';
-import Helper from '../../Helper';
-import TransformingNetworkClient from '../../../TransformingNetworkClient';
 import ShipmentHelper from './ShipmentHelper';
 
 export interface ShipmentData extends Model<'shipment'> {

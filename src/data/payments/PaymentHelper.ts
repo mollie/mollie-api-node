@@ -1,21 +1,22 @@
-import { Amount, SequenceType } from '../global';
-import { BankTransferLinks, PaymentData, PaymentStatus } from './data';
 import { get } from 'lodash';
-import Nullable from '../../types/Nullable';
-import Payment from './Payment';
-import TransformingNetworkClient from '../../TransformingNetworkClient';
-import Helper from '../Helper';
-import Callback from '../../types/Callback';
+
 import renege from '../../plumbing/renege';
-import { RefundData } from '../refunds/data';
-import Refund from '../refunds/Refund';
+import undefinedPromise from '../../plumbing/undefinedPromise';
+import TransformingNetworkClient from '../../TransformingNetworkClient';
+import Callback from '../../types/Callback';
+import Maybe from '../../types/Maybe';
+import Nullable from '../../types/Nullable';
 import Chargeback, { ChargebackData } from '../chargebacks/Chargeback';
-import Capture from './captures/Capture';
+import { Amount, SequenceType } from '../global';
+import Helper from '../Helper';
 import { OrderData } from '../orders/data';
 import Order from '../orders/Order';
-import undefinedPromise from '../../plumbing/undefinedPromise';
+import { RefundData } from '../refunds/data';
+import Refund from '../refunds/Refund';
+import Capture from './captures/Capture';
 import { CaptureData } from './captures/data';
-import Maybe from '../../types/Maybe';
+import { BankTransferLinks, PaymentData, PaymentStatus } from './data';
+import Payment from './Payment';
 
 export default class PaymentHelper extends Helper<PaymentData, Payment> {
   constructor(networkClient: TransformingNetworkClient, protected readonly links: PaymentData['_links'], protected readonly embedded: Payment['_embedded']) {

@@ -1,8 +1,8 @@
-import { Address, Amount, ApiMode, CardAudience, CardFailureReason, CardLabel, FeeRegion, HistoricPaymentMethod, Links, Locale, PaymentMethod, SequenceType, Url } from '../global';
-import { RefundData } from '../refunds/data';
-import { ChargebackData } from '../chargebacks/Chargeback';
-import Model from '../Model';
 import Nullable from '../../types/Nullable';
+import { ChargebackData } from '../chargebacks/Chargeback';
+import { Address, Amount, ApiMode, CardAudience, CardFailureReason, CardLabel, FeeRegion, HistoricPaymentMethod, Links, Locale, PaymentMethod, SequenceType, Url } from '../global';
+import Model from '../Model';
+import { RefundData } from '../refunds/data';
 
 export interface PaymentData extends Model<'payment'> {
   /**

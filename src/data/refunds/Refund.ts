@@ -1,9 +1,9 @@
-import { RefundData } from './data';
+import TransformingNetworkClient from '../../TransformingNetworkClient';
+import Seal from '../../types/Seal';
 import OrderLine, { transform as transformOrderLine } from '../orders/orderlines/OrderLine';
 import Payment, { transform as transformPayment } from '../payments/Payment';
-import Seal from '../../types/Seal';
+import { RefundData } from './data';
 import RefundHelper from './RefundHelper';
-import TransformingNetworkClient from '../../TransformingNetworkClient';
 
 type Refund = Seal<Omit<RefundData, 'lines' | '_embedded'> & { lines?: OrderLine[]; _embedded?: { payment?: Payment } }, RefundHelper>;
 

@@ -1,9 +1,9 @@
-import { PaymentData } from './data';
+import TransformingNetworkClient from '../../TransformingNetworkClient';
+import Seal from '../../types/Seal';
 import Chargeback, { transform as transformChargeback } from '../chargebacks/Chargeback';
 import Refund, { transform as transformRefund } from '../refunds/Refund';
-import Seal from '../../types/Seal';
+import { PaymentData } from './data';
 import PaymentHelper from './PaymentHelper';
-import TransformingNetworkClient from '../../TransformingNetworkClient';
 
 type Payment = Seal<
   Omit<PaymentData, '_embedded'> & {

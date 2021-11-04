@@ -1,6 +1,6 @@
+import Nullable from '../../types/Nullable';
 import { ApiMode, Links, Url } from '../global';
 import Model from '../Model';
-import Nullable from '../../types/Nullable';
 
 export interface ProfileData extends Model<'profile', string> {
   /**

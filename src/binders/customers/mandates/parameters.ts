@@ -1,5 +1,5 @@
-import { CommonListParameters } from '../../../types/parameters';
 import { MandateData } from '../../../data/customers/mandates/data';
+import { CommonListParameters } from '../../../types/parameters';
 
 interface ContextParameters {
   customerId: string;

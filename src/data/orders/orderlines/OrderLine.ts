@@ -1,7 +1,7 @@
-import { Amount, Url } from '../../global';
-import { OrderStatus } from '../data';
-import Model from '../../Model';
 import Seal from '../../../types/Seal';
+import { Amount, Url } from '../../global';
+import Model from '../../Model';
+import { OrderStatus } from '../data';
 
 export interface OrderLineData extends Model<'orderline'> {
   /**

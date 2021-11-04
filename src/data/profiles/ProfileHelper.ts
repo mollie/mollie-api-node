@@ -3,14 +3,14 @@ import TransformingNetworkClient from '../../TransformingNetworkClient';
 import Callback from '../../types/Callback';
 import Chargeback, { ChargebackData } from '../chargebacks/Chargeback';
 import Helper from '../Helper';
-import Method from '../methods/Method';
 import { MethodData } from '../methods/data';
+import Method from '../methods/Method';
+import { PaymentData } from '../payments/data';
+import Payment from '../payments/Payment';
+import { RefundData } from '../refunds/data';
+import Refund from '../refunds/Refund';
 import { ProfileData } from './data';
 import Profile from './Profile';
-import Payment from '../payments/Payment';
-import { PaymentData } from '../payments/data';
-import Refund from '../refunds/Refund';
-import { RefundData } from '../refunds/data';
 
 export default class ProfileHelper extends Helper<ProfileData, Profile> {
   constructor(networkClient: TransformingNetworkClient, protected readonly links: ProfileData['_links']) {

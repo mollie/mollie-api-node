@@ -1,7 +1,7 @@
-import { ProfileData } from './data';
-import Seal from '../../types/Seal';
-import ProfileHelper from './ProfileHelper';
 import TransformingNetworkClient from '../../TransformingNetworkClient';
+import Seal from '../../types/Seal';
+import { ProfileData } from './data';
+import ProfileHelper from './ProfileHelper';
 
 type Profile = Seal<ProfileData, ProfileHelper>;
 

@@ -1,7 +1,7 @@
 import List from '../data/list/List';
-import Maybe from '../types/Maybe';
-import TransformingNetworkClient from '../TransformingNetworkClient';
 import buildFromEntries from '../plumbing/buildFromEntries';
+import TransformingNetworkClient from '../TransformingNetworkClient';
+import Maybe from '../types/Maybe';
 
 /**
  * Returns the parsed search parameters from the passed URL. For example: `'https://example.com?id=5'` is converted to

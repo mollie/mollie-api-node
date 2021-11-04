@@ -1,5 +1,5 @@
-import Binder from './Binder';
 import Maybe from '../types/Maybe';
+import Binder from './Binder';
 
 /**
  * A binder within a parent object. For example: a binder for payments made by a single customer.

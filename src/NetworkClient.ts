@@ -1,12 +1,14 @@
-import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import https from 'https';
-import { SecureContextOptions } from 'tls';
 import { stringify as stringifyToQueryString } from 'querystring';
-import ApiError from './errors/ApiError';
+import { SecureContextOptions } from 'tls';
+
+import axios, { AxiosInstance, AxiosResponse } from 'axios';
+
 import List from './data/list/List';
-import Maybe from './types/Maybe';
+import ApiError from './errors/ApiError';
 import Options from './Options';
 import getEntries from './plumbing/getEntries';
+import Maybe from './types/Maybe';
 
 /**
  * Like `[].map` but with support for non-array inputs, in which case this function behaves as if an array was passed

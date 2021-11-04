@@ -1,18 +1,18 @@
-import { OrderData, OrderEmbed, OrderStatus } from './data';
-import Helper from '../Helper';
+import { pathSegment as ordersPathSegment } from '../../binders/orders/OrdersBinder';
+import { getPathSegments as getOrderShipmentsPathSegments } from '../../binders/orders/shipments/OrderShipmentsBinder';
 import { getPathSegments as getOrderRefundsPathSegments } from '../../binders/refunds/orders/OrderRefundsBinder';
-import Nullable from '../../types/Nullable';
-import Order from './Order';
+import renege from '../../plumbing/renege';
+import resolveIf from '../../plumbing/resolveIf';
 import TransformingNetworkClient from '../../TransformingNetworkClient';
+import Callback from '../../types/Callback';
+import Nullable from '../../types/Nullable';
+import Helper from '../Helper';
+import Payment from '../payments/Payment';
 import { RefundData } from '../refunds/data';
 import Refund from '../refunds/Refund';
-import resolveIf from '../../plumbing/resolveIf';
-import renege from '../../plumbing/renege';
-import Callback from '../../types/Callback';
+import { OrderData, OrderEmbed, OrderStatus } from './data';
+import Order from './Order';
 import Shipment, { ShipmentData } from './shipments/Shipment';
-import { getPathSegments as getOrderShipmentsPathSegments } from '../../binders/orders/shipments/OrderShipmentsBinder';
-import { pathSegment as ordersPathSegment } from '../../binders/orders/OrdersBinder';
-import Payment from '../payments/Payment';
 
 export default class OrderHelper extends Helper<OrderData, Order> {
   constructor(networkClient: TransformingNetworkClient, protected readonly links: OrderData['_links'], protected readonly embedded: Order['_embedded']) {

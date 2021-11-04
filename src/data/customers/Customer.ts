@@ -1,8 +1,8 @@
-import { ApiMode, Links, Locale, PaymentMethod, Url } from '../global';
-import Model from '../Model';
-import Seal from '../../types/Seal';
-import Helper from '../Helper';
 import TransformingNetworkClient from '../../TransformingNetworkClient';
+import Seal from '../../types/Seal';
+import { ApiMode, Links, Locale, PaymentMethod, Url } from '../global';
+import Helper from '../Helper';
+import Model from '../Model';
 import CustomerHelper from './CustomerHelper';
 
 export interface CustomerData extends Model<'customer'> {

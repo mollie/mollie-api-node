@@ -1,10 +1,10 @@
 import { OnboardingData } from '../../data/onboarding/data';
-import { SubmitParameters } from './parameters';
-import Callback from '../../types/Callback';
 import Onboarding from '../../data/onboarding/Onboarding';
-import Binder from '../Binder';
-import TransformingNetworkClient from '../../TransformingNetworkClient';
 import renege from '../../plumbing/renege';
+import TransformingNetworkClient from '../../TransformingNetworkClient';
+import Callback from '../../types/Callback';
+import Binder from '../Binder';
+import { SubmitParameters } from './parameters';
 
 const pathSegments = 'onboarding/me';
 

@@ -1,4 +1,5 @@
 import { AxiosRequestConfig } from 'axios';
+
 import Xor from './types/Xor';
 
 type Options = Xor<

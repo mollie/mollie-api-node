@@ -1,11 +1,11 @@
-import ApiError from '../../errors/ApiError';
-import Callback from '../../types/Callback';
-import checkId from '../../plumbing/checkId';
 import List from '../../data/list/List';
 import Permission, { PermissionData } from '../../data/permissions/Permission';
-import Binder from '../Binder';
-import TransformingNetworkClient from '../../TransformingNetworkClient';
+import ApiError from '../../errors/ApiError';
+import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
+import TransformingNetworkClient from '../../TransformingNetworkClient';
+import Callback from '../../types/Callback';
+import Binder from '../Binder';
 
 const pathSegment = 'permissions';
 

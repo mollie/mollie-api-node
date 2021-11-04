@@ -1,7 +1,7 @@
-import { SubscriptionData } from './data';
-import Seal from '../../types/Seal';
-import SubscriptionHelper from './SubscriptionHelper';
 import TransformingNetworkClient from '../../TransformingNetworkClient';
+import Seal from '../../types/Seal';
+import { SubscriptionData } from './data';
+import SubscriptionHelper from './SubscriptionHelper';
 
 type Subscription = Seal<SubscriptionData, SubscriptionHelper>;
 

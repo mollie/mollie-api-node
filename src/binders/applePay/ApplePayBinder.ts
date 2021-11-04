@@ -1,8 +1,8 @@
-import { RequestPaymentSessionParameters } from './parameters';
 import ApplePaySession from '../../data/applePaySession/ApplePaySession';
-import Callback from '../../types/Callback';
 import NetworkClient from '../../NetworkClient';
 import renege from '../../plumbing/renege';
+import Callback from '../../types/Callback';
+import { RequestPaymentSessionParameters } from './parameters';
 
 const pathSegments = 'wallets/applepay/sessions';
 

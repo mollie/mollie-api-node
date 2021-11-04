@@ -1,5 +1,5 @@
-import { CommonListParameters } from '../../types/parameters';
 import { ProfileData } from '../../data/profiles/data';
+import { CommonListParameters } from '../../types/parameters';
 import PickOptional from '../../types/PickOptional';
 
 export type CreateParameters = Pick<ProfileData, 'name' | 'website' | 'email' | 'phone'> & PickOptional<ProfileData, 'categoryCode' | 'mode'>;

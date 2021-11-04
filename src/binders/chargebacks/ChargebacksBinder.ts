@@ -1,10 +1,10 @@
-import { ListParameters } from './parameters';
-import Callback from '../../types/Callback';
 import Chargeback, { ChargebackData, transform } from '../../data/chargebacks/Chargeback';
 import List from '../../data/list/List';
-import InnerBinder from '../InnerBinder';
-import TransformingNetworkClient from '../../TransformingNetworkClient';
 import renege from '../../plumbing/renege';
+import TransformingNetworkClient from '../../TransformingNetworkClient';
+import Callback from '../../types/Callback';
+import InnerBinder from '../InnerBinder';
+import { ListParameters } from './parameters';
 
 const pathSegment = 'chargebacks';
 

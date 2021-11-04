@@ -1,13 +1,13 @@
-import { GetParameters, ListParameters } from './parameters';
-import ApiError from '../../../errors/ApiError';
-import Callback from '../../../types/Callback';
-import Capture from '../../../data/payments/captures/Capture';
 import List from '../../../data/list/List';
-import InnerBinder from '../../InnerBinder';
-import TransformingNetworkClient from '../../../TransformingNetworkClient';
+import Capture from '../../../data/payments/captures/Capture';
+import { CaptureData } from '../../../data/payments/captures/data';
+import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
-import { CaptureData } from '../../../data/payments/captures/data';
+import TransformingNetworkClient from '../../../TransformingNetworkClient';
+import Callback from '../../../types/Callback';
+import InnerBinder from '../../InnerBinder';
+import { GetParameters, ListParameters } from './parameters';
 
 function getPathSegments(paymentId: string) {
   return `payments/${paymentId}/captures`;
