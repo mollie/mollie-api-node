@@ -1,4 +1,4 @@
-import { OrderData, OrderStatus } from './data';
+import { OrderData, OrderEmbed, OrderStatus } from './data';
 import Helper from '../Helper';
 import { getPathSegments as getOrderRefundsPathSegments } from '../../binders/refunds/orders/OrderRefundsBinder';
 import Nullable from '../../types/Nullable';
@@ -11,6 +11,8 @@ import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
 import Shipment, { ShipmentData } from './shipments/Shipment';
 import { getPathSegments as getOrderShipmentsPathSegments } from '../../binders/orders/shipments/OrderShipmentsBinder';
+import { pathSegment as ordersPathSegment } from '../../binders/orders/OrdersBinder';
+import Payment from '../payments/Payment';
 
 export default class OrderHelper extends Helper<OrderData, Order> {
   constructor(networkClient: TransformingNetworkClient, protected readonly links: OrderData['_links'], protected readonly embedded: Order['_embedded']) {
@@ -90,6 +92,25 @@ export default class OrderHelper extends Helper<OrderData, Order> {
       return null;
     }
     return this.links.checkout.href;
+  }
+
+  /**
+   * Returns all payments created for the order.
+   *
+   * @since 3.6.0
+   */
+  public getPayments(): Promise<Array<Payment>>;
+  public getPayments(callback: Callback<Array<Payment>>): void;
+  public getPayments(this: OrderHelper & OrderData) {
+    if (renege(this, this.getPayments, ...arguments)) return;
+    if (this.embedded?.payments != undefined) {
+      return Promise.resolve(this.embedded.payments);
+    }
+    // Getting the payments for an order is an odd case, in the sense that the Mollie API only supports it partially.
+    // The Mollie API will embed the payments in an order if requested ‒ but unlike with other "embeddables", there is
+    // no endpoint to get those payments directly. Therefore, the line below rerequests this order, this time with
+    // payments embedded.
+    return this.networkClient.get<OrderData, Order>(`${ordersPathSegment}/${this.id}`, { embed: [OrderEmbed.payments] }).then(order => order.getPayments());
   }
 
   /**

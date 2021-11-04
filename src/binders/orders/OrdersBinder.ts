@@ -9,7 +9,7 @@ import TransformingNetworkClient from '../../TransformingNetworkClient';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
 
-const pathSegment = 'orders';
+export const pathSegment = 'orders';
 
 /**
  * The **Orders API** allows you to use Mollie for your order management.
