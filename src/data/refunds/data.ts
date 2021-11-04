@@ -87,7 +87,7 @@ export interface RefundData extends Model<'refund'> {
    */
   _links: PaymentRefundLinks;
   _embedded?: {
-    payments?: Omit<PaymentData, '_embedded'>[];
+    payment?: Omit<PaymentData, '_embedded'>;
   };
 }
 

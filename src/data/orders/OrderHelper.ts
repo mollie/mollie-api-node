@@ -1,11 +1,19 @@
 import { OrderData, OrderStatus } from './data';
 import Helper from '../Helper';
+import { getPathSegments as getOrderRefundsPathSegments } from '../../binders/refunds/orders/OrderRefundsBinder';
 import Nullable from '../../types/Nullable';
 import Order from './Order';
 import TransformingNetworkClient from '../../TransformingNetworkClient';
+import { RefundData } from '../refunds/data';
+import Refund from '../refunds/Refund';
+import resolveIf from '../../plumbing/resolveIf';
+import renege from '../../plumbing/renege';
+import Callback from '../../types/Callback';
+import Shipment, { ShipmentData } from './shipments/Shipment';
+import { getPathSegments as getOrderShipmentsPathSegments } from '../../binders/orders/shipments/OrderShipmentsBinder';
 
 export default class OrderHelper extends Helper<OrderData, Order> {
-  constructor(networkClient: TransformingNetworkClient, protected readonly links: OrderData['_links']) {
+  constructor(networkClient: TransformingNetworkClient, protected readonly links: OrderData['_links'], protected readonly embedded: Order['_embedded']) {
     super(networkClient, links);
   }
 
@@ -82,5 +90,35 @@ export default class OrderHelper extends Helper<OrderData, Order> {
       return null;
     }
     return this.links.checkout.href;
+  }
+
+  /**
+   * Returns all refunds created for this order.
+   *
+   * @since 3.6.0
+   */
+  public getRefunds(): Promise<Array<Refund>>;
+  public getRefunds(callback: Callback<Array<Refund>>): void;
+  public getRefunds(this: OrderHelper & OrderData) {
+    if (renege(this, this.getRefunds, ...arguments)) return;
+    // At the time of writing, the Mollie API does not return a link to the refunds of an order. This is why the line
+    // below constructs its own URL. If the Mollie API ever starts to return such a link, use it instead for
+    // consistency.
+    return resolveIf(this.embedded?.refunds) ?? this.networkClient.listPlain<RefundData, Refund>(getOrderRefundsPathSegments(this.id), 'refunds');
+  }
+
+  /**
+   * Returns all shipments created for this order.
+   *
+   * @since 3.6.0
+   */
+  public getShipments(): Promise<Array<Shipment>>;
+  public getShipments(callback: Callback<Array<Shipment>>): void;
+  public getShipments(this: OrderHelper & OrderData) {
+    if (renege(this, this.getShipments, ...arguments)) return;
+    // At the time of writing, the Mollie API does not return a link to the shipments of an order. This is why the line
+    // below constructs its own URL. If the Mollie API ever starts to return such a link, use it instead for
+    // consistency.
+    return resolveIf(this.embedded?.shipments) ?? this.networkClient.listPlain<ShipmentData, Shipment>(getOrderShipmentsPathSegments(this.id), 'shipments');
   }
 }

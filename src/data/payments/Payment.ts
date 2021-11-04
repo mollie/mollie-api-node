@@ -6,10 +6,10 @@ import PaymentHelper from './PaymentHelper';
 import TransformingNetworkClient from '../../TransformingNetworkClient';
 
 type Payment = Seal<
-  PaymentData & {
+  Omit<PaymentData, '_embedded'> & {
     _embedded?: {
-      refunds?: Omit<Refund, '_embedded'>[];
-      chargebacks?: Omit<Chargeback, '_embedded'>[];
+      refunds?: Refund[];
+      chargebacks?: Chargeback[];
     };
   },
   PaymentHelper
@@ -28,5 +28,5 @@ export function transform(networkClient: TransformingNetworkClient, input: Payme
       _embedded.refunds = input._embedded.refunds.map(transformRefund.bind(undefined, networkClient));
     }
   }
-  return Object.assign(new PaymentHelper(networkClient, input._links), input, { _embedded });
+  return Object.assign(new PaymentHelper(networkClient, input._links, _embedded), input, { _embedded });
 }

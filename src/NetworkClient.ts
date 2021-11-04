@@ -21,6 +21,7 @@ function map<T, U>(input: Maybe<T | T[]>, callback: (value: T, index: number) =>
   }
   return [];
 }
+
 /**
  * Converts `'rockenberg commerce'` to `'rockenbergCommerce'`.
  */
@@ -33,6 +34,7 @@ const camelCase = (() => {
     return input.replace(...firstIteration).replace(...secondIteration);
   };
 })();
+
 /**
  * Returns a stringified version of the passed query to be used as the search portion of a URL. For example:
  * `{ id: 5 }` is converted to `'?id=5'` (and `{}` is converted to `''`).
@@ -55,6 +57,7 @@ function stringifyQuery(input: Record<string, any>): string {
     }, {}),
   )}`;
 }
+
 /**
  * Composes a `User-Agent` header value which looks something like
  * `'Node/10.0.0 Mollie/3.0.0 RockenbergCommerce/1.16.0'`.
@@ -78,6 +81,7 @@ function composeUserAgent(nodeVersion: string, libraryVersion: string, versionSt
     }),
   ].join(' ');
 }
+
 /**
  * Throws an API error based on the passed cause.
  */
@@ -95,6 +99,7 @@ const throwApiError = (() => {
     throw new ApiError(findProperty(cause, 'message') ? (cause.message as string) : 'An unknown error has occurred');
   };
 })();
+
 /**
  * This class is essentially a wrapper around axios. It simplifies communication with the Mollie server over the
  * network.
@@ -132,6 +137,7 @@ export default class NetworkClient {
       }),
     });
   }
+
   async post<R>(relativePath: string, data: any, query: Record<string, any> = {}): Promise<R | true> {
     const response = await this.axiosInstance.post(`${relativePath}${stringifyQuery(query)}`, data).catch(throwApiError);
     if (response.status == 204) {
@@ -139,10 +145,12 @@ export default class NetworkClient {
     }
     return response.data;
   }
+
   async get<R>(relativePath: string, query: Record<string, any> = {}): Promise<R> {
     const response = await this.axiosInstance.get(`${relativePath}${stringifyQuery(query)}`).catch(throwApiError);
     return response.data;
   }
+
   async list<R>(relativePath: string, binderName: string, query: Record<string, any> = {}): Promise<Array<R> & Pick<List<R>, 'links' | 'count'>> {
     const response = await this.axiosInstance.get(`${relativePath}${stringifyQuery(query)}`).catch(throwApiError);
     try {
@@ -151,15 +159,28 @@ export default class NetworkClient {
     } catch (error) {
       throw new ApiError('Received unexpected response from the server');
     }
-    return Object.assign(Array.from<R>(embedded[binderName]), {
+    return Object.assign(embedded[binderName] as R[], {
       links,
       count,
     });
   }
+
+  async listPlain<R>(relativePath: string, binderName: string, query: Record<string, any> = {}): Promise<Array<R>> {
+    const response = await this.axiosInstance.get(`${relativePath}${stringifyQuery(query)}`).catch(throwApiError);
+    try {
+      /* eslint-disable-next-line no-var */
+      var { _embedded: embedded } = response.data;
+    } catch (error) {
+      throw new ApiError('Received unexpected response from the server');
+    }
+    return embedded[binderName] as R[];
+  }
+
   async patch<R>(relativePath: string, data: any): Promise<R> {
     const response = await this.axiosInstance.patch(relativePath, data).catch(throwApiError);
     return response.data;
   }
+
   async delete<R>(relativePath: string, context?: any): Promise<R | true> {
     const response = await this.axiosInstance.delete(relativePath, { data: context }).catch(throwApiError);
     if (response.status == 204) {

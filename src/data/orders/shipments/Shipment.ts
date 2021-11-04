@@ -4,6 +4,7 @@ import OrderLine, { OrderLineData, transform as transformOrderLine } from '../or
 import Seal from '../../../types/Seal';
 import Helper from '../../Helper';
 import TransformingNetworkClient from '../../../TransformingNetworkClient';
+import ShipmentHelper from './ShipmentHelper';
 
 export interface ShipmentData extends Model<'shipment'> {
   /**
@@ -76,7 +77,7 @@ export interface ShipmentTracking {
 }
 
 export function transform(networkClient: TransformingNetworkClient, input: ShipmentData): Shipment {
-  return Object.assign(new Helper<ShipmentData, Shipment>(networkClient, input._links), input, {
+  return Object.assign(new ShipmentHelper(networkClient, input._links), input, {
     lines: input.lines.map(transformOrderLine),
   });
 }

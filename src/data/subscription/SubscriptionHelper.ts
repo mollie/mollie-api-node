@@ -1,8 +1,22 @@
 import { SubscriptionData, SubscriptionStatus } from './data';
 import Helper from '../Helper';
 import Subscription from './Subscription';
+import Customer, { CustomerData } from '../customers/Customer';
+import Callback from '../../types/Callback';
+import renege from '../../plumbing/renege';
+import TransformingNetworkClient from '../../TransformingNetworkClient';
+import Profile from '../profiles/Profile';
+import undefinedPromise from '../../plumbing/undefinedPromise';
+import { ProfileData } from '../profiles/data';
+import Payment from '../payments/Payment';
+import { PaymentData } from '../payments/data';
+import Maybe from '../../types/Maybe';
 
 export default class SubscriptionHelper extends Helper<SubscriptionData, Subscription> {
+  constructor(networkClient: TransformingNetworkClient, protected readonly links: SubscriptionData['_links']) {
+    super(networkClient, links);
+  }
+
   /**
    * Returns the URL Mollie will call as soon a payment status change takes place.
    */
@@ -28,5 +42,47 @@ export default class SubscriptionHelper extends Helper<SubscriptionData, Subscri
 
   public isCanceled(this: SubscriptionData): boolean {
     return SubscriptionStatus.canceled == this.status;
+  }
+
+  /**
+   * Returns the customer the subscription is for.
+   *
+   * @since 3.6.0
+   */
+  public getCustomer(): Promise<Customer>;
+  public getCustomer(callback: Callback<Customer>): void;
+  public getCustomer() {
+    if (renege(this, this.getCustomer, ...arguments)) return;
+    return this.networkClient.get<CustomerData, Customer>(this.links.customer.href);
+  }
+
+  /**
+   * Returns the website profile on which this subscription was created.
+   *
+   * @since 3.6.0
+   */
+  public getProfile(): Promise<Profile> | Promise<undefined>;
+  public getProfile(callback: Callback<Maybe<Profile>>): void;
+  public getProfile() {
+    if (renege(this, this.getProfile, ...arguments)) return;
+    if (this.links.profile == undefined) {
+      return undefinedPromise;
+    }
+    return this.networkClient.get<ProfileData, Profile>(this.links.profile.href);
+  }
+
+  /**
+   * Returns the payments that are created by this subscription.
+   *
+   * @since 3.6.0
+   */
+  public getPayments(): Promise<Array<Payment>>;
+  public getPayments(callback: Callback<Array<Payment>>): void;
+  public getPayments() {
+    if (renege(this, this.getPayments, ...arguments)) return;
+    if (this.links.payments == undefined) {
+      return Promise.resolve([]);
+    }
+    return this.networkClient.listPlain<PaymentData, Payment>(this.links.payments.href, 'payments');
   }
 }

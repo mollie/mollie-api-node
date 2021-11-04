@@ -117,10 +117,10 @@ export interface ProfileData extends Model<'profile', string> {
    *
    * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=_links#response
    */
-  _links: PermissionLinks;
+  _links: ProfileLinks;
 }
 
-export interface PermissionLinks extends Links {
+export interface ProfileLinks extends Links {
   /**
    * The API resource URL of the chargebacks that belong to this profile.
    *

@@ -8,7 +8,7 @@ import TransformingNetworkClient from '../../../TransformingNetworkClient';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 
-function getPathSegments(orderId: string) {
+export function getPathSegments(orderId: string) {
   return `orders/${orderId}/shipments`;
 }
 

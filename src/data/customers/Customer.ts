@@ -3,6 +3,7 @@ import Model from '../Model';
 import Seal from '../../types/Seal';
 import Helper from '../Helper';
 import TransformingNetworkClient from '../../TransformingNetworkClient';
+import CustomerHelper from './CustomerHelper';
 
 export interface CustomerData extends Model<'customer'> {
   /**
@@ -55,7 +56,7 @@ export interface CustomerData extends Model<'customer'> {
   _links: CustomerLinks;
 }
 
-type Customer = Seal<CustomerData, Helper<CustomerData, Customer>>;
+type Customer = Seal<CustomerData, CustomerHelper>;
 
 export default Customer;
 
@@ -81,5 +82,5 @@ export interface CustomerLinks extends Links {
 }
 
 export function transform(networkClient: TransformingNetworkClient, input: CustomerData): Customer {
-  return Object.assign(new Helper<CustomerData, Customer>(networkClient, input._links), input);
+  return Object.assign(new CustomerHelper(networkClient, input._links), input);
 }

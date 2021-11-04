@@ -8,12 +8,12 @@ import OrderHelper from './OrderHelper';
 import TransformingNetworkClient from '../../TransformingNetworkClient';
 
 type Order = Seal<
-  OrderData & {
+  Omit<OrderData, '_embedded'> & {
     lines: OrderLine[];
     _embedded?: {
-      payments?: Omit<Payment, '_embedded'>[];
-      refunds?: Omit<Refund, '_embedded'>[];
-      shipments?: Omit<Shipment, '_embedded'>[];
+      payments?: Payment[];
+      refunds?: Refund[];
+      shipments?: Shipment[];
     };
   },
   OrderHelper
@@ -35,7 +35,7 @@ export function transform(networkClient: TransformingNetworkClient, input: Order
       _embedded.shipments = input._embedded.shipments.map(transformShipment.bind(undefined, networkClient));
     }
   }
-  return Object.assign(new OrderHelper(networkClient, input._links), input, {
+  return Object.assign(new OrderHelper(networkClient, input._links, _embedded), input, {
     lines: input.lines.map(transformOrderLine),
     _embedded,
   });
