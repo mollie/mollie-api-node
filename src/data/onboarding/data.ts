@@ -28,7 +28,7 @@ export interface OnboardingData extends Model<'onboarding', undefined> {
    *
    * @see https://docs.mollie.com/reference/v2/onboarding-api/get-onboarding-status?path=status#response
    */
-  status: 'needs-data' | 'in-review' | 'completed';
+  status: OnboardingStatus;
   /**
    * Whether or not the organization can receive payments.
    *
@@ -62,4 +62,10 @@ export interface OnboardingLinks extends Links {
    * @see https://docs.mollie.com/reference/v2/onboarding-api/get-onboarding-status?path=_links/organization#response
    */
   organization: Url;
+}
+
+export enum OnboardingStatus {
+  needsData = 'needs-data',
+  inReview = 'in-review',
+  completed = 'completed',
 }

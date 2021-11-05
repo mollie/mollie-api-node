@@ -3,7 +3,7 @@ import TransformingNetworkClient from '../../TransformingNetworkClient';
 import Callback from '../../types/Callback';
 import Helper from '../Helper';
 import Organization, { OrganizationData } from '../organizations/Organizations';
-import { OnboardingData } from './data';
+import { OnboardingData, OnboardingStatus } from './data';
 import Onboarding from './Onboarding';
 
 export default class OnboardingHelper extends Helper<OnboardingData, Onboarding> {
@@ -11,16 +11,25 @@ export default class OnboardingHelper extends Helper<OnboardingData, Onboarding>
     super(networkClient, links);
   }
 
+  /**
+   * @deprecated Use `onboarding.status == OnboardingStatus.needsData` instead.
+   */
   public needsData(this: OnboardingData) {
-    return this.status == 'needs-data';
+    return this.status == OnboardingStatus.needsData;
   }
 
+  /**
+   * @deprecated Use `onboarding.status == OnboardingStatus.inReview` instead.
+   */
   public isInReview(this: OnboardingData) {
-    return this.status == 'in-review';
+    return this.status == OnboardingStatus.inReview;
   }
 
+  /**
+   * @deprecated Use `onboarding.status == OnboardingStatus.completed` instead.
+   */
   public isCompleted(this: OnboardingData) {
-    return this.status == 'completed';
+    return this.status == OnboardingStatus.completed;
   }
 
   /**

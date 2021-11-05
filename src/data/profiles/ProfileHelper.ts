@@ -9,7 +9,7 @@ import { PaymentData } from '../payments/data';
 import Payment from '../payments/Payment';
 import { RefundData } from '../refunds/data';
 import Refund from '../refunds/Refund';
-import { ProfileData } from './data';
+import { ProfileData, ProfileStatus } from './data';
 import Profile from './Profile';
 
 export default class ProfileHelper extends Helper<ProfileData, Profile> {
@@ -17,16 +17,25 @@ export default class ProfileHelper extends Helper<ProfileData, Profile> {
     super(networkClient, links);
   }
 
+  /**
+   * @deprecated Use `profile.status == ProfileStatus.unverified` instead.
+   */
   public isUnverified(this: ProfileData) {
-    return this.status == 'unverified';
+    return this.status == ProfileStatus.unverified;
   }
 
+  /**
+   * @deprecated Use `profile.status == ProfileStatus.verified` instead.
+   */
   public isVerified(this: ProfileData) {
-    return this.status == 'verified';
+    return this.status == ProfileStatus.verified;
   }
 
+  /**
+   * @deprecated Use `profile.status == ProfileStatus.blocked` instead.
+   */
   public isBlocked(this: ProfileData) {
-    return this.status == 'blocked';
+    return this.status == ProfileStatus.blocked;
   }
 
   /**

@@ -86,7 +86,7 @@ export interface ProfileData extends Model<'profile', string> {
    *
    * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=status#response
    */
-  status: 'unverified' | 'verified' | 'blocked';
+  status: ProfileStatus;
   /**
    * The presence of a review object indicates changes have been made that have not yet been approved by Mollie. Changes to test profiles are approved automatically, unless a switch to a live profile
    * has been requested. The review object will therefore usually be `null` in test mode.
@@ -151,4 +151,10 @@ export interface ProfileLinks extends Links {
    * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=_links/checkoutPreviewUrl#response
    */
   checkoutPreviewUrl: Url;
+}
+
+export enum ProfileStatus {
+  unverified = 'unverified',
+  verified = 'verified',
+  blocked = 'blocked',
 }
