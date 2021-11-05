@@ -160,6 +160,8 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
   /**
    * Returns the total amount that is already refunded. For some payment methods, this amount may be higher than the
    * payment amount, for example to allow reimbursement of the costs for a return shipment to the customer.
+   *
+   * @deprecated Use `payment.amountRefunded` instead. To obtain the value, use `payment.amountRefunded?.value`.
    */
   public getAmountRefunded(this: PaymentData): Amount {
     if (this.amountRefunded == undefined) {
@@ -175,6 +177,8 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
 
   /**
    * Returns the remaining amount that can be refunded.
+   *
+   * @deprecated Use `payment.amountRemaining` instead. To obtain the value, use `payment.amountRemaining?.value`.
    */
   public getAmountRemaining(this: PaymentData): Amount {
     if (this.amountRemaining == undefined) {
