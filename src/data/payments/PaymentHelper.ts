@@ -78,7 +78,7 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
   /**
    * Returns the URL the customer should visit to make the payment. This is to where you should redirect the consumer.
    */
-  public getPaymentUrl(): string {
+  public getPaymentUrl(): Nullable<string> {
     return get(this.links, 'checkout.href', null);
   }
 
