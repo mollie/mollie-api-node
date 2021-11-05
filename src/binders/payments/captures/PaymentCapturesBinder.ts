@@ -24,18 +24,20 @@ export default class PaymentCapturesBinder extends InnerBinder<CaptureData, Capt
    * Captures are used for payments that have the *authorize-then-capture* flow. The only payment methods at the moment that have this flow are *Klarna Pay later* and *Klarna Slice it*.
    *
    * @since 1.1.1
+   * @deprecated Use `page` instead.
    * @see https://docs.mollie.com/reference/v2/captures-api/list-captures
    */
-  public all: PaymentCapturesBinder['list'] = this.list;
+  public all: PaymentCapturesBinder['page'] = this.page;
   /**
    * Retrieve all captures for a certain payment.
    *
    * Captures are used for payments that have the *authorize-then-capture* flow. The only payment methods at the moment that have this flow are *Klarna Pay later* and *Klarna Slice it*.
    *
    * @since 3.0.0
+   * @deprecated Use `page` instead.
    * @see https://docs.mollie.com/reference/v2/captures-api/list-captures
    */
-  public page: PaymentCapturesBinder['list'] = this.list;
+  public list: PaymentCapturesBinder['page'] = this.page;
 
   /**
    * Retrieve a single capture by its ID. Note the original payment's ID is needed as well.
@@ -69,16 +71,16 @@ export default class PaymentCapturesBinder extends InnerBinder<CaptureData, Capt
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/captures-api/list-captures
    */
-  public list(parameters: ListParameters): Promise<List<Capture>>;
-  public list(parameters: ListParameters, callback: Callback<List<Capture>>): void;
-  public list(parameters: ListParameters) {
-    if (renege(this, this.list, ...arguments)) return;
+  public page(parameters: ListParameters): Promise<List<Capture>>;
+  public page(parameters: ListParameters, callback: Callback<List<Capture>>): void;
+  public page(parameters: ListParameters) {
+    if (renege(this, this.page, ...arguments)) return;
     // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
     const paymentId = this.getParentId((parameters ?? {}).paymentId);
     if (!checkId(paymentId, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    return this.networkClient.list<CaptureData, Capture>(getPathSegments(paymentId), 'captures', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.networkClient.list<CaptureData, Capture>(getPathSegments(paymentId), 'captures', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 }

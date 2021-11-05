@@ -15,6 +15,15 @@ export default class PermissionsBinder extends Binder<PermissionData, Permission
   }
 
   /**
+   * List all permissions available with the current app access token. The list is not paginated.
+   *
+   * @since 3.2.0
+   * @deprecated Use `page` instead.
+   * @see https://docs.mollie.com/reference/v2/permissions-api/list-permissions
+   */
+  public list: PermissionsBinder['page'] = this.page;
+
+  /**
    * All API actions through OAuth are by default protected for privacy and/or money related reasons and therefore require specific permissions. These permissions can be requested by apps during the
    * OAuth authorization flow. The Permissions resource allows the app to check whether an API action is (still) allowed by the authorization.
    *
@@ -34,13 +43,13 @@ export default class PermissionsBinder extends Binder<PermissionData, Permission
   /**
    * List all permissions available with the current app access token. The list is not paginated.
    *
-   * @since 3.2.0
+   * @since 3.2.0 (as `list`)
    * @see https://docs.mollie.com/reference/v2/permissions-api/list-permissions
    */
-  public list(): Promise<List<Permission>>;
-  public list(callback: Callback<List<Permission>>): void;
-  public list() {
-    if (renege(this, this.list, ...arguments)) return;
-    return this.networkClient.list<PermissionData, Permission>(pathSegment, 'permissions', {}).then(result => this.injectPaginationHelpers<undefined>(result, this.list, undefined));
+  public page(): Promise<List<Permission>>;
+  public page(callback: Callback<List<Permission>>): void;
+  public page() {
+    if (renege(this, this.page, ...arguments)) return;
+    return this.networkClient.list<PermissionData, Permission>(pathSegment, 'permissions', {}).then(result => this.injectPaginationHelpers<undefined>(result, this.page, undefined));
   }
 }

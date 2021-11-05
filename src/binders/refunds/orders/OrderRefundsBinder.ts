@@ -24,18 +24,20 @@ export default class OrderRefundsBinder extends InnerBinder<RefundData, Refund> 
    * The results are paginated. See pagination for more information.
    *
    * @since 3.0.0
+   * @deprecated Use `page` instead.
    * @see https://docs.mollie.com/reference/v2/orders-api/list-order-refunds
    */
-  public all: OrderRefundsBinder['list'] = this.list;
+  public all: OrderRefundsBinder['page'] = this.page;
   /**
    * Retrieve all order refunds.
    *
    * The results are paginated. See pagination for more information.
    *
    * @since 3.0.0
+   * @deprecated Use `page` instead.
    * @see https://docs.mollie.com/reference/v2/orders-api/list-order-refunds
    */
-  public page: OrderRefundsBinder['list'] = this.list;
+  public list: OrderRefundsBinder['page'] = this.page;
 
   /**
    * When using the Orders API, refunds should be made against the Order. When using *pay after delivery* payment methods such as *Klarna Pay later* and *Klarna Slice it*, this ensures that your
@@ -70,16 +72,16 @@ export default class OrderRefundsBinder extends InnerBinder<RefundData, Refund> 
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/orders-api/list-order-refunds
    */
-  public list(parameters: ListParameters): Promise<List<Refund>>;
-  public list(parameters: ListParameters, callback: Callback<List<Refund>>): void;
-  public list(parameters: ListParameters) {
-    if (renege(this, this.list, ...arguments)) return;
+  public page(parameters: ListParameters): Promise<List<Refund>>;
+  public page(parameters: ListParameters, callback: Callback<List<Refund>>): void;
+  public page(parameters: ListParameters) {
+    if (renege(this, this.page, ...arguments)) return;
     // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
     const orderId = this.getParentId((parameters ?? {}).orderId);
     if (!checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...query } = parameters ?? {};
-    return this.networkClient.list<RefundData, Refund>(getPathSegments(orderId), 'refunds', query).then(result => this.injectPaginationHelpers(result, this.list, parameters ?? {}));
+    return this.networkClient.list<RefundData, Refund>(getPathSegments(orderId), 'refunds', query).then(result => this.injectPaginationHelpers(result, this.page, parameters ?? {}));
   }
 }

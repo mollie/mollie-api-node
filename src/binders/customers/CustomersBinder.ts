@@ -21,22 +21,25 @@ export default class CustomersBinder extends Binder<CustomerData, Customer> {
    * The results are paginated. See pagination for more information.
    *
    * @since 2.0.0
+   * @deprecated Use `page` instead.
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
    */
-  public all: CustomersBinder['list'] = this.list;
+  public all: CustomersBinder['page'] = this.page;
   /**
    * Retrieve all customers created.
    *
    * The results are paginated. See pagination for more information.
    *
    * @since 3.0.0
+   * @deprecated Use `page` instead.
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
    */
-  public page: CustomersBinder['list'] = this.list;
+  public list: CustomersBinder['page'] = this.page;
   /**
    * Delete a customer. All mandates and subscriptions created for this customer will be canceled as well.
    *
    * @since 2.0.0
+   * @deprecated Use `delete` instead.
    * @see https://docs.mollie.com/reference/v2/customers-api/delete-customer
    */
   public cancel: CustomersBinder['delete'] = this.delete;
@@ -79,11 +82,11 @@ export default class CustomersBinder extends Binder<CustomerData, Customer> {
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
    */
-  public list(parameters?: ListParameters): Promise<List<Customer>>;
-  public list(parameters: ListParameters, callback: Callback<List<Customer>>): void;
-  public list(parameters: ListParameters = {}) {
-    if (renege(this, this.list, ...arguments)) return;
-    return this.networkClient.list<CustomerData, Customer>(pathSegment, 'customers', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+  public page(parameters?: ListParameters): Promise<List<Customer>>;
+  public page(parameters: ListParameters, callback: Callback<List<Customer>>): void;
+  public page(parameters: ListParameters = {}) {
+    if (renege(this, this.page, ...arguments)) return;
+    return this.networkClient.list<CustomerData, Customer>(pathSegment, 'customers', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
   /**

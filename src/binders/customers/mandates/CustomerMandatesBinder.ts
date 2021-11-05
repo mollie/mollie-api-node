@@ -24,22 +24,25 @@ export default class CustomerMandatesBinder extends InnerBinder<MandateData, Man
    * The results are paginated. See pagination for more information.
    *
    * @since 1.2.0
+   * @deprecated Use `page` instead.
    * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
    */
-  public all: CustomerMandatesBinder['list'] = this.list;
+  public all: CustomerMandatesBinder['page'] = this.page;
   /**
    * Retrieve all mandates for the given `customerId`, ordered from newest to oldest.
    *
    * The results are paginated. See pagination for more information.
    *
    * @since 3.0.0
+   * @deprecated Use `page` instead.
    * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
    */
-  public page: CustomerMandatesBinder['list'] = this.list;
+  public list: CustomerMandatesBinder['page'] = this.page;
   /**
    * Revoke a customer's mandate. You will no longer be able to charge the consumer's bank account or credit card with this mandate and all connected subscriptions will be canceled.
    *
    * @since 1.3.2
+   * @deprecated Use `revoke` instead.
    * @see https://docs.mollie.com/reference/v2/mandates-api/revoke-mandate
    */
   public cancel: CustomerMandatesBinder['revoke'] = this.revoke;
@@ -47,6 +50,7 @@ export default class CustomerMandatesBinder extends InnerBinder<MandateData, Man
    * Revoke a customer's mandate. You will no longer be able to charge the consumer's bank account or credit card with this mandate and all connected subscriptions will be canceled.
    *
    * @since 2.0.0
+   * @deprecated Use `revoke` instead.
    * @see https://docs.mollie.com/reference/v2/mandates-api/revoke-mandate
    */
   public delete: CustomerMandatesBinder['revoke'] = this.revoke;
@@ -102,17 +106,17 @@ export default class CustomerMandatesBinder extends InnerBinder<MandateData, Man
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
    */
-  public list(parameters: ListParameters): Promise<List<Mandate>>;
-  public list(parameters: ListParameters, callback: Callback<List<Mandate>>): void;
-  public list(parameters: ListParameters) {
-    if (renege(this, this.list, ...arguments)) return;
+  public page(parameters: ListParameters): Promise<List<Mandate>>;
+  public page(parameters: ListParameters, callback: Callback<List<Mandate>>): void;
+  public page(parameters: ListParameters) {
+    if (renege(this, this.page, ...arguments)) return;
     // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
     const customerId = this.getParentId((parameters ?? {}).customerId);
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...query } = parameters ?? {};
-    return this.networkClient.list<MandateData, Mandate>(getPathSegments(customerId), 'mandates', query).then(result => this.injectPaginationHelpers(result, this.list, parameters ?? {}));
+    return this.networkClient.list<MandateData, Mandate>(getPathSegments(customerId), 'mandates', query).then(result => this.injectPaginationHelpers(result, this.page, parameters ?? {}));
   }
 
   /**

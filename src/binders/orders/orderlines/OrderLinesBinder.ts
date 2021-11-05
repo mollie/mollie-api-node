@@ -34,6 +34,7 @@ export default class OrderLinesBinder extends InnerBinder<OrderData, Order> {
    * For more information about the status transitions please check our order status changes guide.
    *
    * @since 3.0.0
+   * @deprecated Use `cancel` instead.
    * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order-lines
    */
   public delete: OrderLinesBinder['cancel'] = this.cancel;

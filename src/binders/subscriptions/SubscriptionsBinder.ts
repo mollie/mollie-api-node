@@ -19,12 +19,22 @@ export default class SubscriptionsBinder extends InnerBinder<SubscriptionData, S
    * Token relies the website profile on the `profileId` field. All subscriptions of the merchant will be returned if you do not provide it.
    *
    * @since 3.2.0
+   * @deprecated Use `page` instead.
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-all-subscriptions
    */
-  public list(parameters?: ListParameters): Promise<List<Subscription>>;
-  public list(parameters: ListParameters, callback: Callback<List<Subscription>>): void;
-  public list(parameters: ListParameters = {}) {
-    if (renege(this, this.list, ...arguments)) return;
-    return this.networkClient.list<SubscriptionData, Subscription>(pathSegment, 'subscriptions', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+  public list: SubscriptionsBinder['page'] = this.page;
+
+  /**
+   * Retrieve all subscriptions, ordered from newest to oldest. By using an API key all the subscriptions created with the current website profile will be returned. In the case of an OAuth Access
+   * Token relies the website profile on the `profileId` field. All subscriptions of the merchant will be returned if you do not provide it.
+   *
+   * @since 3.2.0 (as `list`)
+   * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-all-subscriptions
+   */
+  public page(parameters?: ListParameters): Promise<List<Subscription>>;
+  public page(parameters: ListParameters, callback: Callback<List<Subscription>>): void;
+  public page(parameters: ListParameters = {}) {
+    if (renege(this, this.page, ...arguments)) return;
+    return this.networkClient.list<SubscriptionData, Subscription>(pathSegment, 'subscriptions', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 }

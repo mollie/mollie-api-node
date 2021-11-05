@@ -29,9 +29,10 @@ export default class PaymentRefundsBinder extends InnerBinder<RefundData, Refund
    * The results are paginated. See pagination for more information.
    *
    * @since 1.1.1
+   * @deprecated Use `page` instead.
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
    */
-  public all: PaymentRefundsBinder['list'] = this.list;
+  public all: PaymentRefundsBinder['page'] = this.page;
   /**
    * Retrieve Refunds.
    *
@@ -43,15 +44,17 @@ export default class PaymentRefundsBinder extends InnerBinder<RefundData, Refund
    * The results are paginated. See pagination for more information.
    *
    * @since 3.0.0
+   * @deprecated Use `page` instead.
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
    */
-  public page: PaymentRefundsBinder['list'] = this.list;
+  public list: PaymentRefundsBinder['page'] = this.page;
   /**
    * For certain payment methods, like iDEAL, the underlying banking system will delay refunds until the next day. Until that time, refunds may be canceled manually in the [Mollie
    * Dashboard](https://www.mollie.com/dashboard), or programmatically by using this endpoint.
    *
    * A Refund can only be canceled while its `status` field is either `queued` or `pending`. See the /reference/v2/refunds-api/get-refund for more information.
    *
+   * @deprecated Use `cancel` instead.
    * @see https://docs.mollie.com/reference/v2/refunds-api/cancel-refund
    */
   public delete: PaymentRefundsBinder['cancel'] = this.cancel;
@@ -111,17 +114,17 @@ export default class PaymentRefundsBinder extends InnerBinder<RefundData, Refund
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
    */
-  public list(parameters: ListParameters): Promise<List<Refund>>;
-  public list(parameters: ListParameters, callback: Callback<List<Refund>>): void;
-  public list(parameters: ListParameters) {
-    if (renege(this, this.list, ...arguments)) return;
+  public page(parameters: ListParameters): Promise<List<Refund>>;
+  public page(parameters: ListParameters, callback: Callback<List<Refund>>): void;
+  public page(parameters: ListParameters) {
+    if (renege(this, this.page, ...arguments)) return;
     // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
     const paymentId = this.getParentId((parameters ?? {}).paymentId);
     if (!checkId(paymentId, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    return this.networkClient.list<RefundData, Refund>(getPathSegments(paymentId), 'refunds', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.networkClient.list<RefundData, Refund>(getPathSegments(paymentId), 'refunds', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
   /**

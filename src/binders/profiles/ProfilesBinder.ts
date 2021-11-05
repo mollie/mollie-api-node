@@ -17,6 +17,17 @@ export default class ProfilesBinder extends Binder<ProfileData, Profile> {
   }
 
   /**
+   * Retrieve all profiles available on the account.
+   *
+   * The results are paginated. See pagination for more information.
+   *
+   * @since 3.2.0
+   * @deprecated Use `page` instead.
+   * @see https://docs.mollie.com/reference/v2/profiles-api/list-profiles
+   */
+  public list: ProfilesBinder['page'] = this.page;
+
+  /**
    * In order to process payments, you need to create a website profile. A website profile can easily be created via the Dashboard manually. However, the Mollie API also allows automatic profile
    * creation via the Profiles API.
    *
@@ -67,14 +78,14 @@ export default class ProfilesBinder extends Binder<ProfileData, Profile> {
    *
    * The results are paginated. See pagination for more information.
    *
-   * @since 3.2.0
+   * @since 3.2.0 (as `list`)
    * @see https://docs.mollie.com/reference/v2/profiles-api/list-profiles
    */
-  public list(parameters?: ListParameters): Promise<List<Profile>>;
-  public list(parameters: ListParameters, callback: Callback<List<Profile>>): void;
-  public list(parameters: ListParameters = {}) {
-    if (renege(this, this.list, ...arguments)) return;
-    return this.networkClient.list<ProfileData, Profile>(pathSegment, 'profiles', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+  public page(parameters?: ListParameters): Promise<List<Profile>>;
+  public page(parameters: ListParameters, callback: Callback<List<Profile>>): void;
+  public page(parameters: ListParameters = {}) {
+    if (renege(this, this.page, ...arguments)) return;
+    return this.networkClient.list<ProfileData, Profile>(pathSegment, 'profiles', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
   /**
