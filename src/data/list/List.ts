@@ -4,6 +4,9 @@ import { Links, Url } from '../global';
 
 export default interface List<T> extends Array<T> {
   links: ListLinks;
+  /**
+   * @deprecated Use `list.length` instead.
+   */
   count: number;
   nextPageCursor: Maybe<string>;
   previousPageCursor: Maybe<string>;

@@ -25,6 +25,8 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
 
   /**
    * Returns whether the payment has been created, but nothing else has happened with it yet.
+   *
+   * @deprecated Use `payment.status == PaymentStatus.open` instead.
    */
   public isOpen(this: PaymentData): boolean {
     return this.status === PaymentStatus.open;
@@ -32,6 +34,8 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
 
   /**
    * Returns whether new captures can be created for this payment.
+   *
+   * @deprecated Use `payment.status == PaymentStatus.authorized` instead.
    */
   public isAuthorized(this: PaymentData): boolean {
     return this.status === PaymentStatus.authorized;
@@ -46,6 +50,8 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
 
   /**
    * Returns whether the payment has been canceled by the customer.
+   *
+   * @deprecated Use `payment.status == PaymentStatus.canceled` instead.
    */
   public isCanceled(this: PaymentData): boolean {
     return this.status == PaymentStatus.canceled;
@@ -53,6 +59,8 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
 
   /**
    * Returns whether the payment has expired, e.g. the customer has abandoned the payment.
+   *
+   * @deprecated Use `payment.status == PaymentStatus.expired` instead.
    */
   public isExpired(this: PaymentData): boolean {
     return this.status == PaymentStatus.expired;
@@ -76,6 +84,8 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
 
   /**
    * Returns whether the payment has failed and cannot be completed with a different payment method.
+   *
+   * @deprecated Use `payment.status == PaymentStatus.failed` instead.
    */
   public isFailed(this: PaymentData): boolean {
     return this.status == PaymentStatus.failed;
@@ -84,6 +94,8 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
   /**
    * Returns whether the payment is in this temporary status that can occur when the actual payment process has been
    * started, but has not completed yet.
+   *
+   * @deprecated Use `payment.status == PaymentStatus.pending` instead.
    */
   public isPending(this: PaymentData): boolean {
     return this.status == PaymentStatus.pending;
@@ -106,6 +118,8 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
   /**
    * Returns whether `sequenceType` is set to `'first'`. If a `'first'` payment has been completed successfully, the
    * consumer's account may be charged automatically using recurring payments.
+   *
+   * @deprecated Use `payment.sequenceType == SequenceType.first` instead.
    */
   public hasSequenceTypeFirst(this: PaymentData): boolean {
     return this.sequenceType == SequenceType.first;
@@ -114,6 +128,8 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
   /**
    * Returns whether `sequenceType` is set to `'recurring'`. This type of payment is processed without involving the
    * consumer.
+   *
+   * @deprecated Use `payment.sequenceType == SequenceType.recurring` instead.
    */
   public hasSequenceTypeRecurring(this: PaymentData): boolean {
     return this.sequenceType == SequenceType.recurring;
