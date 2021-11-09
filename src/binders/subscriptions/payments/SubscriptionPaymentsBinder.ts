@@ -22,12 +22,21 @@ export default class SubscriptionPaymentsBinder extends InnerBinder<PaymentData,
    * Retrieve all payments of a specific subscriptions of a customer.
    *
    * @since 3.3.0
+   * @deprecated Use `page` instead.
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions-payments
    */
-  public list(parameters: ListParameters): Promise<List<Payment>>;
-  public list(parameters: ListParameters, callback: Callback<List<Payment>>): void;
-  public list(parameters: ListParameters) {
-    if (renege(this, this.list, ...arguments)) return;
+  public list: SubscriptionPaymentsBinder['page'] = this.page;
+
+  /**
+   * Retrieve all payments of a specific subscriptions of a customer.
+   *
+   * @since 3.3.0 (as `list`)
+   * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions-payments
+   */
+  public page(parameters: ListParameters): Promise<List<Payment>>;
+  public page(parameters: ListParameters, callback: Callback<List<Payment>>): void;
+  public page(parameters: ListParameters) {
+    if (renege(this, this.page, ...arguments)) return;
     const customerId = this.getParentId(parameters.customerId);
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer id is invalid');
@@ -37,6 +46,6 @@ export default class SubscriptionPaymentsBinder extends InnerBinder<PaymentData,
       throw new ApiError('The subscription id is invalid');
     }
     const { customerId: _, subscriptionId: __, ...query } = parameters;
-    return this.networkClient.list<PaymentData, Payment>(getPathSegments(customerId, subscriptionId), 'payments', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.networkClient.list<PaymentData, Payment>(getPathSegments(customerId, subscriptionId), 'payments', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 }

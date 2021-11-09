@@ -50,6 +50,7 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
    * lines are not shipped yet. In this case, the order cannot be canceled. You should create refunds for these order lines instead.
    *
    * @since 3.0.0
+   * @deprecated Use `cancel` instead.
    * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order
    */
   public delete: OrdersBinder['cancel'] = this.cancel;
@@ -59,18 +60,20 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
    * The results are paginated. See pagination for more information.
    *
    * @since 3.0.0
+   * @deprecated Use `page` instead.
    * @see https://docs.mollie.com/reference/v2/orders-api/list-orders
    */
-  public all: OrdersBinder['list'] = this.list;
+  public all: OrdersBinder['page'] = this.page;
   /**
    * Retrieve all orders.
    *
    * The results are paginated. See pagination for more information.
    *
    * @since 3.0.0
+   * @deprecated Use `page` instead.
    * @see https://docs.mollie.com/reference/v2/orders-api/list-orders
    */
-  public page: OrdersBinder['list'] = this.list;
+  public list: OrdersBinder['page'] = this.page;
 
   /**
    * Using the Orders API is the preferred approach when integrating the Mollie API into e-commerce applications such as webshops. If you want to use *pay after delivery* methods such as *Klarna Pay
@@ -119,11 +122,11 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/orders-api/list-orders
    */
-  public list(parameters?: ListParameters): Promise<List<Order>>;
-  public list(parameters: ListParameters, callback: Callback<List<Order>>): void;
-  public list(parameters: ListParameters = {}) {
-    if (renege(this, this.list, ...arguments)) return;
-    return this.networkClient.list<OrderData, Order>(pathSegment, 'orders', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+  public page(parameters?: ListParameters): Promise<List<Order>>;
+  public page(parameters: ListParameters, callback: Callback<List<Order>>): void;
+  public page(parameters: ListParameters = {}) {
+    if (renege(this, this.page, ...arguments)) return;
+    return this.networkClient.list<OrderData, Order>(pathSegment, 'orders', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
   /**

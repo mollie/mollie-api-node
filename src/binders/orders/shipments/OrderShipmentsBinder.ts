@@ -21,16 +21,18 @@ export default class OrderShipmentsBinder extends InnerBinder<ShipmentData, Ship
    * Retrieve all shipments for an order.
    *
    * @since 3.0.0
+   * @deprecated Use `page` instead.
    * @see https://docs.mollie.com/reference/v2/shipments-api/list-shipments
    */
-  public all: OrderShipmentsBinder['list'] = this.list;
+  public all: OrderShipmentsBinder['page'] = this.page;
   /**
    * Retrieve all shipments for an order.
    *
    * @since 3.0.0
+   * @deprecated Use `page` instead.
    * @see https://docs.mollie.com/reference/v2/shipments-api/list-shipments
    */
-  public page: OrderShipmentsBinder['list'] = this.list;
+  public list: OrderShipmentsBinder['page'] = this.page;
 
   /**
    * The **Create Shipment API** is used to ship order lines created by the /reference/v2/orders-api/create-order.
@@ -77,6 +79,25 @@ export default class OrderShipmentsBinder extends InnerBinder<ShipmentData, Ship
   }
 
   /**
+   * Retrieve all shipments for an order.
+   *
+   * @since 3.0.0
+   * @see https://docs.mollie.com/reference/v2/shipments-api/list-shipments
+   */
+  public page(parameters: ListParameters): Promise<List<Shipment>>;
+  public page(parameters: ListParameters, callback: Callback<List<Shipment>>): void;
+  public page(parameters: ListParameters) {
+    if (renege(this, this.page, ...arguments)) return;
+    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
+    const orderId = this.getParentId((parameters ?? {}).orderId);
+    if (!checkId(orderId, 'order')) {
+      throw new ApiError('The order id is invalid');
+    }
+    const { orderId: _, ...query } = parameters ?? {};
+    return this.networkClient.list<ShipmentData, Shipment>(getPathSegments(orderId), 'shipments', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
+  }
+
+  /**
    * This endpoint can be used to update the tracking information of a shipment.
    *
    * @since 3.0.0
@@ -95,24 +116,5 @@ export default class OrderShipmentsBinder extends InnerBinder<ShipmentData, Ship
     }
     const { orderId: _, ...data } = parameters;
     return this.networkClient.patch<ShipmentData, Shipment>(`${getPathSegments(orderId)}/${id}`, data);
-  }
-
-  /**
-   * Retrieve all shipments for an order.
-   *
-   * @since 3.0.0
-   * @see https://docs.mollie.com/reference/v2/shipments-api/list-shipments
-   */
-  public list(parameters: ListParameters): Promise<List<Shipment>>;
-  public list(parameters: ListParameters, callback: Callback<List<Shipment>>): void;
-  public list(parameters: ListParameters) {
-    if (renege(this, this.list, ...arguments)) return;
-    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
-    const orderId = this.getParentId((parameters ?? {}).orderId);
-    if (!checkId(orderId, 'order')) {
-      throw new ApiError('The order id is invalid');
-    }
-    const { orderId: _, ...query } = parameters ?? {};
-    return this.networkClient.list<ShipmentData, Shipment>(getPathSegments(orderId), 'shipments', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 }

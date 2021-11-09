@@ -22,6 +22,7 @@ export default class CustomerSubscriptionsBinder extends InnerBinder<Subscriptio
    * A subscription can be canceled any time by calling `DELETE` on the resource endpoint.
    *
    * @since 1.3.2
+   * @deprecated Use `cancel` instead.
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/cancel-subscription
    */
   public delete: CustomerSubscriptionsBinder['cancel'] = this.cancel;
@@ -29,16 +30,18 @@ export default class CustomerSubscriptionsBinder extends InnerBinder<Subscriptio
    * Retrieve all subscriptions of a customer.
    *
    * @since 1.3.2
+   * @deprecated Use `page` instead.
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions
    */
-  public all: CustomerSubscriptionsBinder['list'] = this.list;
+  public all: CustomerSubscriptionsBinder['page'] = this.page;
   /**
    * Retrieve all subscriptions of a customer.
    *
    * @since 3.0.0
+   * @deprecated Use `page` instead.
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions
    */
-  public page: CustomerSubscriptionsBinder['list'] = this.list;
+  public list: CustomerSubscriptionsBinder['page'] = this.page;
 
   /**
    * With subscriptions, you can schedule recurring payments to take place at regular intervals.
@@ -96,10 +99,10 @@ export default class CustomerSubscriptionsBinder extends InnerBinder<Subscriptio
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions
    */
-  public list(parameters: ListParameters): Promise<List<Subscription>>;
-  public list(parameters: ListParameters, callback: Callback<List<Subscription>>): void;
-  public list(parameters: ListParameters) {
-    if (renege(this, this.list, ...arguments)) return;
+  public page(parameters: ListParameters): Promise<List<Subscription>>;
+  public page(parameters: ListParameters, callback: Callback<List<Subscription>>): void;
+  public page(parameters: ListParameters) {
+    if (renege(this, this.page, ...arguments)) return;
     // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
     const customerId = this.getParentId((parameters ?? {}).customerId);
     if (!checkId(customerId, 'customer')) {
@@ -108,7 +111,7 @@ export default class CustomerSubscriptionsBinder extends InnerBinder<Subscriptio
     const { customerId: _, ...query } = parameters ?? {};
     return this.networkClient
       .list<SubscriptionData, Subscription>(getPathSegments(customerId), 'subscriptions', query)
-      .then(result => this.injectPaginationHelpers(result, this.list, parameters ?? {}));
+      .then(result => this.injectPaginationHelpers(result, this.page, parameters ?? {}));
   }
 
   /**

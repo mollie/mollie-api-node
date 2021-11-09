@@ -22,18 +22,20 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
    * The results are paginated. See pagination for more information.
    *
    * @since 2.0.0
+   * @deprecated Use `page` instead.
    * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
    */
-  public all: PaymentsBinder['list'] = this.list;
+  public all: PaymentsBinder['page'] = this.page;
   /**
    * Retrieve all payments created with the current website profile, ordered from newest to oldest.
    *
    * The results are paginated. See pagination for more information.
    *
    * @since 3.0.0
+   * @deprecated Use `page` instead.
    * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
    */
-  public page: PaymentsBinder['list'] = this.list;
+  public list: PaymentsBinder['page'] = this.page;
   /**
    * Some payment methods can be canceled by the merchant for a certain amount of time, usually until the next business day. Or as long as the payment status is `open`. Payments may be canceled
    * manually from the Mollie Dashboard, or programmatically by using this endpoint.
@@ -41,6 +43,7 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
    * The `isCancelable` property on the Payment object will indicate if the payment can be canceled.
    *
    * @since 2.0.0
+   * @deprecated Use `cancel` instead.
    * @see https://docs.mollie.com/reference/v2/payments-api/cancel-payment
    */
   public delete: PaymentsBinder['cancel'] = this.cancel;
@@ -88,11 +91,11 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
    */
-  public list(parameters?: ListParameters): Promise<List<Payment>>;
-  public list(parameters: ListParameters, callback: Callback<List<Payment>>): void;
-  public list(parameters: ListParameters = {}) {
-    if (renege(this, this.list, ...arguments)) return;
-    return this.networkClient.list<PaymentData, Payment>(pathSegment, 'payments', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+  public page(parameters?: ListParameters): Promise<List<Payment>>;
+  public page(parameters: ListParameters, callback: Callback<List<Payment>>): void;
+  public page(parameters: ListParameters = {}) {
+    if (renege(this, this.page, ...arguments)) return;
+    return this.networkClient.list<PaymentData, Payment>(pathSegment, 'payments', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
   /**

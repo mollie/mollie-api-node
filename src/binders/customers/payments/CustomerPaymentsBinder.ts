@@ -22,16 +22,18 @@ export default class CustomerPaymentsBinder extends InnerBinder<PaymentData, Pay
    * Retrieve all Payments linked to the Customer.
    *
    * @since 1.1.1
+   * @deprecated Use `page` instead.
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customer-payments
    */
-  public all: CustomerPaymentsBinder['list'] = this.list;
+  public all: CustomerPaymentsBinder['page'] = this.page;
   /**
    * Retrieve all Payments linked to the Customer.
    *
    * @since 3.0.0
+   * @deprecated Use `page` instead.
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customer-payments
    */
-  public page: CustomerPaymentsBinder['list'] = this.list;
+  public list: CustomerPaymentsBinder['page'] = this.page;
 
   /**
    * Creates a payment for the customer.
@@ -64,16 +66,16 @@ export default class CustomerPaymentsBinder extends InnerBinder<PaymentData, Pay
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customer-payments
    */
-  public list(parameters: ListParameters): Promise<List<Payment>>;
-  public list(parameters: ListParameters, callback: Callback<List<Payment>>): void;
-  public list(parameters: ListParameters) {
-    if (renege(this, this.list, ...arguments)) return;
+  public page(parameters: ListParameters): Promise<List<Payment>>;
+  public page(parameters: ListParameters, callback: Callback<List<Payment>>): void;
+  public page(parameters: ListParameters) {
+    if (renege(this, this.page, ...arguments)) return;
     // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
     const customerId = this.getParentId((parameters ?? {}).customerId);
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...query } = parameters ?? {};
-    return this.networkClient.list<PaymentData, Payment>(getPathSegments(customerId), 'payments', query).then(result => this.injectPaginationHelpers(result, this.list, parameters ?? {}));
+    return this.networkClient.list<PaymentData, Payment>(getPathSegments(customerId), 'payments', query).then(result => this.injectPaginationHelpers(result, this.page, parameters ?? {}));
   }
 }

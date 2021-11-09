@@ -25,9 +25,10 @@ export default class RefundsBinder extends Binder<RefundData, Refund> {
    * The results are paginated. See pagination for more information.
    *
    * @since 2.0.0
+   * @deprecated Use `page` instead.
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
    */
-  public all: RefundsBinder['list'] = this.list;
+  public all: RefundsBinder['page'] = this.page;
   /**
    * Retrieve Refunds.
    *
@@ -39,9 +40,10 @@ export default class RefundsBinder extends Binder<RefundData, Refund> {
    * The results are paginated. See pagination for more information.
    *
    * @since 3.0.0
+   * @deprecated Use `page` instead.
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
    */
-  public page: RefundsBinder['list'] = this.list;
+  public list: RefundsBinder['page'] = this.page;
 
   /**
    * Retrieve Refunds.
@@ -56,10 +58,10 @@ export default class RefundsBinder extends Binder<RefundData, Refund> {
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
    */
-  public list(parameters?: ListParameters): Promise<List<Refund>>;
-  public list(parameters: ListParameters, callback: Callback<List<Refund>>): void;
-  public list(parameters: ListParameters = {}) {
-    if (renege(this, this.list, ...arguments)) return;
-    return this.networkClient.list<RefundData, Refund>(pathSegment, 'refunds', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+  public page(parameters?: ListParameters): Promise<List<Refund>>;
+  public page(parameters: ListParameters, callback: Callback<List<Refund>>): void;
+  public page(parameters: ListParameters = {}) {
+    if (renege(this, this.page, ...arguments)) return;
+    return this.networkClient.list<RefundData, Refund>(pathSegment, 'refunds', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 }
