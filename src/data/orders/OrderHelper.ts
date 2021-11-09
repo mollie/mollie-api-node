@@ -3,7 +3,7 @@ import { getPathSegments as getOrderShipmentsPathSegments } from '../../binders/
 import { getPathSegments as getOrderRefundsPathSegments } from '../../binders/refunds/orders/OrderRefundsBinder';
 import renege from '../../plumbing/renege';
 import resolveIf from '../../plumbing/resolveIf';
-import TransformingNetworkClient from '../../TransformingNetworkClient';
+import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import Callback from '../../types/Callback';
 import Nullable from '../../types/Nullable';
 import Helper from '../Helper';

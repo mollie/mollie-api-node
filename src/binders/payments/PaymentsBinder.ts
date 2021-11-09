@@ -4,7 +4,7 @@ import Payment from '../../data/payments/Payment';
 import ApiError from '../../errors/ApiError';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
-import TransformingNetworkClient from '../../TransformingNetworkClient';
+import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import Callback from '../../types/Callback';
 import Binder from '../Binder';
 import { CancelParameters, CreateParameters, GetParameters, ListParameters, UpdateParameters } from './parameters';
@@ -96,6 +96,10 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
   public page(parameters: ListParameters = {}) {
     if (renege(this, this.page, ...arguments)) return;
     return this.networkClient.list<PaymentData, Payment>(pathSegment, 'payments', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
+  }
+
+  public [Symbol.asyncIterator](): AsyncIterator<Payment, void, never> {
+    return this.networkClient.exhaust<PaymentData, Payment>(pathSegment, 'payments', { limit: 32 });
   }
 
   /**

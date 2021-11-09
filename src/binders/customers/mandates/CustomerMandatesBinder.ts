@@ -4,7 +4,7 @@ import List from '../../../data/list/List';
 import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
-import TransformingNetworkClient from '../../../TransformingNetworkClient';
+import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
 import Callback from '../../../types/Callback';
 import InnerBinder from '../../InnerBinder';
 import { CreateParameters, GetParameters, ListParameters, RevokeParameters } from './parameters';

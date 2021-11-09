@@ -4,7 +4,7 @@ import Order from '../../data/orders/Order';
 import ApiError from '../../errors/ApiError';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
-import TransformingNetworkClient from '../../TransformingNetworkClient';
+import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import Callback from '../../types/Callback';
 import Binder from '../Binder';
 import { CancelParameters, CreateParameters, GetParameters, ListParameters, UpdateParameters } from './parameters';

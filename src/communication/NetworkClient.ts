@@ -4,11 +4,12 @@ import { SecureContextOptions } from 'tls';
 
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 
-import List from './data/list/List';
-import ApiError from './errors/ApiError';
-import Options from './Options';
-import getEntries from './plumbing/getEntries';
-import Maybe from './types/Maybe';
+import List from '../data/list/List';
+import ApiError from '../errors/ApiError';
+import Options from '../Options';
+import getEntries from '../plumbing/getEntries';
+import Maybe from '../types/Maybe';
+import Nullable from '../types/Nullable';
 
 /**
  * Like `[].map` but with support for non-array inputs, in which case this function behaves as if an array was passed
@@ -103,8 +104,12 @@ const throwApiError = (() => {
 })();
 
 /**
- * This class is essentially a wrapper around axios. It simplifies communication with the Mollie server over the
- * network.
+ * If there are fewer items in the buffer than this mark, a request to the Mollie API for the next page will be made.
+ */
+const exhaustLowWaterMark = 3.5;
+
+/**
+ * This class is essentially a wrapper around axios. It simplifies communication with the Mollie API over the network.
  */
 export default class NetworkClient {
   protected readonly axiosInstance: AxiosInstance;
@@ -153,7 +158,7 @@ export default class NetworkClient {
     return response.data;
   }
 
-  async list<R>(relativePath: string, binderName: string, query: Record<string, any> = {}): Promise<Array<R> & Pick<List<R>, 'links' | 'count'>> {
+  async list<R>(relativePath: string, type: string, query: Record<string, any> = {}): Promise<R[] & Pick<List<R>, 'links' | 'count'>> {
     const response = await this.axiosInstance.get(`${relativePath}${stringifyQuery(query)}`).catch(throwApiError);
     try {
       /* eslint-disable-next-line no-var */
@@ -161,13 +166,13 @@ export default class NetworkClient {
     } catch (error) {
       throw new ApiError('Received unexpected response from the server');
     }
-    return Object.assign(embedded[binderName] as R[], {
+    return Object.assign(embedded[type] as R[], {
       links,
       count,
     });
   }
 
-  async listPlain<R>(relativePath: string, binderName: string, query: Record<string, any> = {}): Promise<Array<R>> {
+  async listPlain<R>(relativePath: string, binderName: string, query: Record<string, any> = {}): Promise<R[]> {
     const response = await this.axiosInstance.get(`${relativePath}${stringifyQuery(query)}`).catch(throwApiError);
     try {
       /* eslint-disable-next-line no-var */
@@ -176,6 +181,35 @@ export default class NetworkClient {
       throw new ApiError('Received unexpected response from the server');
     }
     return embedded[binderName] as R[];
+  }
+
+  async * exhaust<R>(...firstPageArguments: Parameters<NetworkClient['list']>): AsyncIterator<R, void, never> {
+    // Make the initial request for the first page.
+    let currentPage: R[] & { links: List<R>['links'] } = await this.list<R>(...firstPageArguments);
+    let nextPage: Nullable<Promise<R[] & { links: List<R>['links'] }>> = null;
+    while (true) {
+      // Yield the items in the current page.
+      while (true) {
+        /* eslint-disable-next-line no-var */
+        var item = currentPage.shift();
+        if (item == undefined) {
+          break;
+        }
+        yield item;
+        // If the low water mark is hit, make a request for the next page. (Note that this code is never reached if the
+        // page is empty. This is OK: if the page is empty, there is no next page either.)
+        if (nextPage == null && currentPage.links.next != null && currentPage.length < exhaustLowWaterMark) {
+          nextPage = this.list<R>(currentPage.links.next.href, firstPageArguments[1]);
+        }
+      }
+      // If a request for the next page has been made, wait for it to complete and switch to that page. (If no such
+      // request has been made, there is no next page.)
+      if (nextPage == null) {
+        return;
+      }
+      currentPage = await nextPage;
+      nextPage = null;
+    }
   }
 
   async patch<R>(relativePath: string, data: any): Promise<R> {

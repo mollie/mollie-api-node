@@ -1,7 +1,7 @@
 import { inspect, InspectOptionsStylized } from 'util';
 import capitalize from '../plumbing/capitalize';
 import renege from '../plumbing/renege';
-import TransformingNetworkClient from '../TransformingNetworkClient';
+import TransformingNetworkClient from '../communication/TransformingNetworkClient';
 import Callback from '../types/Callback';
 import { Links } from './global';
 import Model from './Model';

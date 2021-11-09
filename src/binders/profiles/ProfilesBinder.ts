@@ -4,7 +4,7 @@ import Profile from '../../data/profiles/Profile';
 import ApiError from '../../errors/ApiError';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
-import TransformingNetworkClient from '../../TransformingNetworkClient';
+import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import Callback from '../../types/Callback';
 import Binder from '../Binder';
 import { CreateParameters, ListParameters, UpdateParameters } from './parameters';

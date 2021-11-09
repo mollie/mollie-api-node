@@ -1,4 +1,4 @@
-import TransformingNetworkClient from '../../TransformingNetworkClient';
+import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import Seal from '../../types/Seal';
 import Chargeback, { transform as transformChargeback } from '../chargebacks/Chargeback';
 import Refund, { transform as transformRefund } from '../refunds/Refund';

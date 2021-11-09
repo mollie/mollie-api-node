@@ -1,7 +1,7 @@
 import { OnboardingData } from '../../data/onboarding/data';
 import Onboarding from '../../data/onboarding/Onboarding';
 import renege from '../../plumbing/renege';
-import TransformingNetworkClient from '../../TransformingNetworkClient';
+import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import Callback from '../../types/Callback';
 import Binder from '../Binder';
 import { SubmitParameters } from './parameters';

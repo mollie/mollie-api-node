@@ -1,4 +1,4 @@
-import TransformingNetworkClient from '../../TransformingNetworkClient';
+import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import Seal from '../../types/Seal';
 import { ApiMode, Links, Locale, PaymentMethod, Url } from '../global';
 import Model from '../Model';

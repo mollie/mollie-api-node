@@ -1,6 +1,6 @@
 import renege from '../../plumbing/renege';
 import resolveIf from '../../plumbing/resolveIf';
-import TransformingNetworkClient from '../../TransformingNetworkClient';
+import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import Callback from '../../types/Callback';
 import Helper from '../Helper';
 import { PaymentData } from '../payments/data';

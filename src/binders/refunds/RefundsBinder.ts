@@ -2,7 +2,7 @@ import List from '../../data/list/List';
 import { RefundData } from '../../data/refunds/data';
 import Refund from '../../data/refunds/Refund';
 import renege from '../../plumbing/renege';
-import TransformingNetworkClient from '../../TransformingNetworkClient';
+import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import Callback from '../../types/Callback';
 import Binder from '../Binder';
 import { ListParameters } from './parameters';
