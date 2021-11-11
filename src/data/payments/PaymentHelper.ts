@@ -1,6 +1,6 @@
+import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import renege from '../../plumbing/renege';
 import undefinedPromise from '../../plumbing/undefinedPromise';
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import Callback from '../../types/Callback';
 import Maybe from '../../types/Maybe';
 import Nullable from '../../types/Nullable';

@@ -1,6 +1,7 @@
 import Model from '../data/Model';
-import NetworkClient from './NetworkClient';
 import fling from '../plumbing/fling';
+import HelpfulIterator from '../plumbing/HelpfulIterator';
+import NetworkClient from './NetworkClient';
 
 export class Transformers {
   readonly add: <R extends string, T extends Model<R, any>>(resource: R, transformer: (networkClient: TransformingNetworkClient, input: T) => any) => Transformers;
@@ -52,17 +53,8 @@ export default class TransformingNetworkClient {
     return this.networkClient.listPlain<R>(...passingArguments).then(response => response.map(this.transform) as U[]);
   }
 
-  exhaust<R extends Model<any, any>, U>(...firstPageArguments: Parameters<NetworkClient['list']>): AsyncIterator<U, void, never> {
-    const iterator = this.networkClient.exhaust<R>(...firstPageArguments);
-    return {
-      next: async () => {
-        const { done, value } = await iterator.next();
-        if (done) {
-          return { done, value: undefined };
-        }
-        return { done: false, value: this.transform(value as R) };
-      }
-    };
+  iterate<R extends Model<any, any>, U>(...firstPageArguments: Parameters<NetworkClient['list']>): HelpfulIterator<U> {
+    return this.networkClient.iterate<R>(...firstPageArguments).map<U>(this.transform);
   }
 
   patch<R extends Model<any, any>, U>(...passingArguments: Parameters<NetworkClient['patch']>) {

@@ -10,7 +10,7 @@ export default class Binder<R, T extends R> {
   /**
    * Injects `nextPage`, `nextPageCursor`, `previousPage`, and `previousPageCursor` into the passed list.
    */
-  protected injectPaginationHelpers<P>(input: Array<T> & Pick<List<T>, 'count' | 'links'>, list: (parameters: P) => Promise<List<T>>, selfParameters: P): List<T> {
+  protected injectPaginationHelpers<P>(input: Array<T> & Pick<List<T>, 'count' | 'links'>, list: (parameters: P) => Promise<List<T>>, selfParameters: P = {} as P): List<T> {
     const { links } = input;
     let nextPage: Maybe<() => Promise<List<T>>>;
     let nextPageCursor: Maybe<string>;

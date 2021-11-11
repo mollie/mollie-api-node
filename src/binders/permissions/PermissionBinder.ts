@@ -1,9 +1,9 @@
+import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import List from '../../data/list/List';
 import Permission, { PermissionData } from '../../data/permissions/Permission';
 import ApiError from '../../errors/ApiError';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import Callback from '../../types/Callback';
 import Binder from '../Binder';
 

@@ -2,7 +2,7 @@ import { PaymentMethod } from '../../data/global';
 import { OrderAddress, OrderData, OrderEmbed } from '../../data/orders/data';
 import { OrderLineData } from '../../data/orders/orderlines/OrderLine';
 import { PaymentData } from '../../data/payments/data';
-import { CommonListParameters } from '../../types/parameters';
+import { PaginationParameters } from '../../types/parameters';
 import PickOptional from '../../types/PickOptional';
 
 export type CreateParameters = Pick<OrderData, 'amount' | 'orderNumber' | 'billingAddress' | 'webhookUrl' | 'locale' | 'metadata' | 'expiresAt'> & {
@@ -91,7 +91,7 @@ export type UpdateParameters = PickOptional<OrderData, 'billingAddress' | 'shipp
   testmode?: boolean;
 };
 
-export type ListParameters = CommonListParameters & {
+export type ListParameters = PaginationParameters & {
   profileId?: string;
   testmode?: boolean;
 };

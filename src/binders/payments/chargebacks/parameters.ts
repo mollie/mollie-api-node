@@ -1,5 +1,5 @@
 import { ChargebackEmbed } from '../../../data/chargebacks/Chargeback';
-import { CommonListParameters } from '../../../types/parameters';
+import { PaginationParameters } from '../../../types/parameters';
 
 interface ContextParameters {
   paymentId: string;
@@ -10,6 +10,6 @@ export type GetParameters = ContextParameters & {
 };
 
 export type ListParameters = ContextParameters &
-  CommonListParameters & {
+  PaginationParameters & {
     embed?: ChargebackEmbed[];
   };

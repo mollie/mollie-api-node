@@ -1,10 +1,11 @@
+import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
 import List from '../../../data/list/List';
 import { RefundData } from '../../../data/refunds/data';
 import Refund from '../../../data/refunds/Refund';
 import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
+import HelpfulIterator from '../../../plumbing/HelpfulIterator';
 import renege from '../../../plumbing/renege';
-import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
 import Callback from '../../../types/Callback';
 import InnerBinder from '../../InnerBinder';
 import { CancelParameters, CreateParameters, GetParameters, ListParameters } from './parameters';
@@ -125,6 +126,29 @@ export default class PaymentRefundsBinder extends InnerBinder<RefundData, Refund
     }
     const { paymentId: _, ...query } = parameters;
     return this.networkClient.list<RefundData, Refund>(getPathSegments(paymentId), 'refunds', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
+  }
+
+  /**
+   * Retrieve Refunds.
+   *
+   * -   If the payment-specific endpoint is used, only Refunds for that specific Payment are returned.
+   * -   When using the top level endpoint `v2/refunds` with an API key, only refunds for the corresponding website profile and mode are returned.
+   * -   When using the top level endpoint with OAuth, you can specify the profile and mode with the `profileId` and `testmode` parameters respectively. If you omit `profileId`, you will get all
+   *     Refunds for the Organization.
+   *
+   * The results are paginated. See pagination for more information.
+   *
+   * @since 3.6.0
+   * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
+   */
+  public iterate(parameters: Omit<ListParameters, 'limit'>): HelpfulIterator<Refund> {
+    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
+    const paymentId = this.getParentId((parameters ?? {}).paymentId);
+    if (!checkId(paymentId, 'payment')) {
+      throw new ApiError('The payment id is invalid');
+    }
+    const { paymentId: _, ...query } = parameters;
+    return this.networkClient.iterate<RefundData, Refund>(getPathSegments(paymentId), 'refunds', { ...query, limit: 64 });
   }
 
   /**

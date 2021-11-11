@@ -1,10 +1,10 @@
+import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
 import { MandateData } from '../../../data/customers/mandates/data';
 import Mandate from '../../../data/customers/mandates/Mandate';
 import List from '../../../data/list/List';
 import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
-import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
 import Callback from '../../../types/Callback';
 import InnerBinder from '../../InnerBinder';
 import { CreateParameters, GetParameters, ListParameters, RevokeParameters } from './parameters';
@@ -117,6 +117,24 @@ export default class CustomerMandatesBinder extends InnerBinder<MandateData, Man
     }
     const { customerId: _, ...query } = parameters ?? {};
     return this.networkClient.list<MandateData, Mandate>(getPathSegments(customerId), 'mandates', query).then(result => this.injectPaginationHelpers(result, this.page, parameters ?? {}));
+  }
+
+  /**
+   * Retrieve all mandates for the given `customerId`, ordered from newest to oldest.
+   *
+   * The results are paginated. See pagination for more information.
+   *
+   * @since 3.6.0
+   * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
+   */
+  public iterate(parameters: Omit<ListParameters, 'limit'>) {
+    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
+    const customerId = this.getParentId((parameters ?? {}).customerId);
+    if (!checkId(customerId, 'customer')) {
+      throw new ApiError('The customer id is invalid');
+    }
+    const { customerId: _, ...query } = parameters ?? {};
+    return this.networkClient.iterate<MandateData, Mandate>(getPathSegments(customerId), 'mandates', { ...query, limit: 64 });
   }
 
   /**

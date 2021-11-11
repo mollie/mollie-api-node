@@ -2,7 +2,7 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import CustomersBinder from '../../../src/binders/customers/CustomersBinder';
-import NetworkClient from '../../../src/NetworkClient';
+import NetworkClient from '../../../src/communication/NetworkClient';
 
 import page1 from '../__stubs__/list/customers_page_1.json';
 import page2 from '../__stubs__/list/customers_page_2.json';

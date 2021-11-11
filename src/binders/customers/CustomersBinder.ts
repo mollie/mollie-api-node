@@ -1,9 +1,9 @@
+import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import Customer, { CustomerData } from '../../data/customers/Customer';
 import List from '../../data/list/List';
 import ApiError from '../../errors/ApiError';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import Callback from '../../types/Callback';
 import Binder from '../Binder';
 import { CreateParameters, DeleteParameters, GetParameters, ListParameters, UpdateParameters } from './parameters';
@@ -84,9 +84,21 @@ export default class CustomersBinder extends Binder<CustomerData, Customer> {
    */
   public page(parameters?: ListParameters): Promise<List<Customer>>;
   public page(parameters: ListParameters, callback: Callback<List<Customer>>): void;
-  public page(parameters: ListParameters = {}) {
+  public page(parameters?: ListParameters) {
     if (renege(this, this.page, ...arguments)) return;
     return this.networkClient.list<CustomerData, Customer>(pathSegment, 'customers', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
+  }
+
+  /**
+   * Retrieve all customers created.
+   *
+   * The results are paginated. See pagination for more information.
+   *
+   * @since 3.6.0
+   * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
+   */
+  public iterate(parameters?: Omit<ListParameters, 'limit'>) {
+    return this.networkClient.iterate<CustomerData, Customer>(pathSegment, 'customers', { ...parameters, limit: 64 });
   }
 
   /**

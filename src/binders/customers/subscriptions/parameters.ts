@@ -1,5 +1,5 @@
 import { SubscriptionData } from '../../../data/subscription/data';
-import { CommonListParameters } from '../../../types/parameters';
+import { PaginationParameters } from '../../../types/parameters';
 import PickOptional from '../../../types/PickOptional';
 
 interface ContextParameters {
@@ -13,7 +13,7 @@ export type CreateParameters = ContextParameters &
 
 export type GetParameters = ContextParameters;
 
-export type ListParameters = ContextParameters & CommonListParameters;
+export type ListParameters = ContextParameters & PaginationParameters;
 
 export type UpdateParameters = ContextParameters &
   Pick<SubscriptionData, 'mandateId'> &

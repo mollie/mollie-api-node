@@ -1,10 +1,10 @@
+import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import List from '../../data/list/List';
 import { ProfileData } from '../../data/profiles/data';
 import Profile from '../../data/profiles/Profile';
 import ApiError from '../../errors/ApiError';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import Callback from '../../types/Callback';
 import Binder from '../Binder';
 import { CreateParameters, ListParameters, UpdateParameters } from './parameters';
@@ -83,9 +83,21 @@ export default class ProfilesBinder extends Binder<ProfileData, Profile> {
    */
   public page(parameters?: ListParameters): Promise<List<Profile>>;
   public page(parameters: ListParameters, callback: Callback<List<Profile>>): void;
-  public page(parameters: ListParameters = {}) {
+  public page(parameters?: ListParameters) {
     if (renege(this, this.page, ...arguments)) return;
     return this.networkClient.list<ProfileData, Profile>(pathSegment, 'profiles', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
+  }
+
+  /**
+   * Retrieve all profiles available on the account.
+   *
+   * The results are paginated. See pagination for more information.
+   *
+   * @since 3.6.0
+   * @see https://docs.mollie.com/reference/v2/profiles-api/list-profiles
+   */
+  public iterate(parameters: Omit<ListParameters, 'limit'>) {
+    return this.networkClient.iterate<ProfileData, Profile>(pathSegment, 'profiles', { ...parameters, query: 64 });
   }
 
   /**

@@ -1,6 +1,6 @@
 import { Amount } from '../../../data/global';
 import { RefundData } from '../../../data/refunds/data';
-import { CommonListParameters } from '../../../types/parameters';
+import { PaginationParameters } from '../../../types/parameters';
 
 interface ContextParameters {
   orderId: string;
@@ -47,4 +47,4 @@ export type CreateParameters = ContextParameters &
     }[];
   };
 
-export type ListParameters = ContextParameters & CommonListParameters;
+export type ListParameters = ContextParameters & PaginationParameters;

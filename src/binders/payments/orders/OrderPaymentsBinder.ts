@@ -1,9 +1,9 @@
+import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
 import { PaymentData } from '../../../data/payments/data';
 import Payment from '../../../data/payments/Payment';
 import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
-import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
 import Callback from '../../../types/Callback';
 import InnerBinder from '../../InnerBinder';
 import { CreateParameters } from './parameters';

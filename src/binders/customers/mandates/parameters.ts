@@ -1,5 +1,5 @@
 import { MandateData } from '../../../data/customers/mandates/data';
-import { CommonListParameters } from '../../../types/parameters';
+import { PaginationParameters } from '../../../types/parameters';
 
 interface ContextParameters {
   customerId: string;
@@ -55,6 +55,6 @@ export type CreateParameters = ContextParameters &
 
 export type GetParameters = ContextParameters;
 
-export type ListParameters = ContextParameters & CommonListParameters;
+export type ListParameters = ContextParameters & PaginationParameters;
 
 export type RevokeParameters = ContextParameters;

@@ -1,7 +1,7 @@
+import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
 import renege from '../../../plumbing/renege';
 import resolveIf from '../../../plumbing/resolveIf';
 import undefinedPromise from '../../../plumbing/undefinedPromise';
-import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
 import Callback from '../../../types/Callback';
 import Helper from '../../Helper';
 import Shipment, { ShipmentData } from '../../orders/shipments/Shipment';

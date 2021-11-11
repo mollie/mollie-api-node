@@ -1,7 +1,8 @@
+import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import Chargeback, { ChargebackData, transform } from '../../data/chargebacks/Chargeback';
 import List from '../../data/list/List';
+import HelpfulIterator from '../../plumbing/HelpfulIterator';
 import renege from '../../plumbing/renege';
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import Callback from '../../types/Callback';
 import InnerBinder from '../InnerBinder';
 import { ListParameters } from './parameters';
@@ -47,5 +48,17 @@ export default class ChargebacksBinder extends InnerBinder<ChargebackData, Charg
   public page(parameters: ListParameters = {}) {
     if (renege(this, this.page, ...arguments)) return;
     return this.networkClient.list<ChargebackData, Chargeback>(pathSegment, 'chargebacks', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
+  }
+
+  /**
+   * Retrieve all received chargebacks. If the payment-specific endpoint is used, only chargebacks for that specific payment are returned.
+   *
+   * The results are paginated. See pagination for more information.
+   *
+   * @since 3.6.0
+   * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
+   */
+  public iterate(parameters?: Omit<ListParameters, 'limit'>): HelpfulIterator<Chargeback> {
+    return this.networkClient.iterate<ChargebackData, Chargeback>(pathSegment, 'chargebacks', { ...parameters, limit: 64 });
   }
 }

@@ -1,10 +1,10 @@
+import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import List from '../../data/list/List';
 import { OrderData } from '../../data/orders/data';
 import Order from '../../data/orders/Order';
 import ApiError from '../../errors/ApiError';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import Callback from '../../types/Callback';
 import Binder from '../Binder';
 import { CancelParameters, CreateParameters, GetParameters, ListParameters, UpdateParameters } from './parameters';
@@ -124,9 +124,21 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
    */
   public page(parameters?: ListParameters): Promise<List<Order>>;
   public page(parameters: ListParameters, callback: Callback<List<Order>>): void;
-  public page(parameters: ListParameters = {}) {
+  public page(parameters?: ListParameters) {
     if (renege(this, this.page, ...arguments)) return;
     return this.networkClient.list<OrderData, Order>(pathSegment, 'orders', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
+  }
+
+  /**
+   * Retrieve all orders.
+   *
+   * The results are paginated. See pagination for more information.
+   *
+   * @since 3.6.0
+   * @see https://docs.mollie.com/reference/v2/orders-api/list-orders
+   */
+  public iterate(parameters?: Omit<ListParameters, 'limit'>) {
+    return this.networkClient.iterate<OrderData, Order>(pathSegment, 'orders', { ...parameters, limit: 64 });
   }
 
   /**
