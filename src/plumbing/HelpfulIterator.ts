@@ -1,5 +1,15 @@
 import convertToNonNegativeInteger from './convertToNonNegativeInteger';
 
+const iteratorSymbol = (() => {
+  if ('asyncIterator' in Symbol) {
+    return Symbol.asyncIterator;
+  }
+  // If there is no predefined symbol (Node.js < 10.0.0), use this custom one. This means the method will be
+  // effectively inaccessible in old Node.js versions. That is OK, though: the iterator is still useful through the old
+  // school syntax with next.
+  return Symbol('asyncIterator');
+})();
+
 async function* drop<T>(wrappee: AsyncIterator<T, void, never>, remaining: number): AsyncIterator<T, void, never> {
   let next = await wrappee.next();
   while (true) {
@@ -66,7 +76,7 @@ export default class HelpfulIterator<T> implements AsyncIterator<T, void, never>
     this.next = wrappee.next.bind(wrappee);
   }
 
-  [Symbol.asyncIterator]() {
+  [iteratorSymbol]() {
     return this;
   }
 
