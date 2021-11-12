@@ -87,6 +87,12 @@ describe('iteration', () => {
     expect(callback).toHaveBeenCalledTimes(4);
   });
 
+  test('find', async () => {
+    const iterator = mollieClient.payments.iterate({ profileId, testmode: true });
+    expect(await iterator.find(({ amount }) => amount.value == '65.00')).toEqual(expect.objectContaining({ description: 'for shoes' }));
+    expect(await iterator.find(({ amount }) => amount.value == '99.00')).toBe(undefined);
+  });
+
   test('some', async () => {
     const predicate = jest.fn<boolean, [Payment]>(({ description }) => description.includes('shoes'));
     const result = await mollieClient.payments.iterate({ profileId, testmode: true }).some(predicate);
@@ -98,11 +104,10 @@ describe('iteration', () => {
   });
 
   test('take', async () => {
-    const callback = jest.fn();
-    await mollieClient.payments.iterate({ profileId, testmode: true }).take(2).forEach(callback);
-    expect(callback).toHaveBeenNthCalledWith(1, expect.objectContaining({ description: 'for book #1' }));
-    expect(callback).toHaveBeenNthCalledWith(2, expect.objectContaining({ description: 'for book #2' }));
-    expect(callback).toHaveBeenCalledTimes(2);
+    const iterator = mollieClient.payments.iterate({ profileId, testmode: true }).take(2);
+    expect(await iterator.next()).toEqual({ done: false, value: expect.objectContaining({ description: 'for book #1' }) });
+    expect(await iterator.next()).toEqual({ done: false, value: expect.objectContaining({ description: 'for book #2' }) });
+    expect(await iterator.next()).toEqual({ done: true, value: undefined });
   });
 
   afterAll(() => completeRecording());

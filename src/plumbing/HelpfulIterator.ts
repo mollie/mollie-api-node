@@ -107,6 +107,22 @@ export default class HelpfulIterator<T> implements AsyncIterator<T, void, never>
   }
 
   /**
+   * Returns the first value in the sequence which satisfies the passed callback.
+   */
+  async find(callback: (value: T) => boolean | Promise<boolean>) {
+    let next = await this.next();
+    while (true) {
+      if (next.done) {
+        return;
+      }
+      if (await callback(next.value)) {
+        return next.value;
+      }
+      next = await this.next();
+    }
+  }
+
+  /**
    * Calls the passed callback once for every value in the sequence.
    *
    * @since 3.6.0
