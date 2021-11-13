@@ -1,19 +1,31 @@
 import createMollieClient, { ApiMode, MollieClient, Payment, PaymentMethod } from '../..';
 import axios from 'axios';
 import { setupRecorder } from 'nock-record';
+import { run } from 'ruply';
 import getAccessToken from '../getAccessToken';
+
+const mockNetwork = true;
 
 describe('iteration', () => {
   let mollieClient: MollieClient;
-  const record = setupRecorder({ mode: 'lockdown' });
   let completeRecording: () => void;
   let profileId: string;
 
   beforeAll(async () => {
-    // Start recording.
-    ({ completeRecording } = await record('iteration'));
-    // Obtain an access token.
-    const accessToken = await getAccessToken();
+    let accessToken: string;
+    ({ accessToken, completeRecording } = await run(mockNetwork, async mockNetwork => {
+      if (mockNetwork == false) {
+        // Obtain an access token from the refresh token.
+        const accessToken = await getAccessToken();
+        // Record network traffic.
+        const { completeRecording } = await setupRecorder({ mode: 'update' })('iteration');
+        return { accessToken, completeRecording };
+      }
+      // Replay recorded network traffic.
+      const { completeRecording } = await setupRecorder({ mode: 'lockdown' })('iteration');
+      // Return a mock access token.
+      return { accessToken: 'access_mock', completeRecording };
+    }));
     // Create the Mollie client.
     mollieClient = createMollieClient({ accessToken });
     // Create the test profile.

@@ -2,44 +2,6 @@
     {
         "scope": "https://api.mollie.com:443",
         "method": "POST",
-        "path": "/oauth2/tokens",
-        "body": {
-            "grant_type": "refresh_token",
-            "refresh_token": "refresh_gSfHFr4VVc658nKUwDfgSAPcGuUKB6"
-        },
-        "status": 200,
-        "response": {
-            "access_token": "access_CS92JPHJAshHJaMjysGrkzVAka5PWR",
-            "expires_in": 3600,
-            "token_type": "bearer",
-            "scope": "payments.read payments.write profiles.read profiles.write",
-            "refresh_token": "refresh_gSfHFr4VVc658nKUwDfgSAPcGuUKB6"
-        },
-        "rawHeaders": [
-            "Server",
-            "nginx",
-            "Date",
-            "Fri, 12 Nov 2021 13:13:02 GMT",
-            "Content-Type",
-            "application/json",
-            "Content-Length",
-            "221",
-            "Connection",
-            "close",
-            "Vary",
-            "Accept-Encoding",
-            "Cache-Control",
-            "no-store",
-            "Pragma",
-            "no-cache",
-            "Strict-Transport-Security",
-            "max-age=31536000; includeSubDomains; preload"
-        ],
-        "responseIsBinary": false
-    },
-    {
-        "scope": "https://api.mollie.com:443",
-        "method": "POST",
         "path": "/v2/profiles",
         "body": {
             "name": "Iteration test profile",
