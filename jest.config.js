@@ -15,11 +15,7 @@ const projects = [
 
 // Only execute the Nockful tests on Node.js 8+.
 if (parseInt(process.version.substring(1)) >= 8) {
-  projects.push(createProject('nockful tests', `/tests/(?:${nockfulTests.join('|')}).*/.+\\.test\\.[jt]s$`, {
-    // Use this custom runner. It's a normal runner, but by specifying a custom runner, it won't be shared with the
-    // other project.
-    runner: './tests/runner.js',
-  }));
+  projects.push(createProject('nockful tests', `/tests/(?:${nockfulTests.join('|')}).*/.+\\.test\\.[jt]s$`));
 }
 
 module.exports = {

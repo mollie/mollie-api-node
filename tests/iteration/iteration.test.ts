@@ -1,5 +1,6 @@
 import createMollieClient, { ApiMode, MollieClient, Payment, PaymentMethod } from '../..';
 import axios from 'axios';
+import nock from 'nock';
 import { setupRecorder } from 'nock-record';
 import { run } from 'ruply';
 import getAccessToken from '../getAccessToken';
@@ -12,6 +13,9 @@ describe('iteration', () => {
   let profileId: string;
 
   beforeAll(async () => {
+    if (nock.isActive() === false) {
+      nock.activate();
+    }
     let accessToken: string;
     ({ accessToken, completeRecording } = await run(mockNetwork, async mockNetwork => {
       if (mockNetwork == false) {
@@ -122,5 +126,8 @@ describe('iteration', () => {
     expect(await iterator.next()).toEqual({ done: true, value: undefined });
   });
 
-  afterAll(() => completeRecording());
+  afterAll(() => {
+    completeRecording();
+    nock.restore();
+  });
 });
