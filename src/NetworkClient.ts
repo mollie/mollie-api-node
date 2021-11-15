@@ -95,10 +95,10 @@ const throwApiError = (() => {
     return typeof value == 'object' && value != null && name in value;
   }
   return function throwApiError(cause: unknown) {
-    if (findProperty(cause, 'response')) {
+    if (findProperty(cause, 'response') && cause.response != undefined) {
       throw ApiError.createFromResponse(cause.response as AxiosResponse<any>);
     }
-    throw new ApiError(findProperty(cause, 'message') ? (cause.message as string) : 'An unknown error has occurred');
+    throw new ApiError(findProperty(cause, 'message') ? String(cause.message) : 'An unknown error has occurred');
   };
 })();
 
