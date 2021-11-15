@@ -28,5 +28,5 @@ export function transform(networkClient: TransformingNetworkClient, input: Payme
       _embedded.refunds = input._embedded.refunds.map(transformRefund.bind(undefined, networkClient));
     }
   }
-  return Object.assign(new PaymentHelper(networkClient, input._links, _embedded), input, { _embedded });
+  return Object.assign(Object.create(new PaymentHelper(networkClient, input._links, _embedded)), input, { _embedded });
 }

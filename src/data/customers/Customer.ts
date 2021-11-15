@@ -1,7 +1,6 @@
 import TransformingNetworkClient from '../../TransformingNetworkClient';
 import Seal from '../../types/Seal';
 import { ApiMode, Links, Locale, PaymentMethod, Url } from '../global';
-import Helper from '../Helper';
 import Model from '../Model';
 import CustomerHelper from './CustomerHelper';
 
@@ -82,5 +81,5 @@ export interface CustomerLinks extends Links {
 }
 
 export function transform(networkClient: TransformingNetworkClient, input: CustomerData): Customer {
-  return Object.assign(new CustomerHelper(networkClient, input._links), input);
+  return Object.assign(Object.create(new CustomerHelper(networkClient, input._links)), input);
 }

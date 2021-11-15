@@ -4,7 +4,7 @@ import { Links } from '../global';
 import Helper from '../Helper';
 import Model from '../Model';
 
-export interface PermissionData extends Model<'permission', string> {
+export interface PermissionData extends Model<'permission'> {
   /**
    * A short description of what the permission allows.
    *
@@ -32,5 +32,5 @@ export default Permission;
 export type PermissionLinks = Links;
 
 export function transform(networkClient: TransformingNetworkClient, input: PermissionData): Permission {
-  return Object.assign(new Helper<PermissionData, Permission>(networkClient, input._links), input);
+  return Object.assign(Object.create(new Helper<PermissionData, Permission>(networkClient, input._links)), input);
 }

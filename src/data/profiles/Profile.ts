@@ -8,5 +8,5 @@ type Profile = Seal<ProfileData, ProfileHelper>;
 export default Profile;
 
 export function transform(networkClient: TransformingNetworkClient, input: ProfileData): Profile {
-  return Object.assign(new ProfileHelper(networkClient, input._links), input);
+  return Object.assign(Object.create(new ProfileHelper(networkClient, input._links)), input);
 }

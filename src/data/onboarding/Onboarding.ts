@@ -8,5 +8,5 @@ type Onboarding = Seal<OnboardingData, OnboardingHelper>;
 export default Onboarding;
 
 export function transform(networkClient: TransformingNetworkClient, input: OnboardingData): Onboarding {
-  return Object.assign(new OnboardingHelper(networkClient, input._links), input);
+  return Object.assign(Object.create(new OnboardingHelper(networkClient, input._links)), input);
 }

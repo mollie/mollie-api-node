@@ -91,5 +91,5 @@ export function transform(networkClient: TransformingNetworkClient, input: Charg
       _embedded.payment = transformPayment(networkClient, input._embedded.payment);
     }
   }
-  return Object.assign(new ChargebackHelper(networkClient, input._links, _embedded), input, { _embedded });
+  return Object.assign(Object.create(new ChargebackHelper(networkClient, input._links, _embedded)), input, { _embedded });
 }

@@ -21,7 +21,7 @@ export function transform(networkClient: TransformingNetworkClient, input: Refun
   if (input.lines != undefined) {
     lines = input.lines.map(transformOrderLine);
   }
-  return Object.assign(new RefundHelper(networkClient, input._links, _embedded), input, {
+  return Object.assign(Object.create(new RefundHelper(networkClient, input._links, _embedded)), input, {
     lines,
     _embedded,
   });

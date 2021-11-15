@@ -2,7 +2,7 @@ import Nullable from '../../types/Nullable';
 import { ApiMode, Links, Url } from '../global';
 import Model from '../Model';
 
-export interface ProfileData extends Model<'profile', string> {
+export interface ProfileData extends Model<'profile'> {
   /**
    * Indicates whether the profile is in test or production mode.
    *
