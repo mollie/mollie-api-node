@@ -1,5 +1,4 @@
 import { AxiosResponse } from 'axios';
-import { cloneDeep, get, has } from 'lodash';
 
 import { MollieApiErrorLinks, Url } from '../data/global';
 import Maybe from '../types/Maybe';
@@ -67,7 +66,7 @@ export default class ApiError extends Error {
    * @since 3.0.0
    */
   public hasLink(key: string): boolean {
-    return has(this.links, key);
+    return this.links !== undefined && key in this.links;
   }
 
   /**
@@ -97,11 +96,11 @@ export default class ApiError extends Error {
    */
   public static createFromResponse(response: AxiosResponse): ApiError {
     return new ApiError(
-      get(response, 'data.detail', 'Received an error without a message'),
-      get(response, 'data.title'),
-      get(response, 'data.status'),
-      get(response, 'data.field'),
-      cloneDeep(get(response, 'data._links')),
+      response.data.detail ?? 'Received an error without a message',
+      response.data.title,
+      response.data.status,
+      response.data.field,
+      response.data._links,
     );
   }
 }

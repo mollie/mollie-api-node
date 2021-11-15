@@ -1,5 +1,3 @@
-import { get } from 'lodash';
-
 import renege from '../../plumbing/renege';
 import undefinedPromise from '../../plumbing/undefinedPromise';
 import TransformingNetworkClient from '../../TransformingNetworkClient';
@@ -79,7 +77,7 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
    * Returns the URL the customer should visit to make the payment. This is to where you should redirect the consumer.
    */
   public getPaymentUrl(): Nullable<string> {
-    return get(this.links, 'checkout.href', null);
+    return this.links.checkout?.href ?? null;
   }
 
   /**
