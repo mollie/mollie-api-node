@@ -4,7 +4,7 @@ import { Address, Links, Locale } from '../global';
 import Helper from '../Helper';
 import Model from '../Model';
 
-export interface OrganizationData extends Model<'organization', string> {
+export interface OrganizationData extends Model<'organization'> {
   /**
    * The name of the organization.
    *
@@ -56,5 +56,5 @@ export default Organization;
 export type OrganizationLinks = Links;
 
 export function transform(networkClient: TransformingNetworkClient, input: OrganizationData): Organization {
-  return Object.assign(new Helper<OrganizationData, Organization>(networkClient, input._links), input);
+  return Object.assign(Object.create(new Helper<OrganizationData, Organization>(networkClient, input._links)), input);
 }

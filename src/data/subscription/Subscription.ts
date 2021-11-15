@@ -8,5 +8,5 @@ type Subscription = Seal<SubscriptionData, SubscriptionHelper>;
 export default Subscription;
 
 export function transform(networkClient: TransformingNetworkClient, input: SubscriptionData): Subscription {
-  return Object.assign(new SubscriptionHelper(networkClient, input._links), input);
+  return Object.assign(Object.create(new SubscriptionHelper(networkClient, input._links)), input);
 }

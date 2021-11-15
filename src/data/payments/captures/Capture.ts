@@ -16,5 +16,5 @@ export function transform(networkClient: TransformingNetworkClient, input: Captu
       _embedded.payment = transformPayment(networkClient, input._embedded.payment);
     }
   }
-  return Object.assign(new CaptureHelper(networkClient, input._links, _embedded), input, { _embedded });
+  return Object.assign(Object.create(new CaptureHelper(networkClient, input._links, _embedded)), input, { _embedded });
 }

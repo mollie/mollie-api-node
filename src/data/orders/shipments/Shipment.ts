@@ -1,7 +1,6 @@
 import TransformingNetworkClient from '../../../TransformingNetworkClient';
 import Seal from '../../../types/Seal';
 import { Links, Url } from '../../global';
-import Helper from '../../Helper';
 import Model from '../../Model';
 import OrderLine, { OrderLineData, transform as transformOrderLine } from '../orderlines/OrderLine';
 import ShipmentHelper from './ShipmentHelper';
@@ -42,7 +41,7 @@ export interface ShipmentData extends Model<'shipment'> {
   _links: ShipmentLinks;
 }
 
-type Shipment = Seal<ShipmentData & { lines: OrderLine[] }, Helper<ShipmentData, Shipment>>;
+type Shipment = Seal<ShipmentData & { lines: OrderLine[] }, ShipmentHelper>;
 
 export default Shipment;
 
@@ -77,7 +76,7 @@ export interface ShipmentTracking {
 }
 
 export function transform(networkClient: TransformingNetworkClient, input: ShipmentData): Shipment {
-  return Object.assign(new ShipmentHelper(networkClient, input._links), input, {
+  return Object.assign(Object.create(new ShipmentHelper(networkClient, input._links)), input, {
     lines: input.lines.map(transformOrderLine),
   });
 }
