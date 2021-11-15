@@ -99,7 +99,7 @@ export default class ApiError extends Error {
     return new ApiError(
       get(response, 'data.detail', 'Received an error without a message'),
       get(response, 'data.title'),
-      get(response, 'data.statusCode'),
+      get(response, 'data.status'),
       get(response, 'data.field'),
       cloneDeep(get(response, 'data._links')),
     );
