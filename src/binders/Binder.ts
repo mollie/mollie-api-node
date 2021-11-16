@@ -1,6 +1,8 @@
+// If support for Node.js < 10.0.0 is ever dropped, this import can be removed.
+import { URL } from 'url';
+
 import List from '../data/list/List';
 import buildFromEntries from '../plumbing/buildFromEntries';
-import TransformingNetworkClient from '../TransformingNetworkClient';
 import Maybe from '../types/Maybe';
 
 /**
