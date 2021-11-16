@@ -1,39 +1,18 @@
-import createMollieClient, { ApiMode, MollieClient, Payment, PaymentMethod } from '../..';
+import { ApiMode, MollieClient, Payment, PaymentMethod } from '../..';
 import axios from 'axios';
-import nock from 'nock';
-import { setupRecorder } from 'nock-record';
-import { run } from 'ruply';
-import getAccessToken from '../getAccessToken';
+import NetworkMocker, { accessTokenClientFactory } from '../NetworkMocker';
 
 // false ‒ This test interacts with the real Mollie API over the network, and records the communication.
 // true  ‒ This test uses existing recordings to simulate the network.
 const mockNetwork = true;
 
 describe('iteration', () => {
+  const networkMocker = new NetworkMocker(mockNetwork, accessTokenClientFactory, 'iteration');
   let mollieClient: MollieClient;
-  let completeRecording: () => void;
   let profileId: string;
 
   beforeAll(async () => {
-    if (nock.isActive() === false) {
-      nock.activate();
-    }
-    let accessToken: string;
-    ({ accessToken, completeRecording } = await run(mockNetwork, async mockNetwork => {
-      if (mockNetwork == false) {
-        // Obtain an access token from the refresh token.
-        const accessToken = await getAccessToken();
-        // Record network traffic.
-        const { completeRecording } = await setupRecorder({ mode: 'update' })('iteration');
-        return { accessToken, completeRecording };
-      }
-      // Replay recorded network traffic.
-      const { completeRecording } = await setupRecorder({ mode: 'lockdown' })('iteration');
-      // Return a mock access token.
-      return { accessToken: 'access_mock', completeRecording };
-    }));
-    // Create the Mollie client.
-    mollieClient = createMollieClient({ accessToken });
+    mollieClient = await networkMocker.prepare();
     // Create the test profile.
     profileId = (
       await mollieClient.profiles.create({
@@ -45,7 +24,9 @@ describe('iteration', () => {
       })
     ).id;
     // Enable iDEAL for the test profile. TODO (implement and) use the library API for this.
-    await axios.post(`https://api.mollie.com/v2/profiles/${profileId}/methods/${PaymentMethod.ideal}`, undefined, { headers: { Authorization: `Bearer ${accessToken}` } });
+    await axios.post(`https://api.mollie.com/v2/profiles/${profileId}/methods/${PaymentMethod.ideal}`, undefined, {
+      headers: { Authorization: `Bearer ${(mollieClient as { accessToken?: string }).accessToken}` },
+    });
     // Create some payments.
     await [
       ['for book #1', '20.00'],
@@ -128,8 +109,5 @@ describe('iteration', () => {
     expect(await iterator.next()).toEqual({ done: true, value: undefined });
   });
 
-  afterAll(() => {
-    completeRecording();
-    nock.restore();
-  });
+  afterAll(() => networkMocker.cleanup());
 });
