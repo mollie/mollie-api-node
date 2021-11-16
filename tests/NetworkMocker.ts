@@ -5,17 +5,15 @@ import { setupRecorder } from 'nock-record';
 import { apply, run } from 'ruply';
 import createMollieClient, { MollieClient } from '..';
 
-const { apiKey, oauthAuthorizationHeaderValue, refreshToken } = run(dotenv.config().parsed!, ({ API_KEY, CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN }) => ({
-  apiKey: API_KEY,
-  oauthAuthorizationHeaderValue: `Basic: ${Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64')}`,
-  refreshToken: REFRESH_TOKEN,
-}));
-
 /**
  * Creates a client with the API key from the environment variables.
  */
-export function apiKeyClientFactory() {
-  return Promise.resolve(createMollieClient({ apiKey }));
+export function apiKeyClientFactory(mockNetwork: boolean) {
+  if (mockNetwork) {
+    return createMollieClient({ apiKey: 'test_mock' });
+  }
+  const apiKey = dotenv.config().parsed!.API_KEY;
+  return createMollieClient({ apiKey });
 }
 
 /**
@@ -26,6 +24,10 @@ export async function accessTokenClientFactory(mockNetwork: boolean) {
   if (mockNetwork) {
     return createMollieClient({ accessToken: 'access_mock' });
   }
+  const { oauthAuthorizationHeaderValue, refreshToken } = run(dotenv.config().parsed!, ({ CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN }) => ({
+    oauthAuthorizationHeaderValue: `Basic: ${Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64')}`,
+    refreshToken: REFRESH_TOKEN,
+  }));
   const { data } = await axios.post(
     'https://api.mollie.com/oauth2/tokens',
     {
@@ -42,10 +44,10 @@ export async function accessTokenClientFactory(mockNetwork: boolean) {
  * existing recordings to simulate the network (when `mockNetwork` is `true`).
  */
 export default class NetworkMocker {
-  protected readonly clientFactory: () => Promise<MollieClient>;
+  protected readonly clientFactory: () => MollieClient | Promise<MollieClient>;
   protected readonly nockMode: BackMode;
   protected completeRecording: (() => void) | undefined;
-  constructor(mockNetwork: boolean, clientFactory: (mockNetwork: boolean) => Promise<MollieClient>, protected readonly networkFixtureName: string) {
+  constructor(mockNetwork: boolean, clientFactory: (mockNetwork: boolean) => MollieClient | Promise<MollieClient>, protected readonly networkFixtureName: string) {
     this.clientFactory = clientFactory.bind(undefined, mockNetwork);
     this.nockMode = mockNetwork ? 'lockdown' : 'update';
   }
