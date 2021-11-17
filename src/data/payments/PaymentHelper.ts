@@ -75,9 +75,11 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
 
   /**
    * Returns the URL the customer should visit to make the payment. This is to where you should redirect the consumer.
+   *
+   * @deprecated Use `payment.getCheckoutUrl()` instead.
    */
   public getPaymentUrl(): Nullable<string> {
-    return this.links.checkout?.href ?? null;
+    return this.getCheckoutUrl();
   }
 
   /**
@@ -141,10 +143,7 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/checkout#response
    */
   public getCheckoutUrl(): Nullable<string> {
-    if (this.links.checkout == undefined) {
-      return null;
-    }
-    return this.links.checkout.href;
+    return this.links.checkout?.href ?? null;
   }
 
   public canBeRefunded(this: PaymentData): boolean {
