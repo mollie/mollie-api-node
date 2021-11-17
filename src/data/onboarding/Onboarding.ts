@@ -1,4 +1,4 @@
-import TransformingNetworkClient from '../../TransformingNetworkClient';
+import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import Seal from '../../types/Seal';
 import { OnboardingData } from './data';
 import OnboardingHelper from './OnboardingHelper';

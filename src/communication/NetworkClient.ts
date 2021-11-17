@@ -1,14 +1,16 @@
 import https from 'https';
-import { stringify as stringifyToQueryString } from 'querystring';
 import { SecureContextOptions } from 'tls';
 
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 
-import List from './data/list/List';
-import ApiError from './errors/ApiError';
-import Options from './Options';
-import getEntries from './plumbing/getEntries';
-import Maybe from './types/Maybe';
+import List from '../data/list/List';
+import ApiError from '../errors/ApiError';
+import Options from '../Options';
+import HelpfulIterator from '../plumbing/HelpfulIterator';
+import Maybe from '../types/Maybe';
+import Nullable from '../types/Nullable';
+import dromedaryCase from './dromedaryCase';
+import stringifyQuery from './stringifyQuery';
 
 /**
  * Like `[].map` but with support for non-array inputs, in which case this function behaves as if an array was passed
@@ -18,46 +20,10 @@ function map<T, U>(input: Maybe<T | T[]>, callback: (value: T, index: number) =>
   if (Array.isArray(input)) {
     return input.map(callback, context);
   }
-  if (undefined != input) {
+  if (input != undefined) {
     return [callback.call(context, input, 0)];
   }
   return [];
-}
-
-/**
- * Converts `'rockenberg commerce'` to `'rockenbergCommerce'`.
- */
-const camelCase = (() => {
-  // (Converts any character after a word boundary to upper case, except for the first character in the string.)
-  const firstIteration = [/(?!^)\b\w/g, (character: string) => character.toUpperCase()] as const;
-  // (Removes all whitespace.)
-  const secondIteration = [/\s+/g, ''] as const;
-  return function camelCase(input: string) {
-    return input.replace(...firstIteration).replace(...secondIteration);
-  };
-})();
-
-/**
- * Returns a stringified version of the passed query to be used as the search portion of a URL. For example:
- * `{ id: 5 }` is converted to `'?id=5'` (and `{}` is converted to `''`).
- */
-function stringifyQuery(input: Record<string, any>): string {
-  const entries = getEntries(input);
-  if (entries.length == 0) {
-    return '';
-  }
-  return `?${stringifyToQueryString(
-    entries.reduce<Record<string, any>>((result, [key, value]) => {
-      if (Array.isArray(value)) {
-        result[key] = value.join();
-      } else if (/* Array.isArray(value) == false && */ typeof value == 'object') {
-        getEntries(value).forEach(([innerKey, innerValue]) => (result[`${key}[${innerKey}]`] = innerValue));
-      } /* if (typeof value != 'object') */ else {
-        result[key] = value;
-      }
-      return result;
-    }, {}),
-  )}`;
 }
 
 /**
@@ -77,7 +43,7 @@ function composeUserAgent(nodeVersion: string, libraryVersion: string, versionSt
         }
         throw new Error('Invalid version string. The version may not contain any whitespace.');
       }
-      const platform = camelCase(matches[1]);
+      const platform = dromedaryCase(matches[1]);
       const version = matches[2];
       return `${platform}/${version}`;
     }),
@@ -103,8 +69,42 @@ const throwApiError = (() => {
 })();
 
 /**
- * This class is essentially a wrapper around axios. It simplifies communication with the Mollie server over the
- * network.
+ * If there are fewer items in the buffer of the iterator than this mark, a request to the Mollie API for the next page
+ * will be made.
+ */
+const iteratorLowWaterMark = 5.5;
+
+async function* iterate<R>(networkClient: NetworkClient, ...firstPageArguments: Parameters<NetworkClient['list']>) {
+  // Make the initial request for the first page.
+  let currentPage: R[] & { links: List<R>['links'] } = await networkClient.list<R>(...firstPageArguments);
+  let nextPage: Nullable<Promise<R[] & { links: List<R>['links'] }>> = null;
+  while (true) {
+    // Yield the items in the current page.
+    while (true) {
+      /* eslint-disable-next-line no-var */
+      var item = currentPage.shift();
+      if (item == undefined) {
+        break;
+      }
+      yield item;
+      // If the low water mark is hit, make a request for the next page. (Note that this code is never reached if the
+      // page is empty. This is OK: if the page is empty, there is no next page either.)
+      if (nextPage == null && currentPage.links.next != null && currentPage.length < iteratorLowWaterMark) {
+        nextPage = networkClient.list<R>(currentPage.links.next.href, firstPageArguments[1]);
+      }
+    }
+    // If a request for the next page has been made, wait for it to complete and switch to that page. (If no such
+    // request has been made, there is no next page.)
+    if (nextPage == null) {
+      return;
+    }
+    currentPage = await nextPage;
+    nextPage = null;
+  }
+}
+
+/**
+ * This class is essentially a wrapper around axios. It simplifies communication with the Mollie API over the network.
  */
 export default class NetworkClient {
   protected readonly axiosInstance: AxiosInstance;
@@ -153,7 +153,7 @@ export default class NetworkClient {
     return response.data;
   }
 
-  async list<R>(relativePath: string, binderName: string, query: Record<string, any> = {}): Promise<Array<R> & Pick<List<R>, 'links' | 'count'>> {
+  async list<R>(relativePath: string, type: string, query: Record<string, any> = {}): Promise<R[] & Pick<List<R>, 'links' | 'count'>> {
     const response = await this.axiosInstance.get(`${relativePath}${stringifyQuery(query)}`).catch(throwApiError);
     try {
       /* eslint-disable-next-line no-var */
@@ -161,13 +161,13 @@ export default class NetworkClient {
     } catch (error) {
       throw new ApiError('Received unexpected response from the server');
     }
-    return Object.assign(embedded[binderName] as R[], {
+    return Object.assign(embedded[type] as R[], {
       links,
       count,
     });
   }
 
-  async listPlain<R>(relativePath: string, binderName: string, query: Record<string, any> = {}): Promise<Array<R>> {
+  async listPlain<R>(relativePath: string, binderName: string, query: Record<string, any> = {}): Promise<R[]> {
     const response = await this.axiosInstance.get(`${relativePath}${stringifyQuery(query)}`).catch(throwApiError);
     try {
       /* eslint-disable-next-line no-var */
@@ -176,6 +176,10 @@ export default class NetworkClient {
       throw new ApiError('Received unexpected response from the server');
     }
     return embedded[binderName] as R[];
+  }
+
+  iterate<R>(...firstPageArguments: Parameters<NetworkClient['list']>): HelpfulIterator<R> {
+    return new HelpfulIterator<R>(iterate(this, ...firstPageArguments));
   }
 
   async patch<R>(relativePath: string, data: any): Promise<R> {

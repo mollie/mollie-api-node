@@ -1,4 +1,4 @@
-import TransformingNetworkClient from '../../TransformingNetworkClient';
+import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import Seal from '../../types/Seal';
 import { SubscriptionData } from './data';
 import SubscriptionHelper from './SubscriptionHelper';

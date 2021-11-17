@@ -1,10 +1,10 @@
+import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
 import List from '../../../data/list/List';
 import { PaymentData } from '../../../data/payments/data';
 import Payment from '../../../data/payments/Payment';
 import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
-import TransformingNetworkClient from '../../../TransformingNetworkClient';
 import Callback from '../../../types/Callback';
 import InnerBinder from '../../InnerBinder';
 import { CreateParameters, ListParameters } from './parameters';
@@ -77,5 +77,21 @@ export default class CustomerPaymentsBinder extends InnerBinder<PaymentData, Pay
     }
     const { customerId: _, ...query } = parameters ?? {};
     return this.networkClient.list<PaymentData, Payment>(getPathSegments(customerId), 'payments', query).then(result => this.injectPaginationHelpers(result, this.page, parameters ?? {}));
+  }
+
+  /**
+   * Retrieve all Payments linked to the Customer.
+   *
+   * @since 3.6.0
+   * @see https://docs.mollie.com/reference/v2/customers-api/list-customer-payments
+   */
+  public iterate(parameters: Omit<ListParameters, 'limit'>) {
+    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
+    const customerId = this.getParentId((parameters ?? {}).customerId);
+    if (!checkId(customerId, 'customer')) {
+      throw new ApiError('The customer id is invalid');
+    }
+    const { customerId: _, ...query } = parameters ?? {};
+    return this.networkClient.iterate<PaymentData, Payment>(getPathSegments(customerId), 'payments', { ...query, limit: 64 });
   }
 }

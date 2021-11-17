@@ -1,4 +1,4 @@
-import TransformingNetworkClient from '../../../TransformingNetworkClient';
+import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
 import Seal from '../../../types/Seal';
 import Payment, { transform as transformPayment } from '../Payment';
 import CaptureHelper from './CaptureHelper';

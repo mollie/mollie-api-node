@@ -1,5 +1,5 @@
+import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import renege from '../../plumbing/renege';
-import TransformingNetworkClient from '../../TransformingNetworkClient';
 import Callback from '../../types/Callback';
 import Chargeback, { ChargebackData } from '../chargebacks/Chargeback';
 import Helper from '../Helper';

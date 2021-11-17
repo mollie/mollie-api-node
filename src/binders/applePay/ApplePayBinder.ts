@@ -1,5 +1,5 @@
+import NetworkClient from '../../communication/NetworkClient';
 import ApplePaySession from '../../data/applePaySession/ApplePaySession';
-import NetworkClient from '../../NetworkClient';
 import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
 import { RequestPaymentSessionParameters } from './parameters';

@@ -1,10 +1,10 @@
+import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
 import List from '../../../data/list/List';
 import Capture from '../../../data/payments/captures/Capture';
 import { CaptureData } from '../../../data/payments/captures/data';
 import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
-import TransformingNetworkClient from '../../../TransformingNetworkClient';
 import Callback from '../../../types/Callback';
 import InnerBinder from '../../InnerBinder';
 import { GetParameters, ListParameters } from './parameters';
@@ -82,5 +82,23 @@ export default class PaymentCapturesBinder extends InnerBinder<CaptureData, Capt
     }
     const { paymentId: _, ...query } = parameters;
     return this.networkClient.list<CaptureData, Capture>(getPathSegments(paymentId), 'captures', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
+  }
+
+  /**
+   * Retrieve all captures for a certain payment.
+   *
+   * Captures are used for payments that have the *authorize-then-capture* flow. The only payment methods at the moment that have this flow are *Klarna Pay later* and *Klarna Slice it*.
+   *
+   * @since 3.6.0
+   * @see https://docs.mollie.com/reference/v2/captures-api/list-captures
+   */
+  public iterate(parameters: Omit<ListParameters, 'limit'>) {
+    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
+    const paymentId = this.getParentId((parameters ?? {}).paymentId);
+    if (!checkId(paymentId, 'payment')) {
+      throw new ApiError('The payment id is invalid');
+    }
+    const { paymentId: _, ...query } = parameters;
+    return this.networkClient.iterate<CaptureData, Capture>(getPathSegments(paymentId), 'captures', { ...query, limit: 64 });
   }
 }

@@ -1,6 +1,6 @@
 import { ChargebackEmbed } from '../../data/chargebacks/Chargeback';
-import { CommonListParameters } from '../../types/parameters';
+import { PaginationParameters } from '../../types/parameters';
 
-export type ListParameters = CommonListParameters & {
+export type ListParameters = PaginationParameters & {
   embed?: ChargebackEmbed[];
 };

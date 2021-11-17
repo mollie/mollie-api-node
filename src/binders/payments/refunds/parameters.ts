@@ -1,5 +1,5 @@
 import { RefundData, RefundEmbed } from '../../../data/refunds/data';
-import { CommonListParameters } from '../../../types/parameters';
+import { PaginationParameters } from '../../../types/parameters';
 import PickOptional from '../../../types/PickOptional';
 
 interface ContextParameters {
@@ -14,7 +14,7 @@ export type GetParameters = ContextParameters & {
 };
 
 export type ListParameters = ContextParameters &
-  CommonListParameters & {
+  PaginationParameters & {
     embed?: RefundEmbed[];
   };
 

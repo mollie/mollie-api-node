@@ -1,5 +1,5 @@
 import { CustomerData } from '../../data/customers/Customer';
-import { CommonListParameters } from '../../types/parameters';
+import { PaginationParameters } from '../../types/parameters';
 import PickOptional from '../../types/PickOptional';
 
 interface ContextParameters {
@@ -10,7 +10,7 @@ export type CreateParameters = ContextParameters & PickOptional<CustomerData, 'n
 
 export type GetParameters = ContextParameters;
 
-export type ListParameters = ContextParameters & CommonListParameters;
+export type ListParameters = ContextParameters & PaginationParameters;
 
 export type UpdateParameters = ContextParameters & PickOptional<CustomerData, 'name' | 'email' | 'locale' | 'metadata'>;
 

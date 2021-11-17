@@ -1,8 +1,8 @@
+import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import Organization, { OrganizationData } from '../../data/organizations/Organizations';
 import ApiError from '../../errors/ApiError';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
-import TransformingNetworkClient from '../../TransformingNetworkClient';
 import Callback from '../../types/Callback';
 import Binder from '../Binder';
 

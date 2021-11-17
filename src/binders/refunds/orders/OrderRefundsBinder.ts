@@ -1,10 +1,10 @@
+import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
 import List from '../../../data/list/List';
 import { RefundData } from '../../../data/refunds/data';
 import Refund from '../../../data/refunds/Refund';
 import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
-import TransformingNetworkClient from '../../../TransformingNetworkClient';
 import Callback from '../../../types/Callback';
 import InnerBinder from '../../InnerBinder';
 import { CreateParameters, ListParameters } from './parameters';
@@ -83,5 +83,23 @@ export default class OrderRefundsBinder extends InnerBinder<RefundData, Refund> 
     }
     const { orderId: _, ...query } = parameters ?? {};
     return this.networkClient.list<RefundData, Refund>(getPathSegments(orderId), 'refunds', query).then(result => this.injectPaginationHelpers(result, this.page, parameters ?? {}));
+  }
+
+  /**
+   * Retrieve all order refunds.
+   *
+   * The results are paginated. See pagination for more information.
+   *
+   * @since 3.6.0
+   * @see https://docs.mollie.com/reference/v2/orders-api/list-order-refunds
+   */
+  public iterate(parameters: Omit<ListParameters, 'limit'>) {
+    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
+    const orderId = this.getParentId((parameters ?? {}).orderId);
+    if (!checkId(orderId, 'order')) {
+      throw new ApiError('The order id is invalid');
+    }
+    const { orderId: _, ...query } = parameters ?? {};
+    return this.networkClient.iterate<RefundData, Refund>(getPathSegments(orderId), 'refunds', { query, limit: 64 });
   }
 }

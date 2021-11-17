@@ -1,10 +1,12 @@
+import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import List from '../../data/list/List';
 import { PaymentData } from '../../data/payments/data';
 import Payment from '../../data/payments/Payment';
 import ApiError from '../../errors/ApiError';
 import checkId from '../../plumbing/checkId';
+import HelpfulIterator from '../../plumbing/HelpfulIterator';
+import makeIterable from '../../plumbing/makeIterable';
 import renege from '../../plumbing/renege';
-import TransformingNetworkClient from '../../TransformingNetworkClient';
 import Callback from '../../types/Callback';
 import Binder from '../Binder';
 import { CancelParameters, CreateParameters, GetParameters, ListParameters, UpdateParameters } from './parameters';
@@ -96,6 +98,18 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
   public page(parameters: ListParameters = {}) {
     if (renege(this, this.page, ...arguments)) return;
     return this.networkClient.list<PaymentData, Payment>(pathSegment, 'payments', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
+  }
+
+  /**
+   * Retrieve all payments created with the current website profile, ordered from newest to oldest.
+   *
+   * The results are paginated. See pagination for more information.
+   *
+   * @since 3.6.0
+   * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
+   */
+  public iterate(parameters?: Omit<ListParameters, 'limit'>): HelpfulIterator<Payment> {
+    return this.networkClient.iterate<PaymentData, Payment>(pathSegment, 'payments', { ...parameters, limit: 64 });
   }
 
   /**

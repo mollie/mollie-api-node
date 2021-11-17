@@ -1,10 +1,10 @@
+import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
 import List from '../../../data/list/List';
 import { SubscriptionData } from '../../../data/subscription/data';
 import Subscription from '../../../data/subscription/Subscription';
 import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
-import TransformingNetworkClient from '../../../TransformingNetworkClient';
 import Callback from '../../../types/Callback';
 import InnerBinder from '../../InnerBinder';
 import { CancelParameters, CreateParameters, GetParameters, ListParameters, UpdateParameters } from './parameters';
@@ -112,6 +112,22 @@ export default class CustomerSubscriptionsBinder extends InnerBinder<Subscriptio
     return this.networkClient
       .list<SubscriptionData, Subscription>(getPathSegments(customerId), 'subscriptions', query)
       .then(result => this.injectPaginationHelpers(result, this.page, parameters ?? {}));
+  }
+
+  /**
+   * Retrieve all subscriptions of a customer.
+   *
+   * @since 3.6.0
+   * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions
+   */
+  public iterate(parameters: ListParameters) {
+    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
+    const customerId = this.getParentId((parameters ?? {}).customerId);
+    if (!checkId(customerId, 'customer')) {
+      throw new ApiError('The customer id is invalid');
+    }
+    const { customerId: _, ...query } = parameters ?? {};
+    return this.networkClient.iterate<SubscriptionData, Subscription>(getPathSegments(customerId), 'subscriptions', { ...query, limit: 64 });
   }
 
   /**

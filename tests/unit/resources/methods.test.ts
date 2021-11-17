@@ -2,7 +2,7 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import MethodsBinder from '../../../src/binders/methods/MethodsBinder';
-import NetworkClient from '../../../src/NetworkClient';
+import NetworkClient from '../../../src/communication/NetworkClient';
 
 import response from '../__stubs__/methods.json';
 import ApiError from '../../../src/errors/ApiError';

@@ -1,4 +1,4 @@
-import { CommonListParameters } from '../../../types/parameters';
+import { PaginationParameters } from '../../../types/parameters';
 
 interface ContextParameters {
   testmode?: boolean;
@@ -6,4 +6,4 @@ interface ContextParameters {
   subscriptionId: string;
 }
 
-export type ListParameters = ContextParameters & CommonListParameters;
+export type ListParameters = ContextParameters & PaginationParameters;

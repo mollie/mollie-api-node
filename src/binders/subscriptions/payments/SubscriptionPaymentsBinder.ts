@@ -1,10 +1,10 @@
+import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
 import List from '../../../data/list/List';
 import { PaymentData } from '../../../data/payments/data';
 import Payment from '../../../data/payments/Payment';
 import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
-import TransformingNetworkClient from '../../../TransformingNetworkClient';
 import Callback from '../../../types/Callback';
 import InnerBinder from '../../InnerBinder';
 import { ListParameters } from './parameters';
@@ -47,5 +47,24 @@ export default class SubscriptionPaymentsBinder extends InnerBinder<PaymentData,
     }
     const { customerId: _, subscriptionId: __, ...query } = parameters;
     return this.networkClient.list<PaymentData, Payment>(getPathSegments(customerId, subscriptionId), 'payments', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
+  }
+
+  /**
+   * Retrieve all payments of a specific subscriptions of a customer.
+   *
+   * @since 3.6.0
+   * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions-payments
+   */
+  public iterate(parameters: Omit<ListParameters, 'limit'>) {
+    const customerId = this.getParentId(parameters.customerId);
+    if (!checkId(customerId, 'customer')) {
+      throw new ApiError('The customer id is invalid');
+    }
+    const { subscriptionId } = parameters;
+    if (!checkId(subscriptionId, 'subscription')) {
+      throw new ApiError('The subscription id is invalid');
+    }
+    const { customerId: _, subscriptionId: __, ...query } = parameters;
+    return this.networkClient.iterate<PaymentData, Payment>(getPathSegments(customerId, subscriptionId), 'payments', { ...query, limit: 64 });
   }
 }

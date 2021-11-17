@@ -1,9 +1,9 @@
 // Lib
 import { version as libraryVersion } from '../package.json';
 import caCertificates from './cacert.pem';
-import NetworkClient from './NetworkClient';
+import NetworkClient from './communication/NetworkClient';
+import TransformingNetworkClient, { Transformers } from './communication/TransformingNetworkClient';
 import Options from './Options';
-import TransformingNetworkClient, { Transformers } from './TransformingNetworkClient';
 import buildFromEntries from './plumbing/buildFromEntries';
 
 // Transformers
