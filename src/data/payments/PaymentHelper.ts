@@ -79,7 +79,7 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
    * @deprecated Use `payment.getCheckoutUrl()` instead.
    */
   public getPaymentUrl(): Nullable<string> {
-    return this.links.checkout?.href ?? null;
+    return this.getCheckoutUrl();
   }
 
   /**
