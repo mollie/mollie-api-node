@@ -41,6 +41,8 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
 
   /**
    * Returns whether the payment is successfully paid.
+   *
+   * @deprecated Use `payment.status == PaymentStatus.paid` instead.
    */
   public isPaid(this: PaymentData): boolean {
     return this.paidAt != undefined;
