@@ -10,13 +10,13 @@ export interface MethodData extends Model<'method', PaymentMethodEnum> {
    */
   description: string;
   /**
-   * An object containing `value` and `currency`. It represents the minimum payment amount required to use this payment method.
+   * The minimum payment amount required to use this payment method.
    *
    * @see https://docs.mollie.com/reference/v2/methods-api/get-method?path=minimumAmount#response
    */
   minimumAmount: Amount;
   /**
-   * An object containing `value` and `currency`. It represents the maximum payment amount allowed when using this payment method.
+   * The maximum payment amount allowed when using this payment method.
    *
    * @see https://docs.mollie.com/reference/v2/methods-api/get-method?path=maximumAmount#response
    */

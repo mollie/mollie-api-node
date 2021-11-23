@@ -33,7 +33,7 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
     /**
      * The date the payment should expire, in `YYYY-MM-DD` format. **Please note:** the minimum date is tomorrow and the maximum date is 100 days after tomorrow.
      *
-     * After you created the payment, you can still update the `dueDate` via the /reference/v2/payments-api/update-payment.
+     * After you created the payment, you can still update the `dueDate` via /reference/v2/payments-api/update-payment.
      *
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=dueDate#bank-transfer
      */
@@ -49,20 +49,21 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
      *
      * `{"paymentData": {"version": "EC_v1", "data": "vK3BbrCbI/...."}}`
      *
-     * For documentation on how to get this token, see /guides/applepay-direct-integration.
+     * For documentation on how to get this token, see /wallets/applepay-direct-integration.
      *
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=applePayPaymentToken#apple-pay
      */
     applePayPaymentToken?: string;
     /**
-     * An iDEAL issuer ID, for example `ideal_INGBNL2A`. The returned payment URL will deep-link into the specific banking website (ING Bank, in this example). The full list of issuers can be
-     * retrieved via the Methods API by using the optional `issuers` include.
+     * An iDEAL issuer ID, for example `ideal_INGBNL2A`. This is useful when you want to embed the issuer selection on your own checkout screen. When supplying an issuer ID, the returned payment URL
+     * will deep-link to the specific banking website (ING Bank, in this example). The full list of issuers can be retrieved via the Methods API by using the optional `issuers` include.
      *
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=issuer#ideal
      */
     issuer?: Issuer;
     /**
      * Used for consumer identification. Use the following guidelines to create your `customerReference`:
+     *
      * -   Has to be unique per shopper
      * -   Has to remain the same for one shopper
      * -   Should be as disconnected from personal data as possible
@@ -78,25 +79,25 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
      */
     customerReference?: string;
     /**
-     * Beneficiary name of the account holder. Only available if one-off payments are enabled on your account. Will pre-fill the beneficiary name in the checkout screen if present.
+     * Beneficiary name of the account holder. Only available if one-off payments are enabled on your account. Supplying this field will pre-fill the beneficiary name in the checkout screen.
      *
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=consumerName#sepa-direct-debit
      */
     consumerName?: string;
     /**
-     * IBAN of the account holder. Only available if one-off payments are enabled on your account. Will pre-fill the IBAN in the checkout screen if present.
+     * IBAN of the account holder. Only available if one-off payments are enabled on your account. Supplying this field will pre-fill the IBAN in the checkout screen.
      *
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=consumerAccount#sepa-direct-debit
      */
     consumerAccount?: string;
     /**
-     * The card number on the gift card.
+     * The card number on the gift card. You can supply this to prefill the card number.
      *
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=voucherNumber#gift-cards
      */
     voucherNumber?: string;
     /**
-     * The PIN code on the gift card. Only required if there is a PIN code printed on the gift card.
+     * The PIN code on the gift card. You can supply this to prefill the PIN, if the card has any.
      *
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=voucherPin#gift-cards
      */
@@ -113,7 +114,10 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
      */
     applicationFee?: {
       /**
-       * The amount in that the app wants to charge, e.g. `{"currency":"EUR", "value":"10.00"}` if the app would want to charge €10.00.
+       * The fee that the app wants to charge, e.g. `{"currency":"EUR", "value":"10.00"}` if the app would want to charge €10.00.
+       *
+       * There need to be enough funds left from the payment to deduct the Mollie payment fees as well. For example, you cannot charge a €0.99 fee on a €1.00 payment. The API will return an error if
+       * the requested application fee is too high for the specific payment amount and method.
        *
        * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=applicationFee/amount#mollie-connect-parameters
        */

@@ -35,9 +35,9 @@ export default class OrderShipmentsBinder extends InnerBinder<ShipmentData, Ship
   public list: OrderShipmentsBinder['page'] = this.page;
 
   /**
-   * The **Create Shipment API** is used to ship order lines created by the /reference/v2/orders-api/create-order.
+   * Create a shipment for specific order lines of an order.
    *
-   * When using *Klarna Pay later* and *Klarna Slice it* this is mandatory for the order amount to be captured. A capture will automatically be created for the shipment.
+   * When using *Klarna Pay later* and *Klarna Slice it*, using this endpoint is mandatory for the order amount to be captured. A capture will automatically be created for the shipment.
    *
    * The word "shipping" is used in the figurative sense here. It can also mean that a service was provided or digital content was delivered.
    *

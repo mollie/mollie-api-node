@@ -12,13 +12,13 @@ export type UpdateParameters = ContextParameters &
     /**
      * A link pointing to an image of the product sold.
      *
-     * @see https://docs.mollie.com/reference/v2/orders-api/update-orderline?path=imageUrl#parameters
+     * @see https://docs.mollie.com/reference/v2/orders-api/update-order-line?path=imageUrl#parameters
      */
     imageUrl?: string;
     /**
      * A link pointing to the product page in your web shop of the product sold.
      *
-     * @see https://docs.mollie.com/reference/v2/orders-api/update-orderline?path=productUrl#parameters
+     * @see https://docs.mollie.com/reference/v2/orders-api/update-order-line?path=productUrl#parameters
      */
     productUrl?: string;
   };

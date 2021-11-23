@@ -39,7 +39,9 @@ export interface GetParameters {
 export interface ListParameters {
   /**
    * Passing `first` will only show payment methods eligible for making a first payment. Passing `recurring` shows payment methods which can be used to automatically charge your customer's account
-   * when authorization has been given. Set to `oneoff` by default, which indicates the payment method is available for a regular non-recurring payment.
+   * when authorization has been given.
+   *
+   * Set to `oneoff` by default, which indicates the payment method is available for a regular non-recurring payment.
    *
    * Possible values: `oneoff` `first` `recurring`
    *
@@ -55,7 +57,7 @@ export interface ListParameters {
    */
   locale?: Locale;
   /**
-   * An object containing `value` and `currency`. Only payment methods that support the amount and currency are returned.
+   * If supplied, only payment methods that support the amount and currency are returned.
    *
    * Example: `https://api.mollie.com/v2/methods?amount[value]=100.00&amount[currency]=USD`
    *
@@ -63,13 +65,12 @@ export interface ListParameters {
    */
   amount?: Amount;
   /**
-   * Use the `resource` parameter to indicate if you will use the result with the Create Order or Create
-   * Payment API.
+   * Use the `resource` parameter to indicate if you will use the result with the Create order or Create payment endpoints.
    *
    * For example: when passing `orders` the result will include payment methods that can only be used in conjunction with orders, such as *Klarna Pay later* and meal vouchers. Default behaviour is
    * returning all available payment methods for `payments`.
    *
-   * Possible values: `orders` `payments`.
+   * Possible values: `orders` `payments`
    *
    * @see https://docs.mollie.com/reference/v2/methods-api/list-methods?path=resource#parameters
    */

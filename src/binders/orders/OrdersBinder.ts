@@ -14,18 +14,22 @@ export const pathSegment = 'orders';
 /**
  * The **Orders API** allows you to use Mollie for your order management.
  *
- * For each order in your shop, you can create an Order via the Mollie API. The order will remain valid for a certain amount of time (default 28 days).
+ * For each order in your shop, you can create an order via the Mollie API. The order will remain valid for a certain amount of time (default 28 days).
  *
- * Just as a Payment, the Order will have a `_links.checkout` property where you can redirect your customer to pay for the Order. For each attempt to Pay, a Payment is created. If the customer pays
- * for the Order, the Order will transition to the `paid` state (or `authorized` in case of pay after delivery).
+ * Just as a regular payment, the order will have a `_links.checkout` property where you can redirect your customer to pay for the order. For each attempt to pay, a payment object is created. If the
+ * customer pays for the order, the order will transition to the `paid` state (or `authorized` in case of pay after delivery).
  *
- * Should the initial Payment fail, the Order remains in the `created` state so that your customer can try to pay again. This can be done using a dedicated link available through the Dashboard which
- * you can share with your customer, or you can create an additional Payment on the Order via the API.
+ * Should the initial payment fail, the order remains in the `created` state so that your customer can try to pay again. This can be done using a dedicated link available through the Dashboard which
+ * you can share with your customer, or you can create an additional payment on the order via the API.
  *
- * *Pay after delivery* payment methods, such as *Klarna Pay later*, *Klarna Slice it*, and *Vouchers* require the Orders API and cannot be used with the Payments API.
- *
- * Once you ship the goods to your customer, you should inform Mollie of the shipments via the API or via the Dashboard. This is mandatory for pay after delivery methods. Only shipped amounts will be
+ * Once you ship the goods to your customer, you should inform Mollie of the shipments via the API or via the Dashboard. This is mandatory for pay-after-delivery methods. Only shipped amounts will be
  * settled to your account.
+ *
+ * The following payment methods require the Orders API and cannot be used with the Payments API:
+ *
+ * -   *Pay after delivery* payment methods, such as Klarna Pay later and Klarna Slice it
+ * -   Klarna Pay now
+ * -   Eco vouchers, gift vouchers, and meal vouchers
  *
  * @see https://docs.mollie.com/orders/overview#orders-api
  */
@@ -37,7 +41,7 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
   /**
    * The order can only be canceled while:
    *
-   * -   the order doesn't have any open payments except for the methods `banktransfer`, `directdebit`, `klarnapaylater`, and `klarnasliceit`.
+   * -   the order doesn't have any open payments except for the methods `banktransfer`, `directdebit`, `klarnapaylater`, `klarnapaynow`, and `klarnasliceit`.
    * -   the order's `status` field is either `created`, `authorized` or `shipping`[1].
    *
    * 1.  In case of `created`, all order lines will be canceled and the new order status will be `canceled`.
@@ -76,15 +80,15 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
   public list: OrdersBinder['page'] = this.page;
 
   /**
-   * Using the Orders API is the preferred approach when integrating the Mollie API into e-commerce applications such as webshops. If you want to use *pay after delivery* methods such as *Klarna Pay
-   * later*, using the Orders API is mandatory.
+   * Using the Orders API is the preferred approach when integrating the Mollie API into e-commerce applications such as webshops. If you want to use *Klarna Pay later*, *Klarna Slice it*, *Klarna Pay
+   * now* or *Vouchers*, using the Orders API is mandatory.
    *
    * Creating an Order will automatically create the required Payment to allow your customer to pay for the order.
    *
    * Once you have created an Order, you should redirect your customer to the URL in the `_links.checkout` property from the response.
    *
-   * Note that when the payment fails, expires or is canceled, you can create a new Payment for the Order using the /reference/v2/orders-api/create-order-payment. This is only possible for orders that
-   * have a `created` status.
+   * Note that when the payment fails, expires or is canceled, you can create a new payment for the order using the Create order payment endpoint. This is only possible for orders that have a
+   * `created` status.
    *
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/orders-api/create-order
@@ -163,7 +167,7 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
   /**
    * The order can only be canceled while:
    *
-   * -   the order doesn't have any open payments except for the methods `banktransfer`, `directdebit`, `klarnapaylater`, and `klarnasliceit`.
+   * -   the order doesn't have any open payments except for the methods `banktransfer`, `directdebit`, `klarnapaylater`, `klarnapaynow`, and `klarnasliceit`.
    * -   the order's `status` field is either `created`, `authorized` or `shipping`[1].
    *
    * 1.  In case of `created`, all order lines will be canceled and the new order status will be `canceled`.

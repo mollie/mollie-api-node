@@ -18,7 +18,8 @@ export default class OrderPaymentsBinder extends InnerBinder<PaymentData, Paymen
   }
 
   /**
-   * An order has an automatically created payment that your customer can use to pay for the order. When the payment expires you can create a new payment for the order using this endpoint.
+   * An order has an automatically created payment that your customer can use to pay for the order. When the payment expires you can create a new payment for the order using this endpoint. A maximum
+   * of 25 payments can be created for an order.
    *
    * A new payment can only be created while the status of the order is `created`, and when the status of the existing payment is either `expired`, `canceled` or `failed`.
    *

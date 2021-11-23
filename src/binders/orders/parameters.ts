@@ -7,43 +7,45 @@ import PickOptional from '../../types/PickOptional';
 
 export type CreateParameters = Pick<OrderData, 'amount' | 'orderNumber' | 'billingAddress' | 'webhookUrl' | 'locale' | 'metadata' | 'expiresAt'> & {
   /**
-   * The lines in the order. Each line contains details such as a description of the item ordered, its price et cetera. See order-lines-details for the exact details on the lines.
+   * All order lines must have the same currency as the order. You cannot mix currencies within a single order.
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/create-order?path=lines#parameters
    */
   lines: (Pick<OrderLineData, 'name' | 'quantity' | 'unitPrice' | 'totalAmount' | 'vatRate' | 'vatAmount'> &
     PickOptional<OrderLineData, 'type' | 'discountAmount' | 'sku' | 'metadata'> & {
       /**
-       * The category of product bought. Must be one of the following values:
+       * The category of product bought.
        *
-       * -   `meal`
-       * -   `eco`
-       * -   `gift`
+       * This parameter is optional. However, *one* of your order lines should contain it if you want to accept `voucher` payments.
        *
-       * @see https://docs.mollie.com/reference/v2/orders-api/create-order?path=category#order-lines-details
+       * Possible values: `meal` `eco` `gift`
+       *
+       * @see https://docs.mollie.com/reference/v2/orders-api/create-order?path=lines/category#parameters
        */
       category?: string;
       /**
        * A link pointing to an image of the product sold.
        *
-       * @see https://docs.mollie.com/reference/v2/orders-api/create-order?path=imageUrl#order-lines-details
+       * @see https://docs.mollie.com/reference/v2/orders-api/create-order?path=lines/imageUrl#parameters
        */
       imageUrl?: string;
       /**
        * A link pointing to the product page in your web shop of the product sold.
        *
-       * @see https://docs.mollie.com/reference/v2/orders-api/create-order?path=productUrl#order-lines-details
+       * @see https://docs.mollie.com/reference/v2/orders-api/create-order?path=lines/productUrl#parameters
        */
       productUrl?: string;
     })[];
   /**
-   * The shipping address for the order. See order-address-details for the exact fields needed. If omitted, it is assumed to be identical to the `billingAddress`.
+   * The shipping address for the order.
+   *
+   * Please refer to the documentation of the address object for more information on which formats are accepted.
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/create-order?path=shippingAddress#parameters
    */
   shippingAddress?: OrderAddress;
   /**
-   * The URL your customer will be redirected to after the payment process.
+   * The URL your customer will be redirected to after the payment process. The parameter can be omitted for orders with `payment.sequenceType` set to `recurring`.
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/create-order?path=redirectUrl#parameters
    */
@@ -55,8 +57,8 @@ export type CreateParameters = Pick<OrderData, 'amount' | 'orderNumber' | 'billi
    * You can also specify the methods in an array. By doing so we will still show the payment method selection screen but will only show the methods specified in the array. For example, you can use
    * this functionality to only show payment methods from a specific country to your customer `['bancontact', 'belfius']`.
    *
-   * Possible values: `applepay` `bancontact` `banktransfer` `belfius` `creditcard` `directdebit` `eps` `giftcard` `giropay` `ideal` `kbc` `klarnapaylater` `klarnasliceit` `mybank` `paypal`
-   * `paysafecard` `przelewy24` `sofort` `voucher`
+   * Possible values: `applepay` `bancontact` `banktransfer` `belfius` `creditcard` `directdebit` `eps` `giftcard` `giropay` `ideal` `kbc` `klarnapaylater` `klarnapaynow` `klarnasliceit` `mybank`
+   * `paypal` `paysafecard` `przelewy24` `sofort` `voucher`
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/create-order?path=method#parameters
    */

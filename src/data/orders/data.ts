@@ -48,15 +48,9 @@ export interface OrderData extends Model<'order'> {
    */
   amountRefunded?: Nullable<Amount>;
   /**
-   * The status of the order. One of the following values:
+   * The status of the order.
    *
-   * -   `created`
-   * -   `paid`
-   * -   `authorized`
-   * -   `canceled`
-   * -   `shipping`
-   * -   `completed`
-   * -   `expired`
+   * Possible values: `created` `paid` `authorized` `canceled` `shipping` `completed` `expired`
    *
    * See Order status changes for details on the orders' statuses.
    *
@@ -70,7 +64,9 @@ export interface OrderData extends Model<'order'> {
    */
   isCancelable: boolean;
   /**
-   * The person and the address the order is billed to. See below.
+   * The person and the address the order is billed to.
+   *
+   * Please refer to the documentation of the address object for more information on which formats are accepted.
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=billingAddress#response
    */
@@ -88,7 +84,9 @@ export interface OrderData extends Model<'order'> {
    */
   orderNumber: string;
   /**
-   * The person and the address the order is billed to. See below.
+   * The person and the address the order is billed to.
+   *
+   * Please refer to the documentation of the address object for more information on which formats are accepted.
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=shippingAddress#response
    */
@@ -96,8 +94,8 @@ export interface OrderData extends Model<'order'> {
   /**
    * The locale used during checkout. Note that the locale may have been changed by your customer during checkout.
    *
-   * Can be any ISO 15897 locale. Example values: `en_US` `nl_NL` `nl_BE` `fr_FR` `fr_BE` `de_DE` `de_AT` `de_CH` `es_ES` `ca_ES` `pt_PT` `it_IT` `nb_NO` `sv_SE` `fi_FI` `da_DK` `is_IS` `hu_HU`
-   * `pl_PL` `lv_LV` `lt_LT`.
+   * Can be any `xx_XX` format ISO 15897 locale. Example values: `en_US` `nl_NL` `nl_BE` `fr_FR` `fr_BE` `de_DE` `de_AT` `de_CH` `es_ES` `ca_ES` `pt_PT` `it_IT` `nb_NO` `sv_SE` `fi_FI` `da_DK` `is_IS`
+   * `hu_HU` `pl_PL` `lv_LV` `lt_LT`
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=locale#response
    */
@@ -128,7 +126,7 @@ export interface OrderData extends Model<'order'> {
    */
   createdAt: string;
   /**
-   * The date and time the order will expire, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Note that you have until this date to fully ship the order.
+   * The date and time the order will expire, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. This should be the final date for you to fully ship the order.
    *
    * For some payment methods, such as *Klarna Pay later* this means that you will lose the authorization and not be settled for the amounts of the unshipped order lines.
    *
@@ -182,8 +180,6 @@ export interface OrderLinks extends Links {
    *
    * The URL can also be retrieved and copied from the Mollie Dashboard.
    *
-   * Recurring, authorized, paid and finalized orders do not have a checkout URL.
-   *
    * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=_links/checkout#response
    */
   checkout?: Url;
@@ -201,41 +197,11 @@ export enum OrderStatus {
 }
 
 export interface OrderAddress extends Address {
-  /**
-   * The person's organization, if applicable.
-   *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=organizationName#addresses
-   */
   organizationName?: string;
-  /**
-   * The title of the person.
-   *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=title#addresses
-   */
   title?: string;
-  /**
-   * The given name (first name) of the person.
-   *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=givenName#addresses
-   */
   givenName: string;
-  /**
-   * The family name (surname) of the person.
-   *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=familyName#addresses
-   */
   familyName: string;
-  /**
-   * The email address of the person.
-   *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=email#addresses
-   */
   email: string;
-  /**
-   * The phone number of the person. Will be in the [E.164](https://en.wikipedia.org/wiki/E.164) format. For example `+31208202070`.
-   *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=phone#addresses
-   */
   phone?: string;
 }
 

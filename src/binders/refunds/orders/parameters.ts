@@ -12,13 +12,13 @@ export type CreateParameters = ContextParameters &
     /**
      * An array of objects containing the order line details you want to create a refund for. If you send an empty array, the entire order will be refunded.
      *
-     * @see https://docs.mollie.com/reference/v2/orders-api/create-order-refund?path=lines#parameters
+     * @see https://docs.mollie.com/reference/v2/refunds-api/create-order-refund?path=lines#parameters
      */
     lines: {
       /**
        * The API resource token of the order line, for example: `odl_jp31jz`.
        *
-       * @see https://docs.mollie.com/reference/v2/orders-api/create-order-refund?path=lines/id#parameters
+       * @see https://docs.mollie.com/reference/v2/refunds-api/create-order-refund?path=lines/id#parameters
        */
       id: string;
       /**
@@ -26,7 +26,7 @@ export type CreateParameters = ContextParameters &
        *
        * Must be less than the number of items already refunded for this order line.
        *
-       * @see https://docs.mollie.com/reference/v2/orders-api/create-order-refund?path=lines/quantity#parameters
+       * @see https://docs.mollie.com/reference/v2/refunds-api/create-order-refund?path=lines/quantity#parameters
        */
       quantity?: number;
       /**
@@ -41,7 +41,7 @@ export type CreateParameters = ContextParameters &
        * If you do not send an amount, Mollie will determine the amount automatically or respond with an error if the amount cannot be determined automatically. The error will contain the
        * `extra.minimumAmount` and `extra.maximumAmount` properties that allow you pick the right amount.
        *
-       * @see https://docs.mollie.com/reference/v2/orders-api/create-order-refund?path=lines/amount#parameters
+       * @see https://docs.mollie.com/reference/v2/refunds-api/create-order-refund?path=lines/amount#parameters
        */
       amount?: Amount;
     }[];
