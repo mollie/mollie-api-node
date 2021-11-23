@@ -35,7 +35,7 @@ export interface ChargebackData extends Model<'chargeback'> {
    *
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-payment-chargeback?path=reason#response
    */
-  reason?: {
+  reason: {
     /**
      * Bank code of the chargeback reason.
      *
