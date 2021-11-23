@@ -15,7 +15,7 @@ export default class ChargebacksBinder extends InnerBinder<ChargebackData, Charg
   }
 
   /**
-   * Retrieve all received chargebacks. If the payment-specific endpoint is used, only chargebacks for that specific payment are returned.
+   * Retrieve all chargebacks filed for your payments.
    *
    * The results are paginated. See pagination for more information.
    *
@@ -25,7 +25,7 @@ export default class ChargebacksBinder extends InnerBinder<ChargebackData, Charg
    */
   public all: ChargebacksBinder['page'] = this.page;
   /**
-   * Retrieve all received chargebacks. If the payment-specific endpoint is used, only chargebacks for that specific payment are returned.
+   * Retrieve all chargebacks filed for your payments.
    *
    * The results are paginated. See pagination for more information.
    *
@@ -36,7 +36,7 @@ export default class ChargebacksBinder extends InnerBinder<ChargebackData, Charg
   public list: ChargebacksBinder['page'] = this.page;
 
   /**
-   * Retrieve all received chargebacks. If the payment-specific endpoint is used, only chargebacks for that specific payment are returned.
+   * Retrieve all chargebacks filed for your payments.
    *
    * The results are paginated. See pagination for more information.
    *
@@ -51,7 +51,7 @@ export default class ChargebacksBinder extends InnerBinder<ChargebackData, Charg
   }
 
   /**
-   * Retrieve all received chargebacks. If the payment-specific endpoint is used, only chargebacks for that specific payment are returned.
+   * Retrieve all chargebacks filed for your payments.
    *
    * The results are paginated. See pagination for more information.
    *

@@ -7,146 +7,143 @@ export interface OrderLineData extends Model<'orderline'> {
   /**
    * The ID of the order the line belongs too, for example `ord_kEn1PlbGa`.
    *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=orderId#order-line-details
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=lines/orderId#response
    */
   orderId?: string;
   /**
-   * Always `orderline`.
+   * The type of product bought, for example, a physical or a digital product.
    *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=type#order-line-details
+   * Possible values: `physical` `discount` `digital` `shipping_fee` `store_credit` `gift_card` `surcharge`
+   *
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=lines/type#response
    */
   type: OrderLineType;
   /**
    * A description of the order line, for example *LEGO 4440 Forest Police Station*.
    *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=name#order-line-details
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=lines/name#response
    */
   name: string;
   /**
-   * Status of the order line. One of the following values:
+   * Status of the order line.
    *
-   * -   `created`
-   * -   `authorized`
-   * -   `paid`
-   * -   `shipping`
-   * -   `canceled`
-   * -   `completed`
+   * Possible values: `created` `authorized` `paid` `shipping` `canceled` `completed`
    *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=status#order-line-details
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=lines/status#response
    */
   status: OrderStatus;
   /**
    * Whether or not the order line can be (partially) canceled.
    *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=isCancelable#order-line-details
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=lines/isCancelable#response
    */
   isCancelable: boolean;
   /**
    * The number of items in the order line.
    *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=quantity#order-line-details
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=lines/quantity#response
    */
   quantity: number;
   /**
    * The number of items that are shipped for this order line.
    *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=quantityShipped#order-line-details
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=lines/quantityShipped#response
    */
   quantityShipped: number;
   /**
    * The total amount that is shipped for this order line.
    *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=amountShipped#order-line-details
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=lines/amountShipped#response
    */
   amountShipped: Amount;
   /**
    * The number of items that are refunded for this order line.
    *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=quantityRefunded#order-line-details
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=lines/quantityRefunded#response
    */
   quantityRefunded: number;
   /**
    * The total amount that is refunded for this order line.
    *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=amountRefunded#order-line-details
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=lines/amountRefunded#response
    */
   amountRefunded: Amount;
   /**
    * The number of items that are canceled in this order line.
    *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=quantityCanceled#order-line-details
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=lines/quantityCanceled#response
    */
   quantityCanceled: number;
   /**
    * The total amount that is canceled in this order line.
    *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=amountCanceled#order-line-details
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=lines/amountCanceled#response
    */
   amountCanceled: Amount;
   /**
    * The number of items that can still be shipped for this order line.
    *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=shippableQuantity#order-line-details
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=lines/shippableQuantity#response
    */
   shippableQuantity: number;
   /**
    * The number of items that can still be refunded for this order line.
    *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=refundableQuantity#order-line-details
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=lines/refundableQuantity#response
    */
   refundableQuantity: number;
   /**
    * The number of items that can still be canceled for this order line.
    *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=cancelableQuantity#order-line-details
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=lines/cancelableQuantity#response
    */
   cancelableQuantity: number;
   /**
    * The price of a single item including VAT in the order line.
    *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=unitPrice#order-line-details
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=lines/unitPrice#response
    */
   unitPrice: Amount;
   /**
    * Any discounts applied to the order line.
    *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=discountAmount#order-line-details
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=lines/discountAmount#response
    */
   discountAmount?: Amount;
   /**
    * The total amount of the line, including VAT and discounts.
    *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=totalAmount#order-line-details
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=lines/totalAmount#response
    */
   totalAmount: Amount;
   /**
    * The VAT rate applied to the order line, for example `"21.00"` for 21%. The `vatRate` is passed as a string and not as a float to ensure the correct number of decimals are passed.
    *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=vatRate#order-line-details
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=lines/vatRate#response
    */
   vatRate: string;
   /**
    * The amount of value-added tax on the line.
    *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=vatAmount#order-line-details
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=lines/vatAmount#response
    */
   vatAmount: Amount;
   /**
    * The SKU, EAN, ISBN or UPC of the product sold.
    *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=sku#order-line-details
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=lines/sku#response
    */
   sku?: string;
   /**
    * The order line's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=createdAt#order-line-details
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=lines/createdAt#response
    */
   createdAt: string;
   /**
    * An object with several URL objects relevant to the order line. Every URL object will contain an `href` and a `type` field.
    *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=_links#order-line-details
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=lines/_links#response
    */
   _links: OrderLineLinks;
   metadata: any;
@@ -165,13 +162,13 @@ export interface OrderLineLinks {
   /**
    * A link pointing to the product page in your web shop of the product sold.
    *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=_links/productUrl#order-line-details
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=lines/_links/productUrl#response
    */
   productUrl: Url;
   /**
    * A link pointing to an image of the product sold.
    *
-   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=_links/imageUrl#order-line-details
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=lines/_links/imageUrl#response
    */
   imageUrl: Url;
 }

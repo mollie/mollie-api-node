@@ -18,8 +18,8 @@ export default class OrderLinesBinder extends InnerBinder<OrderData, Order> {
   }
 
   /**
-   * This endpoint can be used to cancel one or more order lines that were previously authorized using a *pay after delivery* payment method. Use the Cancel Order API if you want to cancel the entire
-   * order or the remainder of the order.
+   * This endpoint can be used to cancel one or more order lines that were previously authorized using a *pay after delivery* payment method. Use the Cancel order endpoint if you want to cancel the
+   * entire order or the remainder of the order.
    *
    * Canceling or partially canceling an order line will immediately release the authorization held for that amount. Your customer will be able to see the updated order in his portal / app. Any
    * canceled lines will be removed from the customer's point of view, but will remain visible in the Mollie Dashboard.
@@ -29,7 +29,7 @@ export default class OrderLinesBinder extends InnerBinder<OrderData, Order> {
    * An order line can only be canceled while its `status` field is either `authorized` or `shipping`. If you cancel an `authorized` order line, the new order line status will be `canceled`. Canceling
    * a `shipping` order line will result in a `completed` order line status.
    *
-   * If the order line is `paid` or already `completed`, you should create a refund using the Create Order Refund API instead.
+   * If the order line is `paid` or already `completed`, you should create a refund using the Create order refund endpoint instead.
    *
    * For more information about the status transitions please check our order status changes guide.
    *
@@ -53,7 +53,7 @@ export default class OrderLinesBinder extends InnerBinder<OrderData, Order> {
    * order remains intact, though the requested changes are not persisted.
    *
    * @since 3.0.0
-   * @see https://docs.mollie.com/reference/v2/orders-api/update-orderline
+   * @see https://docs.mollie.com/reference/v2/orders-api/update-order-line
    */
   public update(id: string, parameters: UpdateParameters): Promise<Order>;
   public update(id: string, parameters: UpdateParameters, callback: Callback<Order>): void;
@@ -71,8 +71,8 @@ export default class OrderLinesBinder extends InnerBinder<OrderData, Order> {
   }
 
   /**
-   * This endpoint can be used to cancel one or more order lines that were previously authorized using a *pay after delivery* payment method. Use the Cancel Order API if you want to cancel the entire
-   * order or the remainder of the order.
+   * This endpoint can be used to cancel one or more order lines that were previously authorized using a *pay after delivery* payment method. Use the Cancel order endpoint if you want to cancel the
+   * entire order or the remainder of the order.
    *
    * Canceling or partially canceling an order line will immediately release the authorization held for that amount. Your customer will be able to see the updated order in his portal / app. Any
    * canceled lines will be removed from the customer's point of view, but will remain visible in the Mollie Dashboard.
@@ -82,7 +82,7 @@ export default class OrderLinesBinder extends InnerBinder<OrderData, Order> {
    * An order line can only be canceled while its `status` field is either `authorized` or `shipping`. If you cancel an `authorized` order line, the new order line status will be `canceled`. Canceling
    * a `shipping` order line will result in a `completed` order line status.
    *
-   * If the order line is `paid` or already `completed`, you should create a refund using the Create Order Refund API instead.
+   * If the order line is `paid` or already `completed`, you should create a refund using the Create order refund endpoint instead.
    *
    * For more information about the status transitions please check our order status changes guide.
    *

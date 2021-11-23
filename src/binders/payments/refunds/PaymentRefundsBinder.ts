@@ -20,12 +20,7 @@ export default class PaymentRefundsBinder extends InnerBinder<RefundData, Refund
   }
 
   /**
-   * Retrieve Refunds.
-   *
-   * -   If the payment-specific endpoint is used, only Refunds for that specific Payment are returned.
-   * -   When using the top level endpoint `v2/refunds` with an API key, only refunds for the corresponding website profile and mode are returned.
-   * -   When using the top level endpoint with OAuth, you can specify the profile and mode with the `profileId` and `testmode` parameters respectively. If you omit `profileId`, you will get all
-   *     Refunds for the Organization.
+   * Retrieve a list of all of your refunds.
    *
    * The results are paginated. See pagination for more information.
    *
@@ -35,12 +30,7 @@ export default class PaymentRefundsBinder extends InnerBinder<RefundData, Refund
    */
   public all: PaymentRefundsBinder['page'] = this.page;
   /**
-   * Retrieve Refunds.
-   *
-   * -   If the payment-specific endpoint is used, only Refunds for that specific Payment are returned.
-   * -   When using the top level endpoint `v2/refunds` with an API key, only refunds for the corresponding website profile and mode are returned.
-   * -   When using the top level endpoint with OAuth, you can specify the profile and mode with the `profileId` and `testmode` parameters respectively. If you omit `profileId`, you will get all
-   *     Refunds for the Organization.
+   * Retrieve a list of all of your refunds.
    *
    * The results are paginated. See pagination for more information.
    *
@@ -53,18 +43,18 @@ export default class PaymentRefundsBinder extends InnerBinder<RefundData, Refund
    * For certain payment methods, like iDEAL, the underlying banking system will delay refunds until the next day. Until that time, refunds may be canceled manually in the [Mollie
    * Dashboard](https://www.mollie.com/dashboard), or programmatically by using this endpoint.
    *
-   * A Refund can only be canceled while its `status` field is either `queued` or `pending`. See the /reference/v2/refunds-api/get-refund for more information.
+   * A refund can only be canceled while its `status` field is either `queued` or `pending`. See the Get refund endpoint for more information.
    *
    * @deprecated Use `cancel` instead.
-   * @see https://docs.mollie.com/reference/v2/refunds-api/cancel-refund
+   * @see https://docs.mollie.com/reference/v2/refunds-api/cancel-payment-refund
    */
   public delete: PaymentRefundsBinder['cancel'] = this.cancel;
 
   /**
-   * Creates a Refund on the Payment. The refunded amount is credited to your customer.
+   * Creates a refund for a specific payment. The refunded amount is credited to your customer usually either via a bank transfer or by refunding the amount to your customer's credit card.
    *
    * @since 1.1.1
-   * @see https://docs.mollie.com/reference/v2/refunds-api/create-refund
+   * @see https://docs.mollie.com/reference/v2/refunds-api/create-payment-refund
    */
   public create(parameters: CreateParameters): Promise<Refund>;
   public create(parameters: CreateParameters, callback: Callback<Refund>): void;
@@ -79,12 +69,12 @@ export default class PaymentRefundsBinder extends InnerBinder<RefundData, Refund
   }
 
   /**
-   * Retrieve a single Refund by its ID. Note the Payment's ID is needed as well.
+   * Retrieve a single payment refund by its ID. Note the payment ID is required as well.
    *
    * If you do not know the original payment's ID, you can use the /reference/v2/refunds-api/list-refunds.
    *
    * @since 1.1.1
-   * @see https://docs.mollie.com/reference/v2/refunds-api/get-refund
+   * @see https://docs.mollie.com/reference/v2/refunds-api/get-payment-refund
    */
   public get(id: string, parameters: GetParameters): Promise<Refund>;
   public get(id: string, parameters: GetParameters, callback: Callback<Refund>): void;
@@ -103,12 +93,7 @@ export default class PaymentRefundsBinder extends InnerBinder<RefundData, Refund
   }
 
   /**
-   * Retrieve Refunds.
-   *
-   * -   If the payment-specific endpoint is used, only Refunds for that specific Payment are returned.
-   * -   When using the top level endpoint `v2/refunds` with an API key, only refunds for the corresponding website profile and mode are returned.
-   * -   When using the top level endpoint with OAuth, you can specify the profile and mode with the `profileId` and `testmode` parameters respectively. If you omit `profileId`, you will get all
-   *     Refunds for the Organization.
+   * Retrieve a list of all of your refunds.
    *
    * The results are paginated. See pagination for more information.
    *
@@ -129,12 +114,7 @@ export default class PaymentRefundsBinder extends InnerBinder<RefundData, Refund
   }
 
   /**
-   * Retrieve Refunds.
-   *
-   * -   If the payment-specific endpoint is used, only Refunds for that specific Payment are returned.
-   * -   When using the top level endpoint `v2/refunds` with an API key, only refunds for the corresponding website profile and mode are returned.
-   * -   When using the top level endpoint with OAuth, you can specify the profile and mode with the `profileId` and `testmode` parameters respectively. If you omit `profileId`, you will get all
-   *     Refunds for the Organization.
+   * Retrieve a list of all of your refunds.
    *
    * The results are paginated. See pagination for more information.
    *
@@ -155,10 +135,10 @@ export default class PaymentRefundsBinder extends InnerBinder<RefundData, Refund
    * For certain payment methods, like iDEAL, the underlying banking system will delay refunds until the next day. Until that time, refunds may be canceled manually in the [Mollie
    * Dashboard](https://www.mollie.com/dashboard), or programmatically by using this endpoint.
    *
-   * A Refund can only be canceled while its `status` field is either `queued` or `pending`. See the /reference/v2/refunds-api/get-refund for more information.
+   * A refund can only be canceled while its `status` field is either `queued` or `pending`. See the Get refund endpoint for more information.
    *
    * @since 1.1.1
-   * @see https://docs.mollie.com/reference/v2/refunds-api/cancel-refund
+   * @see https://docs.mollie.com/reference/v2/refunds-api/cancel-payment-refund
    */
   public cancel(id: string, parameters: CancelParameters): Promise<true>;
   public cancel(id: string, parameters: CancelParameters, callback: Callback<Promise<true>>): void;

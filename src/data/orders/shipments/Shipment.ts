@@ -28,7 +28,7 @@ export interface ShipmentData extends Model<'shipment'> {
    * An array of order line objects as described in Get order.
    *
    * The lines will show the `quantity`, `discountAmount`, `vatAmount` and `totalAmount` shipped in this shipment. If the line was partially shipped, these values will be different from the values in
-   * response from the Get order API.
+   * response from the *Get order* endpoint.
    *
    * @see https://docs.mollie.com/reference/v2/shipments-api/get-shipment?path=lines#response
    */

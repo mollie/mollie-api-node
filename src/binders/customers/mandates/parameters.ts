@@ -15,7 +15,7 @@ export type CreateParameters = ContextParameters &
      */
     consumerName?: string;
     /**
-     * The consumer's IBAN.
+     * The consumer's IBAN. Required for `directdebit` mandates.
      *
      * @see https://docs.mollie.com/reference/v2/mandates-api/create-mandate?path=consumerAccount#parameters
      */
@@ -27,7 +27,7 @@ export type CreateParameters = ContextParameters &
      */
     consumerBic?: string;
     /**
-     * The consumer’s email address. Required for paypal mandates
+     * The consumer's email address. Required for `paypal` mandates.
      *
      * @see https://docs.mollie.com/reference/v2/mandates-api/create-mandate?path=consumerEmail#parameters
      */
@@ -45,8 +45,7 @@ export type CreateParameters = ContextParameters &
      */
     mandateReference?: string;
     /**
-     * The billing agreement ID given by PayPal. For example: "B-12A34567B8901234CD".
-     * Required for paypal mandates
+     * The billing agreement ID given by PayPal. For example: `B-12A34567B8901234CD`. Required for `paypal` mandates.
      *
      * @see https://docs.mollie.com/reference/v2/mandates-api/create-mandate?path=paypalBillingAgreementId#parameters
      */

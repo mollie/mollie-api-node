@@ -101,6 +101,8 @@ export interface PaymentData extends Model<'payment'> {
   /**
    * The URL your customer will be redirected to after completing or canceling the payment process.
    *
+   * The URL will be `null` for recurring payments.
+   *
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=redirectUrl#response
    */
   redirectUrl?: string;
@@ -115,8 +117,8 @@ export interface PaymentData extends Model<'payment'> {
    *
    * If the payment is only partially paid with a gift card, the method remains `giftcard`.
    *
-   * Possible values: `null` `bancontact` `banktransfer` `belfius` `creditcard` `directdebit` `eps` `giftcard` `giropay` `ideal` `kbc` `klarnapaylater` `klarnasliceit` `mybank` `paypal` `paysafecard`
-   * `przelewy24` `sofort`
+   * Possible values: `null` `bancontact` `banktransfer` `belfius` `creditcard` `directdebit` `eps` `giftcard` `giropay` `ideal` `kbc` `klarnapaylater` `klarnapaynow` `klarnasliceit` `mybank` `paypal`
+   * `paysafecard` `przelewy24` `sofort`
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=method#response
    */
@@ -163,7 +165,7 @@ export interface PaymentData extends Model<'payment'> {
   /**
    * If a customer was specified upon payment creation, the customer's token will be available here as well. For example, `cst_XPn78q9CfT`.
    *
-   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=customerId#response
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=customerId#response-parameters-for-recurring-payments
    */
   customerId?: string;
   /**
@@ -174,19 +176,19 @@ export interface PaymentData extends Model<'payment'> {
    *
    * Possible values: `oneoff` `first` `recurring`
    *
-   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=sequenceType#response
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=sequenceType#response-parameters-for-recurring-payments
    */
   sequenceType: SequenceType;
   /**
    * If the payment is a first or recurring payment, this field will hold the ID of the mandate.
    *
-   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=mandateId#response
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=mandateId#response-parameters-for-recurring-payments
    */
   mandateId?: string;
   /**
    * When implementing the Subscriptions API, any recurring charges resulting from the subscription will hold the ID of the subscription that triggered the payment.
    *
-   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=subscriptionId#response
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=subscriptionId#response-parameters-for-recurring-payments
    */
   subscriptionId?: string;
   /**
@@ -198,7 +200,7 @@ export interface PaymentData extends Model<'payment'> {
   /**
    * The application fee, if the payment was created with one.
    *
-   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=applicationFee#response
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=applicationFee#mollie-connect-response-parameters
    */
   applicationFee?: {
     amount: Amount;
@@ -226,8 +228,6 @@ interface PaymentLinks extends Links {
   /**
    * The URL your customer should visit to make the payment. This is where you should redirect the consumer to.
    *
-   * Recurring payments do not have a checkout URL.
-   *
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/checkout#response
    */
   checkout?: Url;
@@ -238,7 +238,7 @@ interface PaymentLinks extends Links {
    * This link is also included for paid test mode payments. This allows you to create a refund or chargeback for the payment. This works for all payment types that can be charged back and/or
    * refunded.
    *
-   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/changePaymentState#response
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/changePaymentState#response-parameters-for-recurring-payments
    */
   changePaymentState?: Url;
   /**
@@ -268,19 +268,19 @@ interface PaymentLinks extends Links {
   /**
    * The API resource URL of the mandate linked to this payment. Not present if a one-off payment.
    *
-   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/mandate#response
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/mandate#response-parameters-for-recurring-payments
    */
   mandate?: Url;
   /**
    * The API resource URL of the subscription this payment is part of. Not present if not a subscription payment.
    *
-   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/subscription#response
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/subscription#response-parameters-for-recurring-payments
    */
   subscription?: Url;
   /**
    * The API resource URL of the customer this payment belongs to. Not present if not linked to a customer.
    *
-   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/customer#response
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/customer#response-parameters-for-recurring-payments
    */
   customer?: Url;
   /**
@@ -501,8 +501,8 @@ export interface CreditCardDetails {
   /**
    * Only available for failed payments. Contains a failure reason code.
    *
-   * Possible values: `authentication_failed` `card_declined` `card_expired` `inactive_card` `insufficient_funds` `invalid_card_holder_name` `invalid_card_number` `invalid_card_type` `invalid_cvv`
-   * `possible_fraud` `refused_by_issuer` `unknown_reason`
+   * Possible values: `authentication_abandoned` `authentication_failed` `authentication_required` `authentication_unavailable_acs` `card_declined` `card_expired` `inactive_card` `insufficient_funds`
+   * `invalid_cvv` `invalid_card_holder_name` `invalid_card_number` `invalid_card_type` `possible_fraud` `refused_by_issuer` `unknown_reason`
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/failureReason#Credit%20card%20v2
    */

@@ -18,7 +18,7 @@ export default class PaymentChargebacksBinder extends InnerBinder<ChargebackData
   }
 
   /**
-   * Retrieve all received chargebacks. If the payment-specific endpoint is used, only chargebacks for that specific payment are returned.
+   * Retrieve all chargebacks filed for your payments.
    *
    * The results are paginated. See pagination for more information.
    *
@@ -28,7 +28,7 @@ export default class PaymentChargebacksBinder extends InnerBinder<ChargebackData
    */
   public all: PaymentChargebacksBinder['page'] = this.page;
   /**
-   * Retrieve all received chargebacks. If the payment-specific endpoint is used, only chargebacks for that specific payment are returned.
+   * Retrieve all chargebacks filed for your payments.
    *
    * The results are paginated. See pagination for more information.
    *
@@ -44,7 +44,7 @@ export default class PaymentChargebacksBinder extends InnerBinder<ChargebackData
    * If you do not know the original payment's ID, you can use the chargebacks list endpoint.
    *
    * @since 1.1.1
-   * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-chargeback
+   * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-payment-chargeback
    */
   public get(id: string, parameters: GetParameters): Promise<Chargeback>;
   public get(id: string, parameters: GetParameters, callback: Callback<Chargeback>): void;
@@ -63,7 +63,7 @@ export default class PaymentChargebacksBinder extends InnerBinder<ChargebackData
   }
 
   /**
-   * Retrieve all received chargebacks. If the payment-specific endpoint is used, only chargebacks for that specific payment are returned.
+   * Retrieve all chargebacks filed for your payments.
    *
    * The results are paginated. See pagination for more information.
    *
@@ -84,7 +84,7 @@ export default class PaymentChargebacksBinder extends InnerBinder<ChargebackData
   }
 
   /**
-   * Retrieve all received chargebacks. If the payment-specific endpoint is used, only chargebacks for that specific payment are returned.
+   * Retrieve all chargebacks filed for your payments.
    *
    * The results are paginated. See pagination for more information.
    *

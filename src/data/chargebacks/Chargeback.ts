@@ -11,7 +11,7 @@ export interface ChargebackData extends Model<'chargeback'> {
   /**
    * The amount charged back by the consumer.
    *
-   * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-chargeback?path=amount#response
+   * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-payment-chargeback?path=amount#response
    */
   amount: Amount;
   /**
@@ -21,25 +21,25 @@ export interface ChargebackData extends Model<'chargeback'> {
    *
    * Any amounts not settled by Mollie will not be reflected in this amount, e.g. PayPal chargebacks.
    *
-   * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-chargeback?path=settlementAmount#response
+   * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-payment-chargeback?path=settlementAmount#response
    */
   settlementAmount: Amount;
   /**
    * The date and time the chargeback was issued, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    *
-   * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-chargeback?path=createdAt#response
+   * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-payment-chargeback?path=createdAt#response
    */
   createdAt: string;
   /**
    * The date and time the chargeback was reversed if applicable, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    *
-   * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-chargeback?path=reversedAt#response
+   * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-payment-chargeback?path=reversedAt#response
    */
   reversedAt: string;
   /**
    * The unique identifier of the payment this chargeback was issued for. For example: `tr_7UhSN1zuXS`. The full payment object can be retrieved via the `payment` URL in the `_links` object.
    *
-   * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-chargeback?path=paymentId#response
+   * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-payment-chargeback?path=paymentId#response
    */
   paymentId: string;
   _embedded?: {
@@ -48,7 +48,7 @@ export interface ChargebackData extends Model<'chargeback'> {
   /**
    * An object with several URL objects relevant to the chargeback. Every URL object will contain an `href` and a `type` field.
    *
-   * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-chargeback?path=_links#response
+   * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-payment-chargeback?path=_links#response
    */
   _links: ChargebackLinks;
 }
@@ -68,13 +68,13 @@ export interface ChargebackLinks extends Links {
   /**
    * The API resource URL of the payment this chargeback belongs to.
    *
-   * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-chargeback?path=_links/payment#response
+   * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-payment-chargeback?path=_links/payment#response
    */
   payment: Url;
   /**
    * The API resource URL of the settlement this payment has been settled with. Not present if not yet settled.
    *
-   * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-chargeback?path=_links/settlement#response
+   * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-payment-chargeback?path=_links/settlement#response
    */
   settlement?: Url;
 }

@@ -8,8 +8,8 @@ export interface ProfileData extends Model<'profile'> {
    *
    * Possible values:
    *
-   * -   `live` The profile is verified.
-   * -   `test` The profile has not been verified yet and can only be used to create test payments.
+   * -   `live`: The profile is verified.
+   * -   `test`: The profile has not been verified yet and can only be used to create test payments.
    *
    * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=mode#response
    */
@@ -80,9 +80,9 @@ export interface ProfileData extends Model<'profile'> {
    *
    * Possible values:
    *
-   * -   `unverified` The profile has not been verified yet and can only be used to create test payments.
-   * -   `verified` The profile has been verified and can be used to create live payments and test payments.
-   * -   `blocked` The profile is blocked and can thus no longer be used or changed.
+   * -   `unverified`: The profile has not been verified yet and can only be used to create test payments.
+   * -   `verified`: The profile has been verified and can be used to create live payments and test payments.
+   * -   `blocked`: The profile is blocked and can thus no longer be used or changed.
    *
    * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=status#response
    */
@@ -99,8 +99,8 @@ export interface ProfileData extends Model<'profile'> {
      *
      * Possible values:
      *
-     * -   `pending` The changes are pending review. We will review your changes soon.
-     * -   `rejected` We have reviewed and rejected your changes.
+     * -   `pending`: The changes are pending review. We will review your changes soon.
+     * -   `rejected`: We have reviewed and rejected your changes.
      *
      * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=review/status#response
      */

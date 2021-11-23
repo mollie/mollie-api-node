@@ -16,12 +16,7 @@ export default class RefundsBinder extends Binder<RefundData, Refund> {
   }
 
   /**
-   * Retrieve Refunds.
-   *
-   * -   If the payment-specific endpoint is used, only Refunds for that specific Payment are returned.
-   * -   When using the top level endpoint `v2/refunds` with an API key, only refunds for the corresponding website profile and mode are returned.
-   * -   When using the top level endpoint with OAuth, you can specify the profile and mode with the `profileId` and `testmode` parameters respectively. If you omit `profileId`, you will get all
-   *     Refunds for the Organization.
+   * Retrieve a list of all of your refunds.
    *
    * The results are paginated. See pagination for more information.
    *
@@ -31,12 +26,7 @@ export default class RefundsBinder extends Binder<RefundData, Refund> {
    */
   public all: RefundsBinder['page'] = this.page;
   /**
-   * Retrieve Refunds.
-   *
-   * -   If the payment-specific endpoint is used, only Refunds for that specific Payment are returned.
-   * -   When using the top level endpoint `v2/refunds` with an API key, only refunds for the corresponding website profile and mode are returned.
-   * -   When using the top level endpoint with OAuth, you can specify the profile and mode with the `profileId` and `testmode` parameters respectively. If you omit `profileId`, you will get all
-   *     Refunds for the Organization.
+   * Retrieve a list of all of your refunds.
    *
    * The results are paginated. See pagination for more information.
    *
@@ -47,12 +37,7 @@ export default class RefundsBinder extends Binder<RefundData, Refund> {
   public list: RefundsBinder['page'] = this.page;
 
   /**
-   * Retrieve Refunds.
-   *
-   * -   If the payment-specific endpoint is used, only Refunds for that specific Payment are returned.
-   * -   When using the top level endpoint `v2/refunds` with an API key, only refunds for the corresponding website profile and mode are returned.
-   * -   When using the top level endpoint with OAuth, you can specify the profile and mode with the `profileId` and `testmode` parameters respectively. If you omit `profileId`, you will get all
-   *     Refunds for the Organization.
+   * Retrieve a list of all of your refunds.
    *
    * The results are paginated. See pagination for more information.
    *
@@ -67,12 +52,7 @@ export default class RefundsBinder extends Binder<RefundData, Refund> {
   }
 
   /**
-   * Retrieve Refunds.
-   *
-   * -   If the payment-specific endpoint is used, only Refunds for that specific Payment are returned.
-   * -   When using the top level endpoint `v2/refunds` with an API key, only refunds for the corresponding website profile and mode are returned.
-   * -   When using the top level endpoint with OAuth, you can specify the profile and mode with the `profileId` and `testmode` parameters respectively. If you omit `profileId`, you will get all
-   *     Refunds for the Organization.
+   * Retrieve a list of all of your refunds.
    *
    * The results are paginated. See pagination for more information.
    *

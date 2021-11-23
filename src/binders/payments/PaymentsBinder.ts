@@ -55,7 +55,7 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
    *
    * Once you have created a payment, you should redirect your customer to the URL in the `_links.checkout` property from the response.
    *
-   * To wrap your head around the payment process, an explanation and flow charts can be found in the Payments API Overview.
+   * To wrap your head around the payment process, an explanation and flow charts can be found in the Accepting payments guide.
    *
    * @since 2.0.0
    * @see https://docs.mollie.com/reference/v2/payments-api/create-payment

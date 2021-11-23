@@ -140,8 +140,6 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
   /**
    * The URL your customer should visit to make the payment. This is where you should redirect the consumer to.
    *
-   * Recurring payments do not have a checkout URL.
-   *
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/checkout#response
    */
   public getCheckoutUrl(): Nullable<string> {
@@ -198,7 +196,7 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
    * This link is also included for paid test mode payments. This allows you to create a refund or chargeback for the payment. This works for all payment types that can be charged back and/or
    * refunded.
    *
-   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/changePaymentState#response
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/changePaymentState#response-parameters-for-recurring-payments
    */
   public getChangePaymentStateUrl(): Nullable<string> {
     if (this.links.changePaymentState == undefined) {
