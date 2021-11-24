@@ -41,6 +41,14 @@ export interface ProfileData extends Model<'profile'> {
   /**
    * The industry associated with the profile's trade name or brand.
    *
+   * Please refer to the documentation of the business category for more information on which values are accepted.
+   *
+   * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=businessCategory#response
+   */
+  businessCategory: string;
+  /**
+   * The industry associated with the profile's trade name or brand.
+   *
    * Possible values:
    *
    * -   `5192` Books, magazines and newspapers

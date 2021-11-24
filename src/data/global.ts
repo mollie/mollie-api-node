@@ -35,7 +35,9 @@ export enum PaymentMethod {
   ideal = 'ideal',
   kbc = 'kbc',
   klarnapaylater = 'klarnapaylater',
+  klarnapaynow = 'klarnapaynow',
   klarnasliceit = 'klarnasliceit',
+  mybank = 'mybank',
   paypal = 'paypal',
   paysafecard = 'paysafecard',
   przelewy24 = 'przelewy24',
@@ -112,14 +114,18 @@ export interface Address {
 export type CardLabel = 'American Express' | 'Carta Si' | 'Carte Bleue' | 'Dankort' | 'Diners' | 'Club' | 'Discover' | 'JCB' | 'Laser' | 'Maestro' | 'Mastercard' | 'Unionpay' | 'Visa';
 
 export type CardFailureReason =
+  | 'authentication_abandoned'
   | 'authentication_failed'
+  | 'authentication_required'
+  | 'authentication_unavailable_acs'
+  | 'card_declined'
   | 'card_expired'
   | 'inactive_card'
   | 'insufficient_funds'
+  | 'invalid_cvv'
   | 'invalid_card_holder_name'
   | 'invalid_card_number'
   | 'invalid_card_type'
-  | 'invalid_cvv'
   | 'possible_fraud'
   | 'refused_by_issuer'
   | 'unknown_reason';

@@ -21,6 +21,7 @@ import { transform as transformPermission } from './data/permissions/Permission'
 import { transform as transformOrganization } from './data/organizations/Organizations';
 import { transform as transformProfile } from './data/profiles/Profile';
 import { transform as transformOnboarding } from './data/onboarding/Onboarding';
+import { transform as transformPaymentLink } from './data/paymentLink/PaymentLink';
 
 // Binders
 import ApplePayBinder from './binders/applePay/ApplePayBinder';
@@ -39,6 +40,7 @@ import OrderShipmentsBinder from './binders/orders/shipments/OrderShipmentsBinde
 import OrganizationsBinder from './binders/organizations/OrganizationsBinder';
 import PaymentCapturesBinder from './binders/payments/captures/PaymentCapturesBinder';
 import PaymentChargebacksBinder from './binders/payments/chargebacks/PaymentChargebacksBinder';
+import PaymentLinksBinder from './binders/paymentLinks/PaymentLinksBinder';
 import PaymentRefundsBinder from './binders/payments/refunds/PaymentRefundsBinder';
 import PaymentsBinder from './binders/payments/PaymentsBinder';
 import PermissionsBinder from './binders/permissions/PermissionBinder';
@@ -88,7 +90,8 @@ export default function createMollieClient(options: Options) {
       .add('permission', transformPermission)
       .add('organization', transformOrganization)
       .add('profile', transformProfile)
-      .add('onboarding', transformOnboarding),
+      .add('onboarding', transformOnboarding)
+      .add('payment-link', transformPaymentLink),
   );
 
   return {
@@ -144,6 +147,9 @@ export default function createMollieClient(options: Options) {
 
     // Apple Pay.
     applePay: new ApplePayBinder(networkClient),
+
+    // Payment links.
+    paymentLinks: new PaymentLinksBinder(transformingNetworkClient),
   };
 }
 

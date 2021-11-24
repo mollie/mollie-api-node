@@ -1,4 +1,18 @@
-type ResourceKind = 'capture' | 'chargeback' | 'customer' | 'mandate' | 'order' | 'orderline' | 'organization' | 'payment' | 'permission' | 'profile' | 'refund' | 'shipment' | 'subscription';
+type ResourceKind =
+  | 'capture'
+  | 'chargeback'
+  | 'customer'
+  | 'mandate'
+  | 'order'
+  | 'orderline'
+  | 'organization'
+  | 'payment'
+  | 'payment-link'
+  | 'permission'
+  | 'profile'
+  | 'refund'
+  | 'shipment'
+  | 'subscription';
 
 const prefixes = new Map<ResourceKind, string>([
   ['capture', 'cpt_'],
@@ -9,6 +23,7 @@ const prefixes = new Map<ResourceKind, string>([
   ['orderline', 'odl_'],
   ['organization', 'org_'],
   ['payment', 'tr_'],
+  ['payment-link', 'pl_'],
   ['profile', 'pfl_'],
   ['refund', 're_'],
   ['shipment', 'shp_'],
