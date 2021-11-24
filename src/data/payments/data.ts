@@ -93,6 +93,12 @@ export interface PaymentData extends Model<'payment'> {
    */
   amountCaptured?: Amount;
   /**
+   * The total amount that was charged back for this payment. Only available when the total charged back amount is not zero.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=amountChargedBack#response
+   */
+  amountChargedBack?: Amount;
+  /**
    * A short description of the payment. The description is visible in the Dashboard and will be shown on the customer's bank or card statement when possible.
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=description#response
@@ -628,7 +634,7 @@ export interface PayPalDetails {
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/shippingAddress#paypal
    */
-  shippingAddress: Address;
+  shippingAddress: Address & { givenName?: string; familyName?: string };
   /**
    * The amount of fee PayPal will charge for this transaction. This field is omitted if PayPal will not charge a fee for this transaction.
    *

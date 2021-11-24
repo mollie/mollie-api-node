@@ -1,19 +1,37 @@
 export type IdealIssuer = string;
 
 export type GiftcardIssuer =
+  | 'beautycadeaukaart'
+  | 'bloemencadeaukaart'
+  | 'bloemplantgiftcard'
+  | 'boekenbon'
+  | 'decadeaukaart'
+  | 'delokalecadeaukaart'
+  | 'dinercadeau'
   | 'fashioncheque'
+  | 'festivalcadeau'
+  | 'good4fun'
+  | 'huistuincadeaukaart'
+  | 'jewelcard'
+  | 'kluscadeau'
+  | 'kunstencultuurcadeaukaart'
   | 'nationalebioscoopbon'
   | 'nationaleentertainmentcard'
-  | 'kunstencultuurcadeaukaart'
+  | 'nationalegolfbon'
+  | 'ohmygood'
   | 'podiumcadeaukaart'
+  | 'reiscadeau'
+  | 'restaurantcadeau'
+  | 'sodexosportculturepass'
+  | 'sportenfitcadeau'
+  | 'sustainablefashion'
+  | 'travelcheq'
   | 'vvvgiftcard'
   | 'vvvdinercheque'
   | 'vvvlekkerweg'
   | 'webshopgiftcard'
-  | 'yourgift'
-  | 'travelcheq'
-  | 'nationalegolfbon'
-  | 'sportenfitcadeau';
+  | 'wijncadeaukaart'
+  | 'yourgift';
 
 export type KbcIssuer = 'kbc' | 'cbc';
 

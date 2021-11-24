@@ -95,12 +95,6 @@ export default class ApiError extends Error {
    * @since 3.0.0
    */
   public static createFromResponse(response: AxiosResponse): ApiError {
-    return new ApiError(
-      response.data.detail ?? 'Received an error without a message',
-      response.data.title,
-      response.data.status,
-      response.data.field,
-      response.data._links,
-    );
+    return new ApiError(response.data.detail ?? 'Received an error without a message', response.data.title, response.data.status, response.data.field, response.data._links);
   }
 }

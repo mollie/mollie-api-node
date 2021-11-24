@@ -5,7 +5,6 @@ import Payment from '../../data/payments/Payment';
 import ApiError from '../../errors/ApiError';
 import checkId from '../../plumbing/checkId';
 import HelpfulIterator from '../../plumbing/HelpfulIterator';
-import makeIterable from '../../plumbing/makeIterable';
 import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
 import Binder from '../Binder';

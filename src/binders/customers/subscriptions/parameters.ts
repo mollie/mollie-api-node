@@ -8,8 +8,8 @@ interface ContextParameters {
 }
 
 export type CreateParameters = ContextParameters &
-  Pick<SubscriptionData, 'amount' | 'interval' | 'startDate' | 'description' | 'mandateId'> &
-  PickOptional<SubscriptionData, 'times' | 'method' | 'webhookUrl' | 'metadata'>;
+  Pick<SubscriptionData, 'amount' | 'interval' | 'description' | 'mandateId'> &
+  PickOptional<SubscriptionData, 'times' | 'startDate' | 'method' | 'webhookUrl' | 'metadata'>;
 
 export type GetParameters = ContextParameters;
 

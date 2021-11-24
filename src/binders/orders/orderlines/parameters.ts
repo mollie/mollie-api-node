@@ -8,7 +8,7 @@ interface ContextParameters {
 }
 
 export type UpdateParameters = ContextParameters &
-  PickOptional<OrderLineData, 'name' | 'quantity' | 'unitPrice' | 'discountAmount' | 'totalAmount' | 'vatAmount' | 'vatRate'> & {
+  PickOptional<OrderLineData, 'name' | 'quantity' | 'unitPrice' | 'discountAmount' | 'sku' | 'totalAmount' | 'vatAmount' | 'vatRate'> & {
     /**
      * A link pointing to an image of the product sold.
      *

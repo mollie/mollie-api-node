@@ -6,7 +6,7 @@ import Maybe from '../types/Maybe';
  * A binder is the interface for a certain type of information. There is a binder for orders, and one for customers, et
  * cetera.
  */
-export default class Binder<R, T extends R> {
+export default class Binder<R, T extends Omit<R, '_links' | '_embedded'>> {
   /**
    * Injects `nextPage`, `nextPageCursor`, `previousPage`, and `previousPageCursor` into the passed list.
    */
