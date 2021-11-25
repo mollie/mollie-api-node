@@ -31,7 +31,7 @@ export default class MethodsBinder extends Binder<MethodData, Method> {
    * @deprecated Use `page` instead.
    * @see https://docs.mollie.com/reference/v2/methods-api/list-methods
    */
-  public all: MethodsBinder['page'] = this.page;
+  public all: MethodsBinder['list'] = this.list;
   /**
    * Retrieve all enabled payment methods. The results are not paginated.
    *
@@ -46,10 +46,10 @@ export default class MethodsBinder extends Binder<MethodData, Method> {
    * how they can be used for recurring payments.
    *
    * @since 3.0.0
-   * @deprecated Use `page` instead.
+   * @deprecated Use `list` instead.
    * @see https://docs.mollie.com/reference/v2/methods-api/list-methods
    */
-  public list: MethodsBinder['page'] = this.page;
+  public page: MethodsBinder['list'] = this.list;
 
   /**
    * Retrieve a single method by its ID. Note that if a method is not available on the website profile a status `404 Not found` is returned. When the method is not enabled, a status `403 Forbidden` is
@@ -85,10 +85,10 @@ export default class MethodsBinder extends Binder<MethodData, Method> {
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/methods-api/list-methods
    */
-  public page(parameters?: ListParameters): Promise<List<Method>>;
-  public page(parameters: ListParameters, callback: Callback<List<Method>>): void;
-  public page(parameters: ListParameters = {}) {
-    if (renege(this, this.page, ...arguments)) return;
-    return this.networkClient.list<MethodData, Method>(pathSegment, 'methods', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
+  public list(parameters?: ListParameters): Promise<List<Method>>;
+  public list(parameters: ListParameters, callback: Callback<List<Method>>): void;
+  public list(parameters: ListParameters = {}) {
+    if (renege(this, this.list, ...arguments)) return;
+    return this.networkClient.list<MethodData, Method>(pathSegment, 'methods', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
   }
 }

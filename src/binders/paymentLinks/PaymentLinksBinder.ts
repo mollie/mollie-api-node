@@ -48,10 +48,12 @@ export default class PaymentsLinksBinder extends Binder<PaymentLinkData, Payment
   }
 
   /**
-   * Retrieve a single payment link object by its token.
+   * Retrieve all payments links created with the current website profile, ordered from newest to oldest.
+   *
+   * The results are paginated. See pagination for more information.
    *
    * @since 3.6.0
-   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link
+   * @see https://docs.mollie.com/reference/v2/payment-links-api/list-payment-links
    */
   public page(parameters?: ListParameters): Promise<List<PaymentLink>>;
   public page(parameters: ListParameters, callback: Callback<List<PaymentLink>>): void;

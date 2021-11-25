@@ -18,10 +18,10 @@ export default class PermissionsBinder extends Binder<PermissionData, Permission
    * List all permissions available with the current app access token. The list is not paginated.
    *
    * @since 3.2.0
-   * @deprecated Use `page` instead.
+   * @deprecated Use `list` instead.
    * @see https://docs.mollie.com/reference/v2/permissions-api/list-permissions
    */
-  public list: PermissionsBinder['page'] = this.page;
+  public page: PermissionsBinder['list'] = this.list;
 
   /**
    * Retrieve the details on a specific permission, and see if the permission is granted to the current app access token.
@@ -42,13 +42,13 @@ export default class PermissionsBinder extends Binder<PermissionData, Permission
   /**
    * List all permissions available with the current app access token. The list is not paginated.
    *
-   * @since 3.2.0 (as `list`)
+   * @since 3.2.0
    * @see https://docs.mollie.com/reference/v2/permissions-api/list-permissions
    */
-  public page(): Promise<List<Permission>>;
-  public page(callback: Callback<List<Permission>>): void;
-  public page() {
-    if (renege(this, this.page, ...arguments)) return;
-    return this.networkClient.list<PermissionData, Permission>(pathSegment, 'permissions', {}).then(result => this.injectPaginationHelpers<undefined>(result, this.page, undefined));
+  public list(): Promise<List<Permission>>;
+  public list(callback: Callback<List<Permission>>): void;
+  public list() {
+    if (renege(this, this.list, ...arguments)) return;
+    return this.networkClient.list<PermissionData, Permission>(pathSegment, 'permissions', {}).then(result => this.injectPaginationHelpers<undefined>(result, this.list, undefined));
   }
 }
