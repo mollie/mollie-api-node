@@ -1,5 +1,6 @@
 import { PaymentMethod } from '../../../data/global';
 import { PaymentData } from '../../../data/payments/data';
+import { PaginationParameters } from '../../../types/parameters';
 import PickOptional from '../../../types/PickOptional';
 
 interface ContextParameters {
@@ -23,4 +24,4 @@ export type CreateParameters = ContextParameters &
     method: PaymentMethod | PaymentMethod[];
   };
 
-export type ListParameters = ContextParameters;
+export type ListParameters = ContextParameters & PaginationParameters;
