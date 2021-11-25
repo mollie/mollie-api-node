@@ -28,7 +28,7 @@ export default class MethodsBinder extends Binder<MethodData, Method> {
    * how they can be used for recurring payments.
    *
    * @since 2.0.0
-   * @deprecated Use `page` instead.
+   * @deprecated Use `list` instead.
    * @see https://docs.mollie.com/reference/v2/methods-api/list-methods
    */
   public all: MethodsBinder['list'] = this.list;

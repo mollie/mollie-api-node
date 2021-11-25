@@ -21,7 +21,7 @@ export default class OrderShipmentsBinder extends InnerBinder<ShipmentData, Ship
    * Retrieve all shipments for an order.
    *
    * @since 3.0.0
-   * @deprecated Use `page` instead.
+   * @deprecated Use `list` instead.
    * @see https://docs.mollie.com/reference/v2/shipments-api/list-shipments
    */
   public all: OrderShipmentsBinder['list'] = this.list;
