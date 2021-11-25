@@ -4,6 +4,22 @@
 
 All notable changes to this project will be documented in this file.
 
+### v3.6.0 _Christmas special_ - 2021-12-25
+
+  - Update APIs ([#211](https://github.com/mollie/mollie-api-node/pull/211)/[#229](https://github.com/mollie/mollie-api-node/pull/229)/[#245](https://github.com/mollie/mollie-api-node/pull/245))
+  - Update documentation ([#244](https://github.com/mollie/mollie-api-node/pull/244))
+  - Implement iteration API ([#235](https://github.com/mollie/mollie-api-node/pull/235))
+  - Rename properties to dromedary case, e.g. `customers_payments` → `customerPayments` ([#223](https://github.com/mollie/mollie-api-node/pull/223)/[#226](https://github.com/mollie/mollie-api-node/pull/226))
+  - Add link methods, e.g. `payment.getRefunds()` ([#232](https://github.com/mollie/mollie-api-node/pull/232))
+  - Add `refresh` method ([#225](https://github.com/mollie/mollie-api-node/pull/225))
+  - Deprecate unhelpful methods and properties ([#233](https://github.com/mollie/mollie-api-node/pull/233)/[#234](https://github.com/mollie/mollie-api-node/pull/234)/[#240](https://github.com/mollie/mollie-api-node/pull/240)/[#241](https://github.com/mollie/mollie-api-node/pull/241)/[#247](https://github.com/mollie/mollie-api-node/pull/247))
+  - Fix Node.js < 10 bug ([#239](https://github.com/mollie/mollie-api-node/pull/239))
+  - Improve string representations ([#238](https://github.com/mollie/mollie-api-node/pull/238))
+  - Improve error messages ([#236](https://github.com/mollie/mollie-api-node/pull/236))
+  - Make `message` of `ApiError` instances enumerable ([#213](https://github.com/mollie/mollie-api-node/pull/213))
+  - Remove lodash ([#237](https://github.com/mollie/mollie-api-node/pull/237))
+  - Update dependencies and CAs ([#248](https://github.com/mollie/mollie-api-node/pull/248))
+
 ### v3.5.1 - 2021-05-14
 
   - Update dependencies
