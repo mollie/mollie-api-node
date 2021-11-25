@@ -98,22 +98,6 @@ export default class OrderShipmentsBinder extends InnerBinder<ShipmentData, Ship
   }
 
   /**
-   * Retrieve all shipments for an order.
-   *
-   * @since 3.6.0
-   * @see https://docs.mollie.com/reference/v2/shipments-api/list-shipments
-   */
-  public iterate(parameters: Omit<ListParameters, 'limit'>) {
-    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
-    const orderId = this.getParentId((parameters ?? {}).orderId);
-    if (!checkId(orderId, 'order')) {
-      throw new ApiError('The order id is invalid');
-    }
-    const { orderId: _, ...query } = parameters ?? {};
-    return this.networkClient.iterate<ShipmentData, Shipment>(getPathSegments(orderId), 'shipments', { ...query, limit: 64 });
-  }
-
-  /**
    * This endpoint can be used to update the tracking information of a shipment.
    *
    * @since 3.0.0
