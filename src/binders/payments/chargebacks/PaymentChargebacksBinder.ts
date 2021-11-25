@@ -1,5 +1,5 @@
 import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
-import Chargeback, { ChargebackData, transform } from '../../../data/chargebacks/Chargeback';
+import Chargeback, { ChargebackData } from '../../../data/chargebacks/Chargeback';
 import List from '../../../data/list/List';
 import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
