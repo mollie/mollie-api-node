@@ -207,7 +207,7 @@ Mollie is always looking for new talent to join our teams. We’re looking for i
 
 ## License
 
-[New BSD (Berkeley Software Distribution) License](https://opensource.org/licenses/BSD-3-Clause). Copyright 2013-2019, Mollie B.V.
+[New BSD (Berkeley Software Distribution) License](https://opensource.org/licenses/BSD-3-Clause). Copyright 2013-2021, Mollie B.V.
 
 
 [payments]: https://docs.mollie.com/reference/v2/payments-api/create-payment
