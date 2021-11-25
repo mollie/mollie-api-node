@@ -31,10 +31,11 @@ export default class TransformingNetworkClient {
     }.bind(this);
   }
 
-  async post<R extends Model<any, any>, U extends any>(...passingArguments: Parameters<NetworkClient['post']>) {
+  async post<R extends Model<any, any>, U>(...passingArguments: Parameters<NetworkClient['post']>) {
     const response = await this.networkClient.post<R>(...passingArguments);
     if (response == true) {
-      return true as U;
+      // (If the response is true, it is assumed that the U type variable is true.)
+      return true as unknown as U;
     }
     return this.transform(response) as U;
   }
@@ -61,10 +62,11 @@ export default class TransformingNetworkClient {
     return this.networkClient.patch<R>(...passingArguments).then(this.transform) as Promise<U>;
   }
 
-  async delete<R extends Model<any, any>, U extends any>(...passingArguments: Parameters<NetworkClient['delete']>) {
+  async delete<R extends Model<any, any>, U>(...passingArguments: Parameters<NetworkClient['delete']>) {
     const response = await this.networkClient.delete<R>(...passingArguments);
     if (response == true) {
-      return true as U;
+      // (If the response is true, it is assumed that the U type variable is true.)
+      return true as unknown as U;
     }
     return this.transform(response) as U;
   }
