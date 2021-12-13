@@ -3,6 +3,7 @@ import { OrderAddress, OrderData, OrderEmbed } from '../../data/orders/data';
 import { OrderLineData } from '../../data/orders/orderlines/OrderLine';
 import { PaymentData } from '../../data/payments/data';
 import { PaginationParameters } from '../../types/parameters';
+import { CreateParameters as PaymentCreateParameters } from '../payments/parameters';
 import PickOptional from '../../types/PickOptional';
 
 export type CreateParameters = Pick<OrderData, 'amount' | 'orderNumber' | 'billingAddress' | 'webhookUrl' | 'locale' | 'metadata' | 'expiresAt'> & {
@@ -70,7 +71,21 @@ export type CreateParameters = Pick<OrderData, 'amount' | 'orderNumber' | 'billi
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/create-order?path=payment#parameters
    */
-  payment?: Partial<PaymentData>;
+  payment?: Pick<
+    PaymentCreateParameters,
+    | 'applePayPaymentToken'
+    | 'cardToken'
+    | 'consumerAccount'
+    | 'customerId'
+    | 'customerReference'
+    | 'issuer'
+    | 'mandateId'
+    | 'sequenceType'
+    | 'voucherNumber'
+    | 'voucherPin'
+    | 'webhookUrl'
+    | 'applicationFee'
+  >;
   /**
    * For digital goods, you must make sure to apply the VAT rate from your customer's country in most jurisdictions. Use this parameter to restrict the payment methods available to your customer to
    * methods from the billing country only.
