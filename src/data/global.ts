@@ -111,7 +111,7 @@ export interface Address {
   country: string;
 }
 
-export type CardLabel = 'American Express' | 'Carta Si' | 'Carte Bleue' | 'Dankort' | 'Diners' | 'Club' | 'Discover' | 'JCB' | 'Laser' | 'Maestro' | 'Mastercard' | 'Unionpay' | 'Visa';
+export type CardLabel = 'American Express' | 'Carta Si' | 'Carte Bleue' | 'Dankort' | 'Diners Club' | 'Discover' | 'JCB' | 'Laser' | 'Maestro' | 'Mastercard' | 'Unionpay' | 'Visa';
 
 export type CardFailureReason =
   | 'authentication_abandoned'
@@ -132,7 +132,7 @@ export type CardFailureReason =
 
 export type CardAudience = 'consumer' | 'business';
 
-export type FeeRegion = 'american-express' | 'carte-bancaire' | 'intra-eu' | 'maestro' | 'other';
+export type FeeRegion = 'american-express' | 'amex-intra-eea' | 'carte-bancaire' | 'intra-eu' | 'intra-eu-corporate' | 'domestic' | 'maestro' | 'other';
 
 export enum SequenceType {
   oneoff = 'oneoff',

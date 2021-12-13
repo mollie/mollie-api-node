@@ -10,6 +10,7 @@ export type GetParameters = ContextParameters & {
   embed?: CaptureEmbed[];
 };
 
-export type ListParameters = ContextParameters & PaginationParameters & {
-  embed?: CaptureEmbed[];
-};
+export type ListParameters = ContextParameters &
+  PaginationParameters & {
+    embed?: CaptureEmbed[];
+  };
