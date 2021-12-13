@@ -42,8 +42,6 @@ export default class OrderRefundsBinder extends InnerBinder<RefundData, Refund> 
   /**
    * When using the Orders API, refunds should be made for a specific order.
    *
-   * When using *pay after delivery* payment methods such as *Klarna Pay later* and *Klarna Slice it*, your customer will receive a credit invoice with more information about the refunded products.
-   *
    * If you want to refund arbitrary amounts, however, you can also use the Create payment refund endpoint for Pay later and Slice it by creating a refund on the payment itself.
    *
    * If an order line is still in the `authorized` status, it cannot be refunded. You should cancel it instead. Order lines that are `paid`, `shipping` or `completed` can be refunded.

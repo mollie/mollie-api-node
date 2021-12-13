@@ -21,7 +21,8 @@ export default class PaymentCapturesBinder extends InnerBinder<CaptureData, Capt
   /**
    * Retrieve all captures for a certain payment.
    *
-   * Captures are used for payments that have the *authorize-then-capture* flow. The only payment methods at the moment that have this flow are *Klarna Pay later* and *Klarna Slice it*.
+   * Captures are used for payments that have the *authorize-then-capture* flow. The only payment methods at the moment that have this flow are *Klarna Pay now*, *Klarna Pay later* and *Klarna Slice
+   * it*.
    *
    * @since 1.1.1
    * @deprecated Use `page` instead.
@@ -31,7 +32,8 @@ export default class PaymentCapturesBinder extends InnerBinder<CaptureData, Capt
   /**
    * Retrieve all captures for a certain payment.
    *
-   * Captures are used for payments that have the *authorize-then-capture* flow. The only payment methods at the moment that have this flow are *Klarna Pay later* and *Klarna Slice it*.
+   * Captures are used for payments that have the *authorize-then-capture* flow. The only payment methods at the moment that have this flow are *Klarna Pay now*, *Klarna Pay later* and *Klarna Slice
+   * it*.
    *
    * @since 3.0.0
    * @deprecated Use `page` instead.
@@ -42,7 +44,8 @@ export default class PaymentCapturesBinder extends InnerBinder<CaptureData, Capt
   /**
    * Retrieve a single capture by its ID. Note the original payment's ID is needed as well.
    *
-   * Captures are used for payments that have the *authorize-then-capture* flow. The only payment methods at the moment that have this flow are **Klarna Pay later** and **Klarna Slice it**.
+   * Captures are used for payments that have the *authorize-then-capture* flow. The only payment methods at the moment that have this flow are **Klarna Pay now**, **Klarna Pay later** and **Klarna
+   * Slice it**.
    *
    * @since 1.1.1
    * @see https://docs.mollie.com/reference/v2/captures-api/get-capture
@@ -66,7 +69,8 @@ export default class PaymentCapturesBinder extends InnerBinder<CaptureData, Capt
   /**
    * Retrieve all captures for a certain payment.
    *
-   * Captures are used for payments that have the *authorize-then-capture* flow. The only payment methods at the moment that have this flow are *Klarna Pay later* and *Klarna Slice it*.
+   * Captures are used for payments that have the *authorize-then-capture* flow. The only payment methods at the moment that have this flow are *Klarna Pay now*, *Klarna Pay later* and *Klarna Slice
+   * it*.
    *
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/captures-api/list-captures
@@ -87,7 +91,8 @@ export default class PaymentCapturesBinder extends InnerBinder<CaptureData, Capt
   /**
    * Retrieve all captures for a certain payment.
    *
-   * Captures are used for payments that have the *authorize-then-capture* flow. The only payment methods at the moment that have this flow are *Klarna Pay later* and *Klarna Slice it*.
+   * Captures are used for payments that have the *authorize-then-capture* flow. The only payment methods at the moment that have this flow are *Klarna Pay now*, *Klarna Pay later* and *Klarna Slice
+   * it*.
    *
    * @since 3.6.0
    * @see https://docs.mollie.com/reference/v2/captures-api/list-captures

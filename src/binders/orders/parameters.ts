@@ -40,7 +40,8 @@ export type CreateParameters = Pick<OrderData, 'amount' | 'orderNumber' | 'billi
   /**
    * The shipping address for the order.
    *
-   * Please refer to the documentation of the address object for more information on which formats are accepted.
+   * This field is optional, but if it is provided, then the full name and address have to be in a valid format. Please refer to the documentation of the address object for more information on which
+   * formats are accepted.
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/create-order?path=shippingAddress#parameters
    */

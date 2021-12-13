@@ -80,8 +80,8 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
   public list: OrdersBinder['page'] = this.page;
 
   /**
-   * Using the Orders API is the preferred approach when integrating the Mollie API into e-commerce applications such as webshops. If you want to use *Klarna Pay later*, *Klarna Slice it*, *Klarna Pay
-   * now* or *Vouchers*, using the Orders API is mandatory.
+   * Using the Orders API is the preferred approach when integrating the Mollie API into e-commerce applications such as webshops. If you want to use *Klarna Pay now*, *Klarna Pay later*, *Klarna
+   * Slice it* or *Vouchers*, using the Orders API is mandatory.
    *
    * Creating an Order will automatically create the required Payment to allow your customer to pay for the order.
    *
