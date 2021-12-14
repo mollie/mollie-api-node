@@ -223,7 +223,22 @@ export interface PaymentData extends Model<'payment'> {
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details#ideal
    */
-  details?: Details; // TODO: check if this should become a required field, even as an embedded object
+  details?:
+    | BancontactDetails
+    | BankTransferDetails
+    | BelfiusPayButtonDetails
+    | BitcoinDetails
+    | CreditCardDetails
+    | GiftCardDetails
+    | IdealDetails
+    | IngHomePayDetails
+    | KbcCbcPaymentButtonDetails
+    | KlarnaDetails
+    | PayPalDetails
+    | PaysafecardDetails
+    | SepaDirectDebitDetails
+    | SofortBankingDetails
+    | VoucherDetails;
   _embedded?: {
     refunds?: Omit<RefundData, '_embedded'>[];
     chargebacks?: Omit<ChargebackData, '_embedded'>[];
@@ -297,22 +312,6 @@ interface PaymentLinks extends Links {
   order?: Url;
 }
 
-export type Details =
-  | BancontactDetails
-  | BankTransferDetails
-  | BelfiusPayButtonDetails
-  | BitcoinDetails
-  | CreditCardDetails
-  | GiftCardDetails
-  | IdealDetails
-  | IngHomePayDetails
-  | KbcCbcPaymentButtonDetails
-  | KlarnaDetails
-  | PayPalDetails
-  | PaysafecardDetails
-  | SepaDirectDebitDetails
-  | SofortBankingDetails;
-
 export interface BancontactDetails {
   /**
    * Only available if the payment is completed - The last four digits of the card number.
@@ -323,6 +322,7 @@ export interface BancontactDetails {
   /**
    * Only available if the payment is completed - Unique alphanumeric representation of card, usable for identifying returning customers.
    *
+   * @deprecated Use `consumerAccount` instead.
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/cardFingerprint#bancontact
    */
   cardFingerprint: string;
@@ -350,6 +350,12 @@ export interface BancontactDetails {
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerBic#bancontact
    */
   consumerBic: string;
+  /**
+   * The reason why the payment did not succeed. Only available when there's a reason known.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/failureReason#bancontact
+   */
+  failureReason: string;
 }
 
 export interface BankTransferLinks extends Links {
@@ -495,7 +501,7 @@ export interface CreditCardDetails {
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/cardSecurity#Credit%20card%20v2
    */
-  cardSecurity: string;
+  cardSecurity: 'normal' | '3dsecure';
   /**
    * Only available if the payment has been completed – The fee region for the payment. The `intra-eu` value is for consumer cards from the EEA.
    *
@@ -513,6 +519,22 @@ export interface CreditCardDetails {
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/failureReason#Credit%20card%20v2
    */
   failureReason: CardFailureReason;
+  /**
+   * A localized message that can be shown to your customer, depending on the `failureReason`.
+   *
+   * Example value: `Der Kontostand Ihrer Kreditkarte ist unzureichend. Bitte verwenden Sie eine andere Karte.`.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/failureMessage#Credit%20card%20v2
+   */
+  failureMessage: string;
+  /**
+   * The wallet used when creating the payment.
+   *
+   * Possible values: `applepay`
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/wallet#Credit%20card%20v2
+   */
+  wallet?: 'applepay';
 }
 
 export interface GiftCardDetails {
@@ -634,7 +656,7 @@ export interface PayPalDetails {
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/shippingAddress#paypal
    */
-  shippingAddress: Address & { givenName?: string; familyName?: string };
+  shippingAddress?: Address;
   /**
    * The amount of fee PayPal will charge for this transaction. This field is omitted if PayPal will not charge a fee for this transaction.
    *
@@ -752,6 +774,46 @@ export interface SofortBankingDetails {
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/consumerBic#sofort-banking
    */
   consumerBic: string;
+}
+
+export interface VoucherDetails {
+  /**
+   * The ID of the voucher brand that was used during the payment. When multiple vouchers are used, this is the issuer of the first voucher.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/issuer#vouchers
+   */
+  issuer: string;
+  /**
+   * A list of details of all vouchers that are used for this payment. Each object will contain the following properties.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/vouchers#vouchers
+   */
+  vouchers: {
+    /**
+     * The ID of the voucher brand that was used during the payment.
+     *
+     * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/vouchers/issuer#vouchers
+     */
+    issuer: string;
+    /**
+     * The amount that was paid with this voucher.
+     *
+     * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/vouchers/amount#vouchers
+     */
+    amount: Amount;
+  }[];
+  /**
+   * Only available if another payment method was used to pay the remainder amount – The amount that was paid with another payment method for the remainder amount.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/remainderAmount#vouchers
+   */
+  remainderAmount: Amount;
+  /**
+   * Only available if another payment method was used to pay the remainder amount – The payment method that was used to pay the remainder amount.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/remainderMethod#vouchers
+   */
+  remainderMethod: string;
 }
 
 export interface QrCode {

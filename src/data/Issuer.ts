@@ -35,4 +35,6 @@ export type GiftcardIssuer =
 
 export type KbcIssuer = 'kbc' | 'cbc';
 
-export type Issuer = IdealIssuer | GiftcardIssuer | KbcIssuer;
+type VoucherIssuer = string;
+
+export type Issuer = IdealIssuer | GiftcardIssuer | KbcIssuer | VoucherIssuer;

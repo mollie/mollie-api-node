@@ -29,18 +29,6 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=restrictPaymentMethodsToCountry#parameters
      */
     restrictPaymentMethodsToCountry?: string;
-    billingEmail?: string;
-    /**
-     * The date the payment should expire, in `YYYY-MM-DD` format. **Please note:** the minimum date is tomorrow and the maximum date is 100 days after tomorrow.
-     *
-     * After you created the payment, you can still update the `dueDate` via /reference/v2/payments-api/update-payment.
-     *
-     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=dueDate#bank-transfer
-     */
-    dueDate?: string;
-    billingAddress?: Address;
-    shippingAddress?: Address;
-    digitalGoods?: boolean;
     /**
      * The [Apple Pay Payment Token](https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypayment/1916095-token) object (encoded as JSON) that is part of the result of authorizing a
      * payment request. The token contains the payment information needed to authorize the payment.
@@ -54,13 +42,65 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=applePayPaymentToken#apple-pay
      */
     applePayPaymentToken?: string;
+    billingEmail?: string;
     /**
-     * An iDEAL issuer ID, for example `ideal_INGBNL2A`. This is useful when you want to embed the issuer selection on your own checkout screen. When supplying an issuer ID, the returned payment URL
-     * will deep-link to the specific banking website (ING Bank, in this example). The full list of issuers can be retrieved via the Methods API by using the optional `issuers` include.
+     * The date the payment should expire, in `YYYY-MM-DD` format. **Please note:** the minimum date is tomorrow and the maximum date is 100 days after tomorrow.
      *
-     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=issuer#ideal
+     * After you created the payment, you can still update the `dueDate` via /reference/v2/payments-api/update-payment.
+     *
+     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=dueDate#bank-transfer
      */
+    dueDate?: string;
+    /**
+     * The card holder's address details. We advise to provide these details to improve the credit card fraud protection, and thus improve conversion.
+     *
+     * If an address is provided, then the address has to be in a valid format. Please refer to the documentation of the address object for more information on which formats are accepted.
+     *
+     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=billingAddress#credit-card
+     */
+    billingAddress?: Address;
+    /**
+     * The card token you got from Mollie Components. The token contains the card information (such as card holder, card number, and expiry date) needed to complete the payment.
+     *
+     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=cardToken#credit-card
+     */
+    cardToken?: string;
+    shippingAddress?: Address & {
+      // Note that this field is required for PayPal payments; but is disregarded for credit card payments.
+      givenName?: string;
+      // Note that this field is required for PayPal payments; but is disregarded for credit card payments.
+      familyName?: string;
+    };
     issuer?: Issuer;
+    /**
+     * The card number on the gift card. You can supply this to prefill the card number.
+     *
+     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=voucherNumber#gift-cards
+     */
+    voucherNumber?: string;
+    /**
+     * The PIN code on the gift card. You can supply this to prefill the PIN, if the card has any.
+     *
+     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=voucherPin#gift-cards
+     */
+    voucherPin?: string;
+    /**
+     * The unique ID you have used for the PayPal fraud library. You should include this if you use PayPal for an on-demand payment. The maximum character length is 32.
+     *
+     * Please refer to the Recurring payments guide for more information on how to implement the fraud library.
+     *
+     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=sessionId#paypal-method-details
+     */
+    sessionId?: string;
+    /**
+     * Indicate if you are about to deliver digital goods, like for example a license. Setting this parameter can have consequences for your Seller Protection by PayPal. Please see [PayPal's help
+     * article](https://www.paypal.com/us/brc/article/seller-protection) about Seller Protection for more information.
+     *
+     * Default: `false`
+     *
+     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=digitalGoods#paypal-method-details
+     */
+    digitalGoods?: boolean;
     /**
      * Used for consumer identification. Use the following guidelines to create your `customerReference`:
      *
@@ -90,21 +130,7 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=consumerAccount#sepa-direct-debit
      */
     consumerAccount?: string;
-    /**
-     * The card number on the gift card. You can supply this to prefill the card number.
-     *
-     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=voucherNumber#gift-cards
-     */
-    voucherNumber?: string;
-    /**
-     * The PIN code on the gift card. You can supply this to prefill the PIN, if the card has any.
-     *
-     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=voucherPin#gift-cards
-     */
-    voucherPin?: string;
-
     include?: PaymentInclude[] | PaymentInclude;
-
     profileId?: string;
     testmode?: boolean;
     /**
