@@ -1,7 +1,6 @@
 import { PaymentMethod } from '../../data/global';
 import { OrderAddress, OrderData, OrderEmbed } from '../../data/orders/data';
 import { OrderLineData } from '../../data/orders/orderlines/OrderLine';
-import { PaymentData } from '../../data/payments/data';
 import { PaginationParameters } from '../../types/parameters';
 import { CreateParameters as PaymentCreateParameters } from '../payments/parameters';
 import PickOptional from '../../types/PickOptional';
