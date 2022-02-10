@@ -9,16 +9,6 @@
 
 [Mollie](https://www.mollie.com/) builds payment products, commerce solutions and APIs that let you accept online and mobile payments, for small online stores and Fortune 500s alike. Accepting [Credit Card][credit-card], [Apple Pay][apple-pay], [PayPal][paypal], [Klarna: Pay now][klarna-pay-now], [Klarna: Pay later][klarna-pay-later], [Klarna: Slice it][klarna-slice-it], [iDeal][ideal], [vouchers][meal-eco-gift-vouchers], [SEPA Bank Transfer][bank-transfer], [SEPA Direct Debit][direct-debit], [SOFORT banking][sofort], [Bancontact][bancontact], [Cartes Bancaires][cartes-bancaires], [EPS][eps], [PostePay][postepay], [Giropay][giropay], [KBC Payment Button][kbc-cbc], [Belfius Pay Button][belfius], [paysafecard][paysafecard], [gift cards][gift-cards], and [Przelewy24][przelewy24] online payments without fixed monthly costs or any punishing registration procedures. Just use the Mollie API to receive payments directly on your website or easily refund transactions to your customers.
 
-## Features
-
-- [Payments][payments]: are the heart of the Mollie API: this is where most implementations start off.
-- [Methods][methods]: show all the payment methods activated on the website profile. Also allows you to integrate iDEAL's bank selection screen into your own payment flow.
-- [Refunds][refunds]: allow you to make refunds in relation to a payment.
-- [Customers][customers]: allow you to manage your customer's details.
-- [Orders][orders]: allows you to use Mollie for your order management. Pay after delivery payment methods, such as Klarna Pay later and Klarna Slice it, require orders and cannot be used with payments.
-- [Mandates][mandates]: allow you to charge a customer's credit card or bank account recurrently.
-- [Subscriptions][subscriptions]: allow you to schedule recurring payments to take place at regular intervals.
-
 ### A note on use outside of Node.js
 
 This is a JavaScript library, a language which is universal by nature. While it is theoretically possible to include this library into a website or mobile app, it is not recommended to do so.
@@ -155,14 +145,6 @@ Want to help us make our API client even better? We take [pull requests](https:/
 
 [New BSD (Berkeley Software Distribution) License](https://opensource.org/licenses/BSD-3-Clause). Copyright 2013-2021, Mollie B.V.
 
-
-[payments]: https://docs.mollie.com/reference/v2/payments-api/create-payment
-[methods]: https://docs.mollie.com/reference/v2/methods-api/list-methods
-[refunds]: https://docs.mollie.com/reference/v2/refunds-api/create-refund
-[customers]: https://docs.mollie.com/reference/v2/customers-api/create-customer
-[orders]: https://docs.mollie.com/reference/v2/orders-api/create-order
-[mandates]: https://docs.mollie.com/reference/v2/mandates-api/create-mandate
-[subscriptions]: https://docs.mollie.com/reference/v2/subscriptions-api/create-subscription
 
 [credit-card]: https://www.mollie.com/payments/credit-card
 [apple-pay]: https://www.mollie.com/payments/apple-pay
