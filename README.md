@@ -41,7 +41,7 @@ yarn add @mollie/api-client
 
 ### Manual installation
 
-Alternatively, you may use `git checkout` or [download an archive](https://github.com/mollie/mollie-api-node/archive/master.zip).
+Alternatively, you may use `git clone` or [download an archive](https://github.com/mollie/mollie-api-node/archive/master.zip).
 
 ## Getting started
 
