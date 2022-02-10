@@ -131,7 +131,7 @@ For a deep dive in how our systems function, we refer to [our excellent guides](
 
 ## API reference
 
-This library is a wrapper around our Mollie API. Some more specific details are better explained in [our API reference][payments], and you can also get a better understanding of how the requests look under the hood.
+This library is a wrapper around our Mollie API. Some more specific details are better explained in [our API reference][https://docs.mollie.com/reference/v2/], and you can also get a better understanding of how the requests look under the hood.
 
 ## Migrating
 
