@@ -127,7 +127,7 @@ const payments = mollieClient.payments.iterate()
 
 ## Guides
 
-For a deep dive in how our systems function, we refer to [our excellent guides](https://www.mollie.com/en/docs/overview). These guides provide a complete overview of the Mollie API and cover specific topics dealing with a number of important aspects of the API.
+For a deep dive in how our systems function, we refer to [our excellent guides](https://docs.mollie.com/). These guides provide a complete overview of the Mollie API and cover specific topics dealing with a number of important aspects of the API.
 
 ## API reference
 
