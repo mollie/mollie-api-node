@@ -4,7 +4,7 @@
 
 All notable changes to this project will be documented in this file.
 
-### v3.6.0 _Christmas special_ - 2021-12-25
+### v3.6.0 - 2022-02-10
 
   - Update APIs ([#211](https://github.com/mollie/mollie-api-node/pull/211)/[#229](https://github.com/mollie/mollie-api-node/pull/229)/[#245](https://github.com/mollie/mollie-api-node/pull/245))
   - Update documentation ([#244](https://github.com/mollie/mollie-api-node/pull/244))
