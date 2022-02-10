@@ -94,7 +94,7 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
    * @see https://docs.mollie.com/reference/v2/orders-api/create-order
    */
   public create(parameters: CreateParameters): Promise<Order>;
-  public create(parameters: CreateParameters): void;
+  public create(parameters: CreateParameters, callback: Callback<Order>): void;
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
     const { embed, ...data } = parameters;
