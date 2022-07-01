@@ -6,7 +6,8 @@ import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import List from '../data/list/List';
 import ApiError from '../errors/ApiError';
 import Options from '../Options';
-import HelpfulIterator from '../plumbing/HelpfulIterator';
+import DemandingIterator from '../plumbing/iteration/DemandingIterator';
+import HelpfulIterator from '../plumbing/iteration/HelpfulIterator';
 import Maybe from '../types/Maybe';
 import Nullable from '../types/Nullable';
 import dromedaryCase from './dromedaryCase';
@@ -179,7 +180,7 @@ export default class NetworkClient {
   }
 
   iterate<R>(...firstPageArguments: Parameters<NetworkClient['list']>): HelpfulIterator<R> {
-    return new HelpfulIterator<R>(iterate(this, ...firstPageArguments));
+    return new DemandingIterator(() => new HelpfulIterator<R>(iterate(this, ...firstPageArguments)));
   }
 
   async patch<R>(relativePath: string, data: any): Promise<R> {

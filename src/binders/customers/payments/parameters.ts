@@ -21,7 +21,7 @@ export type CreateParameters = ContextParameters &
      *
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=method#parameters
      */
-    method: PaymentMethod | PaymentMethod[];
+    method?: PaymentMethod | PaymentMethod[];
   };
 
 export type ListParameters = ContextParameters & PaginationParameters;

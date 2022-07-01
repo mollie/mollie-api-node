@@ -1,7 +1,6 @@
 import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import Chargeback, { ChargebackData } from '../../data/chargebacks/Chargeback';
 import List from '../../data/list/List';
-import HelpfulIterator from '../../plumbing/HelpfulIterator';
 import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
 import InnerBinder from '../InnerBinder';
@@ -58,7 +57,7 @@ export default class ChargebacksBinder extends InnerBinder<ChargebackData, Charg
    * @since 3.6.0
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
    */
-  public iterate(parameters?: Omit<ListParameters, 'limit'>): HelpfulIterator<Chargeback> {
+  public iterate(parameters?: Omit<ListParameters, 'limit'>) {
     return this.networkClient.iterate<ChargebackData, Chargeback>(pathSegment, 'chargebacks', { ...parameters, limit: 64 });
   }
 }

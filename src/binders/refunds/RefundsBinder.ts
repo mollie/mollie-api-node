@@ -2,7 +2,6 @@ import TransformingNetworkClient from '../../communication/TransformingNetworkCl
 import List from '../../data/list/List';
 import { RefundData } from '../../data/refunds/data';
 import Refund from '../../data/refunds/Refund';
-import HelpfulIterator from '../../plumbing/HelpfulIterator';
 import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
 import Binder from '../Binder';
@@ -59,7 +58,7 @@ export default class RefundsBinder extends Binder<RefundData, Refund> {
    * @since 3.6.0
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
    */
-  public iterate(parameters?: Omit<ListParameters, 'limit'>): HelpfulIterator<Refund> {
+  public iterate(parameters?: Omit<ListParameters, 'limit'>) {
     return this.networkClient.iterate<RefundData, Refund>(pathSegment, 'refunds', { ...parameters, limit: 64 });
   }
 }
