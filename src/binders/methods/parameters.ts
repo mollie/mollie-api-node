@@ -87,4 +87,15 @@ export interface ListParameters {
   include?: MethodInclude[] | MethodInclude;
   profileId?: string;
   testmode?: boolean;
+  /**
+   * A comma-separated list of the wallets you support in your checkout. Wallets often require wallet specific code to check if they are available on the shoppers device, hence the need to indicate
+   * your support.
+   *
+   * Example: `https://api.mollie.com/v2/methods?includeWallets=applepay`
+   *
+   * Possible values: `applepay`
+   *
+   * @see https://docs.mollie.com/reference/v2/methods-api/list-methods?path=includeWallets#parameters
+   */
+  includeWallets?: string;
 }
