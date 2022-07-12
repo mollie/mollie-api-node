@@ -58,6 +58,6 @@ export default class ChargebacksBinder extends InnerBinder<ChargebackData, Charg
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
    */
   public iterate(parameters?: Omit<ListParameters, 'limit'>) {
-    return this.networkClient.iterate<ChargebackData, Chargeback>(pathSegment, 'chargebacks', { ...parameters, limit: 64 });
+    return this.networkClient.iterate<ChargebackData, Chargeback>(pathSegment, 'chargebacks', parameters);
   }
 }

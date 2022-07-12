@@ -4,52 +4,95 @@ import nock, { BackMode } from 'nock';
 import { setupRecorder } from 'nock-record';
 import { apply, run } from 'ruply';
 import createMollieClient, { MollieClient } from '..';
+import fling from '../src/plumbing/fling';
+
+type MaybePromise<T> = T | Promise<T>;
 
 /**
- * Creates a client with the API key from the environment variables.
+ * Returns a mode which creates a client with an API key. This API key is obtained from the environment variables
+ * unless `mockAuthorization` is set to `true`.
  */
-export function apiKeyClientFactory(mockNetwork: boolean) {
-  if (mockNetwork) {
-    return createMollieClient({ apiKey: 'test_mock' });
+export function getApiKeyClientMode(mockAuthorization = false) {
+  if (mockAuthorization) {
+    return () => ({ client: createMollieClient({ apiKey: 'test_mock' }) });
   }
-  const apiKey = dotenv.config().parsed!.API_KEY;
-  return createMollieClient({ apiKey });
+  return () => {
+    const apiKey = dotenv.config().parsed!.API_KEY;
+    return { client: apply(createMollieClient({ apiKey }), client => ((client as { apiKey?: string }).apiKey = apiKey)) };
+  };
 }
 
 /**
- * Creates a client with an access token to be used in a test, based on the refresh token from the environment
- * variables.
+ * Returns a mode which creates a client with an access token. The access token is requested using the refresh token
+ * obtained from the environment variables unless `mockAuthorization` is set to `true`.
  */
-export async function accessTokenClientFactory(mockNetwork: boolean) {
-  if (mockNetwork) {
-    return createMollieClient({ accessToken: 'access_mock' });
+export function getAccessTokenClientMode(mockAuthorization = false) {
+  if (mockAuthorization) {
+    return () => ({ client: createMollieClient({ accessToken: 'access_mock' }) });
   }
-  const { oauthAuthorizationHeaderValue, refreshToken } = run(dotenv.config().parsed!, ({ CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN }) => ({
-    oauthAuthorizationHeaderValue: `Basic: ${Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64')}`,
-    refreshToken: REFRESH_TOKEN,
-  }));
-  const { data } = await axios.post(
-    'https://api.mollie.com/oauth2/tokens',
-    {
-      grant_type: 'refresh_token',
-      refresh_token: refreshToken,
-    },
-    { headers: { Authorization: oauthAuthorizationHeaderValue } },
-  );
-  return apply(createMollieClient({ accessToken: data.access_token }), client => ((client as { accessToken?: string }).accessToken = data.access_token));
+  return async () => {
+    const { oauthAuthorizationHeaderValue, refreshToken } = run(dotenv.config().parsed!, ({ CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN }) => ({
+      oauthAuthorizationHeaderValue: `Basic: ${Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64')}`,
+      refreshToken: REFRESH_TOKEN,
+    }));
+    const { data } = await axios.post(
+      'https://api.mollie.com/oauth2/tokens',
+      {
+        grant_type: 'refresh_token',
+        refresh_token: refreshToken,
+      },
+      { headers: { Authorization: oauthAuthorizationHeaderValue } },
+    );
+    const accessToken: string = data['access_token'];
+    return { client: apply(createMollieClient({ accessToken }), client => ((client as { accessToken?: string }).accessToken = accessToken)) };
+  };
 }
+
+/**
+ * Wraps the passed mode factory, adding functionality to it which starts and stops Nock Back.
+ */
+function useNockBack(
+  nockMode: BackMode,
+  mockAuthorization: boolean,
+  getMode: (mockAuthorization: boolean) => () => MaybePromise<{ client: MollieClient; cleanup?: () => void }>,
+  networkFixtureName: string,
+) {
+  return async () => {
+    // Activate the original mode.
+    const { client, cleanup } = await getMode(mockAuthorization)();
+    // Start recording network traffic.
+    const { completeRecording } = await setupRecorder({ mode: nockMode })(networkFixtureName);
+    return {
+      client,
+      cleanup: () => {
+        // Stop recording network traffic.
+        completeRecording();
+        // Call the cleanup provided by the original mode (if any).
+        cleanup?.();
+      },
+    };
+  };
+}
+
+/**
+ * Wraps the passed mode factory, adding functionality which records communication with the Mollie API.
+ */
+export const record = useNockBack.bind(undefined, 'update', false);
+
+/**
+ * Wraps the passed mode factory, adding functionality which replays existing recordings of communication with the
+ * Mollie API.
+ */
+export const replay = useNockBack.bind(undefined, 'lockdown', true);
 
 /**
  * A helper for tests. It either records communication with the Mollie API (when `mockNetwork` is `false`) or uses
  * existing recordings to simulate the network (when `mockNetwork` is `true`).
  */
 export default class NetworkMocker {
-  protected readonly clientFactory: () => MollieClient | Promise<MollieClient>;
-  protected readonly nockMode: BackMode;
-  protected completeRecording: (() => void) | undefined;
-  constructor(mockNetwork: boolean, clientFactory: (mockNetwork: boolean) => MollieClient | Promise<MollieClient>, protected readonly networkFixtureName: string) {
-    this.clientFactory = clientFactory.bind(undefined, mockNetwork);
-    this.nockMode = mockNetwork ? 'lockdown' : 'update';
+  public cleanup: () => void;
+  constructor(protected readonly mode: () => MaybePromise<{ client: MollieClient; cleanup?: () => void }>) {
+    this.cleanup = fling.bind(undefined, () => new Error('cleanup called before prepare'));
   }
 
   async prepare() {
@@ -57,20 +100,15 @@ export default class NetworkMocker {
     if (nock.isActive() === false) {
       nock.activate();
     }
-    // Create the client.
-    const mollieClient = await this.clientFactory();
-    // Start recording network traffic.
-    await apply(setupRecorder({ mode: this.nockMode })(this.networkFixtureName), ({ completeRecording }) => (this.completeRecording = completeRecording));
-    return mollieClient;
-  }
-
-  cleanup() {
-    // Deactivate Nock (for other tests which might not expect Nock's monkey patch).
-    nock.restore();
-    // Stop recording network traffic.
-    if (this.completeRecording == undefined) {
-      throw new Error('cleanup called before prepare');
-    }
-    this.completeRecording();
+    // Activate the mode.
+    const { client, cleanup } = await this.mode();
+    // Create the cleanup function.
+    this.cleanup = () => {
+      // Deactivate Nock (for other tests which might not expect Nock's monkey patch).
+      nock.restore();
+      // Call the cleanup provided by the mode (if any).
+      cleanup?.();
+    };
+    return client;
   }
 }

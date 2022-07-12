@@ -59,6 +59,6 @@ export default class RefundsBinder extends Binder<RefundData, Refund> {
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
    */
   public iterate(parameters?: Omit<ListParameters, 'limit'>) {
-    return this.networkClient.iterate<RefundData, Refund>(pathSegment, 'refunds', { ...parameters, limit: 64 });
+    return this.networkClient.iterate<RefundData, Refund>(pathSegment, 'refunds', parameters);
   }
 }

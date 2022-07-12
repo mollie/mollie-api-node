@@ -98,7 +98,7 @@ export default class CustomersBinder extends Binder<CustomerData, Customer> {
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
    */
   public iterate(parameters?: Omit<ListParameters, 'limit'>) {
-    return this.networkClient.iterate<CustomerData, Customer>(pathSegment, 'customers', { ...parameters, limit: 64 });
+    return this.networkClient.iterate<CustomerData, Customer>(pathSegment, 'customers', parameters);
   }
 
   /**

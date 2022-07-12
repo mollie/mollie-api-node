@@ -13,7 +13,7 @@
         "status": 201,
         "response": {
             "resource": "profile",
-            "id": "pfl_hkANkBahxW",
+            "id": "pfl_VmWrA97Mj4",
             "mode": "test",
             "name": "Iteration test profile",
             "website": "https://example.org",
@@ -22,34 +22,34 @@
             "categoryCode": 0,
             "businessCategory": null,
             "status": "unverified",
-            "createdAt": "2021-11-12T13:13:02+00:00",
+            "createdAt": "2022-07-12T12:21:43+00:00",
             "_links": {
                 "self": {
-                    "href": "https://api.mollie.com/v2/profiles/pfl_hkANkBahxW",
+                    "href": "https://api.mollie.com/v2/profiles/pfl_VmWrA97Mj4",
                     "type": "application/hal+json"
                 },
                 "dashboard": {
-                    "href": "https://www.mollie.com/dashboard/org_6227451/settings/profiles/pfl_hkANkBahxW",
+                    "href": "https://www.mollie.com/dashboard/org_6227451/settings/profiles/pfl_VmWrA97Mj4",
                     "type": "text/html"
                 },
                 "chargebacks": {
-                    "href": "https://api.mollie.com/v2/chargebacks?profileId=pfl_hkANkBahxW",
+                    "href": "https://api.mollie.com/v2/chargebacks?profileId=pfl_VmWrA97Mj4",
                     "type": "application/hal+json"
                 },
                 "methods": {
-                    "href": "https://api.mollie.com/v2/methods?profileId=pfl_hkANkBahxW",
+                    "href": "https://api.mollie.com/v2/methods?profileId=pfl_VmWrA97Mj4",
                     "type": "application/hal+json"
                 },
                 "payments": {
-                    "href": "https://api.mollie.com/v2/payments?profileId=pfl_hkANkBahxW",
+                    "href": "https://api.mollie.com/v2/payments?profileId=pfl_VmWrA97Mj4",
                     "type": "application/hal+json"
                 },
                 "refunds": {
-                    "href": "https://api.mollie.com/v2/refunds?profileId=pfl_hkANkBahxW",
+                    "href": "https://api.mollie.com/v2/refunds?profileId=pfl_VmWrA97Mj4",
                     "type": "application/hal+json"
                 },
                 "checkoutPreviewUrl": {
-                    "href": "https://www.mollie.com/checkout/preview/pfl_hkANkBahxW",
+                    "href": "https://www.mollie.com/checkout/preview/pfl_VmWrA97Mj4",
                     "type": "text/html"
                 },
                 "documentation": {
@@ -62,7 +62,7 @@
             "Server",
             "nginx",
             "Date",
-            "Fri, 12 Nov 2021 13:13:02 GMT",
+            "Tue, 12 Jul 2022 12:21:43 GMT",
             "Content-Type",
             "application/hal+json",
             "Content-Length",
@@ -71,6 +71,8 @@
             "close",
             "X-Robots-Tag",
             "noindex",
+            "X-XSS-Protection",
+            "1; mode=block",
             "Strict-Transport-Security",
             "max-age=31536000; includeSubDomains; preload"
         ],
@@ -79,7 +81,7 @@
     {
         "scope": "https://api.mollie.com:443",
         "method": "POST",
-        "path": "/v2/profiles/pfl_hkANkBahxW/methods/ideal",
+        "path": "/v2/profiles/pfl_VmWrA97Mj4/methods/ideal",
         "body": "",
         "status": 201,
         "response": {
@@ -99,7 +101,7 @@
                 "size2x": "https://www.mollie.com/external/icons/payment-methods/ideal%402x.png",
                 "svg": "https://www.mollie.com/external/icons/payment-methods/ideal.svg"
             },
-            "status": "pending-review",
+            "status": "pending-boarding",
             "_links": {
                 "self": {
                     "href": "https://api.mollie.com/v2/methods/ideal",
@@ -115,15 +117,17 @@
             "Server",
             "nginx",
             "Date",
-            "Fri, 12 Nov 2021 13:13:03 GMT",
+            "Tue, 12 Jul 2022 12:21:43 GMT",
             "Content-Type",
             "application/hal+json",
             "Content-Length",
-            "632",
+            "634",
             "Connection",
             "close",
             "X-Robots-Tag",
             "noindex",
+            "X-XSS-Protection",
+            "1; mode=block",
             "Strict-Transport-Security",
             "max-age=31536000; includeSubDomains; preload"
         ],
@@ -134,7 +138,7 @@
         "method": "POST",
         "path": "/v2/payments",
         "body": {
-            "profileId": "pfl_hkANkBahxW",
+            "profileId": "pfl_VmWrA97Mj4",
             "testmode": true,
             "method": "ideal",
             "amount": {
@@ -148,9 +152,9 @@
         "status": 201,
         "response": {
             "resource": "payment",
-            "id": "tr_9JQmUJK9zh",
+            "id": "tr_cMr8ivMiQm",
             "mode": "test",
-            "createdAt": "2021-11-12T13:13:03+00:00",
+            "createdAt": "2022-07-12T12:21:43+00:00",
             "amount": {
                 "value": "19.50",
                 "currency": "EUR"
@@ -160,22 +164,22 @@
             "metadata": null,
             "status": "open",
             "isCancelable": false,
-            "expiresAt": "2021-11-12T13:28:03+00:00",
-            "profileId": "pfl_hkANkBahxW",
+            "expiresAt": "2022-07-12T12:36:43+00:00",
+            "profileId": "pfl_VmWrA97Mj4",
             "sequenceType": "oneoff",
             "redirectUrl": "https://example.org",
             "webhookUrl": "https://example.org/payments/webhook/",
             "_links": {
                 "self": {
-                    "href": "https://api.mollie.com/v2/payments/tr_9JQmUJK9zh?testmode=true",
+                    "href": "https://api.mollie.com/v2/payments/tr_cMr8ivMiQm?testmode=true",
                     "type": "application/hal+json"
                 },
                 "checkout": {
-                    "href": "https://www.mollie.com/checkout/select-issuer/ideal/9JQmUJK9zh",
+                    "href": "https://www.mollie.com/checkout/select-issuer/ideal/cMr8ivMiQm",
                     "type": "text/html"
                 },
                 "dashboard": {
-                    "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_9JQmUJK9zh",
+                    "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_cMr8ivMiQm",
                     "type": "text/html"
                 },
                 "documentation": {
@@ -188,7 +192,7 @@
             "Server",
             "nginx",
             "Date",
-            "Fri, 12 Nov 2021 13:13:03 GMT",
+            "Tue, 12 Jul 2022 12:21:44 GMT",
             "Content-Type",
             "application/hal+json",
             "Content-Length",
@@ -197,6 +201,8 @@
             "close",
             "X-Robots-Tag",
             "noindex",
+            "X-XSS-Protection",
+            "1; mode=block",
             "Strict-Transport-Security",
             "max-age=31536000; includeSubDomains; preload"
         ],
@@ -207,7 +213,7 @@
         "method": "POST",
         "path": "/v2/payments",
         "body": {
-            "profileId": "pfl_hkANkBahxW",
+            "profileId": "pfl_VmWrA97Mj4",
             "testmode": true,
             "method": "ideal",
             "amount": {
@@ -221,9 +227,9 @@
         "status": 201,
         "response": {
             "resource": "payment",
-            "id": "tr_SvuyD7Dcyv",
+            "id": "tr_3fZ6wUHXFQ",
             "mode": "test",
-            "createdAt": "2021-11-12T13:13:03+00:00",
+            "createdAt": "2022-07-12T12:21:44+00:00",
             "amount": {
                 "value": "59.99",
                 "currency": "EUR"
@@ -233,22 +239,22 @@
             "metadata": null,
             "status": "open",
             "isCancelable": false,
-            "expiresAt": "2021-11-12T13:28:03+00:00",
-            "profileId": "pfl_hkANkBahxW",
+            "expiresAt": "2022-07-12T12:36:44+00:00",
+            "profileId": "pfl_VmWrA97Mj4",
             "sequenceType": "oneoff",
             "redirectUrl": "https://example.org",
             "webhookUrl": "https://example.org/payments/webhook/",
             "_links": {
                 "self": {
-                    "href": "https://api.mollie.com/v2/payments/tr_SvuyD7Dcyv?testmode=true",
+                    "href": "https://api.mollie.com/v2/payments/tr_3fZ6wUHXFQ?testmode=true",
                     "type": "application/hal+json"
                 },
                 "checkout": {
-                    "href": "https://www.mollie.com/checkout/select-issuer/ideal/SvuyD7Dcyv",
+                    "href": "https://www.mollie.com/checkout/select-issuer/ideal/3fZ6wUHXFQ",
                     "type": "text/html"
                 },
                 "dashboard": {
-                    "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_SvuyD7Dcyv",
+                    "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_3fZ6wUHXFQ",
                     "type": "text/html"
                 },
                 "documentation": {
@@ -261,7 +267,7 @@
             "Server",
             "nginx",
             "Date",
-            "Fri, 12 Nov 2021 13:13:03 GMT",
+            "Tue, 12 Jul 2022 12:21:44 GMT",
             "Content-Type",
             "application/hal+json",
             "Content-Length",
@@ -270,6 +276,8 @@
             "close",
             "X-Robots-Tag",
             "noindex",
+            "X-XSS-Protection",
+            "1; mode=block",
             "Strict-Transport-Security",
             "max-age=31536000; includeSubDomains; preload"
         ],
@@ -280,7 +288,7 @@
         "method": "POST",
         "path": "/v2/payments",
         "body": {
-            "profileId": "pfl_hkANkBahxW",
+            "profileId": "pfl_VmWrA97Mj4",
             "testmode": true,
             "method": "ideal",
             "amount": {
@@ -294,9 +302,9 @@
         "status": 201,
         "response": {
             "resource": "payment",
-            "id": "tr_jkkqEfyT32",
+            "id": "tr_HkFcGhsAZD",
             "mode": "test",
-            "createdAt": "2021-11-12T13:13:03+00:00",
+            "createdAt": "2022-07-12T12:21:44+00:00",
             "amount": {
                 "value": "59.99",
                 "currency": "EUR"
@@ -306,22 +314,22 @@
             "metadata": null,
             "status": "open",
             "isCancelable": false,
-            "expiresAt": "2021-11-12T13:28:03+00:00",
-            "profileId": "pfl_hkANkBahxW",
+            "expiresAt": "2022-07-12T12:36:44+00:00",
+            "profileId": "pfl_VmWrA97Mj4",
             "sequenceType": "oneoff",
             "redirectUrl": "https://example.org",
             "webhookUrl": "https://example.org/payments/webhook/",
             "_links": {
                 "self": {
-                    "href": "https://api.mollie.com/v2/payments/tr_jkkqEfyT32?testmode=true",
+                    "href": "https://api.mollie.com/v2/payments/tr_HkFcGhsAZD?testmode=true",
                     "type": "application/hal+json"
                 },
                 "checkout": {
-                    "href": "https://www.mollie.com/checkout/select-issuer/ideal/jkkqEfyT32",
+                    "href": "https://www.mollie.com/checkout/select-issuer/ideal/HkFcGhsAZD",
                     "type": "text/html"
                 },
                 "dashboard": {
-                    "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_jkkqEfyT32",
+                    "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_HkFcGhsAZD",
                     "type": "text/html"
                 },
                 "documentation": {
@@ -334,7 +342,7 @@
             "Server",
             "nginx",
             "Date",
-            "Fri, 12 Nov 2021 13:13:03 GMT",
+            "Tue, 12 Jul 2022 12:21:44 GMT",
             "Content-Type",
             "application/hal+json",
             "Content-Length",
@@ -343,6 +351,8 @@
             "close",
             "X-Robots-Tag",
             "noindex",
+            "X-XSS-Protection",
+            "1; mode=block",
             "Strict-Transport-Security",
             "max-age=31536000; includeSubDomains; preload"
         ],
@@ -353,7 +363,7 @@
         "method": "POST",
         "path": "/v2/payments",
         "body": {
-            "profileId": "pfl_hkANkBahxW",
+            "profileId": "pfl_VmWrA97Mj4",
             "testmode": true,
             "method": "ideal",
             "amount": {
@@ -367,9 +377,9 @@
         "status": 201,
         "response": {
             "resource": "payment",
-            "id": "tr_rAV3GVMhSW",
+            "id": "tr_pjZjuhVFfQ",
             "mode": "test",
-            "createdAt": "2021-11-12T13:13:03+00:00",
+            "createdAt": "2022-07-12T12:21:44+00:00",
             "amount": {
                 "value": "72.99",
                 "currency": "EUR"
@@ -379,22 +389,22 @@
             "metadata": null,
             "status": "open",
             "isCancelable": false,
-            "expiresAt": "2021-11-12T13:28:03+00:00",
-            "profileId": "pfl_hkANkBahxW",
+            "expiresAt": "2022-07-12T12:36:44+00:00",
+            "profileId": "pfl_VmWrA97Mj4",
             "sequenceType": "oneoff",
             "redirectUrl": "https://example.org",
             "webhookUrl": "https://example.org/payments/webhook/",
             "_links": {
                 "self": {
-                    "href": "https://api.mollie.com/v2/payments/tr_rAV3GVMhSW?testmode=true",
+                    "href": "https://api.mollie.com/v2/payments/tr_pjZjuhVFfQ?testmode=true",
                     "type": "application/hal+json"
                 },
                 "checkout": {
-                    "href": "https://www.mollie.com/checkout/select-issuer/ideal/rAV3GVMhSW",
+                    "href": "https://www.mollie.com/checkout/select-issuer/ideal/pjZjuhVFfQ",
                     "type": "text/html"
                 },
                 "dashboard": {
-                    "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_rAV3GVMhSW",
+                    "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_pjZjuhVFfQ",
                     "type": "text/html"
                 },
                 "documentation": {
@@ -407,7 +417,7 @@
             "Server",
             "nginx",
             "Date",
-            "Fri, 12 Nov 2021 13:13:03 GMT",
+            "Tue, 12 Jul 2022 12:21:44 GMT",
             "Content-Type",
             "application/hal+json",
             "Content-Length",
@@ -416,6 +426,8 @@
             "close",
             "X-Robots-Tag",
             "noindex",
+            "X-XSS-Protection",
+            "1; mode=block",
             "Strict-Transport-Security",
             "max-age=31536000; includeSubDomains; preload"
         ],
@@ -426,7 +438,7 @@
         "method": "POST",
         "path": "/v2/payments",
         "body": {
-            "profileId": "pfl_hkANkBahxW",
+            "profileId": "pfl_VmWrA97Mj4",
             "testmode": true,
             "method": "ideal",
             "amount": {
@@ -440,9 +452,9 @@
         "status": 201,
         "response": {
             "resource": "payment",
-            "id": "tr_RMdNesa4mM",
+            "id": "tr_TGXYNg7Ggg",
             "mode": "test",
-            "createdAt": "2021-11-12T13:13:03+00:00",
+            "createdAt": "2022-07-12T12:21:44+00:00",
             "amount": {
                 "value": "65.00",
                 "currency": "EUR"
@@ -452,22 +464,22 @@
             "metadata": null,
             "status": "open",
             "isCancelable": false,
-            "expiresAt": "2021-11-12T13:28:03+00:00",
-            "profileId": "pfl_hkANkBahxW",
+            "expiresAt": "2022-07-12T12:36:44+00:00",
+            "profileId": "pfl_VmWrA97Mj4",
             "sequenceType": "oneoff",
             "redirectUrl": "https://example.org",
             "webhookUrl": "https://example.org/payments/webhook/",
             "_links": {
                 "self": {
-                    "href": "https://api.mollie.com/v2/payments/tr_RMdNesa4mM?testmode=true",
+                    "href": "https://api.mollie.com/v2/payments/tr_TGXYNg7Ggg?testmode=true",
                     "type": "application/hal+json"
                 },
                 "checkout": {
-                    "href": "https://www.mollie.com/checkout/select-issuer/ideal/RMdNesa4mM",
+                    "href": "https://www.mollie.com/checkout/select-issuer/ideal/TGXYNg7Ggg",
                     "type": "text/html"
                 },
                 "dashboard": {
-                    "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_RMdNesa4mM",
+                    "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_TGXYNg7Ggg",
                     "type": "text/html"
                 },
                 "documentation": {
@@ -480,7 +492,7 @@
             "Server",
             "nginx",
             "Date",
-            "Fri, 12 Nov 2021 13:13:03 GMT",
+            "Tue, 12 Jul 2022 12:21:44 GMT",
             "Content-Type",
             "application/hal+json",
             "Content-Length",
@@ -489,6 +501,8 @@
             "close",
             "X-Robots-Tag",
             "noindex",
+            "X-XSS-Protection",
+            "1; mode=block",
             "Strict-Transport-Security",
             "max-age=31536000; includeSubDomains; preload"
         ],
@@ -499,7 +513,7 @@
         "method": "POST",
         "path": "/v2/payments",
         "body": {
-            "profileId": "pfl_hkANkBahxW",
+            "profileId": "pfl_VmWrA97Mj4",
             "testmode": true,
             "method": "ideal",
             "amount": {
@@ -513,9 +527,9 @@
         "status": 201,
         "response": {
             "resource": "payment",
-            "id": "tr_aAN4eBNezF",
+            "id": "tr_wSkaZxtr64",
             "mode": "test",
-            "createdAt": "2021-11-12T13:13:04+00:00",
+            "createdAt": "2022-07-12T12:21:45+00:00",
             "amount": {
                 "value": "20.00",
                 "currency": "EUR"
@@ -525,22 +539,22 @@
             "metadata": null,
             "status": "open",
             "isCancelable": false,
-            "expiresAt": "2021-11-12T13:28:04+00:00",
-            "profileId": "pfl_hkANkBahxW",
+            "expiresAt": "2022-07-12T12:36:45+00:00",
+            "profileId": "pfl_VmWrA97Mj4",
             "sequenceType": "oneoff",
             "redirectUrl": "https://example.org",
             "webhookUrl": "https://example.org/payments/webhook/",
             "_links": {
                 "self": {
-                    "href": "https://api.mollie.com/v2/payments/tr_aAN4eBNezF?testmode=true",
+                    "href": "https://api.mollie.com/v2/payments/tr_wSkaZxtr64?testmode=true",
                     "type": "application/hal+json"
                 },
                 "checkout": {
-                    "href": "https://www.mollie.com/checkout/select-issuer/ideal/aAN4eBNezF",
+                    "href": "https://www.mollie.com/checkout/select-issuer/ideal/wSkaZxtr64",
                     "type": "text/html"
                 },
                 "dashboard": {
-                    "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_aAN4eBNezF",
+                    "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_wSkaZxtr64",
                     "type": "text/html"
                 },
                 "documentation": {
@@ -553,7 +567,7 @@
             "Server",
             "nginx",
             "Date",
-            "Fri, 12 Nov 2021 13:13:04 GMT",
+            "Tue, 12 Jul 2022 12:21:45 GMT",
             "Content-Type",
             "application/hal+json",
             "Content-Length",
@@ -562,6 +576,8 @@
             "close",
             "X-Robots-Tag",
             "noindex",
+            "X-XSS-Protection",
+            "1; mode=block",
             "Strict-Transport-Security",
             "max-age=31536000; includeSubDomains; preload"
         ],
@@ -572,7 +588,7 @@
         "method": "POST",
         "path": "/v2/payments",
         "body": {
-            "profileId": "pfl_hkANkBahxW",
+            "profileId": "pfl_VmWrA97Mj4",
             "testmode": true,
             "method": "ideal",
             "amount": {
@@ -586,9 +602,9 @@
         "status": 201,
         "response": {
             "resource": "payment",
-            "id": "tr_kwxvTFd6a4",
+            "id": "tr_BSbtt9Uobe",
             "mode": "test",
-            "createdAt": "2021-11-12T13:13:04+00:00",
+            "createdAt": "2022-07-12T12:21:45+00:00",
             "amount": {
                 "value": "20.00",
                 "currency": "EUR"
@@ -598,22 +614,22 @@
             "metadata": null,
             "status": "open",
             "isCancelable": false,
-            "expiresAt": "2021-11-12T13:28:04+00:00",
-            "profileId": "pfl_hkANkBahxW",
+            "expiresAt": "2022-07-12T12:36:45+00:00",
+            "profileId": "pfl_VmWrA97Mj4",
             "sequenceType": "oneoff",
             "redirectUrl": "https://example.org",
             "webhookUrl": "https://example.org/payments/webhook/",
             "_links": {
                 "self": {
-                    "href": "https://api.mollie.com/v2/payments/tr_kwxvTFd6a4?testmode=true",
+                    "href": "https://api.mollie.com/v2/payments/tr_BSbtt9Uobe?testmode=true",
                     "type": "application/hal+json"
                 },
                 "checkout": {
-                    "href": "https://www.mollie.com/checkout/select-issuer/ideal/kwxvTFd6a4",
+                    "href": "https://www.mollie.com/checkout/select-issuer/ideal/BSbtt9Uobe",
                     "type": "text/html"
                 },
                 "dashboard": {
-                    "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_kwxvTFd6a4",
+                    "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_BSbtt9Uobe",
                     "type": "text/html"
                 },
                 "documentation": {
@@ -626,7 +642,7 @@
             "Server",
             "nginx",
             "Date",
-            "Fri, 12 Nov 2021 13:13:04 GMT",
+            "Tue, 12 Jul 2022 12:21:45 GMT",
             "Content-Type",
             "application/hal+json",
             "Content-Length",
@@ -635,6 +651,8 @@
             "close",
             "X-Robots-Tag",
             "noindex",
+            "X-XSS-Protection",
+            "1; mode=block",
             "Strict-Transport-Security",
             "max-age=31536000; includeSubDomains; preload"
         ],
@@ -643,7 +661,7 @@
     {
         "scope": "https://api.mollie.com:443",
         "method": "GET",
-        "path": "/v2/payments?profileId=pfl_hkANkBahxW&testmode=true&limit=64",
+        "path": "/v2/payments?profileId=pfl_VmWrA97Mj4&testmode=true&limit=128",
         "body": "",
         "status": 200,
         "response": {
@@ -651,9 +669,9 @@
                 "payments": [
                     {
                         "resource": "payment",
-                        "id": "tr_kwxvTFd6a4",
+                        "id": "tr_BSbtt9Uobe",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:04+00:00",
+                        "createdAt": "2022-07-12T12:21:45+00:00",
                         "amount": {
                             "value": "20.00",
                             "currency": "EUR"
@@ -663,31 +681,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:04+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:45+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_kwxvTFd6a4?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_BSbtt9Uobe?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/kwxvTFd6a4",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/BSbtt9Uobe",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_kwxvTFd6a4",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_BSbtt9Uobe",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_aAN4eBNezF",
+                        "id": "tr_wSkaZxtr64",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:04+00:00",
+                        "createdAt": "2022-07-12T12:21:45+00:00",
                         "amount": {
                             "value": "20.00",
                             "currency": "EUR"
@@ -697,31 +715,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:04+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:45+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_aAN4eBNezF?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_wSkaZxtr64?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/aAN4eBNezF",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/wSkaZxtr64",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_aAN4eBNezF",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_wSkaZxtr64",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_RMdNesa4mM",
+                        "id": "tr_TGXYNg7Ggg",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:03+00:00",
+                        "createdAt": "2022-07-12T12:21:44+00:00",
                         "amount": {
                             "value": "65.00",
                             "currency": "EUR"
@@ -731,31 +749,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:03+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:44+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_RMdNesa4mM?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_TGXYNg7Ggg?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/RMdNesa4mM",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/TGXYNg7Ggg",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_RMdNesa4mM",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_TGXYNg7Ggg",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_rAV3GVMhSW",
+                        "id": "tr_pjZjuhVFfQ",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:03+00:00",
+                        "createdAt": "2022-07-12T12:21:44+00:00",
                         "amount": {
                             "value": "72.99",
                             "currency": "EUR"
@@ -765,31 +783,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:03+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:44+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_rAV3GVMhSW?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_pjZjuhVFfQ?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/rAV3GVMhSW",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/pjZjuhVFfQ",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_rAV3GVMhSW",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_pjZjuhVFfQ",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_jkkqEfyT32",
+                        "id": "tr_HkFcGhsAZD",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:03+00:00",
+                        "createdAt": "2022-07-12T12:21:44+00:00",
                         "amount": {
                             "value": "59.99",
                             "currency": "EUR"
@@ -799,31 +817,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:03+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:44+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_jkkqEfyT32?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_HkFcGhsAZD?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/jkkqEfyT32",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/HkFcGhsAZD",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_jkkqEfyT32",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_HkFcGhsAZD",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_SvuyD7Dcyv",
+                        "id": "tr_3fZ6wUHXFQ",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:03+00:00",
+                        "createdAt": "2022-07-12T12:21:44+00:00",
                         "amount": {
                             "value": "59.99",
                             "currency": "EUR"
@@ -833,31 +851,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:03+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:44+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_SvuyD7Dcyv?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_3fZ6wUHXFQ?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/SvuyD7Dcyv",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/3fZ6wUHXFQ",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_SvuyD7Dcyv",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_3fZ6wUHXFQ",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_9JQmUJK9zh",
+                        "id": "tr_cMr8ivMiQm",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:03+00:00",
+                        "createdAt": "2022-07-12T12:21:43+00:00",
                         "amount": {
                             "value": "19.50",
                             "currency": "EUR"
@@ -867,22 +885,22 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:03+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:43+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_9JQmUJK9zh?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_cMr8ivMiQm?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/9JQmUJK9zh",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/cMr8ivMiQm",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_9JQmUJK9zh",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_cMr8ivMiQm",
                                 "type": "text/html"
                             }
                         }
@@ -896,7 +914,7 @@
                     "type": "text/html"
                 },
                 "self": {
-                    "href": "https://api.mollie.com/v2/payments?profileId=pfl_hkANkBahxW&testmode=true&limit=64",
+                    "href": "https://api.mollie.com/v2/payments?profileId=pfl_VmWrA97Mj4&testmode=true&limit=128",
                     "type": "application/hal+json"
                 },
                 "previous": null,
@@ -907,15 +925,17 @@
             "Server",
             "nginx",
             "Date",
-            "Fri, 12 Nov 2021 13:13:04 GMT",
+            "Tue, 12 Jul 2022 12:21:45 GMT",
             "Content-Type",
             "application/hal+json",
             "Content-Length",
-            "5643",
+            "5644",
             "Connection",
             "close",
             "X-Robots-Tag",
             "noindex",
+            "X-XSS-Protection",
+            "1; mode=block",
             "Strict-Transport-Security",
             "max-age=31536000; includeSubDomains; preload"
         ],
@@ -924,7 +944,7 @@
     {
         "scope": "https://api.mollie.com:443",
         "method": "GET",
-        "path": "/v2/payments?profileId=pfl_hkANkBahxW&testmode=true&limit=64",
+        "path": "/v2/payments?profileId=pfl_VmWrA97Mj4&testmode=true&limit=128",
         "body": "",
         "status": 200,
         "response": {
@@ -932,9 +952,9 @@
                 "payments": [
                     {
                         "resource": "payment",
-                        "id": "tr_kwxvTFd6a4",
+                        "id": "tr_BSbtt9Uobe",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:04+00:00",
+                        "createdAt": "2022-07-12T12:21:45+00:00",
                         "amount": {
                             "value": "20.00",
                             "currency": "EUR"
@@ -944,31 +964,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:04+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:45+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_kwxvTFd6a4?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_BSbtt9Uobe?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/kwxvTFd6a4",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/BSbtt9Uobe",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_kwxvTFd6a4",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_BSbtt9Uobe",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_aAN4eBNezF",
+                        "id": "tr_wSkaZxtr64",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:04+00:00",
+                        "createdAt": "2022-07-12T12:21:45+00:00",
                         "amount": {
                             "value": "20.00",
                             "currency": "EUR"
@@ -978,31 +998,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:04+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:45+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_aAN4eBNezF?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_wSkaZxtr64?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/aAN4eBNezF",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/wSkaZxtr64",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_aAN4eBNezF",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_wSkaZxtr64",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_RMdNesa4mM",
+                        "id": "tr_TGXYNg7Ggg",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:03+00:00",
+                        "createdAt": "2022-07-12T12:21:44+00:00",
                         "amount": {
                             "value": "65.00",
                             "currency": "EUR"
@@ -1012,31 +1032,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:03+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:44+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_RMdNesa4mM?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_TGXYNg7Ggg?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/RMdNesa4mM",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/TGXYNg7Ggg",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_RMdNesa4mM",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_TGXYNg7Ggg",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_rAV3GVMhSW",
+                        "id": "tr_pjZjuhVFfQ",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:03+00:00",
+                        "createdAt": "2022-07-12T12:21:44+00:00",
                         "amount": {
                             "value": "72.99",
                             "currency": "EUR"
@@ -1046,31 +1066,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:03+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:44+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_rAV3GVMhSW?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_pjZjuhVFfQ?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/rAV3GVMhSW",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/pjZjuhVFfQ",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_rAV3GVMhSW",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_pjZjuhVFfQ",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_jkkqEfyT32",
+                        "id": "tr_HkFcGhsAZD",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:03+00:00",
+                        "createdAt": "2022-07-12T12:21:44+00:00",
                         "amount": {
                             "value": "59.99",
                             "currency": "EUR"
@@ -1080,31 +1100,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:03+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:44+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_jkkqEfyT32?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_HkFcGhsAZD?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/jkkqEfyT32",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/HkFcGhsAZD",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_jkkqEfyT32",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_HkFcGhsAZD",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_SvuyD7Dcyv",
+                        "id": "tr_3fZ6wUHXFQ",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:03+00:00",
+                        "createdAt": "2022-07-12T12:21:44+00:00",
                         "amount": {
                             "value": "59.99",
                             "currency": "EUR"
@@ -1114,31 +1134,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:03+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:44+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_SvuyD7Dcyv?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_3fZ6wUHXFQ?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/SvuyD7Dcyv",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/3fZ6wUHXFQ",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_SvuyD7Dcyv",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_3fZ6wUHXFQ",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_9JQmUJK9zh",
+                        "id": "tr_cMr8ivMiQm",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:03+00:00",
+                        "createdAt": "2022-07-12T12:21:43+00:00",
                         "amount": {
                             "value": "19.50",
                             "currency": "EUR"
@@ -1148,22 +1168,22 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:03+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:43+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_9JQmUJK9zh?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_cMr8ivMiQm?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/9JQmUJK9zh",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/cMr8ivMiQm",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_9JQmUJK9zh",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_cMr8ivMiQm",
                                 "type": "text/html"
                             }
                         }
@@ -1177,7 +1197,7 @@
                     "type": "text/html"
                 },
                 "self": {
-                    "href": "https://api.mollie.com/v2/payments?profileId=pfl_hkANkBahxW&testmode=true&limit=64",
+                    "href": "https://api.mollie.com/v2/payments?profileId=pfl_VmWrA97Mj4&testmode=true&limit=128",
                     "type": "application/hal+json"
                 },
                 "previous": null,
@@ -1188,15 +1208,17 @@
             "Server",
             "nginx",
             "Date",
-            "Fri, 12 Nov 2021 13:13:04 GMT",
+            "Tue, 12 Jul 2022 12:21:45 GMT",
             "Content-Type",
             "application/hal+json",
             "Content-Length",
-            "5643",
+            "5644",
             "Connection",
             "close",
             "X-Robots-Tag",
             "noindex",
+            "X-XSS-Protection",
+            "1; mode=block",
             "Strict-Transport-Security",
             "max-age=31536000; includeSubDomains; preload"
         ],
@@ -1205,7 +1227,7 @@
     {
         "scope": "https://api.mollie.com:443",
         "method": "GET",
-        "path": "/v2/payments?profileId=pfl_hkANkBahxW&testmode=true&limit=64",
+        "path": "/v2/payments?profileId=pfl_VmWrA97Mj4&testmode=true&limit=128",
         "body": "",
         "status": 200,
         "response": {
@@ -1213,9 +1235,9 @@
                 "payments": [
                     {
                         "resource": "payment",
-                        "id": "tr_kwxvTFd6a4",
+                        "id": "tr_BSbtt9Uobe",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:04+00:00",
+                        "createdAt": "2022-07-12T12:21:45+00:00",
                         "amount": {
                             "value": "20.00",
                             "currency": "EUR"
@@ -1225,31 +1247,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:04+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:45+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_kwxvTFd6a4?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_BSbtt9Uobe?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/kwxvTFd6a4",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/BSbtt9Uobe",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_kwxvTFd6a4",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_BSbtt9Uobe",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_aAN4eBNezF",
+                        "id": "tr_wSkaZxtr64",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:04+00:00",
+                        "createdAt": "2022-07-12T12:21:45+00:00",
                         "amount": {
                             "value": "20.00",
                             "currency": "EUR"
@@ -1259,31 +1281,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:04+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:45+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_aAN4eBNezF?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_wSkaZxtr64?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/aAN4eBNezF",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/wSkaZxtr64",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_aAN4eBNezF",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_wSkaZxtr64",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_RMdNesa4mM",
+                        "id": "tr_TGXYNg7Ggg",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:03+00:00",
+                        "createdAt": "2022-07-12T12:21:44+00:00",
                         "amount": {
                             "value": "65.00",
                             "currency": "EUR"
@@ -1293,31 +1315,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:03+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:44+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_RMdNesa4mM?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_TGXYNg7Ggg?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/RMdNesa4mM",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/TGXYNg7Ggg",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_RMdNesa4mM",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_TGXYNg7Ggg",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_rAV3GVMhSW",
+                        "id": "tr_pjZjuhVFfQ",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:03+00:00",
+                        "createdAt": "2022-07-12T12:21:44+00:00",
                         "amount": {
                             "value": "72.99",
                             "currency": "EUR"
@@ -1327,31 +1349,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:03+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:44+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_rAV3GVMhSW?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_pjZjuhVFfQ?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/rAV3GVMhSW",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/pjZjuhVFfQ",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_rAV3GVMhSW",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_pjZjuhVFfQ",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_jkkqEfyT32",
+                        "id": "tr_HkFcGhsAZD",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:03+00:00",
+                        "createdAt": "2022-07-12T12:21:44+00:00",
                         "amount": {
                             "value": "59.99",
                             "currency": "EUR"
@@ -1361,31 +1383,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:03+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:44+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_jkkqEfyT32?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_HkFcGhsAZD?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/jkkqEfyT32",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/HkFcGhsAZD",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_jkkqEfyT32",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_HkFcGhsAZD",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_SvuyD7Dcyv",
+                        "id": "tr_3fZ6wUHXFQ",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:03+00:00",
+                        "createdAt": "2022-07-12T12:21:44+00:00",
                         "amount": {
                             "value": "59.99",
                             "currency": "EUR"
@@ -1395,31 +1417,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:03+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:44+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_SvuyD7Dcyv?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_3fZ6wUHXFQ?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/SvuyD7Dcyv",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/3fZ6wUHXFQ",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_SvuyD7Dcyv",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_3fZ6wUHXFQ",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_9JQmUJK9zh",
+                        "id": "tr_cMr8ivMiQm",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:03+00:00",
+                        "createdAt": "2022-07-12T12:21:43+00:00",
                         "amount": {
                             "value": "19.50",
                             "currency": "EUR"
@@ -1429,22 +1451,22 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:03+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:43+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_9JQmUJK9zh?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_cMr8ivMiQm?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/9JQmUJK9zh",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/cMr8ivMiQm",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_9JQmUJK9zh",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_cMr8ivMiQm",
                                 "type": "text/html"
                             }
                         }
@@ -1458,7 +1480,7 @@
                     "type": "text/html"
                 },
                 "self": {
-                    "href": "https://api.mollie.com/v2/payments?profileId=pfl_hkANkBahxW&testmode=true&limit=64",
+                    "href": "https://api.mollie.com/v2/payments?profileId=pfl_VmWrA97Mj4&testmode=true&limit=128",
                     "type": "application/hal+json"
                 },
                 "previous": null,
@@ -1469,15 +1491,17 @@
             "Server",
             "nginx",
             "Date",
-            "Fri, 12 Nov 2021 13:13:04 GMT",
+            "Tue, 12 Jul 2022 12:21:45 GMT",
             "Content-Type",
             "application/hal+json",
             "Content-Length",
-            "5643",
+            "5644",
             "Connection",
             "close",
             "X-Robots-Tag",
             "noindex",
+            "X-XSS-Protection",
+            "1; mode=block",
             "Strict-Transport-Security",
             "max-age=31536000; includeSubDomains; preload"
         ],
@@ -1486,7 +1510,7 @@
     {
         "scope": "https://api.mollie.com:443",
         "method": "GET",
-        "path": "/v2/payments?profileId=pfl_hkANkBahxW&testmode=true&limit=64",
+        "path": "/v2/payments?profileId=pfl_VmWrA97Mj4&testmode=true&limit=128",
         "body": "",
         "status": 200,
         "response": {
@@ -1494,9 +1518,9 @@
                 "payments": [
                     {
                         "resource": "payment",
-                        "id": "tr_kwxvTFd6a4",
+                        "id": "tr_BSbtt9Uobe",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:04+00:00",
+                        "createdAt": "2022-07-12T12:21:45+00:00",
                         "amount": {
                             "value": "20.00",
                             "currency": "EUR"
@@ -1506,31 +1530,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:04+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:45+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_kwxvTFd6a4?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_BSbtt9Uobe?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/kwxvTFd6a4",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/BSbtt9Uobe",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_kwxvTFd6a4",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_BSbtt9Uobe",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_aAN4eBNezF",
+                        "id": "tr_wSkaZxtr64",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:04+00:00",
+                        "createdAt": "2022-07-12T12:21:45+00:00",
                         "amount": {
                             "value": "20.00",
                             "currency": "EUR"
@@ -1540,31 +1564,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:04+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:45+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_aAN4eBNezF?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_wSkaZxtr64?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/aAN4eBNezF",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/wSkaZxtr64",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_aAN4eBNezF",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_wSkaZxtr64",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_RMdNesa4mM",
+                        "id": "tr_TGXYNg7Ggg",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:03+00:00",
+                        "createdAt": "2022-07-12T12:21:44+00:00",
                         "amount": {
                             "value": "65.00",
                             "currency": "EUR"
@@ -1574,31 +1598,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:03+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:44+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_RMdNesa4mM?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_TGXYNg7Ggg?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/RMdNesa4mM",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/TGXYNg7Ggg",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_RMdNesa4mM",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_TGXYNg7Ggg",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_rAV3GVMhSW",
+                        "id": "tr_pjZjuhVFfQ",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:03+00:00",
+                        "createdAt": "2022-07-12T12:21:44+00:00",
                         "amount": {
                             "value": "72.99",
                             "currency": "EUR"
@@ -1608,31 +1632,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:03+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:44+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_rAV3GVMhSW?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_pjZjuhVFfQ?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/rAV3GVMhSW",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/pjZjuhVFfQ",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_rAV3GVMhSW",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_pjZjuhVFfQ",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_jkkqEfyT32",
+                        "id": "tr_HkFcGhsAZD",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:03+00:00",
+                        "createdAt": "2022-07-12T12:21:44+00:00",
                         "amount": {
                             "value": "59.99",
                             "currency": "EUR"
@@ -1642,31 +1666,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:03+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:44+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_jkkqEfyT32?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_HkFcGhsAZD?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/jkkqEfyT32",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/HkFcGhsAZD",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_jkkqEfyT32",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_HkFcGhsAZD",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_SvuyD7Dcyv",
+                        "id": "tr_3fZ6wUHXFQ",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:03+00:00",
+                        "createdAt": "2022-07-12T12:21:44+00:00",
                         "amount": {
                             "value": "59.99",
                             "currency": "EUR"
@@ -1676,31 +1700,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:03+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:44+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_SvuyD7Dcyv?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_3fZ6wUHXFQ?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/SvuyD7Dcyv",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/3fZ6wUHXFQ",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_SvuyD7Dcyv",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_3fZ6wUHXFQ",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_9JQmUJK9zh",
+                        "id": "tr_cMr8ivMiQm",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:03+00:00",
+                        "createdAt": "2022-07-12T12:21:43+00:00",
                         "amount": {
                             "value": "19.50",
                             "currency": "EUR"
@@ -1710,22 +1734,22 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:03+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:43+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_9JQmUJK9zh?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_cMr8ivMiQm?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/9JQmUJK9zh",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/cMr8ivMiQm",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_9JQmUJK9zh",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_cMr8ivMiQm",
                                 "type": "text/html"
                             }
                         }
@@ -1739,7 +1763,7 @@
                     "type": "text/html"
                 },
                 "self": {
-                    "href": "https://api.mollie.com/v2/payments?profileId=pfl_hkANkBahxW&testmode=true&limit=64",
+                    "href": "https://api.mollie.com/v2/payments?profileId=pfl_VmWrA97Mj4&testmode=true&limit=128",
                     "type": "application/hal+json"
                 },
                 "previous": null,
@@ -1750,15 +1774,17 @@
             "Server",
             "nginx",
             "Date",
-            "Fri, 12 Nov 2021 13:13:04 GMT",
+            "Tue, 12 Jul 2022 12:21:45 GMT",
             "Content-Type",
             "application/hal+json",
             "Content-Length",
-            "5643",
+            "5644",
             "Connection",
             "close",
             "X-Robots-Tag",
             "noindex",
+            "X-XSS-Protection",
+            "1; mode=block",
             "Strict-Transport-Security",
             "max-age=31536000; includeSubDomains; preload"
         ],
@@ -1767,7 +1793,7 @@
     {
         "scope": "https://api.mollie.com:443",
         "method": "GET",
-        "path": "/v2/payments?profileId=pfl_hkANkBahxW&testmode=true&limit=64",
+        "path": "/v2/payments?profileId=pfl_VmWrA97Mj4&testmode=true&limit=128",
         "body": "",
         "status": 200,
         "response": {
@@ -1775,9 +1801,9 @@
                 "payments": [
                     {
                         "resource": "payment",
-                        "id": "tr_kwxvTFd6a4",
+                        "id": "tr_BSbtt9Uobe",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:04+00:00",
+                        "createdAt": "2022-07-12T12:21:45+00:00",
                         "amount": {
                             "value": "20.00",
                             "currency": "EUR"
@@ -1787,31 +1813,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:04+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:45+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_kwxvTFd6a4?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_BSbtt9Uobe?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/kwxvTFd6a4",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/BSbtt9Uobe",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_kwxvTFd6a4",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_BSbtt9Uobe",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_aAN4eBNezF",
+                        "id": "tr_wSkaZxtr64",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:04+00:00",
+                        "createdAt": "2022-07-12T12:21:45+00:00",
                         "amount": {
                             "value": "20.00",
                             "currency": "EUR"
@@ -1821,31 +1847,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:04+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:45+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_aAN4eBNezF?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_wSkaZxtr64?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/aAN4eBNezF",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/wSkaZxtr64",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_aAN4eBNezF",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_wSkaZxtr64",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_RMdNesa4mM",
+                        "id": "tr_TGXYNg7Ggg",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:03+00:00",
+                        "createdAt": "2022-07-12T12:21:44+00:00",
                         "amount": {
                             "value": "65.00",
                             "currency": "EUR"
@@ -1855,31 +1881,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:03+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:44+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_RMdNesa4mM?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_TGXYNg7Ggg?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/RMdNesa4mM",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/TGXYNg7Ggg",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_RMdNesa4mM",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_TGXYNg7Ggg",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_rAV3GVMhSW",
+                        "id": "tr_pjZjuhVFfQ",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:03+00:00",
+                        "createdAt": "2022-07-12T12:21:44+00:00",
                         "amount": {
                             "value": "72.99",
                             "currency": "EUR"
@@ -1889,31 +1915,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:03+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:44+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_rAV3GVMhSW?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_pjZjuhVFfQ?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/rAV3GVMhSW",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/pjZjuhVFfQ",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_rAV3GVMhSW",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_pjZjuhVFfQ",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_jkkqEfyT32",
+                        "id": "tr_HkFcGhsAZD",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:03+00:00",
+                        "createdAt": "2022-07-12T12:21:44+00:00",
                         "amount": {
                             "value": "59.99",
                             "currency": "EUR"
@@ -1923,31 +1949,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:03+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:44+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_jkkqEfyT32?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_HkFcGhsAZD?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/jkkqEfyT32",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/HkFcGhsAZD",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_jkkqEfyT32",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_HkFcGhsAZD",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_SvuyD7Dcyv",
+                        "id": "tr_3fZ6wUHXFQ",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:03+00:00",
+                        "createdAt": "2022-07-12T12:21:44+00:00",
                         "amount": {
                             "value": "59.99",
                             "currency": "EUR"
@@ -1957,31 +1983,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:03+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:44+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_SvuyD7Dcyv?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_3fZ6wUHXFQ?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/SvuyD7Dcyv",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/3fZ6wUHXFQ",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_SvuyD7Dcyv",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_3fZ6wUHXFQ",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_9JQmUJK9zh",
+                        "id": "tr_cMr8ivMiQm",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:03+00:00",
+                        "createdAt": "2022-07-12T12:21:43+00:00",
                         "amount": {
                             "value": "19.50",
                             "currency": "EUR"
@@ -1991,22 +2017,22 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:03+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:43+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_9JQmUJK9zh?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_cMr8ivMiQm?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/9JQmUJK9zh",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/cMr8ivMiQm",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_9JQmUJK9zh",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_cMr8ivMiQm",
                                 "type": "text/html"
                             }
                         }
@@ -2020,7 +2046,7 @@
                     "type": "text/html"
                 },
                 "self": {
-                    "href": "https://api.mollie.com/v2/payments?profileId=pfl_hkANkBahxW&testmode=true&limit=64",
+                    "href": "https://api.mollie.com/v2/payments?profileId=pfl_VmWrA97Mj4&testmode=true&limit=128",
                     "type": "application/hal+json"
                 },
                 "previous": null,
@@ -2031,15 +2057,17 @@
             "Server",
             "nginx",
             "Date",
-            "Fri, 12 Nov 2021 13:13:05 GMT",
+            "Tue, 12 Jul 2022 12:21:46 GMT",
             "Content-Type",
             "application/hal+json",
             "Content-Length",
-            "5643",
+            "5644",
             "Connection",
             "close",
             "X-Robots-Tag",
             "noindex",
+            "X-XSS-Protection",
+            "1; mode=block",
             "Strict-Transport-Security",
             "max-age=31536000; includeSubDomains; preload"
         ],
@@ -2048,7 +2076,7 @@
     {
         "scope": "https://api.mollie.com:443",
         "method": "GET",
-        "path": "/v2/payments?profileId=pfl_hkANkBahxW&testmode=true&limit=64",
+        "path": "/v2/payments?profileId=pfl_VmWrA97Mj4&testmode=true&limit=64",
         "body": "",
         "status": 200,
         "response": {
@@ -2056,9 +2084,9 @@
                 "payments": [
                     {
                         "resource": "payment",
-                        "id": "tr_kwxvTFd6a4",
+                        "id": "tr_BSbtt9Uobe",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:04+00:00",
+                        "createdAt": "2022-07-12T12:21:45+00:00",
                         "amount": {
                             "value": "20.00",
                             "currency": "EUR"
@@ -2068,31 +2096,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:04+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:45+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_kwxvTFd6a4?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_BSbtt9Uobe?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/kwxvTFd6a4",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/BSbtt9Uobe",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_kwxvTFd6a4",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_BSbtt9Uobe",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_aAN4eBNezF",
+                        "id": "tr_wSkaZxtr64",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:04+00:00",
+                        "createdAt": "2022-07-12T12:21:45+00:00",
                         "amount": {
                             "value": "20.00",
                             "currency": "EUR"
@@ -2102,31 +2130,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:04+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:45+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_aAN4eBNezF?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_wSkaZxtr64?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/aAN4eBNezF",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/wSkaZxtr64",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_aAN4eBNezF",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_wSkaZxtr64",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_RMdNesa4mM",
+                        "id": "tr_TGXYNg7Ggg",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:03+00:00",
+                        "createdAt": "2022-07-12T12:21:44+00:00",
                         "amount": {
                             "value": "65.00",
                             "currency": "EUR"
@@ -2136,31 +2164,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:03+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:44+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_RMdNesa4mM?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_TGXYNg7Ggg?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/RMdNesa4mM",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/TGXYNg7Ggg",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_RMdNesa4mM",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_TGXYNg7Ggg",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_rAV3GVMhSW",
+                        "id": "tr_pjZjuhVFfQ",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:03+00:00",
+                        "createdAt": "2022-07-12T12:21:44+00:00",
                         "amount": {
                             "value": "72.99",
                             "currency": "EUR"
@@ -2170,31 +2198,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:03+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:44+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_rAV3GVMhSW?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_pjZjuhVFfQ?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/rAV3GVMhSW",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/pjZjuhVFfQ",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_rAV3GVMhSW",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_pjZjuhVFfQ",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_jkkqEfyT32",
+                        "id": "tr_HkFcGhsAZD",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:03+00:00",
+                        "createdAt": "2022-07-12T12:21:44+00:00",
                         "amount": {
                             "value": "59.99",
                             "currency": "EUR"
@@ -2204,31 +2232,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:03+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:44+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_jkkqEfyT32?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_HkFcGhsAZD?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/jkkqEfyT32",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/HkFcGhsAZD",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_jkkqEfyT32",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_HkFcGhsAZD",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_SvuyD7Dcyv",
+                        "id": "tr_3fZ6wUHXFQ",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:03+00:00",
+                        "createdAt": "2022-07-12T12:21:44+00:00",
                         "amount": {
                             "value": "59.99",
                             "currency": "EUR"
@@ -2238,31 +2266,31 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:03+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:44+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_SvuyD7Dcyv?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_3fZ6wUHXFQ?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/SvuyD7Dcyv",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/3fZ6wUHXFQ",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_SvuyD7Dcyv",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_3fZ6wUHXFQ",
                                 "type": "text/html"
                             }
                         }
                     },
                     {
                         "resource": "payment",
-                        "id": "tr_9JQmUJK9zh",
+                        "id": "tr_cMr8ivMiQm",
                         "mode": "test",
-                        "createdAt": "2021-11-12T13:13:03+00:00",
+                        "createdAt": "2022-07-12T12:21:43+00:00",
                         "amount": {
                             "value": "19.50",
                             "currency": "EUR"
@@ -2272,22 +2300,22 @@
                         "metadata": null,
                         "status": "open",
                         "isCancelable": false,
-                        "expiresAt": "2021-11-12T13:28:03+00:00",
-                        "profileId": "pfl_hkANkBahxW",
+                        "expiresAt": "2022-07-12T12:36:43+00:00",
+                        "profileId": "pfl_VmWrA97Mj4",
                         "sequenceType": "oneoff",
                         "redirectUrl": "https://example.org",
                         "webhookUrl": "https://example.org/payments/webhook/",
                         "_links": {
                             "self": {
-                                "href": "https://api.mollie.com/v2/payments/tr_9JQmUJK9zh?testmode=true",
+                                "href": "https://api.mollie.com/v2/payments/tr_cMr8ivMiQm?testmode=true",
                                 "type": "application/hal+json"
                             },
                             "checkout": {
-                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/9JQmUJK9zh",
+                                "href": "https://www.mollie.com/checkout/select-issuer/ideal/cMr8ivMiQm",
                                 "type": "text/html"
                             },
                             "dashboard": {
-                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_9JQmUJK9zh",
+                                "href": "https://www.mollie.com/dashboard/org_6227451/payments/tr_cMr8ivMiQm",
                                 "type": "text/html"
                             }
                         }
@@ -2301,7 +2329,7 @@
                     "type": "text/html"
                 },
                 "self": {
-                    "href": "https://api.mollie.com/v2/payments?profileId=pfl_hkANkBahxW&testmode=true&limit=64",
+                    "href": "https://api.mollie.com/v2/payments?profileId=pfl_VmWrA97Mj4&testmode=true&limit=64",
                     "type": "application/hal+json"
                 },
                 "previous": null,
@@ -2312,7 +2340,7 @@
             "Server",
             "nginx",
             "Date",
-            "Fri, 12 Nov 2021 13:13:05 GMT",
+            "Tue, 12 Jul 2022 12:21:46 GMT",
             "Content-Type",
             "application/hal+json",
             "Content-Length",
@@ -2321,6 +2349,8 @@
             "close",
             "X-Robots-Tag",
             "noindex",
+            "X-XSS-Protection",
+            "1; mode=block",
             "Strict-Transport-Security",
             "max-age=31536000; includeSubDomains; preload"
         ],

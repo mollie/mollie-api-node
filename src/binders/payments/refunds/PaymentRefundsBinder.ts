@@ -127,7 +127,7 @@ export default class PaymentRefundsBinder extends InnerBinder<RefundData, Refund
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    return this.networkClient.iterate<RefundData, Refund>(getPathSegments(paymentId), 'refunds', { ...query, limit: 64 });
+    return this.networkClient.iterate<RefundData, Refund>(getPathSegments(paymentId), 'refunds', query);
   }
 
   /**

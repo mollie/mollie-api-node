@@ -179,8 +179,19 @@ export default class NetworkClient {
     return embedded[binderName] as R[];
   }
 
-  iterate<R>(...firstPageArguments: Parameters<NetworkClient['list']>): HelpfulIterator<R> {
-    return new DemandingIterator(() => new HelpfulIterator<R>(iterate(this, ...firstPageArguments)));
+  iterate<R>(relativePath: string, type: string, query: Record<string, any> = {}): HelpfulIterator<R> {
+    return new DemandingIterator(demand => {
+      // Pick a limit (page size) based on the guessed demand. (The magic numbers below: 128 is the limit used if no
+      // demand was guessed; 250 is the maximal limit imposed by the Mollie API; 64 is the minimal limit, to ensure
+      // inaccurate guesses do not result in wastefully short pages.)
+      var limit: Number;
+      if (demand == Number.POSITIVE_INFINITY) {
+        limit = 128;
+      } /* if (demand != Number.POSITIVE_INFINITY) */ else {
+        limit = Math.max(Math.ceil(demand / Math.ceil(demand / 250)), 64);
+      }
+      return new HelpfulIterator<R>(iterate(this, relativePath, type, { ...query, limit }));
+    });
   }
 
   async patch<R>(relativePath: string, data: any): Promise<R> {

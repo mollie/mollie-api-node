@@ -107,7 +107,7 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
    * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
    */
   public iterate(parameters?: Omit<ListParameters, 'limit'>) {
-    return this.networkClient.iterate<PaymentData, Payment>(pathSegment, 'payments', { ...parameters, limit: 64 });
+    return this.networkClient.iterate<PaymentData, Payment>(pathSegment, 'payments', parameters);
   }
 
   /**

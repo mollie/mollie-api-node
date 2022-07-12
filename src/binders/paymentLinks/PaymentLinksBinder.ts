@@ -68,6 +68,6 @@ export default class PaymentsLinksBinder extends Binder<PaymentLinkData, Payment
    * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link
    */
   public iterate(parameters?: Omit<ListParameters, 'limit'>) {
-    return this.networkClient.iterate<PaymentLinkData, PaymentLink>(pathSegment, 'payment_links', { ...parameters, limit: 64 });
+    return this.networkClient.iterate<PaymentLinkData, PaymentLink>(pathSegment, 'payment_links', parameters);
   }
 }
