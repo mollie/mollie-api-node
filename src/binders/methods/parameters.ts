@@ -5,7 +5,7 @@ export interface GetParameters {
   /**
    * Passing a locale will translate the payment method name in the corresponding language.
    *
-   * Possible values: `en_US` `nl_NL` `nl_BE` `fr_FR` `fr_BE` `de_DE` `de_AT` `de_CH` `es_ES` `ca_ES` `pt_PT` `it_IT` `nb_NO` `sv_SE` `fi_FI` `da_DK` `is_IS` `hu_HU` `pl_PL` `lv_LV` `lt_LT`
+   * Possible values: `en_US` `en_GB` `nl_NL` `nl_BE` `fr_FR` `fr_BE` `de_DE` `de_AT` `de_CH` `es_ES` `ca_ES` `pt_PT` `it_IT` `nb_NO` `sv_SE` `fi_FI` `da_DK` `is_IS` `hu_HU` `pl_PL` `lv_LV` `lt_LT`
    *
    * @see https://docs.mollie.com/reference/v2/methods-api/get-method?path=locale#parameters
    */
@@ -51,7 +51,7 @@ export interface ListParameters {
   /**
    * Passing a locale will sort the payment methods in the preferred order for the country, and translate the payment method names in the corresponding language.
    *
-   * Possible values: `en_US` `nl_NL` `nl_BE` `fr_FR` `fr_BE` `de_DE` `de_AT` `de_CH` `es_ES` `ca_ES` `pt_PT` `it_IT` `nb_NO` `sv_SE` `fi_FI` `da_DK` `is_IS` `hu_HU` `pl_PL` `lv_LV` `lt_LT`
+   * Possible values: `en_US` `en_GB` `nl_NL` `nl_BE` `fr_FR` `fr_BE` `de_DE` `de_AT` `de_CH` `es_ES` `ca_ES` `pt_PT` `it_IT` `nb_NO` `sv_SE` `fi_FI` `da_DK` `is_IS` `hu_HU` `pl_PL` `lv_LV` `lt_LT`
    *
    * @see https://docs.mollie.com/reference/v2/methods-api/list-methods?path=locale#parameters
    */
@@ -84,6 +84,25 @@ export interface ListParameters {
    * @see https://docs.mollie.com/reference/v2/methods-api/list-methods?path=billingCountry#parameters
    */
   billingCountry?: string;
+  /**
+   * A comma-separated list of the wallets you support in your checkout. Wallets often require wallet specific code to check if they are available on the shoppers device, hence the need to indicate
+   * your support.
+   *
+   * Example: `https://api.mollie.com/v2/methods?includeWallets=applepay`
+   *
+   * Possible values: `applepay`
+   *
+   * @see https://docs.mollie.com/reference/v2/methods-api/list-methods?path=includeWallets#parameters
+   */
+  includeWallets?: string;
+  /**
+   * A comma-separated list of the order line categories you support in your checkout. The available categories can be found on the Create order endpoint.
+   *
+   * Example: `https://api.mollie.com/v2/methods?resource=orders&orderLineCategories=eco,meal`
+   *
+   * @see https://docs.mollie.com/reference/v2/methods-api/list-methods?path=orderLineCategories#parameters
+   */
+  orderLineCategories?: string;
   include?: MethodInclude[] | MethodInclude;
   profileId?: string;
   testmode?: boolean;
