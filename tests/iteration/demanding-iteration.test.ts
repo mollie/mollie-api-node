@@ -21,7 +21,7 @@ describe('demanding-iteration', () => {
         // Add the interceptor.
         nock('https://api.mollie.com:443')
           .get(`/v2/payments?limit=${expected}`)
-          .reply(200, { _embedded: { payments: [] } });
+          .reply(200, { _embedded: { payments: [] }, count: 0, _links: {} });
         try {
           // Trigger the call.
           for await (let payment of received) {
