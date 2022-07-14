@@ -1,6 +1,5 @@
 import Model from '../data/Model';
 import fling from '../plumbing/fling';
-import HelpfulIterator from '../plumbing/HelpfulIterator';
 import NetworkClient from './NetworkClient';
 
 export class Transformers {
@@ -54,7 +53,7 @@ export default class TransformingNetworkClient {
     return this.networkClient.listPlain<R>(...passingArguments).then(response => response.map(this.transform) as U[]);
   }
 
-  iterate<R extends Model<any, any>, U>(...firstPageArguments: Parameters<NetworkClient['list']>): HelpfulIterator<U> {
+  iterate<R extends Model<any, any>, U>(...firstPageArguments: Parameters<NetworkClient['list']>) {
     return this.networkClient.iterate<R>(...firstPageArguments).map<U>(this.transform);
   }
 

@@ -1,12 +1,12 @@
 import { MollieClient } from '../../dist/types/src/types';
-import NetworkMocker, { apiKeyClientFactory } from '../NetworkMocker';
+import NetworkMocker, { getApiKeyClientMode, record, replay } from '../NetworkMocker';
 
 // false ‒ This test interacts with the real Mollie API over the network, and records the communication.
 // true  ‒ This test uses existing recordings to simulate the network.
 const mockNetwork = true;
 
 describe('multipage-iteration', () => {
-  const networkMocker = new NetworkMocker(mockNetwork, apiKeyClientFactory, 'multipage-iteration');
+  const networkMocker = new NetworkMocker((mockNetwork ? replay : record)(getApiKeyClientMode, 'multipage-iteration'));
   let mollieClient: MollieClient;
   let total: number;
 

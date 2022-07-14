@@ -97,7 +97,7 @@ export default class ProfilesBinder extends Binder<ProfileData, Profile> {
    * @see https://docs.mollie.com/reference/v2/profiles-api/list-profiles
    */
   public iterate(parameters: Omit<ListParameters, 'limit'>) {
-    return this.networkClient.iterate<ProfileData, Profile>(pathSegment, 'profiles', { ...parameters, query: 64 });
+    return this.networkClient.iterate<ProfileData, Profile>(pathSegment, 'profiles', parameters);
   }
 
   /**

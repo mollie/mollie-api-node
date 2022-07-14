@@ -134,7 +134,7 @@ export default class CustomerMandatesBinder extends InnerBinder<MandateData, Man
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...query } = parameters ?? {};
-    return this.networkClient.iterate<MandateData, Mandate>(getPathSegments(customerId), 'mandates', { ...query, limit: 64 });
+    return this.networkClient.iterate<MandateData, Mandate>(getPathSegments(customerId), 'mandates', query);
   }
 
   /**

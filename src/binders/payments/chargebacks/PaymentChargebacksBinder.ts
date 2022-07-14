@@ -98,6 +98,6 @@ export default class PaymentChargebacksBinder extends InnerBinder<ChargebackData
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    return this.networkClient.iterate<ChargebackData, Chargeback>(getPathSegments(paymentId), 'chargebacks', { ...query, limit: 64 });
+    return this.networkClient.iterate<ChargebackData, Chargeback>(getPathSegments(paymentId), 'chargebacks', query);
   }
 }

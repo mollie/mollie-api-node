@@ -45,6 +45,6 @@ export default class SubscriptionsBinder extends InnerBinder<SubscriptionData, S
    * @since 3.6.0
    */
   public iterate(parameters?: ListParameters) {
-    return this.networkClient.iterate<SubscriptionData, Subscription>(pathSegment, 'subscriptions', { ...parameters, limit: 64 });
+    return this.networkClient.iterate<SubscriptionData, Subscription>(pathSegment, 'subscriptions', parameters);
   }
 }

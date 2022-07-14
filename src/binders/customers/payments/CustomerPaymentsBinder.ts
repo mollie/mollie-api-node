@@ -92,6 +92,6 @@ export default class CustomerPaymentsBinder extends InnerBinder<PaymentData, Pay
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...query } = parameters ?? {};
-    return this.networkClient.iterate<PaymentData, Payment>(getPathSegments(customerId), 'payments', { ...query, limit: 64 });
+    return this.networkClient.iterate<PaymentData, Payment>(getPathSegments(customerId), 'payments', query);
   }
 }

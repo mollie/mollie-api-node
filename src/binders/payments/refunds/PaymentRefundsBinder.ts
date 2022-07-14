@@ -4,7 +4,6 @@ import { RefundData } from '../../../data/refunds/data';
 import Refund from '../../../data/refunds/Refund';
 import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
-import HelpfulIterator from '../../../plumbing/HelpfulIterator';
 import renege from '../../../plumbing/renege';
 import Callback from '../../../types/Callback';
 import InnerBinder from '../../InnerBinder';
@@ -121,14 +120,14 @@ export default class PaymentRefundsBinder extends InnerBinder<RefundData, Refund
    * @since 3.6.0
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
    */
-  public iterate(parameters: Omit<ListParameters, 'limit'>): HelpfulIterator<Refund> {
+  public iterate(parameters: Omit<ListParameters, 'limit'>) {
     // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
     const paymentId = this.getParentId((parameters ?? {}).paymentId);
     if (!checkId(paymentId, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    return this.networkClient.iterate<RefundData, Refund>(getPathSegments(paymentId), 'refunds', { ...query, limit: 64 });
+    return this.networkClient.iterate<RefundData, Refund>(getPathSegments(paymentId), 'refunds', query);
   }
 
   /**

@@ -142,7 +142,7 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
    * @see https://docs.mollie.com/reference/v2/orders-api/list-orders
    */
   public iterate(parameters?: Omit<ListParameters, 'limit'>) {
-    return this.networkClient.iterate<OrderData, Order>(pathSegment, 'orders', { ...parameters, limit: 64 });
+    return this.networkClient.iterate<OrderData, Order>(pathSegment, 'orders', parameters);
   }
 
   /**

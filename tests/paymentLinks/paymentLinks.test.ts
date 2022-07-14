@@ -1,12 +1,12 @@
 import { MollieClient } from '../../dist/types/src/types';
-import NetworkMocker, { apiKeyClientFactory } from '../NetworkMocker';
+import NetworkMocker, { getAccessTokenClientMode, record, replay } from '../NetworkMocker';
 
 // false ‒ This test interacts with the real Mollie API over the network, and records the communication.
 // true  ‒ This test uses existing recordings to simulate the network.
 const mockNetwork = true;
 
 describe('paymentLinks', () => {
-  const networkMocker = new NetworkMocker(mockNetwork, apiKeyClientFactory, 'paymentLinks');
+  const networkMocker = new NetworkMocker((mockNetwork ? replay : record)(getAccessTokenClientMode, 'paymentLinks'));
   let mollieClient: MollieClient;
 
   beforeAll(async () => {

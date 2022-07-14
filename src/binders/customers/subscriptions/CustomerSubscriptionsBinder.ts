@@ -127,7 +127,7 @@ export default class CustomerSubscriptionsBinder extends InnerBinder<Subscriptio
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...query } = parameters ?? {};
-    return this.networkClient.iterate<SubscriptionData, Subscription>(getPathSegments(customerId), 'subscriptions', { ...query, limit: 64 });
+    return this.networkClient.iterate<SubscriptionData, Subscription>(getPathSegments(customerId), 'subscriptions', query);
   }
 
   /**

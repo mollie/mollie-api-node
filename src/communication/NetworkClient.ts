@@ -6,9 +6,9 @@ import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import List from '../data/list/List';
 import ApiError from '../errors/ApiError';
 import Options from '../Options';
-import HelpfulIterator from '../plumbing/HelpfulIterator';
+import DemandingIterator from '../plumbing/iteration/DemandingIterator';
+import HelpfulIterator from '../plumbing/iteration/HelpfulIterator';
 import Maybe from '../types/Maybe';
-import Nullable from '../types/Nullable';
 import dromedaryCase from './dromedaryCase';
 import stringifyQuery from './stringifyQuery';
 
@@ -68,38 +68,21 @@ const throwApiError = (() => {
   };
 })();
 
-/**
- * If there are fewer items in the buffer of the iterator than this mark, a request to the Mollie API for the next page
- * will be made.
- */
-const iteratorLowWaterMark = 5.5;
-
-async function* iterate<R>(networkClient: NetworkClient, ...firstPageArguments: Parameters<NetworkClient['list']>) {
-  // Make the initial request for the first page.
-  let currentPage: R[] & { links: List<R>['links'] } = await networkClient.list<R>(...firstPageArguments);
-  let nextPage: Nullable<Promise<R[] & { links: List<R>['links'] }>> = null;
+async function* iterate<R>(axiosInstance: AxiosInstance, type: string, firstPageUrl: string) {
+  let url = firstPageUrl;
   while (true) {
-    // Yield the items in the current page.
-    while (true) {
+    const response = await axiosInstance.get(url).catch(throwApiError);
+    try {
       /* eslint-disable-next-line no-var */
-      var item = currentPage.shift();
-      if (item == undefined) {
-        break;
-      }
-      yield item;
-      // If the low water mark is hit, make a request for the next page. (Note that this code is never reached if the
-      // page is empty. This is OK: if the page is empty, there is no next page either.)
-      if (nextPage == null && currentPage.links.next != null && currentPage.length < iteratorLowWaterMark) {
-        nextPage = networkClient.list<R>(currentPage.links.next.href, firstPageArguments[1]);
-      }
+      var { _embedded: embedded, _links: links } = response.data;
+    } catch (error) {
+      throw new ApiError('Received unexpected response from the server');
     }
-    // If a request for the next page has been made, wait for it to complete and switch to that page. (If no such
-    // request has been made, there is no next page.)
-    if (nextPage == null) {
-      return;
+    yield* embedded[type] as R[];
+    if (links.next == null) {
+      break;
     }
-    currentPage = await nextPage;
-    nextPage = null;
+    url = links.next.href;
   }
 }
 
@@ -178,8 +161,19 @@ export default class NetworkClient {
     return embedded[binderName] as R[];
   }
 
-  iterate<R>(...firstPageArguments: Parameters<NetworkClient['list']>): HelpfulIterator<R> {
-    return new HelpfulIterator<R>(iterate(this, ...firstPageArguments));
+  iterate<R>(relativePath: string, type: string, query: Record<string, any> = {}): HelpfulIterator<R> {
+    return new DemandingIterator(demand => {
+      // Pick a limit (page size) based on the guessed demand. (The magic numbers below: 128 is the limit used if no
+      // demand was guessed; 250 is the maximal limit imposed by the Mollie API; 64 is the minimal limit, to ensure
+      // inaccurate guesses do not result in wastefully short pages.)
+      var limit: Number;
+      if (demand == Number.POSITIVE_INFINITY) {
+        limit = 128;
+      } /* if (demand != Number.POSITIVE_INFINITY) */ else {
+        limit = Math.max(Math.ceil(demand / Math.ceil(demand / 250)), 64);
+      }
+      return new HelpfulIterator<R>(iterate(this.axiosInstance, type, `${relativePath}${stringifyQuery({ ...query, limit })}`));
+    });
   }
 
   async patch<R>(relativePath: string, data: any): Promise<R> {

@@ -65,6 +65,6 @@ export default class SubscriptionPaymentsBinder extends InnerBinder<PaymentData,
       throw new ApiError('The subscription id is invalid');
     }
     const { customerId: _, subscriptionId: __, ...query } = parameters;
-    return this.networkClient.iterate<PaymentData, Payment>(getPathSegments(customerId, subscriptionId), 'payments', { ...query, limit: 64 });
+    return this.networkClient.iterate<PaymentData, Payment>(getPathSegments(customerId, subscriptionId), 'payments', query);
   }
 }

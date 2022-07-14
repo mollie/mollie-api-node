@@ -104,6 +104,6 @@ export default class PaymentCapturesBinder extends InnerBinder<CaptureData, Capt
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    return this.networkClient.iterate<CaptureData, Capture>(getPathSegments(paymentId), 'captures', { ...query, limit: 64 });
+    return this.networkClient.iterate<CaptureData, Capture>(getPathSegments(paymentId), 'captures', query);
   }
 }

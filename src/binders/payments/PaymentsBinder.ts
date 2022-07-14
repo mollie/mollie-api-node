@@ -4,7 +4,6 @@ import { PaymentData } from '../../data/payments/data';
 import Payment from '../../data/payments/Payment';
 import ApiError from '../../errors/ApiError';
 import checkId from '../../plumbing/checkId';
-import HelpfulIterator from '../../plumbing/HelpfulIterator';
 import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
 import Binder from '../Binder';
@@ -107,8 +106,8 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
    * @since 3.6.0
    * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
    */
-  public iterate(parameters?: Omit<ListParameters, 'limit'>): HelpfulIterator<Payment> {
-    return this.networkClient.iterate<PaymentData, Payment>(pathSegment, 'payments', { ...parameters, limit: 64 });
+  public iterate(parameters?: Omit<ListParameters, 'limit'>) {
+    return this.networkClient.iterate<PaymentData, Payment>(pathSegment, 'payments', parameters);
   }
 
   /**

@@ -99,6 +99,6 @@ export default class OrderRefundsBinder extends InnerBinder<RefundData, Refund> 
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...query } = parameters ?? {};
-    return this.networkClient.iterate<RefundData, Refund>(getPathSegments(orderId), 'refunds', { query, limit: 64 });
+    return this.networkClient.iterate<RefundData, Refund>(getPathSegments(orderId), 'refunds', query);
   }
 }
