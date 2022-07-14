@@ -37,7 +37,7 @@ export default class DemandingIterator<T> extends LazyIterator<T> {
     super(() => {
       // If this demanding iterator was not created by another demanding iterator (hence the absence of the path), it
       // is the root. Derive the educated guess for the demand from the path.
-      var demand = Number.POSITIVE_INFINITY;
+      let demand = Number.POSITIVE_INFINITY;
       if (path == undefined) {
         this.path.forEach(edge => (demand = edge(demand)));
       }
