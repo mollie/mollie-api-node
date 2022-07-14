@@ -1,23 +1,14 @@
 {
   "extends": [
-    "@mollie/eslint-config-typescript",
-    "plugin:prettier/recommended"
+    "@mollie/typescript"
   ],
   "rules": {
+    "// 1": [0, "@typescript-eslint/recommended turns no-unused-vars off, as it does not play nicely with TypeScript. Unfortunately, @mollie/eslint-config-base turns it back on."],
+    "no-unused-vars": "off",
+    "// 2": [0, "This rule warns about use of the arguments object, which is used deliberately in this project."],
     "prefer-rest-params": "off",
-    "no-unused-vars": ["warn", { "argsIgnorePattern": "^_+$", "varsIgnorePattern": "^_+$" }],
-    "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_+$", "varsIgnorePattern": "^_+$" }],
-    "@typescript-eslint/explicit-function-return-type": "off"
-  },
-  "settings": {
-    "import/resolver": {
-      "node": {
-        "paths": ["src", "tests", "examples"],
-        "extensions": [".js", ".ts"]
-      }
-    }
-  },
-  "env": {
-    "node": true
+    "// 3": [0, "This project uses starred block comments (documentation for external consumption) and line comments (throughout-code clarifications)."],
+    "multiline-comment-style": ["off"],
+    "@typescript-eslint/no-unused-vars": ["warn", { "varsIgnorePattern": "^_+$" }]
   }
 }

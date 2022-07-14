@@ -166,7 +166,7 @@ export default class NetworkClient {
       // Pick a limit (page size) based on the guessed demand. (The magic numbers below: 128 is the limit used if no
       // demand was guessed; 250 is the maximal limit imposed by the Mollie API; 64 is the minimal limit, to ensure
       // inaccurate guesses do not result in wastefully short pages.)
-      var limit: Number;
+      let limit: number;
       if (demand == Number.POSITIVE_INFINITY) {
         limit = 128;
       } /* if (demand != Number.POSITIVE_INFINITY) */ else {
