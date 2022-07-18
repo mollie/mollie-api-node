@@ -2,54 +2,53 @@ import IteratorHelpers from './IteratorHelpers';
 import convertToNonNegativeInteger from '../convertToNonNegativeInteger';
 
 async function* drop<T>(wrappee: AsyncIterator<T, void, never>, remaining: number): AsyncIterator<T, void, never> {
-  let next = await wrappee.next();
+  let next: IteratorResult<T, void>;
   while (true) {
+    next = await wrappee.next();
     if (next.done) {
       return;
     }
     if (remaining != 0) {
       remaining--;
-      next = await wrappee.next();
       continue;
     }
     yield next.value;
-    next = await wrappee.next();
   }
 }
 
 async function* filter<T>(wrappee: AsyncIterator<T, void, never>, callback: (value: T) => boolean | Promise<boolean>): AsyncIterator<T, void, never> {
-  let next = await wrappee.next();
+  let next: IteratorResult<T, void>;
   while (true) {
+    next = await wrappee.next();
     if (next.done) {
       return;
     }
     if (await callback(next.value)) {
       yield next.value;
     }
-    next = await wrappee.next();
   }
 }
 
 async function* map<T, U>(wrappee: AsyncIterator<T, void, never>, callback: (value: T) => U | Promise<U>): AsyncIterator<U, void, never> {
-  let next = await wrappee.next();
+  let next: IteratorResult<T, void>;
   while (true) {
+    next = await wrappee.next();
     if (next.done) {
       return;
     }
     yield callback(next.value);
-    next = await wrappee.next();
   }
 }
 
 async function* take<T>(wrappee: AsyncIterator<T, void, never>, remaining: number): AsyncIterator<T, void, never> {
-  let next = await wrappee.next();
+  let next: IteratorResult<T, void>;
   while (remaining != 0) {
+    next = await wrappee.next();
     if (next.done) {
       return;
     }
     yield next.value;
     remaining--;
-    next = await wrappee.next();
   }
 }
 
@@ -79,15 +78,15 @@ export default class HelpfulIterator<T> implements AsyncIterator<T, void, never>
   }
 
   async every(callback: (value: T) => boolean | Promise<boolean>) {
-    let next = await this.next();
+    let next: IteratorResult<T, void>;
     while (true) {
+      next = await this.next();
       if (next.done) {
         return true;
       }
       if ((await callback(next.value)) == false) {
         return false;
       }
-      next = await this.next();
     }
   }
 
@@ -96,26 +95,26 @@ export default class HelpfulIterator<T> implements AsyncIterator<T, void, never>
   }
 
   async find(callback: (value: T) => boolean | Promise<boolean>) {
-    let next = await this.next();
+    let next: IteratorResult<T, void>;
     while (true) {
+      next = await this.next();
       if (next.done) {
         return;
       }
       if (await callback(next.value)) {
         return next.value;
       }
-      next = await this.next();
     }
   }
 
   async forEach(callback: (value: T) => any | Promise<any>) {
-    let next = await this.next();
+    let next: IteratorResult<T, void>;
     while (true) {
+      next = await this.next();
       if (next.done) {
         return;
       }
       await callback(next.value);
-      next = await this.next();
     }
   }
 
@@ -124,15 +123,15 @@ export default class HelpfulIterator<T> implements AsyncIterator<T, void, never>
   }
 
   async some(callback: (value: T) => boolean | Promise<boolean>) {
-    let next = await this.next();
+    let next: IteratorResult<T, void>;
     while (true) {
+      next = await this.next();
       if (next.done) {
         return false;
       }
       if (await callback(next.value)) {
         return true;
       }
-      next = await this.next();
     }
   }
 

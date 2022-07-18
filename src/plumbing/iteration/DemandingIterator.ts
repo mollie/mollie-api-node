@@ -1,3 +1,4 @@
+import convertToNonNegativeInteger from '../convertToNonNegativeInteger';
 import HelpfulIterator from './HelpfulIterator';
 import LazyIterator from './LazyIterator';
 
@@ -47,7 +48,7 @@ export default class DemandingIterator<T> extends LazyIterator<T> {
   }
 
   drop(limit: number) {
-    return new DemandingIterator(() => (this.path.push(demand => demand + limit), this.settle().drop(limit)), this.path);
+    return new DemandingIterator(() => (this.path.push(demand => demand + convertToNonNegativeInteger(limit)), this.settle().drop(limit)), this.path);
   }
 
   filter(callback: (value: T) => boolean | Promise<boolean>) {
@@ -60,6 +61,6 @@ export default class DemandingIterator<T> extends LazyIterator<T> {
   }
 
   take(limit: number) {
-    return new DemandingIterator(() => (this.path.push(demand => Math.min(demand, limit)), this.settle().take(limit)), this.path);
+    return new DemandingIterator(() => (this.path.push(demand => Math.min(demand, convertToNonNegativeInteger(limit))), this.settle().take(limit)), this.path);
   }
 }

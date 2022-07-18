@@ -9,8 +9,9 @@ import Options from '../Options';
 import DemandingIterator from '../plumbing/iteration/DemandingIterator';
 import HelpfulIterator from '../plumbing/iteration/HelpfulIterator';
 import Maybe from '../types/Maybe';
+import buildUrl, { SearchParameters } from './buildUrl';
+import breakUrl from './breakUrl';
 import dromedaryCase from './dromedaryCase';
-import stringifyQuery from './stringifyQuery';
 
 /**
  * Like `[].map` but with support for non-array inputs, in which case this function behaves as if an array was passed
@@ -68,24 +69,6 @@ const throwApiError = (() => {
   };
 })();
 
-async function* iterate<R>(axiosInstance: AxiosInstance, type: string, firstPageUrl: string) {
-  let url = firstPageUrl;
-  while (true) {
-    const response = await axiosInstance.get(url).catch(throwApiError);
-    try {
-      /* eslint-disable-next-line no-var */
-      var { _embedded: embedded, _links: links } = response.data;
-    } catch (error) {
-      throw new ApiError('Received unexpected response from the server');
-    }
-    yield* embedded[type] as R[];
-    if (links.next == null) {
-      break;
-    }
-    url = links.next.href;
-  }
-}
-
 /**
  * This class is essentially a wrapper around axios. It simplifies communication with the Mollie API over the network.
  */
@@ -123,35 +106,35 @@ export default class NetworkClient {
     });
   }
 
-  async post<R>(relativePath: string, data: any, query: Record<string, any> = {}): Promise<R | true> {
-    const response = await this.axiosInstance.post(`${relativePath}${stringifyQuery(query)}`, data).catch(throwApiError);
+  async post<R>(pathname: string, data: any, query?: SearchParameters): Promise<R | true> {
+    const response = await this.axiosInstance.post(buildUrl(pathname, query), data).catch(throwApiError);
     if (response.status == 204) {
       return true;
     }
     return response.data;
   }
 
-  async get<R>(relativePath: string, query: Record<string, any> = {}): Promise<R> {
-    const response = await this.axiosInstance.get(`${relativePath}${stringifyQuery(query)}`).catch(throwApiError);
+  async get<R>(pathname: string, query?: SearchParameters): Promise<R> {
+    const response = await this.axiosInstance.get(buildUrl(pathname, query)).catch(throwApiError);
     return response.data;
   }
 
-  async list<R>(relativePath: string, type: string, query: Record<string, any> = {}): Promise<R[] & Pick<List<R>, 'links' | 'count'>> {
-    const response = await this.axiosInstance.get(`${relativePath}${stringifyQuery(query)}`).catch(throwApiError);
+  async list<R>(pathname: string, binderName: string, query?: SearchParameters): Promise<R[] & Pick<List<R>, 'links' | 'count'>> {
+    const response = await this.axiosInstance.get(buildUrl(pathname, query)).catch(throwApiError);
     try {
       /* eslint-disable-next-line no-var */
       var { _embedded: embedded, _links: links, count } = response.data;
     } catch (error) {
       throw new ApiError('Received unexpected response from the server');
     }
-    return Object.assign(embedded[type] as R[], {
+    return Object.assign(embedded[binderName] as R[], {
       links,
       count,
     });
   }
 
-  async listPlain<R>(relativePath: string, binderName: string, query: Record<string, any> = {}): Promise<R[]> {
-    const response = await this.axiosInstance.get(`${relativePath}${stringifyQuery(query)}`).catch(throwApiError);
+  async listPlain<R>(pathname: string, binderName: string, query?: SearchParameters): Promise<R[]> {
+    const response = await this.axiosInstance.get(buildUrl(pathname, query)).catch(throwApiError);
     try {
       /* eslint-disable-next-line no-var */
       var { _embedded: embedded } = response.data;
@@ -161,28 +144,61 @@ export default class NetworkClient {
     return embedded[binderName] as R[];
   }
 
-  iterate<R>(relativePath: string, type: string, query: Record<string, any> = {}): HelpfulIterator<R> {
+  iterate<R>(pathname: string, binderName: string, query?: SearchParameters): HelpfulIterator<R> {
     return new DemandingIterator(demand => {
-      // Pick a limit (page size) based on the guessed demand. (The magic numbers below: 128 is the limit used if no
-      // demand was guessed; 250 is the maximal limit imposed by the Mollie API; 64 is the minimal limit, to ensure
-      // inaccurate guesses do not result in wastefully short pages.)
-      let limit: number;
+      // Pick the page sizes (limits) based on the guessed demand.
+      let popLimit: () => number;
+      // If no demand was guessed, pages of 128 values each will be requested.
       if (demand == Number.POSITIVE_INFINITY) {
-        limit = 128;
+        popLimit = () => 128;
       } /* if (demand != Number.POSITIVE_INFINITY) */ else {
-        limit = Math.max(Math.ceil(demand / Math.ceil(demand / 250)), 64);
+        let pageSizes: number[];
+        // If a demand of 64 or less was guessed, request an initial page of 64 values. This ensures inaccurate guesses
+        // do not result in wastefully short pages.
+        if (demand <= 64) {
+          pageSizes = [64];
+        } /* if (demand > 64 && demand != Number.POSITIVE_INFINITY) */ else {
+          // If a demand of over 64 was guessed, request pages of 250 values ‒ a limit imposed by the Mollie API ‒ until
+          // the remaining demand can be met with a single page. Finally, request that single page.
+          pageSizes = new Array(Math.ceil(demand / 250));
+          pageSizes[0] = demand - (pageSizes.length - 1) * 250;
+          pageSizes.fill(250, 1);
+        }
+        // If more values are requested after the guessed demand (the guess was inaccurate), request pages of 128
+        // values each.
+        popLimit = () => pageSizes.pop() ?? 128;
       }
-      return new HelpfulIterator<R>(iterate(this.axiosInstance, type, `${relativePath}${stringifyQuery({ ...query, limit })}`));
+      const { axiosInstance } = this;
+      return new HelpfulIterator<R>(
+        (async function* iterate<R>() {
+          let url = buildUrl(pathname, { ...query, limit: popLimit() });
+          while (true) {
+            const response = await axiosInstance.get(url).catch(throwApiError);
+            try {
+              /* eslint-disable-next-line no-var */
+              var { _embedded: embedded, _links: links } = response.data;
+            } catch (error) {
+              throw new ApiError('Received unexpected response from the server');
+            }
+            yield* embedded[binderName] as R[];
+            if (links.next == null) {
+              break;
+            }
+            let [pathname, query] = breakUrl(links.next.href);
+            url = buildUrl(pathname, { ...query, limit: popLimit() });
+          }
+        })(),
+      );
     });
   }
 
-  async patch<R>(relativePath: string, data: any): Promise<R> {
-    const response = await this.axiosInstance.patch(relativePath, data).catch(throwApiError);
+  async patch<R>(pathname: string, data: any): Promise<R> {
+    const response = await this.axiosInstance.patch(pathname, data).catch(throwApiError);
     return response.data;
   }
 
-  async delete<R>(relativePath: string, context?: any): Promise<R | true> {
-    const response = await this.axiosInstance.delete(relativePath, { data: context }).catch(throwApiError);
+  async delete<R>(pathname: string, context?: any): Promise<R | true> {
+    const response = await this.axiosInstance.delete(pathname, { data: context }).catch(throwApiError);
     if (response.status == 204) {
       return true;
     }
