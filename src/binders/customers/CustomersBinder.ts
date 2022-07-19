@@ -6,7 +6,7 @@ import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
 import Binder from '../Binder';
-import { CreateParameters, DeleteParameters, GetParameters, ListParameters, UpdateParameters } from './parameters';
+import { CreateParameters, DeleteParameters, GetParameters, IterateParameters, ListParameters, UpdateParameters } from './parameters';
 
 const pathSegment = 'customers';
 
@@ -97,8 +97,9 @@ export default class CustomersBinder extends Binder<CustomerData, Customer> {
    * @since 3.6.0
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
    */
-  public iterate(parameters?: Omit<ListParameters, 'limit'>) {
-    return this.networkClient.iterate<CustomerData, Customer>(pathSegment, 'customers', parameters);
+  public iterate(parameters?: IterateParameters) {
+    const { valuesPerMinute, ...query } = parameters ?? {};
+    return this.networkClient.iterate<CustomerData, Customer>(pathSegment, 'customers', query, valuesPerMinute);
   }
 
   /**

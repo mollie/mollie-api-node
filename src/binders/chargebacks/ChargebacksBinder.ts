@@ -4,7 +4,7 @@ import List from '../../data/list/List';
 import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
 import InnerBinder from '../InnerBinder';
-import { ListParameters } from './parameters';
+import { IterateParameters, ListParameters } from './parameters';
 
 const pathSegment = 'chargebacks';
 
@@ -57,7 +57,8 @@ export default class ChargebacksBinder extends InnerBinder<ChargebackData, Charg
    * @since 3.6.0
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
    */
-  public iterate(parameters?: Omit<ListParameters, 'limit'>) {
-    return this.networkClient.iterate<ChargebackData, Chargeback>(pathSegment, 'chargebacks', parameters);
+  public iterate(parameters?: IterateParameters) {
+    const { valuesPerMinute, ...query } = parameters ?? {};
+    return this.networkClient.iterate<ChargebackData, Chargeback>(pathSegment, 'chargebacks', query, valuesPerMinute);
   }
 }

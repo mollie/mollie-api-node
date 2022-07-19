@@ -1,4 +1,6 @@
-export default interface Model<R extends string, I extends string | undefined = string> {
+import Maybe from '../types/Maybe';
+
+export default interface Model<R extends string, I extends Maybe<string> = string> {
   /**
    * Indicates the kind of entity this is.
    */

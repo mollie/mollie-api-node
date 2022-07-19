@@ -3,6 +3,7 @@ import TransformingNetworkClient from '../communication/TransformingNetworkClien
 import capitalize from '../plumbing/capitalize';
 import renege from '../plumbing/renege';
 import Callback from '../types/Callback';
+import Maybe from '../types/Maybe';
 import { Links } from './global';
 import Model from './Model';
 
@@ -23,7 +24,7 @@ function convertToString(subject: Model<string>, tag: string, depth: number, opt
   return parts.join(' ');
 }
 
-export default class Helper<R extends Model<string, string | undefined>, U> {
+export default class Helper<R extends Model<string, Maybe<string>>, U> {
   constructor(protected readonly networkClient: TransformingNetworkClient, protected readonly links: Links) {}
 
   public refresh(): Promise<U>;

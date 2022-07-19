@@ -1,5 +1,5 @@
 import { RefundData, RefundEmbed } from '../../../data/refunds/data';
-import { PaginationParameters } from '../../../types/parameters';
+import { PaginationParameters, ThrottlingParameters } from '../../../types/parameters';
 import PickOptional from '../../../types/PickOptional';
 
 interface ContextParameters {
@@ -17,5 +17,7 @@ export type ListParameters = ContextParameters &
   PaginationParameters & {
     embed?: RefundEmbed[];
   };
+
+export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameters;
 
 export type CancelParameters = ContextParameters;

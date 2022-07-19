@@ -1,5 +1,5 @@
 import { MandateData } from '../../../data/customers/mandates/data';
-import { PaginationParameters } from '../../../types/parameters';
+import { PaginationParameters, ThrottlingParameters } from '../../../types/parameters';
 
 interface ContextParameters {
   customerId: string;
@@ -55,5 +55,7 @@ export type CreateParameters = ContextParameters &
 export type GetParameters = ContextParameters;
 
 export type ListParameters = ContextParameters & PaginationParameters;
+
+export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameters;
 
 export type RevokeParameters = ContextParameters;

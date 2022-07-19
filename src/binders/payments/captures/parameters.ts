@@ -1,5 +1,5 @@
 import { CaptureEmbed } from '../../../data/payments/captures/data';
-import { PaginationParameters } from '../../../types/parameters';
+import { PaginationParameters, ThrottlingParameters } from '../../../types/parameters';
 
 interface ContextParameters {
   paymentId: string;
@@ -14,3 +14,5 @@ export type ListParameters = ContextParameters &
   PaginationParameters & {
     embed?: CaptureEmbed[];
   };
+
+export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameters;

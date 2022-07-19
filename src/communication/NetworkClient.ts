@@ -8,6 +8,7 @@ import ApiError from '../errors/ApiError';
 import Options from '../Options';
 import DemandingIterator from '../plumbing/iteration/DemandingIterator';
 import HelpfulIterator from '../plumbing/iteration/HelpfulIterator';
+import Throttler from '../plumbing/Throttler';
 import Maybe from '../types/Maybe';
 import buildUrl, { SearchParameters } from './buildUrl';
 import breakUrl from './breakUrl';
@@ -144,7 +145,7 @@ export default class NetworkClient {
     return embedded[binderName] as R[];
   }
 
-  iterate<R>(pathname: string, binderName: string, query?: SearchParameters): HelpfulIterator<R> {
+  iterate<R>(pathname: string, binderName: string, query: Maybe<SearchParameters>, valuesPerMinute = 500): HelpfulIterator<R> {
     return new DemandingIterator(demand => {
       // Pick the page sizes (limits) based on the guessed demand.
       let popLimit: () => number;
@@ -158,8 +159,8 @@ export default class NetworkClient {
         if (demand <= 64) {
           pageSizes = [64];
         } /* if (demand > 64 && demand != Number.POSITIVE_INFINITY) */ else {
-          // If a demand of over 64 was guessed, request pages of 250 values ‒ a limit imposed by the Mollie API ‒ until
-          // the remaining demand can be met with a single page. Finally, request that single page.
+          // If a demand of over 64 was guessed, request pages of 250 values ‒ a limit imposed by the Mollie API ‒
+          // until the remaining demand can be met with a single page. Finally, request that single page.
           pageSizes = new Array(Math.ceil(demand / 250));
           pageSizes[0] = demand - (pageSizes.length - 1) * 250;
           pageSizes.fill(250, 1);
@@ -168,11 +169,18 @@ export default class NetworkClient {
         // values each.
         popLimit = () => pageSizes.pop() ?? 128;
       }
+      // Set up the throttler. The iterator will wait before making a request to the Mollie API if more values have
+      // been consumed than "allowed" by the valuesPerMinute argument. Note that this iterator will not interrupt the
+      // yielding of values which have already been received from the Mollie API. If a page of 250 values is received
+      // and valuesPerMinute is set to 100, all 250 values received values will be yielded before the (two-minute)
+      // break.
+      const throttler = new Throttler(valuesPerMinute);
       const { axiosInstance } = this;
       return new HelpfulIterator<R>(
         (async function* iterate<R>() {
           let url = buildUrl(pathname, { ...query, limit: popLimit() });
           while (true) {
+            // Request and parse the page from the Mollie API.
             const response = await axiosInstance.get(url).catch(throwApiError);
             try {
               /* eslint-disable-next-line no-var */
@@ -180,12 +188,20 @@ export default class NetworkClient {
             } catch (error) {
               throw new ApiError('Received unexpected response from the server');
             }
-            yield* embedded[binderName] as R[];
+            // Yield the values on the page.
+            const values = embedded[binderName] as R[];
+            yield* values;
+            // Inform the throttler of the yielded values.
+            throttler.tally(values.length);
+            // If the end of the sequence was reached ‒ in other words: this was the last page ‒ break out of the loop.
             if (links.next == null) {
               break;
             }
-            let [pathname, query] = breakUrl(links.next.href);
+            // Build a URL from the "next" link in the response.
+            const [pathname, query] = breakUrl(links.next.href);
             url = buildUrl(pathname, { ...query, limit: popLimit() });
+            // Apply throttling.
+            await throttler.throttle();
           }
         })(),
       );

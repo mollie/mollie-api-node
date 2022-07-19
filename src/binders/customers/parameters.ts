@@ -1,5 +1,5 @@
 import { CustomerData } from '../../data/customers/Customer';
-import { PaginationParameters } from '../../types/parameters';
+import { PaginationParameters, ThrottlingParameters } from '../../types/parameters';
 import PickOptional from '../../types/PickOptional';
 
 interface ContextParameters {
@@ -11,6 +11,8 @@ export type CreateParameters = ContextParameters & PickOptional<CustomerData, 'n
 export type GetParameters = ContextParameters;
 
 export type ListParameters = ContextParameters & PaginationParameters;
+
+export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameters;
 
 export type UpdateParameters = ContextParameters & PickOptional<CustomerData, 'name' | 'email' | 'locale' | 'metadata'>;
 

@@ -1,5 +1,5 @@
 import { PaymentLinkData } from '../../data/paymentLink/data';
-import { PaginationParameters } from '../../types/parameters';
+import { PaginationParameters, ThrottlingParameters } from '../../types/parameters';
 
 export type CreateParameters = Pick<PaymentLinkData, 'description' | 'amount' | 'redirectUrl' | 'webhookUrl' | 'expiresAt'> & {
   profileId?: string;
@@ -14,3 +14,5 @@ export type ListParameters = PaginationParameters & {
   profileId?: string;
   testmode?: boolean;
 };
+
+export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameters;

@@ -2,6 +2,7 @@
 import { URLSearchParams } from 'url';
 
 import getEntries from '../plumbing/getEntries';
+import Maybe from '../types/Maybe';
 
 export type SearchParameters = Record<string, any>;
 
@@ -27,7 +28,7 @@ export default function buildUrl(originAndPathname: string, searchParameters?: S
     return originAndPathname;
   }
   return `${originAndPathname}?${new URLSearchParams(
-    searchEntries.reduce((result, [key, value]: [string, string | number | string[] | number[] | Record<string, string | number> | undefined]) => {
+    searchEntries.reduce((result, [key, value]: [string, Maybe<string | number | string[] | number[] | Record<string, string | number>>]) => {
       if (value == undefined) {
         return result;
       }

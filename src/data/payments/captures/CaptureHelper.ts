@@ -3,6 +3,7 @@ import renege from '../../../plumbing/renege';
 import resolveIf from '../../../plumbing/resolveIf';
 import undefinedPromise from '../../../plumbing/undefinedPromise';
 import Callback from '../../../types/Callback';
+import Maybe from '../../../types/Maybe';
 import Helper from '../../Helper';
 import Shipment, { ShipmentData } from '../../orders/shipments/Shipment';
 import { PaymentData } from '../data';
@@ -33,7 +34,7 @@ export default class CaptureHelper extends Helper<CaptureData, Capture> {
    * @since 3.6.0
    */
   public getShipment(): Promise<Shipment> | Promise<undefined>;
-  public getShipment(callback: Callback<Shipment | undefined>): void;
+  public getShipment(callback: Callback<Maybe<Shipment>>): void;
   public getShipment() {
     if (renege(this, this.getShipment, ...arguments)) return;
     if (this.links.shipment == undefined) {

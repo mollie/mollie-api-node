@@ -7,7 +7,7 @@ import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
 import Binder from '../Binder';
-import { CancelParameters, CreateParameters, GetParameters, ListParameters, UpdateParameters } from './parameters';
+import { CancelParameters, CreateParameters, GetParameters, IterateParameters, ListParameters, UpdateParameters } from './parameters';
 
 export const pathSegment = 'orders';
 
@@ -141,8 +141,9 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
    * @since 3.6.0
    * @see https://docs.mollie.com/reference/v2/orders-api/list-orders
    */
-  public iterate(parameters?: Omit<ListParameters, 'limit'>) {
-    return this.networkClient.iterate<OrderData, Order>(pathSegment, 'orders', parameters);
+  public iterate(parameters?: IterateParameters) {
+    const { valuesPerMinute, ...query } = parameters ?? {};
+    return this.networkClient.iterate<OrderData, Order>(pathSegment, 'orders', query, valuesPerMinute);
   }
 
   /**

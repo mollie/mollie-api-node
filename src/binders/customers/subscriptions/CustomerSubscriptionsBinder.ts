@@ -7,7 +7,7 @@ import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 import Callback from '../../../types/Callback';
 import InnerBinder from '../../InnerBinder';
-import { CancelParameters, CreateParameters, GetParameters, ListParameters, UpdateParameters } from './parameters';
+import { CancelParameters, CreateParameters, GetParameters, IterateParameters, ListParameters, UpdateParameters } from './parameters';
 
 function getPathSegments(customerId: string) {
   return `customers/${customerId}/subscriptions`;
@@ -120,14 +120,14 @@ export default class CustomerSubscriptionsBinder extends InnerBinder<Subscriptio
    * @since 3.6.0
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions
    */
-  public iterate(parameters: ListParameters) {
+  public iterate(parameters: IterateParameters) {
     // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
     const customerId = this.getParentId((parameters ?? {}).customerId);
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
-    const { customerId: _, ...query } = parameters ?? {};
-    return this.networkClient.iterate<SubscriptionData, Subscription>(getPathSegments(customerId), 'subscriptions', query);
+    const { valuesPerMinute, customerId: _, ...query } = parameters ?? {};
+    return this.networkClient.iterate<SubscriptionData, Subscription>(getPathSegments(customerId), 'subscriptions', query, valuesPerMinute);
   }
 
   /**

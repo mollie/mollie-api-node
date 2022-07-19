@@ -1,5 +1,6 @@
 import Model from '../data/Model';
 import fling from '../plumbing/fling';
+import Maybe from '../types/Maybe';
 import NetworkClient from './NetworkClient';
 
 export class Transformers {
@@ -20,12 +21,12 @@ export class Transformers {
  * convenient JavaScript objects.
  */
 export default class TransformingNetworkClient {
-  protected readonly transform: (input: Model<any, string | undefined>) => any;
+  protected readonly transform: (input: Model<any, Maybe<string>>) => any;
   constructor(protected readonly networkClient: NetworkClient, transformers: Transformers) {
     /**
      * Transforms the passed plain object returned by the Mollie API into a more convenient JavaScript object.
      */
-    this.transform = function transform(this: TransformingNetworkClient, input: Model<any, string | undefined>) {
+    this.transform = function transform(this: TransformingNetworkClient, input: Model<any, Maybe<string>>) {
       return (transformers.get(input.resource) ?? fling(() => new Error(`Received unexpected response from the server with resource ${input.resource}`)))(this, input);
     }.bind(this);
   }
@@ -53,8 +54,8 @@ export default class TransformingNetworkClient {
     return this.networkClient.listPlain<R>(...passingArguments).then(response => response.map(this.transform) as U[]);
   }
 
-  iterate<R extends Model<any, any>, U>(...firstPageArguments: Parameters<NetworkClient['list']>) {
-    return this.networkClient.iterate<R>(...firstPageArguments).map<U>(this.transform);
+  iterate<R extends Model<any, any>, U>(...passingArguments: Parameters<NetworkClient['iterate']>) {
+    return this.networkClient.iterate<R>(...passingArguments).map<U>(this.transform);
   }
 
   patch<R extends Model<any, any>, U>(...passingArguments: Parameters<NetworkClient['patch']>) {

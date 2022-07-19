@@ -1,7 +1,7 @@
 import { PaymentMethod } from '../../data/global';
 import { OrderAddress, OrderData, OrderEmbed } from '../../data/orders/data';
 import { OrderLineData } from '../../data/orders/orderlines/OrderLine';
-import { PaginationParameters } from '../../types/parameters';
+import { PaginationParameters, ThrottlingParameters } from '../../types/parameters';
 import { CreateParameters as PaymentCreateParameters } from '../payments/parameters';
 import PickOptional from '../../types/PickOptional';
 
@@ -112,6 +112,8 @@ export type ListParameters = PaginationParameters & {
   profileId?: string;
   testmode?: boolean;
 };
+
+export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameters;
 
 export interface CancelParameters {
   testmode?: boolean;
