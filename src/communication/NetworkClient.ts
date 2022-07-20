@@ -145,7 +145,7 @@ export default class NetworkClient {
     return embedded[binderName] as R[];
   }
 
-  iterate<R>(pathname: string, binderName: string, query: Maybe<SearchParameters>, valuesPerMinute = 500): HelpfulIterator<R> {
+  iterate<R>(pathname: string, binderName: string, query: Maybe<SearchParameters>, valuesPerMinute = 5000): HelpfulIterator<R> {
     return new DemandingIterator(demand => {
       // Pick the page sizes (limits) based on the guessed demand.
       let popLimit: () => number;
