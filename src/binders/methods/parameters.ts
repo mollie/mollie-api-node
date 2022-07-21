@@ -102,7 +102,7 @@ export interface ListParameters {
    *
    * @see https://docs.mollie.com/reference/v2/methods-api/list-methods?path=orderLineCategories#parameters
    */
-  orderLineCategories?: string;
+  orderLineCategories?: string[];
   include?: MethodInclude[] | MethodInclude;
   profileId?: string;
   testmode?: boolean;
