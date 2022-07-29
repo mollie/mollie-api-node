@@ -7,7 +7,7 @@ import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 import Callback from '../../../types/Callback';
 import InnerBinder from '../../InnerBinder';
-import { GetParameters, ListParameters } from './parameters';
+import { GetParameters, IterateParameters, ListParameters } from './parameters';
 
 function getPathSegments(paymentId: string) {
   return `payments/${paymentId}/captures`;
@@ -97,13 +97,13 @@ export default class PaymentCapturesBinder extends InnerBinder<CaptureData, Capt
    * @since 3.6.0
    * @see https://docs.mollie.com/reference/v2/captures-api/list-captures
    */
-  public iterate(parameters: Omit<ListParameters, 'limit'>) {
+  public iterate(parameters: IterateParameters) {
     // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
     const paymentId = this.getParentId((parameters ?? {}).paymentId);
     if (!checkId(paymentId, 'payment')) {
       throw new ApiError('The payment id is invalid');
     }
-    const { paymentId: _, ...query } = parameters;
-    return this.networkClient.iterate<CaptureData, Capture>(getPathSegments(paymentId), 'captures', query);
+    const { valuesPerMinute, paymentId: _, ...query } = parameters ?? {};
+    return this.networkClient.iterate<CaptureData, Capture>(getPathSegments(paymentId), 'captures', query, valuesPerMinute);
   }
 }

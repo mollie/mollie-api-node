@@ -1,4 +1,4 @@
-import { MollieClient, Payment, PaymentMethod } from '../..';
+import { MollieClient, Payment } from '../..';
 import NetworkMocker, { getApiKeyClientMode } from '../NetworkMocker';
 import nock from 'nock';
 
@@ -119,13 +119,15 @@ describe('demanding-iteration', () => {
   });
 
   test('take-300', () => {
-    // 150 values are requested per page, so exactly two calls are required.
-    return expect(mollieClient.payments.iterate().take(300)).toDemand(150);
+    // 250 values are requested in the initial page. (50 values are requested in the second page, but this is not
+    // tested.)
+    return expect(mollieClient.payments.iterate().take(300)).toDemand(250);
   });
 
   test('take-3218', () => {
-    // 248 values are requested per page, so 13 calls are required and only six values are "wasted".
-    return expect(mollieClient.payments.iterate().take(3218)).toDemand(248);
+    // 250 values are requested in the initial page. (More precisely, 250 values are requested for 12 pages, then 218
+    // values are requested for the last page. But this is not tested)
+    return expect(mollieClient.payments.iterate().take(3218)).toDemand(250);
   });
 
   afterAll(() => networkMocker.cleanup());

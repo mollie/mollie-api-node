@@ -1,4 +1,4 @@
-import parseQueryInUrl from '../communication/parseQueryInUrl';
+import breakUrl from '../communication/breakUrl';
 import List from '../data/list/List';
 import Maybe from '../types/Maybe';
 
@@ -15,7 +15,7 @@ export default class Binder<R, T extends Omit<R, '_links' | '_embedded'>> {
     let nextPage: Maybe<() => Promise<List<T>>>;
     let nextPageCursor: Maybe<string>;
     if (links.next != null) {
-      const query = parseQueryInUrl(links.next.href);
+      const [, query] = breakUrl(links.next.href);
       nextPage = list.bind(this, {
         ...selfParameters,
         ...query,
@@ -25,7 +25,7 @@ export default class Binder<R, T extends Omit<R, '_links' | '_embedded'>> {
     let previousPage: Maybe<() => Promise<List<T>>>;
     let previousPageCursor: Maybe<string>;
     if (links.previous != null) {
-      const query = parseQueryInUrl(links.previous.href);
+      const [, query] = breakUrl(links.previous.href);
       previousPage = list.bind(this, {
         ...selfParameters,
         ...query,

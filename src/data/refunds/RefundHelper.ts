@@ -3,6 +3,7 @@ import renege from '../../plumbing/renege';
 import resolveIf from '../../plumbing/resolveIf';
 import undefinedPromise from '../../plumbing/undefinedPromise';
 import Callback from '../../types/Callback';
+import Maybe from '../../types/Maybe';
 import Helper from '../Helper';
 import { OrderData } from '../orders/data';
 import Order from '../orders/Order';
@@ -79,7 +80,7 @@ export default class RefundHelper extends Helper<RefundData, Refund> {
    * @since 3.6.0
    */
   public getOrder(): Promise<Order> | Promise<undefined>;
-  public getOrder(callback: Callback<Order | undefined>): void;
+  public getOrder(callback: Callback<Maybe<Order>>): void;
   public getOrder() {
     if (renege(this, this.getOrder, ...arguments)) return;
     if (this.links.order == undefined) {

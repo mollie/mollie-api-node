@@ -72,7 +72,7 @@ export default function createMollieClient(options: Options) {
     throw new TypeError('Missing parameter "apiKey" or "accessToken".');
   }
 
-  const networkClient = new NetworkClient(Object.assign({}, options, { libraryVersion, nodeVersion: process.version, caCertificates }));
+  const networkClient = new NetworkClient({ ...options, libraryVersion, nodeVersion: process.version, caCertificates });
 
   const transformingNetworkClient = new TransformingNetworkClient(
     networkClient,

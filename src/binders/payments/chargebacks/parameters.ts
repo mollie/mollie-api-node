@@ -1,5 +1,5 @@
 import { ChargebackEmbed } from '../../../data/chargebacks/Chargeback';
-import { PaginationParameters } from '../../../types/parameters';
+import { PaginationParameters, ThrottlingParameters } from '../../../types/parameters';
 
 interface ContextParameters {
   paymentId: string;
@@ -13,3 +13,5 @@ export type ListParameters = ContextParameters &
   PaginationParameters & {
     embed?: ChargebackEmbed[];
   };
+
+export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameters;

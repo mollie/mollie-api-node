@@ -7,7 +7,7 @@ import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
 import Binder from '../Binder';
-import { CreateParameters, GetParameters, ListParameters } from './parameters';
+import { CreateParameters, GetParameters, IterateParameters, ListParameters } from './parameters';
 
 const pathSegment = 'payment-links';
 
@@ -67,7 +67,8 @@ export default class PaymentsLinksBinder extends Binder<PaymentLinkData, Payment
    * @since 3.6.0
    * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link
    */
-  public iterate(parameters?: Omit<ListParameters, 'limit'>) {
-    return this.networkClient.iterate<PaymentLinkData, PaymentLink>(pathSegment, 'payment_links', parameters);
+  public iterate(parameters?: IterateParameters) {
+    const { valuesPerMinute, ...query } = parameters ?? {};
+    return this.networkClient.iterate<PaymentLinkData, PaymentLink>(pathSegment, 'payment_links', query, valuesPerMinute);
   }
 }

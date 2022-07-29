@@ -7,7 +7,7 @@ import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 import Callback from '../../../types/Callback';
 import InnerBinder from '../../InnerBinder';
-import { CreateParameters, ListParameters } from './parameters';
+import { CreateParameters, IterateParameters, ListParameters } from './parameters';
 
 function getPathSegments(customerId: string) {
   return `customers/${customerId}/payments`;
@@ -85,13 +85,13 @@ export default class CustomerPaymentsBinder extends InnerBinder<PaymentData, Pay
    * @since 3.6.0
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customer-payments
    */
-  public iterate(parameters: Omit<ListParameters, 'limit'>) {
+  public iterate(parameters: IterateParameters) {
     // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
     const customerId = this.getParentId((parameters ?? {}).customerId);
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
-    const { customerId: _, ...query } = parameters ?? {};
-    return this.networkClient.iterate<PaymentData, Payment>(getPathSegments(customerId), 'payments', query);
+    const { valuesPerMinute, customerId: _, ...query } = parameters ?? {};
+    return this.networkClient.iterate<PaymentData, Payment>(getPathSegments(customerId), 'payments', query, valuesPerMinute);
   }
 }

@@ -7,7 +7,7 @@ import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
 import Binder from '../Binder';
-import { CreateParameters, ListParameters, UpdateParameters } from './parameters';
+import { CreateParameters, IterateParameters, ListParameters, UpdateParameters } from './parameters';
 
 const pathSegment = 'profiles';
 
@@ -96,8 +96,9 @@ export default class ProfilesBinder extends Binder<ProfileData, Profile> {
    * @since 3.6.0
    * @see https://docs.mollie.com/reference/v2/profiles-api/list-profiles
    */
-  public iterate(parameters: Omit<ListParameters, 'limit'>) {
-    return this.networkClient.iterate<ProfileData, Profile>(pathSegment, 'profiles', parameters);
+  public iterate(parameters?: IterateParameters) {
+    const { valuesPerMinute, ...query } = parameters ?? {};
+    return this.networkClient.iterate<ProfileData, Profile>(pathSegment, 'profiles', query, valuesPerMinute);
   }
 
   /**

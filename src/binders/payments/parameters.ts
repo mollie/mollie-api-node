@@ -1,7 +1,7 @@
 import { Address, Amount, PaymentMethod } from '../../data/global';
 import { Issuer } from '../../data/Issuer';
 import { PaymentData, PaymentEmbed, PaymentInclude } from '../../data/payments/data';
-import { PaginationParameters } from '../../types/parameters';
+import { PaginationParameters, ThrottlingParameters } from '../../types/parameters';
 import PickOptional from '../../types/PickOptional';
 
 export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'redirectUrl' | 'webhookUrl' | 'customerId' | 'mandateId'> &
@@ -169,6 +169,8 @@ export type ListParameters = PaginationParameters & {
   profileId?: string;
   testmode?: boolean;
 };
+
+export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameters;
 
 export type UpdateParameters = Pick<PaymentData, 'redirectUrl' | 'webhookUrl'> &
   PickOptional<PaymentData, 'description' | 'metadata'> & {

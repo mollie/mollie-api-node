@@ -5,7 +5,7 @@ import Refund from '../../data/refunds/Refund';
 import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
 import Binder from '../Binder';
-import { ListParameters } from './parameters';
+import { IterateParameters, ListParameters } from './parameters';
 
 const pathSegment = 'refunds';
 
@@ -58,7 +58,8 @@ export default class RefundsBinder extends Binder<RefundData, Refund> {
    * @since 3.6.0
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
    */
-  public iterate(parameters?: Omit<ListParameters, 'limit'>) {
-    return this.networkClient.iterate<RefundData, Refund>(pathSegment, 'refunds', parameters);
+  public iterate(parameters?: IterateParameters) {
+    const { valuesPerMinute, ...query } = parameters ?? {};
+    return this.networkClient.iterate<RefundData, Refund>(pathSegment, 'refunds', query, valuesPerMinute);
   }
 }

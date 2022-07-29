@@ -7,7 +7,7 @@ import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 import Callback from '../../../types/Callback';
 import InnerBinder from '../../InnerBinder';
-import { CreateParameters, GetParameters, ListParameters, RevokeParameters } from './parameters';
+import { CreateParameters, GetParameters, IterateParameters, ListParameters, RevokeParameters } from './parameters';
 
 function getPathSegments(customerId: string) {
   return `customers/${customerId}/mandates`;
@@ -127,14 +127,14 @@ export default class CustomerMandatesBinder extends InnerBinder<MandateData, Man
    * @since 3.6.0
    * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
    */
-  public iterate(parameters: Omit<ListParameters, 'limit'>) {
+  public iterate(parameters: IterateParameters) {
     // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
     const customerId = this.getParentId((parameters ?? {}).customerId);
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
-    const { customerId: _, ...query } = parameters ?? {};
-    return this.networkClient.iterate<MandateData, Mandate>(getPathSegments(customerId), 'mandates', query);
+    const { valuesPerMinute, customerId: _, ...query } = parameters ?? {};
+    return this.networkClient.iterate<MandateData, Mandate>(getPathSegments(customerId), 'mandates', query, valuesPerMinute);
   }
 
   /**

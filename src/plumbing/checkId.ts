@@ -1,3 +1,5 @@
+import Maybe from '../types/Maybe';
+
 type ResourceKind =
   | 'capture'
   | 'chargeback'
@@ -32,7 +34,7 @@ const prefixes = new Map<ResourceKind, string>([
 /**
  * Returns whether the passed identifier seems plausible (`true`); or is definitely invalid (`false`).
  */
-export default function checkId(value: string | undefined, resource: ResourceKind): value is string {
+export default function checkId(value: Maybe<string>, resource: ResourceKind): value is string {
   if (typeof value != 'string') {
     return false;
   }

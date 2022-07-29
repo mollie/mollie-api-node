@@ -5,7 +5,7 @@ import Subscription from '../../data/subscription/Subscription';
 import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
 import InnerBinder from '../InnerBinder';
-import { ListParameters } from './parameters';
+import { IterateParameters, ListParameters } from './parameters';
 
 const pathSegment = 'subscriptions';
 
@@ -44,7 +44,8 @@ export default class SubscriptionsBinder extends InnerBinder<SubscriptionData, S
    *
    * @since 3.6.0
    */
-  public iterate(parameters?: ListParameters) {
-    return this.networkClient.iterate<SubscriptionData, Subscription>(pathSegment, 'subscriptions', parameters);
+  public iterate(parameters?: IterateParameters) {
+    const { valuesPerMinute, ...query } = parameters ?? {};
+    return this.networkClient.iterate<SubscriptionData, Subscription>(pathSegment, 'subscriptions', query, valuesPerMinute);
   }
 }

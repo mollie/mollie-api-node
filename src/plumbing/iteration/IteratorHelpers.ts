@@ -1,3 +1,5 @@
+import Maybe from '../../types/Maybe';
+
 type Vehicle<T> = AsyncIterator<T, void, never> | AsyncIterable<T>;
 type MappedVehicle<V extends Vehicle<any>, U> = V extends AsyncIterator<any, void, never> ? AsyncIterator<U> : AsyncIterable<U>;
 
@@ -26,7 +28,7 @@ export default interface IteratorHelpers<T, V extends Vehicle<T>> {
   /**
    * Returns the first value in the sequence which satisfies the passed callback.
    */
-  find(callback: (value: T) => boolean | Promise<boolean>): Promise<T | undefined>;
+  find(callback: (value: T) => boolean | Promise<boolean>): Promise<Maybe<T>>;
 
   /**
    * Calls the passed callback once for every value in the sequence.
