@@ -1,4 +1,4 @@
-import { SubscriptionData } from '../../../data/subscription/data';
+import { SubscriptionData } from '../../../data/subscriptions/data';
 import { PaginationParameters, ThrottlingParameters } from '../../../types/parameters';
 import PickOptional from '../../../types/PickOptional';
 

@@ -14,14 +14,14 @@ import { transform as transformChargeback } from './data/chargebacks/Chargeback'
 import { transform as transformCapture } from './data/payments/captures/Capture';
 import { transform as transformCustomer } from './data/customers/Customer';
 import { transform as transformMandate } from './data/customers/mandates/Mandate';
-import { transform as transformSubscription } from './data/subscription/Subscription';
+import { transform as transformSubscription } from './data/subscriptions/Subscription';
 import { transform as transformOrder } from './data/orders/Order';
 import { transform as transformShipment } from './data/orders/shipments/Shipment';
 import { transform as transformPermission } from './data/permissions/Permission';
 import { transform as transformOrganization } from './data/organizations/Organizations';
 import { transform as transformProfile } from './data/profiles/Profile';
 import { transform as transformOnboarding } from './data/onboarding/Onboarding';
-import { transform as transformPaymentLink } from './data/paymentLink/PaymentLink';
+import { transform as transformPaymentLink } from './data/paymentLinks/PaymentLink';
 
 // Binders
 import ApplePayBinder from './binders/applePay/ApplePayBinder';
@@ -43,7 +43,7 @@ import PaymentChargebacksBinder from './binders/payments/chargebacks/PaymentChar
 import PaymentLinksBinder from './binders/paymentLinks/PaymentLinksBinder';
 import PaymentRefundsBinder from './binders/payments/refunds/PaymentRefundsBinder';
 import PaymentsBinder from './binders/payments/PaymentsBinder';
-import PermissionsBinder from './binders/permissions/PermissionBinder';
+import PermissionsBinder from './binders/permissions/PermissionsBinder';
 import ProfilesBinder from './binders/profiles/ProfilesBinder';
 import RefundsBinder from './binders/refunds/RefundsBinder';
 import SubscriptionsBinder from './binders/subscriptions/SubscriptionsBinder';
@@ -163,6 +163,6 @@ export { OrderEmbed, OrderStatus } from './data/orders/data';
 export { OrderLineType } from './data/orders/orderlines/OrderLine';
 export { PaymentEmbed, PaymentStatus } from './data/payments/data';
 export { RefundEmbed, RefundStatus } from './data/refunds/data';
-export { SubscriptionStatus } from './data/subscription/data';
+export { SubscriptionStatus } from './data/subscriptions/data';
 export { ProfileStatus } from './data/profiles/data';
 export { OnboardingStatus } from './data/onboarding/data';

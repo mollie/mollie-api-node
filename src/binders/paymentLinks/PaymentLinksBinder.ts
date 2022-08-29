@@ -1,7 +1,7 @@
 import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import List from '../../data/list/List';
-import { PaymentLinkData } from '../../data/paymentLink/data';
-import PaymentLink from '../../data/paymentLink/PaymentLink';
+import { PaymentLinkData } from '../../data/paymentLinks/data';
+import PaymentLink from '../../data/paymentLinks/PaymentLink';
 import ApiError from '../../errors/ApiError';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';

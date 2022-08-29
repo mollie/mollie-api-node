@@ -1,4 +1,4 @@
-import { PaymentLinkData } from '../../data/paymentLink/data';
+import { PaymentLinkData } from '../../data/paymentLinks/data';
 import { PaginationParameters, ThrottlingParameters } from '../../types/parameters';
 
 export type CreateParameters = Pick<PaymentLinkData, 'description' | 'amount' | 'redirectUrl' | 'webhookUrl' | 'expiresAt'> & {

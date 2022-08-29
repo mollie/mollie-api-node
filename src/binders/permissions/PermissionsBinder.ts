@@ -1,8 +1,6 @@
 import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import List from '../../data/list/List';
 import Permission, { PermissionData } from '../../data/permissions/Permission';
-import ApiError from '../../errors/ApiError';
-import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
 import Binder from '../Binder';
@@ -33,9 +31,6 @@ export default class PermissionsBinder extends Binder<PermissionData, Permission
   public get(id: string, callback: Callback<Permission>): void;
   public get(id: string) {
     if (renege(this, this.get, ...arguments)) return;
-    if (!checkId(id, 'permission')) {
-      throw new ApiError('The permission id is invalid');
-    }
     return this.networkClient.get<PermissionData, Permission>(`${pathSegment}/${id}`);
   }
 
