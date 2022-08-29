@@ -15,8 +15,8 @@ export type CreateParameters = ContextParameters &
      * You can also specify the methods in an array. By doing so we will still show the payment method selection screen but will only show the methods specified in the array. For example, you can use
      * this functionality to only show payment methods from a specific country to your customer `["bancontact", "belfius"]`.
      *
-     * Possible values: `applepay` `bancontact` `banktransfer` `belfius` `creditcard` `directdebit` `eps` `giftcard` `giropay` `ideal` `kbc` `klarnapaylater` `klarnapaynow` `klarnasliceit` `paypal`
-     * `paysafecard` `przelewy24` `sofort`
+     * Possible values: `applepay` `bancontact` `banktransfer` `belfius` `creditcard` `directdebit` `eps` `giftcard` `giropay` `ideal` `in3` `kbc` `klarnapaylater` `klarnapaynow` `klarnasliceit`
+     * `paypal` `paysafecard` `przelewy24` `sofort`
      *
      * @see https://docs.mollie.com/reference/v2/orders-api/create-order-payment?path=method#parameters
      */

@@ -16,8 +16,6 @@ export default class OrganizationsBinder extends Binder<OrganizationData, Organi
   /**
    * Retrieve an organization by its ID.
    *
-   * If you do not know the organization's ID, you can use the organizations list endpoint to retrieve all organizations that are accessible.
-   *
    * @since 3.2.0
    * @see https://docs.mollie.com/reference/v2/organizations-api/get-organization
    */

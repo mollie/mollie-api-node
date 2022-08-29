@@ -18,8 +18,8 @@ export default class OrderLinesBinder extends InnerBinder<OrderData, Order> {
   }
 
   /**
-   * This endpoint can be used to cancel one or more order lines that were previously authorized using a *pay after delivery* payment method. Use the Cancel order endpoint if you want to cancel the
-   * entire order or the remainder of the order.
+   * This endpoint can be used to cancel one or more order lines that were previously authorized using a Klarna payment method. Use the Cancel order endpoint if you want to cancel the entire order or
+   * the remainder of the order.
    *
    * Canceling or partially canceling an order line will immediately release the authorization held for that amount. Your customer will be able to see the updated order in his portal / app. Any
    * canceled lines will be removed from the customer's point of view, but will remain visible in the Mollie Dashboard.
@@ -49,8 +49,8 @@ export default class OrderLinesBinder extends InnerBinder<OrderData, Order> {
    *
    * Alternatively, you can also (partially) cancel order lines instead of updating the quantity.
    *
-   * When updating an order line that uses a *pay after delivery* method such as *Klarna Pay later*, Klarna may decline the requested changes, resulting in an error response from the Mollie API. The
-   * order remains intact, though the requested changes are not persisted.
+   * When updating an order line for an order that uses a Klarna payment method, Klarna may decline the requested changes, resulting in an error response from the Mollie API. The order remains intact,
+   * though the requested changes are not persisted.
    *
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/orders-api/update-order-line
@@ -71,8 +71,8 @@ export default class OrderLinesBinder extends InnerBinder<OrderData, Order> {
   }
 
   /**
-   * This endpoint can be used to cancel one or more order lines that were previously authorized using a *pay after delivery* payment method. Use the Cancel order endpoint if you want to cancel the
-   * entire order or the remainder of the order.
+   * This endpoint can be used to cancel one or more order lines that were previously authorized using a Klarna payment method. Use the Cancel order endpoint if you want to cancel the entire order or
+   * the remainder of the order.
    *
    * Canceling or partially canceling an order line will immediately release the authorization held for that amount. Your customer will be able to see the updated order in his portal / app. Any
    * canceled lines will be removed from the customer's point of view, but will remain visible in the Mollie Dashboard.
