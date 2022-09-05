@@ -8,6 +8,7 @@ export type GiftcardIssuer =
   | 'decadeaukaart'
   | 'delokalecadeaukaart'
   | 'dinercadeau'
+  | 'doenkadotickets'
   | 'fashioncheque'
   | 'festivalcadeau'
   | 'good4fun'

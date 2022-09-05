@@ -33,6 +33,7 @@ export enum PaymentMethod {
   giftcard = 'giftcard',
   giropay = 'giropay',
   ideal = 'ideal',
+  in3 = 'in3',
   kbc = 'kbc',
   klarnapaylater = 'klarnapaylater',
   klarnapaynow = 'klarnapaynow',
@@ -42,6 +43,7 @@ export enum PaymentMethod {
   paysafecard = 'paysafecard',
   przelewy24 = 'przelewy24',
   sofort = 'sofort',
+  voucher = 'voucher',
 }
 
 export enum HistoricPaymentMethod {

@@ -17,7 +17,7 @@ export const pathSegment = 'orders';
  * For each order in your shop, you can create an order via the Mollie API. The order will remain valid for a certain amount of time (default 28 days).
  *
  * Just as a regular payment, the order will have a `_links.checkout` property where you can redirect your customer to pay for the order. For each attempt to pay, a payment object is created. If the
- * customer pays for the order, the order will transition to the `paid` state (or `authorized` in case of pay after delivery).
+ * customer pays for the order, the order will transition to the `paid` state (or `authorized` in case of Klarna payment methods).
  *
  * Should the initial payment fail, the order remains in the `created` state so that your customer can try to pay again. This can be done using a dedicated link available through the Dashboard which
  * you can share with your customer, or you can create an additional payment on the order via the API.
@@ -27,7 +27,7 @@ export const pathSegment = 'orders';
  *
  * The following payment methods require the Orders API and cannot be used with the Payments API:
  *
- * -   *Pay after delivery* payment methods, such as Klarna Pay later and Klarna Slice it
+ * -   *Pay after delivery* payment methods, such as Klarna Pay later, Klarna Slice it and in3
  * -   Klarna Pay now
  * -   Eco vouchers, gift vouchers, and meal vouchers
  *
@@ -81,7 +81,7 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
 
   /**
    * Using the Orders API is the preferred approach when integrating the Mollie API into e-commerce applications such as webshops. If you want to use *Klarna Pay now*, *Klarna Pay later*, *Klarna
-   * Slice it* or *Vouchers*, using the Orders API is mandatory.
+   * Slice it*, *in3* or *Vouchers*, using the Orders API is mandatory.
    *
    * Creating an Order will automatically create the required Payment to allow your customer to pay for the order.
    *
@@ -149,8 +149,8 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
   /**
    * This endpoint can be used to update the billing and/or shipping address of an order.
    *
-   * When updating an order that uses a *pay after delivery* method such as *Klarna Pay later*, Klarna may decline the requested changes, resulting in an error response from the Mollie API. The order
-   * remains intact, though the requested changes are not persisted.
+   * When updating an order that uses a Klarna payment method, Klarna may decline the requested changes, resulting in an error response from the Mollie API. The order remains intact, though the
+   * requested changes are not persisted.
    *
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/orders-api/update-order

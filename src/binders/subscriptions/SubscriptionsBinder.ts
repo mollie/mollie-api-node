@@ -1,7 +1,7 @@
 import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import List from '../../data/list/List';
-import { SubscriptionData } from '../../data/subscription/data';
-import Subscription from '../../data/subscription/Subscription';
+import { SubscriptionData } from '../../data/subscriptions/data';
+import Subscription from '../../data/subscriptions/Subscription';
 import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
 import InnerBinder from '../InnerBinder';

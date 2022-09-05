@@ -94,7 +94,7 @@ import {
 } from './binders/orders/shipments/parameters';
 export { ShipmentCreateParams, ShipmentGetParams, ShipmentsListParams, ShipmentUpdateParams };
 
-export { default as Subscription } from './data/subscription/Subscription';
+export { default as Subscription } from './data/subscriptions/Subscription';
 import {
   CancelParameters as SubscriptionCancelParams,
   CreateParameters as SubscriptionCreateParams,

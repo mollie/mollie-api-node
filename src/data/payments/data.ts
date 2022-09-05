@@ -123,8 +123,8 @@ export interface PaymentData extends Model<'payment'> {
    *
    * If the payment is only partially paid with a gift card, the method remains `giftcard`.
    *
-   * Possible values: `null` `bancontact` `banktransfer` `belfius` `creditcard` `directdebit` `eps` `giftcard` `giropay` `ideal` `kbc` `klarnapaylater` `klarnapaynow` `klarnasliceit` `mybank` `paypal`
-   * `paysafecard` `przelewy24` `sofort`
+   * Possible values: `null` `bancontact` `banktransfer` `belfius` `creditcard` `directdebit` `eps` `giftcard` `giropay` `ideal` `in3` `kbc` `klarnapaylater` `klarnapaynow` `klarnasliceit` `mybank`
+   * `paypal` `paysafecard` `przelewy24` `sofort`
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=method#response
    */

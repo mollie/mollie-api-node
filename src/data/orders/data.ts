@@ -112,6 +112,11 @@ export interface OrderData extends Model<'order'> {
    * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=redirectUrl#response
    */
   redirectUrl: Nullable<string>;
+  /**
+   * An array of order line objects. Each object will have the properties listed below.
+   *
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=lines#response
+   */
   lines: OrderLineData[];
   /**
    * The URL Mollie will call as soon an important status change on the order takes place.

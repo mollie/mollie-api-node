@@ -76,8 +76,8 @@ export interface ListParameters {
    */
   resource?: string;
   /**
-   * The billing country of your customer in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format. This parameter can be used to check whether your customer is eligible for
-   * certain payment methods, for example *Klarna Slice it*.
+   * The country taken from your customer's billing address in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format. This parameter can be used to check whether your customer
+   * is eligible for certain payment methods, for example *Klarna Slice it*.
    *
    * Example: `https://api.mollie.com/v2/methods?resource=orders&billingCountry=DE`
    *
