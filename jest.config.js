@@ -1,4 +1,4 @@
-const nockfulTests = ['iteration', 'paymentLinks', 'profiles', 'settlements'];
+const nockfulTests = ['communication', 'iteration', 'paymentLinks', 'profiles', 'settlements'];
 
 function createProject(displayName, testRegex, rest) {
   return Object.assign({}, rest, {

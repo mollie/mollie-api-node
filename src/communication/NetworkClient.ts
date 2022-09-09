@@ -10,9 +10,10 @@ import DemandingIterator from '../plumbing/iteration/DemandingIterator';
 import HelpfulIterator from '../plumbing/iteration/HelpfulIterator';
 import Throttler from '../plumbing/Throttler';
 import Maybe from '../types/Maybe';
-import buildUrl, { SearchParameters } from './buildUrl';
 import breakUrl from './breakUrl';
+import buildUrl, { SearchParameters } from './buildUrl';
 import dromedaryCase from './dromedaryCase';
+import makeRetrying from './makeRetrying';
 
 /**
  * Like `[].map` but with support for non-array inputs, in which case this function behaves as if an array was passed
@@ -97,7 +98,7 @@ export default class NetworkClient {
     axiosOptions.headers['Accept'] = 'application/hal+json';
     axiosOptions.headers['Accept-Encoding'] = 'gzip';
     axiosOptions.headers['Content-Type'] = 'application/json';
-    // Create the axios instance.
+    // Create the Axios instance.
     this.axiosInstance = axios.create({
       ...axiosOptions,
       baseURL: apiEndpoint,
@@ -105,6 +106,8 @@ export default class NetworkClient {
         ca: caCertificates,
       }),
     });
+    // Make the Axios instance request multiple times is some scenarios.
+    makeRetrying(this.axiosInstance);
   }
 
   async post<R>(pathname: string, data: any, query?: SearchParameters): Promise<R | true> {

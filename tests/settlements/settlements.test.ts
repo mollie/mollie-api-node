@@ -11,8 +11,7 @@ describe('settlements', () => {
     mollieClient = await networkMocker.prepare();
 
     networkMocker
-      .intercept(/\/settlements\/(stl_jDk30akdN|1234567\.1804\.03)$/, 'GET')
-      .reply(200, {
+      .intercept('GET', /\/settlements\/(stl_jDk30akdN|1234567\.1804\.03)$/, 200, {
         resource: 'settlement',
         id: 'stl_jDk30akdN',
         reference: '1234567.1804.03',
@@ -142,7 +141,7 @@ describe('settlements', () => {
           },
         },
       })
-      .persist();
+      .times(Number.POSITIVE_INFINITY);
   });
 
   test('settlements', async () => {
@@ -155,8 +154,7 @@ describe('settlements', () => {
 
   test('settlementPayments', async () => {
     networkMocker
-      .intercept(/\/settlements\/stl_jDk30akdN\/payments\?limit=\d+$/, 'GET')
-      .reply(200, {
+      .intercept('GET', /\/settlements\/stl_jDk30akdN\/payments\?limit=\d+$/, 200, {
         count: 1,
         _embedded: {
           payments: [
@@ -208,7 +206,7 @@ describe('settlements', () => {
           },
         },
       })
-      .persist();
+      .twice();
     let payment = await getHead(mollieClient.settlementPayments.page({ settlementId: 'stl_jDk30akdN', limit: 1 }));
     expect(payment.id).toBe('tr_7UhSN1zuXS');
 
@@ -219,8 +217,7 @@ describe('settlements', () => {
 
   test('settlementCaptures', async () => {
     networkMocker
-      .intercept(/settlements\/stl_jDk30akdN\/captures\?limit=\d+$/, 'GET')
-      .reply(200, {
+      .intercept('GET', /settlements\/stl_jDk30akdN\/captures\?limit=\d+$/, 200, {
         _embedded: {
           captures: [
             {
@@ -278,7 +275,7 @@ describe('settlements', () => {
           next: null,
         },
       })
-      .persist();
+      .twice();
     let capture = await getHead(mollieClient.settlementCaptures.page({ settlementId: 'stl_jDk30akdN', limit: 1 }));
     expect(capture.id).toBe('cpt_4qqhO89gsT');
 
@@ -289,8 +286,7 @@ describe('settlements', () => {
 
   test('settlementRefunds', async () => {
     networkMocker
-      .intercept(/settlements\/stl_jDk30akdN\/refunds\?limit=\d+$/, 'GET')
-      .reply(200, {
+      .intercept('GET', /settlements\/stl_jDk30akdN\/refunds\?limit=\d+$/, 200, {
         _embedded: {
           refunds: [
             {
@@ -340,7 +336,7 @@ describe('settlements', () => {
           next: null,
         },
       })
-      .persist();
+      .twice();
     let refund = await getHead(mollieClient.settlementRefunds.page({ settlementId: 'stl_jDk30akdN', limit: 1 }));
     expect(refund.id).toBe('re_3aKhkUNigy');
 
@@ -351,8 +347,7 @@ describe('settlements', () => {
 
   test('settlementChargebacks', async () => {
     networkMocker
-      .intercept(/settlements\/stl_jDk30akdN\/chargebacks\?limit=\d+$/, 'GET')
-      .reply(200, {
+      .intercept('GET', /settlements\/stl_jDk30akdN\/chargebacks\?limit=\d+$/, 200, {
         count: 1,
         _embedded: {
           chargebacks: [
@@ -401,7 +396,7 @@ describe('settlements', () => {
           next: null,
         },
       })
-      .persist();
+      .twice();
     let chargeback = await getHead(mollieClient.settlementChargebacks.page({ settlementId: 'stl_jDk30akdN', limit: 1 }));
     expect(chargeback.id).toBe('chb_n9z0tp');
 

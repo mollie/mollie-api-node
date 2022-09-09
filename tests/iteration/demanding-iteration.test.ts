@@ -1,3 +1,4 @@
+import { Interceptor } from 'nock';
 import { MollieClient, Payment } from '../..';
 import NetworkMocker, { getApiKeyClientProvider } from '../NetworkMocker';
 
@@ -16,23 +17,23 @@ describe('demanding-iteration', () => {
   beforeAll(async () => {
     mollieClient = await networkMocker.prepare();
     expect.extend({
-      async toDemand(received: AsyncIterable<Payment>, expected: number): Promise<jest.CustomMatcherResult> {
-        // Add the interceptor.
-        networkMocker.intercept(`/payments?limit=${expected}`, 'GET').reply(200, { _embedded: { payments: [] }, count: 0, _links: {} });
+      async toDemand(received: AsyncIterable<Payment>, expected: number) {
+        // Setup the interceptor.
+        const interceptor = networkMocker.intercept('GET', `/payments?limit=${expected}`, 200, { _embedded: { payments: [] }, count: 0, _links: {} }) as Interceptor & { counter: number };
+        // Trigger he iterable to make a request.
         try {
-          // Trigger the call.
           for await (let _ of received) {
             break;
           }
-        } catch (error) {
-          return {
-            pass: false,
-            message: () => `Iterating the received iterable did not cause a call to https://api.mollie.com:443/v2/payments?limit=${expected}`,
-          };
-        }
+        } catch (error) {}
+        const { isNot } = this;
+        const pass = interceptor.counter == 0;
         return {
-          pass: true,
-          message: () => '',
+          pass,
+          message: () =>
+            'expect(iterable).toDemand(expected)' + //
+            '\n\n' +
+            `Expected an iterable which ${isNot ? 'does not make' : 'makes'} a request to https://api.mollie.com:443/v2/payments?limit=${expected}`,
         };
       },
     });
