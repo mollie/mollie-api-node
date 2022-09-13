@@ -1,13 +1,12 @@
 import { ApiMode, MollieClient, Payment, PaymentMethod } from '../..';
-import axios from 'axios';
-import NetworkMocker, { getAccessTokenClientMode, record, replay } from '../NetworkMocker';
+import NetworkMocker, { getAccessTokenClientProvider } from '../NetworkMocker';
 
-// false ‒ This test interacts with the real Mollie API over the network, and records the communication.
-// true  ‒ This test uses existing recordings to simulate the network.
-const mockNetwork = true;
+// 'record' ‒ This test interacts with the real Mollie API over the network, and records the communication.
+// 'replay' ‒ This test uses existing recordings to simulate the network.
+const networkMode = 'replay';
 
 describe('iteration', () => {
-  const networkMocker = new NetworkMocker((mockNetwork ? replay : record)(getAccessTokenClientMode, 'iteration'));
+  const networkMocker = new NetworkMocker.Auto(networkMode, getAccessTokenClientProvider, 'iteration');
   let mollieClient: MollieClient;
   let profileId: string;
 
@@ -23,10 +22,8 @@ describe('iteration', () => {
         mode: ApiMode.test,
       })
     ).id;
-    // Enable iDEAL for the test profile. TODO (implement and) use the library API for this.
-    await axios.post(`https://api.mollie.com/v2/profiles/${profileId}/methods/${PaymentMethod.ideal}`, undefined, {
-      headers: { Authorization: `Bearer ${(mollieClient as { accessToken?: string }).accessToken}` },
-    });
+    // Enable iDEAL for the test profile.
+    await mollieClient.profileMethods.enable({ profileId, id: PaymentMethod.ideal });
     // Create some payments.
     await [
       ['for book #1', '20.00'],
