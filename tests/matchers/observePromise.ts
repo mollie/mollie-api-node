@@ -51,11 +51,7 @@ function createMatcher(matcherCall: string, expectedState: State, compareResult:
     const { isNot } = this;
     let pass = received.state == expectedState;
     if (compareResult) {
-      try {
-        expect(received.result).toEqual(expectedResult);
-      } catch (error) {
-        pass = false;
-      }
+      pass &&= this.equals(received.result, expectedResult);
     }
     return {
       pass,
