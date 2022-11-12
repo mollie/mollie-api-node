@@ -166,3 +166,4 @@ export { RefundEmbed, RefundStatus } from './data/refunds/data';
 export { SubscriptionStatus } from './data/subscriptions/data';
 export { ProfileStatus } from './data/profiles/data';
 export { OnboardingStatus } from './data/onboarding/data';
+export { default as ApiError } from './errors/ApiError';

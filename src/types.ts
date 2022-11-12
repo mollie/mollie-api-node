@@ -107,3 +107,5 @@ export { SubscriptionCreateParams, SubscriptionGetParams, SubscriptionsListParam
 export { CardAudience, CardFailureReason, CardLabel, FeeRegion } from './data/global';
 export { Issuer } from './data/Issuer';
 export { PaymentInclude } from './data/payments/data';
+
+export { default as ApiError } from './errors/ApiError';
