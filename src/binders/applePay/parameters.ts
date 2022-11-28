@@ -1,4 +1,6 @@
-export interface RequestPaymentSessionParameters {
+import { IdempotencyParameter } from '../../types/parameters';
+
+export interface RequestPaymentSessionParameters extends IdempotencyParameter {
   /**
    * The `validationUrl` you got from the [ApplePayValidateMerchant event](https://developer.apple.com/documentation/apple_pay_on_the_web/applepayvalidatemerchantevent).
    *

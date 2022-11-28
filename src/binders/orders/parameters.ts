@@ -1,7 +1,7 @@
 import { PaymentMethod } from '../../data/global';
-import { OrderAddress, OrderData, OrderEmbed } from '../../data/orders/data';
+import { OrderData, OrderEmbed } from '../../data/orders/data';
 import { OrderLineData } from '../../data/orders/orderlines/OrderLine';
-import { PaginationParameters, ThrottlingParameters } from '../../types/parameters';
+import { IdempotencyParameter, PaginationParameters, ThrottlingParameter } from '../../types/parameters';
 import { CreateParameters as PaymentCreateParameters } from '../payments/parameters';
 import PickOptional from '../../types/PickOptional';
 
@@ -82,7 +82,7 @@ export type CreateParameters = Pick<OrderData, 'amount' | 'orderNumber' | 'consu
     embed?: OrderEmbed.payments[];
     profileId?: string;
     testmode?: boolean;
-  };
+  } & IdempotencyParameter;
 
 export interface GetParameters {
   testmode?: boolean;
@@ -99,8 +99,8 @@ export type ListParameters = PaginationParameters & {
   testmode?: boolean;
 };
 
-export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameters;
+export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameter;
 
-export interface CancelParameters {
+export interface CancelParameters extends IdempotencyParameter {
   testmode?: boolean;
 }

@@ -7,7 +7,7 @@ import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
 import Binder from '../Binder';
-import { CreateParameters, IterateParameters, ListParameters, UpdateParameters } from './parameters';
+import { CreateParameters, DeleteParameters, IterateParameters, ListParameters, UpdateParameters } from './parameters';
 
 const pathSegment = 'profiles';
 
@@ -124,13 +124,13 @@ export default class ProfilesBinder extends Binder<ProfileData, Profile> {
    * @since 3.2.0
    * @see https://docs.mollie.com/reference/v2/profiles-api/delete-profile
    */
-  public delete(id: string): Promise<true>;
-  public delete(id: string, callback: Callback<List<true>>): void;
-  public delete(id: string) {
+  public delete(id: string, parameters?: DeleteParameters): Promise<true>;
+  public delete(id: string, parameters: DeleteParameters, callback: Callback<true>): void;
+  public delete(id: string, parameters?: DeleteParameters) {
     if (renege(this, this.delete, ...arguments)) return;
     if (!checkId(id, 'profile')) {
       throw new ApiError('The profile id is invalid');
     }
-    return this.networkClient.delete<ProfileData, true>(`${pathSegment}/${id}`);
+    return this.networkClient.delete<ProfileData, true>(`${pathSegment}/${id}`, parameters);
   }
 }

@@ -1,5 +1,5 @@
 import { RefundData, RefundEmbed } from '../../../data/refunds/data';
-import { PaginationParameters, ThrottlingParameters } from '../../../types/parameters';
+import { IdempotencyParameter, PaginationParameters, ThrottlingParameter } from '../../../types/parameters';
 import PickOptional from '../../../types/PickOptional';
 
 interface ContextParameters {
@@ -7,7 +7,7 @@ interface ContextParameters {
   testmode?: boolean;
 }
 
-export type CreateParameters = ContextParameters & Pick<RefundData, 'amount' | 'metadata'> & PickOptional<RefundData, 'description'>;
+export type CreateParameters = ContextParameters & Pick<RefundData, 'amount' | 'metadata'> & PickOptional<RefundData, 'description'> & IdempotencyParameter;
 
 export type GetParameters = ContextParameters & {
   embed?: RefundEmbed[];
@@ -18,6 +18,6 @@ export type ListParameters = ContextParameters &
     embed?: RefundEmbed[];
   };
 
-export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameters;
+export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameter;
 
-export type CancelParameters = ContextParameters;
+export type CancelParameters = ContextParameters & IdempotencyParameter;

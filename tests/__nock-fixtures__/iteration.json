@@ -82,7 +82,7 @@
         "scope": "https://api.mollie.com:443",
         "method": "POST",
         "path": "/v2/profiles/pfl_VmWrA97Mj4/methods/ideal",
-        "body": "",
+        "body": {},
         "status": 201,
         "response": {
             "resource": "method",

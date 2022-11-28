@@ -1,5 +1,5 @@
 import { MandateData } from '../../../data/customers/mandates/data';
-import { PaginationParameters, ThrottlingParameters } from '../../../types/parameters';
+import { IdempotencyParameter, PaginationParameters, ThrottlingParameter } from '../../../types/parameters';
 
 interface ContextParameters {
   customerId: string;
@@ -50,12 +50,12 @@ export type CreateParameters = ContextParameters &
      * @see https://docs.mollie.com/reference/v2/mandates-api/create-mandate?path=paypalBillingAgreementId#parameters
      */
     paypalBillingAgreementId?: string;
-  };
+  } & IdempotencyParameter;
 
 export type GetParameters = ContextParameters;
 
 export type ListParameters = ContextParameters & PaginationParameters;
 
-export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameters;
+export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameter;
 
-export type RevokeParameters = ContextParameters;
+export type RevokeParameters = ContextParameters & IdempotencyParameter;

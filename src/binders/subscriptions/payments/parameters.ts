@@ -1,4 +1,4 @@
-import { PaginationParameters, ThrottlingParameters } from '../../../types/parameters';
+import { PaginationParameters, ThrottlingParameter } from '../../../types/parameters';
 
 interface ContextParameters {
   testmode?: boolean;
@@ -8,4 +8,4 @@ interface ContextParameters {
 
 export type ListParameters = ContextParameters & PaginationParameters;
 
-export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameters;
+export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameter;

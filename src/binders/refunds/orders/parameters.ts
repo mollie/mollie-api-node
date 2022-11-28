@@ -1,6 +1,6 @@
 import { Amount } from '../../../data/global';
 import { RefundData } from '../../../data/refunds/data';
-import { PaginationParameters, ThrottlingParameters } from '../../../types/parameters';
+import { IdempotencyParameter, PaginationParameters, ThrottlingParameter } from '../../../types/parameters';
 
 interface ContextParameters {
   orderId: string;
@@ -45,8 +45,8 @@ export type CreateParameters = ContextParameters &
        */
       amount?: Amount;
     }[];
-  };
+  } & IdempotencyParameter;
 
 export type ListParameters = ContextParameters & PaginationParameters;
 
-export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameters;
+export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameter;

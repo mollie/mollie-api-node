@@ -1,5 +1,6 @@
 import { Amount } from '../../../data/global';
 import { ShipmentData } from '../../../data/orders/shipments/Shipment';
+import { IdempotencyParameter } from '../../../types/parameters';
 import PickRequired from '../../../types/PickRequired';
 
 interface ContextParameters {
@@ -46,7 +47,7 @@ export type CreateParameters = ContextParameters &
        */
       amount?: Amount;
     }[];
-  };
+  } & IdempotencyParameter;
 
 export type GetParameters = ContextParameters;
 

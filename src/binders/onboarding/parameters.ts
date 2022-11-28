@@ -1,6 +1,7 @@
 import { Address } from '../../data/global';
+import { IdempotencyParameter } from '../../types/parameters';
 
-export interface SubmitParameters {
+export interface SubmitParameters extends IdempotencyParameter {
   /**
    * Data of the organization you want to provide.
    *

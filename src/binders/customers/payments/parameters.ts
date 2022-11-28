@@ -1,6 +1,6 @@
 import { PaymentMethod } from '../../../data/global';
 import { PaymentData } from '../../../data/payments/data';
-import { PaginationParameters, ThrottlingParameters } from '../../../types/parameters';
+import { IdempotencyParameter, PaginationParameters, ThrottlingParameter } from '../../../types/parameters';
 import PickOptional from '../../../types/PickOptional';
 
 interface ContextParameters {
@@ -22,8 +22,8 @@ export type CreateParameters = ContextParameters &
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=method#parameters
      */
     method?: PaymentMethod | PaymentMethod[];
-  };
+  } & IdempotencyParameter;
 
 export type ListParameters = ContextParameters & PaginationParameters;
 
-export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameters;
+export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameter;

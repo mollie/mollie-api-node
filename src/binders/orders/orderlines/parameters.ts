@@ -1,5 +1,6 @@
 import { Amount } from '../../../data/global';
 import { OrderLineData } from '../../../data/orders/orderlines/OrderLine';
+import { IdempotencyParameter } from '../../../types/parameters';
 import PickOptional from '../../../types/PickOptional';
 
 interface ContextParameters {
@@ -61,4 +62,4 @@ export type CancelParameters = ContextParameters & {
      */
     amount?: Amount;
   }[];
-};
+} & IdempotencyParameter;

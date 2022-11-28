@@ -168,7 +168,7 @@
         "scope": "https://api.mollie.com:443",
         "method": "POST",
         "path": "/v2/profiles/pfl_XjBqKLWD7q/methods/giftcard/issuers/festivalcadeau",
-        "body": "",
+        "body": {},
         "status": 201,
         "response": {
             "resource": "issuer",
@@ -214,7 +214,7 @@
         "scope": "https://api.mollie.com:443",
         "method": "DELETE",
         "path": "/v2/profiles/pfl_XjBqKLWD7q/methods/giftcard/issuers/festivalcadeau",
-        "body": "",
+        "body": {},
         "status": 204,
         "response": "",
         "rawHeaders": [
@@ -299,7 +299,7 @@
         "scope": "https://api.mollie.com:443",
         "method": "DELETE",
         "path": "/v2/profiles/pfl_XjBqKLWD7q/methods/voucher/issuers/appetiz",
-        "body": "",
+        "body": {},
         "status": 204,
         "response": "",
         "rawHeaders": [
