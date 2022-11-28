@@ -1,6 +1,5 @@
 import { MollieClient, Payment } from '../..';
-import NetworkMocker, { getApiKeyClientMode } from '../NetworkMocker';
-import nock from 'nock';
+import NetworkMocker, { getApiKeyClientProvider } from '../NetworkMocker';
 
 declare global {
   namespace jest {
@@ -11,7 +10,7 @@ declare global {
 }
 
 describe('demanding-iteration', () => {
-  const networkMocker = new NetworkMocker(getApiKeyClientMode(true));
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
   let mollieClient: MollieClient;
 
   beforeAll(async () => {
@@ -19,12 +18,10 @@ describe('demanding-iteration', () => {
     expect.extend({
       async toDemand(received: AsyncIterable<Payment>, expected: number): Promise<jest.CustomMatcherResult> {
         // Add the interceptor.
-        nock('https://api.mollie.com:443')
-          .get(`/v2/payments?limit=${expected}`)
-          .reply(200, { _embedded: { payments: [] }, count: 0, _links: {} });
+        networkMocker.intercept(`/payments?limit=${expected}`, 'GET').reply(200, { _embedded: { payments: [] }, count: 0, _links: {} });
         try {
           // Trigger the call.
-          for await (let payment of received) {
+          for await (let _ of received) {
             break;
           }
         } catch (error) {

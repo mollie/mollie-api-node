@@ -1,13 +1,14 @@
 import { MollieClient, Payment } from '../..';
-import NetworkMocker, { getApiKeyClientMode } from '../NetworkMocker';
-import nock from 'nock';
+import NetworkMocker, { getApiKeyClientProvider } from '../NetworkMocker';
 import { apply, run, runIf } from 'ruply';
 
-function addInterceptor(limit: number, from?: number) {
-  const to = limit + (from ?? 0);
-  nock('https://api.mollie.com:443')
-    .get(`/v2/payments?${runIf(from, from => `from=tr_mock${from}&`) ?? ''}limit=${limit}`)
-    .reply(200, {
+describe('multipage-iteration', () => {
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider(true));
+  let mollieClient: MollieClient;
+
+  function addInterceptor(limit: number, from?: number) {
+    const to = limit + (from ?? 0);
+    networkMocker.intercept(`/payments?${runIf(from, from => `from=tr_mock${from}&`) ?? ''}limit=${limit}`, 'GET').reply(200, {
       _embedded: {
         payments: apply([] as Partial<Payment>[], payments => {
           for (let index = from ?? 0; to != index; index++) {
@@ -26,14 +27,10 @@ function addInterceptor(limit: number, from?: number) {
         },
       },
     });
-  return {
-    addInterceptor: (limit: number) => addInterceptor(limit, to),
-  };
-}
-
-describe('multipage-iteration', () => {
-  const networkMocker = new NetworkMocker(getApiKeyClientMode(true));
-  let mollieClient: MollieClient;
+    return {
+      addInterceptor: (limit: number) => addInterceptor(limit, to),
+    };
+  }
 
   beforeAll(async () => {
     mollieClient = await networkMocker.prepare();

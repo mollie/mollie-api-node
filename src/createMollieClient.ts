@@ -22,6 +22,8 @@ import { transform as transformOrganization } from './data/organizations/Organiz
 import { transform as transformProfile } from './data/profiles/Profile';
 import { transform as transformOnboarding } from './data/onboarding/Onboarding';
 import { transform as transformPaymentLink } from './data/paymentLinks/PaymentLink';
+import { transform as transformIssuer } from './data/issuer/IssuerModel';
+import { transform as transformSettlement } from './data/settlements/SettlementModel';
 
 // Binders
 import ApplePayBinder from './binders/applePay/ApplePayBinder';
@@ -45,7 +47,15 @@ import PaymentRefundsBinder from './binders/payments/refunds/PaymentRefundsBinde
 import PaymentsBinder from './binders/payments/PaymentsBinder';
 import PermissionsBinder from './binders/permissions/PermissionsBinder';
 import ProfilesBinder from './binders/profiles/ProfilesBinder';
+import ProfileMethodsBinder from './binders/profiles/methods/ProfileMethodsBinder';
+import ProfileGiftcardIssuersBinder from './binders/profiles/giftcardIssuers/ProfileGiftcardIssuersBinder';
+import ProfileVoucherIssuersBinder from './binders/profiles/voucherIssuers/ProfileVoucherIssuersBinder';
 import RefundsBinder from './binders/refunds/RefundsBinder';
+import SettlementPaymentsBinder from './binders/settlements/payments/SettlementPaymentsBinder';
+import SettlementCapturesBinder from './binders/settlements/captures/SettlementCapturesBinder';
+import SettlementRefundsBinder from './binders/settlements/refunds/SettlementRefundsBinder';
+import SettlementChargebacksBinder from './binders/settlements/chargebacks/SettlementChargebacksBinder';
+import SettlementsBinder from './binders/settlements/SettlementsBinder';
 import SubscriptionsBinder from './binders/subscriptions/SubscriptionsBinder';
 import SubscriptionPaymentsBinder from './binders/subscriptions/payments/SubscriptionPaymentsBinder';
 
@@ -91,7 +101,9 @@ export default function createMollieClient(options: Options) {
       .add('organization', transformOrganization)
       .add('profile', transformProfile)
       .add('onboarding', transformOnboarding)
-      .add('payment-link', transformPaymentLink),
+      .add('payment-link', transformPaymentLink)
+      .add('issuer', transformIssuer)
+      .add('settlement', transformSettlement),
   );
 
   return {
@@ -141,6 +153,9 @@ export default function createMollieClient(options: Options) {
 
     // Profiles.
     profiles: new ProfilesBinder(transformingNetworkClient),
+    profileMethods: new ProfileMethodsBinder(transformingNetworkClient),
+    profileGiftcardIssuers: new ProfileGiftcardIssuersBinder(transformingNetworkClient),
+    profileVoucherIssuers: new ProfileVoucherIssuersBinder(transformingNetworkClient),
 
     // Onboarding.
     onboarding: new OnboardingBinder(transformingNetworkClient),
@@ -150,6 +165,13 @@ export default function createMollieClient(options: Options) {
 
     // Payment links.
     paymentLinks: new PaymentLinksBinder(transformingNetworkClient),
+
+    // Settlements
+    settlements: new SettlementsBinder(transformingNetworkClient),
+    settlementPayments: new SettlementPaymentsBinder(transformingNetworkClient),
+    settlementCaptures: new SettlementCapturesBinder(transformingNetworkClient),
+    settlementRefunds: new SettlementRefundsBinder(transformingNetworkClient),
+    settlementChargebacks: new SettlementChargebacksBinder(transformingNetworkClient),
   };
 }
 
