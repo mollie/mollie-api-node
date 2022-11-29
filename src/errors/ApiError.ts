@@ -1,9 +1,10 @@
 import { AxiosResponse } from 'axios';
 
 import { idempotencyHeaderName } from '../communication/makeRetrying';
-import { MollieApiErrorLinks, Url } from '../data/global';
+import { Links, Url } from '../data/global';
 import Maybe from '../types/Maybe';
 
+type MollieApiErrorLinks = Record<string, Url> & Links;
 type MetaInfo = {
   field?: string;
   statusCode?: number;

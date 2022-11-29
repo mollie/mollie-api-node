@@ -1,4 +1,4 @@
-import { PaymentCreateParams } from '../..';
+import { MollieApiError, PaymentCreateParams } from '../..';
 import wireMockClient from '../wireMockClient';
 
 describe('errorHandling', () => {
@@ -34,7 +34,7 @@ describe('errorHandling', () => {
     try {
       await bluster(client.payments.create.bind(client.payments))(createPaymentParams as PaymentCreateParams);
     } catch (error) {
-      expect(error).toBeInstanceOf(Error);
+      expect(error).toBeInstanceOf(MollieApiError);
       expect(error.field).toBe('amount');
       expect(error.message).toBe('The amount is required for payments');
     }
@@ -53,7 +53,7 @@ describe('errorHandling', () => {
     try {
       await bluster(client.payments.create.bind(client.payments))(createPaymentParams as PaymentCreateParams);
     } catch (error) {
-      expect(error).toBeInstanceOf(Error);
+      expect(error).toBeInstanceOf(MollieApiError);
       expect(error.idempotencyKey).toBe('mock-key');
     }
   });

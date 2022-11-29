@@ -141,13 +141,3 @@ export enum SequenceType {
   first = 'first',
   recurring = 'recurring',
 }
-
-export type MollieApiErrorLinks = Record<string, Url> & Links;
-
-export interface MollieApiError {
-  status?: number;
-  title: string;
-  detail: string;
-  field?: string;
-  _links?: MollieApiErrorLinks;
-}
