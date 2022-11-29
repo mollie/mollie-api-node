@@ -1,13 +1,30 @@
 import { AxiosResponse } from 'axios';
 
+import { idempotencyHeaderName } from '../communication/makeRetrying';
 import { MollieApiErrorLinks, Url } from '../data/global';
 import Maybe from '../types/Maybe';
 
+type MetaInfo = {
+  field?: string;
+  statusCode?: number;
+  idempotencyKey?: string;
+  title?: string;
+  links?: MollieApiErrorLinks;
+};
+
 export default class ApiError extends Error {
-  public constructor(message: string, protected title?: string, public readonly statusCode?: number, public readonly field?: string, protected links?: MollieApiErrorLinks) {
+  // Set the name to ApiError.
+  public readonly name: string = 'ApiError';
+  public readonly field?: string;
+  public readonly statusCode?: number;
+  public readonly idempotencyKey?: string;
+  protected title?: string;
+  protected links?: MollieApiErrorLinks;
+  private readonly [Symbol.toStringTag] = this.name;
+
+  public constructor(message: string, meta: MetaInfo = {}) {
     super(message);
-    // Set the name to ApiError.
-    this.name = 'ApiError';
+    Object.assign(this, meta);
     // Ensure the message is enumerable, making it more likely to survive serialisation.
     Object.defineProperty(this, 'message', { enumerable: true });
   }
@@ -95,6 +112,8 @@ export default class ApiError extends Error {
    * @since 3.0.0
    */
   public static createFromResponse(response: AxiosResponse): ApiError {
-    return new ApiError(response.data.detail ?? 'Received an error without a message', response.data.title, response.data.status, response.data.field, response.data._links);
+    const { detail, title, status: statusCode, field, _links: links } = response.data;
+    const { headers } = response.config;
+    return new ApiError(detail ?? 'Received an error without a message', { title, statusCode, field, links, idempotencyKey: headers?.[idempotencyHeaderName] as string | undefined });
   }
 }

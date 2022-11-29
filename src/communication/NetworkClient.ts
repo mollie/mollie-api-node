@@ -9,8 +9,8 @@ import Options from '../Options';
 import DemandingIterator from '../plumbing/iteration/DemandingIterator';
 import HelpfulIterator from '../plumbing/iteration/HelpfulIterator';
 import Throttler from '../plumbing/Throttler';
-import { IdempotencyParameter } from '../types/parameters';
 import Maybe from '../types/Maybe';
+import { IdempotencyParameter } from '../types/parameters';
 import breakUrl from './breakUrl';
 import buildUrl, { SearchParameters } from './buildUrl';
 import dromedaryCase from './dromedaryCase';
@@ -219,7 +219,7 @@ export default class NetworkClient {
     });
   }
 
-  async patch<R>(pathname: string, data: {}): Promise<R> {
+  async patch<R>(pathname: string, data: NonNullable<unknown>): Promise<R> {
     const response = await this.axiosInstance.patch(pathname, data).catch(throwApiError);
     return response.data;
   }

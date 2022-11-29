@@ -32,8 +32,8 @@ type AttemptState = { [attemptIndex]: number };
 export const idempotencyHeaderName = 'Idempotency-Key';
 
 /**
- * Returns an object with a single `'Idempotency-Key'` property, whose value is a random 24-character string which can
- * be used as an idempotency key.
+ * Returns an object with a single property, whose value is a random 24-character string.
+ * The property's name is defined using the const `idempotencyHeaderName`.
  *
  * As the data encoded in said string is 144 bits long, the odds of two generated keys colliding is ±2% after
  * generating a sextillion (1000 billion billion, or 10^21) keys.
@@ -87,7 +87,7 @@ export default function makeRetrying(axiosInstance: AxiosInstance) {
   axiosInstance.interceptors.request.use((config: AxiosRequestConfig & Partial<AttemptState>) => {
     // If the request is a POST or DELETE one and does not yet have the idempotency header, add one now.
     if (unsafeMethods.has(config.method!) && config.headers?.[idempotencyHeaderName] == undefined) {
-      Object.assign(config.headers, generateIdempotencyHeader());
+      config.headers = {...config.headers, ...generateIdempotencyHeader()}
     }
     // Set the attempt (in the request configuration).
     config[attemptIndex] = (config[attemptIndex] ?? -1) + 1;
