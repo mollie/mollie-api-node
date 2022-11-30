@@ -87,7 +87,7 @@ export default function makeRetrying(axiosInstance: AxiosInstance) {
   axiosInstance.interceptors.request.use((config: AxiosRequestConfig & Partial<AttemptState>) => {
     // If the request is a POST or DELETE one and does not yet have the idempotency header, add one now.
     if (unsafeMethods.has(config.method!) && config.headers?.[idempotencyHeaderName] == undefined) {
-      config.headers = {...config.headers, ...generateIdempotencyHeader()}
+      Object.assign(config.headers ??= {}, generateIdempotencyHeader());
     }
     // Set the attempt (in the request configuration).
     config[attemptIndex] = (config[attemptIndex] ?? -1) + 1;
