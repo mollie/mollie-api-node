@@ -72,6 +72,9 @@ const throwApiError = (() => {
   };
 })();
 
+interface Data {}
+interface Context {}
+
 /**
  * This class is essentially a wrapper around axios. It simplifies communication with the Mollie API over the network.
  */
@@ -111,8 +114,11 @@ export default class NetworkClient {
     makeRetrying(this.axiosInstance);
   }
 
-  async post<R>(pathname: string, data: IdempotencyParameter, query?: SearchParameters): Promise<R | true> {
-    // Take the idempotency key from the data, if any.
+  async post<R>(pathname: string, data: Data & IdempotencyParameter, query?: SearchParameters): Promise<R | true> {
+    // Take the idempotency key from the data, if any. It would be cleaner from a design perspective to have the
+    // idempotency key in a separate argument instead of cramming it into the data like this. However, having a
+    // separate argument would require every endpoint to split the input into those two arguments and thus cause a lot
+    // of boiler-plate code.
     let config: AxiosRequestConfig | undefined = undefined;
     if (data.idempotencyKey != undefined) {
       const { idempotencyKey, ...rest } = data;
@@ -219,12 +225,12 @@ export default class NetworkClient {
     });
   }
 
-  async patch<R>(pathname: string, data: NonNullable<unknown>): Promise<R> {
+  async patch<R>(pathname: string, data: Data): Promise<R> {
     const response = await this.axiosInstance.patch(pathname, data).catch(throwApiError);
     return response.data;
   }
 
-  async delete<R>(pathname: string, context?: IdempotencyParameter): Promise<R | true> {
+  async delete<R>(pathname: string, context?: Context & IdempotencyParameter): Promise<R | true> {
     // Take the idempotency key from the context, if any.
     let headers: AxiosRequestHeaders | undefined = undefined;
     if (context?.idempotencyKey != undefined) {
