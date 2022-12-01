@@ -1,6 +1,6 @@
 import axios from 'axios';
 import dotenv from 'dotenv';
-import nock, { BackMode } from 'nock';
+import nock, { Interceptor } from 'nock';
 import { setupRecorder } from 'nock-record';
 import { apply, run } from 'ruply';
 import createMollieClient, { MollieClient } from '..';
@@ -68,14 +68,37 @@ class BaseNetworkMocker {
   }
 }
 
+type InterceptParameters = Parameters<ReturnType<typeof nock>['intercept']>;
+type ReplyParameters = Parameters<Interceptor['reply']>;
+
 /**
  * A helper for tests. It creates a Mollie Client, and activates and deactivates Nock.
  */
 class NetworkMocker extends BaseNetworkMocker {
-  public readonly intercept: ReturnType<typeof nock>['intercept'];
+  public readonly intercept: (
+    method: InterceptParameters[1],
+    uri: InterceptParameters[0],
+    responseStatusCode: ReplyParameters[0],
+    responseBody?: ReplyParameters[1],
+    responseHeaders?: ReplyParameters[2],
+  ) => nock.Interceptor;
   constructor(clientProvider: () => MaybePromise<MollieClient>) {
     super(clientProvider);
-    this.intercept = run(nock('https://api.mollie.com:443/v2'), scope => scope.intercept.bind(scope));
+    this.intercept = run(
+      nock('https://api.mollie.com:443/v2'),
+      scope =>
+        function intercept(
+          method: InterceptParameters[1],
+          uri: InterceptParameters[0],
+          responseStatusCode: ReplyParameters[0],
+          responseBody?: ReplyParameters[1],
+          responseHeaders?: ReplyParameters[2],
+        ) {
+          const interceptor = scope.intercept(uri, method);
+          interceptor.reply(responseStatusCode, responseBody, responseHeaders);
+          return interceptor;
+        },
+    );
   }
 }
 

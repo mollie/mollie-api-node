@@ -19,8 +19,8 @@ describe('methods', () => {
     const methodId = 'ideal';
     const error = { detail: 'The method id is invalid' };
 
-    mock.onGet(`/methods/${methodId}`).reply(200, response._embedded.methods[0]);
-    mock.onGet('/methods/foo').reply(500, error);
+    mock.onGet(`/methods/${methodId}`).reply(200, response._embedded.methods[0], {});
+    mock.onGet('/methods/foo').reply(500, error, {});
 
     it('should return a method instance', done =>
       methods.get(methodId).then(result => {

@@ -1,14 +1,17 @@
+import { apply, runIf } from 'ruply';
 import { MollieClient, Payment } from '../..';
 import NetworkMocker, { getApiKeyClientProvider } from '../NetworkMocker';
-import { apply, run, runIf } from 'ruply';
+import observePromise from '../matchers/observePromise';
+import tick from '../tick';
+import '../matchers/toBeDepleted';
 
 describe('multipage-iteration', () => {
   const networkMocker = new NetworkMocker(getApiKeyClientProvider(true));
   let mollieClient: MollieClient;
 
-  function addInterceptor(limit: number, from?: number) {
+  function intercept(limit: number, from?: number) {
     const to = limit + (from ?? 0);
-    networkMocker.intercept(`/payments?${runIf(from, from => `from=tr_mock${from}&`) ?? ''}limit=${limit}`, 'GET').reply(200, {
+    const interceptor = networkMocker.intercept('GET', `/payments?${runIf(from, from => `from=tr_mock${from}&`) ?? ''}limit=${limit}`, 200, {
       _embedded: {
         payments: apply([] as Partial<Payment>[], payments => {
           for (let index = from ?? 0; to != index; index++) {
@@ -28,7 +31,8 @@ describe('multipage-iteration', () => {
       },
     });
     return {
-      addInterceptor: (limit: number) => addInterceptor(limit, to),
+      interceptor,
+      intercept: (limit: number) => intercept(limit, to),
     };
   }
 
@@ -38,7 +42,7 @@ describe('multipage-iteration', () => {
 
   test('no-throttling', async () => {
     // Two pages of 128 values are requested.
-    addInterceptor(128).addInterceptor(128);
+    intercept(128).intercept(128);
     // (Break after 200 values.)
     let count = 0;
     for await (let _ of mollieClient.payments.iterate({ valuesPerMinute: 5000 })) {
@@ -50,34 +54,21 @@ describe('multipage-iteration', () => {
 
   test('no-throttling-take', () => {
     // A page of 250 values is requested (limit imposed by the Mollie API), followed by a page of 50 values.
-    addInterceptor(250).addInterceptor(50);
+    intercept(250).intercept(50);
     return mollieClient.payments
       .iterate({ valuesPerMinute: 5000 })
       .take(300)
       .forEach(() => {});
   });
 
-  test('throttling', () => {
-    const waitJiffy = run(setTimeout, realSetTimeout => () => new Promise<void>(resolve => realSetTimeout(resolve, 10)));
+  test('throttling', async () => {
+    const { interceptor: firstInterceptor, intercept: interceptNext } = intercept(128);
+    const { interceptor: secondIntercetptor } = interceptNext(128);
+
     jest.useFakeTimers();
+
     let count = 0;
-    return Promise.all([
-      (async () => {
-        // Add the interceptor for the first page.
-        addInterceptor(128);
-        // Wait, so the function below can iterate.
-        await waitJiffy();
-        // Expect 128 values to have been consumed. This proves throttling is applied, as without throttling the
-        // iterator would continue until 200 values are consumed.
-        expect(count).toBe(128);
-        // Add the interceptor for the second page.
-        addInterceptor(128, 128);
-        // Wait six seconds. This should cause the function below to iterate further.
-        jest.advanceTimersByTime(6e3);
-        await waitJiffy();
-        // Expect 200 values to have been consumed.
-        expect(count).toBe(200);
-      })(),
+    const promise = observePromise(
       (async () => {
         for await (let _ of mollieClient.payments.iterate({ valuesPerMinute: 1280 })) {
           if (++count == 200) {
@@ -85,7 +76,20 @@ describe('multipage-iteration', () => {
           }
         }
       })(),
-    ]).then(jest.useRealTimers.bind(jest));
+    );
+
+    // Expect the first network request to have been made, and the count to be 128.
+    await tick();
+    expect(firstInterceptor).toBeDepleted();
+    expect(secondIntercetptor).not.toBeDepleted();
+    expect(count).toBe(128);
+
+    // Expect the second network request to have been made after six seconds, and the count to be 200.
+    jest.advanceTimersByTime(6e3);
+    await tick();
+    expect(secondIntercetptor).toBeDepleted();
+    expect(count).toBe(200);
+    expect(promise).toBeFulfilledWith(undefined);
   });
 
   afterAll(() => networkMocker.cleanup());

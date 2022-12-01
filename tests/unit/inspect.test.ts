@@ -1,31 +1,9 @@
 import { inspect } from 'util';
 import wireMockClient from '../wireMockClient';
-
-declare global {
-  namespace jest {
-    interface Matchers<R, T> {
-      toStartWith(expected: string): Promise<CustomMatcherResult>;
-    }
-  }
-}
+import '../matchers/toStartWith';
 
 test('inspect', async () => {
   const { adapter, client } = wireMockClient();
-
-  expect.extend({
-    async toStartWith(received: string, expected: string): Promise<jest.CustomMatcherResult> {
-      if (received.startsWith(expected)) {
-        return {
-          pass: true,
-          message: () => '',
-        };
-      }
-      return {
-        pass: false,
-        message: () => `String does not start with ${expected}`,
-      };
-    },
-  });
 
   adapter.onGet('/methods/ideal').reply(200, {
     resource: 'method',
