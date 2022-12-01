@@ -4,13 +4,13 @@ import { idempotencyHeaderName } from '../communication/makeRetrying';
 import { Links, Url } from '../data/global';
 import Maybe from '../types/Maybe';
 
-type MollieApiErrorLinks = Record<string, Url> & Links;
-type MetaInfo = {
+type ApiErrorLinks = Record<string, Url> & Links;
+type Info = {
   field?: string;
   statusCode?: number;
   idempotencyKey?: string;
   title?: string;
-  links?: MollieApiErrorLinks;
+  links?: ApiErrorLinks;
 };
 
 export default class ApiError extends Error {
@@ -20,12 +20,12 @@ export default class ApiError extends Error {
   public readonly statusCode?: number;
   public readonly idempotencyKey?: string;
   protected title?: string;
-  protected links?: MollieApiErrorLinks;
+  protected links?: ApiErrorLinks;
   private readonly [Symbol.toStringTag] = this.name;
 
-  public constructor(message: string, meta: MetaInfo = {}) {
+  public constructor(message: string, info: Info = {}) {
     super(message);
-    Object.assign(this, meta);
+    Object.assign(this, info);
     // Ensure the message is enumerable, making it more likely to survive serialisation.
     Object.defineProperty(this, 'message', { enumerable: true });
   }
@@ -99,7 +99,7 @@ export default class ApiError extends Error {
   /**
    * @since 3.0.0
    */
-  public getUrl(key: keyof MollieApiErrorLinks): Maybe<string> {
+  public getUrl(key: keyof ApiErrorLinks): Maybe<string> {
     return this.links?.[key]?.href;
   }
 
