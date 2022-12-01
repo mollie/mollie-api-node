@@ -251,7 +251,7 @@ describe('request-retrying', () => {
 
     // Add a second interceptor which expects the same Idempotency-Key header.
     const successInterceptor = networkMocker.intercept('POST', '/payments', 200, paymentResponse);
-    successInterceptor.matchHeader('Idempotency-Key', idempotencyKey as string);
+    successInterceptor.matchHeader('Idempotency-Key', idempotencyKey!);
 
     // Expect the second network request to have been made after two seconds, proving the Idempotency-Key header was
     // consistent across these two network requests, and the promise to have fulfilled.

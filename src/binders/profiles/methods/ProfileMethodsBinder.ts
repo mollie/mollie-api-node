@@ -29,10 +29,11 @@ export default class ProfileMethodsBinder extends Binder<MethodData, Method> {
   public enable(parameters: Parameters, callback: Callback<Method>): void;
   public enable(parameters: Parameters) {
     if (renege(this, this.enable, ...arguments)) return;
-    if (!checkId(parameters.profileId, 'profile')) {
+    const { id, profileId, ...data } = parameters;
+    if (!checkId(profileId, 'profile')) {
       throw new ApiError('The profile id is invalid');
     }
-    return this.networkClient.post(`${getPathSegments(parameters.profileId)}/${parameters.id}`, undefined);
+    return this.networkClient.post(`${getPathSegments(profileId)}/${id}`, data);
   }
 
   /**
@@ -45,9 +46,10 @@ export default class ProfileMethodsBinder extends Binder<MethodData, Method> {
   public disable(parameters: Parameters, callback: Callback<true>): void;
   public disable(parameters: Parameters) {
     if (renege(this, this.disable, ...arguments)) return;
-    if (!checkId(parameters.profileId, 'profile')) {
+    const { id, profileId, ...context } = parameters;
+    if (!checkId(profileId, 'profile')) {
       throw new ApiError('The profile id is invalid');
     }
-    return this.networkClient.delete<MethodData, true>(`${getPathSegments(parameters.profileId)}/${parameters.id}`);
+    return this.networkClient.delete<MethodData, true>(`${getPathSegments(profileId)}/${id}`, context);
   }
 }

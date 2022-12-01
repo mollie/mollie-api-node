@@ -1,7 +1,7 @@
 import https from 'https';
 import { SecureContextOptions } from 'tls';
 
-import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios';
 
 import List from '../data/list/List';
 import ApiError from '../errors/ApiError';
@@ -10,10 +10,11 @@ import DemandingIterator from '../plumbing/iteration/DemandingIterator';
 import HelpfulIterator from '../plumbing/iteration/HelpfulIterator';
 import Throttler from '../plumbing/Throttler';
 import Maybe from '../types/Maybe';
+import { IdempotencyParameter } from '../types/parameters';
 import breakUrl from './breakUrl';
 import buildUrl, { SearchParameters } from './buildUrl';
 import dromedaryCase from './dromedaryCase';
-import makeRetrying from './makeRetrying';
+import makeRetrying, { idempotencyHeaderName } from './makeRetrying';
 
 /**
  * Like `[].map` but with support for non-array inputs, in which case this function behaves as if an array was passed
@@ -71,6 +72,9 @@ const throwApiError = (() => {
   };
 })();
 
+interface Data {}
+interface Context {}
+
 /**
  * This class is essentially a wrapper around axios. It simplifies communication with the Mollie API over the network.
  */
@@ -110,8 +114,18 @@ export default class NetworkClient {
     makeRetrying(this.axiosInstance);
   }
 
-  async post<R>(pathname: string, data: any, query?: SearchParameters): Promise<R | true> {
-    const response = await this.axiosInstance.post(buildUrl(pathname, query), data).catch(throwApiError);
+  async post<R>(pathname: string, data: Data & IdempotencyParameter, query?: SearchParameters): Promise<R | true> {
+    // Take the idempotency key from the data, if any. It would be cleaner from a design perspective to have the
+    // idempotency key in a separate argument instead of cramming it into the data like this. However, having a
+    // separate argument would require every endpoint to split the input into those two arguments and thus cause a lot
+    // of boiler-plate code.
+    let config: AxiosRequestConfig | undefined = undefined;
+    if (data.idempotencyKey != undefined) {
+      const { idempotencyKey, ...rest } = data;
+      config = { headers: { [idempotencyHeaderName]: idempotencyKey } };
+      data = rest;
+    }
+    const response = await this.axiosInstance.post(buildUrl(pathname, query), data, config).catch(throwApiError);
     if (response.status == 204) {
       return true;
     }
@@ -211,13 +225,20 @@ export default class NetworkClient {
     });
   }
 
-  async patch<R>(pathname: string, data: any): Promise<R> {
+  async patch<R>(pathname: string, data: Data): Promise<R> {
     const response = await this.axiosInstance.patch(pathname, data).catch(throwApiError);
     return response.data;
   }
 
-  async delete<R>(pathname: string, context?: any): Promise<R | true> {
-    const response = await this.axiosInstance.delete(pathname, { data: context }).catch(throwApiError);
+  async delete<R>(pathname: string, context?: Context & IdempotencyParameter): Promise<R | true> {
+    // Take the idempotency key from the context, if any.
+    let headers: AxiosRequestHeaders | undefined = undefined;
+    if (context?.idempotencyKey != undefined) {
+      const { idempotencyKey, ...rest } = context;
+      headers = { [idempotencyHeaderName]: idempotencyKey };
+      context = rest;
+    }
+    const response = await this.axiosInstance.delete(pathname, { data: context, headers }).catch(throwApiError);
     if (response.status == 204) {
       return true;
     }

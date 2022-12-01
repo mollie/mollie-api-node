@@ -26,10 +26,11 @@ export default class ProfileGiftcardIssuersBinder extends Binder<IssuerData, Iss
   public enable(parameters: Parameters, callback: Callback<IssuerModel>): void;
   public enable(parameters: Parameters) {
     if (renege(this, this.enable, ...arguments)) return;
-    if (!checkId(parameters.profileId, 'profile')) {
+    const { id, profileId, ...data } = parameters;
+    if (!checkId(profileId, 'profile')) {
       throw new ApiError('The profile id is invalid');
     }
-    return this.networkClient.post(`${getPathSegments(parameters.profileId)}/${parameters.id}`, undefined);
+    return this.networkClient.post(`${getPathSegments(profileId)}/${id}`, data);
   }
 
   /**
@@ -41,10 +42,11 @@ export default class ProfileGiftcardIssuersBinder extends Binder<IssuerData, Iss
   public disable(parameters: Parameters): Promise<true>;
   public disable(parameters: Parameters, callback: Callback<true>): void;
   public disable(parameters: Parameters) {
-    if (renege(this, this.enable, ...arguments)) return;
-    if (!checkId(parameters.profileId, 'profile')) {
+    if (renege(this, this.disable, ...arguments)) return;
+    const { id, profileId, ...context } = parameters;
+    if (!checkId(profileId, 'profile')) {
       throw new ApiError('The profile id is invalid');
     }
-    return this.networkClient.delete<IssuerData, true>(`${getPathSegments(parameters.profileId)}/${parameters.id}`);
+    return this.networkClient.delete<IssuerData, true>(`${getPathSegments(profileId)}/${id}`, context);
   }
 }

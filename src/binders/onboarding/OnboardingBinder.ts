@@ -34,7 +34,7 @@ export default class OnboardingBinder extends Binder<OnboardingData, Onboarding>
    */
   public submit(parameters?: SubmitParameters): Promise<true>;
   public submit(parameters: SubmitParameters, callback: Callback<true>): void;
-  public submit(parameters: SubmitParameters) {
+  public submit(parameters: SubmitParameters = {}) {
     if (renege(this, this.submit, ...arguments)) return;
     return this.networkClient.post<OnboardingData, true>(pathSegments, parameters);
   }

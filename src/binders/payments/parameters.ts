@@ -1,7 +1,7 @@
 import { Address, Amount, PaymentMethod } from '../../data/global';
 import { Issuer } from '../../data/Issuer';
 import { PaymentData, PaymentEmbed, PaymentInclude } from '../../data/payments/data';
-import { PaginationParameters, ThrottlingParameters } from '../../types/parameters';
+import { IdempotencyParameter, PaginationParameters, ThrottlingParameter } from '../../types/parameters';
 import PickOptional from '../../types/PickOptional';
 
 export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'redirectUrl' | 'webhookUrl' | 'customerId' | 'mandateId'> &
@@ -157,7 +157,7 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
        */
       description: string;
     };
-  };
+  } & IdempotencyParameter;
 
 export interface GetParameters {
   include?: PaymentInclude;
@@ -170,7 +170,7 @@ export type ListParameters = PaginationParameters & {
   testmode?: boolean;
 };
 
-export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameters;
+export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameter;
 
 export type UpdateParameters = Pick<PaymentData, 'redirectUrl' | 'webhookUrl'> &
   PickOptional<PaymentData, 'description' | 'metadata'> & {
@@ -187,6 +187,6 @@ export type UpdateParameters = Pick<PaymentData, 'redirectUrl' | 'webhookUrl'> &
     restrictPaymentMethodsToCountry?: string;
   };
 
-export interface CancelParameters {
+export interface CancelParameters extends IdempotencyParameter {
   testmode?: boolean;
 }

@@ -1,4 +1,4 @@
-import { ApiMode, MollieClient } from '../..';
+import { ApiMode } from '../..';
 import NetworkMocker, { getAccessTokenClientProvider } from '../NetworkMocker';
 
 // 'record' ‒ This test interacts with the real Mollie API over the network, and records the communication.

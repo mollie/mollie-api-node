@@ -1,19 +1,19 @@
 import { CustomerData } from '../../data/customers/Customer';
-import { PaginationParameters, ThrottlingParameters } from '../../types/parameters';
+import { IdempotencyParameter, PaginationParameters, ThrottlingParameter } from '../../types/parameters';
 import PickOptional from '../../types/PickOptional';
 
-interface ContextParameters {
+interface ContextParameter {
   testmode?: boolean;
 }
 
-export type CreateParameters = ContextParameters & PickOptional<CustomerData, 'name' | 'email' | 'locale' | 'metadata'>;
+export type CreateParameters = ContextParameter & PickOptional<CustomerData, 'name' | 'email' | 'locale' | 'metadata'> & IdempotencyParameter;
 
-export type GetParameters = ContextParameters;
+export type GetParameters = ContextParameter;
 
-export type ListParameters = ContextParameters & PaginationParameters;
+export type ListParameters = ContextParameter & PaginationParameters;
 
-export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameters;
+export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameter;
 
-export type UpdateParameters = ContextParameters & PickOptional<CustomerData, 'name' | 'email' | 'locale' | 'metadata'>;
+export type UpdateParameters = ContextParameter & PickOptional<CustomerData, 'name' | 'email' | 'locale' | 'metadata'>;
 
-export type DeleteParameters = ContextParameters;
+export type DeleteParameters = ContextParameter & IdempotencyParameter;

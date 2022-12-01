@@ -1,6 +1,6 @@
 import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import { Capture } from '../../types';
-import { ThrottlingParameters } from '../../types/parameters';
+import { ThrottlingParameter } from '../../types/parameters';
 import Chargeback, { ChargebackData } from '../chargebacks/Chargeback';
 import Helper from '../Helper';
 import { CaptureData } from '../payments/captures/data';
@@ -21,7 +21,7 @@ export default class SettlementHelper extends Helper<SettlementData, SettlementM
    *
    * @since 3.7.0
    */
-  public getPayments(parameters?: ThrottlingParameters) {
+  public getPayments(parameters?: ThrottlingParameter) {
     return this.networkClient.iterate<PaymentData, Payment>(this.links.payments.href, 'payments', undefined, parameters?.valuesPerMinute);
   }
 
@@ -30,7 +30,7 @@ export default class SettlementHelper extends Helper<SettlementData, SettlementM
    *
    * @since 3.7.0
    */
-  public getRefunds(parameters?: ThrottlingParameters) {
+  public getRefunds(parameters?: ThrottlingParameter) {
     return this.networkClient.iterate<RefundData, Refund>(this.links.refunds.href, 'refunds', undefined, parameters?.valuesPerMinute);
   }
 
@@ -39,7 +39,7 @@ export default class SettlementHelper extends Helper<SettlementData, SettlementM
    *
    * @since 3.7.0
    */
-  public getChargebacks(parameters?: ThrottlingParameters) {
+  public getChargebacks(parameters?: ThrottlingParameter) {
     return this.networkClient.iterate<ChargebackData, Chargeback>(this.links.chargebacks.href, 'chargebacks', undefined, parameters?.valuesPerMinute);
   }
 
@@ -48,7 +48,7 @@ export default class SettlementHelper extends Helper<SettlementData, SettlementM
    *
    * @since 3.7.0
    */
-  public getCaptures(parameters?: ThrottlingParameters) {
+  public getCaptures(parameters?: ThrottlingParameter) {
     return this.networkClient.iterate<CaptureData, Capture>(this.links.captures.href, 'captures', undefined, parameters?.valuesPerMinute);
   }
 }

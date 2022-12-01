@@ -1,5 +1,6 @@
 import { PaymentMethod } from '../../../data/global';
 import { PaymentData } from '../../../data/payments/data';
+import { IdempotencyParameter } from '../../../types/parameters';
 
 interface ContextParameters {
   orderId: string;
@@ -27,4 +28,4 @@ export type CreateParameters = ContextParameters &
      * @see https://docs.mollie.com/reference/v2/orders-api/create-order-payment?path=customerId#parameters
      */
     customerId?: string;
-  };
+  } & IdempotencyParameter;

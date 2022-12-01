@@ -26,7 +26,7 @@ export default class ProfileVoucherIssuersBinder extends Binder<IssuerData, Issu
   public enable(parameters: CreateParameters, callback: Callback<IssuerModel>): void;
   public enable(parameters: CreateParameters) {
     if (renege(this, this.enable, ...arguments)) return;
-    const { profileId, id, ...data } = parameters;
+    const { id, profileId, ...data } = parameters;
     if (!checkId(profileId, 'profile')) {
       throw new ApiError('The profile id is invalid');
     }
@@ -43,9 +43,10 @@ export default class ProfileVoucherIssuersBinder extends Binder<IssuerData, Issu
   public disable(parameters: Parameters, callback: Callback<true>): void;
   public disable(parameters: Parameters) {
     if (renege(this, this.disable, ...arguments)) return;
-    if (!checkId(parameters.profileId, 'profile')) {
+    const { id, profileId, ...context } = parameters;
+    if (!checkId(profileId, 'profile')) {
       throw new ApiError('The profile id is invalid');
     }
-    return this.networkClient.delete<IssuerData, true>(`${getPathSegments(parameters.profileId)}/${parameters.id}`);
+    return this.networkClient.delete<IssuerData, true>(`${getPathSegments(profileId)}/${id}`, context);
   }
 }
