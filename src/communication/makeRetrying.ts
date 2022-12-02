@@ -22,7 +22,7 @@ const attemptLimit = 3;
 /**
  * A set of the methods which are not idempotent by nature, specifically `POST` and `DELETE`.
  */
-const unsafeMethods = new Set<Method>(['delete', 'DELETE', 'post', 'POST']);
+const unsafeMethods = new Set<string>(['delete', 'DELETE', 'post', 'POST'] satisfies Array<Method>);
 
 type AttemptState = { [attemptIndex]: number };
 
@@ -60,7 +60,7 @@ function checkError(error: any): error is AxiosError & { config: AxiosRequestCon
  * @see https://httpwg.org/specs/rfc9110.html#field.retry-after
  */
 function parseRetryAfterHeader(response: AxiosResponse): number | undefined {
-  const retryAfter = parseInt(response.headers['retry-after'], 10);
+  const retryAfter = parseInt(response.headers['retry-after']!, 10);
   if (isNaN(retryAfter)) {
     return undefined;
   }
