@@ -19,27 +19,6 @@ export default class OrderRefundsBinder extends InnerBinder<RefundData, Refund> 
   }
 
   /**
-   * Retrieve a list of all refunds made for a specific order.
-   *
-   * The results are paginated. See pagination for more information.
-   *
-   * @since 3.0.0
-   * @deprecated Use `page` instead.
-   * @see https://docs.mollie.com/reference/v2/refunds-api/list-order-refunds
-   */
-  public all: OrderRefundsBinder['page'] = this.page;
-  /**
-   * Retrieve a list of all refunds made for a specific order.
-   *
-   * The results are paginated. See pagination for more information.
-   *
-   * @since 3.0.0
-   * @deprecated Use `page` instead.
-   * @see https://docs.mollie.com/reference/v2/refunds-api/list-order-refunds
-   */
-  public list: OrderRefundsBinder['page'] = this.page;
-
-  /**
    * When using the Orders API, refunds should be made for a specific order.
    *
    * If you want to refund arbitrary amounts, however, you can also use the Create payment refund endpoint for Pay later and Slice it by creating a refund on the payment itself.

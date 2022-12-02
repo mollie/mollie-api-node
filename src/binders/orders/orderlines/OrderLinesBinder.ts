@@ -18,28 +18,6 @@ export default class OrderLinesBinder extends InnerBinder<OrderData, Order> {
   }
 
   /**
-   * This endpoint can be used to cancel one or more order lines that were previously authorized using a Klarna payment method. Use the Cancel order endpoint if you want to cancel the entire order or
-   * the remainder of the order.
-   *
-   * Canceling or partially canceling an order line will immediately release the authorization held for that amount. Your customer will be able to see the updated order in his portal / app. Any
-   * canceled lines will be removed from the customer's point of view, but will remain visible in the Mollie Dashboard.
-   *
-   * You should cancel an order line if you do not intend to (fully) ship it.
-   *
-   * An order line can only be canceled while its `status` field is either `authorized` or `shipping`. If you cancel an `authorized` order line, the new order line status will be `canceled`. Canceling
-   * a `shipping` order line will result in a `completed` order line status.
-   *
-   * If the order line is `paid` or already `completed`, you should create a refund using the Create order refund endpoint instead.
-   *
-   * For more information about the status transitions, check our order status changes guide.
-   *
-   * @since 3.0.0
-   * @deprecated Use `cancel` instead.
-   * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order-lines
-   */
-  public delete: OrderLinesBinder['cancel'] = this.cancel;
-
-  /**
    * This endpoint can be used to update an order line. Only the lines that belong to an order with status `created`, `pending` or `authorized` can be updated.
    *
    * Use cases for this endpoint could be updating the `name`, `productUrl`, `imageUrl`, and `metadata` for a certain order line because your customer wants to swap the item for a different variant,

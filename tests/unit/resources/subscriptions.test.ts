@@ -50,7 +50,7 @@ test('listPageOfRootSubscriptions', async () => {
     },
   });
 
-  const subscriptions = await bluster(client.subscription.list.bind(client.subscription))();
+  const subscriptions = await bluster(client.subscription.page.bind(client.subscription))();
 
   expect(subscriptions.length).toBe(1);
 

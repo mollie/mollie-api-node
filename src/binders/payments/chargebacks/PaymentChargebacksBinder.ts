@@ -18,27 +18,6 @@ export default class PaymentChargebacksBinder extends InnerBinder<ChargebackData
   }
 
   /**
-   * Retrieve all chargebacks filed for your payments.
-   *
-   * The results are paginated. See pagination for more information.
-   *
-   * @since 1.1.1
-   * @deprecated Use `page` instead.
-   * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
-   */
-  public all: PaymentChargebacksBinder['page'] = this.page;
-  /**
-   * Retrieve all chargebacks filed for your payments.
-   *
-   * The results are paginated. See pagination for more information.
-   *
-   * @since 3.0.0
-   * @deprecated Use `page` instead.
-   * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
-   */
-  public list: PaymentChargebacksBinder['page'] = this.page;
-
-  /**
    * Retrieve a single chargeback by its ID. Note the original payment's ID is needed as well.
    *
    * If you do not know the original payment's ID, you can use the chargebacks list endpoint.

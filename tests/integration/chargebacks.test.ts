@@ -17,7 +17,7 @@ const mollieClient = createMollieClient({ apiKey: process.env.API_KEY });
 
 describe('chargebacks', () => {
   it('should integrate', async () => {
-    const chargebacks = await mollieClient.chargebacks.all();
+    const chargebacks = await mollieClient.chargebacks.page();
 
     expect(chargebacks).toBeDefined();
   });

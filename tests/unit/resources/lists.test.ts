@@ -25,7 +25,7 @@ describe('lists', () => {
 
     it('should retrieve a limited list', done => {
       customers
-        .list({ limit: 3 })
+        .page({ limit: 3 })
         .then(result => {
           expect(result[2].resource).toEqual('customer');
           expect(result[3]).toBeUndefined();
@@ -39,7 +39,7 @@ describe('lists', () => {
 
     it('should retrieve the next page', done => {
       customers
-        .list({ limit: 3 })
+        .page({ limit: 3 })
         .then(result => {
           result.nextPage().then(list => {
             expect(list[0].id).toEqual('cst_l4J9zsdzO');
@@ -55,7 +55,7 @@ describe('lists', () => {
 
     it('should retrieve the next page', done => {
       customers
-        .list({ limit: 3 })
+        .page({ limit: 3 })
         .then(result => {
           result
             .nextPage()
@@ -89,7 +89,7 @@ describe('lists', () => {
         }
       };
 
-      customers.list({ limit: 3 }, handleNextPage).then();
+      customers.page({ limit: 3 }, handleNextPage).then();
     });
   });
 });

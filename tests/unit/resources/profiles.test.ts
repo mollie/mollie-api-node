@@ -184,7 +184,7 @@ test('listProfiles', async () => {
     },
   });
 
-  const profiles = await bluster(client.profiles.list.bind(client.profiles))();
+  const profiles = await bluster(client.profiles.page.bind(client.profiles))();
 
   expect(profiles.length).toBe(2);
 

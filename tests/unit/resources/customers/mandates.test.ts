@@ -150,7 +150,7 @@ test('getCustomerMandates', async () => {
     },
   });
 
-  const mandates = await bluster(client.customerMandates.all.bind(client.customerMandates))({ customerId: 'cst_FhQJRw4s2n' });
+  const mandates = await bluster(client.customerMandates.page.bind(client.customerMandates))({ customerId: 'cst_FhQJRw4s2n' });
 
   mandates.forEach(mandate => {
     expect(mandate.resource).toBe('mandate');

@@ -19,23 +19,6 @@ export default class CustomerPaymentsBinder extends InnerBinder<PaymentData, Pay
   }
 
   /**
-   * Retrieve all Payments linked to the Customer.
-   *
-   * @since 1.1.1
-   * @deprecated Use `page` instead.
-   * @see https://docs.mollie.com/reference/v2/customers-api/list-customer-payments
-   */
-  public all: CustomerPaymentsBinder['page'] = this.page;
-  /**
-   * Retrieve all Payments linked to the Customer.
-   *
-   * @since 3.0.0
-   * @deprecated Use `page` instead.
-   * @see https://docs.mollie.com/reference/v2/customers-api/list-customer-payments
-   */
-  public list: CustomerPaymentsBinder['page'] = this.page;
-
-  /**
    * Creates a payment for the customer.
    *
    * Linking customers to payments enables a number of [Mollie Checkout](https://www.mollie.com/products/checkout) features, including:

@@ -16,35 +16,6 @@ export default class CustomersBinder extends Binder<CustomerData, Customer> {
   }
 
   /**
-   * Retrieve all customers created.
-   *
-   * The results are paginated. See pagination for more information.
-   *
-   * @since 2.0.0
-   * @deprecated Use `page` instead.
-   * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
-   */
-  public all: CustomersBinder['page'] = this.page;
-  /**
-   * Retrieve all customers created.
-   *
-   * The results are paginated. See pagination for more information.
-   *
-   * @since 3.0.0
-   * @deprecated Use `page` instead.
-   * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
-   */
-  public list: CustomersBinder['page'] = this.page;
-  /**
-   * Delete a customer. All mandates and subscriptions created for this customer will be canceled as well.
-   *
-   * @since 2.0.0
-   * @deprecated Use `delete` instead.
-   * @see https://docs.mollie.com/reference/v2/customers-api/delete-customer
-   */
-  public cancel: CustomersBinder['delete'] = this.delete;
-
-  /**
    * Creates a simple minimal representation of a customer in the Mollie API to use for the [Mollie Checkout](https://www.mollie.com/products/checkout) and Recurring features. These customers will
    * appear in your [Mollie Dashboard](https://www.mollie.com/dashboard) where you can manage their details, and also see their payments and subscriptions.
    *

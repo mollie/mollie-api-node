@@ -19,31 +19,6 @@ export default class CustomerSubscriptionsBinder extends InnerBinder<Subscriptio
   }
 
   /**
-   * A subscription can be canceled any time by calling `DELETE` on the resource endpoint.
-   *
-   * @since 1.3.2
-   * @deprecated Use `cancel` instead.
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/cancel-subscription
-   */
-  public delete: CustomerSubscriptionsBinder['cancel'] = this.cancel;
-  /**
-   * Retrieve all subscriptions of a customer.
-   *
-   * @since 1.3.2
-   * @deprecated Use `page` instead.
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions
-   */
-  public all: CustomerSubscriptionsBinder['page'] = this.page;
-  /**
-   * Retrieve all subscriptions of a customer.
-   *
-   * @since 3.0.0
-   * @deprecated Use `page` instead.
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions
-   */
-  public list: CustomerSubscriptionsBinder['page'] = this.page;
-
-  /**
    * With subscriptions, you can schedule recurring payments to take place at regular intervals.
    *
    * For example, by simply specifying an `amount` and an `interval`, you can create an endless subscription to charge a monthly fee, until you cancel the subscription.

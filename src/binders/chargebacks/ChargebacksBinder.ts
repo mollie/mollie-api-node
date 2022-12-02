@@ -18,27 +18,6 @@ export default class ChargebacksBinder extends InnerBinder<ChargebackData, Charg
    *
    * The results are paginated. See pagination for more information.
    *
-   * @since 2.0.0
-   * @deprecated Use `page` instead.
-   * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
-   */
-  public all: ChargebacksBinder['page'] = this.page;
-  /**
-   * Retrieve all chargebacks filed for your payments.
-   *
-   * The results are paginated. See pagination for more information.
-   *
-   * @since 3.0.0
-   * @deprecated Use `page` instead.
-   * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
-   */
-  public list: ChargebacksBinder['page'] = this.page;
-
-  /**
-   * Retrieve all chargebacks filed for your payments.
-   *
-   * The results are paginated. See pagination for more information.
-   *
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
    */
