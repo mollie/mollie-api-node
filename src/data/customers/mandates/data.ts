@@ -79,7 +79,7 @@ export interface MandateDetailsCreditCard {
   cardNumber: string;
   cardLabel: Nullable<CardLabel>;
   cardFingerprint: string;
-  cardExpireDate: string;
+  cardExpiryDate: string;
 }
 
 export enum MandateMethod {
