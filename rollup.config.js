@@ -1,13 +1,13 @@
-import { join } from 'path';
-import json from 'rollup-plugin-json';
-import resolve from 'rollup-plugin-node-resolve';
-import babel from 'rollup-plugin-babel';
+const { join } = require('path');
+const json = require('rollup-plugin-json');
+const resolve = require('rollup-plugin-node-resolve');
+const babel = require('rollup-plugin-babel');
 
-export default {
+module.exports = {
   input: join('src', 'createMollieClient.ts'),
   external: [
-    // These Node.js interenals are external to our bundles…
-    'https', 'querystring', 'url', 'util',
+    // These Node.js internals are external to our bundles…
+    'crypto', 'https', 'querystring', 'url', 'util',
     // …as are the dependencies listed in our package.json.
     ...Object.keys(require('./package.json').dependencies),
   ],
