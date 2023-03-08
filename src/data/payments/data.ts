@@ -20,7 +20,7 @@ export interface PaymentData extends Model<'payment'> {
    */
   createdAt: string;
   /**
-   * The payment's status. Please refer to the documentation regarding statuses for more info about which statuses occur at what point.
+   * The payment's status. Refer to the documentation regarding statuses for more info about which statuses occur at what point.
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=status#response
    */

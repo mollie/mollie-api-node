@@ -66,7 +66,7 @@ export interface OrderData extends Model<'order'> {
   /**
    * The person and the address the order is billed to.
    *
-   * Please refer to the documentation of the address object for more information on which formats are accepted.
+   * Refer to the documentation of the address object for more information on which formats are accepted.
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=billingAddress#response
    */
@@ -86,7 +86,7 @@ export interface OrderData extends Model<'order'> {
   /**
    * The person and the address the order is billed to.
    *
-   * Please refer to the documentation of the address object for more information on which formats are accepted.
+   * Refer to the documentation of the address object for more information on which formats are accepted.
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=shippingAddress#response
    */
@@ -108,6 +108,8 @@ export interface OrderData extends Model<'order'> {
   metadata?: any;
   /**
    * The URL your customer will be redirected to after completing or canceling the payment process.
+   *
+   * The URL will be `null` for recurring orders.
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=redirectUrl#response
    */

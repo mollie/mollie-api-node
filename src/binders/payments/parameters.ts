@@ -26,6 +26,8 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
      *
      * If available, the credit card method will still be offered, but only cards from the allowed country are accepted.
      *
+     * The field expects a country code in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format, for example <span class="title-ref">NL</span>.
+     *
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=restrictPaymentMethodsToCountry#parameters
      */
     restrictPaymentMethodsToCountry?: string;
@@ -44,7 +46,7 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
     applePayPaymentToken?: string;
     billingEmail?: string;
     /**
-     * The date the payment should expire, in `YYYY-MM-DD` format. **Please note:** the minimum date is tomorrow and the maximum date is 100 days after tomorrow.
+     * The date the payment should expire, in `YYYY-MM-DD` format. **Note:** the minimum date is tomorrow and the maximum date is 100 days after tomorrow.
      *
      * After you created the payment, you can still update the `dueDate` via /reference/v2/payments-api/update-payment.
      *
@@ -54,7 +56,7 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
     /**
      * The card holder's address details. We advise to provide these details to improve the credit card fraud protection, and thus improve conversion.
      *
-     * If an address is provided, then the address has to be in a valid format. Please refer to the documentation of the address object for more information on which formats are accepted.
+     * If an address is provided, then the address has to be in a valid format. See the address object documentation for more information on which formats are accepted.
      *
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=billingAddress#credit-card
      */
@@ -87,13 +89,13 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
     /**
      * The unique ID you have used for the PayPal fraud library. You should include this if you use PayPal for an on-demand payment. The maximum character length is 32.
      *
-     * Please refer to the Recurring payments guide for more information on how to implement the fraud library.
+     * Refer to the Recurring payments guide for more information on how to implement the fraud library.
      *
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=sessionId#paypal-method-details
      */
     sessionId?: string;
     /**
-     * Indicate if you are about to deliver digital goods, like for example a license. Setting this parameter can have consequences for your Seller Protection by PayPal. Please see [PayPal's help
+     * Indicate if you are about to deliver digital goods, like for example a license. Setting this parameter can have consequences for your Seller Protection by PayPal. See [PayPal's help
      * article](https://www.paypal.com/us/brc/article/seller-protection) about Seller Protection for more information.
      *
      * Default: `false`
@@ -181,6 +183,8 @@ export type UpdateParameters = Pick<PaymentData, 'redirectUrl' | 'webhookUrl'> &
      * Use this parameter to restrict the payment methods available to your customer to those from a single country.
      *
      * If available, the credit card method will still be offered, but only cards from the allowed country are accepted.
+     *
+     * The field expects a country code in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format, for example <span class="title-ref">NL</span>.
      *
      * @see https://docs.mollie.com/reference/v2/payments-api/update-payment?path=restrictPaymentMethodsToCountry#parameters
      */

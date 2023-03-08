@@ -48,7 +48,7 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
    * 2.  In case of `authorized`, the authorization will be released, all order lines will be canceled and the new order status will be `canceled`.
    * 3.  In case of `shipping`, any order lines that are still `authorized` will be canceled and order lines that are `shipping` will be completed. The new order status will be `completed`.
    *
-   * For more information about the status transitions please check our order status changes guide.
+   * For more information about the status transitions, check our order status changes guide.
    *
    * [1] If the order status is `shipping`, some order lines can have the status `paid` if the order was paid using a payment method that does not support authorizations (such as iDEAL) and the order
    * lines are not shipped yet. In this case, the order cannot be canceled. You should create refunds for these order lines instead.
@@ -175,7 +175,7 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
    * 2.  In case of `authorized`, the authorization will be released, all order lines will be canceled and the new order status will be `canceled`.
    * 3.  In case of `shipping`, any order lines that are still `authorized` will be canceled and order lines that are `shipping` will be completed. The new order status will be `completed`.
    *
-   * For more information about the status transitions please check our order status changes guide.
+   * For more information about the status transitions, check our order status changes guide.
    *
    * [1] If the order status is `shipping`, some order lines can have the status `paid` if the order was paid using a payment method that does not support authorizations (such as iDEAL) and the order
    * lines are not shipped yet. In this case, the order cannot be canceled. You should create refunds for these order lines instead.
