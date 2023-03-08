@@ -31,7 +31,7 @@ export default class OrderLinesBinder extends InnerBinder<OrderData, Order> {
    *
    * If the order line is `paid` or already `completed`, you should create a refund using the Create order refund endpoint instead.
    *
-   * For more information about the status transitions please check our order status changes guide.
+   * For more information about the status transitions, check our order status changes guide.
    *
    * @since 3.0.0
    * @deprecated Use `cancel` instead.
@@ -84,7 +84,7 @@ export default class OrderLinesBinder extends InnerBinder<OrderData, Order> {
    *
    * If the order line is `paid` or already `completed`, you should create a refund using the Create order refund endpoint instead.
    *
-   * For more information about the status transitions please check our order status changes guide.
+   * For more information about the status transitions, check our order status changes guide.
    *
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order-lines

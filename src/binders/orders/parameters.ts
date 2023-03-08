@@ -53,7 +53,7 @@ export type CreateParameters = Pick<OrderData, 'amount' | 'orderNumber' | 'consu
     /**
      * Any payment specific properties (for example, the `dueDate` for bank transfer payments) can be passed here. See payment-parameters for the possible fields.
      *
-     * The `payment` property should be an *object* where the keys are the payment method specific parameters you want to pass.
+     * The `payment` property should be an *object* where the keys are the payment method-specific parameters you want to pass.
      *
      * @see https://docs.mollie.com/reference/v2/orders-api/create-order?path=payment#parameters
      */

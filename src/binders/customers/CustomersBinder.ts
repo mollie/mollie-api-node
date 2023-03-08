@@ -45,8 +45,8 @@ export default class CustomersBinder extends Binder<CustomerData, Customer> {
   public cancel: CustomersBinder['delete'] = this.delete;
 
   /**
-   * Creates a simple minimal representation of a customer in the Mollie API to use for the [Mollie Checkout](https://www.mollie.com/en/checkout) and Recurring features. These customers will appear in
-   * your [Mollie Dashboard](https://www.mollie.com/dashboard/) where you can manage their details, and also see their payments and subscriptions.
+   * Creates a simple minimal representation of a customer in the Mollie API to use for the [Mollie Checkout](https://www.mollie.com/products/checkout) and Recurring features. These customers will
+   * appear in your [Mollie Dashboard](https://www.mollie.com/dashboard) where you can manage their details, and also see their payments and subscriptions.
    *
    * @since 2.0.0
    * @see https://docs.mollie.com/reference/v2/customers-api/create-customer

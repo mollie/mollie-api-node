@@ -75,13 +75,13 @@ export interface Address {
   /**
    * The street and street number of the address.
    *
-   * @see https://docs.mollie.com/overview/common-data-types?path=table%3AstreetAndNumber#address-object
+   * @see https://docs.mollie.com/overview/common-data-types?path=streetAndNumber#address-object
    */
   streetAndNumber: string;
   /**
    * Any additional addressing details, for example an apartment number.
    *
-   * @see https://docs.mollie.com/overview/common-data-types?path=table%3AstreetAdditional#address-object
+   * @see https://docs.mollie.com/overview/common-data-types?path=streetAdditional#address-object
    */
   streetAdditional?: string;
   /**
@@ -90,25 +90,25 @@ export interface Address {
    * `AE` `AN` `AO` `AW` `BF` `BI` `BJ` `BO` `BS` `BV` `BW` `BZ` `CD` `CF` `CG` `CI` `CK` `CM` `DJ` `DM` `ER` `FJ` `GA` `GD` `GH` `GM` `GN` `GQ` `GY` `HK` `JM` `KE` `KI` `KM` `KN` `KP` `LC` `ML` `MO`
    * `MR` `MS` `MU` `MW` `NA` `NR` `NU` `PA` `QA` `RW` `SB` `SC` `SL` `SO` `SR` `ST` `SY` `TF` `TK` `TL` `TO` `TT` `TV` `UG` `VU` `YE` `ZM` `ZW`
    *
-   * @see https://docs.mollie.com/overview/common-data-types?path=table%3ApostalCode#address-object
+   * @see https://docs.mollie.com/overview/common-data-types?path=postalCode#address-object
    */
   postalCode: string;
   /**
    * The city of the address.
    *
-   * @see https://docs.mollie.com/overview/common-data-types?path=table%3Acity#address-object
+   * @see https://docs.mollie.com/overview/common-data-types?path=city#address-object
    */
   city: string;
   /**
    * The region of the address.
    *
-   * @see https://docs.mollie.com/overview/common-data-types?path=table%3Aregion#address-object
+   * @see https://docs.mollie.com/overview/common-data-types?path=region#address-object
    */
   region?: string;
   /**
    * The country of the address in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
    *
-   * @see https://docs.mollie.com/overview/common-data-types?path=table%3Acountry#address-object
+   * @see https://docs.mollie.com/overview/common-data-types?path=country#address-object
    */
   country: string;
 }
