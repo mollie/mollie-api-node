@@ -4,6 +4,18 @@
 
 All notable changes to this project will be documented in this file.
 
+### v3.7.0 - 2023-03-08
+
+  - Update APIs ([#279](https://github.com/mollie/mollie-api-node/pull/279)/[#285](https://github.com/mollie/mollie-api-node/pull/285)/[#292](https://github.com/mollie/mollie-api-node/pull/292)/[#293](https://github.com/mollie/mollie-api-node/pull/293))
+  - Update documentation ([#311](https://github.com/mollie/mollie-api-node/pull/311))
+  - Optimise iteration API ([#280](https://github.com/mollie/mollie-api-node/pull/280))
+  - Add retrying functionality ([#294](https://github.com/mollie/mollie-api-node/pull/294))
+  - Add `idempotencyKey` to `ApiError` ([#298](https://github.com/mollie/mollie-api-node/pull/298))
+  - Throttle iteration API ([#283](https://github.com/mollie/mollie-api-node/pull/283))
+  - Fix API ([#305](https://github.com/mollie/mollie-api-node/pull/305))
+  - Fix Node.js < 12 bug ([#287](https://github.com/mollie/mollie-api-node/pull/287))
+  - Update dependencies ([#261](https://github.com/mollie/mollie-api-node/pull/261)/[#307](https://github.com/mollie/mollie-api-node/pull/307)/[#312](https://github.com/mollie/mollie-api-node/pull/312))
+
 ### v3.6.0 - 2022-02-10
 
   - Update APIs ([#211](https://github.com/mollie/mollie-api-node/pull/211)/[#229](https://github.com/mollie/mollie-api-node/pull/229)/[#245](https://github.com/mollie/mollie-api-node/pull/245))
@@ -44,7 +56,7 @@ All notable changes to this project will be documented in this file.
   - Inlined CAs ([#162](https://github.com/mollie/mollie-api-node/pull/162))
   - Use Node.js' `querystring` modules instead of the external `qs` ([#163](https://github.com/mollie/mollie-api-node/pull/163))
 
-### V3.2.3 - 2020-07-23
+### v3.2.3 - 2020-07-23
   - Bump `lodash` from 4.17.15 to 4.17.19 ([#160](https://github.com/mollie/mollie-api-node/pull/160))
 
 ### v3.2.2 - 2020-07-09
