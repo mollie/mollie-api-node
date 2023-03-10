@@ -4,7 +4,6 @@ import caCertificates from './cacert.pem';
 import NetworkClient from './communication/NetworkClient';
 import TransformingNetworkClient, { Transformers } from './communication/TransformingNetworkClient';
 import Options from './Options';
-import buildFromEntries from './plumbing/buildFromEntries';
 
 // Transformers
 import { transform as transformPayment } from './data/payments/Payment';
@@ -60,13 +59,6 @@ import SubscriptionsBinder from './binders/subscriptions/SubscriptionsBinder';
 import SubscriptionPaymentsBinder from './binders/subscriptions/payments/SubscriptionPaymentsBinder';
 
 /**
- * Returns an object which has a property for each passed key, which share the same (passed) value.
- */
-function alias<T, K extends string>(value: T, ...keys: K[]) {
-  return buildFromEntries(keys.map(name => [name, value])) as { [P in K]: T };
-}
-
-/**
  * Create Mollie client.
  * @since 2.0.0
  */
@@ -115,35 +107,35 @@ export default function createMollieClient(options: Options) {
 
     // Refunds.
     refunds: new RefundsBinder(transformingNetworkClient),
-    ...alias(new PaymentRefundsBinder(transformingNetworkClient), 'paymentRefunds', 'payments_refunds'),
+    paymentRefunds: new PaymentRefundsBinder(transformingNetworkClient),
 
     // Chargebacks.
     chargebacks: new ChargebacksBinder(transformingNetworkClient),
-    ...alias(new PaymentChargebacksBinder(transformingNetworkClient), 'paymentChargebacks', 'payments_chargebacks'),
+    paymentChargebacks: new PaymentChargebacksBinder(transformingNetworkClient),
 
     // Captures.
-    ...alias(new PaymentCapturesBinder(transformingNetworkClient), 'paymentCaptures', 'payments_captures'),
+    paymentCaptures: new PaymentCapturesBinder(transformingNetworkClient),
 
     // Customers.
     customers: new CustomersBinder(transformingNetworkClient),
-    ...alias(new CustomerPaymentsBinder(transformingNetworkClient), 'customerPayments', 'customers_payments'),
+    customerPayments: new CustomerPaymentsBinder(transformingNetworkClient),
 
     // Mandates.
-    ...alias(new CustomerMandatesBinder(transformingNetworkClient), 'customerMandates', 'customers_mandates'),
+    customerMandates: new CustomerMandatesBinder(transformingNetworkClient),
 
     // Subscriptions.
     subscription: new SubscriptionsBinder(transformingNetworkClient),
-    ...alias(new SubscriptionPaymentsBinder(transformingNetworkClient), 'subscriptionPayments', 'subscriptions_payments'),
-    ...alias(new CustomerSubscriptionsBinder(transformingNetworkClient), 'customerSubscriptions', 'customers_subscriptions'),
+    subscriptionPayments: new SubscriptionPaymentsBinder(transformingNetworkClient),
+    customerSubscriptions: new CustomerSubscriptionsBinder(transformingNetworkClient),
 
     // Orders.
     orders: new OrdersBinder(transformingNetworkClient),
-    ...alias(new OrderRefundsBinder(transformingNetworkClient), 'orderRefunds', 'orders_refunds'),
-    ...alias(new OrderLinesBinder(transformingNetworkClient), 'orderLines', 'orders_lines'),
-    ...alias(new OrderPaymentsBinder(transformingNetworkClient), 'orderPayments', 'orders_payments'),
+    orderRefunds: new OrderRefundsBinder(transformingNetworkClient),
+    orderLines: new OrderLinesBinder(transformingNetworkClient),
+    orderPayments: new OrderPaymentsBinder(transformingNetworkClient),
 
     // Shipments.
-    ...alias(new OrderShipmentsBinder(transformingNetworkClient), 'orderShipments', 'orders_shipments'),
+    orderShipments: new OrderShipmentsBinder(transformingNetworkClient),
 
     // Permissions.
     permissions: new PermissionsBinder(transformingNetworkClient),
