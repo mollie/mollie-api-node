@@ -81,7 +81,7 @@ export interface SubscriptionData extends Model<'subscription'> {
    *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=createdAt#response
    */
-  createdAt?: string;
+  createdAt: string;
   /**
    * The subscription's date and time of cancellation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. This parameter is omitted if the payment is not canceled (yet).
    *
