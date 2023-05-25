@@ -7,7 +7,7 @@ const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWX
 
 (async () => {
   try {
-    const filteredMethods: List<Method> = await mollieClient.methods.all({
+    const filteredMethods: List<Method> = await mollieClient.methods.list({
       include: MethodInclude.issuers,
       amount: {
         value: '10.00',
