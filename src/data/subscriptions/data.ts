@@ -69,7 +69,7 @@ export interface SubscriptionData extends Model<'subscription'> {
    *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=method#response
    */
-  method: string;
+  method: string | null;
   /**
    * The mandate used for this subscription. When there is no mandate specified, this parameter will not be returned.
    *
@@ -81,13 +81,13 @@ export interface SubscriptionData extends Model<'subscription'> {
    *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=createdAt#response
    */
-  createdAt?: string;
+  createdAt: string;
   /**
    * The subscription's date and time of cancellation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. This parameter is omitted if the payment is not canceled (yet).
    *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=canceledAt#response
    */
-  canceledAt: string;
+  canceledAt?: string;
   /**
    * The URL Mollie will call as soon a payment status change takes place.
    *
@@ -100,6 +100,12 @@ export interface SubscriptionData extends Model<'subscription'> {
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=metadata#response
    */
   metadata: any;
+  /**
+   * The application fee, if the subscription was created with one. This will be applied on each payment created for the subscription.
+   *
+   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=applicationFee#response
+   */
+  applicationFee?: Amount;
   /**
    * An object with several URL objects relevant to the subscription. Every URL object will contain an `href` and a `type` field.
    *
