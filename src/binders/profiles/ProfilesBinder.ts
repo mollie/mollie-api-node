@@ -17,17 +17,6 @@ export default class ProfilesBinder extends Binder<ProfileData, Profile> {
   }
 
   /**
-   * Retrieve all profiles available on the account.
-   *
-   * The results are paginated. See pagination for more information.
-   *
-   * @since 3.2.0
-   * @deprecated Use `page` instead.
-   * @see https://docs.mollie.com/reference/v2/profiles-api/list-profiles
-   */
-  public list: ProfilesBinder['page'] = this.page;
-
-  /**
    * In order to process payments, you need to create a website profile. A website profile can easily be created via the Dashboard manually. However, the Mollie API also allows automatic profile
    * creation via the Profiles API.
    *

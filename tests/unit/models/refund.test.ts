@@ -50,7 +50,7 @@ async function getRefund(status) {
     count: 1,
   });
 
-  return await bluster(client.refunds.list.bind(client.refunds))().then(refunds => refunds[0]);
+  return await bluster(client.refunds.page.bind(client.refunds))().then(refunds => refunds[0]);
 }
 
 test('refundStatuses', () => {

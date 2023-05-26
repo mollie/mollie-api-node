@@ -18,16 +18,6 @@ export default class SubscriptionsBinder extends InnerBinder<SubscriptionData, S
    * Retrieve all subscriptions, ordered from newest to oldest. By using an API key all the subscriptions created with the current website profile will be returned. In the case of an OAuth Access
    * Token relies the website profile on the `profileId` field. All subscriptions of the merchant will be returned if you do not provide it.
    *
-   * @since 3.2.0
-   * @deprecated Use `page` instead.
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-all-subscriptions
-   */
-  public list: SubscriptionsBinder['page'] = this.page;
-
-  /**
-   * Retrieve all subscriptions, ordered from newest to oldest. By using an API key all the subscriptions created with the current website profile will be returned. In the case of an OAuth Access
-   * Token relies the website profile on the `profileId` field. All subscriptions of the merchant will be returned if you do not provide it.
-   *
    * @since 3.2.0 (as `list`)
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-all-subscriptions
    */

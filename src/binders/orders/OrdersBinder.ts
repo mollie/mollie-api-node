@@ -39,47 +39,6 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
   }
 
   /**
-   * The order can only be canceled while:
-   *
-   * -   the order doesn't have any open payments except for the methods `banktransfer`, `directdebit`, `klarnapaylater`, `klarnapaynow`, and `klarnasliceit`.
-   * -   the order's `status` field is either `created`, `authorized` or `shipping`[1].
-   *
-   * 1.  In case of `created`, all order lines will be canceled and the new order status will be `canceled`.
-   * 2.  In case of `authorized`, the authorization will be released, all order lines will be canceled and the new order status will be `canceled`.
-   * 3.  In case of `shipping`, any order lines that are still `authorized` will be canceled and order lines that are `shipping` will be completed. The new order status will be `completed`.
-   *
-   * For more information about the status transitions, check our order status changes guide.
-   *
-   * [1] If the order status is `shipping`, some order lines can have the status `paid` if the order was paid using a payment method that does not support authorizations (such as iDEAL) and the order
-   * lines are not shipped yet. In this case, the order cannot be canceled. You should create refunds for these order lines instead.
-   *
-   * @since 3.0.0
-   * @deprecated Use `cancel` instead.
-   * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order
-   */
-  public delete: OrdersBinder['cancel'] = this.cancel;
-  /**
-   * Retrieve all orders.
-   *
-   * The results are paginated. See pagination for more information.
-   *
-   * @since 3.0.0
-   * @deprecated Use `page` instead.
-   * @see https://docs.mollie.com/reference/v2/orders-api/list-orders
-   */
-  public all: OrdersBinder['page'] = this.page;
-  /**
-   * Retrieve all orders.
-   *
-   * The results are paginated. See pagination for more information.
-   *
-   * @since 3.0.0
-   * @deprecated Use `page` instead.
-   * @see https://docs.mollie.com/reference/v2/orders-api/list-orders
-   */
-  public list: OrdersBinder['page'] = this.page;
-
-  /**
    * Using the Orders API is the preferred approach when integrating the Mollie API into e-commerce applications such as webshops. If you want to use *Klarna Pay now*, *Klarna Pay later*, *Klarna
    * Slice it*, *in3* or *Vouchers*, using the Orders API is mandatory.
    *

@@ -19,27 +19,6 @@ export default class RefundsBinder extends Binder<RefundData, Refund> {
    *
    * The results are paginated. See pagination for more information.
    *
-   * @since 2.0.0
-   * @deprecated Use `page` instead.
-   * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
-   */
-  public all: RefundsBinder['page'] = this.page;
-  /**
-   * Retrieve a list of all of your refunds.
-   *
-   * The results are paginated. See pagination for more information.
-   *
-   * @since 3.0.0
-   * @deprecated Use `page` instead.
-   * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
-   */
-  public list: RefundsBinder['page'] = this.page;
-
-  /**
-   * Retrieve a list of all of your refunds.
-   *
-   * The results are paginated. See pagination for more information.
-   *
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
    */

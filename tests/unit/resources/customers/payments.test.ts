@@ -214,7 +214,7 @@ test('listCustomerPayouts', async () => {
     count: 3,
   });
 
-  const payments = await bluster(client.customerPayments.all.bind(client.customerPayments))({ customerId: 'cst_FhQJRw4s2n' });
+  const payments = await bluster(client.customerPayments.page.bind(client.customerPayments))({ customerId: 'cst_FhQJRw4s2n' });
 
   expect(payments.length).toBe(3);
 

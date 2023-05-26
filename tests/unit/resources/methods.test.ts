@@ -56,17 +56,17 @@ describe('methods', () => {
     });
   });
 
-  describe('.all()', () => {
+  describe('.list()', () => {
     mock.onGet('/methods').reply(200, response);
 
     it('should return a list of all methods', () =>
-      methods.all().then(result => {
+      methods.list().then(result => {
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
       }));
 
     it('should work with a callback', done => {
-      methods.all({}, (err, result) => {
+      methods.list({}, (err, result) => {
         expect(err).toBeNull();
         expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();

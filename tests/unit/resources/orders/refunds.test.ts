@@ -196,7 +196,7 @@ test('listOrderRefunds', async () => {
     },
   });
 
-  const refunds = await bluster(client.orderRefunds.all.bind(client.orderRefunds))({ orderId: 'ord_stTC2WHAuS' });
+  const refunds = await bluster(client.orderRefunds.page.bind(client.orderRefunds))({ orderId: 'ord_stTC2WHAuS' });
 
   expect(refunds.length).toBe(1);
 

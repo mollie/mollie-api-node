@@ -17,18 +17,18 @@ const mollieClient = createMollieClient({ apiKey: process.env.API_KEY });
 
 describe('customers', () => {
   it('should integrate', async () => {
-    const customers = await mollieClient.customers.all();
+    const customers = await mollieClient.customers.page();
 
     expect(customers).toBeDefined();
 
     const [mandates, payments, subscriptions] = await Promise.all([
-      mollieClient.customerMandates.list({
+      mollieClient.customerMandates.page({
         customerId: customers[0].id,
       }),
-      mollieClient.customerPayments.list({
+      mollieClient.customerPayments.page({
         customerId: customers[0].id,
       }),
-      mollieClient.customerSubscriptions.list({
+      mollieClient.customerSubscriptions.page({
         customerId: customers[0].id,
       }),
     ]);

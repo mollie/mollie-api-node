@@ -170,7 +170,7 @@ test('getCustomerSubscriptions', async () => {
     },
   });
 
-  const subscriptions = await bluster(client.customerSubscriptions.all.bind(client.customerSubscriptions))({ customerId: 'cst_FhQJRw4s2n' });
+  const subscriptions = await bluster(client.customerSubscriptions.page.bind(client.customerSubscriptions))({ customerId: 'cst_FhQJRw4s2n' });
 
   expect(subscriptions.length).toBe(1);
 

@@ -21,7 +21,7 @@ test('queryString', async () => {
     },
   });
 
-  const methods = await bluster(client.methods.all.bind(client.methods))({
+  const methods = await bluster(client.methods.list.bind(client.methods))({
     include: [MethodInclude.issuers, MethodInclude.pricing],
     amount: {
       value: '10.00',
@@ -54,7 +54,7 @@ test('defaults', async () => {
     },
   });
 
-  await bluster(client.customers.all.bind(client.customers))();
+  await bluster(client.customers.page.bind(client.customers))();
 
   const { baseURL, headers, httpsAgent } = adapter.history.get[0];
 
@@ -93,7 +93,7 @@ async function requestWithVersionStrings(versionStrings: string | string[] | und
     },
   });
 
-  await bluster(client.customers.all.bind(client.customers))();
+  await bluster(client.customers.page.bind(client.customers))();
 
   return adapter.history.get[0];
 }
@@ -146,7 +146,7 @@ test('customApiEndpoint', async () => {
     },
   });
 
-  await bluster(client.customers.all.bind(client.customers))();
+  await bluster(client.customers.page.bind(client.customers))();
 
   expect(adapter.history.get[0].baseURL).toBe('https://null.house/');
 });

@@ -19,37 +19,6 @@ export default class PaymentRefundsBinder extends InnerBinder<RefundData, Refund
   }
 
   /**
-   * Retrieve a list of all of your refunds.
-   *
-   * The results are paginated. See pagination for more information.
-   *
-   * @since 1.1.1
-   * @deprecated Use `page` instead.
-   * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
-   */
-  public all: PaymentRefundsBinder['page'] = this.page;
-  /**
-   * Retrieve a list of all of your refunds.
-   *
-   * The results are paginated. See pagination for more information.
-   *
-   * @since 3.0.0
-   * @deprecated Use `page` instead.
-   * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
-   */
-  public list: PaymentRefundsBinder['page'] = this.page;
-  /**
-   * For certain payment methods, like iDEAL, the underlying banking system will delay refunds until the next day. Until that time, refunds may be canceled manually in the [Mollie
-   * Dashboard](https://www.mollie.com/dashboard), or programmatically by using this endpoint.
-   *
-   * A refund can only be canceled while its `status` field is either `queued` or `pending`. See the Get refund endpoint for more information.
-   *
-   * @deprecated Use `cancel` instead.
-   * @see https://docs.mollie.com/reference/v2/refunds-api/cancel-payment-refund
-   */
-  public delete: PaymentRefundsBinder['cancel'] = this.cancel;
-
-  /**
    * Creates a refund for a specific payment. The refunded amount is credited to your customer usually either via a bank transfer or by refunding the amount to your customer's credit card.
    *
    * @since 1.1.1

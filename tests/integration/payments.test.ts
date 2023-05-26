@@ -17,7 +17,7 @@ const mollieClient = createMollieClient({ apiKey: process.env.API_KEY });
 
 describe('payments', () => {
   it('should integrate', async () => {
-    const payments = await mollieClient.payments.all();
+    const payments = await mollieClient.payments.page();
 
     let paymentExists;
 
@@ -50,7 +50,7 @@ describe('payments', () => {
       return;
     }
 
-    const paymentRefunds = await mollieClient.paymentRefunds.all({ paymentId: payment.id });
+    const paymentRefunds = await mollieClient.paymentRefunds.page({ paymentId: payment.id });
 
     let refundExists;
 
@@ -100,7 +100,7 @@ describe('payments', () => {
   it('should paginate', async () => {
     let nextPageCursor;
 
-    let payments = await mollieClient.payments.all({
+    let payments = await mollieClient.payments.page({
       limit: 2,
     });
 

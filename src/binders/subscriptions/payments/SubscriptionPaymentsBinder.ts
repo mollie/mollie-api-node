@@ -21,15 +21,6 @@ export default class SubscriptionPaymentsBinder extends InnerBinder<PaymentData,
   /**
    * Retrieve all payments of a specific subscriptions of a customer.
    *
-   * @since 3.3.0
-   * @deprecated Use `page` instead.
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscription-payments
-   */
-  public list: SubscriptionPaymentsBinder['page'] = this.page;
-
-  /**
-   * Retrieve all payments of a specific subscriptions of a customer.
-   *
    * @since 3.3.0 (as `list`)
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscription-payments
    */

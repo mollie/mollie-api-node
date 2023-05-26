@@ -17,7 +17,7 @@ const mollieClient = createMollieClient({ apiKey: process.env.API_KEY });
 
 describe('methods', () => {
   it('should integrate', async () => {
-    const methods = await mollieClient.methods.all();
+    const methods = await mollieClient.methods.list();
 
     expect(methods).toBeDefined();
 

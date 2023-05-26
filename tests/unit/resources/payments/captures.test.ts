@@ -113,7 +113,7 @@ test('listCaptures', async () => {
     },
   });
 
-  const captures = await bluster(client.paymentCaptures.all.bind(client.paymentCaptures))({ paymentId: 'tr_WDqYK6vllg' });
+  const captures = await bluster(client.paymentCaptures.page.bind(client.paymentCaptures))({ paymentId: 'tr_WDqYK6vllg' });
 
   expect(captures.length).toBe(1);
 

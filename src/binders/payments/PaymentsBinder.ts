@@ -17,38 +17,6 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
   }
 
   /**
-   * Retrieve all payments created with the current website profile, ordered from newest to oldest.
-   *
-   * The results are paginated. See pagination for more information.
-   *
-   * @since 2.0.0
-   * @deprecated Use `page` instead.
-   * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
-   */
-  public all: PaymentsBinder['page'] = this.page;
-  /**
-   * Retrieve all payments created with the current website profile, ordered from newest to oldest.
-   *
-   * The results are paginated. See pagination for more information.
-   *
-   * @since 3.0.0
-   * @deprecated Use `page` instead.
-   * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
-   */
-  public list: PaymentsBinder['page'] = this.page;
-  /**
-   * Some payment methods can be canceled by the merchant for a certain amount of time, usually until the next business day. Or as long as the payment status is `open`. Payments may be canceled
-   * manually from the Mollie Dashboard, or programmatically by using this endpoint.
-   *
-   * The `isCancelable` property on the Payment object will indicate if the payment can be canceled.
-   *
-   * @since 2.0.0
-   * @deprecated Use `cancel` instead.
-   * @see https://docs.mollie.com/reference/v2/payments-api/cancel-payment
-   */
-  public delete: PaymentsBinder['cancel'] = this.cancel;
-
-  /**
    * Payment creation is elemental to the Mollie API: this is where most payment implementations start off.
    *
    * Once you have created a payment, you should redirect your customer to the URL in the `_links.checkout` property from the response.

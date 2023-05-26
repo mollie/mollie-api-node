@@ -19,43 +19,6 @@ export default class CustomerMandatesBinder extends InnerBinder<MandateData, Man
   }
 
   /**
-   * Retrieve all mandates for the given `customerId`, ordered from newest to oldest.
-   *
-   * The results are paginated. See pagination for more information.
-   *
-   * @since 1.2.0
-   * @deprecated Use `page` instead.
-   * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
-   */
-  public all: CustomerMandatesBinder['page'] = this.page;
-  /**
-   * Retrieve all mandates for the given `customerId`, ordered from newest to oldest.
-   *
-   * The results are paginated. See pagination for more information.
-   *
-   * @since 3.0.0
-   * @deprecated Use `page` instead.
-   * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
-   */
-  public list: CustomerMandatesBinder['page'] = this.page;
-  /**
-   * Revoke a customer's mandate. You will no longer be able to charge the consumer's bank account or credit card with this mandate and all connected subscriptions will be canceled.
-   *
-   * @since 1.3.2
-   * @deprecated Use `revoke` instead.
-   * @see https://docs.mollie.com/reference/v2/mandates-api/revoke-mandate
-   */
-  public cancel: CustomerMandatesBinder['revoke'] = this.revoke;
-  /**
-   * Revoke a customer's mandate. You will no longer be able to charge the consumer's bank account or credit card with this mandate and all connected subscriptions will be canceled.
-   *
-   * @since 2.0.0
-   * @deprecated Use `revoke` instead.
-   * @see https://docs.mollie.com/reference/v2/mandates-api/revoke-mandate
-   */
-  public delete: CustomerMandatesBinder['revoke'] = this.revoke;
-
-  /**
    * Create a mandate for a specific customer. Mandates allow you to charge a customer's credit card, PayPal account or bank account recurrently.
    *
    * It is only possible to create mandates for IBANs and PayPal billing agreements with this endpoint. To create mandates for credit cards, have your customers perform a 'first payment' with their

@@ -13,15 +13,6 @@ export default class PermissionsBinder extends Binder<PermissionData, Permission
   }
 
   /**
-   * List all permissions available with the current app access token. The list is not paginated.
-   *
-   * @since 3.2.0
-   * @deprecated Use `list` instead.
-   * @see https://docs.mollie.com/reference/v2/permissions-api/list-permissions
-   */
-  public page: PermissionsBinder['list'] = this.list;
-
-  /**
    * Retrieve the details on a specific permission, and see if the permission is granted to the current app access token.
    *
    * @since 3.2.0

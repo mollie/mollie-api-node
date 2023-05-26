@@ -18,23 +18,6 @@ export default class OrderShipmentsBinder extends InnerBinder<ShipmentData, Ship
   }
 
   /**
-   * Retrieve all shipments for an order.
-   *
-   * @since 3.0.0
-   * @deprecated Use `list` instead.
-   * @see https://docs.mollie.com/reference/v2/shipments-api/list-shipments
-   */
-  public all: OrderShipmentsBinder['list'] = this.list;
-  /**
-   * Retrieve all shipments for an order.
-   *
-   * @since 3.0.0
-   * @deprecated Use `list` instead.
-   * @see https://docs.mollie.com/reference/v2/shipments-api/list-shipments
-   */
-  public page: OrderShipmentsBinder['list'] = this.list;
-
-  /**
    * Create a shipment for specific order lines of an order.
    *
    * When using *Klarna Pay now*, *Klarna Pay later* and *Klarna Slice it*, using this endpoint is mandatory for the order amount to be captured. A capture will automatically be created for the
