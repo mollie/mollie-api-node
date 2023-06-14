@@ -13,11 +13,11 @@ export type GetParameters = ContextParameters & {
   embed?: RefundEmbed[];
 };
 
-export type ListParameters = ContextParameters &
+export type PageParameters = ContextParameters &
   PaginationParameters & {
     embed?: RefundEmbed[];
   };
 
-export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameter;
+export type IterateParameters = Omit<PageParameters, 'limit'> & ThrottlingParameter;
 
 export type CancelParameters = ContextParameters & IdempotencyParameter;

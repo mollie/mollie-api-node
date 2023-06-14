@@ -10,9 +10,9 @@ export type GetParameters = ContextParameters & {
   embed?: CaptureEmbed[];
 };
 
-export type ListParameters = ContextParameters &
+export type PageParameters = ContextParameters &
   PaginationParameters & {
     embed?: CaptureEmbed[];
   };
 
-export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameter;
+export type IterateParameters = Omit<PageParameters, 'limit'> & ThrottlingParameter;

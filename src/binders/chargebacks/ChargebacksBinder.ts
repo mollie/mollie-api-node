@@ -4,7 +4,7 @@ import Page from '../../data/page/Page';
 import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
 import InnerBinder from '../InnerBinder';
-import { IterateParameters, ListParameters } from './parameters';
+import { IterateParameters, PageParameters } from './parameters';
 
 const pathSegment = 'chargebacks';
 
@@ -21,9 +21,9 @@ export default class ChargebacksBinder extends InnerBinder<ChargebackData, Charg
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
    */
-  public page(parameters?: ListParameters): Promise<Page<Chargeback>>;
-  public page(parameters: ListParameters, callback: Callback<Page<Chargeback>>): void;
-  public page(parameters: ListParameters = {}) {
+  public page(parameters?: PageParameters): Promise<Page<Chargeback>>;
+  public page(parameters: PageParameters, callback: Callback<Page<Chargeback>>): void;
+  public page(parameters: PageParameters = {}) {
     if (renege(this, this.page, ...arguments)) return;
     return this.networkClient.page<ChargebackData, Chargeback>(pathSegment, 'chargebacks', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }

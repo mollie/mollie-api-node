@@ -5,7 +5,7 @@ import SettlementModel from '../../data/settlements/SettlementModel';
 import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
 import Binder from '../Binder';
-import { IterateParameters, ListParameters } from './parameters';
+import { IterateParameters, PageParameters } from './parameters';
 
 const pathSegment = 'settlements';
 
@@ -65,9 +65,9 @@ export default class SettlementsBinder extends Binder<SettlementData, Settlement
    * @since 3.7.0
    * @see https://docs.mollie.com/reference/v2/payment-links-api/list-payment-links
    */
-  public page(parameters?: ListParameters): Promise<Page<SettlementModel>>;
-  public page(parameters: ListParameters, callback: Callback<Page<SettlementModel>>): void;
-  public page(parameters: ListParameters = {}) {
+  public page(parameters?: PageParameters): Promise<Page<SettlementModel>>;
+  public page(parameters: PageParameters, callback: Callback<Page<SettlementModel>>): void;
+  public page(parameters: PageParameters = {}) {
     if (renege(this, this.page, ...arguments)) return;
     return this.networkClient.page<SettlementData, SettlementModel>(pathSegment, 'settlements', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }

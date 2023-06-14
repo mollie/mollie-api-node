@@ -5,7 +5,7 @@ import { CaptureData } from '../../../data/payments/captures/data';
 import renege from '../../../plumbing/renege';
 import Callback from '../../../types/Callback';
 import Binder from '../../Binder';
-import { IterateParameters, ListParameters } from './parameters';
+import { IterateParameters, PageParameters } from './parameters';
 
 export function getPathSegments(settlementId: string) {
   return `settlements/${settlementId}/captures`;
@@ -25,9 +25,9 @@ export default class SettlementCapturesBinder extends Binder<CaptureData, Captur
    * @since 3.7.0
    * @see https://docs.mollie.com/reference/v2/settlements-api/list-settlement-captures
    */
-  public page(parameters: ListParameters): Promise<Page<Capture>>;
-  public page(parameters: ListParameters, callback: Callback<Page<Capture>>): void;
-  public page(parameters: ListParameters) {
+  public page(parameters: PageParameters): Promise<Page<Capture>>;
+  public page(parameters: PageParameters, callback: Callback<Page<Capture>>): void;
+  public page(parameters: PageParameters) {
     if (renege(this, this.page, ...arguments)) return;
     const { settlementId, ...query } = parameters;
     return this.networkClient.page<CaptureData, Capture>(getPathSegments(settlementId), 'captures', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));

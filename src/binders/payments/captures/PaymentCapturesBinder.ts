@@ -7,7 +7,7 @@ import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 import Callback from '../../../types/Callback';
 import InnerBinder from '../../InnerBinder';
-import { GetParameters, IterateParameters, ListParameters } from './parameters';
+import { GetParameters, IterateParameters, PageParameters } from './parameters';
 
 function getPathSegments(paymentId: string) {
   return `payments/${paymentId}/captures`;
@@ -52,9 +52,9 @@ export default class PaymentCapturesBinder extends InnerBinder<CaptureData, Capt
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/captures-api/list-captures
    */
-  public page(parameters: ListParameters): Promise<Page<Capture>>;
-  public page(parameters: ListParameters, callback: Callback<Page<Capture>>): void;
-  public page(parameters: ListParameters) {
+  public page(parameters: PageParameters): Promise<Page<Capture>>;
+  public page(parameters: PageParameters, callback: Callback<Page<Capture>>): void;
+  public page(parameters: PageParameters) {
     if (renege(this, this.page, ...arguments)) return;
     // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
     const paymentId = this.getParentId((parameters ?? {}).paymentId);

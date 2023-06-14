@@ -7,7 +7,7 @@ import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 import Callback from '../../../types/Callback';
 import InnerBinder from '../../InnerBinder';
-import { IterateParameters, ListParameters } from './parameters';
+import { IterateParameters, PageParameters } from './parameters';
 
 function getPathSegments(customerId: string, subscriptionId: string): string {
   return `customers/${customerId}/subscriptions/${subscriptionId}/payments`;
@@ -24,9 +24,9 @@ export default class SubscriptionPaymentsBinder extends InnerBinder<PaymentData,
    * @since 3.3.0 (as `list`)
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscription-payments
    */
-  public page(parameters: ListParameters): Promise<Page<Payment>>;
-  public page(parameters: ListParameters, callback: Callback<Page<Payment>>): void;
-  public page(parameters: ListParameters) {
+  public page(parameters: PageParameters): Promise<Page<Payment>>;
+  public page(parameters: PageParameters, callback: Callback<Page<Payment>>): void;
+  public page(parameters: PageParameters) {
     if (renege(this, this.page, ...arguments)) return;
     const customerId = this.getParentId(parameters.customerId);
     if (!checkId(customerId, 'customer')) {

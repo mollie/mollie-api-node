@@ -7,7 +7,7 @@ import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 import Callback from '../../../types/Callback';
 import InnerBinder from '../../InnerBinder';
-import { CreateParameters, GetParameters, IterateParameters, ListParameters, RevokeParameters } from './parameters';
+import { CreateParameters, GetParameters, IterateParameters, PageParameters, RevokeParameters } from './parameters';
 
 function getPathSegments(customerId: string) {
   return `customers/${customerId}/mandates`;
@@ -69,9 +69,9 @@ export default class CustomerMandatesBinder extends InnerBinder<MandateData, Man
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
    */
-  public page(parameters: ListParameters): Promise<Page<Mandate>>;
-  public page(parameters: ListParameters, callback: Callback<Page<Mandate>>): void;
-  public page(parameters: ListParameters) {
+  public page(parameters: PageParameters): Promise<Page<Mandate>>;
+  public page(parameters: PageParameters, callback: Callback<Page<Mandate>>): void;
+  public page(parameters: PageParameters) {
     if (renege(this, this.page, ...arguments)) return;
     // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
     const customerId = this.getParentId((parameters ?? {}).customerId);

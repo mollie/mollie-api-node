@@ -9,9 +9,9 @@ export type GetParameters = ContextParameters & {
   embed?: ChargebackEmbed[];
 };
 
-export type ListParameters = ContextParameters &
+export type PageParameters = ContextParameters &
   PaginationParameters & {
     embed?: ChargebackEmbed[];
   };
 
-export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameter;
+export type IterateParameters = Omit<PageParameters, 'limit'> & ThrottlingParameter;

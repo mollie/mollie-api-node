@@ -10,9 +10,9 @@ export interface GetParameters {
   testmode?: boolean;
 }
 
-export type ListParameters = PaginationParameters & {
+export type PageParameters = PaginationParameters & {
   profileId?: string;
   testmode?: boolean;
 };
 
-export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameter;
+export type IterateParameters = Omit<PageParameters, 'limit'> & ThrottlingParameter;

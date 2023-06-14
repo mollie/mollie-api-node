@@ -7,7 +7,7 @@ import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
 import Binder from '../Binder';
-import { CancelParameters, CreateParameters, GetParameters, IterateParameters, ListParameters, UpdateParameters } from './parameters';
+import { CancelParameters, CreateParameters, GetParameters, IterateParameters, PageParameters, UpdateParameters } from './parameters';
 
 const pathSegment = 'payments';
 
@@ -59,9 +59,9 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
    */
-  public page(parameters?: ListParameters): Promise<Page<Payment>>;
-  public page(parameters: ListParameters, callback: Callback<Page<Payment>>): void;
-  public page(parameters: ListParameters = {}) {
+  public page(parameters?: PageParameters): Promise<Page<Payment>>;
+  public page(parameters: PageParameters, callback: Callback<Page<Payment>>): void;
+  public page(parameters: PageParameters = {}) {
     if (renege(this, this.page, ...arguments)) return;
     return this.networkClient.page<PaymentData, Payment>(pathSegment, 'payments', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }

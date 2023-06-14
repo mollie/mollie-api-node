@@ -1,8 +1,8 @@
 import { ThrottlingParameter } from '../../../types/parameters';
-import { ListParameters as CaptureListParameters } from '../../payments/captures/parameters';
+import { PageParameters as CapturePageParameters } from '../../payments/captures/parameters';
 
-export type ListParameters = Omit<CaptureListParameters, 'paymentId'> & {
+export type PageParameters = Omit<CapturePageParameters, 'paymentId'> & {
   settlementId: string;
 };
 
-export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameter;
+export type IterateParameters = Omit<PageParameters, 'limit'> & ThrottlingParameter;

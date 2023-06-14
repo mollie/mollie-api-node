@@ -6,7 +6,7 @@ import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
 import Binder from '../Binder';
-import { CreateParameters, DeleteParameters, GetParameters, IterateParameters, ListParameters, UpdateParameters } from './parameters';
+import { CreateParameters, DeleteParameters, GetParameters, IterateParameters, PageParameters, UpdateParameters } from './parameters';
 
 const pathSegment = 'customers';
 
@@ -53,9 +53,9 @@ export default class CustomersBinder extends Binder<CustomerData, Customer> {
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
    */
-  public page(parameters?: ListParameters): Promise<Page<Customer>>;
-  public page(parameters: ListParameters, callback: Callback<Page<Customer>>): void;
-  public page(parameters?: ListParameters) {
+  public page(parameters?: PageParameters): Promise<Page<Customer>>;
+  public page(parameters: PageParameters, callback: Callback<Page<Customer>>): void;
+  public page(parameters?: PageParameters) {
     if (renege(this, this.page, ...arguments)) return;
     return this.networkClient.page<CustomerData, Customer>(pathSegment, 'customers', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }

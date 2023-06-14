@@ -7,7 +7,7 @@ import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
 import Binder from '../Binder';
-import { CreateParameters, DeleteParameters, IterateParameters, ListParameters, UpdateParameters } from './parameters';
+import { CreateParameters, DeleteParameters, IterateParameters, PageParameters, UpdateParameters } from './parameters';
 
 const pathSegment = 'profiles';
 
@@ -70,9 +70,9 @@ export default class ProfilesBinder extends Binder<ProfileData, Profile> {
    * @since 3.2.0 (as `list`)
    * @see https://docs.mollie.com/reference/v2/profiles-api/list-profiles
    */
-  public page(parameters?: ListParameters): Promise<Page<Profile>>;
-  public page(parameters: ListParameters, callback: Callback<Page<Profile>>): void;
-  public page(parameters?: ListParameters) {
+  public page(parameters?: PageParameters): Promise<Page<Profile>>;
+  public page(parameters: PageParameters, callback: Callback<Page<Profile>>): void;
+  public page(parameters?: PageParameters) {
     if (renege(this, this.page, ...arguments)) return;
     return this.networkClient.page<ProfileData, Profile>(pathSegment, 'profiles', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }

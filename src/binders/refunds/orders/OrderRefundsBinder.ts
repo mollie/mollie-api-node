@@ -7,7 +7,7 @@ import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 import Callback from '../../../types/Callback';
 import InnerBinder from '../../InnerBinder';
-import { CreateParameters, IterateParameters, ListParameters } from './parameters';
+import { CreateParameters, IterateParameters, PageParameters } from './parameters';
 
 export function getPathSegments(orderId: string) {
   return `orders/${orderId}/refunds`;
@@ -50,9 +50,9 @@ export default class OrderRefundsBinder extends InnerBinder<RefundData, Refund> 
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-order-refunds
    */
-  public page(parameters: ListParameters): Promise<Page<Refund>>;
-  public page(parameters: ListParameters, callback: Callback<Page<Refund>>): void;
-  public page(parameters: ListParameters) {
+  public page(parameters: PageParameters): Promise<Page<Refund>>;
+  public page(parameters: PageParameters, callback: Callback<Page<Refund>>): void;
+  public page(parameters: PageParameters) {
     if (renege(this, this.page, ...arguments)) return;
     // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
     const orderId = this.getParentId((parameters ?? {}).orderId);
