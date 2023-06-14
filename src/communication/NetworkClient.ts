@@ -3,7 +3,7 @@ import { SecureContextOptions } from 'tls';
 
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios';
 
-import List from '../data/list/List';
+import Page from '../data/page/Page';
 import ApiError from '../errors/ApiError';
 import Options from '../Options';
 import DemandingIterator from '../plumbing/iteration/DemandingIterator';
@@ -137,7 +137,18 @@ export default class NetworkClient {
     return response.data;
   }
 
-  async list<R>(pathname: string, binderName: string, query?: SearchParameters): Promise<R[] & Pick<List<R>, 'links' | 'count'>> {
+  async list<R>(pathname: string, binderName: string, query?: SearchParameters): Promise<R[]> {
+    const response = await this.axiosInstance.get(buildUrl(pathname, query)).catch(throwApiError);
+    try {
+      /* eslint-disable-next-line no-var */
+      var { _embedded: embedded } = response.data;
+    } catch (error) {
+      throw new ApiError('Received unexpected response from the server');
+    }
+    return embedded[binderName] as R[];
+  }
+
+  async page<R>(pathname: string, binderName: string, query?: SearchParameters): Promise<R[] & Pick<Page<R>, 'links' | 'count'>> {
     const response = await this.axiosInstance.get(buildUrl(pathname, query)).catch(throwApiError);
     try {
       /* eslint-disable-next-line no-var */
@@ -149,17 +160,6 @@ export default class NetworkClient {
       links,
       count,
     });
-  }
-
-  async listPlain<R>(pathname: string, binderName: string, query?: SearchParameters): Promise<R[]> {
-    const response = await this.axiosInstance.get(buildUrl(pathname, query)).catch(throwApiError);
-    try {
-      /* eslint-disable-next-line no-var */
-      var { _embedded: embedded } = response.data;
-    } catch (error) {
-      throw new ApiError('Received unexpected response from the server');
-    }
-    return embedded[binderName] as R[];
   }
 
   iterate<R>(pathname: string, binderName: string, query: Maybe<SearchParameters>, valuesPerMinute = 5000): HelpfulIterator<R> {

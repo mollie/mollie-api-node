@@ -1,5 +1,5 @@
 import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import List from '../../data/list/List';
+import Page from '../../data/page/Page';
 import { ProfileData } from '../../data/profiles/data';
 import Profile from '../../data/profiles/Profile';
 import ApiError from '../../errors/ApiError';
@@ -70,11 +70,11 @@ export default class ProfilesBinder extends Binder<ProfileData, Profile> {
    * @since 3.2.0 (as `list`)
    * @see https://docs.mollie.com/reference/v2/profiles-api/list-profiles
    */
-  public page(parameters?: ListParameters): Promise<List<Profile>>;
-  public page(parameters: ListParameters, callback: Callback<List<Profile>>): void;
+  public page(parameters?: ListParameters): Promise<Page<Profile>>;
+  public page(parameters: ListParameters, callback: Callback<Page<Profile>>): void;
   public page(parameters?: ListParameters) {
     if (renege(this, this.page, ...arguments)) return;
-    return this.networkClient.list<ProfileData, Profile>(pathSegment, 'profiles', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
+    return this.networkClient.page<ProfileData, Profile>(pathSegment, 'profiles', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
   /**

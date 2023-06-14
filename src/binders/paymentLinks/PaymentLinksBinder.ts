@@ -1,5 +1,5 @@
 import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import List from '../../data/list/List';
+import Page from '../../data/page/Page';
 import { PaymentLinkData } from '../../data/paymentLinks/data';
 import PaymentLink from '../../data/paymentLinks/PaymentLink';
 import ApiError from '../../errors/ApiError';
@@ -54,11 +54,11 @@ export default class PaymentsLinksBinder extends Binder<PaymentLinkData, Payment
    * @since 3.6.0
    * @see https://docs.mollie.com/reference/v2/payment-links-api/list-payment-links
    */
-  public page(parameters?: ListParameters): Promise<List<PaymentLink>>;
-  public page(parameters: ListParameters, callback: Callback<List<PaymentLink>>): void;
+  public page(parameters?: ListParameters): Promise<Page<PaymentLink>>;
+  public page(parameters: ListParameters, callback: Callback<Page<PaymentLink>>): void;
   public page(parameters: ListParameters = {}) {
     if (renege(this, this.page, ...arguments)) return;
-    return this.networkClient.list<PaymentLinkData, PaymentLink>(pathSegment, 'payment_links', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
+    return this.networkClient.page<PaymentLinkData, PaymentLink>(pathSegment, 'payment_links', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
   /**

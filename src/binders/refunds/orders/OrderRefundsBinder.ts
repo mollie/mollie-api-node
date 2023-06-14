@@ -1,5 +1,5 @@
 import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
-import List from '../../../data/list/List';
+import Page from '../../../data/page/Page';
 import { RefundData } from '../../../data/refunds/data';
 import Refund from '../../../data/refunds/Refund';
 import ApiError from '../../../errors/ApiError';
@@ -50,8 +50,8 @@ export default class OrderRefundsBinder extends InnerBinder<RefundData, Refund> 
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-order-refunds
    */
-  public page(parameters: ListParameters): Promise<List<Refund>>;
-  public page(parameters: ListParameters, callback: Callback<List<Refund>>): void;
+  public page(parameters: ListParameters): Promise<Page<Refund>>;
+  public page(parameters: ListParameters, callback: Callback<Page<Refund>>): void;
   public page(parameters: ListParameters) {
     if (renege(this, this.page, ...arguments)) return;
     // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
@@ -60,7 +60,7 @@ export default class OrderRefundsBinder extends InnerBinder<RefundData, Refund> 
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...query } = parameters ?? {};
-    return this.networkClient.list<RefundData, Refund>(getPathSegments(orderId), 'refunds', query).then(result => this.injectPaginationHelpers(result, this.page, parameters ?? {}));
+    return this.networkClient.page<RefundData, Refund>(getPathSegments(orderId), 'refunds', query).then(result => this.injectPaginationHelpers(result, this.page, parameters ?? {}));
   }
 
   /**

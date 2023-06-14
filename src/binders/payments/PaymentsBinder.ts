@@ -1,5 +1,5 @@
 import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import List from '../../data/list/List';
+import Page from '../../data/page/Page';
 import { PaymentData } from '../../data/payments/data';
 import Payment from '../../data/payments/Payment';
 import ApiError from '../../errors/ApiError';
@@ -59,11 +59,11 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
    */
-  public page(parameters?: ListParameters): Promise<List<Payment>>;
-  public page(parameters: ListParameters, callback: Callback<List<Payment>>): void;
+  public page(parameters?: ListParameters): Promise<Page<Payment>>;
+  public page(parameters: ListParameters, callback: Callback<Page<Payment>>): void;
   public page(parameters: ListParameters = {}) {
     if (renege(this, this.page, ...arguments)) return;
-    return this.networkClient.list<PaymentData, Payment>(pathSegment, 'payments', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
+    return this.networkClient.page<PaymentData, Payment>(pathSegment, 'payments', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
   /**
@@ -105,7 +105,7 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
    * @see https://docs.mollie.com/reference/v2/payments-api/cancel-payment
    */
   public cancel(id: string, parameters?: CancelParameters): Promise<Payment>;
-  public cancel(id: string, parameters: CancelParameters, callback: Callback<List<Payment>>): void;
+  public cancel(id: string, parameters: CancelParameters, callback: Callback<Page<Payment>>): void;
   public cancel(id: string, parameters?: CancelParameters) {
     if (renege(this, this.cancel, ...arguments)) return;
     if (!checkId(id, 'payment')) {

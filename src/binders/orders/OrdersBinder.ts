@@ -1,5 +1,5 @@
 import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import List from '../../data/list/List';
+import Page from '../../data/page/Page';
 import { OrderData } from '../../data/orders/data';
 import Order from '../../data/orders/Order';
 import ApiError from '../../errors/ApiError';
@@ -85,11 +85,11 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/orders-api/list-orders
    */
-  public page(parameters?: ListParameters): Promise<List<Order>>;
-  public page(parameters: ListParameters, callback: Callback<List<Order>>): void;
+  public page(parameters?: ListParameters): Promise<Page<Order>>;
+  public page(parameters: ListParameters, callback: Callback<Page<Order>>): void;
   public page(parameters?: ListParameters) {
     if (renege(this, this.page, ...arguments)) return;
-    return this.networkClient.list<OrderData, Order>(pathSegment, 'orders', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
+    return this.networkClient.page<OrderData, Order>(pathSegment, 'orders', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
   /**

@@ -1,5 +1,5 @@
 import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import List from '../../data/list/List';
+import Page from '../../data/page/Page';
 import { SettlementData } from '../../data/settlements/data';
 import SettlementModel from '../../data/settlements/SettlementModel';
 import renege from '../../plumbing/renege';
@@ -65,11 +65,11 @@ export default class SettlementsBinder extends Binder<SettlementData, Settlement
    * @since 3.7.0
    * @see https://docs.mollie.com/reference/v2/payment-links-api/list-payment-links
    */
-  public page(parameters?: ListParameters): Promise<List<SettlementModel>>;
-  public page(parameters: ListParameters, callback: Callback<List<SettlementModel>>): void;
+  public page(parameters?: ListParameters): Promise<Page<SettlementModel>>;
+  public page(parameters: ListParameters, callback: Callback<Page<SettlementModel>>): void;
   public page(parameters: ListParameters = {}) {
     if (renege(this, this.page, ...arguments)) return;
-    return this.networkClient.list<SettlementData, SettlementModel>(pathSegment, 'settlements', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
+    return this.networkClient.page<SettlementData, SettlementModel>(pathSegment, 'settlements', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
   /**

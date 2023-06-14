@@ -1,6 +1,6 @@
 import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import Customer, { CustomerData } from '../../data/customers/Customer';
-import List from '../../data/list/List';
+import Page from '../../data/page/Page';
 import ApiError from '../../errors/ApiError';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
@@ -53,11 +53,11 @@ export default class CustomersBinder extends Binder<CustomerData, Customer> {
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
    */
-  public page(parameters?: ListParameters): Promise<List<Customer>>;
-  public page(parameters: ListParameters, callback: Callback<List<Customer>>): void;
+  public page(parameters?: ListParameters): Promise<Page<Customer>>;
+  public page(parameters: ListParameters, callback: Callback<Page<Customer>>): void;
   public page(parameters?: ListParameters) {
     if (renege(this, this.page, ...arguments)) return;
-    return this.networkClient.list<CustomerData, Customer>(pathSegment, 'customers', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
+    return this.networkClient.page<CustomerData, Customer>(pathSegment, 'customers', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
   /**

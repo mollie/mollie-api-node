@@ -3,8 +3,8 @@ import renege from '../../plumbing/renege';
 import resolveIf from '../../plumbing/resolveIf';
 import Callback from '../../types/Callback';
 import Helper from '../Helper';
-import { PaymentData } from '../payments/data';
 import Payment from '../payments/Payment';
+import { PaymentData } from '../payments/data';
 import Chargeback, { ChargebackData } from './Chargeback';
 
 export default class ChargebackHelper extends Helper<ChargebackData, Chargeback> {

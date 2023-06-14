@@ -1,6 +1,6 @@
 import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import Chargeback, { ChargebackData } from '../../data/chargebacks/Chargeback';
-import List from '../../data/list/List';
+import Page from '../../data/page/Page';
 import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
 import InnerBinder from '../InnerBinder';
@@ -21,11 +21,11 @@ export default class ChargebacksBinder extends InnerBinder<ChargebackData, Charg
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
    */
-  public page(parameters?: ListParameters): Promise<List<Chargeback>>;
-  public page(parameters: ListParameters, callback: Callback<List<Chargeback>>): void;
+  public page(parameters?: ListParameters): Promise<Page<Chargeback>>;
+  public page(parameters: ListParameters, callback: Callback<Page<Chargeback>>): void;
   public page(parameters: ListParameters = {}) {
     if (renege(this, this.page, ...arguments)) return;
-    return this.networkClient.list<ChargebackData, Chargeback>(pathSegment, 'chargebacks', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
+    return this.networkClient.page<ChargebackData, Chargeback>(pathSegment, 'chargebacks', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
   /**

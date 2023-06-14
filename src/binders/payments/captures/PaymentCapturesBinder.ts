@@ -1,5 +1,5 @@
 import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
-import List from '../../../data/list/List';
+import Page from '../../../data/page/Page';
 import Capture from '../../../data/payments/captures/Capture';
 import { CaptureData } from '../../../data/payments/captures/data';
 import ApiError from '../../../errors/ApiError';
@@ -52,8 +52,8 @@ export default class PaymentCapturesBinder extends InnerBinder<CaptureData, Capt
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/captures-api/list-captures
    */
-  public page(parameters: ListParameters): Promise<List<Capture>>;
-  public page(parameters: ListParameters, callback: Callback<List<Capture>>): void;
+  public page(parameters: ListParameters): Promise<Page<Capture>>;
+  public page(parameters: ListParameters, callback: Callback<Page<Capture>>): void;
   public page(parameters: ListParameters) {
     if (renege(this, this.page, ...arguments)) return;
     // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
@@ -62,7 +62,7 @@ export default class PaymentCapturesBinder extends InnerBinder<CaptureData, Capt
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    return this.networkClient.list<CaptureData, Capture>(getPathSegments(paymentId), 'captures', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
+    return this.networkClient.page<CaptureData, Capture>(getPathSegments(paymentId), 'captures', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
   /**

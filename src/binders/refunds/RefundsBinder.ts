@@ -1,5 +1,5 @@
 import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import List from '../../data/list/List';
+import Page from '../../data/page/Page';
 import { RefundData } from '../../data/refunds/data';
 import Refund from '../../data/refunds/Refund';
 import renege from '../../plumbing/renege';
@@ -22,11 +22,11 @@ export default class RefundsBinder extends Binder<RefundData, Refund> {
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
    */
-  public page(parameters?: ListParameters): Promise<List<Refund>>;
-  public page(parameters: ListParameters, callback: Callback<List<Refund>>): void;
+  public page(parameters?: ListParameters): Promise<Page<Refund>>;
+  public page(parameters: ListParameters, callback: Callback<Page<Refund>>): void;
   public page(parameters: ListParameters = {}) {
     if (renege(this, this.page, ...arguments)) return;
-    return this.networkClient.list<RefundData, Refund>(pathSegment, 'refunds', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
+    return this.networkClient.page<RefundData, Refund>(pathSegment, 'refunds', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
   /**

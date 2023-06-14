@@ -1,5 +1,5 @@
 import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
-import List from '../../../data/list/List';
+import Page from '../../../data/page/Page';
 import { PaymentData } from '../../../data/payments/data';
 import Payment from '../../../data/payments/Payment';
 import renege from '../../../plumbing/renege';
@@ -24,12 +24,12 @@ export default class SettlementPaymentsBinder extends Binder<PaymentData, Paymen
    * @since 3.7.0
    * @see https://docs.mollie.com/reference/v2/settlements-api/list-settlement-payments
    */
-  public page(parameters: ListParameters): Promise<List<Payment>>;
-  public page(parameters: ListParameters, callback: Callback<List<Payment>>): void;
+  public page(parameters: ListParameters): Promise<Page<Payment>>;
+  public page(parameters: ListParameters, callback: Callback<Page<Payment>>): void;
   public page(parameters: ListParameters) {
     if (renege(this, this.page, ...arguments)) return;
     const { settlementId, ...query } = parameters;
-    return this.networkClient.list<PaymentData, Payment>(getPathSegments(settlementId), 'payments', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
+    return this.networkClient.page<PaymentData, Payment>(getPathSegments(settlementId), 'payments', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
   /**

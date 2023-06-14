@@ -5,7 +5,7 @@ export * from './createMollieClient';
 export type MollieClient = ReturnType<typeof createMollieClient>;
 export { default as MollieOptions } from './Options';
 
-export { default as List } from './data/list/List';
+export { default as Page } from './data/page/Page';
 
 export { default as Capture } from './data/payments/captures/Capture';
 import { GetParameters as CapturesGetParameters, ListParameters as CapturesListParameters } from './binders/payments/captures/parameters';

@@ -7,7 +7,7 @@ import NetworkClient from '../../../src/communication/NetworkClient';
 import page1 from '../__stubs__/list/customers_page_1.json';
 import page2 from '../__stubs__/list/customers_page_2.json';
 import page3 from '../__stubs__/list/customers_page_3.json';
-import List from '../../../src/data/list/List';
+import Page from '../../../src/data/page/Page';
 
 const mock = new MockAdapter(axios);
 
@@ -59,7 +59,7 @@ describe('lists', () => {
         .then(result => {
           result
             .nextPage()
-            .then((list: List<any>) => {
+            .then((list: Page<any>) => {
               expect(list[0].id).toEqual('cst_l4J9zsdzO');
               expect(list.nextPageCursor).toEqual('cst_1DVwgVBLS');
               expect(list).toMatchSnapshot();
@@ -78,7 +78,7 @@ describe('lists', () => {
       let i = 0;
       const expected = ['cst_kEn1PlbGa', 'cst_l4J9zsdzO', 'cst_1DVwgVBLS', undefined];
 
-      const handleNextPage = (err, result: List<any>): void => {
+      const handleNextPage = (err, result: Page<any>): void => {
         expect(err).toBeNull();
         expect(result[0].id).toEqual(expected[i]);
         expect(result.nextPageCursor).toEqual(expected[++i]);

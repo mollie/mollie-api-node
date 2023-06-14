@@ -1,5 +1,5 @@
 import breakUrl from '../communication/breakUrl';
-import List from '../data/list/List';
+import Page from '../data/page/Page';
 import Maybe from '../types/Maybe';
 
 /**
@@ -10,9 +10,9 @@ export default class Binder<R, T extends Omit<R, '_links' | '_embedded'>> {
   /**
    * Injects `nextPage`, `nextPageCursor`, `previousPage`, and `previousPageCursor` into the passed list.
    */
-  protected injectPaginationHelpers<P>(input: Array<T> & Pick<List<T>, 'count' | 'links'>, list: (parameters: P) => Promise<List<T>>, selfParameters: P = {} as P): List<T> {
+  protected injectPaginationHelpers<P>(input: Array<T> & Pick<Page<T>, 'count' | 'links'>, list: (parameters: P) => Promise<Page<T>>, selfParameters: P = {} as P): Page<T> {
     const { links } = input;
-    let nextPage: Maybe<() => Promise<List<T>>>;
+    let nextPage: Maybe<() => Promise<Page<T>>>;
     let nextPageCursor: Maybe<string>;
     if (links.next != null) {
       const [, query] = breakUrl(links.next.href);
@@ -22,7 +22,7 @@ export default class Binder<R, T extends Omit<R, '_links' | '_embedded'>> {
       });
       nextPageCursor = query.from;
     }
-    let previousPage: Maybe<() => Promise<List<T>>>;
+    let previousPage: Maybe<() => Promise<Page<T>>>;
     let previousPageCursor: Maybe<string>;
     if (links.previous != null) {
       const [, query] = breakUrl(links.previous.href);
@@ -37,6 +37,6 @@ export default class Binder<R, T extends Omit<R, '_links' | '_embedded'>> {
       nextPageCursor,
       previousPage,
       previousPageCursor,
-    }) as List<T>;
+    }) as Page<T>;
   }
 }
