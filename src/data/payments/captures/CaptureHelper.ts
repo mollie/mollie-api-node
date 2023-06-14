@@ -1,3 +1,4 @@
+import { runIf } from 'ruply';
 import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
 import renege from '../../../plumbing/renege';
 import resolveIf from '../../../plumbing/resolveIf';
@@ -6,8 +7,8 @@ import Callback from '../../../types/Callback';
 import Maybe from '../../../types/Maybe';
 import Helper from '../../Helper';
 import Shipment, { ShipmentData } from '../../orders/shipments/Shipment';
-import { PaymentData } from '../data';
 import Payment from '../Payment';
+import { PaymentData } from '../data';
 import Capture from './Capture';
 import { CaptureData } from './data';
 
@@ -37,9 +38,6 @@ export default class CaptureHelper extends Helper<CaptureData, Capture> {
   public getShipment(callback: Callback<Maybe<Shipment>>): void;
   public getShipment() {
     if (renege(this, this.getShipment, ...arguments)) return;
-    if (this.links.shipment == undefined) {
-      return undefinedPromise;
-    }
-    return this.networkClient.get<ShipmentData, Shipment>(this.links.shipment.href);
+    return runIf(this.links.shipment, ({ href }) => this.networkClient.get<ShipmentData, Shipment>(href)) ?? undefinedPromise;
   }
 }

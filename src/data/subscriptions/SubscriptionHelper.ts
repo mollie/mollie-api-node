@@ -1,16 +1,20 @@
+import { runIf } from 'ruply';
 import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import HelpfulIterator from '../../plumbing/iteration/HelpfulIterator';
+import emptyHelpfulIterator from '../../plumbing/iteration/emptyHelpfulIterator';
 import renege from '../../plumbing/renege';
 import undefinedPromise from '../../plumbing/undefinedPromise';
 import Callback from '../../types/Callback';
 import Maybe from '../../types/Maybe';
-import Customer, { CustomerData } from '../customers/Customer';
+import { ThrottlingParameter } from '../../types/parameters';
 import Helper from '../Helper';
-import { PaymentData } from '../payments/data';
+import Customer, { CustomerData } from '../customers/Customer';
 import Payment from '../payments/Payment';
-import { ProfileData } from '../profiles/data';
+import { PaymentData } from '../payments/data';
 import Profile from '../profiles/Profile';
-import { SubscriptionData, SubscriptionStatus } from './data';
+import { ProfileData } from '../profiles/data';
 import Subscription from './Subscription';
+import { SubscriptionData, SubscriptionStatus } from './data';
 
 export default class SubscriptionHelper extends Helper<SubscriptionData, Subscription> {
   constructor(networkClient: TransformingNetworkClient, protected readonly links: SubscriptionData['_links']) {
@@ -80,10 +84,7 @@ export default class SubscriptionHelper extends Helper<SubscriptionData, Subscri
   public getProfile(callback: Callback<Maybe<Profile>>): void;
   public getProfile() {
     if (renege(this, this.getProfile, ...arguments)) return;
-    if (this.links.profile == undefined) {
-      return undefinedPromise;
-    }
-    return this.networkClient.get<ProfileData, Profile>(this.links.profile.href);
+    return runIf(this.links.profile, ({ href }) => this.networkClient.get<ProfileData, Profile>(href)) ?? undefinedPromise;
   }
 
   /**
@@ -91,13 +92,7 @@ export default class SubscriptionHelper extends Helper<SubscriptionData, Subscri
    *
    * @since 3.6.0
    */
-  public getPayments(): Promise<Array<Payment>>;
-  public getPayments(callback: Callback<Array<Payment>>): void;
-  public getPayments() {
-    if (renege(this, this.getPayments, ...arguments)) return;
-    if (this.links.payments == undefined) {
-      return Promise.resolve([]);
-    }
-    return this.networkClient.listPlain<PaymentData, Payment>(this.links.payments.href, 'payments');
+  public getPayments(parameters?: ThrottlingParameter): HelpfulIterator<Payment> {
+    return runIf(this.links.payments, ({ href }) => this.networkClient.iterate<PaymentData, Payment>(href, 'payments', undefined, parameters?.valuesPerMinute)) ?? emptyHelpfulIterator;
   }
 }

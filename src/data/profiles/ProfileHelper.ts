@@ -1,16 +1,21 @@
+import { runIf } from 'ruply';
 import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import HelpfulIterator from '../../plumbing/iteration/HelpfulIterator';
+import emptyHelpfulIterator from '../../plumbing/iteration/emptyHelpfulIterator';
 import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
-import Chargeback, { ChargebackData } from '../chargebacks/Chargeback';
+import { ThrottlingParameter } from '../../types/parameters';
 import Helper from '../Helper';
-import { MethodData } from '../methods/data';
+import Chargeback, { ChargebackData } from '../chargebacks/Chargeback';
 import Method from '../methods/Method';
-import { PaymentData } from '../payments/data';
+import { MethodData } from '../methods/data';
 import Payment from '../payments/Payment';
-import { RefundData } from '../refunds/data';
+import { PaymentData } from '../payments/data';
 import Refund from '../refunds/Refund';
-import { ProfileData, ProfileStatus } from './data';
+import { RefundData } from '../refunds/data';
 import Profile from './Profile';
+import { ProfileData, ProfileStatus } from './data';
+import breakUrl from '../../communication/breakUrl';
 
 export default class ProfileHelper extends Helper<ProfileData, Profile> {
   constructor(networkClient: TransformingNetworkClient, protected readonly links: ProfileData['_links']) {
@@ -55,14 +60,14 @@ export default class ProfileHelper extends Helper<ProfileData, Profile> {
    *
    * @since 3.6.0
    */
-  public getChargebacks(): Promise<Array<Chargeback>>;
-  public getChargebacks(callback: Callback<Array<Chargeback>>): void;
-  public getChargebacks() {
-    if (renege(this, this.getChargebacks, ...arguments)) return;
-    if (this.links.chargebacks == undefined) {
-      return Promise.resolve([]);
-    }
-    return this.networkClient.listPlain<ChargebackData, Chargeback>(this.links.chargebacks.href, 'chargebacks');
+  public getChargebacks(parameters?: ThrottlingParameter): HelpfulIterator<Chargeback> {
+    return (
+      runIf(
+        this.links.chargebacks,
+        ({ href }) => breakUrl(href),
+        ([pathname, query]) => this.networkClient.iterate<ChargebackData, Chargeback>(pathname, 'chargebacks', query, parameters?.valuesPerMinute),
+      ) ?? emptyHelpfulIterator
+    );
   }
 
   /**
@@ -74,10 +79,7 @@ export default class ProfileHelper extends Helper<ProfileData, Profile> {
   public getMethods(callback: Callback<Array<Method>>): void;
   public getMethods() {
     if (renege(this, this.getMethods, ...arguments)) return;
-    if (this.links.methods == undefined) {
-      return Promise.resolve([]);
-    }
-    return this.networkClient.listPlain<MethodData, Method>(this.links.methods.href, 'methods');
+    return runIf(this.links.methods, ({ href }) => this.networkClient.list<MethodData, Method>(href, 'methods')) ?? Promise.resolve([]);
   }
 
   /**
@@ -85,14 +87,14 @@ export default class ProfileHelper extends Helper<ProfileData, Profile> {
    *
    * @since 3.6.0
    */
-  public getPayments(): Promise<Array<Payment>>;
-  public getPayments(callback: Callback<Array<Payment>>): void;
-  public getPayments() {
-    if (renege(this, this.getPayments, ...arguments)) return;
-    if (this.links.payments == undefined) {
-      return Promise.resolve([]);
-    }
-    return this.networkClient.listPlain<PaymentData, Payment>(this.links.payments.href, 'payments');
+  public getPayments(parameters?: ThrottlingParameter): HelpfulIterator<Payment> {
+    return (
+      runIf(
+        this.links.payments,
+        ({ href }) => breakUrl(href),
+        ([pathname, query]) => this.networkClient.iterate<PaymentData, Payment>(pathname, 'payments', query, parameters?.valuesPerMinute),
+      ) ?? emptyHelpfulIterator
+    );
   }
 
   /**
@@ -100,13 +102,13 @@ export default class ProfileHelper extends Helper<ProfileData, Profile> {
    *
    * @since 3.6.0
    */
-  public getRefunds(): Promise<Array<Refund>>;
-  public getRefunds(callback: Callback<Array<Refund>>): void;
-  public getRefunds() {
-    if (renege(this, this.getRefunds, ...arguments)) return;
-    if (this.links.refunds == undefined) {
-      return Promise.resolve([]);
-    }
-    return this.networkClient.listPlain<RefundData, Refund>(this.links.refunds.href, 'refunds');
+  public getRefunds(parameters?: ThrottlingParameter): HelpfulIterator<Refund> {
+    return (
+      runIf(
+        this.links.refunds,
+        ({ href }) => breakUrl(href),
+        ([pathname, query]) => this.networkClient.iterate<RefundData, Refund>(pathname, 'refunds', query, parameters?.valuesPerMinute),
+      ) ?? emptyHelpfulIterator
+    );
   }
 }
