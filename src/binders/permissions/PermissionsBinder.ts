@@ -1,5 +1,4 @@
 import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import List from '../../data/list/List';
 import Permission, { PermissionData } from '../../data/permissions/Permission';
 import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
@@ -31,10 +30,10 @@ export default class PermissionsBinder extends Binder<PermissionData, Permission
    * @since 3.2.0
    * @see https://docs.mollie.com/reference/v2/permissions-api/list-permissions
    */
-  public list(): Promise<List<Permission>>;
-  public list(callback: Callback<List<Permission>>): void;
+  public list(): Promise<Permission[]>;
+  public list(callback: Callback<Permission[]>): void;
   public list() {
     if (renege(this, this.list, ...arguments)) return;
-    return this.networkClient.list<PermissionData, Permission>(pathSegment, 'permissions', {}).then(result => this.injectPaginationHelpers<undefined>(result, this.list, undefined));
+    return this.networkClient.list<PermissionData, Permission>(pathSegment, 'permissions', {});
   }
 }

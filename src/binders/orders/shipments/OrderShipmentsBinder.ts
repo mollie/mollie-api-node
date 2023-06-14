@@ -1,5 +1,4 @@
 import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
-import List from '../../../data/list/List';
 import Shipment, { ShipmentData } from '../../../data/orders/shipments/Shipment';
 import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
@@ -68,8 +67,8 @@ export default class OrderShipmentsBinder extends InnerBinder<ShipmentData, Ship
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/shipments-api/list-shipments
    */
-  public list(parameters: ListParameters): Promise<List<Shipment>>;
-  public list(parameters: ListParameters, callback: Callback<List<Shipment>>): void;
+  public list(parameters: ListParameters): Promise<Shipment[]>;
+  public list(parameters: ListParameters, callback: Callback<Shipment[]>): void;
   public list(parameters: ListParameters) {
     if (renege(this, this.list, ...arguments)) return;
     // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
@@ -78,7 +77,7 @@ export default class OrderShipmentsBinder extends InnerBinder<ShipmentData, Ship
       throw new ApiError('The order id is invalid');
     }
     const { orderId: _, ...query } = parameters ?? {};
-    return this.networkClient.list<ShipmentData, Shipment>(getPathSegments(orderId), 'shipments', query).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.networkClient.list<ShipmentData, Shipment>(getPathSegments(orderId), 'shipments', query);
   }
 
   /**
