@@ -7,7 +7,7 @@ import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 import Callback from '../../../types/Callback';
 import InnerBinder from '../../InnerBinder';
-import { CreateParameters, ListParameters } from './parameters';
+import { CreateParameters, IterateParameters, ListParameters } from './parameters';
 
 export function getPathSegments(orderId: string) {
   return `orders/${orderId}/refunds`;
@@ -71,13 +71,13 @@ export default class OrderRefundsBinder extends InnerBinder<RefundData, Refund> 
    * @since 3.6.0
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-order-refunds
    */
-  public iterate(parameters: Omit<ListParameters, 'limit'>) {
+  public iterate(parameters: IterateParameters) {
     // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
     const orderId = this.getParentId((parameters ?? {}).orderId);
     if (!checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
-    const { orderId: _, ...query } = parameters ?? {};
-    return this.networkClient.iterate<RefundData, Refund>(getPathSegments(orderId), 'refunds', query);
+    const { valuesPerMinute, orderId: _, ...query } = parameters ?? {};
+    return this.networkClient.iterate<RefundData, Refund>(getPathSegments(orderId), 'refunds', query, valuesPerMinute);
   }
 }
