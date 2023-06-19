@@ -61,14 +61,12 @@ describe('methods', () => {
 
     it('should return a list of all methods', () =>
       methods.list().then(result => {
-        expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
       }));
 
     it('should work with a callback', done => {
       methods.list({}, (err, result) => {
         expect(err).toBeNull();
-        expect(result).toHaveProperty('links');
         expect(result).toMatchSnapshot();
         done();
       });

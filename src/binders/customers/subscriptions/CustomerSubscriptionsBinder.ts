@@ -1,5 +1,5 @@
 import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
-import List from '../../../data/list/List';
+import Page from '../../../data/page/Page';
 import { SubscriptionData } from '../../../data/subscriptions/data';
 import Subscription from '../../../data/subscriptions/Subscription';
 import ApiError from '../../../errors/ApiError';
@@ -7,7 +7,7 @@ import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 import Callback from '../../../types/Callback';
 import InnerBinder from '../../InnerBinder';
-import { CancelParameters, CreateParameters, GetParameters, IterateParameters, ListParameters, UpdateParameters } from './parameters';
+import { CancelParameters, CreateParameters, GetParameters, IterateParameters, PageParameters, UpdateParameters } from './parameters';
 
 function getPathSegments(customerId: string) {
   return `customers/${customerId}/subscriptions`;
@@ -74,9 +74,9 @@ export default class CustomerSubscriptionsBinder extends InnerBinder<Subscriptio
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions
    */
-  public page(parameters: ListParameters): Promise<List<Subscription>>;
-  public page(parameters: ListParameters, callback: Callback<List<Subscription>>): void;
-  public page(parameters: ListParameters) {
+  public page(parameters: PageParameters): Promise<Page<Subscription>>;
+  public page(parameters: PageParameters, callback: Callback<Page<Subscription>>): void;
+  public page(parameters: PageParameters) {
     if (renege(this, this.page, ...arguments)) return;
     // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
     const customerId = this.getParentId((parameters ?? {}).customerId);
@@ -85,7 +85,7 @@ export default class CustomerSubscriptionsBinder extends InnerBinder<Subscriptio
     }
     const { customerId: _, ...query } = parameters ?? {};
     return this.networkClient
-      .list<SubscriptionData, Subscription>(getPathSegments(customerId), 'subscriptions', query)
+      .page<SubscriptionData, Subscription>(getPathSegments(customerId), 'subscriptions', query)
       .then(result => this.injectPaginationHelpers(result, this.page, parameters ?? {}));
   }
 

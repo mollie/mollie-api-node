@@ -1,11 +1,11 @@
 import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import List from '../../data/list/List';
+import Page from '../../data/page/Page';
 import { SubscriptionData } from '../../data/subscriptions/data';
 import Subscription from '../../data/subscriptions/Subscription';
 import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
 import InnerBinder from '../InnerBinder';
-import { IterateParameters, ListParameters } from './parameters';
+import { IterateParameters, PageParameters } from './parameters';
 
 const pathSegment = 'subscriptions';
 
@@ -21,11 +21,11 @@ export default class SubscriptionsBinder extends InnerBinder<SubscriptionData, S
    * @since 3.2.0 (as `list`)
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-all-subscriptions
    */
-  public page(parameters?: ListParameters): Promise<List<Subscription>>;
-  public page(parameters: ListParameters, callback: Callback<List<Subscription>>): void;
-  public page(parameters?: ListParameters) {
+  public page(parameters?: PageParameters): Promise<Page<Subscription>>;
+  public page(parameters: PageParameters, callback: Callback<Page<Subscription>>): void;
+  public page(parameters?: PageParameters) {
     if (renege(this, this.page, ...arguments)) return;
-    return this.networkClient.list<SubscriptionData, Subscription>(pathSegment, 'subscriptions', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
+    return this.networkClient.page<SubscriptionData, Subscription>(pathSegment, 'subscriptions', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
   /**

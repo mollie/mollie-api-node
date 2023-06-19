@@ -29,7 +29,7 @@ test('queryString', async () => {
     },
   });
 
-  expect(methods.links.self.href).toBe('https://api.mollie.com/v2/methods?include=issuers%2Cpricing&amount%5Bvalue%5D=10.00&amount%5Bcurrency%5D=SEK');
+  expect(methods.length).toBe(0);
 });
 
 test('defaults', async () => {

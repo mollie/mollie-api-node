@@ -1,16 +1,17 @@
+import { runIf } from 'ruply';
 import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import renege from '../../plumbing/renege';
-import resolveIf from '../../plumbing/resolveIf';
 import undefinedPromise from '../../plumbing/undefinedPromise';
 import Callback from '../../types/Callback';
 import Maybe from '../../types/Maybe';
 import Helper from '../Helper';
-import { OrderData } from '../orders/data';
 import Order from '../orders/Order';
-import { PaymentData } from '../payments/data';
+import { OrderData } from '../orders/data';
 import Payment from '../payments/Payment';
-import { RefundData, RefundStatus } from './data';
+import { PaymentData } from '../payments/data';
 import Refund from './Refund';
+import { RefundData, RefundStatus } from './data';
+import resolveIf from '../../plumbing/resolveIf';
 
 export default class RefundHelper extends Helper<RefundData, Refund> {
   constructor(networkClient: TransformingNetworkClient, protected readonly links: RefundData['_links'], protected readonly embedded: RefundData['_embedded']) {
@@ -83,9 +84,6 @@ export default class RefundHelper extends Helper<RefundData, Refund> {
   public getOrder(callback: Callback<Maybe<Order>>): void;
   public getOrder() {
     if (renege(this, this.getOrder, ...arguments)) return;
-    if (this.links.order == undefined) {
-      return undefinedPromise;
-    }
-    return this.networkClient.get<OrderData, Order>(this.links.order.href);
+    return runIf(this.links.order, ({ href }) => this.networkClient.get<OrderData, Order>(href)) ?? undefinedPromise;
   }
 }

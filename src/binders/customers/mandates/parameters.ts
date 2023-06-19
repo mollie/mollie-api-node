@@ -54,8 +54,8 @@ export type CreateParameters = ContextParameters &
 
 export type GetParameters = ContextParameters;
 
-export type ListParameters = ContextParameters & PaginationParameters;
+export type PageParameters = ContextParameters & PaginationParameters;
 
-export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameter;
+export type IterateParameters = Omit<PageParameters, 'limit'> & ThrottlingParameter;
 
 export type RevokeParameters = ContextParameters & IdempotencyParameter;

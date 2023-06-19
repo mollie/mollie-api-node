@@ -1,14 +1,16 @@
+import { runIf } from 'ruply';
 import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import renege from '../../plumbing/renege';
-import Callback from '../../types/Callback';
+import HelpfulIterator from '../../plumbing/iteration/HelpfulIterator';
+import emptyHelpfulIterator from '../../plumbing/iteration/emptyHelpfulIterator';
+import { ThrottlingParameter } from '../../types/parameters';
 import Helper from '../Helper';
-import { PaymentData } from '../payments/data';
 import Payment from '../payments/Payment';
-import { SubscriptionData } from '../subscriptions/data';
+import { PaymentData } from '../payments/data';
 import Subscription from '../subscriptions/Subscription';
+import { SubscriptionData } from '../subscriptions/data';
 import Customer, { CustomerData } from './Customer';
-import { MandateData } from './mandates/data';
 import Mandate from './mandates/Mandate';
+import { MandateData } from './mandates/data';
 
 export default class CustomerHelper extends Helper<CustomerData, Customer> {
   constructor(networkClient: TransformingNetworkClient, protected readonly links: CustomerData['_links']) {
@@ -20,14 +22,8 @@ export default class CustomerHelper extends Helper<CustomerData, Customer> {
    *
    * @since 3.6.0
    */
-  public getMandates(): Promise<Array<Mandate>>;
-  public getMandates(callback: Callback<Array<Mandate>>): void;
-  public getMandates() {
-    if (renege(this, this.getMandates, ...arguments)) return;
-    if (this.links.mandates == undefined) {
-      return Promise.resolve([]);
-    }
-    return this.networkClient.listPlain<MandateData, Mandate>(this.links.mandates.href, 'mandates');
+  public getMandates(parameters?: ThrottlingParameter): HelpfulIterator<Mandate> {
+    return runIf(this.links.mandates, ({ href }) => this.networkClient.iterate<MandateData, Mandate>(href, 'mandates', undefined, parameters?.valuesPerMinute)) ?? emptyHelpfulIterator;
   }
 
   /**
@@ -35,14 +31,10 @@ export default class CustomerHelper extends Helper<CustomerData, Customer> {
    *
    * @since 3.6.0
    */
-  public getSubscriptions(): Promise<Array<Subscription>>;
-  public getSubscriptions(callback: Callback<Array<Subscription>>): void;
-  public getSubscriptions() {
-    if (renege(this, this.getSubscriptions, ...arguments)) return;
-    if (this.links.subscriptions == undefined) {
-      return Promise.resolve([]);
-    }
-    return this.networkClient.listPlain<SubscriptionData, Subscription>(this.links.subscriptions.href, 'subscriptions');
+  public getSubscriptions(parameters?: ThrottlingParameter): HelpfulIterator<Subscription> {
+    return (
+      runIf(this.links.subscriptions, ({ href }) => this.networkClient.iterate<SubscriptionData, Subscription>(href, 'subscriptions', undefined, parameters?.valuesPerMinute)) ?? emptyHelpfulIterator
+    );
   }
 
   /**
@@ -50,13 +42,7 @@ export default class CustomerHelper extends Helper<CustomerData, Customer> {
    *
    * @since 3.6.0
    */
-  public getPayments(): Promise<Array<Payment>>;
-  public getPayments(callback: Callback<Array<Payment>>): void;
-  public getPayments() {
-    if (renege(this, this.getPayments, ...arguments)) return;
-    if (this.links.payments == undefined) {
-      return Promise.resolve([]);
-    }
-    return this.networkClient.listPlain<PaymentData, Payment>(this.links.payments.href, 'payments');
+  public getPayments(parameters?: ThrottlingParameter): HelpfulIterator<Payment> {
+    return runIf(this.links.payments, ({ href }) => this.networkClient.iterate<PaymentData, Payment>(href, 'payments', undefined, parameters?.valuesPerMinute)) ?? emptyHelpfulIterator;
   }
 }

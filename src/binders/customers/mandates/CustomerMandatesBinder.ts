@@ -1,13 +1,13 @@
 import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
 import { MandateData } from '../../../data/customers/mandates/data';
 import Mandate from '../../../data/customers/mandates/Mandate';
-import List from '../../../data/list/List';
+import Page from '../../../data/page/Page';
 import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 import Callback from '../../../types/Callback';
 import InnerBinder from '../../InnerBinder';
-import { CreateParameters, GetParameters, IterateParameters, ListParameters, RevokeParameters } from './parameters';
+import { CreateParameters, GetParameters, IterateParameters, PageParameters, RevokeParameters } from './parameters';
 
 function getPathSegments(customerId: string) {
   return `customers/${customerId}/mandates`;
@@ -69,9 +69,9 @@ export default class CustomerMandatesBinder extends InnerBinder<MandateData, Man
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
    */
-  public page(parameters: ListParameters): Promise<List<Mandate>>;
-  public page(parameters: ListParameters, callback: Callback<List<Mandate>>): void;
-  public page(parameters: ListParameters) {
+  public page(parameters: PageParameters): Promise<Page<Mandate>>;
+  public page(parameters: PageParameters, callback: Callback<Page<Mandate>>): void;
+  public page(parameters: PageParameters) {
     if (renege(this, this.page, ...arguments)) return;
     // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
     const customerId = this.getParentId((parameters ?? {}).customerId);
@@ -79,7 +79,7 @@ export default class CustomerMandatesBinder extends InnerBinder<MandateData, Man
       throw new ApiError('The customer id is invalid');
     }
     const { customerId: _, ...query } = parameters ?? {};
-    return this.networkClient.list<MandateData, Mandate>(getPathSegments(customerId), 'mandates', query).then(result => this.injectPaginationHelpers(result, this.page, parameters ?? {}));
+    return this.networkClient.page<MandateData, Mandate>(getPathSegments(customerId), 'mandates', query).then(result => this.injectPaginationHelpers(result, this.page, parameters ?? {}));
   }
 
   /**

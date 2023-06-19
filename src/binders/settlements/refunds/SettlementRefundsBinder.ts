@@ -1,11 +1,11 @@
 import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
-import List from '../../../data/list/List';
+import Page from '../../../data/page/Page';
 import { RefundData } from '../../../data/refunds/data';
 import Refund from '../../../data/refunds/Refund';
 import renege from '../../../plumbing/renege';
 import Callback from '../../../types/Callback';
 import Binder from '../../Binder';
-import { IterateParameters, ListParameters } from './parameters';
+import { IterateParameters, PageParameters } from './parameters';
 
 export function getPathSegments(settlementId: string) {
   return `settlements/${settlementId}/refunds`;
@@ -22,12 +22,12 @@ export default class SettlementRefundsBinder extends Binder<RefundData, Refund> 
    * @since 3.7.0
    * @see https://docs.mollie.com/reference/v2/settlements-api/list-settlement-refunds
    */
-  public page(parameters: ListParameters): Promise<List<Refund>>;
-  public page(parameters: ListParameters, callback: Callback<List<Refund>>): void;
-  public page(parameters: ListParameters) {
+  public page(parameters: PageParameters): Promise<Page<Refund>>;
+  public page(parameters: PageParameters, callback: Callback<Page<Refund>>): void;
+  public page(parameters: PageParameters) {
     if (renege(this, this.page, ...arguments)) return;
     const { settlementId, ...query } = parameters;
-    return this.networkClient.list<RefundData, Refund>(getPathSegments(settlementId), 'refunds', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
+    return this.networkClient.page<RefundData, Refund>(getPathSegments(settlementId), 'refunds', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
   /**

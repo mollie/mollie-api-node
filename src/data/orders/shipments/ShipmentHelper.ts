@@ -17,7 +17,7 @@ export default class ShipmentHelper extends Helper<ShipmentData, Shipment> {
    * @since 3.6.0
    */
   public getOrder(): Promise<Order>;
-  public getOrder(callback: Callback<Array<Order>>): void;
+  public getOrder(callback: Callback<Order>): void;
   public getOrder() {
     if (renege(this, this.getOrder, ...arguments)) return;
     return this.networkClient.get<OrderData, Order>(this.links.order.href);

@@ -1,8 +1,8 @@
 import { ThrottlingParameter } from '../../../types/parameters';
-import { ListParameters as ChargebacksListParameters } from '../../chargebacks/parameters';
+import { PageParameters as ChargebacksPageParameters } from '../../chargebacks/parameters';
 
-export type ListParameters = ChargebacksListParameters & {
+export type PageParameters = ChargebacksPageParameters & {
   settlementId: string;
 };
 
-export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameter;
+export type IterateParameters = Omit<PageParameters, 'limit'> & ThrottlingParameter;

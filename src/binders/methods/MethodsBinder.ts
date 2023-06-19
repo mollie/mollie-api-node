@@ -1,7 +1,6 @@
 import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import List from '../../data/list/List';
-import { MethodData } from '../../data/methods/data';
 import Method from '../../data/methods/Method';
+import { MethodData } from '../../data/methods/data';
 import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
 import Binder from '../Binder';
@@ -48,10 +47,10 @@ export default class MethodsBinder extends Binder<MethodData, Method> {
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/methods-api/list-methods
    */
-  public list(parameters?: ListParameters): Promise<List<Method>>;
-  public list(parameters: ListParameters, callback: Callback<List<Method>>): void;
+  public list(parameters?: ListParameters): Promise<Method[]>;
+  public list(parameters: ListParameters, callback: Callback<Method[]>): void;
   public list(parameters: ListParameters = {}) {
     if (renege(this, this.list, ...arguments)) return;
-    return this.networkClient.list<MethodData, Method>(pathSegment, 'methods', parameters).then(result => this.injectPaginationHelpers(result, this.list, parameters));
+    return this.networkClient.list<MethodData, Method>(pathSegment, 'methods', parameters);
   }
 }

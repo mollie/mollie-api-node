@@ -1,12 +1,12 @@
 import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
 import Chargeback, { ChargebackData } from '../../../data/chargebacks/Chargeback';
-import List from '../../../data/list/List';
+import Page from '../../../data/page/Page';
 import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 import Callback from '../../../types/Callback';
 import InnerBinder from '../../InnerBinder';
-import { GetParameters, IterateParameters, ListParameters } from './parameters';
+import { GetParameters, IterateParameters, PageParameters } from './parameters';
 
 function getPathSegments(paymentId: string) {
   return `payments/${paymentId}/chargebacks`;
@@ -49,9 +49,9 @@ export default class PaymentChargebacksBinder extends InnerBinder<ChargebackData
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
    */
-  public page(parameters: ListParameters): Promise<List<Chargeback>>;
-  public page(parameters: ListParameters, callback: Callback<List<Chargeback>>): void;
-  public page(parameters: ListParameters) {
+  public page(parameters: PageParameters): Promise<Page<Chargeback>>;
+  public page(parameters: PageParameters, callback: Callback<Page<Chargeback>>): void;
+  public page(parameters: PageParameters) {
     if (renege(this, this.page, ...arguments)) return;
     // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
     const paymentId = this.getParentId((parameters ?? {}).paymentId);
@@ -59,7 +59,7 @@ export default class PaymentChargebacksBinder extends InnerBinder<ChargebackData
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    return this.networkClient.list<ChargebackData, Chargeback>(getPathSegments(paymentId), 'chargebacks', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
+    return this.networkClient.page<ChargebackData, Chargeback>(getPathSegments(paymentId), 'chargebacks', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
   /**

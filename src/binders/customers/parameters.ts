@@ -10,9 +10,9 @@ export type CreateParameters = ContextParameter & PickOptional<CustomerData, 'na
 
 export type GetParameters = ContextParameter;
 
-export type ListParameters = ContextParameter & PaginationParameters;
+export type PageParameters = ContextParameter & PaginationParameters;
 
-export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameter;
+export type IterateParameters = Omit<PageParameters, 'limit'> & ThrottlingParameter;
 
 export type UpdateParameters = ContextParameter & PickOptional<CustomerData, 'name' | 'email' | 'locale' | 'metadata'>;
 

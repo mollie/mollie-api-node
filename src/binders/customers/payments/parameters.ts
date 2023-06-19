@@ -24,6 +24,6 @@ export type CreateParameters = ContextParameters &
     method?: PaymentMethod | PaymentMethod[];
   } & IdempotencyParameter;
 
-export type ListParameters = ContextParameters & PaginationParameters;
+export type PageParameters = ContextParameters & PaginationParameters;
 
-export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameter;
+export type IterateParameters = Omit<PageParameters, 'limit'> & ThrottlingParameter;

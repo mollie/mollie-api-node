@@ -1,10 +1,10 @@
 import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
 import Chargeback, { ChargebackData } from '../../../data/chargebacks/Chargeback';
-import List from '../../../data/list/List';
+import Page from '../../../data/page/Page';
 import renege from '../../../plumbing/renege';
 import Callback from '../../../types/Callback';
 import Binder from '../../Binder';
-import { IterateParameters, ListParameters } from './parameters';
+import { IterateParameters, PageParameters } from './parameters';
 
 export function getPathSegments(settlementId: string) {
   return `settlements/${settlementId}/chargebacks`;
@@ -21,12 +21,12 @@ export default class SettlementChargebacksBinder extends Binder<ChargebackData, 
    * @since 3.7.0
    * @see https://docs.mollie.com/reference/v2/settlements-api/list-settlement-chargebacks
    */
-  public page(parameters: ListParameters): Promise<List<Chargeback>>;
-  public page(parameters: ListParameters, callback: Callback<List<Chargeback>>): void;
-  public page(parameters: ListParameters) {
+  public page(parameters: PageParameters): Promise<Page<Chargeback>>;
+  public page(parameters: PageParameters, callback: Callback<Page<Chargeback>>): void;
+  public page(parameters: PageParameters) {
     if (renege(this, this.page, ...arguments)) return;
     const { settlementId, ...query } = parameters;
-    return this.networkClient.list<ChargebackData, Chargeback>(getPathSegments(settlementId), 'chargebacks', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
+    return this.networkClient.page<ChargebackData, Chargeback>(getPathSegments(settlementId), 'chargebacks', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
   /**

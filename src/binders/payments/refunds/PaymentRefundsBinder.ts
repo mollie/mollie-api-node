@@ -1,5 +1,5 @@
 import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
-import List from '../../../data/list/List';
+import Page from '../../../data/page/Page';
 import { RefundData } from '../../../data/refunds/data';
 import Refund from '../../../data/refunds/Refund';
 import ApiError from '../../../errors/ApiError';
@@ -7,7 +7,7 @@ import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 import Callback from '../../../types/Callback';
 import InnerBinder from '../../InnerBinder';
-import { CancelParameters, CreateParameters, GetParameters, IterateParameters, ListParameters } from './parameters';
+import { CancelParameters, CreateParameters, GetParameters, IterateParameters, PageParameters } from './parameters';
 
 function getPathSegments(paymentId: string) {
   return `payments/${paymentId}/refunds`;
@@ -68,9 +68,9 @@ export default class PaymentRefundsBinder extends InnerBinder<RefundData, Refund
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
    */
-  public page(parameters: ListParameters): Promise<List<Refund>>;
-  public page(parameters: ListParameters, callback: Callback<List<Refund>>): void;
-  public page(parameters: ListParameters) {
+  public page(parameters: PageParameters): Promise<Page<Refund>>;
+  public page(parameters: PageParameters, callback: Callback<Page<Refund>>): void;
+  public page(parameters: PageParameters) {
     if (renege(this, this.page, ...arguments)) return;
     // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
     const paymentId = this.getParentId((parameters ?? {}).paymentId);
@@ -78,7 +78,7 @@ export default class PaymentRefundsBinder extends InnerBinder<RefundData, Refund
       throw new ApiError('The payment id is invalid');
     }
     const { paymentId: _, ...query } = parameters;
-    return this.networkClient.list<RefundData, Refund>(getPathSegments(paymentId), 'refunds', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
+    return this.networkClient.page<RefundData, Refund>(getPathSegments(paymentId), 'refunds', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
   /**

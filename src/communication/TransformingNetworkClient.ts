@@ -44,14 +44,14 @@ export default class TransformingNetworkClient {
     return this.networkClient.get<R>(...passingArguments).then(this.transform) as Promise<U>;
   }
 
-  async list<R extends Model<any, any>, U>(...passingArguments: Parameters<NetworkClient['list']>) {
-    const response = await this.networkClient.list<R>(...passingArguments);
-    const { count, links } = response;
-    return Object.assign(response.map(this.transform) as U[], { count, links });
+  list<R extends Model<any, any>, U>(...passingArguments: Parameters<NetworkClient['list']>) {
+    return this.networkClient.list<R>(...passingArguments).then(response => response.map(this.transform) as U[]);
   }
 
-  listPlain<R extends Model<any, any>, U>(...passingArguments: Parameters<NetworkClient['listPlain']>) {
-    return this.networkClient.listPlain<R>(...passingArguments).then(response => response.map(this.transform) as U[]);
+  async page<R extends Model<any, any>, U>(...passingArguments: Parameters<NetworkClient['page']>) {
+    const response = await this.networkClient.page<R>(...passingArguments);
+    const { count, links } = response;
+    return Object.assign(response.map(this.transform) as U[], { count, links });
   }
 
   iterate<R extends Model<any, any>, U>(...passingArguments: Parameters<NetworkClient['iterate']>) {

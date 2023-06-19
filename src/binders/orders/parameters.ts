@@ -94,12 +94,12 @@ export type UpdateParameters = PickOptional<OrderData, 'billingAddress' | 'shipp
   testmode?: boolean;
 };
 
-export type ListParameters = PaginationParameters & {
+export type PageParameters = PaginationParameters & {
   profileId?: string;
   testmode?: boolean;
 };
 
-export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameter;
+export type IterateParameters = Omit<PageParameters, 'limit'> & ThrottlingParameter;
 
 export interface CancelParameters extends IdempotencyParameter {
   testmode?: boolean;

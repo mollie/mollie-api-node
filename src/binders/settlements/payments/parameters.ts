@@ -1,8 +1,8 @@
 import { ThrottlingParameter } from '../../../types/parameters';
-import { ListParameters as PaymentListParameters } from '../../payments/parameters';
+import { PageParameters as PaymentPageParameters } from '../../payments/parameters';
 
-export type ListParameters = PaymentListParameters & {
+export type PageParameters = PaymentPageParameters & {
   settlementId: string;
 };
 
-export type IterateParameters = Omit<ListParameters, 'limit'> & ThrottlingParameter;
+export type IterateParameters = Omit<PageParameters, 'limit'> & ThrottlingParameter;
