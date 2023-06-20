@@ -5,14 +5,14 @@ import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 import Callback from '../../../types/Callback';
-import InnerBinder from '../../InnerBinder';
+import Binder from '../../Binder';
 import { CreateParameters } from './parameters';
 
 function getPathSegments(orderId: string) {
   return `orders/${orderId}/payments`;
 }
 
-export default class OrderPaymentsBinder extends InnerBinder<PaymentData, Payment> {
+export default class OrderPaymentsBinder extends Binder<PaymentData, Payment> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
   }
@@ -32,11 +32,10 @@ export default class OrderPaymentsBinder extends InnerBinder<PaymentData, Paymen
   public create(parameters: CreateParameters, callback: Callback<Payment>): void;
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
-    const orderId = this.getParentId(parameters.orderId);
+    const { orderId, ...data } = parameters;
     if (!checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
-    const { orderId: _, ...data } = parameters;
     return this.networkClient.post<PaymentData, Payment>(getPathSegments(orderId), data);
   }
 }

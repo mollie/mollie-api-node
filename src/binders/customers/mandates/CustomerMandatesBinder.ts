@@ -6,14 +6,14 @@ import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 import Callback from '../../../types/Callback';
-import InnerBinder from '../../InnerBinder';
+import Binder from '../../Binder';
 import { CreateParameters, GetParameters, IterateParameters, PageParameters, RevokeParameters } from './parameters';
 
 function getPathSegments(customerId: string) {
   return `customers/${customerId}/mandates`;
 }
 
-export default class CustomerMandatesBinder extends InnerBinder<MandateData, Mandate> {
+export default class CustomerMandatesBinder extends Binder<MandateData, Mandate> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
   }
@@ -31,11 +31,10 @@ export default class CustomerMandatesBinder extends InnerBinder<MandateData, Man
   public create(parameters: CreateParameters, callback: Callback<Mandate>): void;
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
-    const customerId = this.getParentId(parameters.customerId);
+    const { customerId, ...data } = parameters;
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
-    const { customerId: _, ...data } = parameters;
     return this.networkClient.post<MandateData, Mandate>(getPathSegments(customerId), data);
   }
 
@@ -52,12 +51,10 @@ export default class CustomerMandatesBinder extends InnerBinder<MandateData, Man
     if (!checkId(id, 'mandate')) {
       throw new ApiError('The customers_mandate id is invalid');
     }
-    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
-    const customerId = this.getParentId((parameters ?? {}).customerId);
+    const { customerId, ...query } = parameters;
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
-    const { customerId: _, ...query } = parameters ?? {};
     return this.networkClient.get<MandateData, Mandate>(`${getPathSegments(customerId)}/${id}`, query);
   }
 
@@ -73,13 +70,11 @@ export default class CustomerMandatesBinder extends InnerBinder<MandateData, Man
   public page(parameters: PageParameters, callback: Callback<Page<Mandate>>): void;
   public page(parameters: PageParameters) {
     if (renege(this, this.page, ...arguments)) return;
-    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
-    const customerId = this.getParentId((parameters ?? {}).customerId);
+    const { customerId, ...query } = parameters;
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
-    const { customerId: _, ...query } = parameters ?? {};
-    return this.networkClient.page<MandateData, Mandate>(getPathSegments(customerId), 'mandates', query).then(result => this.injectPaginationHelpers(result, this.page, parameters ?? {}));
+    return this.networkClient.page<MandateData, Mandate>(getPathSegments(customerId), 'mandates', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
   /**
@@ -91,12 +86,10 @@ export default class CustomerMandatesBinder extends InnerBinder<MandateData, Man
    * @see https://docs.mollie.com/reference/v2/mandates-api/list-mandates
    */
   public iterate(parameters: IterateParameters) {
-    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
-    const customerId = this.getParentId((parameters ?? {}).customerId);
+    const { customerId, valuesPerMinute, ...query } = parameters;
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
-    const { valuesPerMinute, customerId: _, ...query } = parameters ?? {};
     return this.networkClient.iterate<MandateData, Mandate>(getPathSegments(customerId), 'mandates', query, valuesPerMinute);
   }
 
@@ -113,12 +106,10 @@ export default class CustomerMandatesBinder extends InnerBinder<MandateData, Man
     if (!checkId(id, 'mandate')) {
       throw new ApiError('The customers_mandate id is invalid');
     }
-    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
-    const customerId = this.getParentId((parameters ?? {}).customerId);
+    const { customerId, ...context } = parameters;
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer is invalid');
     }
-    const { customerId: _, ...context } = parameters ?? {};
     return this.networkClient.delete<MandateData, true>(`${getPathSegments(customerId)}/${id}`, context);
   }
 }

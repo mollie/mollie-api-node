@@ -5,14 +5,14 @@ import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 import Callback from '../../../types/Callback';
-import InnerBinder from '../../InnerBinder';
+import Binder from '../../Binder';
 import { CancelParameters, UpdateParameters } from './parameters';
 
 function getPathSegments(orderId: string) {
   return `orders/${orderId}/lines`;
 }
 
-export default class OrderLinesBinder extends InnerBinder<OrderData, Order> {
+export default class OrderLinesBinder extends Binder<OrderData, Order> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
   }
@@ -40,11 +40,10 @@ export default class OrderLinesBinder extends InnerBinder<OrderData, Order> {
     if (!checkId(id, 'orderline')) {
       throw new ApiError('The orders_lines id is invalid');
     }
-    const orderId = this.getParentId(parameters.orderId);
+    const { orderId, ...data } = parameters;
     if (!checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
-    const { orderId: _, ...data } = parameters;
     return this.networkClient.patch<OrderData, Order>(`${getPathSegments(orderId)}/${id}`, data);
   }
 
@@ -71,11 +70,10 @@ export default class OrderLinesBinder extends InnerBinder<OrderData, Order> {
   public cancel(parameters: CancelParameters, callback: Callback<true>): void;
   public cancel(parameters: CancelParameters) {
     if (renege(this, this.cancel, ...arguments)) return;
-    const orderId = this.getParentId(parameters.orderId);
+    const { orderId, ...data } = parameters;
     if (!checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
-    const { orderId: _, ...data } = parameters;
     return this.networkClient.delete<OrderData, true>(getPathSegments(orderId), data);
   }
 }

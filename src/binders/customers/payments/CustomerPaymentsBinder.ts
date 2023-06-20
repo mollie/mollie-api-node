@@ -6,14 +6,14 @@ import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 import Callback from '../../../types/Callback';
-import InnerBinder from '../../InnerBinder';
+import Binder from '../../Binder';
 import { CreateParameters, IterateParameters, PageParameters } from './parameters';
 
 function getPathSegments(customerId: string) {
   return `customers/${customerId}/payments`;
 }
 
-export default class CustomerPaymentsBinder extends InnerBinder<PaymentData, Payment> {
+export default class CustomerPaymentsBinder extends Binder<PaymentData, Payment> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
   }
@@ -35,11 +35,10 @@ export default class CustomerPaymentsBinder extends InnerBinder<PaymentData, Pay
   public create(parameters: CreateParameters, callback: Callback<Payment>): void;
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
-    const customerId = this.getParentId(parameters.customerId);
+    const { customerId, ...data } = parameters;
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
-    const { customerId: _, ...data } = parameters;
     return this.networkClient.post<PaymentData, Payment>(getPathSegments(customerId), data);
   }
 
@@ -53,13 +52,11 @@ export default class CustomerPaymentsBinder extends InnerBinder<PaymentData, Pay
   public page(parameters: PageParameters, callback: Callback<Page<Payment>>): void;
   public page(parameters: PageParameters) {
     if (renege(this, this.page, ...arguments)) return;
-    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
-    const customerId = this.getParentId((parameters ?? {}).customerId);
+    const { customerId, ...query } = parameters;
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
-    const { customerId: _, ...query } = parameters ?? {};
-    return this.networkClient.page<PaymentData, Payment>(getPathSegments(customerId), 'payments', query).then(result => this.injectPaginationHelpers(result, this.page, parameters ?? {}));
+    return this.networkClient.page<PaymentData, Payment>(getPathSegments(customerId), 'payments', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
   /**
@@ -69,12 +66,10 @@ export default class CustomerPaymentsBinder extends InnerBinder<PaymentData, Pay
    * @see https://docs.mollie.com/reference/v2/customers-api/list-customer-payments
    */
   public iterate(parameters: IterateParameters) {
-    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
-    const customerId = this.getParentId((parameters ?? {}).customerId);
+    const { customerId, valuesPerMinute, ...query } = parameters;
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
-    const { valuesPerMinute, customerId: _, ...query } = parameters ?? {};
     return this.networkClient.iterate<PaymentData, Payment>(getPathSegments(customerId), 'payments', query, valuesPerMinute);
   }
 }

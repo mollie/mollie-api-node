@@ -4,14 +4,14 @@ import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 import Callback from '../../../types/Callback';
-import InnerBinder from '../../InnerBinder';
+import Binder from '../../Binder';
 import { CreateParameters, GetParameters, ListParameters, UpdateParameters } from './parameters';
 
 export function getPathSegments(orderId: string) {
   return `orders/${orderId}/shipments`;
 }
 
-export default class OrderShipmentsBinder extends InnerBinder<ShipmentData, Shipment> {
+export default class OrderShipmentsBinder extends Binder<ShipmentData, Shipment> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
   }
@@ -31,11 +31,10 @@ export default class OrderShipmentsBinder extends InnerBinder<ShipmentData, Ship
   public create(parameters: CreateParameters, callback: Callback<Shipment>): void;
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
-    const orderId = this.getParentId(parameters.orderId);
+    const { orderId, ...data } = parameters;
     if (!checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
-    const { orderId: _, ...data } = parameters;
     return this.networkClient.post<ShipmentData, Shipment>(getPathSegments(orderId), data);
   }
 
@@ -52,12 +51,10 @@ export default class OrderShipmentsBinder extends InnerBinder<ShipmentData, Ship
     if (!checkId(id, 'shipment')) {
       throw new ApiError('The orders_shipments id is invalid');
     }
-    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
-    const orderId = this.getParentId((parameters ?? {}).orderId);
+    const { orderId, ...query } = parameters;
     if (!checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
-    const { orderId: _, ...query } = parameters ?? {};
     return this.networkClient.get<ShipmentData, Shipment>(`${getPathSegments(orderId)}/${id}`, query);
   }
 
@@ -71,12 +68,10 @@ export default class OrderShipmentsBinder extends InnerBinder<ShipmentData, Ship
   public list(parameters: ListParameters, callback: Callback<Shipment[]>): void;
   public list(parameters: ListParameters) {
     if (renege(this, this.list, ...arguments)) return;
-    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
-    const orderId = this.getParentId((parameters ?? {}).orderId);
+    const { orderId, ...query } = parameters;
     if (!checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
-    const { orderId: _, ...query } = parameters ?? {};
     return this.networkClient.list<ShipmentData, Shipment>(getPathSegments(orderId), 'shipments', query);
   }
 
@@ -93,11 +88,10 @@ export default class OrderShipmentsBinder extends InnerBinder<ShipmentData, Ship
     if (!checkId(id, 'shipment')) {
       throw new ApiError('The orders_shipments id is invalid');
     }
-    const orderId = this.getParentId(parameters.orderId);
+    const { orderId, ...data } = parameters;
     if (!checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
-    const { orderId: _, ...data } = parameters;
     return this.networkClient.patch<ShipmentData, Shipment>(`${getPathSegments(orderId)}/${id}`, data);
   }
 }

@@ -6,14 +6,14 @@ import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 import Callback from '../../../types/Callback';
-import InnerBinder from '../../InnerBinder';
+import Binder from '../../Binder';
 import { CancelParameters, CreateParameters, GetParameters, IterateParameters, PageParameters, UpdateParameters } from './parameters';
 
 function getPathSegments(customerId: string) {
   return `customers/${customerId}/subscriptions`;
 }
 
-export default class CustomerSubscriptionsBinder extends InnerBinder<SubscriptionData, Subscription> {
+export default class CustomerSubscriptionsBinder extends Binder<SubscriptionData, Subscription> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
   }
@@ -38,11 +38,10 @@ export default class CustomerSubscriptionsBinder extends InnerBinder<Subscriptio
   public create(parameters: CreateParameters, callback: Callback<Subscription>): void;
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
-    const customerId = this.getParentId(parameters.customerId);
+    const { customerId, ...data } = parameters;
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
-    const { customerId: _, ...data } = parameters;
     return this.networkClient.post<SubscriptionData, Subscription>(getPathSegments(customerId), data);
   }
 
@@ -59,12 +58,10 @@ export default class CustomerSubscriptionsBinder extends InnerBinder<Subscriptio
     if (!checkId(id, 'subscription')) {
       throw new ApiError('The subscription id is invalid');
     }
-    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
-    const customerId = this.getParentId((parameters ?? {}).customerId);
+    const { customerId, ...query } = parameters;
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
-    const { customerId: _, ...query } = parameters ?? {};
     return this.networkClient.get<SubscriptionData, Subscription>(`${getPathSegments(customerId)}/${id}`, query);
   }
 
@@ -78,15 +75,11 @@ export default class CustomerSubscriptionsBinder extends InnerBinder<Subscriptio
   public page(parameters: PageParameters, callback: Callback<Page<Subscription>>): void;
   public page(parameters: PageParameters) {
     if (renege(this, this.page, ...arguments)) return;
-    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
-    const customerId = this.getParentId((parameters ?? {}).customerId);
+    const { customerId, ...query } = parameters;
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
-    const { customerId: _, ...query } = parameters ?? {};
-    return this.networkClient
-      .page<SubscriptionData, Subscription>(getPathSegments(customerId), 'subscriptions', query)
-      .then(result => this.injectPaginationHelpers(result, this.page, parameters ?? {}));
+    return this.networkClient.page<SubscriptionData, Subscription>(getPathSegments(customerId), 'subscriptions', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
   /**
@@ -96,12 +89,10 @@ export default class CustomerSubscriptionsBinder extends InnerBinder<Subscriptio
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions
    */
   public iterate(parameters: IterateParameters) {
-    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
-    const customerId = this.getParentId((parameters ?? {}).customerId);
+    const { customerId, valuesPerMinute, ...query } = parameters;
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
-    const { valuesPerMinute, customerId: _, ...query } = parameters ?? {};
     return this.networkClient.iterate<SubscriptionData, Subscription>(getPathSegments(customerId), 'subscriptions', query, valuesPerMinute);
   }
 
@@ -120,11 +111,10 @@ export default class CustomerSubscriptionsBinder extends InnerBinder<Subscriptio
     if (!checkId(id, 'subscription')) {
       throw new ApiError('The subscription id is invalid');
     }
-    const customerId = this.getParentId(parameters.customerId);
+    const { customerId, ...data } = parameters;
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer is invalid');
     }
-    const { customerId: _, ...data } = parameters;
     return this.networkClient.patch<SubscriptionData, Subscription>(`${getPathSegments(customerId)}/${id}`, data);
   }
 
@@ -141,12 +131,10 @@ export default class CustomerSubscriptionsBinder extends InnerBinder<Subscriptio
     if (!checkId(id, 'subscription')) {
       throw new ApiError('The subscription id is invalid');
     }
-    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
-    const customerId = this.getParentId((parameters ?? {}).customerId);
+    const { customerId, ...context } = parameters;
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer is invalid');
     }
-    const { customerId: _, ...context } = parameters ?? {};
     return this.networkClient.delete<SubscriptionData, Subscription>(`${getPathSegments(customerId)}/${id}`, context);
   }
 }

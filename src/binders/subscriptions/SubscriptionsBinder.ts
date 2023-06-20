@@ -4,12 +4,12 @@ import { SubscriptionData } from '../../data/subscriptions/data';
 import Subscription from '../../data/subscriptions/Subscription';
 import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
-import InnerBinder from '../InnerBinder';
+import Binder from '../Binder';
 import { IterateParameters, PageParameters } from './parameters';
 
 const pathSegment = 'subscriptions';
 
-export default class SubscriptionsBinder extends InnerBinder<SubscriptionData, Subscription> {
+export default class SubscriptionsBinder extends Binder<SubscriptionData, Subscription> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
   }
