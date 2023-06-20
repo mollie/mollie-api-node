@@ -6,14 +6,14 @@ import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 import Callback from '../../../types/Callback';
-import InnerBinder from '../../InnerBinder';
+import Binder from '../../Binder';
 import { IterateParameters, PageParameters } from './parameters';
 
 function getPathSegments(customerId: string, subscriptionId: string): string {
   return `customers/${customerId}/subscriptions/${subscriptionId}/payments`;
 }
 
-export default class SubscriptionPaymentsBinder extends InnerBinder<PaymentData, Payment> {
+export default class SubscriptionPaymentsBinder extends Binder<PaymentData, Payment> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
   }
@@ -28,15 +28,13 @@ export default class SubscriptionPaymentsBinder extends InnerBinder<PaymentData,
   public page(parameters: PageParameters, callback: Callback<Page<Payment>>): void;
   public page(parameters: PageParameters) {
     if (renege(this, this.page, ...arguments)) return;
-    const customerId = this.getParentId(parameters.customerId);
+    const { customerId, subscriptionId, ...query } = parameters;
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
-    const { subscriptionId } = parameters;
     if (!checkId(subscriptionId, 'subscription')) {
       throw new ApiError('The subscription id is invalid');
     }
-    const { customerId: _, subscriptionId: __, ...query } = parameters;
     return this.networkClient.page<PaymentData, Payment>(getPathSegments(customerId, subscriptionId), 'payments', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
@@ -47,15 +45,13 @@ export default class SubscriptionPaymentsBinder extends InnerBinder<PaymentData,
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscription-payments
    */
   public iterate(parameters: IterateParameters) {
-    const customerId = this.getParentId(parameters.customerId);
+    const { customerId, subscriptionId, valuesPerMinute, ...query } = parameters;
     if (!checkId(customerId, 'customer')) {
       throw new ApiError('The customer id is invalid');
     }
-    const { subscriptionId } = parameters;
     if (!checkId(subscriptionId, 'subscription')) {
       throw new ApiError('The subscription id is invalid');
     }
-    const { valuesPerMinute, customerId: _, subscriptionId: __, ...query } = parameters ?? {};
     return this.networkClient.iterate<PaymentData, Payment>(getPathSegments(customerId, subscriptionId), 'payments', query, valuesPerMinute);
   }
 }

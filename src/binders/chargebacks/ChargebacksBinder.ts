@@ -3,12 +3,12 @@ import Chargeback, { ChargebackData } from '../../data/chargebacks/Chargeback';
 import Page from '../../data/page/Page';
 import renege from '../../plumbing/renege';
 import Callback from '../../types/Callback';
-import InnerBinder from '../InnerBinder';
+import Binder from '../Binder';
 import { IterateParameters, PageParameters } from './parameters';
 
 const pathSegment = 'chargebacks';
 
-export default class ChargebacksBinder extends InnerBinder<ChargebackData, Chargeback> {
+export default class ChargebacksBinder extends Binder<ChargebackData, Chargeback> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
   }

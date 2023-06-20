@@ -6,14 +6,14 @@ import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 import Callback from '../../../types/Callback';
-import InnerBinder from '../../InnerBinder';
+import Binder from '../../Binder';
 import { CreateParameters, IterateParameters, PageParameters } from './parameters';
 
 export function getPathSegments(orderId: string) {
   return `orders/${orderId}/refunds`;
 }
 
-export default class OrderRefundsBinder extends InnerBinder<RefundData, Refund> {
+export default class OrderRefundsBinder extends Binder<RefundData, Refund> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
   }
@@ -34,11 +34,10 @@ export default class OrderRefundsBinder extends InnerBinder<RefundData, Refund> 
   public create(parameters: CreateParameters, callback: Callback<Refund>): void;
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
-    const orderId = this.getParentId(parameters.orderId);
+    const { orderId, ...data } = parameters;
     if (!checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
-    const { orderId: _, ...data } = parameters;
     return this.networkClient.post<RefundData, Refund>(getPathSegments(orderId), data);
   }
 
@@ -54,13 +53,11 @@ export default class OrderRefundsBinder extends InnerBinder<RefundData, Refund> 
   public page(parameters: PageParameters, callback: Callback<Page<Refund>>): void;
   public page(parameters: PageParameters) {
     if (renege(this, this.page, ...arguments)) return;
-    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
-    const orderId = this.getParentId((parameters ?? {}).orderId);
+    const { orderId, ...query } = parameters;
     if (!checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
-    const { orderId: _, ...query } = parameters ?? {};
-    return this.networkClient.page<RefundData, Refund>(getPathSegments(orderId), 'refunds', query).then(result => this.injectPaginationHelpers(result, this.page, parameters ?? {}));
+    return this.networkClient.page<RefundData, Refund>(getPathSegments(orderId), 'refunds', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
   /**
@@ -72,12 +69,10 @@ export default class OrderRefundsBinder extends InnerBinder<RefundData, Refund> 
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-order-refunds
    */
   public iterate(parameters: IterateParameters) {
-    // parameters ?? {} is used here, because in case withParent is used, parameters could be omitted.
-    const orderId = this.getParentId((parameters ?? {}).orderId);
+    const { orderId, valuesPerMinute, ...query } = parameters;
     if (!checkId(orderId, 'order')) {
       throw new ApiError('The order id is invalid');
     }
-    const { valuesPerMinute, orderId: _, ...query } = parameters ?? {};
     return this.networkClient.iterate<RefundData, Refund>(getPathSegments(orderId), 'refunds', query, valuesPerMinute);
   }
 }
