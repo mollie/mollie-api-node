@@ -1,19 +1,19 @@
 import https from 'https';
-import { SecureContextOptions } from 'tls';
+import { type SecureContextOptions } from 'tls';
 
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios';
+import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosRequestHeaders, type AxiosResponse } from 'axios';
 
 import { run } from 'ruply';
-import Page from '../data/page/Page';
+import type Page from '../data/page/Page';
 import ApiError from '../errors/ApiError';
-import Options from '../Options';
+import type Options from '../Options';
 import DemandingIterator from '../plumbing/iteration/DemandingIterator';
 import HelpfulIterator from '../plumbing/iteration/HelpfulIterator';
 import Throttler from '../plumbing/Throttler';
-import Maybe from '../types/Maybe';
-import { IdempotencyParameter } from '../types/parameters';
+import type Maybe from '../types/Maybe';
+import { type IdempotencyParameter } from '../types/parameters';
 import breakUrl from './breakUrl';
-import buildUrl, { SearchParameters } from './buildUrl';
+import buildUrl, { type SearchParameters } from './buildUrl';
 import dromedaryCase from './dromedaryCase';
 import makeRetrying, { idempotencyHeaderName } from './makeRetrying';
 import fling from '../plumbing/fling';

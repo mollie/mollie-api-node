@@ -3,7 +3,7 @@ import { URLSearchParams } from 'url';
 
 import { apply, runIf } from 'ruply';
 import getEntries from '../plumbing/getEntries';
-import Maybe from '../types/Maybe';
+import type Maybe from '../types/Maybe';
 
 export type SearchParameters = Record<string, any>;
 

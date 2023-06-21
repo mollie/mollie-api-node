@@ -1,8 +1,8 @@
-import { Address, Amount, PaymentMethod } from '../../data/global';
-import { Issuer } from '../../data/Issuer';
-import { PaymentData, PaymentEmbed, PaymentInclude } from '../../data/payments/data';
-import { IdempotencyParameter, PaginationParameters, ThrottlingParameter } from '../../types/parameters';
-import PickOptional from '../../types/PickOptional';
+import { type Address, type Amount, type PaymentMethod } from '../../data/global';
+import { type Issuer } from '../../data/Issuer';
+import { type PaymentData, type PaymentEmbed, type PaymentInclude } from '../../data/payments/data';
+import { type IdempotencyParameter, type PaginationParameters, type ThrottlingParameter } from '../../types/parameters';
+import type PickOptional from '../../types/PickOptional';
 
 export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'redirectUrl' | 'webhookUrl' | 'customerId' | 'mandateId'> &
   PickOptional<PaymentData, 'locale' | 'metadata' | 'sequenceType'> & {

@@ -1,12 +1,12 @@
-import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
-import { PaymentData } from '../../../data/payments/data';
-import Payment from '../../../data/payments/Payment';
+import type TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
+import { type PaymentData } from '../../../data/payments/data';
+import type Payment from '../../../data/payments/Payment';
 import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
-import Callback from '../../../types/Callback';
+import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
-import { CreateParameters } from './parameters';
+import { type CreateParameters } from './parameters';
 
 function getPathSegments(orderId: string) {
   return `orders/${orderId}/payments`;

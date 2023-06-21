@@ -1,13 +1,13 @@
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import Page from '../../data/page/Page';
-import { PaymentLinkData } from '../../data/paymentLinks/data';
-import PaymentLink from '../../data/paymentLinks/PaymentLink';
+import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import type Page from '../../data/page/Page';
+import { type PaymentLinkData } from '../../data/paymentLinks/data';
+import type PaymentLink from '../../data/paymentLinks/PaymentLink';
 import ApiError from '../../errors/ApiError';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
-import Callback from '../../types/Callback';
+import type Callback from '../../types/Callback';
 import Binder from '../Binder';
-import { CreateParameters, GetParameters, IterateParameters, PageParameters } from './parameters';
+import { type CreateParameters, type GetParameters, type IterateParameters, type PageParameters } from './parameters';
 
 const pathSegment = 'payment-links';
 

@@ -1,6 +1,6 @@
-import Maybe from '../../types/Maybe';
-import Nullable from '../../types/Nullable';
-import { Links, Url } from '../global';
+import type Maybe from '../../types/Maybe';
+import type Nullable from '../../types/Nullable';
+import { type Links, type Url } from '../global';
 
 export default interface Page<T> extends Array<T> {
   links: PageLinks;

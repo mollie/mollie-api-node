@@ -1,13 +1,13 @@
-import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
-import Page from '../../../data/page/Page';
-import { PaymentData } from '../../../data/payments/data';
-import Payment from '../../../data/payments/Payment';
+import type TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
+import type Page from '../../../data/page/Page';
+import { type PaymentData } from '../../../data/payments/data';
+import type Payment from '../../../data/payments/Payment';
 import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
-import Callback from '../../../types/Callback';
+import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
-import { CreateParameters, IterateParameters, PageParameters } from './parameters';
+import { type CreateParameters, type IterateParameters, type PageParameters } from './parameters';
 
 function getPathSegments(customerId: string) {
   return `customers/${customerId}/payments`;

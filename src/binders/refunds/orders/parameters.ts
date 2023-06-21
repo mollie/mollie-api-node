@@ -1,6 +1,6 @@
-import { Amount } from '../../../data/global';
-import { RefundData } from '../../../data/refunds/data';
-import { IdempotencyParameter, PaginationParameters, ThrottlingParameter } from '../../../types/parameters';
+import { type Amount } from '../../../data/global';
+import { type RefundData } from '../../../data/refunds/data';
+import { type IdempotencyParameter, type PaginationParameters, type ThrottlingParameter } from '../../../types/parameters';
 
 interface ContextParameters {
   orderId: string;

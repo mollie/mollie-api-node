@@ -1,6 +1,6 @@
-import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
-import Seal from '../../../types/Seal';
-import { MandateData } from './data';
+import type TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
+import type Seal from '../../../types/Seal';
+import { type MandateData } from './data';
 import MandateHelper from './MandateHelper';
 
 type Mandate = Seal<MandateData, MandateHelper>;

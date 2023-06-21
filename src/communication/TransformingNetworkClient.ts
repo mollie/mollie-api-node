@@ -1,7 +1,7 @@
-import Model from '../data/Model';
+import type Model from '../data/Model';
 import fling from '../plumbing/fling';
-import Maybe from '../types/Maybe';
-import NetworkClient from './NetworkClient';
+import type Maybe from '../types/Maybe';
+import type NetworkClient from './NetworkClient';
 
 export class Transformers {
   readonly add: <R extends string, T extends Model<R, any>>(resource: R, transformer: (networkClient: TransformingNetworkClient, input: T) => any) => Transformers;

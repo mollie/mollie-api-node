@@ -1,11 +1,12 @@
-import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
-import IssuerModel, { IssuerData } from '../../../data/issuer/IssuerModel';
+import type TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
+import {type IssuerData} from '../../../data/issuer/IssuerModel';
+import type IssuerModel from '../../../data/issuer/IssuerModel';
 import ApiError from '../../../errors/ApiError';
 import renege from '../../../plumbing/renege';
 import checkId from '../../../plumbing/checkId';
-import Callback from '../../../types/Callback';
+import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
-import { Parameters } from './parameters';
+import { type Parameters } from './parameters';
 
 function getPathSegments(profileId: string) {
   return `profiles/${profileId}/methods/giftcard/issuers`;

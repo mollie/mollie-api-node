@@ -1,16 +1,16 @@
 import { runIf } from 'ruply';
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import renege from '../../plumbing/renege';
 import undefinedPromise from '../../plumbing/undefinedPromise';
-import Callback from '../../types/Callback';
-import Maybe from '../../types/Maybe';
+import type Callback from '../../types/Callback';
+import type Maybe from '../../types/Maybe';
 import Helper from '../Helper';
-import Order from '../orders/Order';
-import { OrderData } from '../orders/data';
-import Payment from '../payments/Payment';
-import { PaymentData } from '../payments/data';
-import Refund from './Refund';
-import { RefundData, RefundStatus } from './data';
+import type Order from '../orders/Order';
+import { type OrderData } from '../orders/data';
+import type Payment from '../payments/Payment';
+import { type PaymentData } from '../payments/data';
+import type Refund from './Refund';
+import { type RefundData, RefundStatus } from './data';
 import resolveIf from '../../plumbing/resolveIf';
 
 export default class RefundHelper extends Helper<RefundData, Refund> {

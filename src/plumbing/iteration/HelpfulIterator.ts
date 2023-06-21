@@ -1,4 +1,4 @@
-import IteratorHelpers from './IteratorHelpers';
+import type IteratorHelpers from './IteratorHelpers';
 import convertToNonNegativeInteger from '../convertToNonNegativeInteger';
 
 async function* drop<T>(wrappee: AsyncIterator<T, void, never>, remaining: number): AsyncIterator<T, void, never> {

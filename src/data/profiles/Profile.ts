@@ -1,6 +1,6 @@
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import Seal from '../../types/Seal';
-import { ProfileData } from './data';
+import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import type Seal from '../../types/Seal';
+import { type ProfileData } from './data';
 import ProfileHelper from './ProfileHelper';
 
 type Profile = Seal<ProfileData, ProfileHelper>;

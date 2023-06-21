@@ -1,10 +1,10 @@
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import Method from '../../data/methods/Method';
-import { MethodData } from '../../data/methods/data';
+import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import type Method from '../../data/methods/Method';
+import { type MethodData } from '../../data/methods/data';
 import renege from '../../plumbing/renege';
-import Callback from '../../types/Callback';
+import type Callback from '../../types/Callback';
 import Binder from '../Binder';
-import { GetParameters, ListParameters } from './parameters';
+import { type GetParameters, type ListParameters } from './parameters';
 
 const pathSegment = 'methods';
 

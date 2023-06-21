@@ -1,5 +1,5 @@
-import { Address } from '../../data/global';
-import { IdempotencyParameter } from '../../types/parameters';
+import { type Address } from '../../data/global';
+import { type IdempotencyParameter } from '../../types/parameters';
 
 export interface SubmitParameters extends IdempotencyParameter {
   /**

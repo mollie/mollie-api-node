@@ -1,11 +1,12 @@
-import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
-import Shipment, { ShipmentData } from '../../../data/orders/shipments/Shipment';
+import type TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
+import type Shipment from '../../../data/orders/shipments/Shipment';
+import { type ShipmentData } from '../../../data/orders/shipments/Shipment';
 import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
-import Callback from '../../../types/Callback';
+import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
-import { CreateParameters, GetParameters, ListParameters, UpdateParameters } from './parameters';
+import { type CreateParameters, type GetParameters, type ListParameters, type UpdateParameters } from './parameters';
 
 export function getPathSegments(orderId: string) {
   return `orders/${orderId}/shipments`;

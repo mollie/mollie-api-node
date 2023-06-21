@@ -1,6 +1,6 @@
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import Seal from '../../types/Seal';
-import { PaymentLinkData } from './data';
+import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import type Seal from '../../types/Seal';
+import { type PaymentLinkData } from './data';
 import PaymentLinkHelper from './PaymentLinkHelper';
 
 type PaymentLink = Seal<Omit<PaymentLinkData, '_links'>, PaymentLinkHelper>;

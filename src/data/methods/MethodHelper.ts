@@ -1,7 +1,7 @@
 import ApiError from '../../errors/ApiError';
 import Helper from '../Helper';
-import { MethodData, MethodImageSize } from './data';
-import Method from './Method';
+import { type MethodData, MethodImageSize } from './data';
+import type Method from './Method';
 
 export default class MethodHelper extends Helper<MethodData, Method> {
   /**

@@ -1,13 +1,13 @@
-import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
-import Page from '../../../data/page/Page';
-import { SubscriptionData } from '../../../data/subscriptions/data';
-import Subscription from '../../../data/subscriptions/Subscription';
+import type TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
+import type Page from '../../../data/page/Page';
+import { type SubscriptionData } from '../../../data/subscriptions/data';
+import type Subscription from '../../../data/subscriptions/Subscription';
 import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
-import Callback from '../../../types/Callback';
+import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
-import { CancelParameters, CreateParameters, GetParameters, IterateParameters, PageParameters, UpdateParameters } from './parameters';
+import { type CancelParameters, type CreateParameters, type GetParameters, type IterateParameters, type PageParameters, type UpdateParameters } from './parameters';
 
 function getPathSegments(customerId: string) {
   return `customers/${customerId}/subscriptions`;

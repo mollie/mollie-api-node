@@ -1,13 +1,13 @@
-import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
-import { MandateData } from '../../../data/customers/mandates/data';
-import Mandate from '../../../data/customers/mandates/Mandate';
-import Page from '../../../data/page/Page';
+import type TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
+import { type MandateData } from '../../../data/customers/mandates/data';
+import type Mandate from '../../../data/customers/mandates/Mandate';
+import type Page from '../../../data/page/Page';
 import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
-import Callback from '../../../types/Callback';
+import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
-import { CreateParameters, GetParameters, IterateParameters, PageParameters, RevokeParameters } from './parameters';
+import { type CreateParameters, type GetParameters, type IterateParameters, type PageParameters, type RevokeParameters } from './parameters';
 
 function getPathSegments(customerId: string) {
   return `customers/${customerId}/mandates`;

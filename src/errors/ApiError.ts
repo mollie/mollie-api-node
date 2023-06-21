@@ -1,8 +1,8 @@
-import { AxiosResponse } from 'axios';
+import { type AxiosResponse } from 'axios';
 
 import { idempotencyHeaderName } from '../communication/makeRetrying';
-import { Links, Url } from '../data/global';
-import Maybe from '../types/Maybe';
+import { type Links, type Url } from '../data/global';
+import type Maybe from '../types/Maybe';
 
 type ApiErrorLinks = Record<string, Url> & Links;
 type Info = {

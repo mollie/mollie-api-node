@@ -1,5 +1,5 @@
-import { MandateData } from '../../../data/customers/mandates/data';
-import { IdempotencyParameter, PaginationParameters, ThrottlingParameter } from '../../../types/parameters';
+import { type MandateData } from '../../../data/customers/mandates/data';
+import { type IdempotencyParameter, type PaginationParameters, type ThrottlingParameter } from '../../../types/parameters';
 
 interface ContextParameters {
   customerId: string;

@@ -1,16 +1,17 @@
 import { runIf } from 'ruply';
-import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
+import type TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
 import renege from '../../../plumbing/renege';
 import resolveIf from '../../../plumbing/resolveIf';
 import undefinedPromise from '../../../plumbing/undefinedPromise';
-import Callback from '../../../types/Callback';
-import Maybe from '../../../types/Maybe';
+import type Callback from '../../../types/Callback';
+import type Maybe from '../../../types/Maybe';
 import Helper from '../../Helper';
-import Shipment, { ShipmentData } from '../../orders/shipments/Shipment';
-import Payment from '../Payment';
-import { PaymentData } from '../data';
-import Capture from './Capture';
-import { CaptureData } from './data';
+import type Shipment from '../../orders/shipments/Shipment';
+import { type ShipmentData } from '../../orders/shipments/Shipment';
+import type Payment from '../Payment';
+import { type PaymentData } from '../data';
+import type Capture from './Capture';
+import { type CaptureData } from './data';
 
 export default class CaptureHelper extends Helper<CaptureData, Capture> {
   constructor(networkClient: TransformingNetworkClient, protected readonly links: CaptureData['_links'], protected readonly embedded: Capture['_embedded']) {

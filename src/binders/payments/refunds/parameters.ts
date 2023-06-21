@@ -1,6 +1,6 @@
-import { RefundData, RefundEmbed } from '../../../data/refunds/data';
-import { IdempotencyParameter, PaginationParameters, ThrottlingParameter } from '../../../types/parameters';
-import PickOptional from '../../../types/PickOptional';
+import { type RefundData, type RefundEmbed } from '../../../data/refunds/data';
+import { type IdempotencyParameter, type PaginationParameters, type ThrottlingParameter } from '../../../types/parameters';
+import type PickOptional from '../../../types/PickOptional';
 
 interface ContextParameters {
   paymentId: string;

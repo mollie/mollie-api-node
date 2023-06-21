@@ -1,11 +1,11 @@
-import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
-import Page from '../../../data/page/Page';
-import { RefundData } from '../../../data/refunds/data';
-import Refund from '../../../data/refunds/Refund';
+import type TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
+import type Page from '../../../data/page/Page';
+import { type RefundData } from '../../../data/refunds/data';
+import type Refund from '../../../data/refunds/Refund';
 import renege from '../../../plumbing/renege';
-import Callback from '../../../types/Callback';
+import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
-import { IterateParameters, PageParameters } from './parameters';
+import { type IterateParameters, type PageParameters } from './parameters';
 
 export function getPathSegments(settlementId: string) {
   return `settlements/${settlementId}/refunds`;

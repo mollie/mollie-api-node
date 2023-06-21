@@ -1,5 +1,5 @@
-import { ThrottlingParameter } from '../../../types/parameters';
-import { PageParameters as RefundsPageParameters } from '../../refunds/parameters';
+import { type ThrottlingParameter } from '../../../types/parameters';
+import { type PageParameters as RefundsPageParameters } from '../../refunds/parameters';
 
 export type PageParameters = RefundsPageParameters & {
   settlementId: string;

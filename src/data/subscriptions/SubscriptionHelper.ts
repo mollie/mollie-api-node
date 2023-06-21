@@ -1,20 +1,21 @@
 import { runIf } from 'ruply';
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import HelpfulIterator from '../../plumbing/iteration/HelpfulIterator';
+import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import type HelpfulIterator from '../../plumbing/iteration/HelpfulIterator';
 import emptyHelpfulIterator from '../../plumbing/iteration/emptyHelpfulIterator';
 import renege from '../../plumbing/renege';
 import undefinedPromise from '../../plumbing/undefinedPromise';
-import Callback from '../../types/Callback';
-import Maybe from '../../types/Maybe';
-import { ThrottlingParameter } from '../../types/parameters';
+import type Callback from '../../types/Callback';
+import type Maybe from '../../types/Maybe';
+import { type ThrottlingParameter } from '../../types/parameters';
 import Helper from '../Helper';
-import Customer, { CustomerData } from '../customers/Customer';
-import Payment from '../payments/Payment';
-import { PaymentData } from '../payments/data';
-import Profile from '../profiles/Profile';
-import { ProfileData } from '../profiles/data';
-import Subscription from './Subscription';
-import { SubscriptionData, SubscriptionStatus } from './data';
+import type Customer from '../customers/Customer';
+import { type CustomerData } from '../customers/Customer';
+import type Payment from '../payments/Payment';
+import { type PaymentData } from '../payments/data';
+import type Profile from '../profiles/Profile';
+import { type ProfileData } from '../profiles/data';
+import type Subscription from './Subscription';
+import { SubscriptionStatus, type SubscriptionData } from './data';
 
 export default class SubscriptionHelper extends Helper<SubscriptionData, Subscription> {
   constructor(networkClient: TransformingNetworkClient, protected readonly links: SubscriptionData['_links']) {

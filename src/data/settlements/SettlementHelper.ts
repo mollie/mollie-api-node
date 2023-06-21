@@ -1,15 +1,16 @@
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import { Capture } from '../../types';
-import { ThrottlingParameter } from '../../types/parameters';
-import Chargeback, { ChargebackData } from '../chargebacks/Chargeback';
+import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import { type Capture } from '../../types';
+import { type ThrottlingParameter } from '../../types/parameters';
+import type Chargeback from '../chargebacks/Chargeback';
+import { type ChargebackData } from '../chargebacks/Chargeback';
 import Helper from '../Helper';
-import { CaptureData } from '../payments/captures/data';
-import { PaymentData } from '../payments/data';
-import Payment from '../payments/Payment';
-import { RefundData } from '../refunds/data';
-import Refund from '../refunds/Refund';
-import { SettlementData } from './data';
-import SettlementModel from './SettlementModel';
+import { type CaptureData } from '../payments/captures/data';
+import { type PaymentData } from '../payments/data';
+import type Payment from '../payments/Payment';
+import { type RefundData } from '../refunds/data';
+import type Refund from '../refunds/Refund';
+import { type SettlementData } from './data';
+import type SettlementModel from './SettlementModel';
 
 export default class SettlementHelper extends Helper<SettlementData, SettlementModel> {
   constructor(networkClient: TransformingNetworkClient, protected readonly links: SettlementData['_links']) {

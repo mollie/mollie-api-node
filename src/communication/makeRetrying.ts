@@ -1,6 +1,6 @@
 import { randomBytes } from 'crypto';
 
-import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, Method } from 'axios';
+import axios, { type AxiosError, type AxiosInstance, type AxiosRequestConfig, type AxiosResponse, Method } from 'axios';
 
 /**
  * The name of the property in the request configuration which indicates which attempt this is. `0` for the initial

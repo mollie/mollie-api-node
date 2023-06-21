@@ -1,7 +1,7 @@
-import { Amount } from '../../../data/global';
-import { OrderLineData } from '../../../data/orders/orderlines/OrderLine';
-import { IdempotencyParameter } from '../../../types/parameters';
-import PickOptional from '../../../types/PickOptional';
+import { type Amount } from '../../../data/global';
+import { type OrderLineData } from '../../../data/orders/orderlines/OrderLine';
+import { type IdempotencyParameter } from '../../../types/parameters';
+import type PickOptional from '../../../types/PickOptional';
 
 interface ContextParameters {
   orderId: string;

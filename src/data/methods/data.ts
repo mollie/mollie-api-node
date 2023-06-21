@@ -1,6 +1,6 @@
-import Nullable from '../../types/Nullable';
-import { Amount, FeeRegion, Links, PaymentMethod as PaymentMethodEnum } from '../global';
-import Model from '../Model';
+import type Nullable from '../../types/Nullable';
+import { type Amount, type FeeRegion, type Links, type PaymentMethod as PaymentMethodEnum } from '../global';
+import type Model from '../Model';
 
 export interface MethodData extends Model<'method', PaymentMethodEnum> {
   /**

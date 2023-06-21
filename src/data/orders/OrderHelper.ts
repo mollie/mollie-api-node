@@ -2,20 +2,21 @@ import { runIf } from 'ruply';
 import { pathSegment as ordersPathSegment } from '../../binders/orders/OrdersBinder';
 import { getPathSegments as getOrderShipmentsPathSegments } from '../../binders/orders/shipments/OrderShipmentsBinder';
 import { getPathSegments as getOrderRefundsPathSegments } from '../../binders/refunds/orders/OrderRefundsBinder';
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import HelpfulIterator from '../../plumbing/iteration/HelpfulIterator';
 import makeAsync from '../../plumbing/iteration/makeAsync';
 import renege from '../../plumbing/renege';
-import Callback from '../../types/Callback';
-import Nullable from '../../types/Nullable';
-import { ThrottlingParameter } from '../../types/parameters';
+import type Callback from '../../types/Callback';
+import type Nullable from '../../types/Nullable';
+import { type ThrottlingParameter } from '../../types/parameters';
 import Helper from '../Helper';
-import Payment from '../payments/Payment';
-import Refund from '../refunds/Refund';
-import { RefundData } from '../refunds/data';
-import Order from './Order';
-import { OrderData, OrderEmbed, OrderStatus } from './data';
-import Shipment, { ShipmentData } from './shipments/Shipment';
+import type Payment from '../payments/Payment';
+import type Refund from '../refunds/Refund';
+import { type RefundData } from '../refunds/data';
+import type Order from './Order';
+import { OrderEmbed, OrderStatus, type OrderData } from './data';
+import type Shipment from './shipments/Shipment';
+import { type ShipmentData } from './shipments/Shipment';
 
 export default class OrderHelper extends Helper<OrderData, Order> {
   constructor(networkClient: TransformingNetworkClient, protected readonly links: OrderData['_links'], protected readonly embedded: Order['_embedded']) {

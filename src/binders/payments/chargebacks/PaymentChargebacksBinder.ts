@@ -1,12 +1,13 @@
-import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
-import Chargeback, { ChargebackData } from '../../../data/chargebacks/Chargeback';
-import Page from '../../../data/page/Page';
+import type TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
+import type Chargeback from '../../../data/chargebacks/Chargeback';
+import { type ChargebackData } from '../../../data/chargebacks/Chargeback';
+import type Page from '../../../data/page/Page';
 import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
-import Callback from '../../../types/Callback';
+import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
-import { GetParameters, IterateParameters, PageParameters } from './parameters';
+import { type GetParameters, type IterateParameters, type PageParameters } from './parameters';
 
 function getPathSegments(paymentId: string) {
   return `payments/${paymentId}/chargebacks`;

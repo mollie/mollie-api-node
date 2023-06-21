@@ -1,5 +1,5 @@
 import convertToNonNegativeInteger from '../convertToNonNegativeInteger';
-import HelpfulIterator from './HelpfulIterator';
+import type HelpfulIterator from './HelpfulIterator';
 import LazyIterator from './LazyIterator';
 
 function getInfinity() {

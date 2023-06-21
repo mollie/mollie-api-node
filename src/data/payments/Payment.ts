@@ -1,8 +1,10 @@
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import Seal from '../../types/Seal';
-import Chargeback, { transform as transformChargeback } from '../chargebacks/Chargeback';
-import Refund, { transform as transformRefund } from '../refunds/Refund';
-import { PaymentData } from './data';
+import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import type Seal from '../../types/Seal';
+import type Chargeback from '../chargebacks/Chargeback';
+import { transform as transformChargeback } from '../chargebacks/Chargeback';
+import type Refund from '../refunds/Refund';
+import { transform as transformRefund } from '../refunds/Refund';
+import { type PaymentData } from './data';
 import PaymentHelper from './PaymentHelper';
 
 type Payment = Seal<

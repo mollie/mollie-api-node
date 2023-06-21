@@ -1,5 +1,5 @@
 import { apply } from 'ruply';
-import HelpfulIterator from './HelpfulIterator';
+import type HelpfulIterator from './HelpfulIterator';
 
 /**
  * An iterator which creates an upstream iterator using the factory function passed to the constructor, but only once

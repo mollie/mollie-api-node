@@ -1,7 +1,7 @@
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import Seal from '../../types/Seal';
-import { ApiMode, Links, Locale, PaymentMethod, Url } from '../global';
-import Model from '../Model';
+import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import type Seal from '../../types/Seal';
+import { type ApiMode, type Links, type Locale, type PaymentMethod, type Url } from '../global';
+import type Model from '../Model';
 import CustomerHelper from './CustomerHelper';
 
 export interface CustomerData extends Model<'customer'> {

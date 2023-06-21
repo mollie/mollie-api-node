@@ -1,10 +1,11 @@
-import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
+import type TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
 import renege from '../../../plumbing/renege';
-import Callback from '../../../types/Callback';
+import type Callback from '../../../types/Callback';
 import Helper from '../../Helper';
-import Customer, { CustomerData } from '../Customer';
-import { MandateData, MandateStatus } from './data';
-import Mandate from './Mandate';
+import type Customer from '../Customer';
+import { type CustomerData } from '../Customer';
+import { MandateStatus, type MandateData } from './data';
+import type Mandate from './Mandate';
 
 export default class MandateHelper extends Helper<MandateData, Mandate> {
   constructor(networkClient: TransformingNetworkClient, protected readonly links: MandateData['_links']) {

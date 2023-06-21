@@ -1,8 +1,8 @@
-import Nullable from '../../types/Nullable';
-import { ChargebackData } from '../chargebacks/Chargeback';
-import { Address, Amount, ApiMode, CardAudience, CardFailureReason, CardLabel, FeeRegion, HistoricPaymentMethod, Links, Locale, PaymentMethod, SequenceType, Url } from '../global';
-import Model from '../Model';
-import { RefundData } from '../refunds/data';
+import type Nullable from '../../types/Nullable';
+import { type ChargebackData } from '../chargebacks/Chargeback';
+import { type Address, type Amount, type ApiMode, type CardAudience, type CardFailureReason, type CardLabel, type FeeRegion, type HistoricPaymentMethod, type Links, type Locale, type PaymentMethod, type SequenceType, type Url } from '../global';
+import type Model from '../Model';
+import { type RefundData } from '../refunds/data';
 
 export interface PaymentData extends Model<'payment'> {
   /**

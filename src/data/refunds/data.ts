@@ -1,7 +1,7 @@
-import { Amount, Links, Url } from '../global';
-import Model from '../Model';
-import { OrderLineData } from '../orders/orderlines/OrderLine';
-import { PaymentData } from '../payments/data';
+import { type Amount, type Links, type Url } from '../global';
+import type Model from '../Model';
+import { type OrderLineData } from '../orders/orderlines/OrderLine';
+import { type PaymentData } from '../payments/data';
 
 export interface RefundData extends Model<'refund'> {
   /**

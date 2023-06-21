@@ -1,6 +1,6 @@
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import Seal from '../../types/Seal';
-import { OnboardingData } from './data';
+import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import type Seal from '../../types/Seal';
+import { type OnboardingData } from './data';
 import OnboardingHelper from './OnboardingHelper';
 
 type Onboarding = Seal<OnboardingData, OnboardingHelper>;

@@ -1,9 +1,9 @@
-import { PaymentMethod } from '../../data/global';
-import { OrderData, OrderEmbed } from '../../data/orders/data';
-import { OrderLineData } from '../../data/orders/orderlines/OrderLine';
-import { IdempotencyParameter, PaginationParameters, ThrottlingParameter } from '../../types/parameters';
-import { CreateParameters as PaymentCreateParameters } from '../payments/parameters';
-import PickOptional from '../../types/PickOptional';
+import { type PaymentMethod } from '../../data/global';
+import { type OrderData, type OrderEmbed } from '../../data/orders/data';
+import { type OrderLineData } from '../../data/orders/orderlines/OrderLine';
+import { type IdempotencyParameter, type PaginationParameters, type ThrottlingParameter } from '../../types/parameters';
+import { type CreateParameters as PaymentCreateParameters } from '../payments/parameters';
+import type PickOptional from '../../types/PickOptional';
 
 export type CreateParameters = Pick<OrderData, 'amount' | 'orderNumber' | 'consumerDateOfBirth' | 'webhookUrl' | 'locale' | 'metadata' | 'expiresAt'> &
   PickOptional<OrderData, 'billingAddress' | 'shippingAddress' | 'redirectUrl'> & {

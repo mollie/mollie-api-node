@@ -1,10 +1,11 @@
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import Seal from '../../types/Seal';
-import { Amount, Links, Url } from '../global';
-import Helper from '../Helper';
-import Model from '../Model';
-import { PaymentData } from '../payments/data';
-import Payment, { transform as transformPayment } from '../payments/Payment';
+import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import type Seal from '../../types/Seal';
+import { type Amount, type Links, type Url } from '../global';
+import type Helper from '../Helper';
+import type Model from '../Model';
+import { type PaymentData } from '../payments/data';
+import type Payment from '../payments/Payment';
+import { transform as transformPayment } from '../payments/Payment';
 import ChargebackHelper from './ChargebackHelper';
 
 export interface ChargebackData extends Model<'chargeback'> {
