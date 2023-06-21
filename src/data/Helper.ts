@@ -16,7 +16,7 @@ const stringRepresentationBlacklist = new Set(['resource', 'id', '_links', '_emb
  */
 function convertToString(subject: Model<string>, tag: string, depth: number, options: InspectOptionsStylized) {
   const parts = [tag];
-  if (subject.id !== undefined) {
+  if (subject.id != undefined) {
     parts.push(subject.id);
   }
   if (depth < 0) {

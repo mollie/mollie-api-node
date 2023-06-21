@@ -1,3 +1,4 @@
+import { apply } from 'ruply';
 import HelpfulIterator from './HelpfulIterator';
 
 /**
@@ -11,11 +12,12 @@ export default class LazyIterator<T> implements HelpfulIterator<T> {
    */
   protected settle: () => HelpfulIterator<T>;
   constructor(create: () => HelpfulIterator<T>) {
-    this.settle = () => {
-      const iterator = create();
-      this.settle = () => iterator;
-      return iterator;
-    };
+    this.settle = () =>
+      apply(
+        create(),
+        // (The next time settle is called, return the just-created iterator.)
+        iterator => (this.settle = () => iterator),
+      );
   }
 
   [Symbol.asyncIterator]() {

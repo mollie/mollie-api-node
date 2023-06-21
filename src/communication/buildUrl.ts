@@ -1,6 +1,7 @@
 // If support for Node.js < 10.0.0 is ever dropped, this import can be removed.
 import { URLSearchParams } from 'url';
 
+import { apply, runIf } from 'ruply';
 import getEntries from '../plumbing/getEntries';
 import Maybe from '../types/Maybe';
 
@@ -20,24 +21,24 @@ export type SearchParameters = Record<string, any>;
  *    `?object[key]=value`).
  */
 export default function buildUrl(originAndPathname: string, searchParameters?: SearchParameters): string {
-  if (searchParameters == undefined) {
-    return originAndPathname;
-  }
-  const searchEntries = getEntries(searchParameters);
+  const searchEntries = (runIf(searchParameters, getEntries) ?? []) as [string, Maybe<string | number | string[] | number[] | Record<string, string | number>>][];
   if (searchEntries.length == 0) {
     return originAndPathname;
   }
   return `${originAndPathname}?${new URLSearchParams(
-    searchEntries.reduce((result, [key, value]: [string, Maybe<string | number | string[] | number[] | Record<string, string | number>>]) => {
-      if (value == undefined) {
-        return result;
+    apply({} as Record<string, string | string[]>, flattenedEntries => {
+      for (const [key, value] of searchEntries) {
+        if (value == undefined) {
+          continue;
+        }
+        if (typeof value == 'object' && !Array.isArray(value)) {
+          for (const [innerKey, innerValue] of getEntries(value)) {
+            flattenedEntries[`${key}[${innerKey}]`] = String(innerValue);
+          }
+        } /* if (typeof value != 'object' || Array.isArray(value)) */ else {
+          flattenedEntries[key] = String(value);
+        }
       }
-      if (typeof value == 'object' && !Array.isArray(value)) {
-        getEntries(value).forEach(([innerKey, innerValue]) => (result[`${key}[${innerKey}]`] = String(innerValue)));
-      } /* if (typeof value != 'object' || Array.isArray(value)) */ else {
-        result[key] = String(value);
-      }
-      return result;
-    }, {} as Record<string, string | string[]>),
+    }),
   )}`;
 }
