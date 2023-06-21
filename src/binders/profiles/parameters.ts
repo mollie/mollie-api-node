@@ -10,4 +10,4 @@ export type IterateParameters = Omit<PageParameters, 'limit'> & ThrottlingParame
 
 export type UpdateParameters = PickOptional<ProfileData, 'name' | 'website' | 'email' | 'phone' | 'businessCategory' | 'categoryCode' | 'mode'>;
 
-export interface DeleteParameters extends IdempotencyParameter {}
+export type DeleteParameters = IdempotencyParameter;

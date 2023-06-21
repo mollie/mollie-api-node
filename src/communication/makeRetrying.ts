@@ -60,6 +60,9 @@ function checkError(error: any): error is AxiosError & { config: AxiosRequestCon
  * @see https://httpwg.org/specs/rfc9110.html#field.retry-after
  */
 function parseRetryAfterHeader(response: AxiosResponse): number | undefined {
+  // (If the header does not exist, the input of parseInt will be undefined, resulting in NaN. The non-null assertion
+  // is thus safe.)
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const retryAfter = parseInt(response.headers['retry-after']!, 10);
   if (isNaN(retryAfter)) {
     return undefined;
@@ -85,7 +88,10 @@ function parseRetryAfterHeader(response: AxiosResponse): number | undefined {
 export default function makeRetrying(axiosInstance: AxiosInstance) {
   // Intercept all outgoing requests.
   axiosInstance.interceptors.request.use((config: AxiosRequestConfig & Partial<AttemptState>) => {
-    // If the request is a POST or DELETE one and does not yet have the idempotency header, add one now.
+    // If the request is a POST or DELETE one and does not yet have the idempotency header, add one now. (If no method
+    // is set, it defaults to GET. Since neither GET nor undefined exist in the unsafeMethods set, the non-null
+    // assertion is safe.)
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     if (unsafeMethods.has(config.method!) && config.headers?.[idempotencyHeaderName] == undefined) {
       Object.assign((config.headers ??= {}), generateIdempotencyHeader());
     }
