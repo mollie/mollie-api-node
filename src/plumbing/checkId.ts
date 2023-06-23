@@ -1,4 +1,4 @@
-import Maybe from '../types/Maybe';
+import type Maybe from '../types/Maybe';
 
 type ResourceKind = 'capture' | 'chargeback' | 'customer' | 'mandate' | 'order' | 'orderline' | 'organization' | 'payment' | 'payment-link' | 'profile' | 'refund' | 'shipment' | 'subscription';
 

@@ -1,20 +1,22 @@
 import https from 'https';
-import { SecureContextOptions } from 'tls';
+import { type SecureContextOptions } from 'tls';
 
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios';
+import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosRequestHeaders, type AxiosResponse } from 'axios';
 
-import Page from '../data/page/Page';
+import { run } from 'ruply';
+import type Page from '../data/page/Page';
 import ApiError from '../errors/ApiError';
-import Options from '../Options';
+import type Options from '../Options';
 import DemandingIterator from '../plumbing/iteration/DemandingIterator';
 import HelpfulIterator from '../plumbing/iteration/HelpfulIterator';
 import Throttler from '../plumbing/Throttler';
-import Maybe from '../types/Maybe';
-import { IdempotencyParameter } from '../types/parameters';
+import type Maybe from '../types/Maybe';
+import { type IdempotencyParameter } from '../types/parameters';
 import breakUrl from './breakUrl';
-import buildUrl, { SearchParameters } from './buildUrl';
+import buildUrl, { type SearchParameters } from './buildUrl';
 import dromedaryCase from './dromedaryCase';
 import makeRetrying, { idempotencyHeaderName } from './makeRetrying';
+import fling from '../plumbing/fling';
 
 /**
  * Like `[].map` but with support for non-array inputs, in which case this function behaves as if an array was passed
@@ -39,14 +41,15 @@ function composeUserAgent(nodeVersion: string, libraryVersion: string, versionSt
     `Node/${nodeVersion}`,
     `Mollie/${libraryVersion}`,
     ...map(versionStrings, versionString => {
-      //                platform /version
-      const matches = /^([^\/]+)\/([^\/\s]+)$/.exec(versionString);
-      if (matches == null) {
-        if (-1 == versionString.indexOf('/') || versionString.indexOf('/') != versionString.lastIndexOf('/')) {
-          throw new Error('Invalid version string. It needs to consist of a name and version separated by a forward slash, e.g. RockenbergCommerce/3.1.12');
-        }
-        throw new Error('Invalid version string. The version may not contain any whitespace.');
-      }
+      const matches =
+        // platform/version
+        /^([^\/]+)\/([^\/\s]+)$/.exec(versionString) ??
+        fling(() => {
+          if (-1 == versionString.indexOf('/') || versionString.indexOf('/') != versionString.lastIndexOf('/')) {
+            return new Error('Invalid version string. It needs to consist of a name and version separated by a forward slash, e.g. RockenbergCommerce/3.1.12');
+          }
+          return new Error('Invalid version string. The version may not contain any whitespace.');
+        });
       const platform = dromedaryCase(matches[1]);
       const version = matches[2];
       return `${platform}/${version}`;
@@ -57,20 +60,21 @@ function composeUserAgent(nodeVersion: string, libraryVersion: string, versionSt
 /**
  * Throws an API error based on the passed cause.
  */
-const throwApiError = (() => {
+const throwApiError = run(
   /**
    * Returns whether the passed value is an object with a property with the passed name (`true`) or not (`false`).
    */
   function findProperty<K extends string>(value: unknown, name: K): value is Record<K, unknown> {
     return typeof value == 'object' && value != null && name in value;
-  }
-  return function throwApiError(cause: unknown) {
-    if (findProperty(cause, 'response') && cause.response != undefined) {
-      throw ApiError.createFromResponse(cause.response as AxiosResponse<any>);
-    }
-    throw new ApiError(findProperty(cause, 'message') ? String(cause.message) : 'An unknown error has occurred');
-  };
-})();
+  },
+  findProperty =>
+    function throwApiError(cause: unknown) {
+      if (findProperty(cause, 'response') && cause.response != undefined) {
+        throw ApiError.createFromResponse(cause.response as AxiosResponse<any>);
+      }
+      throw new ApiError(findProperty(cause, 'message') ? String(cause.message) : 'An unknown error has occurred');
+    },
+);
 
 interface Data {}
 interface Context {}

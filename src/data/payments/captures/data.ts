@@ -1,6 +1,6 @@
-import { Amount, ApiMode, Links, Url } from '../../global';
-import Model from '../../Model';
-import { PaymentData } from '../data';
+import { type Amount, type ApiMode, type Links, type Url } from '../../global';
+import type Model from '../../Model';
+import { type PaymentData } from '../data';
 
 export interface CaptureData extends Model<'capture'> {
   /**

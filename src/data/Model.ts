@@ -1,4 +1,4 @@
-import Maybe from '../types/Maybe';
+import type Maybe from '../types/Maybe';
 
 export default interface Model<R extends string, I extends Maybe<string> = string> {
   /**

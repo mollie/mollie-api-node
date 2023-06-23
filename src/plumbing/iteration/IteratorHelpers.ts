@@ -1,4 +1,4 @@
-import Maybe from '../../types/Maybe';
+import type Maybe from '../../types/Maybe';
 
 type Vehicle<T> = AsyncIterator<T, void, never> | AsyncIterable<T>;
 type MappedVehicle<V extends Vehicle<any>, U> = V extends AsyncIterator<any, void, never> ? AsyncIterator<U> : AsyncIterable<U>;

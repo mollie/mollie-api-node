@@ -1,6 +1,6 @@
-import { AxiosRequestConfig } from 'axios';
+import { type AxiosRequestConfig } from 'axios';
 
-import Xor from './types/Xor';
+import type Xor from './types/Xor';
 
 type Options = Xor<
   {

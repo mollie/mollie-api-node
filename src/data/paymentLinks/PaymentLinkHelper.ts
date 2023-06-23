@@ -1,7 +1,7 @@
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import Helper from '../Helper';
-import { PaymentLinkData } from './data';
-import PaymentLink from './PaymentLink';
+import { type PaymentLinkData } from './data';
+import type PaymentLink from './PaymentLink';
 
 export default class PaymentLinkHelper extends Helper<PaymentLinkData, PaymentLink> {
   constructor(networkClient: TransformingNetworkClient, protected readonly links: PaymentLinkData['_links']) {

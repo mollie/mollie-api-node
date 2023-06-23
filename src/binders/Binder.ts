@@ -1,6 +1,6 @@
 import breakUrl from '../communication/breakUrl';
-import Page from '../data/page/Page';
-import Maybe from '../types/Maybe';
+import type Page from '../data/page/Page';
+import type Maybe from '../types/Maybe';
 
 /**
  * A binder is the interface for a certain type of information. There is a binder for orders, and one for customers, et

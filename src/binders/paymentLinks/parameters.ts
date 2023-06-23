@@ -1,5 +1,5 @@
-import { PaymentLinkData } from '../../data/paymentLinks/data';
-import { IdempotencyParameter, PaginationParameters, ThrottlingParameter } from '../../types/parameters';
+import { type PaymentLinkData } from '../../data/paymentLinks/data';
+import { type IdempotencyParameter, type PaginationParameters, type ThrottlingParameter } from '../../types/parameters';
 
 export type CreateParameters = Pick<PaymentLinkData, 'description' | 'amount' | 'redirectUrl' | 'webhookUrl' | 'expiresAt'> & {
   profileId?: string;

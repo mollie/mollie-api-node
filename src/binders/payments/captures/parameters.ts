@@ -1,5 +1,5 @@
-import { CaptureEmbed } from '../../../data/payments/captures/data';
-import { PaginationParameters, ThrottlingParameter } from '../../../types/parameters';
+import { type CaptureEmbed } from '../../../data/payments/captures/data';
+import { type PaginationParameters, type ThrottlingParameter } from '../../../types/parameters';
 
 interface ContextParameters {
   paymentId: string;

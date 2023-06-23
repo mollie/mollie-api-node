@@ -1,5 +1,5 @@
-import { PaymentMethod } from '../../../types';
-import { IdempotencyParameter } from '../../../types/parameters';
+import { type PaymentMethod } from '../../../types';
+import { type IdempotencyParameter } from '../../../types/parameters';
 
 export interface Parameters extends IdempotencyParameter {
   /**

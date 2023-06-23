@@ -1,16 +1,17 @@
 import { runIf } from 'ruply';
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import HelpfulIterator from '../../plumbing/iteration/HelpfulIterator';
+import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import type HelpfulIterator from '../../plumbing/iteration/HelpfulIterator';
 import emptyHelpfulIterator from '../../plumbing/iteration/emptyHelpfulIterator';
-import { ThrottlingParameter } from '../../types/parameters';
+import { type ThrottlingParameter } from '../../types/parameters';
 import Helper from '../Helper';
-import Payment from '../payments/Payment';
-import { PaymentData } from '../payments/data';
-import Subscription from '../subscriptions/Subscription';
-import { SubscriptionData } from '../subscriptions/data';
-import Customer, { CustomerData } from './Customer';
-import Mandate from './mandates/Mandate';
-import { MandateData } from './mandates/data';
+import type Payment from '../payments/Payment';
+import { type PaymentData } from '../payments/data';
+import type Subscription from '../subscriptions/Subscription';
+import { type SubscriptionData } from '../subscriptions/data';
+import type Customer from './Customer';
+import { type CustomerData } from './Customer';
+import type Mandate from './mandates/Mandate';
+import { type MandateData } from './mandates/data';
 
 export default class CustomerHelper extends Helper<CustomerData, Customer> {
   constructor(networkClient: TransformingNetworkClient, protected readonly links: CustomerData['_links']) {

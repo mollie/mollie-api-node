@@ -1,12 +1,12 @@
-import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
-import { OrderData } from '../../../data/orders/data';
-import Order from '../../../data/orders/Order';
+import type TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
+import { type OrderData } from '../../../data/orders/data';
+import type Order from '../../../data/orders/Order';
 import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
-import Callback from '../../../types/Callback';
+import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
-import { CancelParameters, UpdateParameters } from './parameters';
+import { type CancelParameters, type UpdateParameters } from './parameters';
 
 function getPathSegments(orderId: string) {
   return `orders/${orderId}/lines`;

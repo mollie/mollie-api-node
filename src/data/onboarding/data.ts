@@ -1,5 +1,5 @@
-import { Links, Url } from '../global';
-import Model from '../Model';
+import { type Links, type Url } from '../global';
+import type Model from '../Model';
 
 /**
  * Get the status of onboarding of the authenticated organization.

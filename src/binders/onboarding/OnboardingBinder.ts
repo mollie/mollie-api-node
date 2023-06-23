@@ -1,10 +1,10 @@
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import { OnboardingData } from '../../data/onboarding/data';
-import Onboarding from '../../data/onboarding/Onboarding';
+import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import { type OnboardingData } from '../../data/onboarding/data';
+import type Onboarding from '../../data/onboarding/Onboarding';
 import renege from '../../plumbing/renege';
-import Callback from '../../types/Callback';
+import type Callback from '../../types/Callback';
 import Binder from '../Binder';
-import { SubmitParameters } from './parameters';
+import { type SubmitParameters } from './parameters';
 
 const pathSegments = 'onboarding/me';
 

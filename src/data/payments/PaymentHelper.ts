@@ -1,25 +1,26 @@
 import { runIf } from 'ruply';
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import HelpfulIterator from '../../plumbing/iteration/HelpfulIterator';
 import emptyHelpfulIterator from '../../plumbing/iteration/emptyHelpfulIterator';
 import makeAsync from '../../plumbing/iteration/makeAsync';
 import renege from '../../plumbing/renege';
 import undefinedPromise from '../../plumbing/undefinedPromise';
-import Callback from '../../types/Callback';
-import Maybe from '../../types/Maybe';
-import Nullable from '../../types/Nullable';
-import { ThrottlingParameter } from '../../types/parameters';
+import type Callback from '../../types/Callback';
+import type Maybe from '../../types/Maybe';
+import type Nullable from '../../types/Nullable';
+import { type ThrottlingParameter } from '../../types/parameters';
 import Helper from '../Helper';
-import Chargeback, { ChargebackData } from '../chargebacks/Chargeback';
-import { Amount, SequenceType } from '../global';
-import Order from '../orders/Order';
-import { OrderData } from '../orders/data';
-import Refund from '../refunds/Refund';
-import { RefundData } from '../refunds/data';
-import Payment from './Payment';
-import Capture from './captures/Capture';
-import { CaptureData } from './captures/data';
-import { BankTransferLinks, PaymentData, PaymentStatus } from './data';
+import type Chargeback from '../chargebacks/Chargeback';
+import { type ChargebackData } from '../chargebacks/Chargeback';
+import { SequenceType, type Amount } from '../global';
+import type Order from '../orders/Order';
+import { type OrderData } from '../orders/data';
+import type Refund from '../refunds/Refund';
+import { type RefundData } from '../refunds/data';
+import type Payment from './Payment';
+import type Capture from './captures/Capture';
+import { type CaptureData } from './captures/data';
+import { PaymentStatus, type BankTransferLinks, type PaymentData } from './data';
 
 export default class PaymentHelper extends Helper<PaymentData, Payment> {
   constructor(networkClient: TransformingNetworkClient, protected readonly links: PaymentData['_links'], protected readonly embedded: Payment['_embedded']) {

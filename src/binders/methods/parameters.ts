@@ -1,5 +1,5 @@
-import { Amount, Locale, SequenceType } from '../../data/global';
-import { MethodInclude } from '../../data/methods/data';
+import { type Amount, type Locale, type SequenceType } from '../../data/global';
+import { type MethodInclude } from '../../data/methods/data';
 
 export interface GetParameters {
   /**

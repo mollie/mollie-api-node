@@ -1,8 +1,10 @@
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import Seal from '../../types/Seal';
-import OrderLine, { transform as transformOrderLine } from '../orders/orderlines/OrderLine';
-import Payment, { transform as transformPayment } from '../payments/Payment';
-import { RefundData } from './data';
+import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import type Seal from '../../types/Seal';
+import type OrderLine from '../orders/orderlines/OrderLine';
+import { transform as transformOrderLine } from '../orders/orderlines/OrderLine';
+import type Payment from '../payments/Payment';
+import { transform as transformPayment } from '../payments/Payment';
+import { type RefundData } from './data';
 import RefundHelper from './RefundHelper';
 
 type Refund = Seal<Omit<RefundData, 'lines' | '_embedded'> & { lines?: OrderLine[]; _embedded?: { payment?: Payment } }, RefundHelper>;

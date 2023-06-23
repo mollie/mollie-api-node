@@ -1,6 +1,6 @@
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import Seal from '../../types/Seal';
-import { MethodData } from './data';
+import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import type Seal from '../../types/Seal';
+import { type MethodData } from './data';
 import MethodHelper from './MethodHelper';
 
 type Method = Seal<MethodData, MethodHelper>;

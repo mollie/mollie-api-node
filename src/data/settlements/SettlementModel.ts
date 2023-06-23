@@ -1,6 +1,6 @@
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import Seal from '../../types/Seal';
-import { SettlementData } from './data';
+import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import type Seal from '../../types/Seal';
+import { type SettlementData } from './data';
 import SettlementHelper from './SettlementHelper';
 
 type SettlementModel = Seal<Omit<SettlementData, '_links'>, SettlementHelper>;

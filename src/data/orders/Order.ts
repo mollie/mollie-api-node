@@ -1,11 +1,15 @@
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import Seal from '../../types/Seal';
-import Payment, { transform as transformPayment } from '../payments/Payment';
-import Refund, { transform as transformRefund } from '../refunds/Refund';
-import { OrderData } from './data';
+import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import type Seal from '../../types/Seal';
+import type Payment from '../payments/Payment';
+import { transform as transformPayment } from '../payments/Payment';
+import type Refund from '../refunds/Refund';
+import { transform as transformRefund } from '../refunds/Refund';
+import { type OrderData } from './data';
 import OrderHelper from './OrderHelper';
-import OrderLine, { transform as transformOrderLine } from './orderlines/OrderLine';
-import Shipment, { transform as transformShipment } from './shipments/Shipment';
+import type OrderLine from './orderlines/OrderLine';
+import { transform as transformOrderLine } from './orderlines/OrderLine';
+import type Shipment from './shipments/Shipment';
+import { transform as transformShipment } from './shipments/Shipment';
 
 type Order = Seal<
   Omit<OrderData, '_embedded'> & {

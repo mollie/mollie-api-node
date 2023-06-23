@@ -1,5 +1,5 @@
-import { Amount, ApiMode, Links, Url } from '../global';
-import Model from '../Model';
+import { type Amount, type ApiMode, type Links, type Url } from '../global';
+import type Model from '../Model';
 
 export interface SubscriptionData extends Model<'subscription'> {
   /**

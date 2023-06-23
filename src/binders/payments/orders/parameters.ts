@@ -1,6 +1,6 @@
-import { PaymentMethod } from '../../../data/global';
-import { PaymentData } from '../../../data/payments/data';
-import { IdempotencyParameter } from '../../../types/parameters';
+import { type PaymentMethod } from '../../../data/global';
+import { type PaymentData } from '../../../data/payments/data';
+import { type IdempotencyParameter } from '../../../types/parameters';
 
 interface ContextParameters {
   orderId: string;

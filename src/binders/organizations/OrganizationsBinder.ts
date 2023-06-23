@@ -1,9 +1,10 @@
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import Organization, { OrganizationData } from '../../data/organizations/Organizations';
+import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import type Organization from '../../data/organizations/Organizations';
+import { type OrganizationData } from '../../data/organizations/Organizations';
 import ApiError from '../../errors/ApiError';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
-import Callback from '../../types/Callback';
+import type Callback from '../../types/Callback';
 import Binder from '../Binder';
 
 const pathSegment = 'organizations';

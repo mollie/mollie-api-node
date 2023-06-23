@@ -1,4 +1,4 @@
-import { IdempotencyParameter } from '../../types/parameters';
+import { type IdempotencyParameter } from '../../types/parameters';
 
 export interface RequestPaymentSessionParameters extends IdempotencyParameter {
   /**

@@ -1,12 +1,13 @@
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import Customer, { CustomerData } from '../../data/customers/Customer';
-import Page from '../../data/page/Page';
+import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import type Customer from '../../data/customers/Customer';
+import { type CustomerData } from '../../data/customers/Customer';
+import type Page from '../../data/page/Page';
 import ApiError from '../../errors/ApiError';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
-import Callback from '../../types/Callback';
+import type Callback from '../../types/Callback';
 import Binder from '../Binder';
-import { CreateParameters, DeleteParameters, GetParameters, IterateParameters, PageParameters, UpdateParameters } from './parameters';
+import { type CreateParameters, type DeleteParameters, type GetParameters, type IterateParameters, type PageParameters, type UpdateParameters } from './parameters';
 
 const pathSegment = 'customers';
 

@@ -1,7 +1,7 @@
-import { PaymentMethod } from '../../../data/global';
-import { PaymentData } from '../../../data/payments/data';
-import { IdempotencyParameter, PaginationParameters, ThrottlingParameter } from '../../../types/parameters';
-import PickOptional from '../../../types/PickOptional';
+import { type PaymentMethod } from '../../../data/global';
+import { type PaymentData } from '../../../data/payments/data';
+import { type IdempotencyParameter, type PaginationParameters, type ThrottlingParameter } from '../../../types/parameters';
+import type PickOptional from '../../../types/PickOptional';
 
 interface ContextParameters {
   customerId: string;

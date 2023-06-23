@@ -1,13 +1,13 @@
-import { inspect, InspectOptionsStylized } from 'util';
-import TransformingNetworkClient from '../communication/TransformingNetworkClient';
+import { inspect, type InspectOptionsStylized } from 'util';
+import type TransformingNetworkClient from '../communication/TransformingNetworkClient';
 import buildFromEntries from '../plumbing/buildFromEntries';
 import capitalize from '../plumbing/capitalize';
 import getEntries from '../plumbing/getEntries';
 import renege from '../plumbing/renege';
-import Callback from '../types/Callback';
-import Maybe from '../types/Maybe';
-import { Links } from './global';
-import Model from './Model';
+import type Callback from '../types/Callback';
+import type Maybe from '../types/Maybe';
+import { type Links } from './global';
+import type Model from './Model';
 
 const stringRepresentationBlacklist = new Set(['resource', 'id', '_links', '_embedded']);
 
@@ -16,7 +16,7 @@ const stringRepresentationBlacklist = new Set(['resource', 'id', '_links', '_emb
  */
 function convertToString(subject: Model<string>, tag: string, depth: number, options: InspectOptionsStylized) {
   const parts = [tag];
-  if (subject.id !== undefined) {
+  if (subject.id != undefined) {
     parts.push(subject.id);
   }
   if (depth < 0) {

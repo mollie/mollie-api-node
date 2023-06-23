@@ -1,21 +1,22 @@
 import { runIf } from 'ruply';
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import HelpfulIterator from '../../plumbing/iteration/HelpfulIterator';
+import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import breakUrl from '../../communication/breakUrl';
+import type HelpfulIterator from '../../plumbing/iteration/HelpfulIterator';
 import emptyHelpfulIterator from '../../plumbing/iteration/emptyHelpfulIterator';
 import renege from '../../plumbing/renege';
-import Callback from '../../types/Callback';
-import { ThrottlingParameter } from '../../types/parameters';
+import type Callback from '../../types/Callback';
+import { type ThrottlingParameter } from '../../types/parameters';
 import Helper from '../Helper';
-import Chargeback, { ChargebackData } from '../chargebacks/Chargeback';
-import Method from '../methods/Method';
-import { MethodData } from '../methods/data';
-import Payment from '../payments/Payment';
-import { PaymentData } from '../payments/data';
-import Refund from '../refunds/Refund';
-import { RefundData } from '../refunds/data';
-import Profile from './Profile';
-import { ProfileData, ProfileStatus } from './data';
-import breakUrl from '../../communication/breakUrl';
+import type Chargeback from '../chargebacks/Chargeback';
+import { type ChargebackData } from '../chargebacks/Chargeback';
+import type Method from '../methods/Method';
+import { type MethodData } from '../methods/data';
+import type Payment from '../payments/Payment';
+import { type PaymentData } from '../payments/data';
+import type Refund from '../refunds/Refund';
+import { type RefundData } from '../refunds/data';
+import type Profile from './Profile';
+import { ProfileStatus, type ProfileData } from './data';
 
 export default class ProfileHelper extends Helper<ProfileData, Profile> {
   constructor(networkClient: TransformingNetworkClient, protected readonly links: ProfileData['_links']) {

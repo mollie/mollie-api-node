@@ -1,10 +1,11 @@
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import renege from '../../plumbing/renege';
-import Callback from '../../types/Callback';
+import type Callback from '../../types/Callback';
 import Helper from '../Helper';
-import Organization, { OrganizationData } from '../organizations/Organizations';
-import { OnboardingData, OnboardingStatus } from './data';
-import Onboarding from './Onboarding';
+import type Organization from '../organizations/Organizations';
+import { type OrganizationData } from '../organizations/Organizations';
+import { OnboardingStatus, type OnboardingData } from './data';
+import type Onboarding from './Onboarding';
 
 export default class OnboardingHelper extends Helper<OnboardingData, Onboarding> {
   constructor(networkClient: TransformingNetworkClient, protected readonly links: OnboardingData['_links']) {

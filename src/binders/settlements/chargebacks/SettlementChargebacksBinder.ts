@@ -1,10 +1,11 @@
-import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
-import Chargeback, { ChargebackData } from '../../../data/chargebacks/Chargeback';
-import Page from '../../../data/page/Page';
+import type TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
+import type Chargeback from '../../../data/chargebacks/Chargeback';
+import { type ChargebackData } from '../../../data/chargebacks/Chargeback';
+import type Page from '../../../data/page/Page';
 import renege from '../../../plumbing/renege';
-import Callback from '../../../types/Callback';
+import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
-import { IterateParameters, PageParameters } from './parameters';
+import { type IterateParameters, type PageParameters } from './parameters';
 
 export function getPathSegments(settlementId: string) {
   return `settlements/${settlementId}/chargebacks`;

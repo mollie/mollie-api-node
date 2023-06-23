@@ -1,8 +1,9 @@
-import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
-import Seal from '../../../types/Seal';
-import Payment, { transform as transformPayment } from '../Payment';
+import type TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
+import type Seal from '../../../types/Seal';
+import type Payment from '../Payment';
+import { transform as transformPayment } from '../Payment';
 import CaptureHelper from './CaptureHelper';
-import { CaptureData } from './data';
+import { type CaptureData } from './data';
 
 type Capture = Seal<Omit<CaptureData, '_embedded'> & { _embedded?: { payment?: Payment } }, CaptureHelper>;
 

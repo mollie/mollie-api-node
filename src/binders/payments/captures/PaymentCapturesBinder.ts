@@ -1,13 +1,13 @@
-import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
-import Page from '../../../data/page/Page';
-import Capture from '../../../data/payments/captures/Capture';
-import { CaptureData } from '../../../data/payments/captures/data';
+import type TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
+import type Page from '../../../data/page/Page';
+import type Capture from '../../../data/payments/captures/Capture';
+import { type CaptureData } from '../../../data/payments/captures/data';
 import ApiError from '../../../errors/ApiError';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
-import Callback from '../../../types/Callback';
+import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
-import { GetParameters, IterateParameters, PageParameters } from './parameters';
+import { type GetParameters, type IterateParameters, type PageParameters } from './parameters';
 
 function getPathSegments(paymentId: string) {
   return `payments/${paymentId}/captures`;

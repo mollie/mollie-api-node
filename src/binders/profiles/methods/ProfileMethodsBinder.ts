@@ -1,12 +1,12 @@
-import TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
-import { MethodData } from '../../../data/methods/data';
-import Method from '../../../data/methods/Method';
+import type TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
+import { type MethodData } from '../../../data/methods/data';
+import type Method from '../../../data/methods/Method';
 import ApiError from '../../../errors/ApiError';
 import renege from '../../../plumbing/renege';
 import checkId from '../../../plumbing/checkId';
-import Callback from '../../../types/Callback';
+import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
-import { Parameters } from './parameters';
+import { type Parameters } from './parameters';
 
 function getPathSegments(profileId: string) {
   return `profiles/${profileId}/methods`;

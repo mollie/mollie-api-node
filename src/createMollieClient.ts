@@ -3,7 +3,7 @@ import { version as libraryVersion } from '../package.json';
 import caCertificates from './cacert.pem';
 import NetworkClient from './communication/NetworkClient';
 import TransformingNetworkClient, { Transformers } from './communication/TransformingNetworkClient';
-import Options from './Options';
+import type Options from './Options';
 
 // Transformers
 import { transform as transformPayment } from './data/payments/Payment';

@@ -1,11 +1,11 @@
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import Page from '../../data/page/Page';
-import { SettlementData } from '../../data/settlements/data';
-import SettlementModel from '../../data/settlements/SettlementModel';
+import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import type Page from '../../data/page/Page';
+import { type SettlementData } from '../../data/settlements/data';
+import type SettlementModel from '../../data/settlements/SettlementModel';
 import renege from '../../plumbing/renege';
-import Callback from '../../types/Callback';
+import type Callback from '../../types/Callback';
 import Binder from '../Binder';
-import { IterateParameters, PageParameters } from './parameters';
+import { type IterateParameters, type PageParameters } from './parameters';
 
 const pathSegment = 'settlements';
 

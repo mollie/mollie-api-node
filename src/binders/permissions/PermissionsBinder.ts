@@ -1,7 +1,8 @@
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import Permission, { PermissionData } from '../../data/permissions/Permission';
+import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import type Permission from '../../data/permissions/Permission';
+import { type PermissionData } from '../../data/permissions/Permission';
 import renege from '../../plumbing/renege';
-import Callback from '../../types/Callback';
+import type Callback from '../../types/Callback';
 import Binder from '../Binder';
 
 const pathSegment = 'permissions';

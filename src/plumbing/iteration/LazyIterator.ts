@@ -1,4 +1,5 @@
-import HelpfulIterator from './HelpfulIterator';
+import { apply } from 'ruply';
+import type HelpfulIterator from './HelpfulIterator';
 
 /**
  * An iterator which creates an upstream iterator using the factory function passed to the constructor, but only once
@@ -11,11 +12,12 @@ export default class LazyIterator<T> implements HelpfulIterator<T> {
    */
   protected settle: () => HelpfulIterator<T>;
   constructor(create: () => HelpfulIterator<T>) {
-    this.settle = () => {
-      const iterator = create();
-      this.settle = () => iterator;
-      return iterator;
-    };
+    this.settle = () =>
+      apply(
+        create(),
+        // (The next time settle is called, return the just-created iterator.)
+        iterator => (this.settle = () => iterator),
+      );
   }
 
   [Symbol.asyncIterator]() {

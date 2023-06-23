@@ -1,4 +1,4 @@
-import Nullable from './Nullable';
+import type Nullable from './Nullable';
 
 type Callback<R> = (error: Nullable<Error>, result: R) => void;
 

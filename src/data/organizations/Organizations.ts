@@ -1,8 +1,8 @@
-import TransformingNetworkClient from '../../communication/TransformingNetworkClient';
-import Seal from '../../types/Seal';
-import { Address, Links, Locale } from '../global';
+import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import type Seal from '../../types/Seal';
+import { type Address, type Links, type Locale } from '../global';
 import Helper from '../Helper';
-import Model from '../Model';
+import type Model from '../Model';
 
 export interface OrganizationData extends Model<'organization'> {
   /**
