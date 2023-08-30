@@ -24,6 +24,7 @@ test('createPayment', async () => {
     profileId: 'pfl_2A1gacu42V',
     sequenceType: 'oneoff',
     redirectUrl: 'https://example.org/redirect',
+    cancelUrl: 'https://example.org/cancel',
     webhookUrl: 'https://example.org/webhook',
     _links: {
       self: {
@@ -48,6 +49,7 @@ test('createPayment', async () => {
     },
     description: 'My first API payment',
     redirectUrl: 'https://example.org/redirect',
+    cancelUrl: 'https://example.org/cancel',
     webhookUrl: 'https://example.org/webhook',
     metadata: {
       order_id: '1234',
@@ -70,6 +72,7 @@ test('createPayment', async () => {
   expect(payment.profileId).toBe('pfl_2A1gacu42V');
   expect(payment.sequenceType).toBe('oneoff');
   expect(payment.redirectUrl).toBe('https://example.org/redirect');
+  expect(payment.cancelUrl).toBe('https://example.org/cancel');
   expect(payment.webhookUrl).toBe('https://example.org/webhook');
 
   expect(payment._links.self).toEqual({ href: 'https://api.mollie.com/v2/payments/tr_44aKxzEbr8', type: 'application/hal+json' });
@@ -190,6 +193,7 @@ test('getPayment', async () => {
     profileId: 'pfl_2A1gacu42V',
     sequenceType: 'oneoff',
     redirectUrl: 'https://example.org/redirect',
+    cancelUrl: 'https://example.org/cancel',
     webhookUrl: 'https://example.org/webhook',
     settlementAmount: {
       value: '20.00',
@@ -226,6 +230,7 @@ test('getPayment', async () => {
   expect(payment.profileId).toBe('pfl_2A1gacu42V');
   expect(payment.sequenceType).toBe('oneoff');
   expect(payment.redirectUrl).toBe('https://example.org/redirect');
+  expect(payment.cancelUrl).toBe('https://example.org/cancel');
   expect(payment.webhookUrl).toBe('https://example.org/webhook');
 
   expect(payment._links.self).toEqual({ href: 'https://api.mollie.com/v2/payments/tr_44aKxzEbr8', type: 'application/hal+json' });
