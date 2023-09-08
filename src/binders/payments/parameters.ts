@@ -74,6 +74,7 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
       familyName?: string;
     };
     issuer?: Issuer;
+    terminalId?: string
     /**
      * The card number on the gift card. You can supply this to prefill the card number.
      *
