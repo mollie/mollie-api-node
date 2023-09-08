@@ -254,6 +254,7 @@ export interface PaymentData extends Model<'payment'> {
   _embedded?: {
     refunds?: Omit<RefundData, '_embedded'>[];
     chargebacks?: Omit<ChargebackData, '_embedded'>[];
+    captures?: Omit<CaptureData, '_embedded'>[];
   };
 }
 
@@ -849,6 +850,7 @@ export type PaymentInclude = 'details.qrCode';
 export enum PaymentEmbed {
   refunds = 'refunds',
   chargebacks = 'chargebacks',
+  captures = 'captures',
 }
 
 export interface GiftCard {
