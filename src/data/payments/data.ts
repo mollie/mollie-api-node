@@ -3,6 +3,7 @@ import { type ChargebackData } from '../chargebacks/Chargeback';
 import { type Address, type Amount, type ApiMode, type CardAudience, type CardFailureReason, type CardLabel, type FeeRegion, type HistoricPaymentMethod, type Links, type Locale, type PaymentMethod, type SequenceType, type Url } from '../global';
 import type Model from '../Model';
 import { type RefundData } from '../refunds/data';
+import { type CaptureData } from './captures/data'
 
 export interface PaymentData extends Model<'payment'> {
   /**
