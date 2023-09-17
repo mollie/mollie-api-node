@@ -37,6 +37,7 @@ async function getPayment(status, additionalProperties?: object, additionalLinks
     profileId: 'pfl_2A1gacu42V',
     sequenceType: 'oneoff',
     redirectUrl: 'https://example.org/redirect',
+    cancelUrl: 'https://example.org/cancel',
     webhookUrl: 'https://example.org/webhook',
     settlementAmount: {
       value: '20.00',

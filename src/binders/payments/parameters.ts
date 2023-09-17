@@ -4,7 +4,7 @@ import { type PaymentData, type PaymentEmbed, type PaymentInclude } from '../../
 import { type IdempotencyParameter, type PaginationParameters, type ThrottlingParameter } from '../../types/parameters';
 import type PickOptional from '../../types/PickOptional';
 
-export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'redirectUrl' | 'webhookUrl' | 'customerId' | 'mandateId'> &
+export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'redirectUrl' | 'cancelUrl' | 'webhookUrl' | 'customerId' | 'mandateId'> &
   PickOptional<PaymentData, 'locale' | 'metadata' | 'sequenceType'> & {
     /**
      * Normally, a payment method screen is shown. However, when using this parameter, you can choose a specific payment method and your customer will skip the selection screen and is sent directly to
@@ -174,7 +174,7 @@ export type PageParameters = PaginationParameters & {
 
 export type IterateParameters = Omit<PageParameters, 'limit'> & ThrottlingParameter;
 
-export type UpdateParameters = Pick<PaymentData, 'redirectUrl' | 'webhookUrl'> &
+export type UpdateParameters = Pick<PaymentData, 'redirectUrl' | 'cancelUrl' | 'webhookUrl'> &
   PickOptional<PaymentData, 'description' | 'metadata'> & {
     /**
      * For digital goods in most jurisdictions, you must apply the VAT rate from your customer's country. Choose the VAT rates you have used for the order to ensure your customer's country matches the

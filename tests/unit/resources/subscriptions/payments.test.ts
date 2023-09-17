@@ -28,6 +28,7 @@ test('listSubscriptionPayments', async () => {
           subscriptionId: 'sub_8JfGzs6v3K',
           sequenceType: 'recurring',
           redirectUrl: null,
+          cancelUrl: null,
           webhookUrl: 'https://example.org/webhook',
           settlementAmount: {
             value: '10.00',
@@ -84,6 +85,7 @@ test('listSubscriptionPayments', async () => {
           subscriptionId: 'sub_8JfGzs6v3K',
           sequenceType: 'recurring',
           redirectUrl: null,
+          cancelUrl: null,
           webhookUrl: 'https://example.org/webhook',
           settlementAmount: {
             value: '10.00',

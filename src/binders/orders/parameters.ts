@@ -6,7 +6,7 @@ import { type CreateParameters as PaymentCreateParameters } from '../payments/pa
 import type PickOptional from '../../types/PickOptional';
 
 export type CreateParameters = Pick<OrderData, 'amount' | 'orderNumber' | 'consumerDateOfBirth' | 'webhookUrl' | 'locale' | 'metadata' | 'expiresAt'> &
-  PickOptional<OrderData, 'billingAddress' | 'shippingAddress' | 'redirectUrl'> & {
+  PickOptional<OrderData, 'billingAddress' | 'shippingAddress' | 'redirectUrl' | 'cancelUrl'> & {
     /**
      * All order lines must have the same currency as the order. You cannot mix currencies within a single order.
      *
@@ -89,7 +89,7 @@ export interface GetParameters {
   embed?: OrderEmbed[];
 }
 
-export type UpdateParameters = PickOptional<OrderData, 'billingAddress' | 'shippingAddress' | 'redirectUrl' | 'webhookUrl'> & {
+export type UpdateParameters = PickOptional<OrderData, 'billingAddress' | 'shippingAddress' | 'redirectUrl' | 'cancelUrl' | 'webhookUrl'> & {
   orderNumber?: string;
   testmode?: boolean;
 };

@@ -50,6 +50,7 @@ function composeOrderResponse(orderId, orderStatus = 'created', orderNumber = '1
     method: 'klarnapaylater',
     isCancelable: true,
     redirectUrl: 'https://example.org/redirect',
+    cancelUrl: 'https://example.org/cancel',
     webhookUrl: 'https://example.org/webhook',
     lines: [
       {
@@ -182,6 +183,7 @@ function testOrder(order, orderId, orderStatus = 'created', orderNumber = '1337'
   expect(order.locale).toBe('nl_NL');
 
   expect(order.redirectUrl).toBe('https://example.org/redirect');
+  expect(order.cancelUrl).toBe('https://example.org/cancel');
   expect(order.webhookUrl).toBe('https://example.org/webhook');
 
   expect(order._links.self).toEqual({
@@ -275,6 +277,7 @@ test('createOrder', async () => {
     locale: 'nl_NL',
     orderNumber: '1337',
     redirectUrl: 'https://example.org/redirect',
+    cancelUrl: 'https://example.org/cancel',
     webhookUrl: 'https://example.org/webhook',
     method: 'klarnapaylater',
     lines: [
@@ -380,6 +383,7 @@ test('getOrderIncludingPayments', async () => {
       email: 'luke@skywalker.com',
     },
     redirectUrl: 'https://example.org/redirect',
+    cancelUrl: 'https://example.org/cancel',
     lines: [
       {
         resource: 'orderline',
@@ -515,6 +519,7 @@ test('getOrderIncludingPayments', async () => {
           orderId: 'ord_kEn1PlbGa',
           sequenceType: 'oneoff',
           redirectUrl: 'https://example.org/redirect',
+          cancelUrl: 'https://example.org/cancel',
           _links: {
             self: {
               href: 'https://api.mollie.com/v2/payments/tr_ncaPcAhuUV',
@@ -568,6 +573,7 @@ test('getOrderIncludingPayments', async () => {
   expect(payment.orderId).toBe('ord_kEn1PlbGa');
   expect(payment.sequenceType).toBe('oneoff');
   expect(payment.redirectUrl).toBe('https://example.org/redirect');
+  expect(payment.cancelUrl).toBe('https://example.org/cancel');
   expect(payment._links.self).toEqual({
     href: 'https://api.mollie.com/v2/payments/tr_ncaPcAhuUV',
     type: 'application/hal+json',

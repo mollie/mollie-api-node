@@ -53,6 +53,7 @@ async function getOrder(status, additionalLinks?: object) {
     method: 'klarnapaylater',
     isCancelable: true,
     redirectUrl: 'https://example.org/redirect',
+    cancelUrl: 'https://example.org/cancel',
     webhookUrl: 'https://example.org/webhook',
     lines: [
       {

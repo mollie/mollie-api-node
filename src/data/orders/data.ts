@@ -115,6 +115,18 @@ export interface OrderData extends Model<'order'> {
    */
   redirectUrl: Nullable<string>;
   /**
+   * The optional redirect URL you provided during payment creation. Consumer that explicitly cancel the order will be redirected to this URL if provided, or otherwise to the `redirectUrl` instead —
+   * see above.
+   *
+   * Mollie will always give you status updates via webhooks, including for the `canceled` status. This parameter is therefore entirely optional, but can be useful when implementing a dedicated
+   * consumer-facing flow to handle order cancellations.
+   *
+   * The URL will be `null` for recurring orders.
+   *
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=cancelUrl#response
+   */
+  cancelUrl: Nullable<string>;
+  /**
    * An array of order line objects. Each object will have the properties listed below.
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=lines#response
