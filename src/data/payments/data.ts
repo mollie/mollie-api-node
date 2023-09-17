@@ -113,7 +113,11 @@ export interface PaymentData extends Model<'payment'> {
    */
   redirectUrl?: string;
   /**
-   * The optional redirect URL you provided during payment creation. Consumer that explicitly cancel the payment will be redirected to this URL if provided, or otherwise to the `redirectUrl` instead — see above.
+   * The optional redirect URL you provided during payment creation. Consumer that explicitly cancel the payment will be redirected to this URL if provided, or otherwise to the `redirectUrl` instead —
+   * see above.
+   *
+   * Mollie will always give you status updates via webhooks, including for the `canceled` status. This parameter is therefore entirely optional, but can be useful when implementing a dedicated
+   * consumer-facing flow to handle payment cancellations.
    *
    * The URL will be `null` for recurring payments.
    *
