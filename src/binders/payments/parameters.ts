@@ -174,7 +174,7 @@ export type PageParameters = PaginationParameters & {
 
 export type IterateParameters = Omit<PageParameters, 'limit'> & ThrottlingParameter;
 
-export type UpdateParameters = Pick<PaymentData, 'redirectUrl' | 'webhookUrl'> &
+export type UpdateParameters = Pick<PaymentData, 'redirectUrl' | 'cancelUrl' | 'webhookUrl'> &
   PickOptional<PaymentData, 'description' | 'metadata'> & {
     /**
      * For digital goods in most jurisdictions, you must apply the VAT rate from your customer's country. Choose the VAT rates you have used for the order to ensure your customer's country matches the
