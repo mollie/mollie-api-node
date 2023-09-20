@@ -4,6 +4,8 @@ import type Chargeback from '../chargebacks/Chargeback';
 import { transform as transformChargeback } from '../chargebacks/Chargeback';
 import type Refund from '../refunds/Refund';
 import { transform as transformRefund } from '../refunds/Refund';
+import type Capture from './captures/Capture';
+import { transform as transformCapture } from './captures/Capture';
 import { type PaymentData } from './data';
 import PaymentHelper from './PaymentHelper';
 
@@ -12,6 +14,7 @@ type Payment = Seal<
     _embedded?: {
       refunds?: Refund[];
       chargebacks?: Chargeback[];
+      captures?: Capture[];
     };
   },
   PaymentHelper
@@ -28,6 +31,9 @@ export function transform(networkClient: TransformingNetworkClient, input: Payme
     }
     if (input._embedded.refunds != undefined) {
       _embedded.refunds = input._embedded.refunds.map(transformRefund.bind(undefined, networkClient));
+    }
+    if (input._embedded.captures != undefined) {
+      _embedded.captures = input._embedded.captures.map(transformCapture.bind(undefined, networkClient));
     }
   }
   return Object.assign(Object.create(new PaymentHelper(networkClient, input._links, _embedded)), input, { _embedded });

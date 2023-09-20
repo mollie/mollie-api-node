@@ -3,6 +3,7 @@ import { type ChargebackData } from '../chargebacks/Chargeback';
 import { type Address, type Amount, type ApiMode, type CardAudience, type CardFailureReason, type CardLabel, type FeeRegion, type HistoricPaymentMethod, type Links, type Locale, type PaymentMethod, type SequenceType, type Url } from '../global';
 import type Model from '../Model';
 import { type RefundData } from '../refunds/data';
+import { type CaptureData } from './captures/data'
 
 export interface PaymentData extends Model<'payment'> {
   /**
@@ -254,6 +255,7 @@ export interface PaymentData extends Model<'payment'> {
   _embedded?: {
     refunds?: Omit<RefundData, '_embedded'>[];
     chargebacks?: Omit<ChargebackData, '_embedded'>[];
+    captures?: Omit<CaptureData, '_embedded'>[];
   };
 }
 
@@ -849,6 +851,7 @@ export type PaymentInclude = 'details.qrCode';
 export enum PaymentEmbed {
   refunds = 'refunds',
   chargebacks = 'chargebacks',
+  captures = 'captures',
 }
 
 export interface GiftCard {

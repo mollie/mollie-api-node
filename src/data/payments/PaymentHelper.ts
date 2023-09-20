@@ -269,7 +269,11 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
    * @since 3.6.0
    */
   public getCaptures(parameters?: ThrottlingParameter): HelpfulIterator<Capture> {
-    return runIf(this.links.captures, ({ href }) => this.networkClient.iterate<CaptureData, Capture>(href, 'captures', undefined, parameters?.valuesPerMinute)) ?? emptyHelpfulIterator;
+    return (
+      runIf(this.embedded?.captures, captures => new HelpfulIterator(makeAsync(captures[Symbol.iterator]()))) ??
+      runIf(this.links.captures, ({ href }) => this.networkClient.iterate<CaptureData, Capture>(href, 'captures', undefined, parameters?.valuesPerMinute)) ??
+      emptyHelpfulIterator
+    );
   }
 
   /**
