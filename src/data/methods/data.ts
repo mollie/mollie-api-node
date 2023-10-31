@@ -39,6 +39,12 @@ export interface MethodData extends Model<'method', PaymentMethodEnum> {
    * @see https://docs.mollie.com/reference/v2/methods-api/get-method?path=_links#response
    */
   _links: Links;
+  /**
+   * The status of the payment method.
+   *
+   * @see https://docs.mollie.com/reference/v2/methods-api/get-method?path=status#response
+   */
+  status: MethodStatus | null;
 }
 
 export interface Image {
@@ -61,6 +67,8 @@ export interface Image {
    */
   svg: string;
 }
+
+export type MethodStatus = 'activated' | 'pending-boarding' | 'pending-review' | 'pending-external' | 'rejected';
 
 export enum MethodImageSize {
   size1x = 'size1x',
