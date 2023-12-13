@@ -1,7 +1,7 @@
 import https from 'https';
 import { type SecureContextOptions } from 'tls';
 
-import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosRequestHeaders, type AxiosResponse } from 'axios';
+import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse, type RawAxiosRequestHeaders } from 'axios';
 
 import { run } from 'ruply';
 import type Page from '../data/page/Page';
@@ -236,7 +236,7 @@ export default class NetworkClient {
 
   async delete<R>(pathname: string, context?: Context & IdempotencyParameter): Promise<R | true> {
     // Take the idempotency key from the context, if any.
-    let headers: AxiosRequestHeaders | undefined = undefined;
+    let headers: RawAxiosRequestHeaders | undefined = undefined;
     if (context?.idempotencyKey != undefined) {
       const { idempotencyKey, ...rest } = context;
       headers = { [idempotencyHeaderName]: idempotencyKey };

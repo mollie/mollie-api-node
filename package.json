@@ -41,7 +41,7 @@
     "lint": "yarn lint:eslint:fix && yarn lint:prettier"
   },
   "dependencies": {
-    "axios": "^0.27.2",
+    "axios": "^1.6.2",
     "ruply": "^1.0.1"
   },
   "devDependencies": {

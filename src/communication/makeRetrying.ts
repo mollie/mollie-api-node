@@ -1,6 +1,6 @@
 import { randomBytes } from 'crypto';
 
-import axios, { type AxiosError, type AxiosInstance, type AxiosRequestConfig, type AxiosResponse, Method } from 'axios';
+import axios, { type InternalAxiosRequestConfig, type AxiosRequestConfig, type AxiosError, type AxiosInstance, type AxiosResponse, type Method } from 'axios';
 
 /**
  * The name of the property in the request configuration which indicates which attempt this is. `0` for the initial
@@ -97,7 +97,7 @@ export default function makeRetrying(axiosInstance: AxiosInstance) {
     }
     // Set the attempt (in the request configuration).
     config[attemptIndex] = (config[attemptIndex] ?? -1) + 1;
-    return config;
+    return config as InternalAxiosRequestConfig;
   });
   // Intercept any erroneous responses, and consider doing another attempt.
   axiosInstance.interceptors.response.use(undefined, error => {
