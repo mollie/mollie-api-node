@@ -89,13 +89,14 @@ describe('custom-idempotency-key', () => {
     );
 
     // Expect the first network request to have been made, and the promise to be pending.
-    await tick();
+    await jest.advanceTimersByTimeAsync(0); // process request
     expect(errorInterceptor).toBeDepleted();
     expect(paymentPromise).toBePending();
 
     // Expect the second network request to have been made after two seconds, proving the Idempotency-Key header was
     // consistent across these two network requests, and the promise to have fulfilled.
-    jest.advanceTimersByTime(2e3);
+    await tick();
+    await jest.advanceTimersByTimeAsync(3e3);
     await tick();
     expect(successInterceptor).toBeDepleted();
     expect(paymentPromise).toBeFulfilledWith(expect.objectContaining({ id: 'tr_WDqYK6vllg' }));
