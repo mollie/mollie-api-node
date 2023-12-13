@@ -22,10 +22,9 @@ describe('methods', () => {
     mock.onGet(`/methods/${methodId}`).reply(200, response._embedded.methods[0], {});
     mock.onGet('/methods/foo').reply(500, error, {});
 
-    it('should return a method instance', done =>
+    it('should return a method instance', () => 
       methods.get(methodId).then(result => {
         expect(result).toMatchSnapshot();
-        done();
       }));
 
     it('should work with a callback', done => {
@@ -36,14 +35,13 @@ describe('methods', () => {
       });
     });
 
-    it('should throw an error for non-existent IDs', done =>
+    it('should throw an error for non-existent IDs', () => 
       methods
         .get('foo')
         .then(result => expect(result).toBeUndefined())
         .catch(err => {
           expect(err).toBeInstanceOf(ApiError);
           expect(err.getMessage()).toEqual(error.detail);
-          done();
         }));
 
     it('should return an error with a callback for non-existent IDs', done => {
