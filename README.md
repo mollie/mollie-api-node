@@ -19,7 +19,7 @@ If you include this library in a website or app, however, your API key will be s
 
 ## Requirements
 
-- Node.js 6.14.× or greater.
+- Node.js 14.× or greater.
 - A free [Mollie account](https://www.mollie.com/dashboard/signup).
 - Your API keys, which you can find on your [dashboard](https://www.mollie.com/dashboard/developers/api-keys).
 
@@ -101,7 +101,9 @@ const payments = mollieClient.payments.page({ limit: 15 });
 
 // payments.nextPageCursor is the cursor: the ID of the first payment on the next page.
 ```
+
 Later:
+
 ```javascript
 // Retrieve the second 15 payments (using the cursor from the previous page).
 const payments = mollieClient.payments.page({ limit: 15, from: 'tr_8WhJKGmgBy' });
@@ -144,7 +146,6 @@ Want to help us make our API client even better? We take [pull requests](https:/
 ## License
 
 [New BSD (Berkeley Software Distribution) License](https://opensource.org/licenses/BSD-3-Clause). Copyright 2013-2021, Mollie B.V.
-
 
 [credit-card]: https://www.mollie.com/payments/credit-card
 [apple-pay]: https://www.mollie.com/payments/apple-pay
