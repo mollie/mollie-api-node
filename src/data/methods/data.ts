@@ -68,7 +68,14 @@ export interface Image {
   svg: string;
 }
 
-export type MethodStatus = 'activated' | 'pending-boarding' | 'pending-review' | 'pending-external' | 'rejected';
+export enum MethodStatus {
+  activated = 'activated',
+  pendingBoarding = 'pending-boarding',
+  pendingReview = 'pending-review',
+  pendingExternal = 'pending-external',
+  rejected = 'rejected',
+}
+
 
 export enum MethodImageSize {
   size1x = 'size1x',
