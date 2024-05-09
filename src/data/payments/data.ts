@@ -1,9 +1,23 @@
 import type Nullable from '../../types/Nullable';
 import { type ChargebackData } from '../chargebacks/Chargeback';
-import { type Address, type Amount, type ApiMode, type CardAudience, type CardFailureReason, type CardLabel, type FeeRegion, type HistoricPaymentMethod, type Links, type Locale, type PaymentMethod, type SequenceType, type Url } from '../global';
+import {
+  type Address,
+  type Amount,
+  type ApiMode,
+  type CardAudience,
+  type CardFailureReason,
+  type CardLabel,
+  type FeeRegion,
+  type HistoricPaymentMethod,
+  type Links,
+  type Locale,
+  type PaymentMethod,
+  type SequenceType,
+  type Url,
+} from '../global';
 import type Model from '../Model';
 import { type RefundData } from '../refunds/data';
-import { type CaptureData } from './captures/data'
+import { type CaptureData } from './captures/data';
 
 export interface PaymentData extends Model<'payment'> {
   /**
@@ -324,6 +338,10 @@ interface PaymentLinks extends Links {
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/order#response
    */
   order?: Url;
+  /**
+   * The Dasboard URL of the payment.
+   */
+  dashboard?: Url;
 }
 
 export interface BancontactDetails {
