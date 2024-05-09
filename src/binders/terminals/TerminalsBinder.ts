@@ -22,7 +22,6 @@ export default class TerminalsBinder extends Binder<TerminalData, Terminal> {
   public get(id: string, callback: Callback<Terminal>): void;
   public get(id: string) {
     if (renege(this, this.get, ...arguments)) return;
-    // Don't check the ID, as the ID can be the bank reference.
     return this.networkClient.get<TerminalData, Terminal>(`${pathSegment}/${id}`);
   }
 
