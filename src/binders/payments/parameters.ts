@@ -32,13 +32,6 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
      */
     restrictPaymentMethodsToCountry?: string;
     /**
-     * The unique identifier used for referring to a terminal. This ID is used for assigning the payment to a specific terminal and it can be retrieved via List terminals. For more information about
-     * point-of-sale payments, please check our guide [point-of-sale payments](https://docs.mollie.com/point-of-sale/overview).
-     *
-     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=terminalId#point-of-sale
-     */
-    terminalId?: string;
-    /**
      * The [Apple Pay Payment Token](https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypayment/1916095-token) object (encoded as JSON) that is part of the result of authorizing a
      * payment request. The token contains the payment information needed to authorize the payment.
      *
@@ -127,6 +120,13 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=customerReference#paysafecard
      */
     customerReference?: string;
+    /**
+     * The unique identifier used for referring to a terminal. This ID is used for assigning the payment to a specific terminal and it can be retrieved via List terminals. For more information about
+     * point-of-sale payments, please check our guide [point-of-sale payments](https://docs.mollie.com/point-of-sale/overview).
+     *
+     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=terminalId#point-of-sale
+     */
+    terminalId?: string;
     /**
      * Beneficiary name of the account holder. Only available if one-off payments are enabled on your account. Supplying this field will pre-fill the beneficiary name in the checkout screen.
      *
