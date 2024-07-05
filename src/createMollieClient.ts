@@ -3,8 +3,8 @@ import { version as libraryVersion } from '../package.json';
 import caCertificates from './cacert.pem';
 import NetworkClient from './communication/NetworkClient';
 import TransformingNetworkClient, { Transformers } from './communication/TransformingNetworkClient';
+import { checkCredentials } from './Options';
 import type Options from './Options';
-import { run } from 'ruply';
 
 // Transformers
 import { transform as transformPayment } from './data/payments/Payment';
@@ -60,25 +60,6 @@ import SubscriptionsBinder from './binders/subscriptions/SubscriptionsBinder';
 import SubscriptionPaymentsBinder from './binders/subscriptions/payments/SubscriptionPaymentsBinder';
 
 /**
- * Returns an error message (string) similar to `"Parameter "×" is null."` if a property with the passed key exists in
- * the passed object, or `null` if said property does not exist.
- */
-const describeFalsyOption = run(
-  new Map([
-    [undefined, 'undefined'],
-    [null, 'null'],
-    ['', 'an empty string'],
-  ]) as Map<any, string>,
-  descriptions =>
-    function describeFalsyOption<O extends Record<string, unknown>>(object: O, key: keyof O & string) {
-      if (key in object == false) {
-        return null;
-      }
-      return `Parameter "${key}" is ${descriptions.get(object[key]) ?? object[key]}.`;
-    },
-);
-
-/**
  * Create Mollie client.
  * @since 2.0.0
  */
@@ -90,9 +71,7 @@ export default function createMollieClient(options: Options) {
     );
   }
 
-  if (!options.apiKey && !options.accessToken) {
-    throw new TypeError(describeFalsyOption(options, 'apiKey') ?? describeFalsyOption(options, 'accessToken') ?? 'Missing parameter "apiKey" or "accessToken".');
-  }
+  checkCredentials(options);
 
   const networkClient = new NetworkClient({ ...options, libraryVersion, nodeVersion: process.version, caCertificates });
 

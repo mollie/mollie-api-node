@@ -31,4 +31,30 @@ type Options = Xor<
   apiEndpoint?: string;
 } & Pick<AxiosRequestConfig, 'adapter' | 'proxy' | 'socketPath' | 'timeout'>;
 
+const falsyDescriptions = new Map<any, string>([
+  [undefined, 'undefined'],
+  [null, 'null'],
+  ['', 'an empty string'],
+]);
+
+/**
+ * Returns an error message (string) similar to `"Parameter "×" is null."` if a property with the passed key exists in
+ * the passed options object, or `null` if said property does not exist.
+ */
+function describeFalsyOption(options: Options, key: keyof Options) {
+  if (key in options == false) {
+    return null;
+  }
+  return `Parameter "${key}" is ${falsyDescriptions.get(options[key]) ?? options[key]}.`;
+};
+
+/**
+ * Throws a `TypeError` if the passed options object does not contain an `apiKey` or an `accessToken`.
+ */
+export function checkCredentials(options: Options) {
+  if (!options.apiKey && !options.accessToken) {
+    throw new TypeError(describeFalsyOption(options, 'apiKey') ?? describeFalsyOption(options, 'accessToken') ?? 'Missing parameter "apiKey" or "accessToken".');
+  }
+}
+
 export default Options;
