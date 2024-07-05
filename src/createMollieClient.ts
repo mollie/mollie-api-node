@@ -3,6 +3,7 @@ import { version as libraryVersion } from '../package.json';
 import caCertificates from './cacert.pem';
 import NetworkClient from './communication/NetworkClient';
 import TransformingNetworkClient, { Transformers } from './communication/TransformingNetworkClient';
+import { checkCredentials } from './Options';
 import type Options from './Options';
 
 // Transformers
@@ -70,9 +71,7 @@ export default function createMollieClient(options: Options) {
     );
   }
 
-  if (!options.apiKey && !options.accessToken) {
-    throw new TypeError('Missing parameter "apiKey" or "accessToken".');
-  }
+  checkCredentials(options);
 
   const networkClient = new NetworkClient({ ...options, libraryVersion, nodeVersion: process.version, caCertificates });
 
