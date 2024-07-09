@@ -13,7 +13,7 @@ const pathSegment = 'subscriptions';
 export default class SubscriptionsBinder extends Binder<SubscriptionData, Subscription> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
-    alias(this, 'page', 'list');
+    alias(this, { page: 'list' });
   }
 
   /**

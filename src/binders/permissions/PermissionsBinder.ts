@@ -11,7 +11,7 @@ const pathSegment = 'permissions';
 export default class PermissionsBinder extends Binder<PermissionData, Permission> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
-    alias(this, 'list', 'page');
+    alias(this, { list: 'page' });
   }
 
   /**

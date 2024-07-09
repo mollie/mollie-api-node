@@ -15,7 +15,7 @@ const pathSegment = 'profiles';
 export default class ProfilesBinder extends Binder<ProfileData, Profile> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
-    alias(this, 'page', 'list');
+    alias(this, { page: 'list' });
   }
 
   /**

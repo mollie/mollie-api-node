@@ -13,7 +13,7 @@ const pathSegment = 'chargebacks';
 export default class ChargebacksBinder extends Binder<ChargebackData, Chargeback> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
-    alias(this, 'page', 'all', 'list');
+    alias(this, { page: ['all', 'list'] });
   }
 
   /**

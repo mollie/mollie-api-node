@@ -16,7 +16,7 @@ export function getPathSegments(orderId: string) {
 export default class OrderShipmentsBinder extends Binder<ShipmentData, Shipment> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
-    alias(this, 'list', 'all', 'page');
+    alias(this, { list: ['all', 'page'] });
   }
 
   /**

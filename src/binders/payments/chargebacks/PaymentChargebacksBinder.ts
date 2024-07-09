@@ -17,7 +17,7 @@ function getPathSegments(paymentId: string) {
 export default class PaymentChargebacksBinder extends Binder<ChargebackData, Chargeback> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
-    alias(this, 'page', 'all', 'list');
+    alias(this, { page: ['all', 'list'] });
   }
 
   /**

@@ -16,7 +16,7 @@ function getPathSegments(orderId: string) {
 export default class OrderLinesBinder extends Binder<OrderData, Order> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
-    alias(this, 'cancel', 'delete');
+    alias(this, { cancel: 'delete' });
   }
 
   /**

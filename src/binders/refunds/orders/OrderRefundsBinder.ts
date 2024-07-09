@@ -17,7 +17,7 @@ export function getPathSegments(orderId: string) {
 export default class OrderRefundsBinder extends Binder<RefundData, Refund> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
-    alias(this, 'page', 'all', 'list');
+    alias(this, { page: ['all', 'list'] });
   }
 
   /**

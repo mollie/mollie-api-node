@@ -17,8 +17,7 @@ function getPathSegments(customerId: string) {
 export default class CustomerMandatesBinder extends Binder<MandateData, Mandate> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
-    alias(this, 'page', 'all', 'list');
-    alias(this, 'revoke', 'cancel', 'delete');
+    alias(this, { page: ['all', 'list'], revoke: ['cancel', 'delete'] });
   }
 
   /**

@@ -13,7 +13,7 @@ const pathSegment = 'refunds';
 export default class RefundsBinder extends Binder<RefundData, Refund> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
-    alias(this, 'page', 'all', 'list');
+    alias(this, { page: ['all', 'list'] });
   }
 
   /**

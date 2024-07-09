@@ -15,8 +15,7 @@ const pathSegment = 'payments';
 export default class PaymentsBinder extends Binder<PaymentData, Payment> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
-    alias(this, 'page', 'all', 'list');
-    alias(this, 'cancel', 'delete');
+    alias(this, { page: ['all', 'list'], cancel: 'delete' });
   }
 
   /**

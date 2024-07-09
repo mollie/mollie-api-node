@@ -167,19 +167,20 @@ export default function createMollieClient(options: Options) {
       settlementRefunds: new SettlementRefundsBinder(transformingNetworkClient),
       settlementChargebacks: new SettlementChargebacksBinder(transformingNetworkClient),
     },
-    client => {
-      alias(client, 'paymentRefunds', 'payments_refunds');
-      alias(client, 'paymentChargebacks', 'payments_chargebacks');
-      alias(client, 'paymentCaptures', 'payments_captures');
-      alias(client, 'customerPayments', 'customers_payments');
-      alias(client, 'customerMandates', 'customers_mandates');
-      alias(client, 'subscriptionPayments', 'subscriptions_payments');
-      alias(client, 'customerSubscriptions', 'customers_subscriptions');
-      alias(client, 'orderRefunds', 'orders_refunds');
-      alias(client, 'orderLines', 'orders_lines');
-      alias(client, 'orderPayments', 'orders_payments');
-      alias(client, 'orderShipments', 'orders_shipments');
-    },
+    client =>
+      alias(client, {
+        paymentRefunds: 'payments_refunds',
+        paymentChargebacks: 'payments_chargebacks',
+        paymentCaptures: 'payments_captures',
+        customerPayments: 'customers_payments',
+        customerMandates: 'customers_mandates',
+        subscriptionPayments: 'subscriptions_payments',
+        customerSubscriptions: 'customers_subscriptions',
+        orderRefunds: 'orders_refunds',
+        orderLines: 'orders_lines',
+        orderPayments: 'orders_payments',
+        orderShipments: 'orders_shipments',
+      }),
   );
 }
 

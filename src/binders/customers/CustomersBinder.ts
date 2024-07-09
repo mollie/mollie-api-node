@@ -15,8 +15,7 @@ const pathSegment = 'customers';
 export default class CustomersBinder extends Binder<CustomerData, Customer> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
-    alias(this, 'page', 'all', 'list');
-    alias(this, 'delete', 'cancel')
+    alias(this, { page: ['all', 'list'], delete: 'cancel' });
   }
 
   /**

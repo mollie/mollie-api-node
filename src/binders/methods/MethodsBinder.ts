@@ -12,7 +12,7 @@ const pathSegment = 'methods';
 export default class MethodsBinder extends Binder<MethodData, Method> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
-    alias(this, 'list', 'all', 'page');
+    alias(this, { list: ['all', 'page'] });
   }
 
   /**

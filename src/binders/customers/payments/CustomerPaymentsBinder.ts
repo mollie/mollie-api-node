@@ -17,7 +17,7 @@ function getPathSegments(customerId: string) {
 export default class CustomerPaymentsBinder extends Binder<PaymentData, Payment> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
-    alias(this, 'page', 'all', 'list');
+    alias(this, { page: ['all', 'list'] });
   }
 
   /**

@@ -37,8 +37,7 @@ export const pathSegment = 'orders';
 export default class OrdersBinder extends Binder<OrderData, Order> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
-    alias(this, 'page', 'all', 'list');
-    alias(this, 'cancel', 'delete');
+    alias(this, { page: ['all', 'list'], cancel: 'delete' });
   }
 
   /**
