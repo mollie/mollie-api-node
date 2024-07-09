@@ -1,10 +1,11 @@
-import wireMockClient from '../../wireMockClient';
 import { Subscription } from '../../..';
+import NetworkMocker, { getApiKeyClientProvider } from '../../NetworkMocker';
 
 async function getSubscription(status) {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onGet('/customers/cst_FhQJRw4s2n/subscriptions/sub_wByQa6efm6').reply(200, {
+  networkMocker.intercept('GET', '/customers/cst_FhQJRw4s2n/subscriptions/sub_wByQa6efm6', 200, {
     resource: 'subscription',
     id: 'sub_wByQa6efm6',
     mode: 'test',
@@ -34,9 +35,9 @@ async function getSubscription(status) {
         type: 'text/html',
       },
     },
-  });
+  }).twice();
 
-  return await bluster(client.customerSubscriptions.get.bind(client.customerSubscriptions))('sub_wByQa6efm6', { customerId: 'cst_FhQJRw4s2n' });
+  return await bluster(mollieClient.customerSubscriptions.get.bind(mollieClient.customerSubscriptions))('sub_wByQa6efm6', { customerId: 'cst_FhQJRw4s2n' });
 }
 
 test('subscriptionStatuses', () => {

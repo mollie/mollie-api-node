@@ -1,10 +1,11 @@
-import wireMockClient from '../../wireMockClient';
 import { Order } from '../../..';
+import NetworkMocker, { getApiKeyClientProvider } from '../../NetworkMocker';
 
 async function getOrder(status, additionalLinks?: object) {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onGet('/orders/ord_pbjz1x').reply(200, {
+  networkMocker.intercept('GET', '/orders/ord_pbjz1x', 200, {
     resource: 'order',
     id: 'ord_pbjz1x',
     profileId: 'pfl_URR55HPMGx',
@@ -130,9 +131,9 @@ async function getOrder(status, additionalLinks?: object) {
       },
       ...additionalLinks,
     },
-  });
+  }).twice();
 
-  return await bluster(client.orders.get.bind(client.orders))('ord_pbjz1x');
+  return await bluster(mollieClient.orders.get.bind(mollieClient.orders))('ord_pbjz1x');
 }
 
 // These helper methods are not yet implemented for orders.

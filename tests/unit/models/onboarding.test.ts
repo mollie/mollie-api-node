@@ -1,10 +1,11 @@
-import wireMockClient from '../../wireMockClient';
 import { Onboarding } from '../../..';
+import NetworkMocker, { getApiKeyClientProvider } from '../../NetworkMocker';
 
 async function getOnboarding(status) {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onGet('/onboarding/me').reply(200, {
+  networkMocker.intercept('GET', '/onboarding/me', 200, {
     resource: 'onboarding',
     name: 'Mollie B.V.',
     signedUpAt: '2018-12-20T10:49:08+00:00',
@@ -29,9 +30,9 @@ async function getOnboarding(status) {
         type: 'text/html',
       },
     },
-  });
+  }).twice();
 
-  return await bluster(client.onboarding.get.bind(client.onboarding))();
+  return await bluster(mollieClient.onboarding.get.bind(mollieClient.onboarding))();
 }
 
 test('onboardingStatuses', () => {

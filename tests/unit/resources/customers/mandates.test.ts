@@ -1,9 +1,10 @@
-import wireMockClient from '../../../wireMockClient';
+import NetworkMocker, { getApiKeyClientProvider } from '../../../NetworkMocker';
 
 test('createCustomerMandate', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onPost('/customers/cst_FhQJRw4s2n/mandates').reply(200, {
+  networkMocker.intercept('POST', '/customers/cst_FhQJRw4s2n/mandates', 200, {
     resource: 'mandate',
     id: 'mdt_AcQl5fdL4h',
     status: 'valid',
@@ -30,9 +31,9 @@ test('createCustomerMandate', async () => {
         type: 'text/html',
       },
     },
-  });
+  }).twice();
 
-  const mandate = await bluster(client.customerMandates.create.bind(client.customerMandates))({
+  const mandate = await bluster(mollieClient.customerMandates.create.bind(mollieClient.customerMandates))({
     customerId: 'cst_FhQJRw4s2n',
     consumerName: 'John Doe',
     method: 'directdebit',
@@ -55,9 +56,10 @@ test('createCustomerMandate', async () => {
 });
 
 test('getCustomerMandate', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onGet('/customers/cst_FhQJRw4s2n/mandates/mdt_AcQl5fdL4h').reply(200, {
+  networkMocker.intercept('GET', '/customers/cst_FhQJRw4s2n/mandates/mdt_AcQl5fdL4h', 200, {
     resource: 'mandate',
     id: 'mdt_AcQl5fdL4h',
     status: 'valid',
@@ -84,9 +86,9 @@ test('getCustomerMandate', async () => {
         type: 'text/html',
       },
     },
-  });
+  }).twice();
 
-  const mandate = await bluster(client.customerMandates.get.bind(client.customerMandates))('mdt_AcQl5fdL4h', { customerId: 'cst_FhQJRw4s2n' });
+  const mandate = await bluster(mollieClient.customerMandates.get.bind(mollieClient.customerMandates))('mdt_AcQl5fdL4h', { customerId: 'cst_FhQJRw4s2n' });
 
   expect(mandate.resource).toBe('mandate');
   expect(mandate.status).toBe('valid');
@@ -104,9 +106,10 @@ test('getCustomerMandate', async () => {
 });
 
 test('getCustomerMandates', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onGet('/customers/cst_FhQJRw4s2n/mandates').reply(200, {
+  networkMocker.intercept('GET', '/customers/cst_FhQJRw4s2n/mandates', 200, {
     _embedded: {
       mandates: [
         {
@@ -148,9 +151,9 @@ test('getCustomerMandates', async () => {
       previous: null,
       next: null,
     },
-  });
+  }).twice();
 
-  const mandates = await bluster(client.customerMandates.page.bind(client.customerMandates))({ customerId: 'cst_FhQJRw4s2n' });
+  const mandates = await bluster(mollieClient.customerMandates.page.bind(mollieClient.customerMandates))({ customerId: 'cst_FhQJRw4s2n' });
 
   mandates.forEach(mandate => {
     expect(mandate.resource).toBe('mandate');

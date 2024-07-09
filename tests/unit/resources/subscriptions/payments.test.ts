@@ -1,9 +1,10 @@
-import wireMockClient from '../../../wireMockClient';
+import NetworkMocker, { getApiKeyClientProvider } from '../../../NetworkMocker';
 
 test('listSubscriptionPayments', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onGet('/customers/cst_8wmqcHMN4U/subscriptions/sub_8JfGzs6v3K/payments').reply(200, {
+  networkMocker.intercept('GET', '/customers/cst_8wmqcHMN4U/subscriptions/sub_8JfGzs6v3K/payments', 200, {
     _embedded: {
       payments: [
         {
@@ -135,9 +136,9 @@ test('listSubscriptionPayments', async () => {
       next: null,
     },
     count: 2,
-  });
+  }).twice();
 
-  const payments = await bluster(client.subscriptionPayments.page.bind(client.subscriptionPayments))({ customerId: 'cst_8wmqcHMN4U', subscriptionId: 'sub_8JfGzs6v3K' });
+  const payments = await bluster(mollieClient.subscriptionPayments.page.bind(mollieClient.subscriptionPayments))({ customerId: 'cst_8wmqcHMN4U', subscriptionId: 'sub_8JfGzs6v3K' });
 
   expect(payments.length).toBe(2);
 

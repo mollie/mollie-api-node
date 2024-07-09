@@ -1,4 +1,4 @@
-import wireMockClient from '../../wireMockClient';
+import NetworkMocker, { getApiKeyClientProvider } from '../../NetworkMocker';
 
 const response = {
   resource: 'organization',
@@ -50,21 +50,23 @@ function testOrganization(organization) {
 }
 
 test('getOrganization', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onGet('/organizations/org_12345678').reply(200, response);
+  networkMocker.intercept('GET', '/organizations/org_12345678', 200, response).twice();
 
-  const organization = await bluster(client.organizations.get.bind(client.organizations))('org_12345678');
+  const organization = await bluster(mollieClient.organizations.get.bind(mollieClient.organizations))('org_12345678');
 
   testOrganization(organization);
 });
 
 test('getCurrentOrganization', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onGet('/organizations/me').reply(200, response);
+  networkMocker.intercept('GET', '/organizations/me', 200, response).twice();
 
-  const organization = await bluster(client.organizations.getCurrent.bind(client.organizations))();
+  const organization = await bluster(mollieClient.organizations.getCurrent.bind(mollieClient.organizations))();
 
   testOrganization(organization);
 });

@@ -1,9 +1,10 @@
-import wireMockClient from '../../../wireMockClient';
+import NetworkMocker, { getApiKeyClientProvider } from '../../../NetworkMocker';
 
 test('getRefund', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onGet('/payments/tr_44aKxzEbr8/refunds/re_PsAvxvLsnm').reply(200, {
+  networkMocker.intercept('GET', '/payments/tr_44aKxzEbr8/refunds/re_PsAvxvLsnm', 200, {
     resource: 'refund',
     id: 're_PsAvxvLsnm',
     amount: {
@@ -32,9 +33,9 @@ test('getRefund', async () => {
         type: 'text/html',
       },
     },
-  });
+  }).twice();
 
-  const refund = await bluster(client.paymentRefunds.get.bind(client.paymentRefunds))('re_PsAvxvLsnm', { paymentId: 'tr_44aKxzEbr8' });
+  const refund = await bluster(mollieClient.paymentRefunds.get.bind(mollieClient.paymentRefunds))('re_PsAvxvLsnm', { paymentId: 'tr_44aKxzEbr8' });
 
   expect(refund.id).toBe('re_PsAvxvLsnm');
 
@@ -70,9 +71,10 @@ test('getRefund', async () => {
 });
 
 test('createRefund', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onPost('/payments/tr_44aKxzEbr8/refunds').reply(201, {
+  networkMocker.intercept('POST', '/payments/tr_44aKxzEbr8/refunds', 201, {
     resource: 'refund',
     id: 're_PsAvxvLsnm',
     amount: {
@@ -101,9 +103,9 @@ test('createRefund', async () => {
         type: 'text/html',
       },
     },
-  });
+  }).twice();
 
-  const refund = await bluster(client.paymentRefunds.create.bind(client.paymentRefunds))({ paymentId: 'tr_44aKxzEbr8', amount: { currency: 'EUR', value: '20.00' } });
+  const refund = await bluster(mollieClient.paymentRefunds.create.bind(mollieClient.paymentRefunds))({ paymentId: 'tr_44aKxzEbr8', amount: { currency: 'EUR', value: '20.00' } });
 
   expect(refund.id).toBe('re_PsAvxvLsnm');
 

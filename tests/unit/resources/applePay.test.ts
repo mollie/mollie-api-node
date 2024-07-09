@@ -1,9 +1,10 @@
-import wireMockClient from '../../wireMockClient';
+import NetworkMocker, { getApiKeyClientProvider } from '../../NetworkMocker';
 
 test('requestApplePayPaymentSession', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onPost('/wallets/applepay/sessions').reply(201, {
+  networkMocker.intercept('POST', '/wallets/applepay/sessions', 201, {
     epochTimestamp: 1555507053169,
     expiresAt: 1555510653169,
     merchantSessionIdentifier: 'SSH2EAF8AFAEAA94DEEA898162A5DAFD36E_916523AAED1343F5BC5815E12BEE9250AFFDC1A17C46B0DE5A943F0F94927C24',
@@ -12,9 +13,9 @@ test('requestApplePayPaymentSession', async () => {
     domainName: 'pay.example.org',
     displayName: "Chuck Norris's Store",
     signature: '308006092a864886f7...8cc030ad3000000000000',
-  });
+  }).twice();
 
-  const applePaySession = await bluster(client.applePay.requestPaymentSession.bind(client.applePay))({
+  const applePaySession = await bluster(mollieClient.applePay.requestPaymentSession.bind(mollieClient.applePay))({
     domain: 'pay.mywebshop.com',
     validationUrl: 'https://apple-pay-gateway-cert.apple.com/paymentservices/paymentSession',
   });

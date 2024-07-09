@@ -1,4 +1,4 @@
-import wireMockClient from '../../wireMockClient';
+import NetworkMocker, { getApiKeyClientProvider } from '../../NetworkMocker';
 
 function testPermission(permission, id) {
   expect(permission.resource).toBe('permission');
@@ -12,7 +12,8 @@ function testPermission(permission, id) {
 }
 
 test('getPermissions', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
   await Promise.all(
     [
@@ -37,7 +38,7 @@ test('getPermissions', async () => {
       'organizations.read',
       'organizations.write',
     ].map(async id => {
-      adapter.onGet(`/permissions/${id}`).reply(200, {
+      networkMocker.intercept('GET', `/permissions/${id}`, 200, {
         resource: 'permission',
         id,
         description: 'Some dummy permission description',
@@ -52,9 +53,9 @@ test('getPermissions', async () => {
             type: 'text/html',
           },
         },
-      });
+      }).twice();
 
-      const permission = await bluster(client.permissions.get.bind(client.permissions))(id);
+      const permission = await bluster(mollieClient.permissions.get.bind(mollieClient.permissions))(id);
 
       testPermission(permission, id);
     }),
@@ -62,9 +63,10 @@ test('getPermissions', async () => {
 });
 
 test('listPermissions', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onGet('/permissions').reply(200, {
+  networkMocker.intercept('GET', '/permissions', 200, {
     _embedded: {
       permissions: [
         {
@@ -112,9 +114,9 @@ test('listPermissions', async () => {
         type: 'application/hal+json',
       },
     },
-  });
+  }).twice();
 
-  const permissions = await bluster(client.permissions.list.bind(client.permissions))();
+  const permissions = await bluster(mollieClient.permissions.list.bind(mollieClient.permissions))();
 
   expect(permissions.length).toBe(2);
 

@@ -1,9 +1,10 @@
-import wireMockClient from '../../wireMockClient';
+import NetworkMocker, { getApiKeyClientProvider } from '../../NetworkMocker';
 
 test('listPageOfRootSubscriptions', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onGet('/subscriptions').reply(200, {
+  networkMocker.intercept('GET', '/subscriptions', 200, {
     _embedded: {
       subscriptions: [
         {
@@ -48,9 +49,9 @@ test('listPageOfRootSubscriptions', async () => {
       previous: null,
       next: null,
     },
-  });
+  }).twice();
 
-  const subscriptions = await bluster(client.subscription.page.bind(client.subscription))();
+  const subscriptions = await bluster(mollieClient.subscription.page.bind(mollieClient.subscription))();
 
   expect(subscriptions.length).toBe(1);
 

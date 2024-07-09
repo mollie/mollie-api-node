@@ -1,4 +1,4 @@
-import wireMockClient from '../../../wireMockClient';
+import NetworkMocker, { getApiKeyClientProvider } from '../../../NetworkMocker';
 
 function composeShipmentResponse(shipmentId, orderId, orderlineStatus = 'shipping') {
   return {
@@ -136,11 +136,12 @@ function testShipment(shipment, shipmentId, orderId) {
 }
 
 test('createShipment', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onPost('/orders/ord_pbjz8x/shipments').reply(201, composeShipmentResponse('shp_3wmsgCJN4U', 'ord_pbjz8x'));
+  networkMocker.intercept('POST', '/orders/ord_pbjz8x/shipments', 201, composeShipmentResponse('shp_3wmsgCJN4U', 'ord_pbjz8x')).twice();
 
-  const shipment = await bluster(client.orderShipments.create.bind(client.orderShipments))({
+  const shipment = await bluster(mollieClient.orderShipments.create.bind(mollieClient.orderShipments))({
     orderId: 'ord_pbjz8x',
     lines: [
       {
@@ -155,11 +156,12 @@ test('createShipment', async () => {
 });
 
 test('getShipment', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onGet('/orders/ord_pbjz8x/shipments/shp_3wmsgCJN4U').reply(200, composeShipmentResponse('shp_3wmsgCJN4U', 'ord_pbjz8x'));
+  networkMocker.intercept('GET', '/orders/ord_pbjz8x/shipments/shp_3wmsgCJN4U', 200, composeShipmentResponse('shp_3wmsgCJN4U', 'ord_pbjz8x')).twice();
 
-  const shipment = await bluster(client.orderShipments.get.bind(client.orderShipments))('shp_3wmsgCJN4U', { orderId: 'ord_pbjz8x' });
+  const shipment = await bluster(mollieClient.orderShipments.get.bind(mollieClient.orderShipments))('shp_3wmsgCJN4U', { orderId: 'ord_pbjz8x' });
 
   testShipment(shipment, 'shp_3wmsgCJN4U', 'ord_pbjz8x');
 });

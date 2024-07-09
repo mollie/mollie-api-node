@@ -1,10 +1,11 @@
-import wireMockClient from '../../wireMockClient';
 import { Profile } from '../../..';
+import NetworkMocker, { getApiKeyClientProvider } from '../../NetworkMocker';
 
 async function getProfile(status) {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onGet('/profiles/pfl_ahe8z8OPut').reply(200, {
+  networkMocker.intercept('GET', '/profiles/pfl_ahe8z8OPut', 200, {
     resource: 'profile',
     id: 'pfl_ahe8z8OPut',
     mode: 'live',
@@ -44,9 +45,9 @@ async function getProfile(status) {
         type: 'text/html',
       },
     },
-  });
+  }).twice();
 
-  return await bluster(client.profiles.get.bind(client.profiles))('pfl_ahe8z8OPut');
+  return await bluster(mollieClient.profiles.get.bind(mollieClient.profiles))('pfl_ahe8z8OPut');
 }
 
 test('profileStatuses', () => {

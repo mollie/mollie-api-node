@@ -1,4 +1,4 @@
-import wireMockClient from '../../../wireMockClient';
+import NetworkMocker, { getApiKeyClientProvider } from '../../../NetworkMocker';
 
 function composeCaptureResponse(paymentId = 'tr_WDqYK6vllg', captureId = 'cpt_4qqhO89gsT') {
   return {
@@ -82,19 +82,21 @@ function testCapture(capture) {
 }
 
 test('getCapture', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onGet('/payments/tr_WDqYK6vllg/captures/cpt_4qqhO89gsT').reply(200, composeCaptureResponse('tr_WDqYK6vllg', 'cpt_4qqhO89gsT'));
+  networkMocker.intercept('GET', '/payments/tr_WDqYK6vllg/captures/cpt_4qqhO89gsT', 200, composeCaptureResponse('tr_WDqYK6vllg', 'cpt_4qqhO89gsT')).twice();
 
-  const capture = await bluster(client.paymentCaptures.get.bind(client.paymentCaptures))('cpt_4qqhO89gsT', { paymentId: 'tr_WDqYK6vllg' });
+  const capture = await bluster(mollieClient.paymentCaptures.get.bind(mollieClient.paymentCaptures))('cpt_4qqhO89gsT', { paymentId: 'tr_WDqYK6vllg' });
 
   testCapture(capture);
 });
 
 test('listCaptures', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onGet('/payments/tr_WDqYK6vllg/captures').reply(200, {
+  networkMocker.intercept('GET', '/payments/tr_WDqYK6vllg/captures', 200, {
     _embedded: {
       captures: [composeCaptureResponse('tr_WDqYK6vllg', 'cpt_4qqhO89gsT')],
     },
@@ -111,9 +113,9 @@ test('listCaptures', async () => {
       previous: null,
       next: null,
     },
-  });
+  }).twice();
 
-  const captures = await bluster(client.paymentCaptures.page.bind(client.paymentCaptures))({ paymentId: 'tr_WDqYK6vllg' });
+  const captures = await bluster(mollieClient.paymentCaptures.page.bind(mollieClient.paymentCaptures))({ paymentId: 'tr_WDqYK6vllg' });
 
   expect(captures.length).toBe(1);
 

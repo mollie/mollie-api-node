@@ -1,10 +1,11 @@
-import wireMockClient from '../../wireMockClient';
 import { List, Refund } from '../../..';
+import NetworkMocker, { getApiKeyClientProvider } from '../../NetworkMocker';
 
 test('listRefunds', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onGet('/refunds').reply(200, {
+  networkMocker.intercept('GET', '/refunds', 200, {
     _embedded: {
       refunds: [
         {
@@ -48,9 +49,9 @@ test('listRefunds', async () => {
       next: null,
     },
     count: 1,
-  });
+  }).twice();
 
-  const refunds: List<Refund> = await bluster(client.refunds.page.bind(client.refunds))();
+  const refunds: List<Refund> = await bluster(mollieClient.refunds.page.bind(mollieClient.refunds))();
 
   expect(refunds.length).toBe(1);
 

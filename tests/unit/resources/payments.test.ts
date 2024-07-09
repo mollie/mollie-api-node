@@ -1,9 +1,10 @@
-import wireMockClient from '../../wireMockClient';
+import NetworkMocker, { getApiKeyClientProvider } from '../../NetworkMocker';
 
 test('createPayment', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onPost('/payments').reply(201, {
+  networkMocker.intercept('POST', '/payments', 201, {
     resource: 'payment',
     id: 'tr_44aKxzEbr8',
     mode: 'test',
@@ -40,9 +41,9 @@ test('createPayment', async () => {
         type: 'text/html',
       },
     },
-  });
+  }).twice();
 
-  const payment = await bluster(client.payments.create.bind(client.payments))({
+  const payment = await bluster(mollieClient.payments.create.bind(mollieClient.payments))({
     amount: {
       currency: 'EUR',
       value: '20.00',
@@ -83,9 +84,10 @@ test('createPayment', async () => {
 });
 
 test('updatePayment', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onPatch('payments/tr_7UhSN1zuXS').reply(200, {
+  networkMocker.intercept('PATCH', '/payments/tr_7UhSN1zuXS', 200, {
     resource: 'payment',
     id: 'tr_7UhSN1zuXS',
     mode: 'test',
@@ -121,9 +123,9 @@ test('updatePayment', async () => {
         type: 'text/html',
       },
     },
-  });
+  }).twice();
 
-  const payment = await bluster(client.payments.update).bind(client.payments)('tr_7UhSN1zuXS', {
+  const payment = await bluster(mollieClient.payments.update).bind(mollieClient.payments)('tr_7UhSN1zuXS', {
     description: 'Order #98765',
     redirectUrl: 'https://example.org/webshop/order/98765/',
     webhookUrl: 'https://example.org/webshop/payments/webhook/',
@@ -157,9 +159,10 @@ test('updatePayment', async () => {
 });
 
 test('getPayment', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onGet('/payments/tr_44aKxzEbr8').reply(200, {
+  networkMocker.intercept('GET', '/payments/tr_44aKxzEbr8', 200, {
     resource: 'payment',
     id: 'tr_44aKxzEbr8',
     mode: 'test',
@@ -209,9 +212,9 @@ test('getPayment', async () => {
         type: 'text/html',
       },
     },
-  });
+  }).twice();
 
-  const payment = await bluster(client.payments.get.bind(client.payments))('tr_44aKxzEbr8');
+  const payment = await bluster(mollieClient.payments.get.bind(mollieClient.payments))('tr_44aKxzEbr8');
 
   expect(payment.id).toBe('tr_44aKxzEbr8');
   expect(payment.mode).toBe('test');
@@ -239,9 +242,10 @@ test('getPayment', async () => {
 });
 
 test('listPayments', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onGet('/payments?limit=3').reply(200, {
+  networkMocker.intercept('GET', '/payments?limit=3', 200, {
     _embedded: {
       payments: [
         {
@@ -355,9 +359,9 @@ test('listPayments', async () => {
       },
     },
     count: 3,
-  });
+  }).twice();
 
-  const payments = await bluster(client.payments.page.bind(client.payments))({ limit: 3 });
+  const payments = await bluster(mollieClient.payments.page.bind(mollieClient.payments))({ limit: 3 });
 
   expect(payments.length).toBe(3);
 

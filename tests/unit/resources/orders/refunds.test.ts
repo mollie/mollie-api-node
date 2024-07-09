@@ -1,4 +1,4 @@
-import wireMockClient from '../../../wireMockClient';
+import NetworkMocker, { getApiKeyClientProvider } from '../../../NetworkMocker';
 
 function composeRefundResponse(refundId, orderId) {
   return {
@@ -88,29 +88,32 @@ function testRefund(refund, refundId, refundStatus = 'pending') {
 }
 
 test('createPartialOrderRefund', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onPost('/orders/ord_stTC2WHAuS/refunds').reply(201, composeRefundResponse('re_4qqhO89gsT', 'ord_stTC2WHAuS'));
+  networkMocker.intercept('POST', '/orders/ord_stTC2WHAuS/refunds', 201, composeRefundResponse('re_4qqhO89gsT', 'ord_stTC2WHAuS')).twice();
 
-  const refund = await bluster(client.orderRefunds.create.bind(client.orderRefunds))({ orderId: 'ord_stTC2WHAuS', lines: [{ id: 'odl_dgtxyl', quantity: 1 }] });
+  const refund = await bluster(mollieClient.orderRefunds.create.bind(mollieClient.orderRefunds))({ orderId: 'ord_stTC2WHAuS', lines: [{ id: 'odl_dgtxyl', quantity: 1 }] });
 
   testRefund(refund, 're_4qqhO89gsT');
 });
 
 test('createCompleteOrderRefund', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onPost('/orders/ord_stTC2WHAuS/refunds').reply(201, composeRefundResponse('re_4qqhO89gsT', 'ord_stTC2WHAuS'));
+  networkMocker.intercept('POST', '/orders/ord_stTC2WHAuS/refunds', 201, composeRefundResponse('re_4qqhO89gsT', 'ord_stTC2WHAuS')).twice();
 
-  const refund = await bluster(client.orderRefunds.create.bind(client.orderRefunds))({ orderId: 'ord_stTC2WHAuS', lines: [] });
+  const refund = await bluster(mollieClient.orderRefunds.create.bind(mollieClient.orderRefunds))({ orderId: 'ord_stTC2WHAuS', lines: [] });
 
   testRefund(refund, 're_4qqhO89gsT');
 });
 
 test('listOrderRefunds', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onGet('/orders/ord_stTC2WHAuS/refunds').reply(200, {
+  networkMocker.intercept('GET', '/orders/ord_stTC2WHAuS/refunds', 200, {
     count: 1,
     _embedded: {
       refunds: [
@@ -194,9 +197,9 @@ test('listOrderRefunds', async () => {
         type: 'text/html',
       },
     },
-  });
+  }).twice();
 
-  const refunds = await bluster(client.orderRefunds.page.bind(client.orderRefunds))({ orderId: 'ord_stTC2WHAuS' });
+  const refunds = await bluster(mollieClient.orderRefunds.page.bind(mollieClient.orderRefunds))({ orderId: 'ord_stTC2WHAuS' });
 
   expect(refunds.length).toBe(1);
 

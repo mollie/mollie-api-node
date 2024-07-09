@@ -1,9 +1,10 @@
-import wireMockClient from '../../../wireMockClient';
+import NetworkMocker, { getApiKeyClientProvider } from '../../../NetworkMocker';
 
 test('createCustomerSubscription', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onPost('/customers/cst_FhQJRw4s2n/subscriptions').reply(200, {
+  networkMocker.intercept('POST', '/customers/cst_FhQJRw4s2n/subscriptions', 200, {
     resource: 'subscription',
     id: 'sub_wByQa6efm6',
     mode: 'test',
@@ -33,9 +34,9 @@ test('createCustomerSubscription', async () => {
         type: 'text/html',
       },
     },
-  });
+  }).twice();
 
-  const subscription = await bluster(client.customerSubscriptions.create.bind(client.customerSubscriptions))({
+  const subscription = await bluster(mollieClient.customerSubscriptions.create.bind(mollieClient.customerSubscriptions))({
     customerId: 'cst_FhQJRw4s2n',
     amount: {
       value: '10.00',
@@ -65,9 +66,10 @@ test('createCustomerSubscription', async () => {
 });
 
 test('getCustomerSubscription', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onGet('/customers/cst_FhQJRw4s2n/subscriptions/sub_wByQa6efm6').reply(200, {
+  networkMocker.intercept('GET', '/customers/cst_FhQJRw4s2n/subscriptions/sub_wByQa6efm6', 200, {
     resource: 'subscription',
     id: 'sub_wByQa6efm6',
     mode: 'test',
@@ -97,9 +99,9 @@ test('getCustomerSubscription', async () => {
         type: 'text/html',
       },
     },
-  });
+  }).twice();
 
-  const subscription = await bluster(client.customerSubscriptions.get.bind(client.customerSubscriptions))('sub_wByQa6efm6', { customerId: 'cst_FhQJRw4s2n' });
+  const subscription = await bluster(mollieClient.customerSubscriptions.get.bind(mollieClient.customerSubscriptions))('sub_wByQa6efm6', { customerId: 'cst_FhQJRw4s2n' });
 
   expect(subscription.resource).toBe('subscription');
   expect(subscription.id).toBe('sub_wByQa6efm6');
@@ -121,9 +123,10 @@ test('getCustomerSubscription', async () => {
 });
 
 test('getCustomerSubscriptions', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onGet('/customers/cst_FhQJRw4s2n/subscriptions').reply(200, {
+  networkMocker.intercept('GET', '/customers/cst_FhQJRw4s2n/subscriptions', 200, {
     _embedded: {
       subscriptions: [
         {
@@ -168,9 +171,9 @@ test('getCustomerSubscriptions', async () => {
       previous: null,
       next: null,
     },
-  });
+  }).twice();
 
-  const subscriptions = await bluster(client.customerSubscriptions.page.bind(client.customerSubscriptions))({ customerId: 'cst_FhQJRw4s2n' });
+  const subscriptions = await bluster(mollieClient.customerSubscriptions.page.bind(mollieClient.customerSubscriptions))({ customerId: 'cst_FhQJRw4s2n' });
 
   expect(subscriptions.length).toBe(1);
 
@@ -185,9 +188,10 @@ test('getCustomerSubscriptions', async () => {
 });
 
 test('cancelCustomerSubscription', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onDelete('/customers/cst_VhjQebNW5j/subscriptions/sub_DRjwaT5qHx').reply(200, {
+  networkMocker.intercept('DELETE', '/customers/cst_VhjQebNW5j/subscriptions/sub_DRjwaT5qHx', 200, {
     resource: 'subscription',
     id: 'sub_DRjwaT5qHx',
     mode: 'test',
@@ -218,9 +222,9 @@ test('cancelCustomerSubscription', async () => {
         type: 'text/html',
       },
     },
-  });
+  }).twice();
 
-  const subscription = await bluster(client.customerSubscriptions.cancel.bind(client.customerSubscriptions))('sub_DRjwaT5qHx', { customerId: 'cst_VhjQebNW5j' });
+  const subscription = await bluster(mollieClient.customerSubscriptions.cancel.bind(mollieClient.customerSubscriptions))('sub_DRjwaT5qHx', { customerId: 'cst_VhjQebNW5j' });
 
   expect(subscription.resource).toBe('subscription');
   expect(subscription.id).toBe('sub_DRjwaT5qHx');
@@ -243,13 +247,14 @@ test('cancelCustomerSubscription', async () => {
 });
 
 test('updateCustomerSubscription', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
   const expectedAmountValue = '12.00';
   const expectedAmountCurrency = 'EUR';
   const expectedStartDate = '2018-12-12';
 
-  adapter.onPatch('/customers/cst_VhjQebNW5j/subscriptions/sub_DRjwaT5qHx').reply(200, {
+  networkMocker.intercept('PATCH', '/customers/cst_VhjQebNW5j/subscriptions/sub_DRjwaT5qHx', 200, {
     resource: 'subscription',
     id: 'sub_DRjwaT5qHx',
     customerId: 'cst_VhjQebNW5j',
@@ -280,9 +285,9 @@ test('updateCustomerSubscription', async () => {
         type: 'text/html',
       },
     },
-  });
+  }).twice();
 
-  const subscription = await bluster(client.customerSubscriptions.update.bind(client.customerSubscriptions))('sub_DRjwaT5qHx', {
+  const subscription = await bluster(mollieClient.customerSubscriptions.update.bind(mollieClient.customerSubscriptions))('sub_DRjwaT5qHx', {
     customerId: 'cst_VhjQebNW5j',
     amount: { value: expectedAmountValue, currency: expectedAmountCurrency },
     startDate: expectedStartDate,
