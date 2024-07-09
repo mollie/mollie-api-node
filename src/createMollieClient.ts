@@ -1,10 +1,12 @@
 // Lib
+import { apply } from 'ruply';
 import { version as libraryVersion } from '../package.json';
 import caCertificates from './cacert.pem';
 import NetworkClient from './communication/NetworkClient';
 import TransformingNetworkClient, { Transformers } from './communication/TransformingNetworkClient';
 import { checkCredentials } from './Options';
 import type Options from './Options';
+import alias from './plumbing/alias';
 
 // Transformers
 import { transform as transformPayment } from './data/payments/Payment';
@@ -97,73 +99,88 @@ export default function createMollieClient(options: Options) {
       .add('settlement', transformSettlement),
   );
 
-  return {
-    // Payments.
-    payments: new PaymentsBinder(transformingNetworkClient),
+  return apply(
+    {
+      // Payments.
+      payments: new PaymentsBinder(transformingNetworkClient),
 
-    // Methods.
-    methods: new MethodsBinder(transformingNetworkClient),
+      // Methods.
+      methods: new MethodsBinder(transformingNetworkClient),
 
-    // Refunds.
-    refunds: new RefundsBinder(transformingNetworkClient),
-    paymentRefunds: new PaymentRefundsBinder(transformingNetworkClient),
+      // Refunds.
+      refunds: new RefundsBinder(transformingNetworkClient),
+      paymentRefunds: new PaymentRefundsBinder(transformingNetworkClient),
 
-    // Chargebacks.
-    chargebacks: new ChargebacksBinder(transformingNetworkClient),
-    paymentChargebacks: new PaymentChargebacksBinder(transformingNetworkClient),
+      // Chargebacks.
+      chargebacks: new ChargebacksBinder(transformingNetworkClient),
+      paymentChargebacks: new PaymentChargebacksBinder(transformingNetworkClient),
 
-    // Captures.
-    paymentCaptures: new PaymentCapturesBinder(transformingNetworkClient),
+      // Captures.
+      paymentCaptures: new PaymentCapturesBinder(transformingNetworkClient),
 
-    // Customers.
-    customers: new CustomersBinder(transformingNetworkClient),
-    customerPayments: new CustomerPaymentsBinder(transformingNetworkClient),
+      // Customers.
+      customers: new CustomersBinder(transformingNetworkClient),
+      customerPayments: new CustomerPaymentsBinder(transformingNetworkClient),
 
-    // Mandates.
-    customerMandates: new CustomerMandatesBinder(transformingNetworkClient),
+      // Mandates.
+      customerMandates: new CustomerMandatesBinder(transformingNetworkClient),
 
-    // Subscriptions.
-    subscription: new SubscriptionsBinder(transformingNetworkClient),
-    subscriptionPayments: new SubscriptionPaymentsBinder(transformingNetworkClient),
-    customerSubscriptions: new CustomerSubscriptionsBinder(transformingNetworkClient),
+      // Subscriptions.
+      subscription: new SubscriptionsBinder(transformingNetworkClient),
+      subscriptionPayments: new SubscriptionPaymentsBinder(transformingNetworkClient),
+      customerSubscriptions: new CustomerSubscriptionsBinder(transformingNetworkClient),
 
-    // Orders.
-    orders: new OrdersBinder(transformingNetworkClient),
-    orderRefunds: new OrderRefundsBinder(transformingNetworkClient),
-    orderLines: new OrderLinesBinder(transformingNetworkClient),
-    orderPayments: new OrderPaymentsBinder(transformingNetworkClient),
+      // Orders.
+      orders: new OrdersBinder(transformingNetworkClient),
+      orderRefunds: new OrderRefundsBinder(transformingNetworkClient),
+      orderLines: new OrderLinesBinder(transformingNetworkClient),
+      orderPayments: new OrderPaymentsBinder(transformingNetworkClient),
 
-    // Shipments.
-    orderShipments: new OrderShipmentsBinder(transformingNetworkClient),
+      // Shipments.
+      orderShipments: new OrderShipmentsBinder(transformingNetworkClient),
 
-    // Permissions.
-    permissions: new PermissionsBinder(transformingNetworkClient),
+      // Permissions.
+      permissions: new PermissionsBinder(transformingNetworkClient),
 
-    // Organizations.
-    organizations: new OrganizationsBinder(transformingNetworkClient),
+      // Organizations.
+      organizations: new OrganizationsBinder(transformingNetworkClient),
 
-    // Profiles.
-    profiles: new ProfilesBinder(transformingNetworkClient),
-    profileMethods: new ProfileMethodsBinder(transformingNetworkClient),
-    profileGiftcardIssuers: new ProfileGiftcardIssuersBinder(transformingNetworkClient),
-    profileVoucherIssuers: new ProfileVoucherIssuersBinder(transformingNetworkClient),
+      // Profiles.
+      profiles: new ProfilesBinder(transformingNetworkClient),
+      profileMethods: new ProfileMethodsBinder(transformingNetworkClient),
+      profileGiftcardIssuers: new ProfileGiftcardIssuersBinder(transformingNetworkClient),
+      profileVoucherIssuers: new ProfileVoucherIssuersBinder(transformingNetworkClient),
 
-    // Onboarding.
-    onboarding: new OnboardingBinder(transformingNetworkClient),
+      // Onboarding.
+      onboarding: new OnboardingBinder(transformingNetworkClient),
 
-    // Apple Pay.
-    applePay: new ApplePayBinder(networkClient),
+      // Apple Pay.
+      applePay: new ApplePayBinder(networkClient),
 
-    // Payment links.
-    paymentLinks: new PaymentLinksBinder(transformingNetworkClient),
+      // Payment links.
+      paymentLinks: new PaymentLinksBinder(transformingNetworkClient),
 
-    // Settlements
-    settlements: new SettlementsBinder(transformingNetworkClient),
-    settlementPayments: new SettlementPaymentsBinder(transformingNetworkClient),
-    settlementCaptures: new SettlementCapturesBinder(transformingNetworkClient),
-    settlementRefunds: new SettlementRefundsBinder(transformingNetworkClient),
-    settlementChargebacks: new SettlementChargebacksBinder(transformingNetworkClient),
-  };
+      // Settlements
+      settlements: new SettlementsBinder(transformingNetworkClient),
+      settlementPayments: new SettlementPaymentsBinder(transformingNetworkClient),
+      settlementCaptures: new SettlementCapturesBinder(transformingNetworkClient),
+      settlementRefunds: new SettlementRefundsBinder(transformingNetworkClient),
+      settlementChargebacks: new SettlementChargebacksBinder(transformingNetworkClient),
+    },
+    client => {
+      alias(client, 'paymentRefunds', 'payments_refunds');
+      alias(client, 'paymentChargebacks', 'payments_chargebacks');
+      alias(client, 'paymentCaptures', 'payments_captures');
+      alias(client, 'customerPayments', 'customers_payments');
+      alias(client, 'customerMandates', 'customers_mandates');
+      alias(client, 'subscriptionPayments', 'subscriptions_payments');
+      alias(client, 'customerSubscriptions', 'customers_subscriptions');
+      alias(client, 'orderRefunds', 'orders_refunds');
+      alias(client, 'orderLines', 'orders_lines');
+      alias(client, 'orderPayments', 'orders_payments');
+      alias(client, 'orderShipments', 'orders_shipments');
+    },
+  );
 }
 
 export { createMollieClient };
