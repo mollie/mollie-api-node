@@ -3,6 +3,7 @@ import type Page from '../../../data/page/Page';
 import { type SubscriptionData } from '../../../data/subscriptions/data';
 import type Subscription from '../../../data/subscriptions/Subscription';
 import ApiError from '../../../errors/ApiError';
+import alias from '../../../plumbing/alias';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 import type Callback from '../../../types/Callback';
@@ -16,6 +17,8 @@ function getPathSegments(customerId: string) {
 export default class CustomerSubscriptionsBinder extends Binder<SubscriptionData, Subscription> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    alias(this, 'page', 'all', 'list');
+    alias(this, 'cancel', 'delete');
   }
 
   /**

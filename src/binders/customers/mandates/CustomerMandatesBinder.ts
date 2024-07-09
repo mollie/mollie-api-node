@@ -3,6 +3,7 @@ import { type MandateData } from '../../../data/customers/mandates/data';
 import type Mandate from '../../../data/customers/mandates/Mandate';
 import type Page from '../../../data/page/Page';
 import ApiError from '../../../errors/ApiError';
+import alias from '../../../plumbing/alias';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 import type Callback from '../../../types/Callback';
@@ -16,6 +17,8 @@ function getPathSegments(customerId: string) {
 export default class CustomerMandatesBinder extends Binder<MandateData, Mandate> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    alias(this, 'page', 'all', 'list');
+    alias(this, 'revoke', 'cancel', 'delete');
   }
 
   /**

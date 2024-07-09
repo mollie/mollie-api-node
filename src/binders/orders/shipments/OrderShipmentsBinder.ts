@@ -2,6 +2,7 @@ import type TransformingNetworkClient from '../../../communication/TransformingN
 import type Shipment from '../../../data/orders/shipments/Shipment';
 import { type ShipmentData } from '../../../data/orders/shipments/Shipment';
 import ApiError from '../../../errors/ApiError';
+import alias from '../../../plumbing/alias';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 import type Callback from '../../../types/Callback';
@@ -15,6 +16,7 @@ export function getPathSegments(orderId: string) {
 export default class OrderShipmentsBinder extends Binder<ShipmentData, Shipment> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    alias(this, 'list', 'all', 'page');
   }
 
   /**

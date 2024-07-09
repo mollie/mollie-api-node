@@ -3,6 +3,7 @@ import type Page from '../../../data/page/Page';
 import type Capture from '../../../data/payments/captures/Capture';
 import { type CaptureData } from '../../../data/payments/captures/data';
 import ApiError from '../../../errors/ApiError';
+import alias from '../../../plumbing/alias';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 import type Callback from '../../../types/Callback';
@@ -16,6 +17,7 @@ function getPathSegments(paymentId: string) {
 export default class PaymentCapturesBinder extends Binder<CaptureData, Capture> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    alias(this, 'page', 'all', 'list');
   }
 
   /**

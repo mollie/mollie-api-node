@@ -3,6 +3,7 @@ import type Page from '../../../data/page/Page';
 import { type RefundData } from '../../../data/refunds/data';
 import type Refund from '../../../data/refunds/Refund';
 import ApiError from '../../../errors/ApiError';
+import alias from '../../../plumbing/alias';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 import type Callback from '../../../types/Callback';
@@ -16,6 +17,7 @@ export function getPathSegments(orderId: string) {
 export default class OrderRefundsBinder extends Binder<RefundData, Refund> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    alias(this, 'page', 'all', 'list');
   }
 
   /**

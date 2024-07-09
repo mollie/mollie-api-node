@@ -1,6 +1,7 @@
 import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import type Method from '../../data/methods/Method';
 import { type MethodData } from '../../data/methods/data';
+import alias from '../../plumbing/alias';
 import renege from '../../plumbing/renege';
 import type Callback from '../../types/Callback';
 import Binder from '../Binder';
@@ -11,6 +12,7 @@ const pathSegment = 'methods';
 export default class MethodsBinder extends Binder<MethodData, Method> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    alias(this, 'list', 'all', 'page');
   }
 
   /**
