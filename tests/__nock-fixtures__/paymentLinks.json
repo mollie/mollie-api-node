@@ -114,5 +114,44 @@
             "max-age=31536000; includeSubDomains; preload"
         ],
         "responseIsBinary": false
+    },
+    {
+        "scope": "https://api.mollie.com:443",
+        "method": "GET",
+        "path": "/v2/payment-links/pl_fake_id",
+        "body": "",
+        "status": 404,
+        "response": {
+            "status": 404,
+            "title": "Not Found",
+            "detail": "The resource with the token \"pl_fake_id\" could not be found.",
+            "_links": {
+                "documentation": {
+                    "href": "https://docs.mollie.com/overview/handling-errors",
+                    "type": "text/html"
+                }
+            }
+        },
+        "rawHeaders": [
+            "date",
+            "Tue, 09 Jul 2024 12:54:46 GMT",
+            "Server",
+            "Mollie",
+            "Content-Length",
+            "214",
+            "content-type",
+            "application/hal+json",
+            "Via",
+            "1.1 google, 1.1 google",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "Strict-Transport-Security",
+            "max-age=31536000; includeSubDomains; preload",
+            "Alt-Svc",
+            "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+            "Connection",
+            "close"
+        ],
+        "responseIsBinary": false
     }
 ]

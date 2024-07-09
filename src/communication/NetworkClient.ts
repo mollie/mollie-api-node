@@ -1,7 +1,6 @@
 import https from 'https';
 import { type SecureContextOptions } from 'tls';
-
-import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse, type RawAxiosRequestHeaders } from 'axios';
+import fetch, { type RequestInit, type Response } from 'node-fetch';
 
 import { run } from 'ruply';
 import type Page from '../data/page/Page';
@@ -15,7 +14,7 @@ import { type IdempotencyParameter } from '../types/parameters';
 import breakUrl from './breakUrl';
 import buildUrl, { type SearchParameters } from './buildUrl';
 import dromedaryCase from './dromedaryCase';
-import makeRetrying, { idempotencyHeaderName } from './makeRetrying';
+import { idempotencyHeaderName } from './makeRetrying';
 import fling from '../plumbing/fling';
 
 /**
@@ -69,12 +68,24 @@ const throwApiError = run(
   },
   findProperty =>
     function throwApiError(cause: unknown) {
-      if (findProperty(cause, 'response') && cause.response != undefined) {
-        throw ApiError.createFromResponse(cause.response as AxiosResponse<any>);
-      }
       throw new ApiError(findProperty(cause, 'message') ? String(cause.message) : 'An unknown error has occurred');
     },
 );
+
+/**
+ * Checks if an API error needs to be thrown based on the passed result.
+ */
+async function processFetchResponse(res: Response) {
+  // Request was successful, but no content was returned.
+  if (res.status == 204) return true;
+  // Request was successful and content was returned.
+  const body = await res.json();
+  if (res.status >= 200 && res.status < 300) return body;
+  // Request was not successful, but the response body contains an error message.
+  if (body) throw ApiError.createFromResponse(body, res.headers);
+  // Request was not successful.
+  throw new ApiError('An unknown error has occurred');
+}
 
 interface Data {}
 interface Context {}
@@ -83,7 +94,7 @@ interface Context {}
  * This class is essentially a wrapper around axios. It simplifies communication with the Mollie API over the network.
  */
 export default class NetworkClient {
-  protected readonly axiosInstance: AxiosInstance;
+  protected readonly request: (pathname: string, options?: RequestInit) => Promise<any>;
   constructor({
     apiKey,
     accessToken,
@@ -92,30 +103,28 @@ export default class NetworkClient {
     caCertificates,
     libraryVersion,
     nodeVersion,
-    ...axiosOptions
   }: Options & { caCertificates?: SecureContextOptions['ca']; libraryVersion: string; nodeVersion: string }) {
-    axiosOptions.headers = { ...axiosOptions.headers };
     // Compose the headers set in the sent requests.
-    axiosOptions.headers['User-Agent'] = composeUserAgent(nodeVersion, libraryVersion, versionStrings);
+    const headers: Record<string, string> = {};
+    headers['User-Agent'] = composeUserAgent(nodeVersion, libraryVersion, versionStrings);
     if (apiKey != undefined) {
-      axiosOptions.headers['Authorization'] = `Bearer ${apiKey}`;
+      headers['Authorization'] = `Bearer ${apiKey}`;
     } /* if (accessToken != undefined) */ else {
-      axiosOptions.headers['Authorization'] = `Bearer ${accessToken}`;
-      axiosOptions.headers['User-Agent'] += ' OAuth/2.0';
+      headers['Authorization'] = `Bearer ${accessToken}`;
+      headers['User-Agent'] += ' OAuth/2.0';
     }
-    axiosOptions.headers['Accept'] = 'application/hal+json';
-    axiosOptions.headers['Accept-Encoding'] = 'gzip';
-    axiosOptions.headers['Content-Type'] = 'application/json';
-    // Create the Axios instance.
-    this.axiosInstance = axios.create({
-      ...axiosOptions,
-      baseURL: apiEndpoint,
-      httpsAgent: new https.Agent({
-        ca: caCertificates,
-      }),
-    });
-    // Make the Axios instance request multiple times is some scenarios.
-    makeRetrying(this.axiosInstance);
+    headers['Accept'] = 'application/hal+json';
+    headers['Accept-Encoding'] = 'gzip';
+    headers['Content-Type'] = 'application/json';
+
+    // Create the https agent.
+    const agent = new https.Agent({ ca: caCertificates });
+
+    // Create the request function.
+    this.request = (pathname, options) => fetch(`${apiEndpoint}${pathname}`, { agent, ...options, headers: { ...headers, ...options?.headers } });
+
+    // Make the Axios instance request multiple times in some scenarios.
+    // makeRetrying(this.axiosInstance);
   }
 
   async post<R>(pathname: string, data: Data & IdempotencyParameter, query?: SearchParameters): Promise<R | true> {
@@ -123,29 +132,24 @@ export default class NetworkClient {
     // idempotency key in a separate argument instead of cramming it into the data like this. However, having a
     // separate argument would require every endpoint to split the input into those two arguments and thus cause a lot
     // of boiler-plate code.
-    let config: AxiosRequestConfig | undefined = undefined;
-    if (data.idempotencyKey != undefined) {
-      const { idempotencyKey, ...rest } = data;
-      config = { headers: { [idempotencyHeaderName]: idempotencyKey } };
-      data = rest;
-    }
-    const response = await this.axiosInstance.post(buildUrl(pathname, query), data, config).catch(throwApiError);
-    if (response.status == 204) {
-      return true;
-    }
-    return response.data;
+    const { idempotencyKey, ...body } = data;
+    const config: RequestInit = {
+      method: 'POST',
+      headers: idempotencyKey ? { [idempotencyHeaderName]: idempotencyKey } : undefined,
+      body: JSON.stringify(body),
+    };
+    return this.request(buildUrl(pathname, query), config).then(processFetchResponse).catch(throwApiError);
   }
 
   async get<R>(pathname: string, query?: SearchParameters): Promise<R> {
-    const response = await this.axiosInstance.get(buildUrl(pathname, query)).catch(throwApiError);
-    return response.data;
+    return this.request(buildUrl(pathname, query)).then(processFetchResponse).catch(throwApiError);
   }
 
   async list<R>(pathname: string, binderName: string, query?: SearchParameters): Promise<R[]> {
-    const response = await this.axiosInstance.get(buildUrl(pathname, query)).catch(throwApiError);
+    const data = await this.request(buildUrl(pathname, query)).then(processFetchResponse).catch(throwApiError);
     try {
       /* eslint-disable-next-line no-var */
-      var { _embedded: embedded } = response.data;
+      var { _embedded: embedded } = data;
     } catch (error) {
       throw new ApiError('Received unexpected response from the server');
     }
@@ -153,10 +157,10 @@ export default class NetworkClient {
   }
 
   async page<R>(pathname: string, binderName: string, query?: SearchParameters): Promise<R[] & Pick<Page<R>, 'links' | 'count'>> {
-    const response = await this.axiosInstance.get(buildUrl(pathname, query)).catch(throwApiError);
+    const data = await this.request(buildUrl(pathname, query)).then(processFetchResponse).catch(throwApiError);
     try {
       /* eslint-disable-next-line no-var */
-      var { _embedded: embedded, _links: links, count } = response.data;
+      var { _embedded: embedded, _links: links, count } = data;
     } catch (error) {
       throw new ApiError('Received unexpected response from the server');
     }
@@ -196,16 +200,16 @@ export default class NetworkClient {
       // and valuesPerMinute is set to 100, all 250 values received values will be yielded before the (two-minute)
       // break.
       const throttler = new Throttler(valuesPerMinute);
-      const { axiosInstance } = this;
+      const { request } = this;
       return new HelpfulIterator<R>(
         (async function* iterate<R>() {
           let url = buildUrl(pathname, { ...query, limit: popLimit() });
           while (true) {
             // Request and parse the page from the Mollie API.
-            const response = await axiosInstance.get(url).catch(throwApiError);
+            const data = await request(url).then(processFetchResponse).catch(throwApiError);
             try {
               /* eslint-disable-next-line no-var */
-              var { _embedded: embedded, _links: links } = response.data;
+              var { _embedded: embedded, _links: links } = data;
             } catch (error) {
               throw new ApiError('Received unexpected response from the server');
             }
@@ -230,22 +234,21 @@ export default class NetworkClient {
   }
 
   async patch<R>(pathname: string, data: Data): Promise<R> {
-    const response = await this.axiosInstance.patch(pathname, data).catch(throwApiError);
-    return response.data;
+    const config: RequestInit = {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+    };
+    return this.request(buildUrl(pathname), config).then(processFetchResponse).catch(throwApiError);
   }
 
   async delete<R>(pathname: string, context?: Context & IdempotencyParameter): Promise<R | true> {
     // Take the idempotency key from the context, if any.
-    let headers: RawAxiosRequestHeaders | undefined = undefined;
-    if (context?.idempotencyKey != undefined) {
-      const { idempotencyKey, ...rest } = context;
-      headers = { [idempotencyHeaderName]: idempotencyKey };
-      context = rest;
-    }
-    const response = await this.axiosInstance.delete(pathname, { data: context, headers }).catch(throwApiError);
-    if (response.status == 204) {
-      return true;
-    }
-    return response.data as R;
+    const { idempotencyKey, ...body } = context ?? {};
+    const config: RequestInit = {
+      method: 'DELETE',
+      headers: idempotencyKey ? { [idempotencyHeaderName]: idempotencyKey } : undefined,
+      body: Object.keys(body).length > 0 ? JSON.stringify(body) : undefined,
+    };
+    return this.request(buildUrl(pathname), config).then(processFetchResponse).catch(throwApiError);
   }
 }
