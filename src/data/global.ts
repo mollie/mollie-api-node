@@ -44,6 +44,7 @@ export enum PaymentMethod {
   przelewy24 = 'przelewy24',
   sofort = 'sofort',
   voucher = 'voucher',
+  pointofsale = 'pointofsale',
 }
 
 export enum HistoricPaymentMethod {
