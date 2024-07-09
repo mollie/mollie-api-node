@@ -2,7 +2,6 @@
 import { URLSearchParams } from 'url';
 
 import { apply, runIf } from 'ruply';
-import getEntries from '../plumbing/getEntries';
 import type Maybe from '../types/Maybe';
 
 export type SearchParameters = Record<string, any>;
@@ -21,7 +20,7 @@ export type SearchParameters = Record<string, any>;
  *    `?object[key]=value`).
  */
 export default function buildUrl(originAndPathname: string, searchParameters?: SearchParameters): string {
-  const searchEntries = (runIf(searchParameters, getEntries) ?? []) as [string, Maybe<string | number | string[] | number[] | Record<string, string | number>>][];
+  const searchEntries = (runIf(searchParameters, Object.entries) ?? []) as [string, Maybe<string | number | string[] | number[] | Record<string, string | number>>][];
   if (searchEntries.length == 0) {
     return originAndPathname;
   }
@@ -32,7 +31,7 @@ export default function buildUrl(originAndPathname: string, searchParameters?: S
           continue;
         }
         if (typeof value == 'object' && !Array.isArray(value)) {
-          for (const [innerKey, innerValue] of getEntries(value)) {
+          for (const [innerKey, innerValue] of Object.entries(value)) {
             flattenedEntries[`${key}[${innerKey}]`] = String(innerValue);
           }
         } /* if (typeof value != 'object' || Array.isArray(value)) */ else {

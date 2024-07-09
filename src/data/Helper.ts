@@ -2,7 +2,6 @@ import { inspect, type InspectOptionsStylized } from 'util';
 import type TransformingNetworkClient from '../communication/TransformingNetworkClient';
 import buildFromEntries from '../plumbing/buildFromEntries';
 import capitalize from '../plumbing/capitalize';
-import getEntries from '../plumbing/getEntries';
 import renege from '../plumbing/renege';
 import type Callback from '../types/Callback';
 import type Maybe from '../types/Maybe';
@@ -22,7 +21,7 @@ function convertToString(subject: Model<string>, tag: string, depth: number, opt
   if (depth < 0) {
     return options.stylize(`[${parts.join(' ')}]`, 'special');
   }
-  parts.push(inspect(buildFromEntries(getEntries<any>(subject).filter(([key]) => stringRepresentationBlacklist.has(key) === false)), { ...options, depth: 1, sorted: true }));
+  parts.push(inspect(buildFromEntries(Object.entries(subject).filter(([key]) => stringRepresentationBlacklist.has(key) === false)), { ...options, depth: 1, sorted: true }));
   return parts.join(' ');
 }
 
