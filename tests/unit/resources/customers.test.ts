@@ -1,9 +1,10 @@
-import wireMockClient from '../../wireMockClient';
+import NetworkMocker, { getApiKeyClientProvider } from '../../NetworkMocker';
 
 test('createCustomer', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onPost('/customers').reply(200, {
+  networkMocker.intercept('POST', '/customers', 200, {
     resource: 'customer',
     id: 'cst_FhQJRw4s2n',
     mode: 'test',
@@ -19,9 +20,9 @@ test('createCustomer', async () => {
         type: 'text/html',
       },
     },
-  });
+  }).twice();
 
-  const customer = await bluster(client.customers.create.bind(client.customers))({
+  const customer = await bluster(mollieClient.customers.create.bind(mollieClient.customers))({
     name: 'John Doe',
     email: 'johndoe@example.org',
   });
@@ -42,9 +43,10 @@ test('createCustomer', async () => {
 });
 
 test('getCustomer', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onGet('/customers/cst_FhQJRw4s2n').reply(200, {
+  networkMocker.intercept('GET', '/customers/cst_FhQJRw4s2n', 200, {
     resource: 'customer',
     id: 'cst_FhQJRw4s2n',
     mode: 'test',
@@ -60,9 +62,9 @@ test('getCustomer', async () => {
         type: 'text/html',
       },
     },
-  });
+  }).twice();
 
-  const customer = await bluster(client.customers.get.bind(client.customers))('cst_FhQJRw4s2n');
+  const customer = await bluster(mollieClient.customers.get.bind(mollieClient.customers))('cst_FhQJRw4s2n');
 
   expect(customer.resource).toBe('customer');
   expect(customer.id).toBe('cst_FhQJRw4s2n');
@@ -80,9 +82,10 @@ test('getCustomer', async () => {
 });
 
 test('listCustomers', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onGet('/customers').reply(200, {
+  networkMocker.intercept('GET', '/customers', 200, {
     _embedded: {
       customers: [
         {
@@ -111,9 +114,9 @@ test('listCustomers', async () => {
       previous: null,
       next: null,
     },
-  });
+  }).twice();
 
-  const customers = await bluster(client.customers.page.bind(client.customers))();
+  const customers = await bluster(mollieClient.customers.page.bind(mollieClient.customers))();
 
   expect(customers.links.documentation).toEqual({
     href: 'https://docs.mollie.com/reference/v2/customers-api/list-customers',
@@ -132,12 +135,13 @@ test('listCustomers', async () => {
 });
 
 test('updateCustomer', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
   const expectedName = 'Kaas Broodje';
   const expectedEmail = 'kaas.broodje@gmail.com';
 
-  adapter.onPatch('/customers/cst_FhQJRw4s2n').reply(200, {
+  networkMocker.intercept('PATCH', '/customers/cst_FhQJRw4s2n', 200, {
     resource: 'customer',
     id: 'cst_FhQJRw4s2n',
     mode: 'test',
@@ -153,9 +157,9 @@ test('updateCustomer', async () => {
         type: 'text/html',
       },
     },
-  });
+  }).twice();
 
-  const updatedCustomer = await bluster(client.customers.update.bind(client.customers))('cst_FhQJRw4s2n', {
+  const updatedCustomer = await bluster(mollieClient.customers.update.bind(mollieClient.customers))('cst_FhQJRw4s2n', {
     name: expectedName,
     email: expectedEmail,
   });

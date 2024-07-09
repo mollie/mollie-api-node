@@ -1,10 +1,11 @@
-import wireMockClient from '../../wireMockClient';
 import { Payment } from '../../..';
+import NetworkMocker, { getApiKeyClientProvider } from '../../NetworkMocker';
 
 async function getPayment(status, additionalProperties?: object, additionalLinks?: object) {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onGet('/payments/tr_44aKxzEbr8').reply(200, {
+  networkMocker.intercept('GET', '/payments/tr_44aKxzEbr8', 200, {
     resource: 'payment',
     id: 'tr_44aKxzEbr8',
     mode: 'test',
@@ -55,9 +56,9 @@ async function getPayment(status, additionalProperties?: object, additionalLinks
       ...additionalLinks,
     },
     ...additionalProperties,
-  });
+  }).twice();
 
-  return await bluster(client.payments.get.bind(client.payments))('tr_44aKxzEbr8');
+  return await bluster(mollieClient.payments.get.bind(mollieClient.payments))('tr_44aKxzEbr8');
 }
 
 test('paymentStatuses', () => {

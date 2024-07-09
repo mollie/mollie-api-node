@@ -1,4 +1,4 @@
-import wireMockClient from '../../../wireMockClient';
+import NetworkMocker, { getApiKeyClientProvider } from '../../../NetworkMocker';
 
 function composePaymentResponse(paymentId, orderId) {
   return {
@@ -58,11 +58,12 @@ function testPayment(payment, paymentId, paymentStatus = 'open') {
 }
 
 test('createOrderPayment', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onPost('/orders/ord_stTC2WHAuS/payments').reply(201, composePaymentResponse('tr_WDqYK6vllg', 'ord_stTC2WHAuS'));
+  networkMocker.intercept('POST', '/orders/ord_stTC2WHAuS/payments', 201, composePaymentResponse('tr_WDqYK6vllg', 'ord_stTC2WHAuS')).twice();
 
-  const payment = await bluster(client.orderPayments.create.bind(client.orderPayments))({
+  const payment = await bluster(mollieClient.orderPayments.create.bind(mollieClient.orderPayments))({
     orderId: 'ord_stTC2WHAuS',
     method: 'banktransfer',
   });

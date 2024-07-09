@@ -1,9 +1,10 @@
-import wireMockClient from '../../wireMockClient';
+import NetworkMocker, { getApiKeyClientProvider } from '../../NetworkMocker';
 
 test('get', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onGet('/onboarding/me').reply(200, {
+  networkMocker.intercept('GET', '/onboarding/me', 200, {
     resource: 'onboarding',
     name: 'Mollie B.V.',
     signedUpAt: '2018-12-20T10:49:08+00:00',
@@ -28,9 +29,9 @@ test('get', async () => {
         type: 'text/html',
       },
     },
-  });
+  }).twice();
 
-  const onboarding = await bluster(client.onboarding.get.bind(client.onboarding))();
+  const onboarding = await bluster(mollieClient.onboarding.get.bind(mollieClient.onboarding))();
 
   expect(onboarding.resource).toBe('onboarding');
   expect(onboarding.name).toBe('Mollie B.V.');
@@ -49,11 +50,12 @@ test('get', async () => {
 });
 
 test('submit', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onPost('/onboarding/me').reply(204);
+  networkMocker.intercept('POST', '/onboarding/me', 204).twice();
 
-  const result = await bluster(client.onboarding.submit.bind(client.onboarding))();
+  const result = await bluster(mollieClient.onboarding.submit.bind(mollieClient.onboarding))();
 
   expect(result).toBe(true);
 });

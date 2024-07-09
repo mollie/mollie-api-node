@@ -1,4 +1,4 @@
-import wireMockClient from '../../wireMockClient';
+import NetworkMocker, { getApiKeyClientProvider } from '../../NetworkMocker';
 
 function testChargeback(chargeback, paymentId, chargebackId, amount) {
   expect(chargeback.resource).toBe('chargeback');
@@ -28,9 +28,10 @@ function testChargeback(chargeback, paymentId, chargebackId, amount) {
 }
 
 test('listChargebacks', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onGet('/chargebacks').reply(200, {
+  networkMocker.intercept('GET', '/chargebacks', 200, {
     _embedded: {
       chargebacks: [
         {
@@ -102,9 +103,9 @@ test('listChargebacks', async () => {
       },
     },
     count: 2,
-  });
+  }).twice();
 
-  const chargebacks = await bluster(client.chargebacks.page.bind(client.chargebacks))();
+  const chargebacks = await bluster(mollieClient.chargebacks.page.bind(mollieClient.chargebacks))();
 
   expect(chargebacks.length).toBe(2);
 

@@ -1,4 +1,4 @@
-import wireMockClient from '../../wireMockClient';
+import NetworkMocker, { getApiKeyClientProvider } from '../../NetworkMocker';
 
 function composeOrderResponse(orderId, orderStatus = 'created', orderNumber = '1337') {
   return {
@@ -240,11 +240,12 @@ function testOrder(order, orderId, orderStatus = 'created', orderNumber = '1337'
 }
 
 test('createOrder', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onPost('/orders').reply(201, composeOrderResponse('ord_pbjz8x'));
+  networkMocker.intercept('POST', '/orders', 201, composeOrderResponse('ord_pbjz8x')).twice();
 
-  const order = await bluster(client.orders.create.bind(client.orders))({
+  const order = await bluster(mollieClient.orders.create.bind(mollieClient.orders))({
     amount: {
       value: '1027.99',
       currency: 'EUR',
@@ -333,19 +334,21 @@ test('createOrder', async () => {
 });
 
 test('getOrder', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onGet('/orders/ord_pbjz8x').reply(200, composeOrderResponse('ord_pbjz8x'));
+  networkMocker.intercept('GET', '/orders/ord_pbjz8x', 200, composeOrderResponse('ord_pbjz8x')).twice();
 
-  const order = await bluster(client.orders.get.bind(client.orders))('ord_pbjz8x');
+  const order = await bluster(mollieClient.orders.get.bind(mollieClient.orders))('ord_pbjz8x');
 
   testOrder(order, 'ord_pbjz8x');
 });
 
 test('getOrderIncludingPayments', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onGet('/orders/ord_kEn1PlbGa?embed=payments').reply(200, {
+  networkMocker.intercept('GET', '/orders/ord_kEn1PlbGa?embed=payments', 200, {
     resource: 'order',
     id: 'ord_kEn1PlbGa',
     profileId: 'pfl_URR55HPMGx',
@@ -551,9 +554,9 @@ test('getOrderIncludingPayments', async () => {
         type: 'text/html',
       },
     },
-  });
+  }).twice();
 
-  const order = await bluster(client.orders.get.bind(client.orders))('ord_kEn1PlbGa', { embed: ['payments'] });
+  const order = await bluster(mollieClient.orders.get.bind(mollieClient.orders))('ord_kEn1PlbGa', { embed: ['payments'] });
 
   expect(order.id).toBe('ord_kEn1PlbGa');
 
@@ -589,9 +592,10 @@ test('getOrderIncludingPayments', async () => {
 });
 
 test('listOrders', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onGet('/orders').reply(200, {
+  networkMocker.intercept('GET', '/orders', 200, {
     count: 3,
     _embedded: {
       orders: [composeOrderResponse('ord_pbjz1x'), composeOrderResponse('ord_pbjz2y'), composeOrderResponse('ord_pbjz3z')],
@@ -611,9 +615,9 @@ test('listOrders', async () => {
         type: 'text/html',
       },
     },
-  });
+  }).twice();
 
-  const orders = await client.orders.page();
+  const orders = await mollieClient.orders.page();
 
   expect(orders.length).toBe(3);
 
@@ -637,21 +641,23 @@ test('listOrders', async () => {
 });
 
 test('cancelOrder', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onDelete('/orders/ord_pbjz1x').reply(200, composeOrderResponse('ord_pbjz1x', 'canceled'));
+  networkMocker.intercept('DELETE', '/orders/ord_pbjz1x', 200, composeOrderResponse('ord_pbjz1x', 'canceled')).twice();
 
-  const order = await bluster(client.orders.cancel.bind(client.orders))('ord_pbjz1x');
+  const order = await bluster(mollieClient.orders.cancel.bind(mollieClient.orders))('ord_pbjz1x');
 
   testOrder(order, 'ord_pbjz1x', 'canceled');
 });
 
 test('updateOrder', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onPatch('/orders/ord_pbjz8x').reply(200, composeOrderResponse('ord_pbjz8x', 'created', '16738'));
+  networkMocker.intercept('PATCH', '/orders/ord_pbjz8x', 200, composeOrderResponse('ord_pbjz8x', 'created', '16738')).twice();
 
-  const order = await bluster(client.orders.update.bind(client.orders))('ord_pbjz8x', {
+  const order = await bluster(mollieClient.orders.update.bind(mollieClient.orders))('ord_pbjz8x', {
     orderNumber: '16738',
     billingAddress: {
       organizationName: 'Organization Name LTD.',

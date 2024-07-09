@@ -1,9 +1,10 @@
-import wireMockClient from '../../../wireMockClient';
+import NetworkMocker, { getApiKeyClientProvider } from '../../../NetworkMocker';
 
 test('createCustomerPayment', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onPost('/customers/cst_FhQJRw4s2n/payments').reply(201, {
+  networkMocker.intercept('POST', '/customers/cst_FhQJRw4s2n/payments', 201, {
     resource: 'payment',
     id: 'tr_44aKxzEbr8',
     mode: 'test',
@@ -44,9 +45,9 @@ test('createCustomerPayment', async () => {
         type: 'text/html',
       },
     },
-  });
+  }).twice();
 
-  const payment = await bluster(client.customerPayments.create.bind(client.customerPayments))({
+  const payment = await bluster(mollieClient.customerPayments.create.bind(mollieClient.customerPayments))({
     amount: {
       currency: 'EUR',
       value: '20.00',
@@ -90,9 +91,10 @@ test('createCustomerPayment', async () => {
 });
 
 test('listCustomerPayouts', async () => {
-  const { adapter, client } = wireMockClient();
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const mollieClient = await networkMocker.prepare();
 
-  adapter.onGet('/customers/cst_FhQJRw4s2n/payments').reply(200, {
+  networkMocker.intercept('GET', '/customers/cst_FhQJRw4s2n/payments', 200, {
     _embedded: {
       payments: [
         {
@@ -215,9 +217,9 @@ test('listCustomerPayouts', async () => {
       next: null,
     },
     count: 3,
-  });
+  }).twice();
 
-  const payments = await bluster(client.customerPayments.page.bind(client.customerPayments))({ customerId: 'cst_FhQJRw4s2n' });
+  const payments = await bluster(mollieClient.customerPayments.page.bind(mollieClient.customerPayments))({ customerId: 'cst_FhQJRw4s2n' });
 
   expect(payments.length).toBe(3);
 
