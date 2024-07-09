@@ -8,7 +8,7 @@ import type Callback from '../../types/Callback';
 import Binder from '../Binder';
 import { type IterateParameters, type PageParameters } from './parameters';
 
-const pathSegment = 'chargebacks';
+const pathSegment = '/chargebacks';
 
 export default class ChargebacksBinder extends Binder<ChargebackData, Chargeback> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
