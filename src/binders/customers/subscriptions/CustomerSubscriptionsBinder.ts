@@ -11,7 +11,7 @@ import Binder from '../../Binder';
 import { type CancelParameters, type CreateParameters, type GetParameters, type IterateParameters, type PageParameters, type UpdateParameters } from './parameters';
 
 function getPathSegments(customerId: string) {
-  return `customers/${customerId}/subscriptions`;
+  return `/customers/${customerId}/subscriptions`;
 }
 
 export default class CustomerSubscriptionsBinder extends Binder<SubscriptionData, Subscription> {

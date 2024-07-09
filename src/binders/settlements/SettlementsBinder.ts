@@ -7,7 +7,7 @@ import type Callback from '../../types/Callback';
 import Binder from '../Binder';
 import { type IterateParameters, type PageParameters } from './parameters';
 
-const pathSegment = 'settlements';
+const pathSegment = '/settlements';
 
 export default class SettlementsBinder extends Binder<SettlementData, SettlementModel> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {

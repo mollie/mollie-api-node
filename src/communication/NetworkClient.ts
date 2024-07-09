@@ -121,7 +121,11 @@ export default class NetworkClient {
     const agent = new https.Agent({ ca: caCertificates });
 
     // Create the request function.
-    this.request = (pathname, options) => fetch(`${apiEndpoint}${pathname}`, { agent, ...options, headers: { ...headers, ...options?.headers } });
+    this.request = (pathname, options) => {
+      // If the pathname starts with a slash, remove it and prepend the API endpoint.
+      const url = pathname.startsWith('/') ? `${apiEndpoint}${pathname.substring(1)}` : pathname;
+      return fetch(url, { agent, ...options, headers: { ...headers, ...options?.headers } });
+    };
 
     // Make the Axios instance request multiple times in some scenarios.
     // makeRetrying(this.axiosInstance);

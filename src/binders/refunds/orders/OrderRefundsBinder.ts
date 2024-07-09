@@ -11,7 +11,7 @@ import Binder from '../../Binder';
 import { type CreateParameters, type IterateParameters, type PageParameters } from './parameters';
 
 export function getPathSegments(orderId: string) {
-  return `orders/${orderId}/refunds`;
+  return `/orders/${orderId}/refunds`;
 }
 
 export default class OrderRefundsBinder extends Binder<RefundData, Refund> {

@@ -10,7 +10,7 @@ import type Callback from '../../types/Callback';
 import Binder from '../Binder';
 import { type CreateParameters, type DeleteParameters, type IterateParameters, type PageParameters, type UpdateParameters } from './parameters';
 
-const pathSegment = 'profiles';
+const pathSegment = '/profiles';
 
 export default class ProfilesBinder extends Binder<ProfileData, Profile> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {

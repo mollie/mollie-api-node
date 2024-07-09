@@ -9,7 +9,7 @@ import type Callback from '../../types/Callback';
 import Binder from '../Binder';
 import { type CreateParameters, type GetParameters, type IterateParameters, type PageParameters } from './parameters';
 
-const pathSegment = 'payment-links';
+const pathSegment = '/payment-links';
 
 export default class PaymentsLinksBinder extends Binder<PaymentLinkData, PaymentLink> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {

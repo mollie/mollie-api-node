@@ -8,7 +8,7 @@ import type Callback from '../../types/Callback';
 import Binder from '../Binder';
 import { type IterateParameters, type PageParameters } from './parameters';
 
-const pathSegment = 'subscriptions';
+const pathSegment = '/subscriptions';
 
 export default class SubscriptionsBinder extends Binder<SubscriptionData, Subscription> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {

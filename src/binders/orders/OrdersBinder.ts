@@ -10,7 +10,7 @@ import Binder from '../Binder';
 import { type CancelParameters, type CreateParameters, type GetParameters, type IterateParameters, type PageParameters, type UpdateParameters } from './parameters';
 import alias from '../../plumbing/alias';
 
-export const pathSegment = 'orders';
+export const pathSegment = '/orders';
 
 /**
  * The **Orders API** allows you to use Mollie for your order management.

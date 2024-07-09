@@ -6,7 +6,7 @@ import renege from '../../plumbing/renege';
 import type Callback from '../../types/Callback';
 import Binder from '../Binder';
 
-const pathSegment = 'permissions';
+const pathSegment = '/permissions';
 
 export default class PermissionsBinder extends Binder<PermissionData, Permission> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
