@@ -42,6 +42,7 @@
   },
   "dependencies": {
     "axios": "^1.6.2",
+    "node-fetch": "^2.7.0",
     "ruply": "^1.0.1"
   },
   "devDependencies": {
@@ -51,6 +52,7 @@
     "@mollie/eslint-config-typescript": "^1.6.5",
     "@types/jest": "^29.5.11",
     "@types/node": "^18.14.6",
+    "@types/node-fetch": "^2.6.11",
     "axios-mock-adapter": "1.19.0",
     "babel-jest": "^29.5.0",
     "commitizen": "^4.3.0",

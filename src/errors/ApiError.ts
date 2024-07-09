@@ -1,4 +1,4 @@
-import { type AxiosResponse } from 'axios';
+import { type Headers } from 'node-fetch';
 
 import { idempotencyHeaderName } from '../communication/makeRetrying';
 import { type Links, type Url } from '../data/global';
@@ -112,9 +112,8 @@ export default class ApiError extends Error {
    *
    * @since 3.0.0
    */
-  public static createFromResponse(response: AxiosResponse): ApiError {
-    const { detail, title, status: statusCode, field, _links: links } = response.data;
-    const { headers } = response.config;
-    return new ApiError(detail ?? 'Received an error without a message', { title, statusCode, field, links, idempotencyKey: headers?.[idempotencyHeaderName] as string | undefined });
+  public static createFromResponse(body: any, headers: Headers): ApiError {
+    const { detail, title, status: statusCode, field, _links: links } = body;
+    return new ApiError(detail ?? 'Received an error without a message', { title, statusCode, field, links, idempotencyKey: headers.get(idempotencyHeaderName) ?? undefined });
   }
 }

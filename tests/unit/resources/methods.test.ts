@@ -22,7 +22,7 @@ describe('methods', () => {
     mock.onGet(`/methods/${methodId}`).reply(200, response._embedded.methods[0], {});
     mock.onGet('/methods/foo').reply(500, error, {});
 
-    it('should return a method instance', () => 
+    it('should return a method instance', () =>
       methods.get(methodId).then(result => {
         expect(result).toMatchSnapshot();
       }));
@@ -35,7 +35,7 @@ describe('methods', () => {
       });
     });
 
-    it('should throw an error for non-existent IDs', () => 
+    it('should throw an error for non-existent IDs', () =>
       methods
         .get('foo')
         .then(result => expect(result).toBeUndefined())
