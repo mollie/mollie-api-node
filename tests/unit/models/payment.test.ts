@@ -1,64 +1,63 @@
 import { Payment } from '../../..';
 import NetworkMocker, { getApiKeyClientProvider } from '../../NetworkMocker';
 
-async function getPayment(status, additionalProperties?: object, additionalLinks?: object) {
-  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
-  const mollieClient = await networkMocker.prepare();
-
-  networkMocker.intercept('GET', '/payments/tr_44aKxzEbr8', 200, {
-    resource: 'payment',
-    id: 'tr_44aKxzEbr8',
-    mode: 'test',
-    createdAt: '2018-03-13T14:02:29+00:00',
-    amount: {
-      value: '20.00',
-      currency: 'EUR',
-    },
-    description: 'My first API payment',
-    method: 'ideal',
-    metadata: {
-      order_id: '1234',
-    },
-    status,
-    amountRefunded: {
-      value: '0.00',
-      currency: 'EUR',
-    },
-    amountRemaining: {
-      value: '20.00',
-      currency: 'EUR',
-    },
-    details: {
-      consumerName: 'T. TEST',
-      consumerAccount: 'NL17RABO0213698412',
-      consumerBic: 'TESTNL99',
-    },
-    locale: 'nl_NL',
-    countryCode: 'NL',
-    profileId: 'pfl_2A1gacu42V',
-    sequenceType: 'oneoff',
-    redirectUrl: 'https://example.org/redirect',
-    cancelUrl: 'https://example.org/cancel',
-    webhookUrl: 'https://example.org/webhook',
-    settlementAmount: {
-      value: '20.00',
-      currency: 'EUR',
-    },
-    _links: {
-      self: {
-        href: 'https://api.mollie.com/v2/payments/tr_44aKxzEbr8',
-        type: 'application/hal+json',
+function getPayment(status, additionalProperties?: object, additionalLinks?: object) {
+  return new NetworkMocker(getApiKeyClientProvider()).use(([mollieClient, networkMocker]) => {
+    networkMocker.intercept('GET', '/payments/tr_44aKxzEbr8', 200, {
+      resource: 'payment',
+      id: 'tr_44aKxzEbr8',
+      mode: 'test',
+      createdAt: '2018-03-13T14:02:29+00:00',
+      amount: {
+        value: '20.00',
+        currency: 'EUR',
       },
-      documentation: {
-        href: 'https://docs.mollie.com/reference/v2/payments-api/get-payment',
-        type: 'text/html',
+      description: 'My first API payment',
+      method: 'ideal',
+      metadata: {
+        order_id: '1234',
       },
-      ...additionalLinks,
-    },
-    ...additionalProperties,
-  }).twice();
+      status,
+      amountRefunded: {
+        value: '0.00',
+        currency: 'EUR',
+      },
+      amountRemaining: {
+        value: '20.00',
+        currency: 'EUR',
+      },
+      details: {
+        consumerName: 'T. TEST',
+        consumerAccount: 'NL17RABO0213698412',
+        consumerBic: 'TESTNL99',
+      },
+      locale: 'nl_NL',
+      countryCode: 'NL',
+      profileId: 'pfl_2A1gacu42V',
+      sequenceType: 'oneoff',
+      redirectUrl: 'https://example.org/redirect',
+      cancelUrl: 'https://example.org/cancel',
+      webhookUrl: 'https://example.org/webhook',
+      settlementAmount: {
+        value: '20.00',
+        currency: 'EUR',
+      },
+      _links: {
+        self: {
+          href: 'https://api.mollie.com/v2/payments/tr_44aKxzEbr8',
+          type: 'application/hal+json',
+        },
+        documentation: {
+          href: 'https://docs.mollie.com/reference/v2/payments-api/get-payment',
+          type: 'text/html',
+        },
+        ...additionalLinks,
+      },
+      ...additionalProperties,
+    }).twice();
 
-  return await bluster(mollieClient.payments.get.bind(mollieClient.payments))('tr_44aKxzEbr8');
+    return bluster(mollieClient.payments.get.bind(mollieClient.payments))('tr_44aKxzEbr8');
+  });
 }
 
 test('paymentStatuses', () => {

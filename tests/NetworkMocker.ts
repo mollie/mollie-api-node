@@ -100,6 +100,11 @@ class NetworkMocker extends BaseNetworkMocker {
         },
     );
   }
+
+  // Consider using Explicit Resource Management (https://github.com/tc39/proposal-explicit-resource-management).
+  use<R>(user: (usables: [mollieClient: MollieClient, networkMocker: NetworkMocker]) => MaybePromise<R>) {
+    return this.prepare().then(mollieClient => user([mollieClient, this])).finally(this.cleanup);
+  }
 }
 
 /**
@@ -124,6 +129,11 @@ class AutomaticNetworkMocker extends BaseNetworkMocker {
       cleanup();
     });
     return client;
+  }
+
+  // Consider using Explicit Resource Management (https://github.com/tc39/proposal-explicit-resource-management).
+  use<R>(user: (mollieClient: MollieClient) => MaybePromise<R>) {
+    return this.prepare().then(user).finally(this.cleanup);
   }
 }
 

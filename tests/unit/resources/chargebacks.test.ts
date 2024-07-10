@@ -27,98 +27,97 @@ function testChargeback(chargeback, paymentId, chargebackId, amount) {
   });
 }
 
-test('listChargebacks', async () => {
-  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
-  const mollieClient = await networkMocker.prepare();
-
-  networkMocker.intercept('GET', '/chargebacks', 200, {
-    _embedded: {
-      chargebacks: [
-        {
-          resource: 'chargeback',
-          id: 'chb_n9z0tp',
-          amount: {
-            value: '-13.00',
-            currency: 'EUR',
-          },
-          createdAt: '2018-03-28T11:44:32+00:00',
-          paymentId: 'tr_44aKxzEbr8',
-          settlementAmount: {
-            value: '-13.00',
-            currency: 'EUR',
-          },
-          _links: {
-            self: {
-              href: 'https://api.mollie.com/v2/payments/tr_44aKxzEbr8/chargebacks/chb_n9z0tp',
-              type: 'application/hal+json',
+test('listChargebacks', () => {
+  return new NetworkMocker(getApiKeyClientProvider()).use(async ([mollieClient, networkMocker]) => {
+    networkMocker.intercept('GET', '/chargebacks', 200, {
+      _embedded: {
+        chargebacks: [
+          {
+            resource: 'chargeback',
+            id: 'chb_n9z0tp',
+            amount: {
+              value: '-13.00',
+              currency: 'EUR',
             },
-            payment: {
-              href: 'https://api.mollie.com/v2/payments/tr_44aKxzEbr8',
-              type: 'application/hal+json',
+            createdAt: '2018-03-28T11:44:32+00:00',
+            paymentId: 'tr_44aKxzEbr8',
+            settlementAmount: {
+              value: '-13.00',
+              currency: 'EUR',
             },
-            documentation: {
-              href: 'https://docs.mollie.com/reference/v2/chargebacks-api/get-chargeback',
-              type: 'text/html',
-            },
-          },
-        },
-        {
-          resource: 'chargeback',
-          id: 'chb_6cqlwf',
-          amount: {
-            value: '-0.37',
-            currency: 'EUR',
-          },
-          createdAt: '2018-03-28T11:44:32+00:00',
-          paymentId: 'tr_nQKWJbDj7j',
-          settlementAmount: {
-            value: '-0.37',
-            currency: 'EUR',
-          },
-          _links: {
-            self: {
-              href: 'https://api.mollie.com/v2/payments/tr_nQKWJbDj7j/chargebacks/chb_6cqlwf',
-              type: 'application/hal+json',
-            },
-            payment: {
-              href: 'https://api.mollie.com/v2/payments/tr_nQKWJbDj7j',
-              type: 'application/hal+json',
-            },
-            documentation: {
-              href: 'https://docs.mollie.com/reference/v2/chargebacks-api/get-chargeback',
-              type: 'text/html',
+            _links: {
+              self: {
+                href: 'https://api.mollie.com/v2/payments/tr_44aKxzEbr8/chargebacks/chb_n9z0tp',
+                type: 'application/hal+json',
+              },
+              payment: {
+                href: 'https://api.mollie.com/v2/payments/tr_44aKxzEbr8',
+                type: 'application/hal+json',
+              },
+              documentation: {
+                href: 'https://docs.mollie.com/reference/v2/chargebacks-api/get-chargeback',
+                type: 'text/html',
+              },
             },
           },
-        },
-      ],
-    },
-    _links: {
-      documentation: {
-        href: 'https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks',
-        type: 'text/html',
+          {
+            resource: 'chargeback',
+            id: 'chb_6cqlwf',
+            amount: {
+              value: '-0.37',
+              currency: 'EUR',
+            },
+            createdAt: '2018-03-28T11:44:32+00:00',
+            paymentId: 'tr_nQKWJbDj7j',
+            settlementAmount: {
+              value: '-0.37',
+              currency: 'EUR',
+            },
+            _links: {
+              self: {
+                href: 'https://api.mollie.com/v2/payments/tr_nQKWJbDj7j/chargebacks/chb_6cqlwf',
+                type: 'application/hal+json',
+              },
+              payment: {
+                href: 'https://api.mollie.com/v2/payments/tr_nQKWJbDj7j',
+                type: 'application/hal+json',
+              },
+              documentation: {
+                href: 'https://docs.mollie.com/reference/v2/chargebacks-api/get-chargeback',
+                type: 'text/html',
+              },
+            },
+          },
+        ],
       },
-      self: {
-        href: 'https://api.mollie.com/v2/chargebacks',
-        type: 'application/hal+json',
+      _links: {
+        documentation: {
+          href: 'https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks',
+          type: 'text/html',
+        },
+        self: {
+          href: 'https://api.mollie.com/v2/chargebacks',
+          type: 'application/hal+json',
+        },
       },
-    },
-    count: 2,
-  }).twice();
+      count: 2,
+    }).twice();
 
-  const chargebacks = await bluster(mollieClient.chargebacks.page.bind(mollieClient.chargebacks))();
+    const chargebacks = await bluster(mollieClient.chargebacks.page.bind(mollieClient.chargebacks))();
 
-  expect(chargebacks.length).toBe(2);
+    expect(chargebacks.length).toBe(2);
 
-  expect(chargebacks.links.documentation).toEqual({
-    href: 'https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks',
-    type: 'text/html',
+    expect(chargebacks.links.documentation).toEqual({
+      href: 'https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks',
+      type: 'text/html',
+    });
+
+    expect(chargebacks.links.self).toEqual({
+      href: 'https://api.mollie.com/v2/chargebacks',
+      type: 'application/hal+json',
+    });
+
+    testChargeback(chargebacks[0], 'tr_44aKxzEbr8', 'chb_n9z0tp', '-13.00');
+    testChargeback(chargebacks[1], 'tr_nQKWJbDj7j', 'chb_6cqlwf', '-0.37');
   });
-
-  expect(chargebacks.links.self).toEqual({
-    href: 'https://api.mollie.com/v2/chargebacks',
-    type: 'application/hal+json',
-  });
-
-  testChargeback(chargebacks[0], 'tr_44aKxzEbr8', 'chb_n9z0tp', '-13.00');
-  testChargeback(chargebacks[1], 'tr_nQKWJbDj7j', 'chb_6cqlwf', '-0.37');
 });
