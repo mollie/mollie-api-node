@@ -49,24 +49,22 @@ function testOrganization(organization) {
   });
 }
 
-test('getOrganization', async () => {
-  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
-  const mollieClient = await networkMocker.prepare();
+test('getOrganization', () => {
+  return new NetworkMocker(getApiKeyClientProvider()).use(async ([mollieClient, networkMocker]) => {
+    networkMocker.intercept('GET', '/organizations/org_12345678', 200, response).twice();
 
-  networkMocker.intercept('GET', '/organizations/org_12345678', 200, response).twice();
+    const organization = await bluster(mollieClient.organizations.get.bind(mollieClient.organizations))('org_12345678');
 
-  const organization = await bluster(mollieClient.organizations.get.bind(mollieClient.organizations))('org_12345678');
-
-  testOrganization(organization);
+    testOrganization(organization);
+  });
 });
 
-test('getCurrentOrganization', async () => {
-  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
-  const mollieClient = await networkMocker.prepare();
+test('getCurrentOrganization', () => {
+  return new NetworkMocker(getApiKeyClientProvider()).use(async ([mollieClient, networkMocker]) => {
+    networkMocker.intercept('GET', '/organizations/me', 200, response).twice();
 
-  networkMocker.intercept('GET', '/organizations/me', 200, response).twice();
+    const organization = await bluster(mollieClient.organizations.getCurrent.bind(mollieClient.organizations))();
 
-  const organization = await bluster(mollieClient.organizations.getCurrent.bind(mollieClient.organizations))();
-
-  testOrganization(organization);
+    testOrganization(organization);
+  });
 });
