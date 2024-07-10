@@ -8,6 +8,7 @@ import renege from '../../plumbing/renege';
 import type Callback from '../../types/Callback';
 import Binder from '../Binder';
 import { type CancelParameters, type CreateParameters, type GetParameters, type IterateParameters, type PageParameters, type UpdateParameters } from './parameters';
+import alias from '../../plumbing/alias';
 
 export const pathSegment = 'orders';
 
@@ -36,6 +37,7 @@ export const pathSegment = 'orders';
 export default class OrdersBinder extends Binder<OrderData, Order> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    alias(this, { page: ['all', 'list'], cancel: 'delete' });
   }
 
   /**

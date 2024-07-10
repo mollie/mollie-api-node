@@ -2,6 +2,7 @@ import type TransformingNetworkClient from '../../../communication/TransformingN
 import { type OrderData } from '../../../data/orders/data';
 import type Order from '../../../data/orders/Order';
 import ApiError from '../../../errors/ApiError';
+import alias from '../../../plumbing/alias';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 import type Callback from '../../../types/Callback';
@@ -15,6 +16,7 @@ function getPathSegments(orderId: string) {
 export default class OrderLinesBinder extends Binder<OrderData, Order> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    alias(this, { cancel: 'delete' });
   }
 
   /**

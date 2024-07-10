@@ -1,6 +1,7 @@
 import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import type Permission from '../../data/permissions/Permission';
 import { type PermissionData } from '../../data/permissions/Permission';
+import alias from '../../plumbing/alias';
 import renege from '../../plumbing/renege';
 import type Callback from '../../types/Callback';
 import Binder from '../Binder';
@@ -10,6 +11,7 @@ const pathSegment = 'permissions';
 export default class PermissionsBinder extends Binder<PermissionData, Permission> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    alias(this, { list: 'page' });
   }
 
   /**

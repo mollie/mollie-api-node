@@ -3,6 +3,7 @@ import type Customer from '../../data/customers/Customer';
 import { type CustomerData } from '../../data/customers/Customer';
 import type Page from '../../data/page/Page';
 import ApiError from '../../errors/ApiError';
+import alias from '../../plumbing/alias';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
 import type Callback from '../../types/Callback';
@@ -14,6 +15,7 @@ const pathSegment = 'customers';
 export default class CustomersBinder extends Binder<CustomerData, Customer> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    alias(this, { page: ['all', 'list'], delete: 'cancel' });
   }
 
   /**

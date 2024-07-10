@@ -2,6 +2,7 @@ import type TransformingNetworkClient from '../../communication/TransformingNetw
 import type Page from '../../data/page/Page';
 import { type SubscriptionData } from '../../data/subscriptions/data';
 import type Subscription from '../../data/subscriptions/Subscription';
+import alias from '../../plumbing/alias';
 import renege from '../../plumbing/renege';
 import type Callback from '../../types/Callback';
 import Binder from '../Binder';
@@ -12,6 +13,7 @@ const pathSegment = 'subscriptions';
 export default class SubscriptionsBinder extends Binder<SubscriptionData, Subscription> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    alias(this, { page: 'list' });
   }
 
   /**

@@ -3,6 +3,7 @@ import type Page from '../../data/page/Page';
 import { type ProfileData } from '../../data/profiles/data';
 import type Profile from '../../data/profiles/Profile';
 import ApiError from '../../errors/ApiError';
+import alias from '../../plumbing/alias';
 import checkId from '../../plumbing/checkId';
 import renege from '../../plumbing/renege';
 import type Callback from '../../types/Callback';
@@ -14,6 +15,7 @@ const pathSegment = 'profiles';
 export default class ProfilesBinder extends Binder<ProfileData, Profile> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    alias(this, { page: 'list' });
   }
 
   /**

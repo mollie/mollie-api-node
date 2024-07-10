@@ -3,6 +3,7 @@ import type Chargeback from '../../../data/chargebacks/Chargeback';
 import { type ChargebackData } from '../../../data/chargebacks/Chargeback';
 import type Page from '../../../data/page/Page';
 import ApiError from '../../../errors/ApiError';
+import alias from '../../../plumbing/alias';
 import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 import type Callback from '../../../types/Callback';
@@ -16,6 +17,7 @@ function getPathSegments(paymentId: string) {
 export default class PaymentChargebacksBinder extends Binder<ChargebackData, Chargeback> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    alias(this, { page: ['all', 'list'] });
   }
 
   /**
