@@ -1,13 +1,9 @@
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
-
 import MethodsBinder from '../../../src/binders/methods/MethodsBinder';
 import NetworkClient from '../../../src/communication/NetworkClient';
+import NetworkMocker, { getApiKeyClientProvider } from '../../NetworkMocker';
 
-import response from '../__stubs__/methods.json';
 import ApiError from '../../../src/errors/ApiError';
-
-const mock = new MockAdapter(axios);
+import response from '../__stubs__/methods.json';
 
 describe('methods', () => {
   let methods: MethodsBinder;
@@ -19,54 +15,70 @@ describe('methods', () => {
     const methodId = 'ideal';
     const error = { detail: 'The method id is invalid' };
 
-    mock.onGet(`/methods/${methodId}`).reply(200, response._embedded.methods[0], {});
-    mock.onGet('/methods/foo').reply(500, error, {});
-
-    it('should return a method instance', () =>
-      methods.get(methodId).then(result => {
+    it('should return a method instance', () => {
+      return new NetworkMocker(getApiKeyClientProvider()).use(async ([, networkMocker]) => {
+        networkMocker.intercept('GET', `/methods/${methodId}`, 200, response._embedded.methods[0]);
+        const result = await methods.get(methodId);
         expect(result).toMatchSnapshot();
-      }));
-
-    it('should work with a callback', done => {
-      methods.get(methodId, {}, (err, result) => {
-        expect(err).toBeNull();
-        expect(result).toMatchSnapshot();
-        done();
       });
     });
 
-    it('should throw an error for non-existent IDs', () =>
-      methods
-        .get('foo')
-        .then(result => expect(result).toBeUndefined())
-        .catch(err => {
-          expect(err).toBeInstanceOf(ApiError);
-          expect(err.getMessage()).toEqual(error.detail);
-        }));
+    it('should work with a callback', done => {
+      new NetworkMocker(getApiKeyClientProvider()).use(async ([, networkMocker]) => {
+        networkMocker.intercept('GET', `/methods/${methodId}`, 200, response._embedded.methods[0]);
+        methods.get(methodId, {}, (err, result) => {
+          expect(err).toBeNull();
+          expect(result).toMatchSnapshot();
+          done();
+        });
+      });
+    });
+
+    it('should throw an error for non-existent IDs', () => {
+      return new NetworkMocker(getApiKeyClientProvider()).use(async ([, networkMocker]) => {
+        networkMocker.intercept('GET', '/methods/foo', 500, error);
+        await methods
+          .get('foo')
+          .then(() => {
+            throw new Error('Promise should throw');
+          })
+          .catch(err => {
+            expect(err).toBeInstanceOf(ApiError);
+            expect(err.getMessage()).toEqual(error.detail);
+          });
+      });
+    });
 
     it('should return an error with a callback for non-existent IDs', done => {
-      methods.get('foo', {}, (err: any, result) => {
-        expect(err).toBeInstanceOf(ApiError);
-        expect(err.getMessage()).toEqual(error.detail);
-        expect(result).toBeUndefined();
-        done();
+      new NetworkMocker(getApiKeyClientProvider()).use(async ([, networkMocker]) => {
+        networkMocker.intercept('GET', '/methods/foo', 500, error);
+        methods.get('foo', {}, (err: any, result) => {
+          expect(err).toBeInstanceOf(ApiError);
+          expect(err.getMessage()).toEqual(error.detail);
+          expect(result).toBeUndefined();
+          done();
+        });
       });
     });
   });
 
   describe('.list()', () => {
-    mock.onGet('/methods').reply(200, response);
-
-    it('should return a list of all methods', () =>
-      methods.list().then(result => {
+    it('should return a list of all methods', () => {
+      return new NetworkMocker(getApiKeyClientProvider()).use(async ([, networkMocker]) => {
+        networkMocker.intercept('GET', '/methods', 200, response);
+        const result = await methods.list();
         expect(result).toMatchSnapshot();
-      }));
+      });
+    });
 
     it('should work with a callback', done => {
-      methods.list({}, (err, result) => {
-        expect(err).toBeNull();
-        expect(result).toMatchSnapshot();
-        done();
+      new NetworkMocker(getApiKeyClientProvider()).use(async ([, networkMocker]) => {
+        networkMocker.intercept('GET', '/methods', 200, response);
+        methods.list({}, (err, result) => {
+          expect(err).toBeNull();
+          expect(result).toMatchSnapshot();
+          done();
+        });
       });
     });
   });

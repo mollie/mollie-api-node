@@ -269,8 +269,5 @@ describe('request-retrying', () => {
     jest.useRealTimers();
   });
 
-  // Potentially worth testing:
-  //  * Is Axios' timeout still respected?
-
   afterAll(() => networkMocker.cleanup());
 });
