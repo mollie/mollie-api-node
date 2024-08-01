@@ -91,7 +91,7 @@ interface Data {}
 interface Context {}
 
 /**
- * This class is essentially a wrapper around axios. It simplifies communication with the Mollie API over the network.
+ * This class is essentially a wrapper around fetch. It simplifies communication with the Mollie API over the network.
  */
 export default class NetworkClient {
   protected readonly request: (pathname: string, options?: RequestInit) => Promise<ResponseWithIdempotencyKey>;
@@ -129,9 +129,6 @@ export default class NetworkClient {
       const url = pathname.startsWith('/') ? `${apiEndpoint}${pathname.substring(1)}` : pathname;
       return fetchWithRetries(url, { agent, ...options, headers: { ...headers, ...options?.headers } });
     };
-
-    // Make the Axios instance request multiple times in some scenarios.
-    // makeRetrying(this.axiosInstance);
   }
 
   async post<R>(pathname: string, data: Data & IdempotencyParameter, query?: SearchParameters): Promise<R | true> {

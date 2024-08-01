@@ -3,8 +3,7 @@ import { randomBytes } from 'crypto';
 import fetch, { type RequestInit, type Response } from 'node-fetch';
 
 /**
- * The delay, in milliseconds, between attempts. Note that if Axios' timeout is smaller than this value, no second
- * attempt will ever be made.
+ * The delay, in milliseconds, between attempts.
  */
 const retryDelay = 2e3;
 /**
@@ -61,7 +60,7 @@ export type ResponseWithIdempotencyKey = Response & { idempotencyKey: string | u
  * If the Mollie API responds with a 5×× status code, the request will be re-attempted until:
  *  * the Mollie API responds with a different status code, or
  *  * the attempt limit has been reached (it gives up after the third attempt), or
- *  * the request has timed out (as per the timeout set in the Axios instance).
+ *  * the request has timed out.
  *
  * For `POST` and `DELETE` requests, an idempotency key is added. This ensures the Mollie API can distinguish a single
  * request being re-attempted from two separate similarly-looking requests. In effect, this allows this client to
