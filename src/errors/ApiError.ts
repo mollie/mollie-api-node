@@ -1,6 +1,3 @@
-import { type Headers } from 'node-fetch';
-
-import { idempotencyHeaderName } from '../communication/makeRetrying';
 import { type Links, type Url } from '../data/global';
 import type Maybe from '../types/Maybe';
 
@@ -112,8 +109,8 @@ export default class ApiError extends Error {
    *
    * @since 3.0.0
    */
-  public static createFromResponse(body: any, headers: Headers): ApiError {
+  public static createFromResponse(body: any, idempotencyKey: string | undefined): ApiError {
     const { detail, title, status: statusCode, field, _links: links } = body;
-    return new ApiError(detail ?? 'Received an error without a message', { title, statusCode, field, links, idempotencyKey: headers.get(idempotencyHeaderName) ?? undefined });
+    return new ApiError(detail ?? 'Received an error without a message', { title, statusCode, field, links, idempotencyKey });
   }
 }
