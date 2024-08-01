@@ -68,42 +68,49 @@ class BaseNetworkMocker {
   }
 }
 
-type InterceptParameters = Parameters<ReturnType<typeof nock>['intercept']>;
+type InterceptUri = Parameters<ReturnType<typeof nock>['intercept']>[0];
+type NockUri = Parameters<typeof nock>[0];
+type Uri = InterceptUri | { basePath: NockUri; path: InterceptUri };
 type ReplyParameters = Parameters<Interceptor['reply']>;
 
 /**
  * A helper for tests. It creates a Mollie Client, and activates and deactivates Nock.
  */
 class NetworkMocker extends BaseNetworkMocker {
-  public readonly intercept: (
-    method: InterceptParameters[1],
-    uri: InterceptParameters[0],
-    responseStatusCode: ReplyParameters[0],
-    responseBody?: ReplyParameters[1],
-    responseHeaders?: ReplyParameters[2],
-  ) => nock.Interceptor;
+  public readonly intercept: (method: string, uri: InterceptUri, responseStatusCode: number, responseBody?: nock.Body, responseHeaders?: nock.ReplyHeaders) => nock.Interceptor;
+  public readonly spy: (method: string, uri: InterceptUri, callback: (body: nock.Body, headers: Record<string, Array<string>>) => MaybePromise<nock.ReplyFnResult>) => nock.Interceptor;
   constructor(clientProvider: () => MaybePromise<MollieClient>) {
     super(clientProvider);
-    this.intercept = run(
+    const createInterceptor = run(
       nock('https://api.mollie.com:443/v2'),
       scope =>
-        function intercept(
-          method: InterceptParameters[1],
-          uri: InterceptParameters[0],
-          responseStatusCode: ReplyParameters[0],
-          responseBody?: ReplyParameters[1],
-          responseHeaders?: ReplyParameters[2],
-        ) {
-          const interceptor = scope.intercept(uri, method);
-          interceptor.reply(responseStatusCode, responseBody, responseHeaders);
-          return interceptor;
+        function intercept(method: string, uri: Uri) {
+          if ('object' != typeof uri || uri instanceof RegExp) {
+            return scope.intercept(uri, method);
+          } /* if ('object' == typeof uri && false == uri instanceof RegExp) */ else {
+            return nock(uri.basePath).intercept(uri.path, method);
+          }
         },
     );
+    this.intercept = function intercept(method: string, uri: Uri, responseStatusCode: ReplyParameters[0], responseBody?: ReplyParameters[1], responseHeaders?: ReplyParameters[2]) {
+      const interceptor = createInterceptor(method, uri);
+      interceptor.reply(responseStatusCode, responseBody, responseHeaders);
+      return interceptor;
+    };
+    this.spy = function spy(method: string, uri: Uri, callback: (body: nock.Body, headers: Record<string, Array<string>>) => MaybePromise<nock.ReplyFnResult>) {
+      const interceptor = createInterceptor(method, uri);
+      interceptor.reply(function (_, body) {
+        return callback(body, this.req.headers as unknown as Record<string, Array<string>>);
+      });
+      return interceptor;
+    };
   }
 
   // Consider using Explicit Resource Management (https://github.com/tc39/proposal-explicit-resource-management).
   use<R>(user: (usables: [mollieClient: MollieClient, networkMocker: NetworkMocker]) => MaybePromise<R>) {
-    return this.prepare().then(mollieClient => user([mollieClient, this])).finally(this.cleanup);
+    return this.prepare()
+      .then(mollieClient => user([mollieClient, this]))
+      .finally(this.cleanup);
   }
 }
 
