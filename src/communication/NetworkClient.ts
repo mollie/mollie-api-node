@@ -1,11 +1,12 @@
 import https from 'https';
+import fetch, { type RequestInit } from 'node-fetch';
 import { type SecureContextOptions } from 'tls';
-import fetch, { type RequestInit, type Response } from 'node-fetch';
 
 import { run } from 'ruply';
 import type Page from '../data/page/Page';
 import ApiError from '../errors/ApiError';
 import type Options from '../Options';
+import fling from '../plumbing/fling';
 import DemandingIterator from '../plumbing/iteration/DemandingIterator';
 import HelpfulIterator from '../plumbing/iteration/HelpfulIterator';
 import Throttler from '../plumbing/Throttler';
@@ -14,8 +15,7 @@ import { type IdempotencyParameter } from '../types/parameters';
 import breakUrl from './breakUrl';
 import buildUrl, { type SearchParameters } from './buildUrl';
 import dromedaryCase from './dromedaryCase';
-import { idempotencyHeaderName } from './makeRetrying';
-import fling from '../plumbing/fling';
+import { idempotencyHeaderName, ResponseWithIdempotencyKey, retryingFetch } from './makeRetrying';
 
 /**
  * Like `[].map` but with support for non-array inputs, in which case this function behaves as if an array was passed
@@ -75,14 +75,14 @@ const throwApiError = run(
 /**
  * Checks if an API error needs to be thrown based on the passed result.
  */
-async function processFetchResponse(res: Response) {
+async function processFetchResponse(res: ResponseWithIdempotencyKey) {
   // Request was successful, but no content was returned.
   if (res.status == 204) return true;
   // Request was successful and content was returned.
   const body = await res.json();
   if (res.status >= 200 && res.status < 300) return body;
   // Request was not successful, but the response body contains an error message.
-  if (body) throw ApiError.createFromResponse(body, res.headers);
+  if (body) throw ApiError.createFromResponse(body, res.idempotencyKey);
   // Request was not successful.
   throw new ApiError('An unknown error has occurred');
 }
@@ -94,7 +94,7 @@ interface Context {}
  * This class is essentially a wrapper around axios. It simplifies communication with the Mollie API over the network.
  */
 export default class NetworkClient {
-  protected readonly request: (pathname: string, options?: RequestInit) => Promise<any>;
+  protected readonly request: (pathname: string, options?: RequestInit) => Promise<ResponseWithIdempotencyKey>;
   constructor({
     apiKey,
     accessToken,
@@ -120,11 +120,14 @@ export default class NetworkClient {
     // Create the https agent.
     const agent = new https.Agent({ ca: caCertificates });
 
+    // Create retrying fetch function.
+    const fetchWithRetries = retryingFetch(fetch);
+
     // Create the request function.
     this.request = (pathname, options) => {
       // If the pathname starts with a slash, remove it and prepend the API endpoint.
       const url = pathname.startsWith('/') ? `${apiEndpoint}${pathname.substring(1)}` : pathname;
-      return fetch(url, { agent, ...options, headers: { ...headers, ...options?.headers } });
+      return fetchWithRetries(url, { agent, ...options, headers: { ...headers, ...options?.headers } });
     };
 
     // Make the Axios instance request multiple times in some scenarios.
@@ -142,15 +145,15 @@ export default class NetworkClient {
       headers: idempotencyKey ? { [idempotencyHeaderName]: idempotencyKey } : undefined,
       body: JSON.stringify(body),
     };
-    return this.request(buildUrl(pathname, query), config).then(processFetchResponse).catch(throwApiError);
+    return this.request(buildUrl(pathname, query), config).catch(throwApiError).then(processFetchResponse);
   }
 
   async get<R>(pathname: string, query?: SearchParameters): Promise<R> {
-    return this.request(buildUrl(pathname, query)).then(processFetchResponse).catch(throwApiError);
+    return this.request(buildUrl(pathname, query)).catch(throwApiError).then(processFetchResponse);
   }
 
   async list<R>(pathname: string, binderName: string, query?: SearchParameters): Promise<R[]> {
-    const data = await this.request(buildUrl(pathname, query)).then(processFetchResponse).catch(throwApiError);
+    const data = await this.request(buildUrl(pathname, query)).catch(throwApiError).then(processFetchResponse);
     try {
       /* eslint-disable-next-line no-var */
       var { _embedded: embedded } = data;
@@ -161,7 +164,7 @@ export default class NetworkClient {
   }
 
   async page<R>(pathname: string, binderName: string, query?: SearchParameters): Promise<R[] & Pick<Page<R>, 'links' | 'count'>> {
-    const data = await this.request(buildUrl(pathname, query)).then(processFetchResponse).catch(throwApiError);
+    const data = await this.request(buildUrl(pathname, query)).catch(throwApiError).then(processFetchResponse);
     try {
       /* eslint-disable-next-line no-var */
       var { _embedded: embedded, _links: links, count } = data;
@@ -210,7 +213,7 @@ export default class NetworkClient {
           let url = buildUrl(pathname, { ...query, limit: popLimit() });
           while (true) {
             // Request and parse the page from the Mollie API.
-            const data = await request(url).then(processFetchResponse).catch(throwApiError);
+            const data = await request(url).catch(throwApiError).then(processFetchResponse);
             try {
               /* eslint-disable-next-line no-var */
               var { _embedded: embedded, _links: links } = data;
@@ -242,7 +245,7 @@ export default class NetworkClient {
       method: 'PATCH',
       body: JSON.stringify(data),
     };
-    return this.request(buildUrl(pathname), config).then(processFetchResponse).catch(throwApiError);
+    return this.request(buildUrl(pathname), config).catch(throwApiError).then(processFetchResponse);
   }
 
   async delete<R>(pathname: string, context?: Context & IdempotencyParameter): Promise<R | true> {
@@ -253,6 +256,6 @@ export default class NetworkClient {
       headers: idempotencyKey ? { [idempotencyHeaderName]: idempotencyKey } : undefined,
       body: Object.keys(body).length > 0 ? JSON.stringify(body) : undefined,
     };
-    return this.request(buildUrl(pathname), config).then(processFetchResponse).catch(throwApiError);
+    return this.request(buildUrl(pathname), config).catch(throwApiError).then(processFetchResponse);
   }
 }
