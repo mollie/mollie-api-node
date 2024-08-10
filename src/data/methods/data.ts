@@ -32,7 +32,7 @@ export interface MethodData extends Model<'method', PaymentMethodEnum> {
    *
    * @see https://docs.mollie.com/reference/v2/methods-api/get-method?path=pricing#response
    */
-  pricing: MethodPricing;
+  pricing: MethodPricing[];
   /**
    * An object with several URL objects relevant to the payment method. Every URL object will contain an `href` and a `type` field.
    *
