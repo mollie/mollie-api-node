@@ -251,7 +251,7 @@ export default class NetworkClient {
     const config: RequestInit = {
       method: 'DELETE',
       headers: idempotencyKey ? { [idempotencyHeaderName]: idempotencyKey } : undefined,
-      body: Object.keys(body).length > 0 ? JSON.stringify(body) : undefined,
+      body: JSON.stringify(body),
     };
     return this.request(buildUrl(pathname), config).catch(throwApiError).then(processFetchResponse);
   }
