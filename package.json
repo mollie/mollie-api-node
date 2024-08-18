@@ -22,7 +22,7 @@
   "jsnext:main": "dist/mollie.esm.js",
   "types": "dist/types/src/types.d.ts",
   "engines": {
-    "node": ">=14"
+    "node": ">=8"
   },
   "scripts": {
     "prepublish": "yarn build",
