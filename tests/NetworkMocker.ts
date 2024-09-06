@@ -1,7 +1,7 @@
-import axios from 'axios';
 import dotenv from 'dotenv';
 import nock, { Interceptor } from 'nock';
 import { setupRecorder } from 'nock-record';
+import fetch from 'node-fetch';
 import { apply, run } from 'ruply';
 import createMollieClient, { MollieClient } from '..';
 import fling from '../src/plumbing/fling';
@@ -36,14 +36,12 @@ export function getAccessTokenClientProvider(mockAuthorization = true) {
       oauthAuthorizationHeaderValue: `Basic: ${Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64')}`,
       refreshToken: REFRESH_TOKEN,
     }));
-    const { data } = await axios.post(
-      'https://api.mollie.com/oauth2/tokens',
-      {
-        grant_type: 'refresh_token',
-        refresh_token: refreshToken,
-      },
-      { headers: { Authorization: oauthAuthorizationHeaderValue } },
-    );
+    const response = await fetch('https://api.mollie.com/oauth2/tokens', {
+      method: 'POST',
+      headers: { Authorization: oauthAuthorizationHeaderValue },
+      body: JSON.stringify({ grant_type: 'refresh_token', refresh_token: refreshToken }),
+    });
+    const data = await response.json();
     const accessToken: string = data['access_token'];
     return apply(createMollieClient({ accessToken }), client => ((client as { accessToken?: string }).accessToken = accessToken));
   };
