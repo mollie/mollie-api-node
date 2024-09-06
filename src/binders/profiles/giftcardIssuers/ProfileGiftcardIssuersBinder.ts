@@ -9,7 +9,7 @@ import Binder from '../../Binder';
 import { type Parameters } from './parameters';
 
 function getPathSegments(profileId: string) {
-  return `/profiles/${profileId}/methods/giftcard/issuers`;
+  return `profiles/${profileId}/methods/giftcard/issuers`;
 }
 
 export default class ProfileGiftcardIssuersBinder extends Binder<IssuerData, IssuerModel> {

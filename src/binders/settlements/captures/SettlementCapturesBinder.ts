@@ -8,7 +8,7 @@ import Binder from '../../Binder';
 import { type IterateParameters, type PageParameters } from './parameters';
 
 export function getPathSegments(settlementId: string) {
-  return `/settlements/${settlementId}/captures`;
+  return `settlements/${settlementId}/captures`;
 }
 
 export default class SettlementCapturesBinder extends Binder<CaptureData, Capture> {

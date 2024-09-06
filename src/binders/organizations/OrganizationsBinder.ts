@@ -7,7 +7,7 @@ import renege from '../../plumbing/renege';
 import type Callback from '../../types/Callback';
 import Binder from '../Binder';
 
-const pathSegment = '/organizations';
+const pathSegment = 'organizations';
 
 export default class OrganizationsBinder extends Binder<OrganizationData, Organization> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
