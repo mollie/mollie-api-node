@@ -49,7 +49,7 @@ test('get', () => {
 });
 
 test('submit', () => {
-  new NetworkMocker(getApiKeyClientProvider()).use(async ([mollieClient, networkMocker]) => {
+  return new NetworkMocker(getApiKeyClientProvider()).use(async ([mollieClient, networkMocker]) => {
     networkMocker.intercept('POST', '/onboarding/me', 204).twice();
 
     const result = await bluster(mollieClient.onboarding.submit.bind(mollieClient.onboarding))();
