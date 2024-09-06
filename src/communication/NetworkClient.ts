@@ -73,16 +73,20 @@ const throwApiError = run(
 );
 
 /**
- * Checks if an API error needs to be thrown based on the passed result.
+ * Checks whether an API error needs to be thrown based on the passed result.
  */
-async function processFetchResponse(res: ResponseWithIdempotencyKey) {
+async function processFetchResponse(response: ResponseWithIdempotencyKey) {
   // Request was successful, but no content was returned.
-  if (res.status == 204) return true;
+  if (response.status == 204) return true;
   // Request was successful and content was returned.
-  const body = await res.json();
-  if (res.status >= 200 && res.status < 300) return body;
+  const body = await response.json();
+  if (Math.floor(response.status / 100) == 2) {
+    return body;
+  }
   // Request was not successful, but the response body contains an error message.
-  if (body) throw ApiError.createFromResponse(body, res.idempotencyKey);
+  if (body) {
+    throw ApiError.createFromResponse(body, response.idempotencyKey);
+  }
   // Request was not successful.
   throw new ApiError('An unknown error has occurred');
 }
