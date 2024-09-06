@@ -7,7 +7,7 @@ import type Callback from '../../types/Callback';
 import Binder from '../Binder';
 import { type GetParameters, type ListParameters } from './parameters';
 
-const pathSegment = '/methods';
+const pathSegment = 'methods';
 
 export default class MethodsBinder extends Binder<MethodData, Method> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {

@@ -4,7 +4,7 @@ import renege from '../../plumbing/renege';
 import type Callback from '../../types/Callback';
 import { type RequestPaymentSessionParameters } from './parameters';
 
-const pathSegments = '/wallets/applepay/sessions';
+const pathSegments = 'wallets/applepay/sessions';
 
 export default class ApplePayBinder {
   constructor(protected readonly networkClient: NetworkClient) {}

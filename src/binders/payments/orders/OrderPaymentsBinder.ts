@@ -9,7 +9,7 @@ import Binder from '../../Binder';
 import { type CreateParameters } from './parameters';
 
 function getPathSegments(orderId: string) {
-  return `/orders/${orderId}/payments`;
+  return `orders/${orderId}/payments`;
 }
 
 export default class OrderPaymentsBinder extends Binder<PaymentData, Payment> {

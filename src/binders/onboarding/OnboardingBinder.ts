@@ -6,7 +6,7 @@ import type Callback from '../../types/Callback';
 import Binder from '../Binder';
 import { type SubmitParameters } from './parameters';
 
-const pathSegments = '/onboarding/me';
+const pathSegments = 'onboarding/me';
 
 export default class OnboardingBinder extends Binder<OnboardingData, Onboarding> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {

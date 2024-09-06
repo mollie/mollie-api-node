@@ -129,8 +129,7 @@ export default class NetworkClient {
 
     // Create the request function.
     this.request = (pathname, options) => {
-      // If the pathname starts with a slash, remove it and prepend the API endpoint.
-      const url = pathname.startsWith('/') ? `${apiEndpoint}${pathname.substring(1)}` : pathname;
+      const url = new URL(pathname, apiEndpoint);
       return fetchWithRetries(url, { agent, ...options, headers: { ...headers, ...options?.headers } });
     };
   }

@@ -1,6 +1,6 @@
 import { randomBytes } from 'crypto';
 
-import fetch, { type RequestInit, type Response } from 'node-fetch';
+import fetch, { type RequestInit, type Response, type RequestInfo } from 'node-fetch';
 
 /**
  * The delay, in milliseconds, between attempts.
@@ -67,14 +67,14 @@ export type ResponseWithIdempotencyKey = Response & { idempotencyKey: string | u
  * safely re-attempt requests.
  */
 export function retryingFetch(originalFetch: typeof fetch) {
-  return async function fetchWithRetries(input: string, init: RequestInit): Promise<ResponseWithIdempotencyKey> {
+  return async function fetchWithRetries(url: RequestInfo, init: RequestInit): Promise<ResponseWithIdempotencyKey> {
     // If the request is a POST or DELETE one and does not yet have the idempotency header, add one now.
     if (init.method != undefined && unsafeMethods.has(init.method.toUpperCase()) && init.headers && !(idempotencyHeaderName in init.headers)) {
       init.headers = { ...init.headers, ...generateIdempotencyHeader() };
     }
     // Attempt the request.
     for (let attempt = 0; ; ++attempt) {
-      const response = await originalFetch(input, init).then(response =>
+      const response = await originalFetch(url, init).then(response =>
         Object.assign(response, { idempotencyKey: init.headers && idempotencyHeaderName in init.headers ? (init.headers[idempotencyHeaderName] as string) : undefined }),
       );
       // If this is the last attempt, return the response.

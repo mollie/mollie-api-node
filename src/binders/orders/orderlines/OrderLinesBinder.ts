@@ -10,7 +10,7 @@ import Binder from '../../Binder';
 import { type CancelParameters, type UpdateParameters } from './parameters';
 
 function getPathSegments(orderId: string) {
-  return `/orders/${orderId}/lines`;
+  return `orders/${orderId}/lines`;
 }
 
 export default class OrderLinesBinder extends Binder<OrderData, Order> {
