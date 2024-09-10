@@ -10,7 +10,7 @@ export default class Binder<R, T extends Omit<R, '_links' | '_embedded'>> {
   /**
    * Injects `nextPage`, `nextPageCursor`, `previousPage`, and `previousPageCursor` into the passed list.
    */
-  protected injectPaginationHelpers<P>(input: Array<T> & Pick<Page<T>, 'count' | 'links'>, list: (parameters: P) => Promise<Page<T>>, selfParameters: P = {} as P): Page<T> {
+  protected injectPaginationHelpers<P>(input: Array<T> & Pick<Page<T>, 'links'>, list: (parameters: P) => Promise<Page<T>>, selfParameters: P = {} as P): Page<T> {
     const { links } = input;
     let nextPage: Maybe<() => Promise<Page<T>>>;
     let nextPageCursor: Maybe<string>;

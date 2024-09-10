@@ -175,18 +175,15 @@ export default class NetworkClient {
     return embedded[binderName] as R[];
   }
 
-  async page<R>(pathname: string, binderName: string, query?: SearchParameters): Promise<R[] & Pick<Page<R>, 'links' | 'count'>> {
+  async page<R>(pathname: string, binderName: string, query?: SearchParameters): Promise<R[] & Pick<Page<R>, 'links'>> {
     const data = await this.request(buildUrl(pathname, query));
     try {
       /* eslint-disable-next-line no-var */
-      var { _embedded: embedded, _links: links, count } = data;
+      var { _embedded: embedded, _links: links } = data;
     } catch (error) {
       throw new ApiError('Received unexpected response from the server');
     }
-    return Object.assign(embedded[binderName] as R[], {
-      links,
-      count,
-    });
+    return Object.assign(embedded[binderName] as R[], { links });
   }
 
   iterate<R>(pathname: string, binderName: string, query: Maybe<SearchParameters>, valuesPerMinute = 5000): HelpfulIterator<R> {
