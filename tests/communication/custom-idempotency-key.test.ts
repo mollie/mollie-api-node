@@ -49,7 +49,7 @@ const paymentResponse = {
 };
 
 describe('custom-idempotency-key', () => {
-  const networkMocker = new NetworkMocker(getApiKeyClientProvider(true));
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
   let mollieClient: MollieClient;
 
   beforeAll(async () => {

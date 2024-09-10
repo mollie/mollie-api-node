@@ -1,60 +1,60 @@
-import wireMockClient from '../../wireMockClient';
+import NetworkMocker, { getApiKeyClientProvider } from '../../NetworkMocker';
 
-test('listPageOfRootSubscriptions', async () => {
-  const { adapter, client } = wireMockClient();
-
-  adapter.onGet('/subscriptions').reply(200, {
-    _embedded: {
-      subscriptions: [
-        {
-          resource: 'subscription',
-          id: 'sub_wByQa6efm6',
-          mode: 'test',
-          createdAt: '2018-04-24T11:41:55+00:00',
-          status: 'active',
-          amount: {
-            value: '10.00',
-            currency: 'EUR',
-          },
-          description: 'Order 1234',
-          method: null,
-          times: null,
-          interval: '1 month',
-          startDate: '2018-04-24',
-          webhookUrl: null,
-          _links: {
-            self: {
-              href: 'https://api.mollie.com/v2/customers/cst_FhQJRw4s2n/subscriptions/sub_wByQa6efm6',
-              type: 'application/hal+json',
+test('listPageOfRootSubscriptions', () => {
+  return new NetworkMocker(getApiKeyClientProvider()).use(async ([mollieClient, networkMocker]) => {
+    networkMocker.intercept('GET', '/subscriptions', 200, {
+      _embedded: {
+        subscriptions: [
+          {
+            resource: 'subscription',
+            id: 'sub_wByQa6efm6',
+            mode: 'test',
+            createdAt: '2018-04-24T11:41:55+00:00',
+            status: 'active',
+            amount: {
+              value: '10.00',
+              currency: 'EUR',
             },
-            customer: {
-              href: 'https://api.mollie.com/v2/customers/cst_FhQJRw4s2n',
-              type: 'application/hal+json',
+            description: 'Order 1234',
+            method: null,
+            times: null,
+            interval: '1 month',
+            startDate: '2018-04-24',
+            webhookUrl: null,
+            _links: {
+              self: {
+                href: 'https://api.mollie.com/v2/customers/cst_FhQJRw4s2n/subscriptions/sub_wByQa6efm6',
+                type: 'application/hal+json',
+              },
+              customer: {
+                href: 'https://api.mollie.com/v2/customers/cst_FhQJRw4s2n',
+                type: 'application/hal+json',
+              },
             },
           },
+        ],
+      },
+      count: 1,
+      _links: {
+        documentation: {
+          href: 'https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions',
+          type: 'text/html',
         },
-      ],
-    },
-    count: 1,
-    _links: {
-      documentation: {
-        href: 'https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions',
-        type: 'text/html',
+        self: {
+          href: 'https://api.mollie.com/v2/subscriptions?limit=50',
+          type: 'application/hal+json',
+        },
+        previous: null,
+        next: null,
       },
-      self: {
-        href: 'https://api.mollie.com/v2/subscriptions?limit=50',
-        type: 'application/hal+json',
-      },
-      previous: null,
-      next: null,
-    },
+    }).twice();
+
+    const subscriptions = await bluster(mollieClient.subscription.page.bind(mollieClient.subscription))();
+
+    expect(subscriptions.length).toBe(1);
+
+    expect(subscriptions[0].resource).toBe('subscription');
+    expect(subscriptions[0].id).toBe('sub_wByQa6efm6');
+    // No need to test all attributes here ...
   });
-
-  const subscriptions = await bluster(client.subscription.page.bind(client.subscription))();
-
-  expect(subscriptions.length).toBe(1);
-
-  expect(subscriptions[0].resource).toBe('subscription');
-  expect(subscriptions[0].id).toBe('sub_wByQa6efm6');
-  // No need to test all attributes here ...
 });

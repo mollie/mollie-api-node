@@ -6,7 +6,7 @@ import tick from '../tick';
 import '../matchers/toBeDepleted';
 
 describe('multipage-iteration', () => {
-  const networkMocker = new NetworkMocker(getApiKeyClientProvider(true));
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
   let mollieClient: MollieClient;
 
   function intercept(limit: number, from?: number) {

@@ -22,7 +22,7 @@
   "jsnext:main": "dist/mollie.esm.js",
   "types": "dist/types/src/types.d.ts",
   "engines": {
-    "node": ">=14"
+    "node": ">=8"
   },
   "scripts": {
     "prepublish": "yarn build",
@@ -41,7 +41,7 @@
     "lint": "yarn lint:eslint:fix && yarn lint:prettier"
   },
   "dependencies": {
-    "axios": "^1.6.2",
+    "node-fetch": "^2.7.0",
     "ruply": "^1.0.1"
   },
   "devDependencies": {
@@ -51,7 +51,7 @@
     "@mollie/eslint-config-typescript": "^1.6.5",
     "@types/jest": "^29.5.11",
     "@types/node": "^18.14.6",
-    "axios-mock-adapter": "1.19.0",
+    "@types/node-fetch": "^2.6.11",
     "babel-jest": "^29.5.0",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",

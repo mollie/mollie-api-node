@@ -1,5 +1,5 @@
 import type TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
-import {type IssuerData} from '../../../data/issuer/IssuerModel';
+import { type IssuerData } from '../../../data/issuer/IssuerModel';
 import type IssuerModel from '../../../data/issuer/IssuerModel';
 import ApiError from '../../../errors/ApiError';
 import renege from '../../../plumbing/renege';
