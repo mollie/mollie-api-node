@@ -40,7 +40,7 @@ export interface RefundData extends Model<'refund'> {
    *
    * @see https://docs.mollie.com/reference/v2/refunds-api/get-payment-refund?path=metadata#response
    */
-  metadata?: any;
+  metadata: unknown;
   /**
    * Since refunds may not be instant for certain payment methods, the refund carries a status field.
    *

@@ -99,7 +99,7 @@ export interface SubscriptionData extends Model<'subscription'> {
    *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=metadata#response
    */
-  metadata: any;
+  metadata: unknown;
   /**
    * The application fee, if the subscription was created with one. This will be applied on each payment created for the subscription.
    *

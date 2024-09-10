@@ -40,7 +40,7 @@ export interface CustomerData extends Model<'customer'> {
    *
    * @see https://docs.mollie.com/reference/v2/customers-api/get-customer?path=metadata#response
    */
-  metadata: Record<string, string>;
+  metadata: unknown;
   /**
    * The customer's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    *

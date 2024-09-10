@@ -105,7 +105,7 @@ export interface OrderData extends Model<'order'> {
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=metadata#response
    */
-  metadata?: any;
+  metadata: unknown;
   /**
    * The URL your customer will be redirected to after completing or canceling the payment process.
    *

@@ -146,7 +146,7 @@ export interface OrderLineData extends Model<'orderline'> {
    * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=lines/_links#response
    */
   _links: OrderLineLinks;
-  metadata: any;
+  metadata: unknown;
 }
 
 type OrderLine = Seal<OrderLineData, {}>;

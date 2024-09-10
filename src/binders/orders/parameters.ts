@@ -5,8 +5,8 @@ import { type IdempotencyParameter, type PaginationParameters, type ThrottlingPa
 import { type CreateParameters as PaymentCreateParameters } from '../payments/parameters';
 import type PickOptional from '../../types/PickOptional';
 
-export type CreateParameters = Pick<OrderData, 'amount' | 'orderNumber' | 'consumerDateOfBirth' | 'webhookUrl' | 'locale' | 'metadata' | 'expiresAt'> &
-  PickOptional<OrderData, 'billingAddress' | 'shippingAddress' | 'redirectUrl' | 'cancelUrl'> & {
+export type CreateParameters = Pick<OrderData, 'amount' | 'orderNumber' | 'consumerDateOfBirth' | 'webhookUrl' | 'locale' | 'expiresAt'> &
+  PickOptional<OrderData, 'billingAddress' | 'shippingAddress' | 'redirectUrl' | 'cancelUrl' | 'metadata'> & {
     /**
      * All order lines must have the same currency as the order. You cannot mix currencies within a single order.
      *
