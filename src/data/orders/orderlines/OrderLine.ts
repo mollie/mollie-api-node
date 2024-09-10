@@ -149,12 +149,7 @@ export interface OrderLineData extends Model<'orderline'> {
   metadata: any;
 }
 
-type OrderLine = Seal<
-  OrderLineData,
-  {
-    toPlainObject(): any;
-  }
->;
+type OrderLine = Seal<OrderLineData, {}>;
 
 export default OrderLine;
 
@@ -184,12 +179,5 @@ export enum OrderLineType {
 }
 
 export function transform(input: OrderLineData): OrderLine {
-  return Object.assign(
-    Object.create({
-      toPlainObject: function toPlainObject(this: Model<any>): any {
-        return Object.assign({}, this);
-      },
-    }),
-    input,
-  );
+  return input;
 }
