@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import { fail } from 'node:assert';
 
-import createMollieClient, { Locale, OrderEmbed, OrderLineType, Payment, PaymentMethod } from '../..';
+import createMollieClient, { Locale, OrderEmbed, OrderLineType, Payment, PaymentMethod, PaymentStatus } from '../..';
 
 /**
  * Load the API_KEY environment variable
@@ -94,7 +94,7 @@ describe('orders', () => {
     const order = await orderExists;
 
     const payment: Payment = order._embedded.payments[0];
-    if (!payment.isPaid()) {
+    if (payment.status != PaymentStatus.paid) {
       console.log('If you want to test the full flow, set the embedded order payment to paid:', order.redirectUrl);
       return;
     }

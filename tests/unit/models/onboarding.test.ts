@@ -36,22 +36,10 @@ function getOnboarding(status) {
 
 test('onboardingStatuses', () => {
   return Promise.all(
-    [
-      ['needs-data', 'needsData', true],
-      ['needs-data', 'isInReview', false],
-      ['needs-data', 'isCompleted', false],
-
-      ['in-review', 'needsData', false],
-      ['in-review', 'isInReview', true],
-      ['in-review', 'isCompleted', false],
-
-      ['completed', 'needsData', false],
-      ['completed', 'isInReview', false],
-      ['completed', 'isCompleted', true],
-    ].map(async ([status, method, expectedResult]) => {
+    ['needs-data', 'in-review', 'completed'].map(async status => {
       const onboarding = await getOnboarding(status);
 
-      expect(onboarding[method as keyof Onboarding]()).toBe(expectedResult);
+      expect(onboarding.status).toBe(status);
     }),
   );
 });

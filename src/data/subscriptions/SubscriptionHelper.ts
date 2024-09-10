@@ -30,41 +30,6 @@ export default class SubscriptionHelper extends Helper<SubscriptionData, Subscri
   }
 
   /**
-   * @deprecated Use `subscription.status == SubscriptionStatus.active` instead.
-   */
-  public isActive(this: SubscriptionData): boolean {
-    return this.status === SubscriptionStatus.active;
-  }
-
-  /**
-   * @deprecated Use `subscription.status == SubscriptionStatus.pending` instead.
-   */
-  public isPending(this: SubscriptionData): boolean {
-    return this.status === SubscriptionStatus.pending;
-  }
-
-  /**
-   * @deprecated Use `subscription.status == SubscriptionStatus.completed` instead.
-   */
-  public isCompleted(this: SubscriptionData): boolean {
-    return this.status === SubscriptionStatus.completed;
-  }
-
-  /**
-   * @deprecated Use `subscription.status == SubscriptionStatus.suspended` instead.
-   */
-  public isSuspended(this: SubscriptionData): boolean {
-    return this.status === SubscriptionStatus.suspended;
-  }
-
-  /**
-   * @deprecated Use `subscription.status == SubscriptionStatus.canceled` instead.
-   */
-  public isCanceled(this: SubscriptionData): boolean {
-    return SubscriptionStatus.canceled == this.status;
-  }
-
-  /**
    * Returns the customer the subscription is for.
    *
    * @since 3.6.0

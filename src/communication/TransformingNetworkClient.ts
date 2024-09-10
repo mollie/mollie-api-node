@@ -50,8 +50,8 @@ export default class TransformingNetworkClient {
 
   async page<R extends Model<any, any>, U>(...passingArguments: Parameters<NetworkClient['page']>) {
     const response = await this.networkClient.page<R>(...passingArguments);
-    const { count, links } = response;
-    return Object.assign(response.map(this.transform) as U[], { count, links });
+    const { links } = response;
+    return Object.assign(response.map(this.transform) as U[], { links });
   }
 
   iterate<R extends Model<any, any>, U>(...passingArguments: Parameters<NetworkClient['iterate']>) {

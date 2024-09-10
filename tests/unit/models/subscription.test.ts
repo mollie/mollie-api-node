@@ -41,41 +41,10 @@ function getSubscription(status) {
 
 test('subscriptionStatuses', () => {
   return Promise.all(
-    [
-      ['pending', 'isPending', true],
-      ['pending', 'isCanceled', false],
-      ['pending', 'isCompleted', false],
-      ['pending', 'isSuspended', false],
-      ['pending', 'isActive', false],
-
-      // (Note that canceled subscriptions usually have their canceledAt set.)
-      ['canceled', 'isPending', false],
-      ['canceled', 'isCanceled', true],
-      ['canceled', 'isCompleted', false],
-      ['canceled', 'isSuspended', false],
-      ['canceled', 'isActive', false],
-
-      ['completed', 'isPending', false],
-      ['completed', 'isCanceled', false],
-      ['completed', 'isCompleted', true],
-      ['completed', 'isSuspended', false],
-      ['completed', 'isActive', false],
-
-      ['suspended', 'isPending', false],
-      ['suspended', 'isCanceled', false],
-      ['suspended', 'isCompleted', false],
-      ['suspended', 'isSuspended', true],
-      ['suspended', 'isActive', false],
-
-      ['active', 'isPending', false],
-      ['active', 'isCanceled', false],
-      ['active', 'isCompleted', false],
-      ['active', 'isSuspended', false],
-      ['active', 'isActive', true],
-    ].map(async ([status, method, expectedResult]) => {
+    ['pending', 'canceled', 'completed', 'suspended', 'active'].map(async status => {
       const subscription = await getSubscription(status);
 
-      expect(subscription[method as keyof Subscription]()).toBe(expectedResult);
+      expect(subscription.status).toBe(status);
     }),
   );
 });

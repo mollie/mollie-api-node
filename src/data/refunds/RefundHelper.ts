@@ -19,51 +19,6 @@ export default class RefundHelper extends Helper<RefundData, Refund> {
   }
 
   /**
-   * Returns whether the refund is queued due to a lack of balance. A queued refund can be canceled.
-   *
-   * @deprecated Use `refund.status == RefundStatus.queued` instead.
-   */
-  public isQueued(this: RefundData): boolean {
-    return this.status === RefundStatus.queued;
-  }
-
-  /**
-   * Returns whether the refund is ready to be sent to the bank. You can still cancel the refund if you like.
-   *
-   * @deprecated Use `refund.status == RefundStatus.pending` instead.
-   */
-  public isPending(this: RefundData): boolean {
-    return this.status === RefundStatus.pending;
-  }
-
-  /**
-   * Returns whether the refund is being processed. Cancellation is no longer possible if so.
-   *
-   * @deprecated Use `refund.status == RefundStatus.processing` instead.
-   */
-  public isProcessing(this: RefundData): boolean {
-    return this.status === RefundStatus.processing;
-  }
-
-  /**
-   * Returns whether the refund has been settled to your customer.
-   *
-   * @deprecated Use `refund.status == RefundStatus.refunded` instead.
-   */
-  public isRefunded(this: RefundData): boolean {
-    return this.status === RefundStatus.refunded;
-  }
-
-  /**
-   * Returns whether the refund has failed after processing.
-   *
-   * @deprecated Use `refund.status == RefundStatus.failed` instead.
-   */
-  public isFailed(this: RefundData): boolean {
-    return this.status === RefundStatus.failed;
-  }
-
-  /**
    * Returns the payment this refund was created for.
    *
    * @since 3.6.0
