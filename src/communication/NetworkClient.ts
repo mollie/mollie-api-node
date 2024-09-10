@@ -98,7 +98,7 @@ interface Context {}
  * This class is essentially a wrapper around fetch. It simplifies communication with the Mollie API over the network.
  */
 export default class NetworkClient {
-  protected readonly request: (pathname: string, options?: RequestInit) => Promise<ResponseWithIdempotencyKey>;
+  protected readonly request: (pathname: string, options?: RequestInit) => Promise<any>;
   constructor({
     apiKey,
     accessToken,
@@ -130,7 +130,9 @@ export default class NetworkClient {
     // Create the request function.
     this.request = (pathname, options) => {
       const url = new URL(pathname, apiEndpoint);
-      return fetchWithRetries(url, { agent, ...options, headers: { ...headers, ...options?.headers } });
+      return fetchWithRetries(url, { agent, ...options, headers: { ...headers, ...options?.headers } })
+        .catch(throwApiError)
+        .then(processFetchResponse);
     };
   }
 
@@ -145,15 +147,15 @@ export default class NetworkClient {
       headers: idempotencyKey ? { [idempotencyHeaderName]: idempotencyKey } : undefined,
       body: JSON.stringify(body),
     };
-    return this.request(buildUrl(pathname, query), config).catch(throwApiError).then(processFetchResponse);
+    return this.request(buildUrl(pathname, query), config);
   }
 
   async get<R>(pathname: string, query?: SearchParameters): Promise<R> {
-    return this.request(buildUrl(pathname, query)).catch(throwApiError).then(processFetchResponse);
+    return this.request(buildUrl(pathname, query));
   }
 
   async list<R>(pathname: string, binderName: string, query?: SearchParameters): Promise<R[]> {
-    const data = await this.request(buildUrl(pathname, query)).catch(throwApiError).then(processFetchResponse);
+    const data = await this.request(buildUrl(pathname, query));
     try {
       /* eslint-disable-next-line no-var */
       var { _embedded: embedded } = data;
@@ -164,7 +166,7 @@ export default class NetworkClient {
   }
 
   async page<R>(pathname: string, binderName: string, query?: SearchParameters): Promise<R[] & Pick<Page<R>, 'links' | 'count'>> {
-    const data = await this.request(buildUrl(pathname, query)).catch(throwApiError).then(processFetchResponse);
+    const data = await this.request(buildUrl(pathname, query));
     try {
       /* eslint-disable-next-line no-var */
       var { _embedded: embedded, _links: links, count } = data;
@@ -213,7 +215,7 @@ export default class NetworkClient {
           let url = buildUrl(pathname, { ...query, limit: popLimit() });
           while (true) {
             // Request and parse the page from the Mollie API.
-            const data = await request(url).catch(throwApiError).then(processFetchResponse);
+            const data = await request(url);
             try {
               /* eslint-disable-next-line no-var */
               var { _embedded: embedded, _links: links } = data;
@@ -245,7 +247,7 @@ export default class NetworkClient {
       method: 'PATCH',
       body: JSON.stringify(data),
     };
-    return this.request(buildUrl(pathname), config).catch(throwApiError).then(processFetchResponse);
+    return this.request(buildUrl(pathname), config);
   }
 
   async delete<R>(pathname: string, context?: Context & IdempotencyParameter): Promise<R | true> {
@@ -256,6 +258,6 @@ export default class NetworkClient {
       headers: idempotencyKey ? { [idempotencyHeaderName]: idempotencyKey } : undefined,
       body: JSON.stringify(body),
     };
-    return this.request(buildUrl(pathname), config).catch(throwApiError).then(processFetchResponse);
+    return this.request(buildUrl(pathname), config);
   }
 }
