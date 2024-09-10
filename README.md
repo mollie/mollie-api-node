@@ -1,9 +1,9 @@
 <p align="center">
-  <img src="https://info.mollie.com/hubfs/github/nodejs/logo-1.png" width="128" height="128"/>
+  <img src="https://github.com/user-attachments/assets/a98b62f7-f0f1-44ac-8ade-3a83cfecf264" width="128" height="128"/>
 </p>
 <h1 align="center">Mollie API client for Node.js</h1>
 
-<img src="https://info.mollie.com/hubfs/github/nodejs/editor-3.png" />
+![Mollie Node.js API Example](https://github.com/user-attachments/assets/0c1c454f-c944-4042-863c-f0a556bdb87f)
 
 # About
 

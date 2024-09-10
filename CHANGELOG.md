@@ -1,4 +1,5 @@
-![Mollie](https://www.mollie.com/files/Mollie-Logo-Style-Small.png)
+![Mollie](https://github.com/user-attachments/assets/2236d7d8-d5b6-4d1c-bb76-390d5e96db00)
+
 
 ### Changelog
 
