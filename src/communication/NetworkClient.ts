@@ -137,6 +137,11 @@ export default class NetworkClient {
     // Create retrying fetch function.
     const fetchWithRetries = retryingFetch(fetch);
 
+    // normalize the API endpoint - if you provided a path, you probably meant to include it in the full URL. Without a trailing slash it would be ignored.
+    if (!apiEndpoint.endsWith('/')) {
+      apiEndpoint += '/';
+    }
+
     // Create the request function.
     this.request = (pathname, options) => {
       const url = new URL(pathname, apiEndpoint);
