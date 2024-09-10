@@ -28,36 +28,6 @@ export default class ApiError extends Error {
   }
 
   /**
-   * Get the error message
-   *
-   * @since 3.0.0
-   * @deprecated Use `error.message` instead.
-   */
-  public getMessage(): string {
-    return this.message;
-  }
-
-  /**
-   * Get the field name that contains an error
-   *
-   * @since 3.0.0
-   * @deprecated Use `error.field` instead.
-   */
-  public getField(): Maybe<string> {
-    return this.field;
-  }
-
-  /**
-   * Get the API status code
-   *
-   * @since 3.0.0
-   * @deprecated Use `error.statusCode` instead.
-   */
-  public getStatusCode(): Maybe<number> {
-    return this.statusCode;
-  }
-
-  /**
    * Get the documentation URL
    *
    * @since 3.0.0
