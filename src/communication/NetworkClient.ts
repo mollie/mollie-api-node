@@ -98,6 +98,14 @@ interface Context {}
  * This class is essentially a wrapper around fetch. It simplifies communication with the Mollie API over the network.
  */
 export default class NetworkClient {
+  /**
+   * Triggers a request to the Mollie API.
+   *
+   * In contrast to the underlying `fetch` function, this function will:
+   * - retry the request in some scenarios (see `retryingFetch`)
+   * - throw an `ApiError` if the response from the Mollie API indicates an error
+   * - appropriately process the response body before returning it (i.e. parsing it as JSON or throwing an ApiError if the response status indicates an error)
+   */
   protected readonly request: (pathname: string, options?: RequestInit) => Promise<any>;
   constructor({
     apiKey,
