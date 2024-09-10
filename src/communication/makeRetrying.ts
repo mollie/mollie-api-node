@@ -53,7 +53,7 @@ function parseRetryAfterHeader(response: fetch.Response): number | undefined {
 export type ResponseWithIdempotencyKey = Response & { idempotencyKey: string | undefined };
 
 /**
- * Wrapper around fetch, making it attempt requests multiple times in some scenarios.
+ * Returns a wrapped version of fetch, making it attempt requests multiple times in some scenarios.
  *
  * The idea is that if the Mollie API has a brief hiccup, the extra attempts may cause the request to succeed anyway.
  *
