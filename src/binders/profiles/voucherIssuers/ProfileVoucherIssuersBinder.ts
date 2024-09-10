@@ -1,8 +1,7 @@
 import type TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
 import type IssuerModel from '../../../data/issuer/IssuerModel';
 import { type IssuerData } from '../../../data/issuer/IssuerModel';
-import ApiError from '../../../errors/ApiError';
-import checkId from '../../../plumbing/checkId';
+import assertWellFormedId from '../../../plumbing/assertWellFormedId';
 import renege from '../../../plumbing/renege';
 import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
@@ -28,9 +27,7 @@ export default class ProfileVoucherIssuersBinder extends Binder<IssuerData, Issu
   public enable(parameters: CreateParameters) {
     if (renege(this, this.enable, ...arguments)) return;
     const { id, profileId, ...data } = parameters;
-    if (!checkId(profileId, 'profile')) {
-      throw new ApiError('The profile id is invalid');
-    }
+    assertWellFormedId(profileId, 'profile');
     return this.networkClient.post(`${getPathSegments(profileId)}/${id}`, data);
   }
 
@@ -45,9 +42,7 @@ export default class ProfileVoucherIssuersBinder extends Binder<IssuerData, Issu
   public disable(parameters: Parameters) {
     if (renege(this, this.disable, ...arguments)) return;
     const { id, profileId, ...context } = parameters;
-    if (!checkId(profileId, 'profile')) {
-      throw new ApiError('The profile id is invalid');
-    }
+    assertWellFormedId(profileId, 'profile');
     return this.networkClient.delete<IssuerData, true>(`${getPathSegments(profileId)}/${id}`, context);
   }
 }

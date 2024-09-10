@@ -2,9 +2,8 @@ import type TransformingNetworkClient from '../../../communication/TransformingN
 import { type MandateData } from '../../../data/customers/mandates/data';
 import type Mandate from '../../../data/customers/mandates/Mandate';
 import type Page from '../../../data/page/Page';
-import ApiError from '../../../errors/ApiError';
 import alias from '../../../plumbing/alias';
-import checkId from '../../../plumbing/checkId';
+import assertWellFormedId from '../../../plumbing/assertWellFormedId';
 import renege from '../../../plumbing/renege';
 import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
@@ -34,9 +33,7 @@ export default class CustomerMandatesBinder extends Binder<MandateData, Mandate>
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
     const { customerId, ...data } = parameters;
-    if (!checkId(customerId, 'customer')) {
-      throw new ApiError('The customer id is invalid');
-    }
+    assertWellFormedId(customerId, 'customer');
     return this.networkClient.post<MandateData, Mandate>(getPathSegments(customerId), data);
   }
 
@@ -50,13 +47,9 @@ export default class CustomerMandatesBinder extends Binder<MandateData, Mandate>
   public get(id: string, parameters: GetParameters, callback: Callback<Mandate>): void;
   public get(id: string, parameters: GetParameters) {
     if (renege(this, this.get, ...arguments)) return;
-    if (!checkId(id, 'mandate')) {
-      throw new ApiError('The customers_mandate id is invalid');
-    }
+    assertWellFormedId(id, 'mandate');
     const { customerId, ...query } = parameters;
-    if (!checkId(customerId, 'customer')) {
-      throw new ApiError('The customer id is invalid');
-    }
+    assertWellFormedId(customerId, 'customer');
     return this.networkClient.get<MandateData, Mandate>(`${getPathSegments(customerId)}/${id}`, query);
   }
 
@@ -73,9 +66,7 @@ export default class CustomerMandatesBinder extends Binder<MandateData, Mandate>
   public page(parameters: PageParameters) {
     if (renege(this, this.page, ...arguments)) return;
     const { customerId, ...query } = parameters;
-    if (!checkId(customerId, 'customer')) {
-      throw new ApiError('The customer id is invalid');
-    }
+    assertWellFormedId(customerId, 'customer');
     return this.networkClient.page<MandateData, Mandate>(getPathSegments(customerId), 'mandates', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
@@ -89,9 +80,7 @@ export default class CustomerMandatesBinder extends Binder<MandateData, Mandate>
    */
   public iterate(parameters: IterateParameters) {
     const { customerId, valuesPerMinute, ...query } = parameters;
-    if (!checkId(customerId, 'customer')) {
-      throw new ApiError('The customer id is invalid');
-    }
+    assertWellFormedId(customerId, 'customer');
     return this.networkClient.iterate<MandateData, Mandate>(getPathSegments(customerId), 'mandates', query, valuesPerMinute);
   }
 
@@ -105,13 +94,9 @@ export default class CustomerMandatesBinder extends Binder<MandateData, Mandate>
   public revoke(id: string, parameters: RevokeParameters, callback: Callback<true>): void;
   public revoke(id: string, parameters: RevokeParameters) {
     if (renege(this, this.revoke, ...arguments)) return;
-    if (!checkId(id, 'mandate')) {
-      throw new ApiError('The customers_mandate id is invalid');
-    }
+    assertWellFormedId(id, 'mandate');
     const { customerId, ...context } = parameters;
-    if (!checkId(customerId, 'customer')) {
-      throw new ApiError('The customer is invalid');
-    }
+    assertWellFormedId(customerId, 'customer');
     return this.networkClient.delete<MandateData, true>(`${getPathSegments(customerId)}/${id}`, context);
   }
 }
