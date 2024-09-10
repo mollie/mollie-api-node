@@ -84,7 +84,7 @@ async function processFetchResponse(response: ResponseWithIdempotencyKey) {
     return body;
   }
   // Request was not successful, but the response body contains an error message.
-  if (body) {
+  if (null != body) {
     throw ApiError.createFromResponse(body, response.idempotencyKey);
   }
   // Request was not successful.
