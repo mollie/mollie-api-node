@@ -16,7 +16,8 @@ import breakUrl from './breakUrl';
 import buildUrl, { type SearchParameters } from './buildUrl';
 import dromedaryCase from './dromedaryCase';
 import { idempotencyHeaderName, ResponseWithIdempotencyKey, retryingFetch } from './makeRetrying';
-import { URL } from 'url'; // This isn't necessary for newer node versions, but it allows us to secretly support node 8. Should we ever drop that completely and move to 10+, we can remove this import.
+// The following line is only necessary for Node.js < 10.0.0, which we only secretly support. Should we ever drop that support completely, we can remove this import.
+import { URL } from 'url';
 
 /**
  * Like `[].map` but with support for non-array inputs, in which case this function behaves as if an array was passed

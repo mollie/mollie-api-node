@@ -1,4 +1,4 @@
-// If support for Node.js < 10.0.0 is ever dropped, this import can be removed.
+// The following line is only necessary for Node.js < 10.0.0, which we only secretly support. Should we ever drop that support completely, we can remove this import.
 import { URLSearchParams } from 'url';
 
 import { apply, runIf } from 'ruply';
