@@ -2,9 +2,8 @@ import type TransformingNetworkClient from '../../../communication/TransformingN
 import type Page from '../../../data/page/Page';
 import { type PaymentData } from '../../../data/payments/data';
 import type Payment from '../../../data/payments/Payment';
-import ApiError from '../../../errors/ApiError';
 import alias from '../../../plumbing/alias';
-import checkId from '../../../plumbing/checkId';
+import assertWellFormedId from '../../../plumbing/assertWellFormedId';
 import renege from '../../../plumbing/renege';
 import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
@@ -31,12 +30,8 @@ export default class SubscriptionPaymentsBinder extends Binder<PaymentData, Paym
   public page(parameters: PageParameters) {
     if (renege(this, this.page, ...arguments)) return;
     const { customerId, subscriptionId, ...query } = parameters;
-    if (!checkId(customerId, 'customer')) {
-      throw new ApiError('The customer id is invalid');
-    }
-    if (!checkId(subscriptionId, 'subscription')) {
-      throw new ApiError('The subscription id is invalid');
-    }
+    assertWellFormedId(customerId, 'customer');
+    assertWellFormedId(subscriptionId, 'subscription');
     return this.networkClient.page<PaymentData, Payment>(getPathSegments(customerId, subscriptionId), 'payments', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
@@ -48,12 +43,8 @@ export default class SubscriptionPaymentsBinder extends Binder<PaymentData, Paym
    */
   public iterate(parameters: IterateParameters) {
     const { customerId, subscriptionId, valuesPerMinute, ...query } = parameters;
-    if (!checkId(customerId, 'customer')) {
-      throw new ApiError('The customer id is invalid');
-    }
-    if (!checkId(subscriptionId, 'subscription')) {
-      throw new ApiError('The subscription id is invalid');
-    }
+    assertWellFormedId(customerId, 'customer');
+    assertWellFormedId(subscriptionId, 'subscription');
     return this.networkClient.iterate<PaymentData, Payment>(getPathSegments(customerId, subscriptionId), 'payments', query, valuesPerMinute);
   }
 }

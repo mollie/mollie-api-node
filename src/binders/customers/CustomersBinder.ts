@@ -2,9 +2,8 @@ import type TransformingNetworkClient from '../../communication/TransformingNetw
 import type Customer from '../../data/customers/Customer';
 import { type CustomerData } from '../../data/customers/Customer';
 import type Page from '../../data/page/Page';
-import ApiError from '../../errors/ApiError';
 import alias from '../../plumbing/alias';
-import checkId from '../../plumbing/checkId';
+import assertWellFormedId from '../../plumbing/assertWellFormedId';
 import renege from '../../plumbing/renege';
 import type Callback from '../../types/Callback';
 import Binder from '../Binder';
@@ -42,9 +41,7 @@ export default class CustomersBinder extends Binder<CustomerData, Customer> {
   public get(id: string, parameters: GetParameters, callback: Callback<Customer>): void;
   public get(id: string, parameters?: GetParameters) {
     if (renege(this, this.get, ...arguments)) return;
-    if (!checkId(id, 'customer')) {
-      throw new ApiError('The customer id is invalid');
-    }
+    assertWellFormedId(id, 'customer');
     return this.networkClient.get<CustomerData, Customer>(`${pathSegment}/${id}`, parameters);
   }
 
@@ -86,9 +83,7 @@ export default class CustomersBinder extends Binder<CustomerData, Customer> {
   public update(id: string, parameters: UpdateParameters, callback: Callback<Customer>): void;
   public update(id: string, parameters: UpdateParameters) {
     if (renege(this, this.update, ...arguments)) return;
-    if (!checkId(id, 'customer')) {
-      throw new ApiError('The customer id is invalid');
-    }
+    assertWellFormedId(id, 'customer');
     return this.networkClient.patch<CustomerData, Customer>(`${pathSegment}/${id}`, parameters);
   }
 
@@ -102,9 +97,7 @@ export default class CustomersBinder extends Binder<CustomerData, Customer> {
   public delete(id: string, parameters: DeleteParameters, callback: Callback<true>): void;
   public delete(id: string, parameters?: DeleteParameters) {
     if (renege(this, this.delete, ...arguments)) return;
-    if (!checkId(id, 'customer')) {
-      throw new ApiError('The customer id is invalid');
-    }
+    assertWellFormedId(id, 'customer');
     return this.networkClient.delete<CustomerData, true>(`${pathSegment}/${id}`, parameters);
   }
 }

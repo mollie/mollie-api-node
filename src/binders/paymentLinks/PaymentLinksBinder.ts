@@ -2,8 +2,7 @@ import type TransformingNetworkClient from '../../communication/TransformingNetw
 import type Page from '../../data/page/Page';
 import { type PaymentLinkData } from '../../data/paymentLinks/data';
 import type PaymentLink from '../../data/paymentLinks/PaymentLink';
-import ApiError from '../../errors/ApiError';
-import checkId from '../../plumbing/checkId';
+import assertWellFormedId from '../../plumbing/assertWellFormedId';
 import renege from '../../plumbing/renege';
 import type Callback from '../../types/Callback';
 import Binder from '../Binder';
@@ -40,9 +39,7 @@ export default class PaymentsLinksBinder extends Binder<PaymentLinkData, Payment
   public get(id: string, parameters: GetParameters, callback: Callback<PaymentLink>): void;
   public get(id: string, parameters?: GetParameters) {
     if (renege(this, this.get, ...arguments)) return;
-    if (!checkId(id, 'payment-link')) {
-      throw new ApiError('The payment link id is invalid');
-    }
+    assertWellFormedId(id, 'payment-link');
     return this.networkClient.get<PaymentLinkData, PaymentLink>(`${pathSegment}/${id}`, parameters);
   }
 
