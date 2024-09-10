@@ -6,7 +6,7 @@ import tick from '../tick';
 import '../matchers/toBeDepleted';
 
 describe('multipage-iteration', () => {
-  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider(true));
   let mollieClient: MollieClient;
 
   function intercept(limit: number, from?: number) {
@@ -63,7 +63,7 @@ describe('multipage-iteration', () => {
 
   test('throttling', async () => {
     const { interceptor: firstInterceptor, intercept: interceptNext } = intercept(128);
-    const { interceptor: secondInterceptor } = interceptNext(128);
+    const { interceptor: secondIntercetptor } = interceptNext(128);
 
     jest.useFakeTimers();
 
@@ -79,21 +79,17 @@ describe('multipage-iteration', () => {
     );
 
     // Expect the first network request to have been made, and the count to be 128.
-    await jest.advanceTimersByTimeAsync(0); // process request
     await tick();
     expect(firstInterceptor).toBeDepleted();
-    expect(secondInterceptor).not.toBeDepleted();
+    expect(secondIntercetptor).not.toBeDepleted();
     expect(count).toBe(128);
 
     // Expect the second network request to have been made after six seconds, and the count to be 200.
+    jest.advanceTimersByTime(6e3);
     await tick();
-    await jest.advanceTimersByTimeAsync(6e3);
-    await tick();
-    expect(secondInterceptor).toBeDepleted();
+    expect(secondIntercetptor).toBeDepleted();
     expect(count).toBe(200);
     expect(promise).toBeFulfilledWith(undefined);
-
-    jest.useRealTimers();
   });
 
   afterAll(() => networkMocker.cleanup());

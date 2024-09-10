@@ -1,7 +1,11 @@
 import dotenv from 'dotenv';
-import { fail } from 'node:assert';
 
 import createMollieClient, { Locale, OrderEmbed, OrderLineType, Payment, PaymentMethod, PaymentStatus } from '../..';
+
+const fail = (e: unknown) => {
+  throw e;
+};
+
 
 /**
  * Load the API_KEY environment variable

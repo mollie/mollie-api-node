@@ -3,8 +3,9 @@ import nock, { Interceptor } from 'nock';
 import { setupRecorder } from 'nock-record';
 import fetch from 'node-fetch';
 import { apply, run } from 'ruply';
-import createMollieClient, { MollieClient } from '..';
+
 import fling from '../src/plumbing/fling';
+import createMollieClient, { MollieClient } from '..';
 
 type MaybePromise<T> = T | Promise<T>;
 
@@ -105,10 +106,12 @@ class NetworkMocker extends BaseNetworkMocker {
   }
 
   // Consider using Explicit Resource Management (https://github.com/tc39/proposal-explicit-resource-management).
-  use<R>(user: (usables: [mollieClient: MollieClient, networkMocker: NetworkMocker]) => MaybePromise<R>) {
-    return this.prepare()
-      .then(mollieClient => user([mollieClient, this]))
-      .finally(this.cleanup);
+  async use<R>(user: (usables: [mollieClient: MollieClient, networkMocker: NetworkMocker]) => MaybePromise<R>) {
+    try {
+      return await this.prepare().then(mollieClient => user([mollieClient, this]));
+    } finally {
+      this.cleanup();
+    }
   }
 }
 
@@ -137,8 +140,12 @@ class AutomaticNetworkMocker extends BaseNetworkMocker {
   }
 
   // Consider using Explicit Resource Management (https://github.com/tc39/proposal-explicit-resource-management).
-  use<R>(user: (mollieClient: MollieClient) => MaybePromise<R>) {
-    return this.prepare().then(user).finally(this.cleanup);
+  async use<R>(user: (mollieClient: MollieClient) => MaybePromise<R>) {
+    try {
+      return await this.prepare().then(user);
+    } finally {
+      this.cleanup();
+    }
   }
 }
 

@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`methods .get() should return a method instance 1`] = `
-{
-  "_links": {
-    "self": {
+Object {
+  "_links": Object {
+    "self": Object {
       "href": "https://api.mollie.com/v2/methods/ideal",
       "type": "application/hal+json",
     },
   },
   "description": "iDEAL",
   "id": "ideal",
-  "image": {
+  "image": Object {
     "size1x": "https://www.mollie.com/images/payscreen/methods/ideal.png",
     "size2x": "https://www.mollie.com/images/payscreen/methods/ideal%402x.png",
   },
@@ -19,16 +19,16 @@ exports[`methods .get() should return a method instance 1`] = `
 `;
 
 exports[`methods .get() should work with a callback 1`] = `
-{
-  "_links": {
-    "self": {
+Object {
+  "_links": Object {
+    "self": Object {
       "href": "https://api.mollie.com/v2/methods/ideal",
       "type": "application/hal+json",
     },
   },
   "description": "iDEAL",
   "id": "ideal",
-  "image": {
+  "image": Object {
     "size1x": "https://www.mollie.com/images/payscreen/methods/ideal.png",
     "size2x": "https://www.mollie.com/images/payscreen/methods/ideal%402x.png",
   },
@@ -37,62 +37,62 @@ exports[`methods .get() should work with a callback 1`] = `
 `;
 
 exports[`methods .list() should return a list of all methods 1`] = `
-[
-  {
-    "_links": {
-      "self": {
+Array [
+  Object {
+    "_links": Object {
+      "self": Object {
         "href": "https://api.mollie.com/v2/methods/ideal",
         "type": "application/hal+json",
       },
     },
     "description": "iDEAL",
     "id": "ideal",
-    "image": {
+    "image": Object {
       "size1x": "https://www.mollie.com/images/payscreen/methods/ideal.png",
       "size2x": "https://www.mollie.com/images/payscreen/methods/ideal%402x.png",
     },
     "resource": "method",
   },
-  {
-    "_links": {
-      "self": {
+  Object {
+    "_links": Object {
+      "self": Object {
         "href": "https://api.mollie.com/v2/methods/creditcard",
         "type": "application/hal+json",
       },
     },
     "description": "Credit card",
     "id": "creditcard",
-    "image": {
+    "image": Object {
       "size1x": "https://www.mollie.com/images/payscreen/methods/creditcard.png",
       "size2x": "https://www.mollie.com/images/payscreen/methods/creditcard%402x.png",
     },
     "resource": "method",
   },
-  {
-    "_links": {
-      "self": {
+  Object {
+    "_links": Object {
+      "self": Object {
         "href": "https://api.mollie.com/v2/methods/banktransfer",
         "type": "application/hal+json",
       },
     },
     "description": "Bank transfer",
     "id": "banktransfer",
-    "image": {
+    "image": Object {
       "size1x": "https://www.mollie.com/images/payscreen/methods/banktransfer.png",
       "size2x": "https://www.mollie.com/images/payscreen/methods/banktransfer%402x.png",
     },
     "resource": "method",
   },
-  {
-    "_links": {
-      "self": {
+  Object {
+    "_links": Object {
+      "self": Object {
         "href": "https://api.mollie.com/v2/methods/inghomepay",
         "type": "application/hal+json",
       },
     },
     "description": "ING Home'Pay",
     "id": "inghomepay",
-    "image": {
+    "image": Object {
       "size1x": "https://www.mollie.com/images/payscreen/methods/inghomepay.png",
       "size2x": "https://www.mollie.com/images/payscreen/methods/inghomepay%402x.png",
     },
@@ -102,62 +102,62 @@ exports[`methods .list() should return a list of all methods 1`] = `
 `;
 
 exports[`methods .list() should work with a callback 1`] = `
-[
-  {
-    "_links": {
-      "self": {
+Array [
+  Object {
+    "_links": Object {
+      "self": Object {
         "href": "https://api.mollie.com/v2/methods/ideal",
         "type": "application/hal+json",
       },
     },
     "description": "iDEAL",
     "id": "ideal",
-    "image": {
+    "image": Object {
       "size1x": "https://www.mollie.com/images/payscreen/methods/ideal.png",
       "size2x": "https://www.mollie.com/images/payscreen/methods/ideal%402x.png",
     },
     "resource": "method",
   },
-  {
-    "_links": {
-      "self": {
+  Object {
+    "_links": Object {
+      "self": Object {
         "href": "https://api.mollie.com/v2/methods/creditcard",
         "type": "application/hal+json",
       },
     },
     "description": "Credit card",
     "id": "creditcard",
-    "image": {
+    "image": Object {
       "size1x": "https://www.mollie.com/images/payscreen/methods/creditcard.png",
       "size2x": "https://www.mollie.com/images/payscreen/methods/creditcard%402x.png",
     },
     "resource": "method",
   },
-  {
-    "_links": {
-      "self": {
+  Object {
+    "_links": Object {
+      "self": Object {
         "href": "https://api.mollie.com/v2/methods/banktransfer",
         "type": "application/hal+json",
       },
     },
     "description": "Bank transfer",
     "id": "banktransfer",
-    "image": {
+    "image": Object {
       "size1x": "https://www.mollie.com/images/payscreen/methods/banktransfer.png",
       "size2x": "https://www.mollie.com/images/payscreen/methods/banktransfer%402x.png",
     },
     "resource": "method",
   },
-  {
-    "_links": {
-      "self": {
+  Object {
+    "_links": Object {
+      "self": Object {
         "href": "https://api.mollie.com/v2/methods/inghomepay",
         "type": "application/hal+json",
       },
     },
     "description": "ING Home'Pay",
     "id": "inghomepay",
-    "image": {
+    "image": Object {
       "size1x": "https://www.mollie.com/images/payscreen/methods/inghomepay.png",
       "size2x": "https://www.mollie.com/images/payscreen/methods/inghomepay%402x.png",
     },

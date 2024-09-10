@@ -3,7 +3,6 @@ import NetworkMocker, { getApiKeyClientProvider } from '../NetworkMocker';
 import observePromise from '../matchers/observePromise';
 import tick from '../tick';
 import '../matchers/toBeDepleted';
-
 const paymentResponse = {
   resource: 'payment',
   id: 'tr_WDqYK6vllg',
@@ -47,15 +46,12 @@ const paymentResponse = {
     },
   },
 };
-
 describe('custom-idempotency-key', () => {
-  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider(true));
   let mollieClient: MollieClient;
-
   beforeAll(async () => {
     mollieClient = await networkMocker.prepare();
   });
-
   test('custom-idempotency-key', async () => {
     const errorInterceptor = networkMocker.intercept('POST', '/payments', 500, {
       status: 500,
@@ -65,9 +61,7 @@ describe('custom-idempotency-key', () => {
     errorInterceptor.matchHeader('Idempotency-Key', 'mock-key');
     const successInterceptor = networkMocker.intercept('POST', '/payments', 200, paymentResponse);
     successInterceptor.matchHeader('Idempotency-Key', 'mock-key');
-
     jest.useFakeTimers();
-
     const paymentPromise = observePromise(
       mollieClient.payments.create({
         amount: {
@@ -89,20 +83,18 @@ describe('custom-idempotency-key', () => {
     );
 
     // Expect the first network request to have been made, and the promise to be pending.
-    await jest.advanceTimersByTimeAsync(0); // process request
+    await tick();
     expect(errorInterceptor).toBeDepleted();
     expect(paymentPromise).toBePending();
 
     // Expect the second network request to have been made after two seconds, proving the Idempotency-Key header was
     // consistent across these two network requests, and the promise to have fulfilled.
-    await tick();
-    await jest.advanceTimersByTimeAsync(3e3);
+    jest.advanceTimersByTime(2e3);
     await tick();
     expect(successInterceptor).toBeDepleted();
     expect(paymentPromise).toBeFulfilledWith(expect.objectContaining({ id: 'tr_WDqYK6vllg' }));
 
     jest.useRealTimers();
   });
-
   afterAll(() => networkMocker.cleanup());
 });
