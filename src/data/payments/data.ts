@@ -163,6 +163,36 @@ export interface PaymentData extends Model<'payment'> {
    */
   metadata: unknown;
   /**
+   * **Only relevant if you wish to manage authorization and capturing separately.**
+   * 
+   * By default, the customer's card or bank account is immediately charged when they complete the payment.
+   * 
+   * Some payment methods also allow placing a hold on the card or bank account. This hold or 'authorization' can then at a later point either be 'captured' or canceled.
+   * 
+   * To enable this way of working, set the capture mode to `manual` and capture the payment manually using the `paymentCaptures.create` API.
+   */
+  captureMode?: CaptureMethod;
+  /**
+   * **Only relevant if you wish to manage authorization and capturing separately.**
+   * 
+   * Some payment methods allow placing a hold on the card or bank account. This hold or 'authorization' can then at a later point either be 'captured' or canceled.
+   * 
+   * By default, we charge the customer's card or bank account immediately when they complete the payment. If you set a capture delay however, we will delay the automatic capturing of the payment for the specified amount of time. For example `8 hours` or `2 days`.
+   *
+   * To schedule an automatic capture, the `captureMode` must be set to `automatic`.
+   * 
+   * The maximum delay is 7 days (168 hours).
+   * 
+   * Possible values: `... hours`, `... days`
+   */
+  captureDelay?: number;
+  /**
+   * **Only relevant if you wish to manage authorization and capturing separately.**
+   * 
+   * Indicates the date before which the payment needs to be captured, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. From this date onwards we can no longer guarantee a successful capture. The parameter is omitted if the payment is not authorized (yet).
+   */
+  captureBefore?: number;
+  /**
    * The customer's locale, either forced on creation by specifying the `locale` parameter, or detected by us during checkout. Will be a full locale, for example `nl_NL`.
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=locale#response
@@ -866,6 +896,11 @@ export enum PaymentEmbed {
   refunds = 'refunds',
   chargebacks = 'chargebacks',
   captures = 'captures',
+}
+
+export enum CaptureMethod {
+  automatic = 'automatic',
+  manual = 'manual',
 }
 
 export interface GiftCard {

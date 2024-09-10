@@ -5,7 +5,7 @@ import { type IdempotencyParameter, type PaginationParameters, type ThrottlingPa
 import type PickOptional from '../../types/PickOptional';
 
 export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'redirectUrl' | 'cancelUrl' | 'webhookUrl' | 'customerId' | 'mandateId'> &
-  PickOptional<PaymentData, 'locale' | 'metadata' | 'sequenceType'> & {
+  PickOptional<PaymentData, 'locale' | 'metadata' | 'sequenceType' | 'captureMode' | 'captureDelay'> & {
     /**
      * Normally, a payment method screen is shown. However, when using this parameter, you can choose a specific payment method and your customer will skip the selection screen and is sent directly to
      * the chosen payment method. The parameter enables you to fully integrate the payment method selection into your website.

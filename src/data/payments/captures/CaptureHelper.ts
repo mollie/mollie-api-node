@@ -12,6 +12,7 @@ import type Payment from '../Payment';
 import { type PaymentData } from '../data';
 import type Capture from './Capture';
 import { type CaptureData } from './data';
+import type { Settlement, SettlementData } from '../../settlements/data';
 
 export default class CaptureHelper extends Helper<CaptureData, Capture> {
   constructor(networkClient: TransformingNetworkClient, protected readonly links: CaptureData['_links'], protected readonly embedded: Capture['_embedded']) {
@@ -31,7 +32,7 @@ export default class CaptureHelper extends Helper<CaptureData, Capture> {
   }
 
   /**
-   * Returns the shipment that triggered the capture to be created.
+   * Returns the shipment that triggered the capture to be created (if any).
    *
    * @since 3.6.0
    */
@@ -40,5 +41,17 @@ export default class CaptureHelper extends Helper<CaptureData, Capture> {
   public getShipment() {
     if (renege(this, this.getShipment, ...arguments)) return;
     return runIf(this.links.shipment, ({ href }) => this.networkClient.get<ShipmentData, Shipment>(href)) ?? undefinedPromise;
+  }
+
+  /**
+   * Returns the shipment this capture has been settled with (if any).
+   *
+   * @since 4.1.0
+   */
+  public getSettlement(): Promise<Settlement> | Promise<undefined>;
+  public getSettlement(callback: Callback<Maybe<Settlement>>): void;
+  public getSettlement() {
+    if (renege(this, this.getSettlement, ...arguments)) return;
+    return runIf(this.links.settlement, ({ href }) => this.networkClient.get<SettlementData, Settlement>(href)) ?? undefinedPromise;
   }
 }

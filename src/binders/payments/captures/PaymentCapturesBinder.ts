@@ -8,7 +8,7 @@ import checkId from '../../../plumbing/checkId';
 import renege from '../../../plumbing/renege';
 import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
-import { type GetParameters, type IterateParameters, type PageParameters } from './parameters';
+import { type CreateParameters, type GetParameters, type IterateParameters, type PageParameters } from './parameters';
 
 function getPathSegments(paymentId: string) {
   return `payments/${paymentId}/captures`;
@@ -21,10 +21,26 @@ export default class PaymentCapturesBinder extends Binder<CaptureData, Capture> 
   }
 
   /**
+   * Capture an *authorized* payment.
+   *
+   * @since 4.1.0
+   * @see https://docs.mollie.com/reference/create-capture
+   */
+  public create(parameters: CreateParameters): Promise<Capture>;
+  public create(parameters: CreateParameters, callback: Callback<Capture>): void;
+  public create(parameters: CreateParameters) {
+    if (renege(this, this.create, ...arguments)) return;
+    const { paymentId, ...data } = parameters;
+    if (!checkId(paymentId, 'payment')) {
+      throw new ApiError('The payment id is invalid');
+    }
+    return this.networkClient.post<CaptureData, Capture>(getPathSegments(paymentId), data);
+  }
+
+  /**
    * Retrieve a single capture by its ID. Note the original payment's ID is needed as well.
    *
-   * Captures are used for payments that have the *authorize-then-capture* flow. The only payment methods at the moment that have this flow are **Klarna Pay now**, **Klarna Pay later** and **Klarna
-   * Slice it**.
+   * Captures are used for payments that have the *authorize-then-capture* flow. Mollie currently supports captures for **Cards** and **Klarna**.
    *
    * @since 1.1.1
    * @see https://docs.mollie.com/reference/v2/captures-api/get-capture
@@ -46,8 +62,7 @@ export default class PaymentCapturesBinder extends Binder<CaptureData, Capture> 
   /**
    * Retrieve all captures for a certain payment.
    *
-   * Captures are used for payments that have the *authorize-then-capture* flow. The only payment methods at the moment that have this flow are *Klarna Pay now*, *Klarna Pay later* and *Klarna Slice
-   * it*.
+   * Captures are used for payments that have the *authorize-then-capture* flow. Mollie currently supports captures for **Cards** and **Klarna**.
    *
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/captures-api/list-captures
@@ -66,8 +81,7 @@ export default class PaymentCapturesBinder extends Binder<CaptureData, Capture> 
   /**
    * Retrieve all captures for a certain payment.
    *
-   * Captures are used for payments that have the *authorize-then-capture* flow. The only payment methods at the moment that have this flow are *Klarna Pay now*, *Klarna Pay later* and *Klarna Slice
-   * it*.
+   * Captures are used for payments that have the *authorize-then-capture* flow. Mollie currently supports captures for **Cards** and **Klarna**.
    *
    * @since 3.6.0
    * @see https://docs.mollie.com/reference/v2/captures-api/list-captures

@@ -1,6 +1,6 @@
 import { type Amount, type ApiMode, type Links, type Url } from '../../global';
 import type Model from '../../Model';
-import { type PaymentData } from '../data';
+import type { PaymentData } from '../data';
 
 export interface CaptureData extends Model<'capture'> {
   /**
@@ -12,17 +12,35 @@ export interface CaptureData extends Model<'capture'> {
    */
   mode: ApiMode;
   /**
+   * The description of the capture.
+   *
+   * @see https://docs.mollie.com/reference/v2/captures-api/get-capture?path=description#response
+   */
+  description: string;
+  /**
    * The amount captured.
    *
    * @see https://docs.mollie.com/reference/v2/captures-api/get-capture?path=amount#response
    */
   amount: Amount;
   /**
-   * This optional field will contain the amount that will be settled to your account, converted to the currency your account is settled in. It follows the same syntax as the `amount` property.
+   * This optional field will contain the approximate amount that will be settled to your account, converted to the currency your account is settled in.
    *
    * @see https://docs.mollie.com/reference/v2/captures-api/get-capture?path=settlementAmount#response
    */
   settlementAmount: Amount;
+  /**
+   * The capture's status.
+   *
+   * @see https://docs.mollie.com/reference/v2/captures-api/get-capture?path=status#response
+  */
+  status: CaptureStatus;
+  /**
+   * The capture's status.
+   *
+   * @see https://docs.mollie.com/reference/v2/captures-api/get-capture?path=metadata#response
+  */
+  metadata: any;
   /**
    * The unique identifier of the payment this capture was created for, for example: `tr_7UhSN1zuXS`. The full payment object can be retrieved via the `payment` URL in the `_links` object.
    *
@@ -30,14 +48,13 @@ export interface CaptureData extends Model<'capture'> {
    */
   paymentId: string;
   /**
-   * The unique identifier of the shipment that triggered the creation of this capture, for example: `shp_3wmsgCJN4U`. The full shipment object can be retrieved via the `shipment` URL in the `_links`
-   * object.
+   * The unique identifier of the shipment that triggered the creation of this capture, if applicable. For example: `shp_3wmsgCJN4U`.
    *
    * @see https://docs.mollie.com/reference/v2/captures-api/get-capture?path=shipmentId#response
    */
   shipmentId?: string;
   /**
-   * The unique identifier of the settlement this capture was settled with, for example: `stl_jDk30akdN`. The full settlement object can be retrieved via the `capture` URL in the `_links` object.
+   * The identifier referring to the settlement this capture was settled with. For example, `stl_BkEjN2eBb`. This field is omitted if the capture is not settled (yet).
    *
    * @see https://docs.mollie.com/reference/v2/captures-api/get-capture?path=settlementId#response
    */
@@ -59,11 +76,17 @@ export interface CaptureData extends Model<'capture'> {
   };
 }
 
-export enum CaptureEmbed {
+export enum CaptureStatus {
+  pending = 'pending',
+  succeeded = 'succeeded',
+  failed = 'failed',
+}
+
+export enum CaptureInclude {
   payment = 'payment',
 }
 
-export interface CaptureLinks extends Links {
+interface CaptureLinks extends Links {
   /**
    * The API resource URL of the payment the capture belongs to.
    *
