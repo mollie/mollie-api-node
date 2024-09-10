@@ -13,15 +13,6 @@ export default class MandateHelper extends Helper<MandateData, Mandate> {
   }
 
   /**
-   * Returns whether the mandate is valid.
-   *
-   * @deprecated Use `mandate.status == MandateStatus.valid` instead.
-   */
-  public isValid(this: MandateData): boolean {
-    return this.status === MandateStatus.valid;
-  }
-
-  /**
    * Returns the payments belonging to the customer.
    *
    * @since 3.6.0

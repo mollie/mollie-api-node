@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import { fail } from 'node:assert';
 
-import createMollieClient from '../..';
+import createMollieClient, { PaymentStatus } from '../..';
 
 /**
  * Load the API_KEY environment variable
@@ -16,7 +16,7 @@ describe('payments', () => {
 
     let paymentExists;
 
-    if (!payments.length || payments[0].isExpired()) {
+    if (!payments.length || payments[0].status == PaymentStatus.expired) {
       paymentExists = mollieClient.payments
         .create({
           amount: { value: '10.00', currency: 'EUR' },
@@ -35,8 +35,8 @@ describe('payments', () => {
 
     const payment = await paymentExists;
 
-    if (!payment.isPaid()) {
-      console.log('If you want to test the full flow, set the payment to paid:', payment.getPaymentUrl());
+    if (payment.status != PaymentStatus.paid) {
+      console.log('If you want to test the full flow, set the payment to paid:', payment.getCheckoutUrl());
       return;
     }
 

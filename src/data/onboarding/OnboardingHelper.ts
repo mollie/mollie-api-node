@@ -13,27 +13,6 @@ export default class OnboardingHelper extends Helper<OnboardingData, Onboarding>
   }
 
   /**
-   * @deprecated Use `onboarding.status == OnboardingStatus.needsData` instead.
-   */
-  public needsData(this: OnboardingData) {
-    return this.status == OnboardingStatus.needsData;
-  }
-
-  /**
-   * @deprecated Use `onboarding.status == OnboardingStatus.inReview` instead.
-   */
-  public isInReview(this: OnboardingData) {
-    return this.status == OnboardingStatus.inReview;
-  }
-
-  /**
-   * @deprecated Use `onboarding.status == OnboardingStatus.completed` instead.
-   */
-  public isCompleted(this: OnboardingData) {
-    return this.status == OnboardingStatus.completed;
-  }
-
-  /**
    * Returns the organization.
    *
    * @since 3.6.0

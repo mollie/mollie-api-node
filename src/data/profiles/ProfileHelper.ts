@@ -24,27 +24,6 @@ export default class ProfileHelper extends Helper<ProfileData, Profile> {
   }
 
   /**
-   * @deprecated Use `profile.status == ProfileStatus.unverified` instead.
-   */
-  public isUnverified(this: ProfileData) {
-    return this.status == ProfileStatus.unverified;
-  }
-
-  /**
-   * @deprecated Use `profile.status == ProfileStatus.verified` instead.
-   */
-  public isVerified(this: ProfileData) {
-    return this.status == ProfileStatus.verified;
-  }
-
-  /**
-   * @deprecated Use `profile.status == ProfileStatus.blocked` instead.
-   */
-  public isBlocked(this: ProfileData) {
-    return this.status == ProfileStatus.blocked;
-  }
-
-  /**
    * The Checkout preview URL. You need to be logged in to access this page.
    *
    * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=_links/checkoutPreviewUrl#response

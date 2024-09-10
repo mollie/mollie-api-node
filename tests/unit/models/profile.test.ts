@@ -51,22 +51,10 @@ function getProfile(status) {
 
 test('profileStatuses', () => {
   return Promise.all(
-    [
-      ['blocked', 'isBlocked', true],
-      ['blocked', 'isVerified', false],
-      ['blocked', 'isUnverified', false],
-
-      ['verified', 'isBlocked', false],
-      ['verified', 'isVerified', true],
-      ['verified', 'isUnverified', false],
-
-      ['unverified', 'isBlocked', false],
-      ['unverified', 'isVerified', false],
-      ['unverified', 'isUnverified', true],
-    ].map(async ([status, method, expectedResult]) => {
+    ['blocked', 'verified', 'unverified'].map(async status => {
       const profile = await getProfile(status);
 
-      expect(profile[method as keyof Profile]()).toBe(expectedResult);
+      expect(profile.status).toBe(status);
     }),
   );
 });

@@ -1,4 +1,4 @@
-import { Payment } from '../../..';
+import { PaymentStatus, SequenceType } from '../../..';
 import NetworkMocker, { getApiKeyClientProvider } from '../../NetworkMocker';
 
 function getPayment(status, additionalProperties?: object, additionalLinks?: object) {
@@ -63,59 +63,18 @@ function getPayment(status, additionalProperties?: object, additionalLinks?: obj
 test('paymentStatuses', () => {
   return Promise.all(
     [
-      ['pending', 'isPending', true],
-      ['pending', 'isAuthorized', false],
-      ['pending', 'isFailed', false],
-      ['pending', 'isOpen', false],
-      ['pending', 'isCanceled', false],
-      ['pending', 'isPaid', false],
-      ['pending', 'isExpired', false],
-
-      ['authorized', 'isPending', false],
-      ['authorized', 'isAuthorized', true],
-      ['authorized', 'isFailed', false],
-      ['authorized', 'isOpen', false],
-      ['authorized', 'isCanceled', false],
-      ['authorized', 'isPaid', false],
-      ['authorized', 'isExpired', false],
-
-      ['failed', 'isPending', false],
-      ['failed', 'isAuthorized', false],
-      ['failed', 'isFailed', true],
-      ['failed', 'isOpen', false],
-      ['failed', 'isCanceled', false],
-      ['failed', 'isPaid', false],
-      ['failed', 'isExpired', false],
-
-      ['open', 'isPending', false],
-      ['open', 'isAuthorized', false],
-      ['open', 'isFailed', false],
-      ['open', 'isOpen', true],
-      ['open', 'isCanceled', false],
-      ['open', 'isPaid', false],
-      ['open', 'isExpired', false],
-
+      'pending',
+      'authorized',
+      'failed',
+      'open',
       // (Note that canceled payments usually have their canceledAt set.)
-      ['canceled', 'isPending', false],
-      ['canceled', 'isAuthorized', false],
-      ['canceled', 'isFailed', false],
-      ['canceled', 'isOpen', false],
-      ['canceled', 'isCanceled', true],
-      ['canceled', 'isPaid', false],
-      ['canceled', 'isExpired', false],
-
+      'canceled',
       // (Note that expired payments usually have their expiredAt set.)
-      ['expired', 'isPending', false],
-      ['expired', 'isAuthorized', false],
-      ['expired', 'isFailed', false],
-      ['expired', 'isOpen', false],
-      ['expired', 'isCanceled', false],
-      ['expired', 'isPaid', false],
-      ['expired', 'isExpired', true],
-    ].map(async ([status, method, expectedResult]) => {
+      'expired',
+    ].map(async status => {
       const payment = await getPayment(status);
 
-      expect(payment[method as keyof Payment]()).toBe(expectedResult);
+      expect(payment.status).toBe(status);
     }),
   );
 });
@@ -123,7 +82,7 @@ test('paymentStatuses', () => {
 test('paymentIsPaid', async () => {
   const payment = await getPayment('paid', { paidAt: '2016-10-24' });
 
-  expect(payment.isPaid()).toBe(true);
+  expect(payment.status).toBe(PaymentStatus.paid);
 });
 
 test('paymentHasRefunds', async () => {
@@ -149,18 +108,18 @@ test('paymentHasChargebacks', async () => {
 test('paymentHasSequenceType', async () => {
   let payment = await getPayment('paid', { sequenceType: 'first' });
 
-  expect(payment.hasSequenceTypeRecurring()).toBe(false);
-  expect(payment.hasSequenceTypeFirst()).toBe(true);
+  expect(payment.sequenceType).not.toBe(SequenceType.recurring);
+  expect(payment.sequenceType).toBe(SequenceType.first);
 
   payment = await getPayment('paid', { sequenceType: 'recurring' });
 
-  expect(payment.hasSequenceTypeRecurring()).toBe(true);
-  expect(payment.hasSequenceTypeFirst()).toBe(false);
+  expect(payment.sequenceType).toBe(SequenceType.recurring);
+  expect(payment.sequenceType).not.toBe(SequenceType.first);
 
   payment = await getPayment('paid' /*, { sequenceType: 'oneoff' } */);
 
-  expect(payment.hasSequenceTypeRecurring()).toBe(false);
-  expect(payment.hasSequenceTypeFirst()).toBe(false);
+  expect(payment.sequenceType).not.toBe(SequenceType.recurring);
+  expect(payment.sequenceType).not.toBe(SequenceType.first);
 });
 
 test('paymentGetCheckoutUrl', async () => {
@@ -184,19 +143,19 @@ test('paymentCanBeRefunded', async () => {
 test('paymentGetAmountRefunded', async () => {
   let payment = await getPayment('paid', { amountRemaining: undefined, amountRefunded: { value: '20.00', currency: 'EUR' } });
 
-  expect(payment.getAmountRefunded()).toEqual({ value: '20.00', currency: 'EUR' });
+  expect(payment.amountRefunded).toEqual({ value: '20.00', currency: 'EUR' });
 
   payment = await getPayment('paid', { /* amountRemaining: { value: '20.00', currency: 'EUR' }, */ amountRefunded: undefined });
 
-  expect(payment.getAmountRefunded()).toEqual({ value: '0.00', currency: 'EUR' });
+  expect(payment.amountRefunded).toBeUndefined();
 });
 
 test('paymentGetAmountRemaining', async () => {
   let payment = await getPayment('paid' /*, { amountRemaining: { value: '20.00', currency: 'EUR' } } */);
 
-  expect(payment.getAmountRemaining()).toEqual({ value: '20.00', currency: 'EUR' });
+  expect(payment.amountRemaining).toEqual({ value: '20.00', currency: 'EUR' });
 
   payment = await getPayment('paid', { amountRemaining: undefined, amountRefunded: { value: '20.00', currency: 'EUR' } });
 
-  expect(payment.getAmountRemaining()).toEqual({ value: '0.00', currency: 'EUR' });
+  expect(payment.amountRemaining).toBeUndefined();
 });
