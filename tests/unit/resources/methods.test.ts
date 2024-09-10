@@ -46,7 +46,7 @@ describe('methods', () => {
           })
           .catch(err => {
             expect(err).toBeInstanceOf(ApiError);
-            expect(err.getMessage()).toEqual(error.detail);
+            expect(err.message).toEqual(error.detail);
           });
       });
     });
@@ -57,7 +57,7 @@ describe('methods', () => {
         return new Promise<void>(resolve => {
           methods.get('foo', {}, (err: any, result) => {
             expect(err).toBeInstanceOf(ApiError);
-            expect(err.getMessage()).toEqual(error.detail);
+            expect(err.message).toEqual(error.detail);
             expect(result).toBeUndefined();
             resolve();
           });
