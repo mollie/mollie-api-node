@@ -1,4 +1,4 @@
-import wireMockClient from '../../../wireMockClient';
+import NetworkMocker, { getApiKeyClientProvider } from '../../../NetworkMocker';
 
 function composeShipmentResponse(shipmentId, orderId, orderlineStatus = 'shipping') {
   return {
@@ -135,31 +135,31 @@ function testShipment(shipment, shipmentId, orderId) {
   expect(line1.totalAmount).toEqual({ value: '329.99', currency: 'EUR' });
 }
 
-test('createShipment', async () => {
-  const { adapter, client } = wireMockClient();
+test('createShipment', () => {
+  return new NetworkMocker(getApiKeyClientProvider()).use(async ([mollieClient, networkMocker]) => {
+    networkMocker.intercept('POST', '/orders/ord_pbjz8x/shipments', 201, composeShipmentResponse('shp_3wmsgCJN4U', 'ord_pbjz8x')).twice();
 
-  adapter.onPost('/orders/ord_pbjz8x/shipments').reply(201, composeShipmentResponse('shp_3wmsgCJN4U', 'ord_pbjz8x'));
+    const shipment = await bluster(mollieClient.orderShipments.create.bind(mollieClient.orderShipments))({
+      orderId: 'ord_pbjz8x',
+      lines: [
+        {
+          id: 'odl_dgtxyl',
+          quantity: 1,
+        },
+        { id: 'odl_jp31jz' },
+      ],
+    });
 
-  const shipment = await bluster(client.orderShipments.create.bind(client.orderShipments))({
-    orderId: 'ord_pbjz8x',
-    lines: [
-      {
-        id: 'odl_dgtxyl',
-        quantity: 1,
-      },
-      { id: 'odl_jp31jz' },
-    ],
+    testShipment(shipment, 'shp_3wmsgCJN4U', 'ord_pbjz8x');
   });
-
-  testShipment(shipment, 'shp_3wmsgCJN4U', 'ord_pbjz8x');
 });
 
-test('getShipment', async () => {
-  const { adapter, client } = wireMockClient();
+test('getShipment', () => {
+  return new NetworkMocker(getApiKeyClientProvider()).use(async ([mollieClient, networkMocker]) => {
+    networkMocker.intercept('GET', '/orders/ord_pbjz8x/shipments/shp_3wmsgCJN4U', 200, composeShipmentResponse('shp_3wmsgCJN4U', 'ord_pbjz8x')).twice();
 
-  adapter.onGet('/orders/ord_pbjz8x/shipments/shp_3wmsgCJN4U').reply(200, composeShipmentResponse('shp_3wmsgCJN4U', 'ord_pbjz8x'));
+    const shipment = await bluster(mollieClient.orderShipments.get.bind(mollieClient.orderShipments))('shp_3wmsgCJN4U', { orderId: 'ord_pbjz8x' });
 
-  const shipment = await bluster(client.orderShipments.get.bind(client.orderShipments))('shp_3wmsgCJN4U', { orderId: 'ord_pbjz8x' });
-
-  testShipment(shipment, 'shp_3wmsgCJN4U', 'ord_pbjz8x');
+    testShipment(shipment, 'shp_3wmsgCJN4U', 'ord_pbjz8x');
+  });
 });

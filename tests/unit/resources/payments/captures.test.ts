@@ -1,4 +1,4 @@
-import wireMockClient from '../../../wireMockClient';
+import NetworkMocker, { getApiKeyClientProvider } from '../../../NetworkMocker';
 
 function composeCaptureResponse(paymentId = 'tr_WDqYK6vllg', captureId = 'cpt_4qqhO89gsT') {
   return {
@@ -81,54 +81,54 @@ function testCapture(capture) {
   });
 }
 
-test('getCapture', async () => {
-  const { adapter, client } = wireMockClient();
+test('getCapture', () => {
+  return new NetworkMocker(getApiKeyClientProvider()).use(async ([mollieClient, networkMocker]) => {
+    networkMocker.intercept('GET', '/payments/tr_WDqYK6vllg/captures/cpt_4qqhO89gsT', 200, composeCaptureResponse('tr_WDqYK6vllg', 'cpt_4qqhO89gsT')).twice();
 
-  adapter.onGet('/payments/tr_WDqYK6vllg/captures/cpt_4qqhO89gsT').reply(200, composeCaptureResponse('tr_WDqYK6vllg', 'cpt_4qqhO89gsT'));
+    const capture = await bluster(mollieClient.paymentCaptures.get.bind(mollieClient.paymentCaptures))('cpt_4qqhO89gsT', { paymentId: 'tr_WDqYK6vllg' });
 
-  const capture = await bluster(client.paymentCaptures.get.bind(client.paymentCaptures))('cpt_4qqhO89gsT', { paymentId: 'tr_WDqYK6vllg' });
-
-  testCapture(capture);
+    testCapture(capture);
+  });
 });
 
-test('listCaptures', async () => {
-  const { adapter, client } = wireMockClient();
-
-  adapter.onGet('/payments/tr_WDqYK6vllg/captures').reply(200, {
-    _embedded: {
-      captures: [composeCaptureResponse('tr_WDqYK6vllg', 'cpt_4qqhO89gsT')],
-    },
-    count: 1,
-    _links: {
-      documentation: {
-        href: 'https://docs.mollie.com/reference/v2/captures-api/list-captures',
-        type: 'text/html',
+test('listCaptures', () => {
+  return new NetworkMocker(getApiKeyClientProvider()).use(async ([mollieClient, networkMocker]) => {
+    networkMocker.intercept('GET', '/payments/tr_WDqYK6vllg/captures', 200, {
+      _embedded: {
+        captures: [composeCaptureResponse('tr_WDqYK6vllg', 'cpt_4qqhO89gsT')],
       },
-      self: {
-        href: 'https://api.mollie.dev/v2/payments/tr_WDqYK6vllg/captures?limit=50',
-        type: 'application/hal+json',
+      count: 1,
+      _links: {
+        documentation: {
+          href: 'https://docs.mollie.com/reference/v2/captures-api/list-captures',
+          type: 'text/html',
+        },
+        self: {
+          href: 'https://api.mollie.dev/v2/payments/tr_WDqYK6vllg/captures?limit=50',
+          type: 'application/hal+json',
+        },
+        previous: null,
+        next: null,
       },
-      previous: null,
-      next: null,
-    },
+    }).twice();
+
+    const captures = await bluster(mollieClient.paymentCaptures.page.bind(mollieClient.paymentCaptures))({ paymentId: 'tr_WDqYK6vllg' });
+
+    expect(captures.length).toBe(1);
+
+    expect(captures.links.documentation).toEqual({
+      href: 'https://docs.mollie.com/reference/v2/captures-api/list-captures',
+      type: 'text/html',
+    });
+
+    expect(captures.links.self).toEqual({
+      href: 'https://api.mollie.dev/v2/payments/tr_WDqYK6vllg/captures?limit=50',
+      type: 'application/hal+json',
+    });
+
+    expect(captures.links.previous).toBeNull();
+    expect(captures.links.next).toBeNull();
+
+    testCapture(captures[0]);
   });
-
-  const captures = await bluster(client.paymentCaptures.page.bind(client.paymentCaptures))({ paymentId: 'tr_WDqYK6vllg' });
-
-  expect(captures.length).toBe(1);
-
-  expect(captures.links.documentation).toEqual({
-    href: 'https://docs.mollie.com/reference/v2/captures-api/list-captures',
-    type: 'text/html',
-  });
-
-  expect(captures.links.self).toEqual({
-    href: 'https://api.mollie.dev/v2/payments/tr_WDqYK6vllg/captures?limit=50',
-    type: 'application/hal+json',
-  });
-
-  expect(captures.links.previous).toBeNull();
-  expect(captures.links.next).toBeNull();
-
-  testCapture(captures[0]);
 });

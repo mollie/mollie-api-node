@@ -52,7 +52,7 @@ const paymentResponse = {
 };
 
 describe('request-retrying', () => {
-  const networkMocker = new NetworkMocker(getApiKeyClientProvider(true));
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
   let mollieClient: MollieClient;
   let intercept: (responseStatusCode: number, responseBody: Body, responseHeaders?: ReplyHeaders) => Interceptor;
 
@@ -268,9 +268,6 @@ describe('request-retrying', () => {
 
     jest.useRealTimers();
   });
-
-  // Potentially worth testing:
-  //  * Is Axios' timeout still respected?
 
   afterAll(() => networkMocker.cleanup());
 });

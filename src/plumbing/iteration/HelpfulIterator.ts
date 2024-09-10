@@ -66,9 +66,6 @@ export default class HelpfulIterator<T> implements AsyncIterator<T, void, never>
     this.next = wrappee.next.bind(wrappee);
   }
 
-  // Node.js < 10.0.0 does not support Symbol.asyncIterator. Symbol.asyncIterator therefore resolves to undefined,
-  // which actually creates a method called "undefined" callable as iterator.undefined(). Albeit odd, I don't feel this
-  // warrants a "fix", especially as it only affects old Node.js versions.
   [Symbol.asyncIterator]() {
     return this;
   }

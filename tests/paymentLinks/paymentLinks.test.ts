@@ -26,5 +26,9 @@ describe('paymentLinks', () => {
     expect(paymentLink.amount.value).toBe('6.99');
   });
 
+  test('paymentLinks error response', async () => {
+    await expect(mollieClient.paymentLinks.get('pl_fake_id')).rejects.toThrow('The resource with the token "pl_fake_id" could not be found.');
+  });
+
   afterAll(() => networkMocker.cleanup());
 });

@@ -76,7 +76,6 @@ export enum MethodStatus {
   rejected = 'rejected',
 }
 
-
 export enum MethodImageSize {
   size1x = 'size1x',
   size2x = 'size2x',

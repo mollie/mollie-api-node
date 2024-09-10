@@ -1,5 +1,3 @@
-import { type AxiosRequestConfig } from 'axios';
-
 import type Xor from './types/Xor';
 
 type Options = Xor<
@@ -29,7 +27,7 @@ type Options = Xor<
    * The URL of the root of the Mollie API. Default: `'https://api.mollie.com:443/v2/'`.
    */
   apiEndpoint?: string;
-} & Pick<AxiosRequestConfig, 'adapter' | 'proxy' | 'socketPath' | 'timeout'>;
+};
 
 const falsyDescriptions = new Map<any, string>([
   [undefined, 'undefined'],
@@ -46,7 +44,7 @@ function describeFalsyOption(options: Options, key: keyof Options) {
     return null;
   }
   return `Parameter "${key}" is ${falsyDescriptions.get(options[key]) ?? options[key]}.`;
-};
+}
 
 /**
  * Throws a `TypeError` if the passed options object does not contain an `apiKey` or an `accessToken`.
