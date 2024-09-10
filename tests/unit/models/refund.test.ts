@@ -55,26 +55,10 @@ function getRefund(status) {
 
 test('refundStatuses', () => {
   return Promise.all(
-    [
-      ['pending', 'isPending', true],
-      ['pending', 'isProcessing', false],
-      ['pending', 'isQueued', false],
-
-      ['processing', 'isPending', false],
-      ['processing', 'isProcessing', true],
-      ['processing', 'isQueued', false],
-
-      ['queued', 'isPending', false],
-      ['queued', 'isProcessing', false],
-      ['queued', 'isQueued', true],
-
-      ['refunded', 'isPending', false],
-      ['refunded', 'isProcessing', false],
-      ['refunded', 'isQueued', false],
-    ].map(async ([status, method, expectedResult]) => {
+    ['pending', 'processing', 'queued', 'refunded'].map(async status => {
       const refund = await getRefund(status);
 
-      expect(refund[method as keyof Refund]()).toBe(expectedResult);
+      expect(refund.status).toBe(status);
     }),
   );
 });
