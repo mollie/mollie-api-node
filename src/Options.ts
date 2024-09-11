@@ -1,3 +1,4 @@
+import type MaybeArray from './types/MaybeArray';
 import type Xor from './types/Xor';
 
 type Options = Xor<
@@ -17,7 +18,7 @@ type Options = Xor<
   /**
    * One or an array of version strings of the software you are using, such as `'RockenbergCommerce/3.1.12'`.
    */
-  versionStrings?: string | string[];
+  versionStrings?: MaybeArray<string>;
   /**
    * The headers set in the requests sent to the Mollie API. `Authorization`, `User-Agent`, `Accept`,
    * `Accept-Encoding`, and `Content-Type` are set by this library directly. Setting them here has no effect.

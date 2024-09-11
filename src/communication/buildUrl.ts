@@ -2,7 +2,9 @@
 import { URLSearchParams } from 'url';
 
 import { apply, runIf } from 'ruply';
+
 import type Maybe from '../types/Maybe';
+import type MaybeArray from '../types/MaybeArray';
 
 export type SearchParameters = Record<string, any>;
 
@@ -25,7 +27,7 @@ export default function buildUrl(originAndPathname: string, searchParameters?: S
     return originAndPathname;
   }
   return `${originAndPathname}?${new URLSearchParams(
-    apply({} as Record<string, string | string[]>, flattenedEntries => {
+    apply({} as Record<string, MaybeArray<string>>, flattenedEntries => {
       for (const [key, value] of searchEntries) {
         if (value == undefined) {
           continue;
