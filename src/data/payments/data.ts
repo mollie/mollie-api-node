@@ -860,7 +860,10 @@ export enum PaymentStatus {
   paid = 'paid',
 }
 
-export type PaymentInclude = 'details.qrCode';
+export enum PaymentInclude {
+  qrCode = 'details.qrCode',
+  remainderDEtails = 'details.remainderDetails',
+}
 
 export enum PaymentEmbed {
   refunds = 'refunds',
