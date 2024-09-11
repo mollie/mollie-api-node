@@ -11,6 +11,7 @@ import DemandingIterator from '../plumbing/iteration/DemandingIterator';
 import HelpfulIterator from '../plumbing/iteration/HelpfulIterator';
 import Throttler from '../plumbing/Throttler';
 import type Maybe from '../types/Maybe';
+import type MaybeArray from '../types/MaybeArray';
 import { type IdempotencyParameter } from '../types/parameters';
 import breakUrl from './breakUrl';
 import buildUrl, { type SearchParameters } from './buildUrl';
@@ -23,7 +24,7 @@ import { URL } from 'url';
  * Like `[].map` but with support for non-array inputs, in which case this function behaves as if an array was passed
  * with the input as its sole element.
  */
-function map<T, U>(input: Maybe<T | T[]>, callback: (value: T, index: number) => U, context?: any): U[] {
+function map<T, U>(input: Maybe<MaybeArray<T>>, callback: (value: T, index: number) => U, context?: any): U[] {
   if (Array.isArray(input)) {
     return input.map(callback, context);
   }
