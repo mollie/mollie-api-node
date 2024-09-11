@@ -99,6 +99,16 @@ export default class OrderHelper extends Helper<OrderData, Order> {
   }
 
   /**
+   * Returns the direct link to the order in the Mollie Dashboard.
+   *
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=_links/dashboard#response
+   * @since 4.0.0
+   */
+  public getDashboardUrl(): string {
+    return this.links.dashboard.href;
+  }
+
+  /**
    * Returns all payments created for the order.
    *
    * @since 3.6.0

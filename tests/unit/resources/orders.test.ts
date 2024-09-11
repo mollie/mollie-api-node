@@ -121,6 +121,10 @@ function composeOrderResponse(orderId, orderStatus = 'created', orderNumber = '1
         href: 'https://www.mollie.com/payscreen/select-method/7UhSN1zuXS',
         type: 'text/html',
       },
+      dashboard: {
+        href: `https://www.mollie.com/dashboard/org_123456789/orders/${orderId}`,
+        type: 'text/html',
+      },
       documentation: {
         href: 'https://docs.mollie.com/reference/v2/orders-api/get-order',
         type: 'text/html',
@@ -198,6 +202,8 @@ function testOrder(order, orderId, orderStatus = 'created', orderNumber = '1337'
     href: 'https://docs.mollie.com/reference/v2/orders-api/get-order',
     type: 'text/html',
   });
+  expect(order.getCheckoutUrl()).toBe('https://www.mollie.com/payscreen/select-method/7UhSN1zuXS');
+  expect(order.getDashboardUrl()).toBe(`https://www.mollie.com/dashboard/org_123456789/orders/${orderId}`);
 
   expect(order.lines[0]).toEqual({
     resource: 'orderline',
@@ -545,6 +551,10 @@ test('getOrderIncludingPayments', () => {
           href: 'https://www.mollie.com/payscreen/order/checkout/pbjz8x',
           type: 'text/html',
         },
+        dashboard: {
+          href: 'https://www.mollie.com/dashboard/org_123456789/orders/ord_pbjz8x',
+          type: 'text/html',
+        },
         documentation: {
           href: 'https://docs.mollie.com/reference/v2/orders-api/get-order',
           type: 'text/html',
@@ -585,6 +595,8 @@ test('getOrderIncludingPayments', () => {
       href: 'https://api.mollie.com/v2/orders/ord_kEn1PlbGa',
       type: 'application/hal+json',
     });
+    expect(order.getCheckoutUrl()).toBe('https://www.mollie.com/payscreen/order/checkout/pbjz8x');
+    expect(order.getDashboardUrl()).toBe('https://www.mollie.com/dashboard/org_123456789/orders/ord_pbjz8x');
   });
 });
 
