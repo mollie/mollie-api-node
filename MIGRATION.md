@@ -69,15 +69,15 @@ The `count` property has been removed from pages, please use `length` instead:
 + mollieClient.payments.page({ limit: 10 }).length
 ```
 
-## List API changes
+## Changed return type of list functions
 
-The return type of list functions now reflects whether the underlying endpoint is paginated. The following functions now return (plain) arrays:
+The return type of list functions now reflects whether the underlying endpoint is paginated. The following functions return (plain) arrays:
 
  * `mollieClient.methods.list`
  * `mollieClient.orderShipments.list`
  * `mollieClient.permissions.list`
 
-The following functions now return iterators:
+The following functions return iterators:
 
  * `customer.getMandates()`
  * `customer.getSubscriptions()`
@@ -105,6 +105,10 @@ Previously, it was possible to provide options to Axios through `createMollieCli
  * `timeout`
 
 Please [create an issue](https://github.com/mollie/mollie-api-node/issues/new) if you rely on such an option.
+
+## Note: network errors may have changed
+
+It is possible that network issues produce different error messages compared to previous versions of the client. Please update your error handling code if necessary.
 
 # Migrating from v2.×.× to v3.0.0
 
