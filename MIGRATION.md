@@ -45,7 +45,7 @@ Helper functions which do not provide a significantly simpler API have been remo
 
 ## Removed functions from `ApiError`
 
-`getMessage`, `getField`, `getStatusCode` have been removed. Please use `message`, `field`, and `statusCode` instead:
+`getMessage`, `getField`, `getStatusCode` have been removed from `ApiError`. Please use `message`, `field`, and `statusCode` instead:
 ```diff
   try {
     const payment = await mollieClient.payments.get(…);
