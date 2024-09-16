@@ -862,7 +862,7 @@ export enum PaymentStatus {
 
 export enum PaymentInclude {
   qrCode = 'details.qrCode',
-  remainderDEtails = 'details.remainderDetails',
+  remainderDetails = 'details.remainderDetails',
 }
 
 export enum PaymentEmbed {
