@@ -338,6 +338,12 @@ interface PaymentLinks extends Links {
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/order#response
    */
   order?: Url;
+  /**
+   * Direct link to the payment in the Mollie Dashboard.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/dashboard#response
+   */
+  dashboard: Url;
 }
 
 export interface BancontactDetails {

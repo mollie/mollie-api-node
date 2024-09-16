@@ -12,7 +12,6 @@ import { type ThrottlingParameter } from '../../types/parameters';
 import Helper from '../Helper';
 import type Chargeback from '../chargebacks/Chargeback';
 import { type ChargebackData } from '../chargebacks/Chargeback';
-import { SequenceType, type Amount } from '../global';
 import type Order from '../orders/Order';
 import { type OrderData } from '../orders/data';
 import type Refund from '../refunds/Refund';
@@ -20,7 +19,7 @@ import { type RefundData } from '../refunds/data';
 import type Payment from './Payment';
 import type Capture from './captures/Capture';
 import { type CaptureData } from './captures/data';
-import { PaymentStatus, type BankTransferLinks, type PaymentData } from './data';
+import { type BankTransferLinks, type PaymentData } from './data';
 
 export default class PaymentHelper extends Helper<PaymentData, Payment> {
   constructor(networkClient: TransformingNetworkClient, protected readonly links: PaymentData['_links'], protected readonly embedded: Payment['_embedded']) {
@@ -57,6 +56,16 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
    */
   public getCheckoutUrl(): Nullable<string> {
     return this.links.checkout?.href ?? null;
+  }
+
+  /**
+   * Returns the direct link to the payment in the Mollie Dashboard.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/dashboard#response
+   * @since 4.0.0
+   */
+  public getDashboardUrl(): string {
+    return this.links.dashboard.href;
   }
 
   public canBeRefunded(this: PaymentData): boolean {

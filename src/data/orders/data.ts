@@ -202,6 +202,12 @@ export interface OrderLinks extends Links {
    * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=_links/checkout#response
    */
   checkout?: Url;
+  /**
+   * Direct link to the order in the Mollie Dashboard.
+   *
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=_links/dashboard#response
+   */
+  dashboard: Url;
 }
 
 export enum OrderStatus {
