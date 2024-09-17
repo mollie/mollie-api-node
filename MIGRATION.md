@@ -106,9 +106,9 @@ Previously, it was possible to provide options to Axios through `createMollieCli
 
 Please [create an issue](https://github.com/mollie/mollie-api-node/issues/new) if you rely on such an option.
 
-## Note: network errors may have changed
+## Note: network error messages may have changed
 
-It is possible that network issues produce different error messages compared to previous versions of the client. Please update your error handling code if necessary.
+It is possible that network issues produce different values for the `message` property of the produced errors compared to previous versions of the client. If your integration relies on `message`, please update your error handling code accordingly.
 
 # Migrating from v2.×.× to v3.0.0
 

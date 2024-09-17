@@ -3,7 +3,7 @@
 
 ### Changelog
 
-All notable changes to this project will be documented in this file.
+Please see [the migration guide](MIGRATION.md) for guidance about updating to a newer major version.
 
 ### v4.0.0 - 2024-09-16
   - Replace Axios dependency in favour of [fetch](https://developer.mozilla.org/docs/Web/API/fetch) ([#358](https://github.com/mollie/mollie-api-node/pull/358))
