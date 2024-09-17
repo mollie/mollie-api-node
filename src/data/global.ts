@@ -23,18 +23,23 @@ export enum Locale {
 }
 
 export enum PaymentMethod {
+  alma = 'alma',
   applepay = 'applepay',
+  bacs = 'bacs',
+  bancomatpay = 'bancomatpay',
   bancontact = 'bancontact',
   banktransfer = 'banktransfer',
   belfius = 'belfius',
+  billie = 'billie',
+  blik = 'blik',
   creditcard = 'creditcard',
   directdebit = 'directdebit',
   eps = 'eps',
   giftcard = 'giftcard',
-  giropay = 'giropay',
   ideal = 'ideal',
   in3 = 'in3',
   kbc = 'kbc',
+  klarna = 'klarna',
   klarnapaylater = 'klarnapaylater',
   klarnapaynow = 'klarnapaynow',
   klarnasliceit = 'klarnasliceit',
@@ -42,13 +47,18 @@ export enum PaymentMethod {
   paypal = 'paypal',
   paysafecard = 'paysafecard',
   przelewy24 = 'przelewy24',
-  sofort = 'sofort',
+  riverty = 'riverty',
+  satispay = 'satispay',
+  trustly = 'trustly',
+  twint = 'twint',
   voucher = 'voucher',
 }
 
 export enum HistoricPaymentMethod {
   bitcoin = 'bitcoin',
   inghomepay = 'inghomepay',
+  giropay = 'giropay',
+  sofort = 'sofort',
 }
 
 export enum ApiMode {

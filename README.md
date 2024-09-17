@@ -147,24 +147,26 @@ Want to help us make our API client even better? We take [pull requests](https:/
 
 [New BSD (Berkeley Software Distribution) License](https://opensource.org/licenses/BSD-3-Clause). Copyright 2013-2021, Mollie B.V.
 
-[credit-card]: https://www.mollie.com/payments/credit-card
 [apple-pay]: https://www.mollie.com/payments/apple-pay
-[paypal]: https://www.mollie.com/payments/paypal
-[klarna-pay-now]: https://www.mollie.com/payments/klarna-pay-now
-[klarna-pay-later]: https://www.mollie.com/payments/klarna-pay-later
-[klarna-slice-it]: https://www.mollie.com/payments/klarna-slice-it
-[ideal]: https://www.mollie.com/payments/ideal
-[meal-eco-gift-vouchers]: https://www.mollie.com/payments/meal-eco-gift-vouchers
-[bank-transfer]: https://www.mollie.com/payments/bank-transfer
-[direct-debit]: https://www.mollie.com/payments/direct-debit
-[sofort]: https://www.mollie.com/payments/sofort
 [bancontact]: https://www.mollie.com/payments/bancontact
-[cartes-bancaires]: https://www.mollie.com/payments/cartes-bancaires
-[eps]: https://www.mollie.com/payments/eps
-[postepay]: https://www.mollie.com/payments/postepay
-[giropay]: https://www.mollie.com/payments/giropay
-[kbc-cbc]: https://www.mollie.com/payments/kbc-cbc
+[bank-transfer]: https://www.mollie.com/payments/bank-transfer
 [belfius]: https://www.mollie.com/payments/belfius
-[paysafecard]: https://www.mollie.com/payments/paysafecard
+[cartes-bancaires]: https://www.mollie.com/payments/cartes-bancaires
+[credit-card]: https://www.mollie.com/payments/credit-card
+[direct-debit]: https://www.mollie.com/payments/direct-debit
+[eps]: https://www.mollie.com/payments/eps
 [gift-cards]: https://www.mollie.com/payments/gift-cards
+[ideal]: https://www.mollie.com/payments/ideal
+[kbc-cbc]: https://www.mollie.com/payments/kbc-cbc
+[klarna-pay-later]: https://www.mollie.com/payments/klarna-pay-later
+[klarna-pay-now]: https://www.mollie.com/payments/klarna-pay-now
+[klarna-slice-it]: https://www.mollie.com/payments/klarna-slice-it
+[meal-eco-gift-vouchers]: https://www.mollie.com/payments/meal-eco-gift-vouchers
+[paypal]: https://www.mollie.com/payments/paypal
+[paysafecard]: https://www.mollie.com/payments/paysafecard
+[postepay]: https://www.mollie.com/payments/postepay
 [przelewy24]: https://www.mollie.com/payments/przelewy24
+[riverty]: https://www.mollie.com/payments/riverty
+[satispay]: https://www.mollie.com/payments/satispay
+[trustly]: https://www.mollie.com/payments/trustly
+[twint]: https://www.mollie.com/payments/twint
