@@ -7,7 +7,7 @@
 
 # About
 
-[Mollie](https://www.mollie.com/) builds payment products, commerce solutions and APIs that let you accept online and mobile payments, for small online stores and Fortune 500s alike. Accepting [Credit Card][credit-card], [Apple Pay][apple-pay], [PayPal][paypal], [Klarna: Pay now][klarna-pay-now], [Klarna: Pay later][klarna-pay-later], [Klarna: Slice it][klarna-slice-it], [iDeal][ideal], [vouchers][meal-eco-gift-vouchers], [SEPA Bank Transfer][bank-transfer], [SEPA Direct Debit][direct-debit], [SOFORT banking][sofort], [Bancontact][bancontact], [Cartes Bancaires][cartes-bancaires], [EPS][eps], [PostePay][postepay], [Giropay][giropay], [KBC Payment Button][kbc-cbc], [Belfius Pay Button][belfius], [paysafecard][paysafecard], [gift cards][gift-cards], and [Przelewy24][przelewy24] online payments without fixed monthly costs or any punishing registration procedures. Just use the Mollie API to receive payments directly on your website or easily refund transactions to your customers.
+[Mollie](https://www.mollie.com/) builds payment products, commerce solutions and APIs that let you accept online and mobile payments, for small online stores and Fortune 500s alike. Accepting [credit and debit card][credit-card] ([Cartes Bancaires][cartes-bancaires], [PostePay][postepay]), [Alma][alma], [Apple Pay][apple-pay], [BACS Direct Debit][bacs], [BANCOMAT Pay][bancomat-pay], [Bancontact][bancontact], [SEPA Bank Transfer][bank-transfer], [Belfius Pay Button][belfius], [Billie][billie], [BLIK][blik], [SEPA Direct Debit][direct-debit], [EPS][eps], [iDEAL][ideal] ([in3][ideal-in3]), [KBC Payment Button][kbc-cbc], [Klarna][klarna] (Pay Later, Pay Now, Pay in 3, Financing), [PayPal][paypal], [paysafecard][paysafecard], [Przelewy24][przelewy24], [Riverty][riverty], [Satispay][satispay], [Trustly][trustly], [TWINT][twint], [eco- gift- and meal vouchers][meal-eco-gift-vouchers] and [gift cards][gift-cards] online payments without fixed monthly costs or any punishing registration procedures. Just use the Mollie API to receive payments directly on your website or easily refund transactions to your customers.
 
 ### A note on use outside of Node.js
 
@@ -147,21 +147,26 @@ Want to help us make our API client even better? We take [pull requests](https:/
 
 [New BSD (Berkeley Software Distribution) License](https://opensource.org/licenses/BSD-3-Clause). Copyright 2013-2021, Mollie B.V.
 
+[alma]: https://www.mollie.com/payments/alma
 [apple-pay]: https://www.mollie.com/payments/apple-pay
+[bacs]: https://www.mollie.com/payments/bacs
+[bancomat-pay]: https://www.mollie.com/payments/bancomat-pay
 [bancontact]: https://www.mollie.com/payments/bancontact
 [bank-transfer]: https://www.mollie.com/payments/bank-transfer
 [belfius]: https://www.mollie.com/payments/belfius
+[billie]: https://www.mollie.com/payments/billie
+[blik]: https://www.mollie.com/payments/blik
 [cartes-bancaires]: https://www.mollie.com/payments/cartes-bancaires
 [credit-card]: https://www.mollie.com/payments/credit-card
 [direct-debit]: https://www.mollie.com/payments/direct-debit
 [eps]: https://www.mollie.com/payments/eps
 [gift-cards]: https://www.mollie.com/payments/gift-cards
 [ideal]: https://www.mollie.com/payments/ideal
+[ideal-in3]: https://www.mollie.com/payments/ideal-in3
 [kbc-cbc]: https://www.mollie.com/payments/kbc-cbc
-[klarna-pay-later]: https://www.mollie.com/payments/klarna-pay-later
-[klarna-pay-now]: https://www.mollie.com/payments/klarna-pay-now
-[klarna-slice-it]: https://www.mollie.com/payments/klarna-slice-it
+[klarna]: https://www.mollie.com/payments/klarna
 [meal-eco-gift-vouchers]: https://www.mollie.com/payments/meal-eco-gift-vouchers
+[mybank]: https://www.mollie.com/payments/mybank
 [paypal]: https://www.mollie.com/payments/paypal
 [paysafecard]: https://www.mollie.com/payments/paysafecard
 [postepay]: https://www.mollie.com/payments/postepay
