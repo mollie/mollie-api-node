@@ -55,6 +55,10 @@ Helper functions which do not provide a significantly simpler API have been remo
   }
 ```
 
+## Removed Giropay and SOFORT
+
+[Giropay](https://help.mollie.com/hc/en-us/articles/19745480480786-Giropay-Depreciation-FAQ) and [SOFORT](https://help.mollie.com/hc/en-us/articles/20904206772626-SOFORT-Deprecation-30-September-2024) have been deprecated, and removed from the client. Please update your code accordingly.
+
 ## Changed type of `metadata` (from `any`) to `unknown`
 
 The `metadata` property is now typed as `unknown`. Please check its type at runtime, or use `as any` to opt in to type issues.
