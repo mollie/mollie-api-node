@@ -20,7 +20,7 @@
   "main": "dist/mollie.cjs.js",
   "module": "dist/mollie.esm.js",
   "jsnext:main": "dist/mollie.esm.js",
-  "types": "dist/types/src/types.d.ts",
+  "types": "dist/types/types.d.ts",
   "engines": {
     "node": ">=8"
   },
