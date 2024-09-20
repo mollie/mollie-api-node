@@ -41,6 +41,7 @@
     "lint": "yarn lint:eslint:fix && yarn lint:prettier"
   },
   "dependencies": {
+    "@types/node-fetch": "^2.6.11",
     "node-fetch": "^2.7.0",
     "ruply": "^1.0.1"
   },
@@ -51,7 +52,6 @@
     "@mollie/eslint-config-typescript": "^1.6.5",
     "@types/jest": "^29.5.12",
     "@types/node": "^22.5.4",
-    "@types/node-fetch": "^2.6.11",
     "babel-jest": "^29.7.0",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
