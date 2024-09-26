@@ -113,7 +113,7 @@ The `page` methods do not fit every use case. If you find yourself retrieving mu
 
 ```javascript
 // Iterate over all payments.
-for await (let payment in mollieClient.payments.iterate()) {
+for await (const payment of mollieClient.payments.iterate()) {
   // (Use break to end the loop prematurely.)
 }
 ```
