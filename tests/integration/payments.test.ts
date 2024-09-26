@@ -15,29 +15,26 @@ describe('payments', () => {
   it('should integrate', async () => {
     const payments = await mollieClient.payments.page();
 
-    let paymentExists;
+    const existingPayment = payments.find(payment => payment.metadata == 'refund-test' && payment.status == PaymentStatus.paid);
 
-    if (!payments.length || payments[0].status == PaymentStatus.expired) {
-      paymentExists = mollieClient.payments
+    const payment =
+      existingPayment ??
+      (await mollieClient.payments
         .create({
           amount: { value: '10.00', currency: 'EUR' },
           description: 'Integration test payment',
           redirectUrl: 'https://example.com/redirect',
+          method: PaymentMethod.creditcard, // we want the amount to be immediately refundable, which is not the case for all payment methods
+          metadata: 'refund-test',
         })
         .then(payment => {
           expect(payment).toBeDefined();
-
           return payment;
         })
-        .catch(fail);
-    } else {
-      paymentExists = Promise.resolve(payments[0]);
-    }
-
-    const payment = await paymentExists;
+        .catch(fail));
 
     if (payment.status != PaymentStatus.paid) {
-      console.log('If you want to test the full flow, set the payment to paid:', payment.getCheckoutUrl());
+      console.log('If you want to test the full refund flow, set the payment to paid:', payment.getCheckoutUrl());
       return;
     }
 
@@ -53,8 +50,8 @@ describe('payments', () => {
     if (!paymentRefunds.length) {
       refundExists = mollieClient.paymentRefunds
         .create({
-          paymentId: payments[0].id,
-          amount: { value: '5.00', currency: payments[0].amount.currency },
+          paymentId: payment.id,
+          amount: { value: '5.00', currency: payment.amount.currency },
         })
         .then(refund => {
           expect(refund).toBeDefined();
@@ -70,7 +67,7 @@ describe('payments', () => {
 
     await mollieClient.paymentRefunds
       .get(paymentRefund.id, {
-        paymentId: payments[0].id,
+        paymentId: payment.id,
       })
       .then(result => {
         expect(result).toBeDefined();
@@ -123,34 +120,55 @@ describe('payments', () => {
     expect(payments[0].id).toEqual(nextPageCursor);
   });
 
-  it.skip('should create a capture', async () => {
-    // Create a payment.
-    const payment = await mollieClient.payments.create({
-      amount: { value: '10.00', currency: 'EUR' },
-      description: 'Original description',
-      redirectUrl: 'https://example.com/redirect',
-      captureMode: CaptureMethod.manual,
-      method: PaymentMethod.creditcard,
-    });
-    expect(payment.captureDelay).toBeUndefined();
-    expect(payment.captureMode).toBe('manual');
-    expect(payment.authorizedAt).toBeUndefined();
+  it('should capture a payment', async () => {
+    const payments = await mollieClient.payments.page();
 
-    expect(payment.captureBefore).toBeUndefined();
+    const existingPayment = payments.find(payment => payment.metadata == 'capture-test' && payment.status == PaymentStatus.authorized);
 
-    // TODO: the payment needs to be authorized here, but there doesn't seem to be a way to do this currently...
+    const payment =
+      existingPayment ??
+      (await mollieClient.payments
+        .create({
+          amount: { value: '10.00', currency: 'EUR' },
+          description: 'Integration test payment',
+          redirectUrl: 'https://example.com/redirect',
+          metadata: 'capture-test',
+          captureMode: CaptureMethod.manual,
+          method: PaymentMethod.creditcard,
+        })
+        .then(payment => {
+          expect(payment).toBeDefined();
+          expect(payment.captureMode).toBe('manual');
+          expect(payment.authorizedAt).toBeUndefined();
+          expect(payment.captureDelay).toBeUndefined();
+          expect(payment.captureBefore).toBeUndefined();
 
-    payment.refresh();
-    expect(payment.captureBefore).not.toBeUndefined();
+          return payment;
+        })
+        .catch(fail));
+
+    if (payment.status != PaymentStatus.authorized) {
+      console.log('If you want to test the full authorize-then-capture flow, set the payment to authorized:', payment.getCheckoutUrl());
+      return;
+    }
+
+    expect(payment.authorizedAt).toBeDefined();
+    expect(payment.captureBefore).toBeDefined();
 
     // Create a capture for this payment.
-    const capture = await mollieClient.paymentCaptures.create({
-      paymentId: payment.id,
-      amount: { value: '10.00', currency: 'EUR' },
-    });
+    const capture = await mollieClient.paymentCaptures
+      .create({
+        paymentId: payment.id,
+        amount: { value: '10.00', currency: 'EUR' },
+      })
+      .then(capture => {
+        expect(capture).toBeDefined();
+        return capture;
+      })
+      .catch(fail);
     // check if the capture was created and assigned to the payment.
-    payment.refresh();
-    const captureOnPayment = await getHead(payment.getCaptures());
+    const updatedPayment = await payment.refresh();
+    const captureOnPayment = await getHead(updatedPayment.getCaptures());
     expect(capture.id).toBe(captureOnPayment.id);
   });
 });
