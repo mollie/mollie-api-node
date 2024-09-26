@@ -28,11 +28,18 @@ export interface MethodData extends Model<'method', PaymentMethodEnum> {
    */
   image: Image;
   /**
-   * Pricing set of the payment method what will be include if you add the parameter.
+   * Array of objects describing the pricing configuration applicable for this payment method on your account.
    *
    * @see https://docs.mollie.com/reference/v2/methods-api/get-method?path=pricing#response
    */
-  pricing: MethodPricing;
+  pricing?: MethodPricing[];
+  /**
+   * Array of objects for each 'issuer' that is available for this payment method. Only relevant for iDEAL, KBC/CBC,
+   * gift cards, and vouchers.
+   *
+   * @see https://docs.mollie.com/reference/v2/methods-api/get-method?path=pricing#response
+   */
+  issuers?: MethodIssuers[];
   /**
    * An object with several URL objects relevant to the payment method. Every URL object will contain an `href` and a `type` field.
    *
@@ -92,4 +99,11 @@ export interface MethodPricing {
   fixed: Amount;
   variable: string;
   feeRegion: FeeRegion;
+}
+
+export interface MethodIssuers {
+  resource: string;
+  id: string;
+  name: string;
+  image: Image;
 }

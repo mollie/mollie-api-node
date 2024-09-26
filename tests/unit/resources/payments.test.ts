@@ -34,6 +34,10 @@ test('createPayment', () => {
           href: 'https://www.mollie.com/payscreen/select-method/44aKxzEbr8',
           type: 'text/html',
         },
+          dashboard: {
+            href: 'https://www.mollie.com/dashboard/org_12345678/payments/tr_44aKxzEbr8',
+            type: 'text/html',
+          },
         documentation: {
           href: 'https://docs.mollie.com/reference/v2/payments-api/create-payment',
           type: 'text/html',
@@ -79,6 +83,10 @@ test('createPayment', () => {
     expect(payment._links.checkout).toEqual({ href: 'https://www.mollie.com/payscreen/select-method/44aKxzEbr8', type: 'text/html' });
 
     expect(payment._links.documentation).toEqual({ href: 'https://docs.mollie.com/reference/v2/payments-api/create-payment', type: 'text/html' });
+
+    expect(payment.getCheckoutUrl()).toBe('https://www.mollie.com/payscreen/select-method/44aKxzEbr8');
+
+    expect(payment.getDashboardUrl()).toBe('https://www.mollie.com/dashboard/org_12345678/payments/tr_44aKxzEbr8');
   });
 });
 
