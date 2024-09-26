@@ -58,6 +58,16 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
     return this.links.checkout?.href ?? null;
   }
 
+  /**
+   * Returns the direct link to the payment in the Mollie Dashboard.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/dashboard#response
+   * @since 4.0.0
+   */
+  public getDashboardUrl(): string {
+    return this.links.dashboard.href;
+  }
+
   public canBeRefunded(this: PaymentData): boolean {
     return this.amountRemaining != undefined;
   }

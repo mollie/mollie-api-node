@@ -1,4 +1,120 @@
-# Migrating from v2.3.2 to v3.0.0
+# Migrating from v3.×.× to v4.0.0
+
+## Raised Node.js requirement
+
+Node.js 14+ is officially supported, although we believe Node.js 8+ should work.
+
+## Removed `withParent`
+
+`withParent` has been removed, eliminating state from the client:
+```diff
+- const payments = mollieClient.customerPayments.withParent(customer).iterate();
++ const payments = mollieClient.customerPayments.iterate({ customerId: customer.id });
+  for await (const payment of payments) {
+    …
+  }
+```
+
+## Removed snake case properties (e.g. `payments_refunds`)
+
+Snake case properties have been removed in favour of camel case ones. Please use `paymentRefunds` instead of `payments_refunds`, `orderShipments` instead of `orders_shipments`, et cetera:
+```diff
+- mollieClient.customers_subscriptions.get('sub_PCN3U3U27K', { customerId: 'cst_pzhEvnttJ2' })
++ mollieClient.customerSubscriptions.get('sub_PCN3U3U27K', { customerId: 'cst_pzhEvnttJ2' });
+```
+
+## Removed endpoint aliases (e.g. `payments.delete`)
+
+Endpoint aliases have been removed. Please use `mollieClient.payments.cancel` instead of `mollieClient.payments.delete`, `mollieClient.refunds.page` instead of `mollieClient.refunds.list`, et cetera:
+```diff
+- mollieClient.subscriptions.list({ limit: 10 })
++ mollieClient.subscriptions.page({ limit: 10 })
+```
+
+## Removed predictable helper functions
+
+Helper functions which do not provide a significantly simpler API have been removed:
+```diff
+- if (payment.isOpen()) {
++ if (payment.status == PaymentStatus.open) {
+```
+```diff
+- if (payment.hasSequenceTypeFirst()) {
++ if (payment.sequenceType == SequenceType.first)
+```
+
+## Removed functions from `ApiError`
+
+`getMessage`, `getField`, `getStatusCode` have been removed from `ApiError`. Please use `message`, `field`, and `statusCode` instead:
+```diff
+  try {
+    const payment = await mollieClient.payments.get(…);
+  } catch (error) {
+-   console.warn(error.getMessage())
++   console.warn(error.message)
+  }
+```
+
+## Removed Giropay and SOFORT
+
+[Giropay](https://help.mollie.com/hc/en-us/articles/19745480480786-Giropay-Depreciation-FAQ) and [SOFORT](https://help.mollie.com/hc/en-us/articles/20904206772626-SOFORT-Deprecation-30-September-2024) have been deprecated, and removed from the client. Please update your code accordingly.
+
+## Changed type of `metadata` (from `any`) to `unknown`
+
+The `metadata` property is now typed as `unknown`. Please check its type at runtime, or use `as any` to opt in to type issues.
+
+This is part of a larger movement in the TypeScript universe to reduce usage of the `any` type. See [microsoft/TypeScript#41016](https://github.com/microsoft/TypeScript/issues/41016).
+
+## Removed `count`
+
+The `count` property has been removed from pages, please use `length` instead:
+```diff
+- mollieClient.payments.page({ limit: 10 }).count
++ mollieClient.payments.page({ limit: 10 }).length
+```
+
+## Changed return type of list functions
+
+The return type of list functions now reflects whether the underlying endpoint is paginated. The following functions return (plain) arrays:
+
+ * `mollieClient.methods.list`
+ * `mollieClient.orderShipments.list`
+ * `mollieClient.permissions.list`
+
+The following functions return iterators:
+
+ * `customer.getMandates()`
+ * `customer.getSubscriptions()`
+ * `customer.getPayments()`
+ * `order.getRefunds()`
+ * `payment.getRefunds()`
+ * `payment.getChargebacks()`
+ * `payment.getCaptures()`
+ * `profile.getChargebacks()`
+ * `profile.getPayments()`
+ * `profile.getRefunds()`
+ * `subscription.getPayments()`
+
+## Removed `toPlainObject`
+
+`toPlainObject` has been removed. The appropriate alternative depends on your motivation to use the now-removed function.
+
+## Removed Axios-specific options
+
+Previously, it was possible to provide options to Axios through `createMollieClient`. The client no longer uses Axios. The following options no longer have any effect:
+
+ * `adapter`
+ * `proxy`
+ * `socketPath`
+ * `timeout`
+
+Please [create an issue](https://github.com/mollie/mollie-api-node/issues/new) if you rely on such an option.
+
+## Note: network error messages may have changed
+
+It is possible that network issues produce different values for the `message` property of the produced errors compared to previous versions of the client. If your integration relies on `message`, please update your error handling code accordingly.
+
+# Migrating from v2.×.× to v3.0.0
 
 ## Initialization
 
@@ -60,7 +176,7 @@ The alternative using JavaScript modules would be to replace the first line of t
 import createMollieClient, { PaymentMethod } from '@mollie/api-client';
 ```
 
-# Migrating from v1.x to v2.0
+# Migrating from v1.×.× to v2.0.0
 
 Version 2.x of the Node client uses the v2 Mollie API. Please refer to  [Migrating from v1 to v2](https://docs.mollie.com/migrating-v1-to-v2) for a general overview of the changes introduced by the new Mollie API.
 

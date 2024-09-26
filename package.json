@@ -1,6 +1,6 @@
 {
   "name": "@mollie/api-client",
-  "version": "3.7.0",
+  "version": "4.0.0",
   "license": "BSD-3-Clause",
   "description": "Official Mollie API client for Node",
   "repository": {
@@ -20,7 +20,7 @@
   "main": "dist/mollie.cjs.js",
   "module": "dist/mollie.esm.js",
   "jsnext:main": "dist/mollie.esm.js",
-  "types": "dist/types/src/types.d.ts",
+  "types": "dist/types/types.d.ts",
   "engines": {
     "node": ">=8"
   },
@@ -41,6 +41,7 @@
     "lint": "yarn lint:eslint:fix && yarn lint:prettier"
   },
   "dependencies": {
+    "@types/node-fetch": "^2.6.11",
     "node-fetch": "^2.7.0",
     "ruply": "^1.0.1"
   },
@@ -51,7 +52,6 @@
     "@mollie/eslint-config-typescript": "^1.6.5",
     "@types/jest": "^29.5.12",
     "@types/node": "^22.5.4",
-    "@types/node-fetch": "^2.6.11",
     "babel-jest": "^29.7.0",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
