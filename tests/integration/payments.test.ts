@@ -1,7 +1,8 @@
 import dotenv from 'dotenv';
 import { fail } from 'node:assert';
 
-import createMollieClient, { PaymentStatus } from '../..';
+import createMollieClient, { CaptureMethod, PaymentMethod, PaymentStatus } from '../..';
+import getHead from '../getHead';
 
 /**
  * Load the API_KEY environment variable
@@ -120,5 +121,36 @@ describe('payments', () => {
 
     expect(payments.length).toEqual(2);
     expect(payments[0].id).toEqual(nextPageCursor);
+  });
+
+  it.skip('should create a capture', async () => {
+    // Create a payment.
+    const payment = await mollieClient.payments.create({
+      amount: { value: '10.00', currency: 'EUR' },
+      description: 'Original description',
+      redirectUrl: 'https://example.com/redirect',
+      captureMode: CaptureMethod.manual,
+      method: PaymentMethod.creditcard,
+    });
+    expect(payment.captureDelay).toBeUndefined();
+    expect(payment.captureMode).toBe('manual');
+    expect(payment.authorizedAt).toBeUndefined();
+
+    expect(payment.captureBefore).toBeUndefined();
+
+    // TODO: the payment needs to be authorized here, but there doesn't seem to be a way to do this currently...
+
+    payment.refresh();
+    expect(payment.captureBefore).not.toBeUndefined();
+
+    // Create a capture for this payment.
+    const capture = await mollieClient.paymentCaptures.create({
+      paymentId: payment.id,
+      amount: { value: '10.00', currency: 'EUR' },
+    });
+    // check if the capture was created and assigned to the payment.
+    payment.refresh();
+    const captureOnPayment = await getHead(payment.getCaptures());
+    expect(capture.id).toBe(captureOnPayment.id);
   });
 });
