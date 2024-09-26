@@ -185,13 +185,13 @@ export interface PaymentData extends Model<'payment'> {
    * 
    * Possible values: `... hours`, `... days`
    */
-  captureDelay?: number;
+  captureDelay?: string;
   /**
    * **Only relevant if you wish to manage authorization and capturing separately.**
    * 
    * Indicates the date before which the payment needs to be captured, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. From this date onwards we can no longer guarantee a successful capture. The parameter is omitted if the payment is not authorized (yet).
    */
-  captureBefore?: number;
+  captureBefore?: string;
   /**
    * The customer's locale, either forced on creation by specifying the `locale` parameter, or detected by us during checkout. Will be a full locale, for example `nl_NL`.
    *
