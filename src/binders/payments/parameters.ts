@@ -1,4 +1,4 @@
-import { type Address, type Amount, type PaymentMethod } from '../../data/global';
+import { type Address, type Amount, type DestinationType, type PaymentMethod } from '../../data/global';
 import { type Issuer } from '../../data/Issuer';
 import { type PaymentData, type PaymentEmbed, type PaymentInclude } from '../../data/payments/data';
 import { type IdempotencyParameter, type PaginationParameters, type ThrottlingParameter } from '../../types/parameters';
@@ -136,7 +136,12 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
     profileId?: string;
     testmode?: boolean;
     /**
-     * Adding an application fee allows you to charge the merchant a small sum for the payment and transfer this to your own account.
+     * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie merchants.
+     *
+     * If you use OAuth to create payments on a connected merchant's account, you can charge a fee using this applicationFee parameter.
+     * If the payment succeeds, the fee will be deducted from the merchant's balance and sent to your own account balance.
+     *
+     * If instead you want to split a payment on your own account between yourself and a connected merchant, refer to the `routing` parameter.
      *
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=applicationFee#mollie-connect-parameters
      */
@@ -159,6 +164,44 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
        */
       description: string;
     };
+    /**
+     * _This functionality is not enabled by default. Reach out to our partner management team if you wish to use it._
+     *
+     * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie merchants.
+     *
+     * If you create payments on your own account that you want to split between yourself and one or more connected merchants, you can use this `routing` parameter to route the payment accordingly.
+     *
+     * The `routing` parameter should contain an array of objects, with each object describing the destination for a specific portion of the payment.
+     *
+     * It is not necessary to indicate in the array which portion goes to yourself. After all portions of the total payment amount have been routed, the amount left will be routed to the current organization automatically.
+     *
+     * If instead you use OAuth to create payments on a connected merchant's account, refer to the applicationFee parameter.
+     *
+     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=routing
+     */
+    routing?: Array<{
+      /**
+       * The portion of the total payment amount being routed. Currently only `EUR` payments can be routed.
+       *
+       * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=routing/amount
+       */
+      amount: Amount & { currency: 'EUR' };
+      /**
+       * The destination of this portion of the payment.
+       *
+       *
+       * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=routing/destination
+       */
+      destination: OrganisationDestination;
+      /**
+       * Optionally, schedule this portion of the payment to be transferred to its destination on a later date. The date must be given in `YYYY-MM-DD` format.
+       *
+       * If no date is given, the funds become available to the connected merchant as soon as the payment succeeds.
+       *
+       * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=routing/releaseDate
+       */
+      releaseDate?: string;
+    }>;
   } & IdempotencyParameter;
 
 export interface GetParameters {
@@ -194,3 +237,14 @@ export type UpdateParameters = Pick<PaymentData, 'redirectUrl' | 'cancelUrl' | '
 export interface CancelParameters extends IdempotencyParameter {
   testmode?: boolean;
 }
+
+type OrganisationDestination = {
+  /**
+   * The type of destination. Currently only the destination type `organization` is supported.
+   */
+  type: DestinationType.organization;
+  /**
+   * Required for destination type `organization`. The ID of the connected organization the funds should be routed to.
+   */
+  organizationId: string;
+};
