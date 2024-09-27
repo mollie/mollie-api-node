@@ -44,7 +44,7 @@ export default class CaptureHelper extends Helper<CaptureData, Capture> {
   }
 
   /**
-   * Returns the shipment this capture has been settled with (if any).
+   * Returns the settlement this capture has been settled with (if any).
    *
    * @since 4.1.0
    */

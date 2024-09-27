@@ -18,13 +18,15 @@ export interface CaptureData extends Model<'capture'> {
    */
   description: string;
   /**
-   * The amount captured.
+   * The amount captured. If no amount is provided, the full authorized amount is captured.
    *
    * @see https://docs.mollie.com/reference/v2/captures-api/get-capture?path=amount#response
    */
   amount: Amount;
   /**
    * This optional field will contain the approximate amount that will be settled to your account, converted to the currency your account is settled in.
+   *
+   * Since the field contains an estimated amount during capture processing, it may change over time. To retrieve accurate settlement amounts we recommend using the List balance transactions endpoint instead.
    *
    * @see https://docs.mollie.com/reference/v2/captures-api/get-capture?path=settlementAmount#response
    */
@@ -33,14 +35,15 @@ export interface CaptureData extends Model<'capture'> {
    * The capture's status.
    *
    * @see https://docs.mollie.com/reference/v2/captures-api/get-capture?path=status#response
-  */
+   */
   status: CaptureStatus;
   /**
-   * The capture's status.
+   * Provide any data you like, for example a string or a JSON object. We will save the data alongside the entity. Whenever you fetch the entity with our API, we will also include the metadata.
+   * You can use up to approximately 1kB.
    *
    * @see https://docs.mollie.com/reference/v2/captures-api/get-capture?path=metadata#response
-  */
-  metadata: any;
+   */
+  metadata: unknown;
   /**
    * The unique identifier of the payment this capture was created for, for example: `tr_7UhSN1zuXS`. The full payment object can be retrieved via the `payment` URL in the `_links` object.
    *
