@@ -13,61 +13,56 @@ const mollieClient = createMollieClient({ apiKey: process.env.API_KEY });
 
 describe('payments', () => {
   it('should integrate', async () => {
+    /**
+     * This test will
+     * - check if a refundable payment created by this test exists (verified using metadata)
+     * - if yes: refund the payment - this tests the full flow and will work exactly once for every payment created by this test.
+     * - if no:
+     *   - check if there's an open payment created by this test and if not create one
+     *   - log the checkout URL of the open payment, which a user can use to set the status to `paid` to be able to test the full flow
+     *   - exit the test
+     */
+    const metaIdentifier = 'refund-test';
+
     const payments = await mollieClient.payments.page();
+    const refundPayments = payments.filter(payment => payment.metadata == metaIdentifier);
+    const refundablePayment = refundPayments.find(payment => payment.status == PaymentStatus.paid && payment.amountRemaining != null && parseFloat(payment.amountRemaining.value) > 0);
 
-    const existingPayment = payments.find(payment => payment.metadata == 'refund-test' && payment.status == PaymentStatus.paid);
-
-    const payment =
-      existingPayment ??
-      (await mollieClient.payments
-        .create({
-          amount: { value: '10.00', currency: 'EUR' },
-          description: 'Integration test payment',
-          redirectUrl: 'https://example.com/redirect',
-          method: PaymentMethod.creditcard, // we want the amount to be immediately refundable, which is not the case for all payment methods
-          metadata: 'refund-test',
-        })
-        .then(payment => {
-          expect(payment).toBeDefined();
-          return payment;
-        })
-        .catch(fail));
-
-    if (payment.status != PaymentStatus.paid) {
-      console.log('If you want to test the full refund flow, set the payment to paid:', payment.getCheckoutUrl());
+    if (null == refundablePayment) {
+      const openPayment =
+        refundPayments.find(payment => payment.status == PaymentStatus.open) ??
+        (await mollieClient.payments
+          .create({
+            amount: { value: '10.00', currency: 'EUR' },
+            description: 'Integration test payment',
+            redirectUrl: 'https://example.com/redirect',
+            method: PaymentMethod.creditcard, // we want the amount to be immediately refundable, which is not the case for all payment methods
+            metadata: metaIdentifier,
+          })
+          .then(payment => {
+            expect(payment).toBeDefined();
+            return payment;
+          })
+          .catch(fail));
+      console.log('If you want to test the full refund flow, set the payment to paid:', openPayment.getCheckoutUrl());
       return;
     }
 
-    if (!payment.isRefundable()) {
-      console.log('This payment is not refundable, you cannot test the full flow.');
-      return;
-    }
+    const paymentRefund = await mollieClient.paymentRefunds
+      .create({
+        paymentId: refundablePayment.id,
+        amount: refundablePayment.amountRemaining,
+      })
+      .then(refund => {
+        expect(refund).toBeDefined();
 
-    const paymentRefunds = await mollieClient.paymentRefunds.page({ paymentId: payment.id });
-
-    let refundExists;
-
-    if (!paymentRefunds.length) {
-      refundExists = mollieClient.paymentRefunds
-        .create({
-          paymentId: payment.id,
-          amount: { value: '5.00', currency: payment.amount.currency },
-        })
-        .then(refund => {
-          expect(refund).toBeDefined();
-
-          return refund;
-        })
-        .catch(fail);
-    } else {
-      refundExists = Promise.resolve(paymentRefunds[0]);
-    }
-
-    const paymentRefund = await refundExists;
+        return refund;
+      })
+      .catch(fail);
 
     await mollieClient.paymentRefunds
       .get(paymentRefund.id, {
-        paymentId: payment.id,
+        paymentId: refundablePayment.id,
       })
       .then(result => {
         expect(result).toBeDefined();
@@ -121,45 +116,55 @@ describe('payments', () => {
   });
 
   it('should capture a payment', async () => {
+    /**
+     * This test will
+     * - check if a capturable payment created by this test exists (verified using metadata)
+     * - if yes: capure the payment - this tests the full flow and will work exactly once for every payment created by this test.
+     * - if no:
+     *   - check if there's an open payment created by this test and if not create one
+     *   - log the checkout URL of the open payment, which a user can use to set the status to `authorized` to be able to test the full flow
+     *   - exit the test
+     */
+    const metaIdentifier = 'capture-test';
+
     const payments = await mollieClient.payments.page();
+    const refundPayments = payments.filter(payment => payment.metadata == metaIdentifier);
+    const authorizedPayment = refundPayments.find(payment => payment.status == PaymentStatus.authorized);
 
-    const existingPayment = payments.find(payment => payment.metadata == 'capture-test' && payment.status == PaymentStatus.authorized);
+    if (null == authorizedPayment) {
+      const openPayment =
+        refundPayments.find(payment => payment.status == PaymentStatus.open) ??
+        (await mollieClient.payments
+          .create({
+            amount: { value: '10.00', currency: 'EUR' },
+            description: 'Integration test payment',
+            redirectUrl: 'https://example.com/redirect',
+            metadata: 'capture-test',
+            captureMode: CaptureMethod.manual,
+            method: PaymentMethod.creditcard,
+          })
+          .then(payment => {
+            expect(payment).toBeDefined();
+            expect(payment.captureMode).toBe('manual');
+            expect(payment.authorizedAt).toBeUndefined();
+            expect(payment.captureDelay).toBeUndefined();
+            expect(payment.captureBefore).toBeUndefined();
 
-    const payment =
-      existingPayment ??
-      (await mollieClient.payments
-        .create({
-          amount: { value: '10.00', currency: 'EUR' },
-          description: 'Integration test payment',
-          redirectUrl: 'https://example.com/redirect',
-          metadata: 'capture-test',
-          captureMode: CaptureMethod.manual,
-          method: PaymentMethod.creditcard,
-        })
-        .then(payment => {
-          expect(payment).toBeDefined();
-          expect(payment.captureMode).toBe('manual');
-          expect(payment.authorizedAt).toBeUndefined();
-          expect(payment.captureDelay).toBeUndefined();
-          expect(payment.captureBefore).toBeUndefined();
-
-          return payment;
-        })
-        .catch(fail));
-
-    if (payment.status != PaymentStatus.authorized) {
-      console.log('If you want to test the full authorize-then-capture flow, set the payment to authorized:', payment.getCheckoutUrl());
+            return payment;
+          })
+          .catch(fail));
+      console.log('If you want to test the full authorize-then-capture flow, set the payment to authorized:', openPayment.getCheckoutUrl());
       return;
     }
 
-    expect(payment.authorizedAt).toBeDefined();
-    expect(payment.captureBefore).toBeDefined();
+    expect(authorizedPayment.authorizedAt).toBeDefined();
+    expect(authorizedPayment.captureBefore).toBeDefined();
 
     // Create a capture for this payment.
     const capture = await mollieClient.paymentCaptures
       .create({
-        paymentId: payment.id,
-        amount: { value: '10.00', currency: 'EUR' },
+        paymentId: authorizedPayment.id,
+        amount: authorizedPayment.amount,
       })
       .then(capture => {
         expect(capture).toBeDefined();
@@ -167,7 +172,7 @@ describe('payments', () => {
       })
       .catch(fail);
     // check if the capture was created and assigned to the payment.
-    const updatedPayment = await payment.refresh();
+    const updatedPayment = await authorizedPayment.refresh();
     const captureOnPayment = await getHead(updatedPayment.getCaptures());
     expect(capture.id).toBe(captureOnPayment.id);
   });
