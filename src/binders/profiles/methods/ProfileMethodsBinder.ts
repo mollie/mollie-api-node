@@ -1,9 +1,8 @@
 import type TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
 import { type MethodData } from '../../../data/methods/data';
 import type Method from '../../../data/methods/Method';
-import ApiError from '../../../errors/ApiError';
 import renege from '../../../plumbing/renege';
-import checkId from '../../../plumbing/checkId';
+import assertWellFormedId from '../../../plumbing/assertWellFormedId';
 import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
 import { type Parameters } from './parameters';
@@ -30,9 +29,7 @@ export default class ProfileMethodsBinder extends Binder<MethodData, Method> {
   public enable(parameters: Parameters) {
     if (renege(this, this.enable, ...arguments)) return;
     const { id, profileId, ...data } = parameters;
-    if (!checkId(profileId, 'profile')) {
-      throw new ApiError('The profile id is invalid');
-    }
+    assertWellFormedId(profileId, 'profile');
     return this.networkClient.post(`${getPathSegments(profileId)}/${id}`, data);
   }
 
@@ -47,9 +44,7 @@ export default class ProfileMethodsBinder extends Binder<MethodData, Method> {
   public disable(parameters: Parameters) {
     if (renege(this, this.disable, ...arguments)) return;
     const { id, profileId, ...context } = parameters;
-    if (!checkId(profileId, 'profile')) {
-      throw new ApiError('The profile id is invalid');
-    }
+    assertWellFormedId(profileId, 'profile');
     return this.networkClient.delete<MethodData, true>(`${getPathSegments(profileId)}/${id}`, context);
   }
 }

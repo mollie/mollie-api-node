@@ -2,9 +2,8 @@ import type TransformingNetworkClient from '../../../communication/TransformingN
 import type Page from '../../../data/page/Page';
 import type Capture from '../../../data/payments/captures/Capture';
 import { type CaptureData } from '../../../data/payments/captures/data';
-import ApiError from '../../../errors/ApiError';
 import alias from '../../../plumbing/alias';
-import checkId from '../../../plumbing/checkId';
+import assertWellFormedId from '../../../plumbing/assertWellFormedId';
 import renege from '../../../plumbing/renege';
 import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
@@ -49,13 +48,9 @@ export default class PaymentCapturesBinder extends Binder<CaptureData, Capture> 
   public get(id: string, parameters: GetParameters, callback: Callback<Capture>): void;
   public get(id: string, parameters: GetParameters) {
     if (renege(this, this.get, ...arguments)) return;
-    if (!checkId(id, 'capture')) {
-      throw new ApiError('The capture id is invalid');
-    }
+    assertWellFormedId(id, 'capture');
     const { paymentId, ...query } = parameters;
-    if (!checkId(paymentId, 'payment')) {
-      throw new ApiError('The payment id is invalid');
-    }
+    assertWellFormedId(paymentId, 'payment');
     return this.networkClient.get<CaptureData, Capture>(`${getPathSegments(paymentId)}/${id}`, query);
   }
 
@@ -72,9 +67,7 @@ export default class PaymentCapturesBinder extends Binder<CaptureData, Capture> 
   public page(parameters: PageParameters) {
     if (renege(this, this.page, ...arguments)) return;
     const { paymentId, ...query } = parameters;
-    if (!checkId(paymentId, 'payment')) {
-      throw new ApiError('The payment id is invalid');
-    }
+    assertWellFormedId(paymentId, 'payment');
     return this.networkClient.page<CaptureData, Capture>(getPathSegments(paymentId), 'captures', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
@@ -88,9 +81,7 @@ export default class PaymentCapturesBinder extends Binder<CaptureData, Capture> 
    */
   public iterate(parameters: IterateParameters) {
     const { paymentId, valuesPerMinute, ...query } = parameters;
-    if (!checkId(paymentId, 'payment')) {
-      throw new ApiError('The payment id is invalid');
-    }
+    assertWellFormedId(paymentId, 'payment');
     return this.networkClient.iterate<CaptureData, Capture>(getPathSegments(paymentId), 'captures', query, valuesPerMinute);
   }
 }

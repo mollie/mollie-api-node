@@ -1,5 +1,6 @@
 import { type PaymentMethod } from '../../../data/global';
 import { type PaymentData } from '../../../data/payments/data';
+import type MaybeArray from '../../../types/MaybeArray';
 import { type IdempotencyParameter } from '../../../types/parameters';
 
 interface ContextParameters {
@@ -21,7 +22,7 @@ export type CreateParameters = ContextParameters &
      *
      * @see https://docs.mollie.com/reference/v2/orders-api/create-order-payment?path=method#parameters
      */
-    method?: PaymentMethod | PaymentMethod[];
+    method?: MaybeArray<PaymentMethod>;
     /**
      * The ID of the customer for whom the payment is being created. This is used for recurring payments and single-click payments.
      *

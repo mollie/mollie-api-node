@@ -1,6 +1,7 @@
 import { type Address, type Amount, type PaymentMethod } from '../../data/global';
 import { type Issuer } from '../../data/Issuer';
 import { type PaymentData, type PaymentEmbed, type PaymentInclude } from '../../data/payments/data';
+import type MaybeArray from '../../types/MaybeArray';
 import { type IdempotencyParameter, type PaginationParameters, type ThrottlingParameter } from '../../types/parameters';
 import type PickOptional from '../../types/PickOptional';
 
@@ -17,7 +18,7 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
      *
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=method#parameters
      */
-    method?: PaymentMethod | PaymentMethod[];
+    method?: MaybeArray<PaymentMethod>;
     /**
      * For digital goods in most jurisdictions, you must apply the VAT rate from your customer's country. Choose the VAT rates you have used for the order to ensure your customer's country matches the
      * VAT country.
@@ -132,7 +133,7 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=consumerAccount#sepa-direct-debit
      */
     consumerAccount?: string;
-    include?: PaymentInclude[] | PaymentInclude;
+    include?: MaybeArray<PaymentInclude>;
     profileId?: string;
     testmode?: boolean;
     /**
@@ -163,7 +164,7 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
 
 export interface GetParameters {
   include?: PaymentInclude;
-  embed?: PaymentEmbed[] | PaymentEmbed;
+  embed?: MaybeArray<PaymentEmbed>;
   testmode?: boolean;
 }
 
