@@ -30,9 +30,7 @@ export default class PaymentCapturesBinder extends Binder<CaptureData, Capture> 
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
     const { paymentId, ...data } = parameters;
-    if (!checkId(paymentId, 'payment')) {
-      throw new ApiError('The payment id is invalid');
-    }
+    assertWellFormedId(paymentId, 'payment');
     return this.networkClient.post<CaptureData, Capture>(getPathSegments(paymentId), data);
   }
 
