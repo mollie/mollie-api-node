@@ -1,6 +1,8 @@
 import type Nullable from '../../types/Nullable';
+import type Seal from '../../types/Seal';
 import { type Amount, type Links, type Url } from '../global';
 import type Model from '../Model';
+import type SettlementHelper from './SettlementHelper';
 
 export interface SettlementData extends Model<'settlement'> {
   /**
@@ -53,6 +55,8 @@ export interface SettlementData extends Model<'settlement'> {
    */
   _links: SettlementLinks;
 }
+
+export type Settlement = Seal<SettlementData, SettlementHelper>;
 
 interface Period {
   /**

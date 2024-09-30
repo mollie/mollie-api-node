@@ -1,11 +1,12 @@
 import { type Address, type Amount, type DestinationType, type PaymentMethod } from '../../data/global';
 import { type Issuer } from '../../data/Issuer';
 import { type PaymentData, type PaymentEmbed, type PaymentInclude } from '../../data/payments/data';
+import type MaybeArray from '../../types/MaybeArray';
 import { type IdempotencyParameter, type PaginationParameters, type ThrottlingParameter } from '../../types/parameters';
 import type PickOptional from '../../types/PickOptional';
 
 export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'redirectUrl' | 'cancelUrl' | 'webhookUrl' | 'customerId' | 'mandateId'> &
-  PickOptional<PaymentData, 'locale' | 'metadata' | 'sequenceType'> & {
+  PickOptional<PaymentData, 'locale' | 'metadata' | 'sequenceType' | 'captureMode' | 'captureDelay'> & {
     /**
      * Normally, a payment method screen is shown. However, when using this parameter, you can choose a specific payment method and your customer will skip the selection screen and is sent directly to
      * the chosen payment method. The parameter enables you to fully integrate the payment method selection into your website.
@@ -17,7 +18,7 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
      *
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=method#parameters
      */
-    method?: PaymentMethod | PaymentMethod[];
+    method?: MaybeArray<PaymentMethod>;
     /**
      * For digital goods in most jurisdictions, you must apply the VAT rate from your customer's country. Choose the VAT rates you have used for the order to ensure your customer's country matches the
      * VAT country.
@@ -132,7 +133,7 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=consumerAccount#sepa-direct-debit
      */
     consumerAccount?: string;
-    include?: PaymentInclude[] | PaymentInclude;
+    include?: MaybeArray<PaymentInclude>;
     profileId?: string;
     testmode?: boolean;
     /**
@@ -206,7 +207,7 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
 
 export interface GetParameters {
   include?: PaymentInclude;
-  embed?: PaymentEmbed[] | PaymentEmbed;
+  embed?: MaybeArray<PaymentEmbed>;
   testmode?: boolean;
 }
 

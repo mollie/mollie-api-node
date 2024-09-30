@@ -2,8 +2,7 @@ import type TransformingNetworkClient from '../../communication/TransformingNetw
 import type Page from '../../data/page/Page';
 import { type OrderData } from '../../data/orders/data';
 import type Order from '../../data/orders/Order';
-import ApiError from '../../errors/ApiError';
-import checkId from '../../plumbing/checkId';
+import assertWellFormedId from '../../plumbing/assertWellFormedId';
 import renege from '../../plumbing/renege';
 import type Callback from '../../types/Callback';
 import Binder from '../Binder';
@@ -73,9 +72,7 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
   public get(id: string, parameters: GetParameters, callback: Callback<Order>): void;
   public get(id: string, parameters?: GetParameters) {
     if (renege(this, this.get, ...arguments)) return;
-    if (!checkId(id, 'order')) {
-      throw new ApiError('The order id is invalid');
-    }
+    assertWellFormedId(id, 'order');
     return this.networkClient.get<OrderData, Order>(`${pathSegment}/${id}`, parameters);
   }
 
@@ -120,9 +117,7 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
   public update(id: string, parameters: UpdateParameters, callback: Callback<Order>): void;
   public update(id: string, parameters: UpdateParameters) {
     if (renege(this, this.update, ...arguments)) return;
-    if (!checkId(id, 'order')) {
-      throw new ApiError('The order id is invalid');
-    }
+    assertWellFormedId(id, 'order');
     return this.networkClient.patch<OrderData, Order>(`${pathSegment}/${id}`, parameters);
   }
 
@@ -148,9 +143,7 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
   public cancel(id: string, parameters: CancelParameters, callback: Callback<Order>): void;
   public cancel(id: string, parameters?: CancelParameters) {
     if (renege(this, this.cancel, ...arguments)) return;
-    if (!checkId(id, 'order')) {
-      throw new ApiError('The order id is invalid');
-    }
+    assertWellFormedId(id, 'order');
     return this.networkClient.delete<OrderData, Order>(`${pathSegment}/${id}`, parameters);
   }
 }

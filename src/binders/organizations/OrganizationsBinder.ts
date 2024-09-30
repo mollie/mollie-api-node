@@ -1,8 +1,7 @@
 import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import type Organization from '../../data/organizations/Organizations';
 import { type OrganizationData } from '../../data/organizations/Organizations';
-import ApiError from '../../errors/ApiError';
-import checkId from '../../plumbing/checkId';
+import assertWellFormedId from '../../plumbing/assertWellFormedId';
 import renege from '../../plumbing/renege';
 import type Callback from '../../types/Callback';
 import Binder from '../Binder';
@@ -24,9 +23,7 @@ export default class OrganizationsBinder extends Binder<OrganizationData, Organi
   public get(id: string, callback: Callback<Organization>): void;
   public get(id: string) {
     if (renege(this, this.get, ...arguments)) return;
-    if (!checkId(id, 'organization')) {
-      throw new ApiError('The organization id is invalid');
-    }
+    assertWellFormedId(id, 'organization');
     return this.networkClient.get<OrganizationData, Organization>(`${pathSegment}/${id}`);
   }
 

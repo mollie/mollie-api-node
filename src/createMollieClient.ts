@@ -187,12 +187,12 @@ export default function createMollieClient(options: Options) {
 export { createMollieClient };
 
 export { ApiMode, Locale, PaymentMethod, HistoricPaymentMethod, SequenceType, DestinationType } from './data/global';
-export { CaptureEmbed } from './data/payments/captures/data';
+export { CaptureStatus, CaptureInclude } from './data/payments/captures/data';
 export { MandateMethod, MandateStatus } from './data/customers/mandates/data';
 export { MethodImageSize, MethodInclude } from './data/methods/data';
 export { OrderEmbed, OrderStatus } from './data/orders/data';
 export { OrderLineType } from './data/orders/orderlines/OrderLine';
-export { PaymentEmbed, PaymentInclude, PaymentStatus } from './data/payments/data';
+export { PaymentEmbed, PaymentInclude, PaymentStatus, CaptureMethod } from './data/payments/data';
 export { RefundEmbed, RefundStatus } from './data/refunds/data';
 export { SubscriptionStatus } from './data/subscriptions/data';
 export { ProfileStatus } from './data/profiles/data';

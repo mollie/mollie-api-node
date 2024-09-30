@@ -1,8 +1,7 @@
 import type TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
 import { type PaymentData } from '../../../data/payments/data';
 import type Payment from '../../../data/payments/Payment';
-import ApiError from '../../../errors/ApiError';
-import checkId from '../../../plumbing/checkId';
+import assertWellFormedId from '../../../plumbing/assertWellFormedId';
 import renege from '../../../plumbing/renege';
 import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
@@ -33,9 +32,7 @@ export default class OrderPaymentsBinder extends Binder<PaymentData, Payment> {
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
     const { orderId, ...data } = parameters;
-    if (!checkId(orderId, 'order')) {
-      throw new ApiError('The order id is invalid');
-    }
+    assertWellFormedId(orderId, 'order');
     return this.networkClient.post<PaymentData, Payment>(getPathSegments(orderId), data);
   }
 }

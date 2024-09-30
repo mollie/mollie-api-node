@@ -1,5 +1,6 @@
 import { type PaymentMethod } from '../../../data/global';
 import { type PaymentData } from '../../../data/payments/data';
+import type MaybeArray from '../../../types/MaybeArray';
 import { type IdempotencyParameter, type PaginationParameters, type ThrottlingParameter } from '../../../types/parameters';
 import type PickOptional from '../../../types/PickOptional';
 
@@ -21,7 +22,7 @@ export type CreateParameters = ContextParameters &
      *
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=method#parameters
      */
-    method?: PaymentMethod | PaymentMethod[];
+    method?: MaybeArray<PaymentMethod>;
   } & IdempotencyParameter;
 
 export type PageParameters = ContextParameters & PaginationParameters;
