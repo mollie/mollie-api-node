@@ -5,6 +5,10 @@
 
 Please see [the migration guide](MIGRATION.md) for guidance about updating to a newer major version.
 
+### v4.1.0 - 2024-10-03
+  - Extend captures API ([#371](https://github.com/mollie/mollie-api-node/pull/371))
+  - Update documentation ([#380](https://github.com/mollie/mollie-api-node/pull/380))
+
 ### v4.0.0 - 2024-09-19
   - Replace Axios dependency in favour of [fetch](https://developer.mozilla.org/docs/Web/API/fetch) ([#358](https://github.com/mollie/mollie-api-node/pull/358))
   - Add `cancelUrl` and `getDashboardUrl` to payments and orders ([#327](https://github.com/mollie/mollie-api-node/pull/327)/[#373](https://github.com/mollie/mollie-api-node/pull/373))
