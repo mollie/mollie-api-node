@@ -30,9 +30,10 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
    * Returns whether the payment is refundable.
    *
    * @since 2.0.0-rc.2
+   * @deprecated Use `canBeRefunded` instead.
    */
   public isRefundable(this: PaymentData): boolean {
-    return this.amountRemaining !== null;
+    return this.amountRemaining != undefined;
   }
 
   /**
