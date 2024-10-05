@@ -151,3 +151,7 @@ export enum SequenceType {
   first = 'first',
   recurring = 'recurring',
 }
+
+export enum DestinationType {
+  organization = 'organization',
+}
