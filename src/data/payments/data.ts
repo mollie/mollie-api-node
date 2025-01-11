@@ -482,7 +482,7 @@ export interface PaymentLineItem {
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/type#response
    */
-  type: PaymentLineType;
+  type?: PaymentLineType;
   /**
    * A description of the line, for example *LEGO 4440 Forest Police Station*.
    *
@@ -518,13 +518,13 @@ export interface PaymentLineItem {
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/vatRate#response
    */
-  vatRate: string;
+  vatRate?: string;
   /**
    * The amount of value-added tax on the line.
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/vatAmount#response
    */
-  vatAmount: Amount;
+  vatAmount?: Amount;
   /**
    * The SKU, EAN, ISBN or UPC of the product sold.
    *
