@@ -146,6 +146,14 @@ export interface PaymentData extends Model<'payment'> {
    */
   webhookUrl?: string;
   /**
+   * Optionally provide the lines for the payment. Each line contains details such as a description of the item ordered and its price.
+   *
+   * All lines must have the same currency as the payment.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines#response
+   */
+  lines?: Array<PaymentLineItem>;
+  /**
    * The payment method used for this payment, either forced on creation by specifying the `method` parameter, or chosen by the customer on our payment method selection screen.
    *
    * If the payment is only partially paid with a gift card, the method remains `giftcard`.
@@ -162,6 +170,18 @@ export interface PaymentData extends Model<'payment'> {
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=metadata#response
    */
   metadata: unknown;
+  /**
+   * The customer's billing address details. 
+   * 
+   * It is recommended to provide these details to improve fraud protection and conversion.
+   */
+  billingAddress?: PaymentAddress;
+  /**
+   * The customer's shipping address details. 
+   * 
+   * It is recommended to provide these details to improve fraud protection and conversion.
+   */
+  shippingAddress?: PaymentAddress;
   /**
    * **Only relevant if you wish to manage authorization and capturing separately.**
    * 
@@ -374,6 +394,222 @@ interface PaymentLinks extends Links {
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/dashboard#response
    */
   dashboard: Url;
+}
+
+export interface PaymentAddress {
+  /**
+   * The name of the organization, in case the addressee is an organization.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=billingAddress#response
+   */
+  organizationName?: string;
+  /**
+   * The title of the person, for example Mr. or Mrs..
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=billingAddress#response
+   */
+  title?: string;
+  /**
+   * The given name (first name) of the person should be more than 1 character and cannot contain only numbers.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=billingAddress#response
+   */
+  givenName?: string;
+  /**
+   * The family name (surname) of the person should be more than 1 character and cannot contain only numbers.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=billingAddress#response
+   */
+  familyName?: string;
+  /**
+   * The street and street number of the address.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=billingAddress#response
+   */
+  streetAndNumber?: string;
+  /**
+   * Any additional addressing details, for example an apartment number.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=billingAddress#response
+   */
+  streetAdditional?: string;
+  /**
+   * The postal code of the address. Required for countries that use postal codes. May only be omitted for these country codes:
+   *
+   * `AE` `AN` `AO` `AW` `BF` `BI` `BJ` `BO` `BS` `BV` `BW` `BZ` `CD` `CF` `CG` `CI` `CK` `CM` `DJ` `DM` `ER` `FJ` `GA` `GD` `GH` `GM` `GN` `GQ` `GY` `HK` `JM` `KE` `KI` `KM` `KN` `KP` `LC` `ML` `MO`
+   * `MR` `MS` `MU` `MW` `NA` `NR` `NU` `PA` `QA` `RW` `SB` `SC` `SL` `SO` `SR` `ST` `SY` `TF` `TK` `TL` `TO` `TT` `TV` `UG` `VU` `YE` `ZM` `ZW`
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=billingAddress#response
+   */
+  postalCode?: string;
+  /**
+   * The city of the address.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=billingAddress#response
+   */
+  city?: string;
+  /**
+   * The region of the address.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=billingAddress#response
+   */
+  region?: string;
+  /**
+   * The country of the address in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=billingAddress#response
+   */
+  country?: string;
+  /**
+   * The e-mail address.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=billingAddress#response
+   */
+  email?: string;
+  /**
+   * If provided, it must be in the [E.164](https://en.wikipedia.org/wiki/E.164) format. For example: +31208202070.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=billingAddress#response
+   */
+  phone?: string;
+}
+
+export interface PaymentLineItem {
+  /**
+   * The type of product bought, for example, a physical or a digital product.
+   *
+   * Possible values: `physical` `discount` `digital` `shipping_fee` `store_credit` `gift_card` `surcharge` `tip`
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/type#response
+   */
+  type: PaymentLineType;
+  /**
+   * A description of the line, for example *LEGO 4440 Forest Police Station*.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/description#response
+   */
+  description: string;
+  /**
+   * The number of items in the line.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/quantity#response
+   */
+  quantity: number;
+  /**
+   * The price of a single item including VAT of the line.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/unitPrice#response
+   */
+  unitPrice: Amount;
+  /**
+   * Any discounts applied to the line.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/discountAmount#response
+   */
+  discountAmount?: Amount;
+  /**
+   * The total amount of the line, including VAT and discounts.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/totalAmount#response
+   */
+  totalAmount: Amount;
+  /**
+   * The VAT rate applied to the order line, for example `"21.00"` for 21%. The `vatRate` is passed as a string and not as a float to ensure the correct number of decimals are passed.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/vatRate#response
+   */
+  vatRate: string;
+  /**
+   * The amount of value-added tax on the line.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/vatAmount#response
+   */
+  vatAmount: Amount;
+  /**
+   * The SKU, EAN, ISBN or UPC of the product sold.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/sku#response
+   */
+  sku?: string;
+  /**
+   * An array with the voucher categories, in case of a line eligible for a voucher.
+   * 
+   * Possible values: `meal` `eco` `gift` `sport_culture`
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/categories#response
+   */
+  categories?: PaymentLineCategory[];
+  /**
+   * The details of subsequent recurring billing cycles. These parameters are used in the Mollie Checkout to inform the shopper of the details for recurring products in the payments.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/recurring#response
+   */
+  recurring?: PaymentLineRecurring;
+  /**
+   * A link pointing to an image of the product sold.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/imageUrl#response
+   */
+  imageUrl?: string;
+  /**
+   * A link pointing to the product page in your web shop of the product sold.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/productUrl#response
+   */
+  productUrl?: string;
+}
+
+export enum PaymentLineType {
+  physical = 'physical',
+  discount = 'discount',
+  digital = 'digital',
+  shipping_fee = 'shipping_fee',
+  store_credit = 'store_credit',
+  gift_card = 'gift_card',
+  surcharge = 'surcharge',
+  tip = 'tip'
+}
+
+export enum PaymentLineCategory {
+  meal = 'meal',
+  eco = 'eco',
+  gift = 'gift',
+  sport_culture = 'sport_culture'
+}
+
+export interface PaymentLineRecurring {
+  /**
+   * A description of the recurring item. If not present, the main description of the item will be used.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/recurring/description#response
+   */
+  description?: string;
+  /**
+   * Cadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`
+   * 
+   * Possible values: `... months` `... weeks` `... days`
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/recurring/interval#response
+   */
+  interval?: string;
+  /**
+   * Total amount and currency of the recurring item.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/recurring/amount#response
+   */
+  amount?: Amount;
+  /**
+   * Total number of charges for the subscription to complete. Leave empty for ongoing subscription.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/recurring/times#response
+   */
+  times?: number;
+  /**
+   * The start date of the subscription if it does not start right away (format `YYYY-MM-DD`)
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/recurring/startDate#response
+   */
+  startDate?: string;
 }
 
 export interface BancontactDetails {

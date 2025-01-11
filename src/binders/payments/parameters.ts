@@ -6,7 +6,7 @@ import { type IdempotencyParameter, type PaginationParameters, type ThrottlingPa
 import type PickOptional from '../../types/PickOptional';
 
 export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'redirectUrl' | 'cancelUrl' | 'webhookUrl' | 'customerId' | 'mandateId'> &
-  PickOptional<PaymentData, 'locale' | 'metadata' | 'sequenceType' | 'captureMode' | 'captureDelay'> & {
+  PickOptional<PaymentData, 'locale' | 'metadata' | 'sequenceType' | 'captureMode' | 'captureDelay' | 'lines' | 'billingAddress' | 'shippingAddress'> & {
     /**
      * Normally, a payment method screen is shown. However, when using this parameter, you can choose a specific payment method and your customer will skip the selection screen and is sent directly to
      * the chosen payment method. The parameter enables you to fully integrate the payment method selection into your website.
@@ -55,25 +55,11 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
      */
     dueDate?: string;
     /**
-     * The card holder's address details. We advise to provide these details to improve the credit card fraud protection, and thus improve conversion.
-     *
-     * If an address is provided, then the address has to be in a valid format. See the address object documentation for more information on which formats are accepted.
-     *
-     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=billingAddress#credit-card
-     */
-    billingAddress?: Address;
-    /**
      * The card token you got from Mollie Components. The token contains the card information (such as card holder, card number, and expiry date) needed to complete the payment.
      *
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=cardToken#credit-card
      */
     cardToken?: string;
-    shippingAddress?: Address & {
-      // Note that this field is required for PayPal payments; but is disregarded for credit card payments.
-      givenName?: string;
-      // Note that this field is required for PayPal payments; but is disregarded for credit card payments.
-      familyName?: string;
-    };
     issuer?: Issuer;
     /**
      * The card number on the gift card. You can supply this to prefill the card number.
