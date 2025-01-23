@@ -7,5 +7,5 @@ type Nullish = null | undefined;
  * [nullish](https://developer.mozilla.org/docs/Glossary/Nullish), in which case it returns that value directly.
  */
 export default function resolveIf<T>(value: T extends Promise<unknown> ? never : T) {
-  return runIf(value, Promise.resolve) ?? (value as Extract<T, Nullish> | Promise<Exclude<T, Nullish>>);
+  return runIf(value, Promise.resolve.bind(Promise)) ?? (value as Extract<T, Nullish> | Promise<Exclude<T, Nullish>>);
 }
