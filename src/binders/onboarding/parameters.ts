@@ -1,4 +1,4 @@
-import { type Address } from '../../data/global';
+import type { OrganizationAdress } from '../../data/organizations/Organizations';
 import { type IdempotencyParameter } from '../../types/parameters';
 
 export interface SubmitParameters extends IdempotencyParameter {
@@ -15,7 +15,7 @@ export interface SubmitParameters extends IdempotencyParameter {
     /**
      * Address of the organization.
      */
-    address?: Address;
+    address?: OrganizationAdress;
     /**
      * The Chamber of Commerce registration number of the company.
      */
