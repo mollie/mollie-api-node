@@ -1,3 +1,4 @@
+import { runIf } from 'ruply';
 import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import type Page from '../../data/page/Page';
 import { type PaymentData } from '../../data/payments/data';
@@ -32,7 +33,7 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
     const { include, ...data } = parameters;
-    const query = include != undefined ? { include } : undefined;
+    const query = runIf(include, include => ({ include }));
     return this.networkClient.post<PaymentData, Payment>(pathSegment, data, query);
   }
 
