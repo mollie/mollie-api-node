@@ -71,12 +71,6 @@ export interface SubscriptionData extends Model<'subscription'> {
    */
   method: string | null;
   /**
-   * The mandate used for this subscription. When there is no mandate specified, this parameter will not be returned.
-   *
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=mandateId#response
-   */
-  mandateId?: string;
-  /**
    * The subscription's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    *
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=createdAt#response
@@ -100,6 +94,26 @@ export interface SubscriptionData extends Model<'subscription'> {
    * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=metadata#response
    */
   metadata: unknown;
+  /**
+   * The customer this subscription belongs to.
+   *
+   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=customerId#response
+   */
+  customerId: string;
+  /**
+   * The mandate used for this subscription. When there is no mandate specified, this parameter will not be returned.
+   *
+   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=mandateId#response
+   */
+  mandateId?: string;
+  /**
+   * The identifier referring to the [profile](https://docs.mollie.com/reference/get-profile) this entity belongs to.
+   *
+   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted in the creation request. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
+   *
+   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=profileId#response
+   */
+  profileId?: string;
   /**
    * The application fee, if the subscription was created with one. This will be applied on each payment created for the subscription.
    *
