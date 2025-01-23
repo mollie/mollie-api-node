@@ -22,7 +22,7 @@ export interface OrganizationData extends Model<'organization'> {
    *
    * @see https://docs.mollie.com/reference/v2/organizations-api/get-organization?path=address#response
    */
-  address: Address;
+  address: OrganizationAdress;
   /**
    * The registration number of the organization at the (local) chamber of commerce.
    *
@@ -48,6 +48,8 @@ export interface OrganizationData extends Model<'organization'> {
    */
   _links: OrganizationLinks;
 }
+
+export type OrganizationAdress = Pick<Address, 'streetAndNumber' | 'postalCode' | 'city' | 'country'>;
 
 type Organization = Seal<OrganizationData, Helper<OrganizationData, Organization>>;
 
