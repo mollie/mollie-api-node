@@ -6,6 +6,7 @@ import type TransformingNetworkClient from '../../communication/TransformingNetw
 import HelpfulIterator from '../../plumbing/iteration/HelpfulIterator';
 import makeAsync from '../../plumbing/iteration/makeAsync';
 import renege from '../../plumbing/renege';
+import resolveIf from '../../plumbing/resolveIf';
 import type Callback from '../../types/Callback';
 import type Nullable from '../../types/Nullable';
 import { type ThrottlingParameter } from '../../types/parameters';
@@ -118,7 +119,7 @@ export default class OrderHelper extends Helper<OrderData, Order> {
   public getPayments(this: OrderHelper & OrderData) {
     if (renege(this, this.getPayments, ...arguments)) return;
     return (
-      runIf(this.embedded?.payments, Promise.resolve) ??
+      resolveIf(this.embedded?.payments) ??
       // Getting the payments for an order is an odd case, in the sense that the Mollie API only supports it partially.
       // The Mollie API will embed the payments in an order if requested ‒ but unlike with other "embeddables", there
       // is no endpoint to get those payments directly. Therefore, the line below rerequests this order, this time with
@@ -154,6 +155,6 @@ export default class OrderHelper extends Helper<OrderData, Order> {
     // At the time of writing, the Mollie API does not return a link to the shipments of an order. This is why the line
     // below constructs its own URL. If the Mollie API ever starts to return such a link, use it instead for
     // consistency.
-    return runIf(this.embedded?.shipments, Promise.resolve) ?? this.networkClient.list<ShipmentData, Shipment>(getOrderShipmentsPathSegments(this.id), 'shipments');
+    return resolveIf(this.embedded?.shipments) ?? this.networkClient.list<ShipmentData, Shipment>(getOrderShipmentsPathSegments(this.id), 'shipments');
   }
 }
