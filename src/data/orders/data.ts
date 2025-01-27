@@ -70,7 +70,7 @@ export interface OrderData extends Model<'order'> {
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=billingAddress#response
    */
-  billingAddress: Address;
+  billingAddress: OrderAddress;
   /**
    * The date of birth of your customer, if available.
    *
@@ -90,7 +90,7 @@ export interface OrderData extends Model<'order'> {
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=shippingAddress#response
    */
-  shippingAddress: Address;
+  shippingAddress: OrderAddress;
   /**
    * The locale used during checkout. Note that the locale may have been changed by your customer during checkout.
    *
@@ -219,6 +219,21 @@ export enum OrderStatus {
   completed = 'completed',
   expired = 'expired',
   pending = 'pending',
+}
+
+export interface OrderAddress extends Address {
+  /**
+   * The name of the organization, in case the addressee is an organization.
+   *
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=organizationName#response
+   */
+  organizationName: string;
+  /**
+   * If provided, it must be in the [E.164](https://en.wikipedia.org/wiki/E.164) format. For example: +31208202070.
+   *
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=phone#response
+   */
+  phone: string;
 }
 
 export enum OrderEmbed {
