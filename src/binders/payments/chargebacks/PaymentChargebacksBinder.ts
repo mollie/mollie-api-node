@@ -31,7 +31,7 @@ export default class PaymentChargebacksBinder extends Binder<ChargebackData, Cha
   public get(id: string, parameters: GetParameters, callback: Callback<Chargeback>): void;
   public get(id: string, parameters: GetParameters) {
     if (renege(this, this.get, ...arguments)) return;
-    assertWellFormedId(id, 'refund');
+    assertWellFormedId(id, 'chargeback');
     const { paymentId, ...query } = parameters;
     assertWellFormedId(paymentId, 'payment');
     return this.networkClient.get<ChargebackData, Chargeback>(`${getPathSegments(paymentId)}/${id}`, query);
