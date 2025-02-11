@@ -1,3 +1,4 @@
+import breakUrl from '../../../communication/breakUrl';
 import type TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
 import renege from '../../../plumbing/renege';
 import type Callback from '../../../types/Callback';
@@ -8,7 +9,10 @@ import { type OrderData } from '../data';
 import type Order from '../Order';
 
 export default class ShipmentHelper extends Helper<ShipmentData, Shipment> {
-  constructor(networkClient: TransformingNetworkClient, protected readonly links: ShipmentData['_links']) {
+  constructor(
+    networkClient: TransformingNetworkClient,
+    protected readonly links: ShipmentData['_links'],
+  ) {
     super(networkClient, links);
   }
 
@@ -21,6 +25,6 @@ export default class ShipmentHelper extends Helper<ShipmentData, Shipment> {
   public getOrder(callback: Callback<Order>): void;
   public getOrder() {
     if (renege(this, this.getOrder, ...arguments)) return;
-    return this.networkClient.get<OrderData, Order>(this.links.order.href);
+    return this.networkClient.get<OrderData, Order>(...breakUrl(this.links.order.href));
   }
 }

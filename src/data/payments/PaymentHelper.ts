@@ -1,5 +1,6 @@
 import { runIf } from 'ruply';
 import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import breakUrl from '../../communication/breakUrl';
 import HelpfulIterator from '../../plumbing/iteration/HelpfulIterator';
 import emptyHelpfulIterator from '../../plumbing/iteration/emptyHelpfulIterator';
 import makeAsync from '../../plumbing/iteration/makeAsync';
@@ -22,7 +23,11 @@ import { type CaptureData } from './captures/data';
 import { type BankTransferLinks, type PaymentData } from './data';
 
 export default class PaymentHelper extends Helper<PaymentData, Payment> {
-  constructor(networkClient: TransformingNetworkClient, protected readonly links: PaymentData['_links'], protected readonly embedded: Payment['_embedded']) {
+  constructor(
+    networkClient: TransformingNetworkClient,
+    protected readonly links: PaymentData['_links'],
+    protected readonly embedded: Payment['_embedded'],
+  ) {
     super(networkClient, links);
   }
 
@@ -87,10 +92,7 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/changePaymentState#response-parameters-for-recurring-payments
    */
   public getChangePaymentStateUrl(): Nullable<string> {
-    if (this.links.changePaymentState == undefined) {
-      return null;
-    }
-    return this.links.changePaymentState.href;
+    return this.links.changePaymentState?.href ?? null;
   }
 
   /**
@@ -100,10 +102,7 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
    */
   public getPayOnlineUrl(): Nullable<string> {
     const links = this.links as Partial<BankTransferLinks>;
-    if (links.payOnline == undefined) {
-      return null;
-    }
-    return links.payOnline.href;
+    return links.payOnline?.href ?? null;
   }
 
   /**
@@ -113,10 +112,7 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
    */
   public getStatusUrl(): Nullable<string> {
     const links = this.links as Partial<BankTransferLinks>;
-    if (links.status == undefined) {
-      return null;
-    }
-    return links.status.href;
+    return links.status?.href ?? null;
   }
 
   /**
@@ -127,7 +123,11 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
   public getRefunds(parameters?: ThrottlingParameter): HelpfulIterator<Refund> {
     return (
       runIf(this.embedded?.refunds, refunds => new HelpfulIterator(makeAsync(refunds[Symbol.iterator]()))) ??
-      runIf(this.links.refunds, ({ href }) => this.networkClient.iterate<RefundData, Refund>(href, 'refunds', undefined, parameters?.valuesPerMinute)) ??
+      runIf(
+        this.links.refunds,
+        ({ href }) => breakUrl(href),
+        ([pathname, query]) => this.networkClient.iterate<RefundData, Refund>(pathname, 'refunds', query, parameters?.valuesPerMinute),
+      ) ??
       emptyHelpfulIterator
     );
   }
@@ -140,7 +140,11 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
   public getChargebacks(parameters?: ThrottlingParameter): HelpfulIterator<Chargeback> {
     return (
       runIf(this.embedded?.chargebacks, chargebacks => new HelpfulIterator(makeAsync(chargebacks[Symbol.iterator]()))) ??
-      runIf(this.links.chargebacks, ({ href }) => this.networkClient.iterate<ChargebackData, Chargeback>(href, 'chargebacks', undefined, parameters?.valuesPerMinute)) ??
+      runIf(
+        this.links.chargebacks,
+        ({ href }) => breakUrl(href),
+        ([pathname, query]) => this.networkClient.iterate<ChargebackData, Chargeback>(pathname, 'chargebacks', query, parameters?.valuesPerMinute),
+      ) ??
       emptyHelpfulIterator
     );
   }
@@ -153,7 +157,11 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
   public getCaptures(parameters?: ThrottlingParameter): HelpfulIterator<Capture> {
     return (
       runIf(this.embedded?.captures, captures => new HelpfulIterator(makeAsync(captures[Symbol.iterator]()))) ??
-      runIf(this.links.captures, ({ href }) => this.networkClient.iterate<CaptureData, Capture>(href, 'captures', undefined, parameters?.valuesPerMinute)) ??
+      runIf(
+        this.links.captures,
+        ({ href }) => breakUrl(href),
+        ([pathname, query]) => this.networkClient.iterate<CaptureData, Capture>(pathname, 'captures', query, parameters?.valuesPerMinute),
+      ) ??
       emptyHelpfulIterator
     );
   }
@@ -167,6 +175,12 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
   public getOrder(callback: Callback<Maybe<Order>>): void;
   public getOrder() {
     if (renege(this, this.getOrder, ...arguments)) return;
-    return runIf(this.links.order, ({ href }) => this.networkClient.get<OrderData, Order>(href)) ?? undefinedPromise;
+    return (
+      runIf(
+        this.links.order,
+        ({ href }) => breakUrl(href),
+        ([pathname, query]) => this.networkClient.get<OrderData, Order>(pathname, query),
+      ) ?? undefinedPromise
+    );
   }
 }
