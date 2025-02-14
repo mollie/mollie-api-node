@@ -20,7 +20,11 @@ import type Shipment from './shipments/Shipment';
 import { type ShipmentData } from './shipments/Shipment';
 
 export default class OrderHelper extends Helper<OrderData, Order> {
-  constructor(networkClient: TransformingNetworkClient, protected readonly links: OrderData['_links'], protected readonly embedded: Order['_embedded']) {
+  constructor(
+    networkClient: TransformingNetworkClient,
+    protected readonly links: OrderData['_links'],
+    protected readonly embedded: Order['_embedded'],
+  ) {
     super(networkClient, links);
   }
 
@@ -93,10 +97,7 @@ export default class OrderHelper extends Helper<OrderData, Order> {
    * Recurring, authorized, paid and finalized orders do not have a checkout URL.
    */
   public getCheckoutUrl(): Nullable<string> {
-    if (this.links.checkout == undefined) {
-      return null;
-    }
-    return this.links.checkout.href;
+    return this.links.checkout?.href ?? null;
   }
 
   /**

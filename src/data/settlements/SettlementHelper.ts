@@ -1,3 +1,4 @@
+import breakUrl from '../../communication/breakUrl';
 import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import { type Capture } from '../../types';
 import { type ThrottlingParameter } from '../../types/parameters';
@@ -13,7 +14,10 @@ import { type SettlementData } from './data';
 import type SettlementModel from './SettlementModel';
 
 export default class SettlementHelper extends Helper<SettlementData, SettlementModel> {
-  constructor(networkClient: TransformingNetworkClient, protected readonly links: SettlementData['_links']) {
+  constructor(
+    networkClient: TransformingNetworkClient,
+    protected readonly links: SettlementData['_links'],
+  ) {
     super(networkClient, links);
   }
 
@@ -23,7 +27,8 @@ export default class SettlementHelper extends Helper<SettlementData, SettlementM
    * @since 3.7.0
    */
   public getPayments(parameters?: ThrottlingParameter) {
-    return this.networkClient.iterate<PaymentData, Payment>(this.links.payments.href, 'payments', undefined, parameters?.valuesPerMinute);
+    const [pathname, query] = breakUrl(this.links.payments.href);
+    return this.networkClient.iterate<PaymentData, Payment>(pathname, 'payments', query, parameters?.valuesPerMinute);
   }
 
   /**
@@ -32,7 +37,8 @@ export default class SettlementHelper extends Helper<SettlementData, SettlementM
    * @since 3.7.0
    */
   public getRefunds(parameters?: ThrottlingParameter) {
-    return this.networkClient.iterate<RefundData, Refund>(this.links.refunds.href, 'refunds', undefined, parameters?.valuesPerMinute);
+    const [pathname, query] = breakUrl(this.links.refunds.href);
+    return this.networkClient.iterate<RefundData, Refund>(pathname, 'refunds', query, parameters?.valuesPerMinute);
   }
 
   /**
@@ -41,7 +47,8 @@ export default class SettlementHelper extends Helper<SettlementData, SettlementM
    * @since 3.7.0
    */
   public getChargebacks(parameters?: ThrottlingParameter) {
-    return this.networkClient.iterate<ChargebackData, Chargeback>(this.links.chargebacks.href, 'chargebacks', undefined, parameters?.valuesPerMinute);
+    const [pathname, query] = breakUrl(this.links.chargebacks.href);
+    return this.networkClient.iterate<ChargebackData, Chargeback>(pathname, 'chargebacks', query, parameters?.valuesPerMinute);
   }
 
   /**
@@ -50,6 +57,7 @@ export default class SettlementHelper extends Helper<SettlementData, SettlementM
    * @since 3.7.0
    */
   public getCaptures(parameters?: ThrottlingParameter) {
-    return this.networkClient.iterate<CaptureData, Capture>(this.links.captures.href, 'captures', undefined, parameters?.valuesPerMinute);
+    const [pathname, query] = breakUrl(this.links.captures.href);
+    return this.networkClient.iterate<CaptureData, Capture>(pathname, 'captures', query, parameters?.valuesPerMinute);
   }
 }

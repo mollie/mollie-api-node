@@ -1,4 +1,5 @@
 import { inspect, type InspectOptionsStylized } from 'util';
+import breakUrl from '../communication/breakUrl';
 import type TransformingNetworkClient from '../communication/TransformingNetworkClient';
 import buildFromEntries from '../plumbing/buildFromEntries';
 import capitalize from '../plumbing/capitalize';
@@ -26,13 +27,16 @@ function convertToString(subject: Model<string>, tag: string, depth: number, opt
 }
 
 export default class Helper<R extends Model<string, Maybe<string>>, U> {
-  constructor(protected readonly networkClient: TransformingNetworkClient, protected readonly links: Links) {}
+  constructor(
+    protected readonly networkClient: TransformingNetworkClient,
+    protected readonly links: Links,
+  ) {}
 
   public refresh(): Promise<U>;
   public refresh(callback: Callback<U>): void;
   public refresh() {
     if (renege(this, this.refresh, ...arguments)) return;
-    return this.networkClient.get<R, U>(this.links.self.href);
+    return this.networkClient.get<R, U>(...breakUrl(this.links.self.href));
   }
 
   public get [Symbol.toStringTag]() {

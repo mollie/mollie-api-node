@@ -5,6 +5,7 @@ import type HelpfulIterator from '../../plumbing/iteration/HelpfulIterator';
 import emptyHelpfulIterator from '../../plumbing/iteration/emptyHelpfulIterator';
 import renege from '../../plumbing/renege';
 import type Callback from '../../types/Callback';
+import type Nullable from '../../types/Nullable';
 import { type ThrottlingParameter } from '../../types/parameters';
 import Helper from '../Helper';
 import type Chargeback from '../chargebacks/Chargeback';
@@ -16,10 +17,13 @@ import { type PaymentData } from '../payments/data';
 import type Refund from '../refunds/Refund';
 import { type RefundData } from '../refunds/data';
 import type Profile from './Profile';
-import { ProfileStatus, type ProfileData } from './data';
+import { type ProfileData } from './data';
 
 export default class ProfileHelper extends Helper<ProfileData, Profile> {
-  constructor(networkClient: TransformingNetworkClient, protected readonly links: ProfileData['_links']) {
+  constructor(
+    networkClient: TransformingNetworkClient,
+    protected readonly links: ProfileData['_links'],
+  ) {
     super(networkClient, links);
   }
 
@@ -28,11 +32,8 @@ export default class ProfileHelper extends Helper<ProfileData, Profile> {
    *
    * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=_links/checkoutPreviewUrl#response
    */
-  public getCheckoutPreviewUrl() {
-    if (this.links.checkoutPreviewUrl == undefined) {
-      return null;
-    }
-    return this.links.checkoutPreviewUrl.href;
+  public getCheckoutPreviewUrl(): Nullable<string> {
+    return this.links.checkoutPreviewUrl?.href ?? null;
   }
 
   /**
@@ -59,7 +60,13 @@ export default class ProfileHelper extends Helper<ProfileData, Profile> {
   public getMethods(callback: Callback<Array<Method>>): void;
   public getMethods() {
     if (renege(this, this.getMethods, ...arguments)) return;
-    return runIf(this.links.methods, ({ href }) => this.networkClient.list<MethodData, Method>(href, 'methods')) ?? Promise.resolve([]);
+    return (
+      runIf(
+        this.links.methods,
+        ({ href }) => breakUrl(href),
+        ([pathname, query]) => this.networkClient.list<MethodData, Method>(pathname, 'methods', query),
+      ) ?? Promise.resolve([])
+    );
   }
 
   /**

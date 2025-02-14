@@ -1,5 +1,6 @@
 import { runIf } from 'ruply';
 import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import breakUrl from '../../communication/breakUrl';
 import type HelpfulIterator from '../../plumbing/iteration/HelpfulIterator';
 import emptyHelpfulIterator from '../../plumbing/iteration/emptyHelpfulIterator';
 import { type ThrottlingParameter } from '../../types/parameters';
@@ -14,7 +15,10 @@ import type Mandate from './mandates/Mandate';
 import { type MandateData } from './mandates/data';
 
 export default class CustomerHelper extends Helper<CustomerData, Customer> {
-  constructor(networkClient: TransformingNetworkClient, protected readonly links: CustomerData['_links']) {
+  constructor(
+    networkClient: TransformingNetworkClient,
+    protected readonly links: CustomerData['_links'],
+  ) {
     super(networkClient, links);
   }
 
@@ -24,7 +28,13 @@ export default class CustomerHelper extends Helper<CustomerData, Customer> {
    * @since 3.6.0
    */
   public getMandates(parameters?: ThrottlingParameter): HelpfulIterator<Mandate> {
-    return runIf(this.links.mandates, ({ href }) => this.networkClient.iterate<MandateData, Mandate>(href, 'mandates', undefined, parameters?.valuesPerMinute)) ?? emptyHelpfulIterator;
+    return (
+      runIf(
+        this.links.mandates,
+        ({ href }) => breakUrl(href),
+        ([pathname, query]) => this.networkClient.iterate<MandateData, Mandate>(pathname, 'mandates', query, parameters?.valuesPerMinute),
+      ) ?? emptyHelpfulIterator
+    );
   }
 
   /**
@@ -34,7 +44,11 @@ export default class CustomerHelper extends Helper<CustomerData, Customer> {
    */
   public getSubscriptions(parameters?: ThrottlingParameter): HelpfulIterator<Subscription> {
     return (
-      runIf(this.links.subscriptions, ({ href }) => this.networkClient.iterate<SubscriptionData, Subscription>(href, 'subscriptions', undefined, parameters?.valuesPerMinute)) ?? emptyHelpfulIterator
+      runIf(
+        this.links.subscriptions,
+        ({ href }) => breakUrl(href),
+        ([pathname, query]) => this.networkClient.iterate<SubscriptionData, Subscription>(pathname, 'subscriptions', query, parameters?.valuesPerMinute),
+      ) ?? emptyHelpfulIterator
     );
   }
 
@@ -44,6 +58,12 @@ export default class CustomerHelper extends Helper<CustomerData, Customer> {
    * @since 3.6.0
    */
   public getPayments(parameters?: ThrottlingParameter): HelpfulIterator<Payment> {
-    return runIf(this.links.payments, ({ href }) => this.networkClient.iterate<PaymentData, Payment>(href, 'payments', undefined, parameters?.valuesPerMinute)) ?? emptyHelpfulIterator;
+    return (
+      runIf(
+        this.links.payments,
+        ({ href }) => breakUrl(href),
+        ([pathname, query]) => this.networkClient.iterate<PaymentData, Payment>(pathname, 'payments', query, parameters?.valuesPerMinute),
+      ) ?? emptyHelpfulIterator
+    );
   }
 }
