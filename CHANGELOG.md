@@ -5,6 +5,13 @@
 
 Please see [the migration guide](MIGRATION.md) for guidance about updating to a newer major version.
 
+### v4.2.0 - 2025-03-03
+  - Updated Interface Types to include new payment parameters ([#402](https://github.com/mollie/mollie-api-node/pull/402))
+  - Fix: `order.getPayments()` did not work ([#401](https://github.com/mollie/mollie-api-node/pull/401))
+  - Fix: `paymentChargebacks.get()` did not work ([#400](https://github.com/mollie/mollie-api-node/pull/400))
+  - Fix: `payment.isRefundable` did not work, but was also deprectated in favour of `canBeRefunded` ([#403](https://github.com/mollie/mollie-api-node/pull/403))
+  - Fix: returned links with search parameters, broke iterations ([#405](https://github.com/mollie/mollie-api-node/pull/405))
+
 ### v4.1.0 - 2024-10-03
   - Extend captures API ([#371](https://github.com/mollie/mollie-api-node/pull/371))
   - Update documentation ([#380](https://github.com/mollie/mollie-api-node/pull/380))
