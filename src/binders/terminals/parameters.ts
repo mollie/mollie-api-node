@@ -1,7 +1,6 @@
-import {PaginationParameters, ThrottlingParameter} from "../../types/parameters";
+import { PaginationParameters, ThrottlingParameter } from '../../types/parameters';
 
 export type PageParameters = PaginationParameters & {
-  profileId?: string;
   testmode?: boolean;
 };
 
