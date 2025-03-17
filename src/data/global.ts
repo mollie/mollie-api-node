@@ -56,7 +56,6 @@ export enum PaymentMethod {
   trustly = 'trustly',
   twint = 'twint',
   voucher = 'voucher',
-  pointofsale = 'pointofsale'
 }
 
 export enum HistoricPaymentMethod {
