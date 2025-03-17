@@ -15,6 +15,7 @@ const prefixes = {
   'refund': 're_',
   'shipment': 'shp_',
   'subscription': 'sub_',
+  'terminal': 'term_',
 } satisfies Record<string, string>;
 
 type ResourceKind = keyof typeof prefixes;

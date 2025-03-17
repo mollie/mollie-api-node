@@ -6,6 +6,7 @@ import { type PageParameters, IterateParameters } from './parameters';
 import { Page } from '../../types';
 import Terminal from '../../data/terminals/Terminal';
 import type { TerminalData } from '../../data/terminals/data';
+import assertWellFormedId from '../../plumbing/assertWellFormedId';
 
 const pathSegment = 'terminals';
 
@@ -19,12 +20,14 @@ export default class TerminalsBinder extends Binder<TerminalData, Terminal> {
    *
    * For more information on accepting point-of-sale payments, please refer to the [point-of-sale guide](https://docs.mollie.com/point-of-sale/overview).
    *
+   * @since 4.3.0
    * @see https://docs.mollie.com/reference/v2/terminals-api/get-terminal
    */
   public get(id: string): Promise<Terminal>;
   public get(id: string, callback: Callback<Terminal>): void;
   public get(id: string) {
     if (renege(this, this.get, ...arguments)) return;
+    assertWellFormedId(id, 'terminal');
     return this.networkClient.get(`${pathSegment}/${id}`);
   }
 
@@ -33,6 +36,7 @@ export default class TerminalsBinder extends Binder<TerminalData, Terminal> {
    *
    * The results are paginated. See pagination for more information.
    *
+   * @since 4.3.0
    * @see https://docs.mollie.com/reference/v2/terminals-api/list-terminals
    */
   public page(parameters?: PageParameters): Promise<Page<Terminal>>;
@@ -47,6 +51,7 @@ export default class TerminalsBinder extends Binder<TerminalData, Terminal> {
    *
    * The results are paginated. See pagination for more information.
    *
+   * @since 4.3.0
    * @see https://docs.mollie.com/reference/v2/terminals-api/list-terminals
    */
   public iterate(parameters?: IterateParameters) {
