@@ -1,9 +1,10 @@
+import { runIf } from 'ruply';
 import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import type Page from '../../data/page/Page';
 import { type PaymentData } from '../../data/payments/data';
 import type Payment from '../../data/payments/Payment';
-import ApiError from '../../errors/ApiError';
-import checkId from '../../plumbing/checkId';
+import alias from '../../plumbing/alias';
+import assertWellFormedId from '../../plumbing/assertWellFormedId';
 import renege from '../../plumbing/renege';
 import type Callback from '../../types/Callback';
 import Binder from '../Binder';
@@ -14,6 +15,7 @@ const pathSegment = 'payments';
 export default class PaymentsBinder extends Binder<PaymentData, Payment> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    alias(this, { page: ['all', 'list'], cancel: 'delete' });
   }
 
   /**
@@ -31,7 +33,7 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
     const { include, ...data } = parameters;
-    const query = include != undefined ? { include } : undefined;
+    const query = runIf(include, include => ({ include }));
     return this.networkClient.post<PaymentData, Payment>(pathSegment, data, query);
   }
 
@@ -45,9 +47,7 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
   public get(id: string, parameters: GetParameters, callback: Callback<Payment>): void;
   public get(id: string, parameters?: GetParameters) {
     if (renege(this, this.get, ...arguments)) return;
-    if (!checkId(id, 'payment')) {
-      throw new ApiError('The payment id is invalid');
-    }
+    assertWellFormedId(id, 'payment');
     return this.networkClient.get<PaymentData, Payment>(`${pathSegment}/${id}`, parameters);
   }
 
@@ -89,9 +89,7 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
   public update(id: string, parameters: UpdateParameters, callback: Callback<Payment>): void;
   public update(id: string, parameters: UpdateParameters) {
     if (renege(this, this.update, ...arguments)) return;
-    if (!checkId(id, 'payment')) {
-      throw new ApiError('The payment id is invalid');
-    }
+    assertWellFormedId(id, 'payment');
     return this.networkClient.patch<PaymentData, Payment>(`${pathSegment}/${id}`, parameters);
   }
 
@@ -108,9 +106,7 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
   public cancel(id: string, parameters: CancelParameters, callback: Callback<Page<Payment>>): void;
   public cancel(id: string, parameters?: CancelParameters) {
     if (renege(this, this.cancel, ...arguments)) return;
-    if (!checkId(id, 'payment')) {
-      throw new ApiError('The payment id is invalid');
-    }
+    assertWellFormedId(id, 'payment');
     return this.networkClient.delete<PaymentData, Payment>(`${pathSegment}/${id}`, parameters);
   }
 }

@@ -1,15 +1,9 @@
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
-
 import CustomersBinder from '../../../src/binders/customers/CustomersBinder';
 import NetworkClient from '../../../src/communication/NetworkClient';
 
+import NetworkMocker, { getApiKeyClientProvider } from '../../NetworkMocker';
 import page1 from '../__stubs__/list/customers_page_1.json';
 import page2 from '../__stubs__/list/customers_page_2.json';
-import page3 from '../__stubs__/list/customers_page_3.json';
-import Page from '../../../src/data/page/Page';
-
-const mock = new MockAdapter(axios);
 
 describe('lists', () => {
   let customers: CustomersBinder;
@@ -18,78 +12,39 @@ describe('lists', () => {
   });
 
   describe('.list()', () => {
-    mock.onGet('/customers?limit=3').reply(200, page1);
-    mock.onGet('/customers?limit=3&from=cst_kEn1PlbGa').reply(200, page1);
-    mock.onGet('/customers?limit=3&from=cst_l4J9zsdzO').reply(200, page2);
-    mock.onGet('/customers?limit=3&from=cst_1DVwgVBLS').reply(200, page3);
-
-    it('should retrieve a limited list', done => {
-      customers
-        .page({ limit: 3 })
-        .then(result => {
-          expect(result[2].resource).toEqual('customer');
-          expect(result[3]).toBeUndefined();
-          done();
-        })
-        .catch(err => {
-          expect(err).toBeUndefined();
-          done();
-        });
+    it('should retrieve a limited list', () => {
+      return new NetworkMocker(getApiKeyClientProvider()).use(async ([, networkMocker]) => {
+        networkMocker.intercept('GET', '/customers?limit=3', 200, page1);
+        const result = await customers.page({ limit: 3 });
+        expect(result).toHaveLength(3);
+        expect(result[2].resource).toEqual('customer');
+      });
     });
 
-    it('should retrieve the next page', done => {
-      customers
-        .page({ limit: 3 })
-        .then(result => {
-          result.nextPage().then(list => {
-            expect(list[0].id).toEqual('cst_l4J9zsdzO');
-            expect(list).toMatchSnapshot();
-            done();
-          });
-        })
-        .catch(err => {
-          expect(err).toBeUndefined();
-          done();
-        });
+    it('should retrieve the next page', () => {
+      return new NetworkMocker(getApiKeyClientProvider()).use(async ([, networkMocker]) => {
+        networkMocker.intercept('GET', '/customers?limit=3', 200, page1);
+        networkMocker.intercept('GET', '/customers?limit=3&from=cst_l4J9zsdzO', 200, page2);
+        const list1 = await customers.page({ limit: 3 });
+        const list2 = await list1.nextPage?.();
+        expect(list2).toHaveLength(3);
+        expect(list2![0].id).toEqual('cst_l4J9zsdzO');
+        expect(list2?.nextPageCursor).toEqual('cst_1DVwgVBLS');
+        expect(list2).toMatchSnapshot();
+      });
     });
 
-    it('should retrieve the next page', done => {
-      customers
-        .page({ limit: 3 })
-        .then(result => {
-          result
-            .nextPage()
-            .then((list: Page<any>) => {
-              expect(list[0].id).toEqual('cst_l4J9zsdzO');
-              expect(list.nextPageCursor).toEqual('cst_1DVwgVBLS');
-              expect(list).toMatchSnapshot();
-              done();
-            })
-            .catch(err => {
-              expect(err).toBeUndefined();
-            });
-        })
-        .catch(err => {
-          expect(err).toBeUndefined();
-        });
-    });
-
-    xit('should retrieve all pages with a callback', done => {
-      let i = 0;
-      const expected = ['cst_kEn1PlbGa', 'cst_l4J9zsdzO', 'cst_1DVwgVBLS', undefined];
-
-      const handleNextPage = (err, result: Page<any>): void => {
-        expect(err).toBeNull();
-        expect(result[0].id).toEqual(expected[i]);
-        expect(result.nextPageCursor).toEqual(expected[++i]);
-        if (i === 3) {
+    it('should retrieve page with a callback', done => {
+      new NetworkMocker(getApiKeyClientProvider()).use(async ([, networkMocker]) => {
+        networkMocker.intercept('GET', '/customers?limit=3', 200, page1);
+        customers.page({ limit: 3 }, (err, result): void => {
+          expect(err).toBeNull();
+          expect(result[0].id).toEqual('cst_kEn1PlbGa');
+          expect(result.nextPageCursor).toEqual('cst_l4J9zsdzO');
+          expect(result.nextPage).toBeDefined();
           done();
-        } else {
-          result.nextPage().then();
-        }
-      };
-
-      customers.page({ limit: 3 }, handleNextPage).then();
+        });
+      });
     });
   });
 });

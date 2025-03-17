@@ -326,7 +326,7 @@
         "scope": "https://api.mollie.com:443",
         "method": "DELETE",
         "path": "/v2/profiles/pfl_XjBqKLWD7q",
-        "body": "",
+        "body": {},
         "status": 204,
         "response": "",
         "rawHeaders": [

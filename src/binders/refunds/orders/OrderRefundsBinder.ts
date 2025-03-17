@@ -2,8 +2,8 @@ import type TransformingNetworkClient from '../../../communication/TransformingN
 import type Page from '../../../data/page/Page';
 import { type RefundData } from '../../../data/refunds/data';
 import type Refund from '../../../data/refunds/Refund';
-import ApiError from '../../../errors/ApiError';
-import checkId from '../../../plumbing/checkId';
+import alias from '../../../plumbing/alias';
+import assertWellFormedId from '../../../plumbing/assertWellFormedId';
 import renege from '../../../plumbing/renege';
 import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
@@ -16,6 +16,7 @@ export function getPathSegments(orderId: string) {
 export default class OrderRefundsBinder extends Binder<RefundData, Refund> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    alias(this, { page: ['all', 'list'] });
   }
 
   /**
@@ -35,9 +36,7 @@ export default class OrderRefundsBinder extends Binder<RefundData, Refund> {
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
     const { orderId, ...data } = parameters;
-    if (!checkId(orderId, 'order')) {
-      throw new ApiError('The order id is invalid');
-    }
+    assertWellFormedId(orderId, 'order');
     return this.networkClient.post<RefundData, Refund>(getPathSegments(orderId), data);
   }
 
@@ -54,9 +53,7 @@ export default class OrderRefundsBinder extends Binder<RefundData, Refund> {
   public page(parameters: PageParameters) {
     if (renege(this, this.page, ...arguments)) return;
     const { orderId, ...query } = parameters;
-    if (!checkId(orderId, 'order')) {
-      throw new ApiError('The order id is invalid');
-    }
+    assertWellFormedId(orderId, 'order');
     return this.networkClient.page<RefundData, Refund>(getPathSegments(orderId), 'refunds', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
@@ -70,9 +67,7 @@ export default class OrderRefundsBinder extends Binder<RefundData, Refund> {
    */
   public iterate(parameters: IterateParameters) {
     const { orderId, valuesPerMinute, ...query } = parameters;
-    if (!checkId(orderId, 'order')) {
-      throw new ApiError('The order id is invalid');
-    }
+    assertWellFormedId(orderId, 'order');
     return this.networkClient.iterate<RefundData, Refund>(getPathSegments(orderId), 'refunds', query, valuesPerMinute);
   }
 }

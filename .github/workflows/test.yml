@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [14.x, 18.x, 20.x]
@@ -26,4 +26,4 @@ jobs:
         env:
           # Set the API key for the integration tests. In the future, all tests will rely on snapshots. An API key will
           # then only be required to update those snapshots. The API key can then be removed from this file.
-          API_KEY: test_4kQQbBMEFh8QAuKVaWdpKuRpVSsdVG
+          API_KEY: ${{ secrets.TEST_API_KEY }}

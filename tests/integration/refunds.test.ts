@@ -1,12 +1,5 @@
-import axios from 'axios';
-import httpAdapter from 'axios/lib/adapters/http';
 import dotenv from 'dotenv';
 import createMollieClient from '../..';
-
-/**
- * Overwrite the default XMLHttpRequestAdapter
- */
-axios.defaults.adapter = httpAdapter;
 
 /**
  * Load the API_KEY environment variable

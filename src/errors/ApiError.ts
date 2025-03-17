@@ -1,6 +1,3 @@
-import { type AxiosResponse } from 'axios';
-
-import { idempotencyHeaderName } from '../communication/makeRetrying';
 import { type Links, type Url } from '../data/global';
 import type Maybe from '../types/Maybe';
 
@@ -28,36 +25,6 @@ export default class ApiError extends Error {
     Object.assign(this, info);
     // Ensure the message is enumerable, making it more likely to survive serialisation.
     Object.defineProperty(this, 'message', { enumerable: true });
-  }
-
-  /**
-   * Get the error message
-   *
-   * @since 3.0.0
-   * @deprecated Use `error.message` instead.
-   */
-  public getMessage(): string {
-    return this.message;
-  }
-
-  /**
-   * Get the field name that contains an error
-   *
-   * @since 3.0.0
-   * @deprecated Use `error.field` instead.
-   */
-  public getField(): Maybe<string> {
-    return this.field;
-  }
-
-  /**
-   * Get the API status code
-   *
-   * @since 3.0.0
-   * @deprecated Use `error.statusCode` instead.
-   */
-  public getStatusCode(): Maybe<number> {
-    return this.statusCode;
   }
 
   /**
@@ -112,9 +79,8 @@ export default class ApiError extends Error {
    *
    * @since 3.0.0
    */
-  public static createFromResponse(response: AxiosResponse): ApiError {
-    const { detail, title, status: statusCode, field, _links: links } = response.data;
-    const { headers } = response.config;
-    return new ApiError(detail ?? 'Received an error without a message', { title, statusCode, field, links, idempotencyKey: headers?.[idempotencyHeaderName] as string | undefined });
+  public static createFromResponse(body: any, idempotencyKey: string | undefined): ApiError {
+    const { detail, title, status: statusCode, field, _links: links } = body;
+    return new ApiError(detail ?? 'Received an error without a message', { title, statusCode, field, links, idempotencyKey });
   }
 }

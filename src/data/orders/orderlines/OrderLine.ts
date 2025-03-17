@@ -146,15 +146,10 @@ export interface OrderLineData extends Model<'orderline'> {
    * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=lines/_links#response
    */
   _links: OrderLineLinks;
-  metadata: any;
+  metadata: unknown;
 }
 
-type OrderLine = Seal<
-  OrderLineData,
-  {
-    toPlainObject(): any;
-  }
->;
+type OrderLine = Seal<OrderLineData, {}>;
 
 export default OrderLine;
 
@@ -184,12 +179,5 @@ export enum OrderLineType {
 }
 
 export function transform(input: OrderLineData): OrderLine {
-  return Object.assign(
-    Object.create({
-      toPlainObject: function toPlainObject(this: Model<any>): any {
-        return Object.assign({}, this);
-      },
-    }),
-    input,
-  );
+  return input;
 }

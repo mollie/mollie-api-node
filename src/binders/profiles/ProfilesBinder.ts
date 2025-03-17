@@ -2,8 +2,8 @@ import type TransformingNetworkClient from '../../communication/TransformingNetw
 import type Page from '../../data/page/Page';
 import { type ProfileData } from '../../data/profiles/data';
 import type Profile from '../../data/profiles/Profile';
-import ApiError from '../../errors/ApiError';
-import checkId from '../../plumbing/checkId';
+import alias from '../../plumbing/alias';
+import assertWellFormedId from '../../plumbing/assertWellFormedId';
 import renege from '../../plumbing/renege';
 import type Callback from '../../types/Callback';
 import Binder from '../Binder';
@@ -14,6 +14,7 @@ const pathSegment = 'profiles';
 export default class ProfilesBinder extends Binder<ProfileData, Profile> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    alias(this, { page: 'list' });
   }
 
   /**
@@ -40,9 +41,7 @@ export default class ProfilesBinder extends Binder<ProfileData, Profile> {
   public get(id: string, callback: Callback<Profile>): void;
   public get(id: string) {
     if (renege(this, this.get, ...arguments)) return;
-    if (!checkId(id, 'profile')) {
-      throw new ApiError('The profile id is invalid');
-    }
+    assertWellFormedId(id, 'profile');
     return this.networkClient.get<ProfileData, Profile>(`${pathSegment}/${id}`);
   }
 
@@ -101,9 +100,7 @@ export default class ProfilesBinder extends Binder<ProfileData, Profile> {
   public update(id: string, parameters: UpdateParameters, callback: Callback<Profile>): void;
   public update(id: string, parameters: UpdateParameters) {
     if (renege(this, this.update, ...arguments)) return;
-    if (!checkId(id, 'profile')) {
-      throw new ApiError('The profile id is invalid');
-    }
+    assertWellFormedId(id, 'profile');
     return this.networkClient.patch<ProfileData, Profile>(`${pathSegment}/${id}`, parameters);
   }
 
@@ -117,9 +114,7 @@ export default class ProfilesBinder extends Binder<ProfileData, Profile> {
   public delete(id: string, parameters: DeleteParameters, callback: Callback<true>): void;
   public delete(id: string, parameters?: DeleteParameters) {
     if (renege(this, this.delete, ...arguments)) return;
-    if (!checkId(id, 'profile')) {
-      throw new ApiError('The profile id is invalid');
-    }
+    assertWellFormedId(id, 'profile');
     return this.networkClient.delete<ProfileData, true>(`${pathSegment}/${id}`, parameters);
   }
 }

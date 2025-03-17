@@ -1,8 +1,8 @@
 import { inspect, type InspectOptionsStylized } from 'util';
+import breakUrl from '../communication/breakUrl';
 import type TransformingNetworkClient from '../communication/TransformingNetworkClient';
 import buildFromEntries from '../plumbing/buildFromEntries';
 import capitalize from '../plumbing/capitalize';
-import getEntries from '../plumbing/getEntries';
 import renege from '../plumbing/renege';
 import type Callback from '../types/Callback';
 import type Maybe from '../types/Maybe';
@@ -22,28 +22,21 @@ function convertToString(subject: Model<string>, tag: string, depth: number, opt
   if (depth < 0) {
     return options.stylize(`[${parts.join(' ')}]`, 'special');
   }
-  parts.push(inspect(buildFromEntries(getEntries<any>(subject).filter(([key]) => stringRepresentationBlacklist.has(key) === false)), { ...options, depth: 1, sorted: true }));
+  parts.push(inspect(buildFromEntries(Object.entries(subject).filter(([key]) => stringRepresentationBlacklist.has(key) === false)), { ...options, depth: 1, sorted: true }));
   return parts.join(' ');
 }
 
 export default class Helper<R extends Model<string, Maybe<string>>, U> {
-  constructor(protected readonly networkClient: TransformingNetworkClient, protected readonly links: Links) {}
+  constructor(
+    protected readonly networkClient: TransformingNetworkClient,
+    protected readonly links: Links,
+  ) {}
 
   public refresh(): Promise<U>;
   public refresh(callback: Callback<U>): void;
   public refresh() {
     if (renege(this, this.refresh, ...arguments)) return;
-    return this.networkClient.get<R, U>(this.links.self.href);
-  }
-
-  /**
-   * Converts this object to a plain one.
-   */
-  public toPlainObject(this: Model<string>): any {
-    // Previously, we used Lodash' toPlainObject here. However, back then we used classes for our models instead of
-    // interfaces. This should have the same effect on the new object as _.toPlainObject had on the old ones: returning
-    // a plain object with no prototype.
-    return Object.assign({}, this);
+    return this.networkClient.get<R, U>(...breakUrl(this.links.self.href));
   }
 
   public get [Symbol.toStringTag]() {

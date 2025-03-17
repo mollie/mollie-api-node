@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`lists .list() should retrieve the next page 1`] = `
-Array [
-  Object {
-    "_links": Object {
-      "documentation": Object {
+[
+  {
+    "_links": {
+      "documentation": {
         "href": "https://docs.mollie.com/reference/v2/customers-api/get-customer",
         "type": "text/html",
       },
-      "self": Object {
+      "self": {
         "href": "https://api.mollie.com/v2/customers/cst_l4J9zsdzO",
         "type": "application/hal+json",
       },
@@ -22,13 +22,13 @@ Array [
     "name": "Customer 4",
     "resource": "customer",
   },
-  Object {
-    "_links": Object {
-      "documentation": Object {
+  {
+    "_links": {
+      "documentation": {
         "href": "https://docs.mollie.com/reference/v2/customers-api/get-customer",
         "type": "text/html",
       },
-      "self": Object {
+      "self": {
         "href": "https://api.mollie.com/v2/customers/cst_CFAhWkIKz",
         "type": "application/hal+json",
       },
@@ -42,78 +42,13 @@ Array [
     "name": "Customer 5",
     "resource": "customer",
   },
-  Object {
-    "_links": Object {
-      "documentation": Object {
+  {
+    "_links": {
+      "documentation": {
         "href": "https://docs.mollie.com/reference/v2/customers-api/get-customer",
         "type": "text/html",
       },
-      "self": Object {
-        "href": "https://api.mollie.com/v2/customers/cst_5BsP6Y1S8",
-        "type": "application/hal+json",
-      },
-    },
-    "createdAt": "2018-04-06T13:23:21.0Z",
-    "email": "customer6@example.org",
-    "id": "cst_5BsP6Y1S8",
-    "locale": "nl_NL",
-    "metadata": null,
-    "mode": "test",
-    "name": "Customer 6",
-    "resource": "customer",
-  },
-]
-`;
-
-exports[`lists .list() should retrieve the next page 2`] = `
-Array [
-  Object {
-    "_links": Object {
-      "documentation": Object {
-        "href": "https://docs.mollie.com/reference/v2/customers-api/get-customer",
-        "type": "text/html",
-      },
-      "self": Object {
-        "href": "https://api.mollie.com/v2/customers/cst_l4J9zsdzO",
-        "type": "application/hal+json",
-      },
-    },
-    "createdAt": "2018-04-06T13:23:21.0Z",
-    "email": "customer4@example.org",
-    "id": "cst_l4J9zsdzO",
-    "locale": "nl_NL",
-    "metadata": null,
-    "mode": "test",
-    "name": "Customer 4",
-    "resource": "customer",
-  },
-  Object {
-    "_links": Object {
-      "documentation": Object {
-        "href": "https://docs.mollie.com/reference/v2/customers-api/get-customer",
-        "type": "text/html",
-      },
-      "self": Object {
-        "href": "https://api.mollie.com/v2/customers/cst_CFAhWkIKz",
-        "type": "application/hal+json",
-      },
-    },
-    "createdAt": "2018-04-06T13:23:21.0Z",
-    "email": "customer5@example.org",
-    "id": "cst_CFAhWkIKz",
-    "locale": "nl_NL",
-    "metadata": null,
-    "mode": "test",
-    "name": "Customer 5",
-    "resource": "customer",
-  },
-  Object {
-    "_links": Object {
-      "documentation": Object {
-        "href": "https://docs.mollie.com/reference/v2/customers-api/get-customer",
-        "type": "text/html",
-      },
-      "self": Object {
+      "self": {
         "href": "https://api.mollie.com/v2/customers/cst_5BsP6Y1S8",
         "type": "application/hal+json",
       },

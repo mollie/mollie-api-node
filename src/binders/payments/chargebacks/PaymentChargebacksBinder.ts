@@ -2,8 +2,8 @@ import type TransformingNetworkClient from '../../../communication/TransformingN
 import type Chargeback from '../../../data/chargebacks/Chargeback';
 import { type ChargebackData } from '../../../data/chargebacks/Chargeback';
 import type Page from '../../../data/page/Page';
-import ApiError from '../../../errors/ApiError';
-import checkId from '../../../plumbing/checkId';
+import alias from '../../../plumbing/alias';
+import assertWellFormedId from '../../../plumbing/assertWellFormedId';
 import renege from '../../../plumbing/renege';
 import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
@@ -16,6 +16,7 @@ function getPathSegments(paymentId: string) {
 export default class PaymentChargebacksBinder extends Binder<ChargebackData, Chargeback> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    alias(this, { page: ['all', 'list'] });
   }
 
   /**
@@ -30,13 +31,9 @@ export default class PaymentChargebacksBinder extends Binder<ChargebackData, Cha
   public get(id: string, parameters: GetParameters, callback: Callback<Chargeback>): void;
   public get(id: string, parameters: GetParameters) {
     if (renege(this, this.get, ...arguments)) return;
-    if (!checkId(id, 'refund')) {
-      throw new ApiError('The payments_refund id is invalid');
-    }
+    assertWellFormedId(id, 'chargeback');
     const { paymentId, ...query } = parameters;
-    if (!checkId(paymentId, 'payment')) {
-      throw new ApiError('The payment id is invalid');
-    }
+    assertWellFormedId(paymentId, 'payment');
     return this.networkClient.get<ChargebackData, Chargeback>(`${getPathSegments(paymentId)}/${id}`, query);
   }
 
@@ -53,9 +50,7 @@ export default class PaymentChargebacksBinder extends Binder<ChargebackData, Cha
   public page(parameters: PageParameters) {
     if (renege(this, this.page, ...arguments)) return;
     const { paymentId, ...query } = parameters;
-    if (!checkId(paymentId, 'payment')) {
-      throw new ApiError('The payment id is invalid');
-    }
+    assertWellFormedId(paymentId, 'payment');
     return this.networkClient.page<ChargebackData, Chargeback>(getPathSegments(paymentId), 'chargebacks', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
@@ -69,9 +64,7 @@ export default class PaymentChargebacksBinder extends Binder<ChargebackData, Cha
    */
   public iterate(parameters: IterateParameters) {
     const { paymentId, valuesPerMinute, ...query } = parameters;
-    if (!checkId(paymentId, 'payment')) {
-      throw new ApiError('The payment id is invalid');
-    }
+    assertWellFormedId(paymentId, 'payment');
     return this.networkClient.iterate<ChargebackData, Chargeback>(getPathSegments(paymentId), 'chargebacks', query, valuesPerMinute);
   }
 }

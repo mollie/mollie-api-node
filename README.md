@@ -1,13 +1,13 @@
 <p align="center">
-  <img src="https://info.mollie.com/hubfs/github/nodejs/logo-1.png" width="128" height="128"/>
+  <img src="https://github.com/user-attachments/assets/a98b62f7-f0f1-44ac-8ade-3a83cfecf264" width="128" height="128"/>
 </p>
 <h1 align="center">Mollie API client for Node.js</h1>
 
-<img src="https://info.mollie.com/hubfs/github/nodejs/editor-3.png" />
+![Mollie Node.js API Example](https://github.com/user-attachments/assets/0c1c454f-c944-4042-863c-f0a556bdb87f)
 
 # About
 
-[Mollie](https://www.mollie.com/) builds payment products, commerce solutions and APIs that let you accept online and mobile payments, for small online stores and Fortune 500s alike. Accepting [Credit Card][credit-card], [Apple Pay][apple-pay], [PayPal][paypal], [Klarna: Pay now][klarna-pay-now], [Klarna: Pay later][klarna-pay-later], [Klarna: Slice it][klarna-slice-it], [iDeal][ideal], [vouchers][meal-eco-gift-vouchers], [SEPA Bank Transfer][bank-transfer], [SEPA Direct Debit][direct-debit], [SOFORT banking][sofort], [Bancontact][bancontact], [Cartes Bancaires][cartes-bancaires], [EPS][eps], [PostePay][postepay], [Giropay][giropay], [KBC Payment Button][kbc-cbc], [Belfius Pay Button][belfius], [paysafecard][paysafecard], [gift cards][gift-cards], and [Przelewy24][przelewy24] online payments without fixed monthly costs or any punishing registration procedures. Just use the Mollie API to receive payments directly on your website or easily refund transactions to your customers.
+[Mollie](https://www.mollie.com/) builds payment products, commerce solutions and APIs that let you accept online and mobile payments, for small online stores and Fortune 500s alike. Accepting [credit and debit card][credit-card] ([Cartes Bancaires][cartes-bancaires], [PostePay][postepay]), [Alma][alma], [Apple Pay][apple-pay], [BACS Direct Debit][bacs], [BANCOMAT Pay][bancomat-pay], [Bancontact][bancontact], [SEPA Bank Transfer][bank-transfer], [Belfius Pay Button][belfius], [Billie][billie], [BLIK][blik], [SEPA Direct Debit][direct-debit], [EPS][eps], [iDEAL][ideal] ([in3][ideal-in3]), [KBC Payment Button][kbc-cbc], [Klarna][klarna] (Pay Later, Pay Now, Pay in 3, Financing), [PayPal][paypal], [paysafecard][paysafecard], [Przelewy24][przelewy24], [Riverty][riverty], [Satispay][satispay], [Trustly][trustly], [TWINT][twint], [eco- gift- and meal vouchers][meal-eco-gift-vouchers] and [gift cards][gift-cards] online payments without fixed monthly costs or any punishing registration procedures. Just use the Mollie API to receive payments directly on your website or easily refund transactions to your customers.
 
 ### A note on use outside of Node.js
 
@@ -113,7 +113,7 @@ The `page` methods do not fit every use case. If you find yourself retrieving mu
 
 ```javascript
 // Iterate over all payments.
-for await (let payment in mollieClient.payments.iterate()) {
+for await (const payment of mollieClient.payments.iterate()) {
   // (Use break to end the loop prematurely.)
 }
 ```
@@ -133,7 +133,7 @@ For a deep dive in how our systems function, we refer to [our excellent guides](
 
 ## API reference
 
-This library is a wrapper around our Mollie API. Some more specific details are better explained in [our API reference](https://docs.mollie.com/reference/v2/), and you can also get a better understanding of how the requests look under the hood.
+This library is a wrapper around our Mollie API. Some more specific details are better explained in [our API reference](https://docs.mollie.com/reference/), and you can also get a better understanding of how the requests look under the hood.
 
 ## Migrating
 
@@ -147,24 +147,31 @@ Want to help us make our API client even better? We take [pull requests](https:/
 
 [New BSD (Berkeley Software Distribution) License](https://opensource.org/licenses/BSD-3-Clause). Copyright 2013-2021, Mollie B.V.
 
-[credit-card]: https://www.mollie.com/payments/credit-card
+[alma]: https://www.mollie.com/payments/alma
 [apple-pay]: https://www.mollie.com/payments/apple-pay
-[paypal]: https://www.mollie.com/payments/paypal
-[klarna-pay-now]: https://www.mollie.com/payments/klarna-pay-now
-[klarna-pay-later]: https://www.mollie.com/payments/klarna-pay-later
-[klarna-slice-it]: https://www.mollie.com/payments/klarna-slice-it
-[ideal]: https://www.mollie.com/payments/ideal
-[meal-eco-gift-vouchers]: https://www.mollie.com/payments/meal-eco-gift-vouchers
-[bank-transfer]: https://www.mollie.com/payments/bank-transfer
-[direct-debit]: https://www.mollie.com/payments/direct-debit
-[sofort]: https://www.mollie.com/payments/sofort
+[bacs]: https://www.mollie.com/payments/bacs
+[bancomat-pay]: https://www.mollie.com/payments/bancomat-pay
 [bancontact]: https://www.mollie.com/payments/bancontact
-[cartes-bancaires]: https://www.mollie.com/payments/cartes-bancaires
-[eps]: https://www.mollie.com/payments/eps
-[postepay]: https://www.mollie.com/payments/postepay
-[giropay]: https://www.mollie.com/payments/giropay
-[kbc-cbc]: https://www.mollie.com/payments/kbc-cbc
+[bank-transfer]: https://www.mollie.com/payments/bank-transfer
 [belfius]: https://www.mollie.com/payments/belfius
-[paysafecard]: https://www.mollie.com/payments/paysafecard
+[billie]: https://www.mollie.com/payments/billie
+[blik]: https://www.mollie.com/payments/blik
+[cartes-bancaires]: https://www.mollie.com/payments/cartes-bancaires
+[credit-card]: https://www.mollie.com/payments/credit-card
+[direct-debit]: https://www.mollie.com/payments/direct-debit
+[eps]: https://www.mollie.com/payments/eps
 [gift-cards]: https://www.mollie.com/payments/gift-cards
+[ideal]: https://www.mollie.com/payments/ideal
+[ideal-in3]: https://www.mollie.com/payments/ideal-in3
+[kbc-cbc]: https://www.mollie.com/payments/kbc-cbc
+[klarna]: https://www.mollie.com/payments/klarna
+[meal-eco-gift-vouchers]: https://www.mollie.com/payments/meal-eco-gift-vouchers
+[mybank]: https://www.mollie.com/payments/mybank
+[paypal]: https://www.mollie.com/payments/paypal
+[paysafecard]: https://www.mollie.com/payments/paysafecard
+[postepay]: https://www.mollie.com/payments/postepay
 [przelewy24]: https://www.mollie.com/payments/przelewy24
+[riverty]: https://www.mollie.com/payments/riverty
+[satispay]: https://www.mollie.com/payments/satispay
+[trustly]: https://www.mollie.com/payments/trustly
+[twint]: https://www.mollie.com/payments/twint

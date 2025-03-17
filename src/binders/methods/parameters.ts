@@ -1,5 +1,6 @@
 import { type Amount, type Locale, type SequenceType } from '../../data/global';
 import { type MethodInclude } from '../../data/methods/data';
+import type MaybeArray from '../../types/MaybeArray';
 
 export interface GetParameters {
   /**
@@ -10,7 +11,7 @@ export interface GetParameters {
    * @see https://docs.mollie.com/reference/v2/methods-api/get-method?path=locale#parameters
    */
   locale?: Locale;
-  include?: MethodInclude[] | MethodInclude;
+  include?: MaybeArray<MethodInclude>;
   profileId?: string;
   testmode?: boolean;
   /**
@@ -103,7 +104,7 @@ export interface ListParameters {
    * @see https://docs.mollie.com/reference/v2/methods-api/list-methods?path=orderLineCategories#parameters
    */
   orderLineCategories?: string[];
-  include?: MethodInclude[] | MethodInclude;
+  include?: MaybeArray<MethodInclude>;
   profileId?: string;
   testmode?: boolean;
 }

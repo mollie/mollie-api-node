@@ -52,7 +52,7 @@ const paymentResponse = {
 };
 
 describe('request-retrying', () => {
-  const networkMocker = new NetworkMocker(getApiKeyClientProvider(true));
+  const networkMocker = new NetworkMocker(getApiKeyClientProvider());
   let mollieClient: MollieClient;
   let intercept: (responseStatusCode: number, responseBody: Body, responseHeaders?: ReplyHeaders) => Interceptor;
 
@@ -104,13 +104,14 @@ describe('request-retrying', () => {
     const paymentPromise = observePromise(mollieClient.payments.get('tr_WDqYK6vllg'));
 
     // Expect the first network request to have been made, and the promise to be pending.
-    await tick();
+    await jest.advanceTimersByTimeAsync(0); // process request
     expect(errorInterceptor).toBeDepleted();
     expect(successInterceptor).not.toBeDepleted();
     expect(paymentPromise).toBePending();
 
     // Expect the second network request to have been made after two seconds, and the promise to have fulfilled.
-    jest.advanceTimersByTime(2e3);
+    await tick();
+    await jest.advanceTimersByTimeAsync(2e3);
     await tick();
     expect(successInterceptor).toBeDepleted();
     expect(paymentPromise).toBeFulfilledWith(expect.objectContaining({ id: 'tr_WDqYK6vllg' }));
@@ -143,20 +144,22 @@ describe('request-retrying', () => {
     const paymentPromise = observePromise(mollieClient.payments.get('tr_WDqYK6vllg'));
 
     // Expect a timeout to have been scheduled for the next attempt, and the promise to be pending.
-    await tick();
+    await jest.advanceTimersByTimeAsync(0); // process request
     expect(interceptor).not.toBeDepleted();
     expect(paymentPromise).toBePending();
 
     // After two seconds: expect another timeout to have been scheduled for the next attempt, and the promise to still
     // be pending.
-    jest.advanceTimersByTime(2e3);
+    await tick();
+    await jest.advanceTimersByTimeAsync(2e3);
     await tick();
     expect(interceptor).not.toBeDepleted();
     expect(paymentPromise).toBePending();
 
     // After another two seconds: expect three network requests to have been made in total, and the promise to be
     // rejected.
-    jest.advanceTimersByTime(2e3);
+    await tick();
+    await jest.advanceTimersByTimeAsync(2e3);
     await tick();
     expect(interceptor).toBeDepleted();
     expect(paymentPromise).toBeRejectedWith(expect.objectContaining({ message: 'Mock error' }));
@@ -181,21 +184,23 @@ describe('request-retrying', () => {
     const paymentPromise = observePromise(mollieClient.payments.get('tr_WDqYK6vllg'));
 
     // Expect the first network request to have been made, and the promise to be pending.
-    await tick();
+    await jest.advanceTimersByTimeAsync(0); // process request
     expect(errorInterceptor).toBeDepleted();
     expect(successInterceptor).not.toBeDepleted();
     expect(paymentPromise).toBePending();
 
     // Expect the client to respect the five-second Retry-After header, and thus nothing having changed after two
     // seconds.
-    jest.advanceTimersByTime(2e3);
+    await tick();
+    await jest.advanceTimersByTimeAsync(2e3);
     await tick();
     expect(errorInterceptor).toBeDepleted();
     expect(successInterceptor).not.toBeDepleted();
     expect(paymentPromise).toBePending();
 
     // Expect the second network request to have been made after two seconds, and the promise to have fulfilled.
-    jest.advanceTimersByTime(3e3);
+    await tick();
+    await jest.advanceTimersByTimeAsync(3e3);
     await tick();
     expect(successInterceptor).toBeDepleted();
     expect(paymentPromise).toBeFulfilledWith(expect.objectContaining({ id: 'tr_WDqYK6vllg' }));
@@ -245,7 +250,7 @@ describe('request-retrying', () => {
     );
 
     // Expect the first network request to have been made, and the promise to be pending.
-    await tick();
+    await jest.advanceTimersByTimeAsync(0); // process request
     expect(errorInterceptor).toBeDepleted();
     expect(paymentPromise).toBePending();
 
@@ -255,16 +260,14 @@ describe('request-retrying', () => {
 
     // Expect the second network request to have been made after two seconds, proving the Idempotency-Key header was
     // consistent across these two network requests, and the promise to have fulfilled.
-    jest.advanceTimersByTime(2e3);
+    await tick();
+    await jest.advanceTimersByTimeAsync(2e3);
     await tick();
     expect(successInterceptor).toBeDepleted();
     expect(paymentPromise).toBeFulfilledWith(expect.objectContaining({ id: 'tr_WDqYK6vllg' }));
 
     jest.useRealTimers();
   });
-
-  // Potentially worth testing:
-  //  * Is Axios' timeout still respected?
 
   afterAll(() => networkMocker.cleanup());
 });

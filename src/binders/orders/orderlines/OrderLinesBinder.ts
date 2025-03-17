@@ -1,8 +1,8 @@
 import type TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
 import { type OrderData } from '../../../data/orders/data';
 import type Order from '../../../data/orders/Order';
-import ApiError from '../../../errors/ApiError';
-import checkId from '../../../plumbing/checkId';
+import alias from '../../../plumbing/alias';
+import assertWellFormedId from '../../../plumbing/assertWellFormedId';
 import renege from '../../../plumbing/renege';
 import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
@@ -15,6 +15,7 @@ function getPathSegments(orderId: string) {
 export default class OrderLinesBinder extends Binder<OrderData, Order> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    alias(this, { cancel: 'delete' });
   }
 
   /**
@@ -37,13 +38,9 @@ export default class OrderLinesBinder extends Binder<OrderData, Order> {
   public update(id: string, parameters: UpdateParameters, callback: Callback<Order>): void;
   public update(id: string, parameters: UpdateParameters) {
     if (renege(this, this.update, ...arguments)) return;
-    if (!checkId(id, 'orderline')) {
-      throw new ApiError('The orders_lines id is invalid');
-    }
+    assertWellFormedId(id, 'orderline');
     const { orderId, ...data } = parameters;
-    if (!checkId(orderId, 'order')) {
-      throw new ApiError('The order id is invalid');
-    }
+    assertWellFormedId(orderId, 'order');
     return this.networkClient.patch<OrderData, Order>(`${getPathSegments(orderId)}/${id}`, data);
   }
 
@@ -71,9 +68,7 @@ export default class OrderLinesBinder extends Binder<OrderData, Order> {
   public cancel(parameters: CancelParameters) {
     if (renege(this, this.cancel, ...arguments)) return;
     const { orderId, ...data } = parameters;
-    if (!checkId(orderId, 'order')) {
-      throw new ApiError('The order id is invalid');
-    }
+    assertWellFormedId(orderId, 'order');
     return this.networkClient.delete<OrderData, true>(getPathSegments(orderId), data);
   }
 }

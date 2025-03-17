@@ -7,7 +7,7 @@ interface ContextParameters {
   testmode?: boolean;
 }
 
-export type CreateParameters = ContextParameters & Pick<RefundData, 'amount' | 'metadata'> & PickOptional<RefundData, 'description'> & IdempotencyParameter;
+export type CreateParameters = ContextParameters & Pick<RefundData, 'amount'> & PickOptional<RefundData, 'description' | 'metadata'> & IdempotencyParameter;
 
 export type GetParameters = ContextParameters & {
   embed?: RefundEmbed[];

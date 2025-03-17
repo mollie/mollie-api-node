@@ -2,8 +2,8 @@ import type TransformingNetworkClient from '../../../communication/TransformingN
 import type Page from '../../../data/page/Page';
 import { type PaymentData } from '../../../data/payments/data';
 import type Payment from '../../../data/payments/Payment';
-import ApiError from '../../../errors/ApiError';
-import checkId from '../../../plumbing/checkId';
+import alias from '../../../plumbing/alias';
+import assertWellFormedId from '../../../plumbing/assertWellFormedId';
 import renege from '../../../plumbing/renege';
 import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
@@ -16,6 +16,7 @@ function getPathSegments(customerId: string) {
 export default class CustomerPaymentsBinder extends Binder<PaymentData, Payment> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    alias(this, { page: ['all', 'list'] });
   }
 
   /**
@@ -36,9 +37,7 @@ export default class CustomerPaymentsBinder extends Binder<PaymentData, Payment>
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
     const { customerId, ...data } = parameters;
-    if (!checkId(customerId, 'customer')) {
-      throw new ApiError('The customer id is invalid');
-    }
+    assertWellFormedId(customerId, 'customer');
     return this.networkClient.post<PaymentData, Payment>(getPathSegments(customerId), data);
   }
 
@@ -53,9 +52,7 @@ export default class CustomerPaymentsBinder extends Binder<PaymentData, Payment>
   public page(parameters: PageParameters) {
     if (renege(this, this.page, ...arguments)) return;
     const { customerId, ...query } = parameters;
-    if (!checkId(customerId, 'customer')) {
-      throw new ApiError('The customer id is invalid');
-    }
+    assertWellFormedId(customerId, 'customer');
     return this.networkClient.page<PaymentData, Payment>(getPathSegments(customerId), 'payments', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
@@ -67,9 +64,7 @@ export default class CustomerPaymentsBinder extends Binder<PaymentData, Payment>
    */
   public iterate(parameters: IterateParameters) {
     const { customerId, valuesPerMinute, ...query } = parameters;
-    if (!checkId(customerId, 'customer')) {
-      throw new ApiError('The customer id is invalid');
-    }
+    assertWellFormedId(customerId, 'customer');
     return this.networkClient.iterate<PaymentData, Payment>(getPathSegments(customerId), 'payments', query, valuesPerMinute);
   }
 }

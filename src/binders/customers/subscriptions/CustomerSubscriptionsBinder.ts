@@ -2,8 +2,8 @@ import type TransformingNetworkClient from '../../../communication/TransformingN
 import type Page from '../../../data/page/Page';
 import { type SubscriptionData } from '../../../data/subscriptions/data';
 import type Subscription from '../../../data/subscriptions/Subscription';
-import ApiError from '../../../errors/ApiError';
-import checkId from '../../../plumbing/checkId';
+import alias from '../../../plumbing/alias';
+import assertWellFormedId from '../../../plumbing/assertWellFormedId';
 import renege from '../../../plumbing/renege';
 import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
@@ -16,6 +16,7 @@ function getPathSegments(customerId: string) {
 export default class CustomerSubscriptionsBinder extends Binder<SubscriptionData, Subscription> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    alias(this, { page: ['all', 'list'], cancel: 'delete' });
   }
 
   /**
@@ -39,9 +40,7 @@ export default class CustomerSubscriptionsBinder extends Binder<SubscriptionData
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
     const { customerId, ...data } = parameters;
-    if (!checkId(customerId, 'customer')) {
-      throw new ApiError('The customer id is invalid');
-    }
+    assertWellFormedId(customerId, 'customer');
     return this.networkClient.post<SubscriptionData, Subscription>(getPathSegments(customerId), data);
   }
 
@@ -55,13 +54,9 @@ export default class CustomerSubscriptionsBinder extends Binder<SubscriptionData
   public get(id: string, parameters: GetParameters, callback: Callback<Subscription>): void;
   public get(id: string, parameters: GetParameters) {
     if (renege(this, this.get, ...arguments)) return;
-    if (!checkId(id, 'subscription')) {
-      throw new ApiError('The subscription id is invalid');
-    }
+    assertWellFormedId(id, 'subscription');
     const { customerId, ...query } = parameters;
-    if (!checkId(customerId, 'customer')) {
-      throw new ApiError('The customer id is invalid');
-    }
+    assertWellFormedId(customerId, 'customer');
     return this.networkClient.get<SubscriptionData, Subscription>(`${getPathSegments(customerId)}/${id}`, query);
   }
 
@@ -76,9 +71,7 @@ export default class CustomerSubscriptionsBinder extends Binder<SubscriptionData
   public page(parameters: PageParameters) {
     if (renege(this, this.page, ...arguments)) return;
     const { customerId, ...query } = parameters;
-    if (!checkId(customerId, 'customer')) {
-      throw new ApiError('The customer id is invalid');
-    }
+    assertWellFormedId(customerId, 'customer');
     return this.networkClient.page<SubscriptionData, Subscription>(getPathSegments(customerId), 'subscriptions', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
@@ -90,9 +83,7 @@ export default class CustomerSubscriptionsBinder extends Binder<SubscriptionData
    */
   public iterate(parameters: IterateParameters) {
     const { customerId, valuesPerMinute, ...query } = parameters;
-    if (!checkId(customerId, 'customer')) {
-      throw new ApiError('The customer id is invalid');
-    }
+    assertWellFormedId(customerId, 'customer');
     return this.networkClient.iterate<SubscriptionData, Subscription>(getPathSegments(customerId), 'subscriptions', query, valuesPerMinute);
   }
 
@@ -108,13 +99,9 @@ export default class CustomerSubscriptionsBinder extends Binder<SubscriptionData
   public update(id: string, parameters: UpdateParameters, callback: Callback<Subscription>): void;
   public update(id: string, parameters: UpdateParameters) {
     if (renege(this, this.update, ...arguments)) return;
-    if (!checkId(id, 'subscription')) {
-      throw new ApiError('The subscription id is invalid');
-    }
+    assertWellFormedId(id, 'subscription');
     const { customerId, ...data } = parameters;
-    if (!checkId(customerId, 'customer')) {
-      throw new ApiError('The customer is invalid');
-    }
+    assertWellFormedId(customerId, 'customer');
     return this.networkClient.patch<SubscriptionData, Subscription>(`${getPathSegments(customerId)}/${id}`, data);
   }
 
@@ -128,13 +115,9 @@ export default class CustomerSubscriptionsBinder extends Binder<SubscriptionData
   public cancel(id: string, parameters: CancelParameters, callback: Callback<Subscription>): void;
   public cancel(id: string, parameters: CancelParameters) {
     if (renege(this, this.cancel, ...arguments)) return;
-    if (!checkId(id, 'subscription')) {
-      throw new ApiError('The subscription id is invalid');
-    }
+    assertWellFormedId(id, 'subscription');
     const { customerId, ...context } = parameters;
-    if (!checkId(customerId, 'customer')) {
-      throw new ApiError('The customer is invalid');
-    }
+    assertWellFormedId(customerId, 'customer');
     return this.networkClient.delete<SubscriptionData, Subscription>(`${getPathSegments(customerId)}/${id}`, context);
   }
 }

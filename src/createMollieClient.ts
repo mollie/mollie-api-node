@@ -1,9 +1,12 @@
 // Lib
+import { apply } from 'ruply';
 import { version as libraryVersion } from '../package.json';
 import caCertificates from './cacert.pem';
 import NetworkClient from './communication/NetworkClient';
 import TransformingNetworkClient, { Transformers } from './communication/TransformingNetworkClient';
+import { checkCredentials } from './Options';
 import type Options from './Options';
+import alias from './plumbing/alias';
 
 // Transformers
 import { transform as transformPayment } from './data/payments/Payment';
@@ -58,7 +61,7 @@ import SettlementChargebacksBinder from './binders/settlements/chargebacks/Settl
 import SettlementsBinder from './binders/settlements/SettlementsBinder';
 import SubscriptionsBinder from './binders/subscriptions/SubscriptionsBinder';
 import SubscriptionPaymentsBinder from './binders/subscriptions/payments/SubscriptionPaymentsBinder';
-import TerminalsBinder from "./binders/terminals/TerminalsBinder";
+import TerminalsBinder from './binders/terminals/TerminalsBinder';
 
 /**
  * Create Mollie client.
@@ -72,9 +75,7 @@ export default function createMollieClient(options: Options) {
     );
   }
 
-  if (!options.apiKey && !options.accessToken) {
-    throw new TypeError('Missing parameter "apiKey" or "accessToken".');
-  }
+  checkCredentials(options);
 
   const networkClient = new NetworkClient({ ...options, libraryVersion, nodeVersion: process.version, caCertificates });
 
@@ -101,87 +102,103 @@ export default function createMollieClient(options: Options) {
       .add('terminal', transformTerminal),
   );
 
-  return {
-    // Payments.
-    payments: new PaymentsBinder(transformingNetworkClient),
+  return apply(
+    {
+      // Payments.
+      payments: new PaymentsBinder(transformingNetworkClient),
 
-    // Methods.
-    methods: new MethodsBinder(transformingNetworkClient),
+      // Methods.
+      methods: new MethodsBinder(transformingNetworkClient),
 
-    // Refunds.
-    refunds: new RefundsBinder(transformingNetworkClient),
-    paymentRefunds: new PaymentRefundsBinder(transformingNetworkClient),
+      // Refunds.
+      refunds: new RefundsBinder(transformingNetworkClient),
+      paymentRefunds: new PaymentRefundsBinder(transformingNetworkClient),
 
-    // Chargebacks.
-    chargebacks: new ChargebacksBinder(transformingNetworkClient),
-    paymentChargebacks: new PaymentChargebacksBinder(transformingNetworkClient),
+      // Chargebacks.
+      chargebacks: new ChargebacksBinder(transformingNetworkClient),
+      paymentChargebacks: new PaymentChargebacksBinder(transformingNetworkClient),
 
-    // Captures.
-    paymentCaptures: new PaymentCapturesBinder(transformingNetworkClient),
+      // Captures.
+      paymentCaptures: new PaymentCapturesBinder(transformingNetworkClient),
 
-    // Customers.
-    customers: new CustomersBinder(transformingNetworkClient),
-    customerPayments: new CustomerPaymentsBinder(transformingNetworkClient),
+      // Customers.
+      customers: new CustomersBinder(transformingNetworkClient),
+      customerPayments: new CustomerPaymentsBinder(transformingNetworkClient),
 
-    // Mandates.
-    customerMandates: new CustomerMandatesBinder(transformingNetworkClient),
+      // Mandates.
+      customerMandates: new CustomerMandatesBinder(transformingNetworkClient),
 
-    // Subscriptions.
-    subscription: new SubscriptionsBinder(transformingNetworkClient),
-    subscriptionPayments: new SubscriptionPaymentsBinder(transformingNetworkClient),
-    customerSubscriptions: new CustomerSubscriptionsBinder(transformingNetworkClient),
+      // Subscriptions.
+      subscription: new SubscriptionsBinder(transformingNetworkClient),
+      subscriptionPayments: new SubscriptionPaymentsBinder(transformingNetworkClient),
+      customerSubscriptions: new CustomerSubscriptionsBinder(transformingNetworkClient),
 
-    // Orders.
-    orders: new OrdersBinder(transformingNetworkClient),
-    orderRefunds: new OrderRefundsBinder(transformingNetworkClient),
-    orderLines: new OrderLinesBinder(transformingNetworkClient),
-    orderPayments: new OrderPaymentsBinder(transformingNetworkClient),
+      // Orders.
+      orders: new OrdersBinder(transformingNetworkClient),
+      orderRefunds: new OrderRefundsBinder(transformingNetworkClient),
+      orderLines: new OrderLinesBinder(transformingNetworkClient),
+      orderPayments: new OrderPaymentsBinder(transformingNetworkClient),
 
-    // Shipments.
-    orderShipments: new OrderShipmentsBinder(transformingNetworkClient),
+      // Shipments.
+      orderShipments: new OrderShipmentsBinder(transformingNetworkClient),
 
-    // Permissions.
-    permissions: new PermissionsBinder(transformingNetworkClient),
+      // Permissions.
+      permissions: new PermissionsBinder(transformingNetworkClient),
 
-    // Organizations.
-    organizations: new OrganizationsBinder(transformingNetworkClient),
+      // Organizations.
+      organizations: new OrganizationsBinder(transformingNetworkClient),
 
-    // Profiles.
-    profiles: new ProfilesBinder(transformingNetworkClient),
-    profileMethods: new ProfileMethodsBinder(transformingNetworkClient),
-    profileGiftcardIssuers: new ProfileGiftcardIssuersBinder(transformingNetworkClient),
-    profileVoucherIssuers: new ProfileVoucherIssuersBinder(transformingNetworkClient),
+      // Profiles.
+      profiles: new ProfilesBinder(transformingNetworkClient),
+      profileMethods: new ProfileMethodsBinder(transformingNetworkClient),
+      profileGiftcardIssuers: new ProfileGiftcardIssuersBinder(transformingNetworkClient),
+      profileVoucherIssuers: new ProfileVoucherIssuersBinder(transformingNetworkClient),
 
-    // Onboarding.
-    onboarding: new OnboardingBinder(transformingNetworkClient),
+      // Onboarding.
+      onboarding: new OnboardingBinder(transformingNetworkClient),
 
-    // Apple Pay.
-    applePay: new ApplePayBinder(networkClient),
+      // Apple Pay.
+      applePay: new ApplePayBinder(networkClient),
 
-    // Payment links.
-    paymentLinks: new PaymentLinksBinder(transformingNetworkClient),
+      // Payment links.
+      paymentLinks: new PaymentLinksBinder(transformingNetworkClient),
 
-    // Settlements
-    settlements: new SettlementsBinder(transformingNetworkClient),
-    settlementPayments: new SettlementPaymentsBinder(transformingNetworkClient),
-    settlementCaptures: new SettlementCapturesBinder(transformingNetworkClient),
-    settlementRefunds: new SettlementRefundsBinder(transformingNetworkClient),
-    settlementChargebacks: new SettlementChargebacksBinder(transformingNetworkClient),
+      // Settlements
+      settlements: new SettlementsBinder(transformingNetworkClient),
+      settlementPayments: new SettlementPaymentsBinder(transformingNetworkClient),
+      settlementCaptures: new SettlementCapturesBinder(transformingNetworkClient),
+      settlementRefunds: new SettlementRefundsBinder(transformingNetworkClient),
+      settlementChargebacks: new SettlementChargebacksBinder(transformingNetworkClient),
 
-    // Terminals
-    terminals: new TerminalsBinder(transformingNetworkClient)
-  };
+      // Terminals
+      terminals: new TerminalsBinder(transformingNetworkClient),
+    },
+    client =>
+      alias(client, {
+        paymentRefunds: 'payments_refunds',
+        paymentChargebacks: 'payments_chargebacks',
+        paymentCaptures: 'payments_captures',
+        customerPayments: 'customers_payments',
+        customerMandates: 'customers_mandates',
+        subscriptionPayments: 'subscriptions_payments',
+        customerSubscriptions: 'customers_subscriptions',
+        orderRefunds: 'orders_refunds',
+        orderLines: 'orders_lines',
+        orderPayments: 'orders_payments',
+        orderShipments: 'orders_shipments',
+      }),
+  );
 }
 
 export { createMollieClient };
 
 export { ApiMode, Locale, PaymentMethod, HistoricPaymentMethod, SequenceType } from './data/global';
-export { CaptureEmbed } from './data/payments/captures/data';
+export { CaptureStatus, CaptureInclude } from './data/payments/captures/data';
 export { MandateMethod, MandateStatus } from './data/customers/mandates/data';
 export { MethodImageSize, MethodInclude } from './data/methods/data';
 export { OrderEmbed, OrderStatus } from './data/orders/data';
 export { OrderLineType } from './data/orders/orderlines/OrderLine';
-export { PaymentEmbed, PaymentStatus } from './data/payments/data';
+export { PaymentEmbed, PaymentInclude, PaymentStatus, CaptureMethod, PaymentLineType, PaymentLineCategory, RoutingType } from './data/payments/data';
 export { RefundEmbed, RefundStatus } from './data/refunds/data';
 export { SubscriptionStatus } from './data/subscriptions/data';
 export { ProfileStatus } from './data/profiles/data';

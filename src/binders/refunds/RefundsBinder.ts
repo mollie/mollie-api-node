@@ -2,6 +2,7 @@ import type TransformingNetworkClient from '../../communication/TransformingNetw
 import type Page from '../../data/page/Page';
 import { type RefundData } from '../../data/refunds/data';
 import type Refund from '../../data/refunds/Refund';
+import alias from '../../plumbing/alias';
 import renege from '../../plumbing/renege';
 import type Callback from '../../types/Callback';
 import Binder from '../Binder';
@@ -12,6 +13,7 @@ const pathSegment = 'refunds';
 export default class RefundsBinder extends Binder<RefundData, Refund> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    alias(this, { page: ['all', 'list'] });
   }
 
   /**

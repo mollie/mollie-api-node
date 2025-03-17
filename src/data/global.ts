@@ -23,26 +23,38 @@ export enum Locale {
 }
 
 export enum PaymentMethod {
+  alma = 'alma',
   applepay = 'applepay',
+  bacs = 'bacs',
+  bancomatpay = 'bancomatpay',
   bancontact = 'bancontact',
   banktransfer = 'banktransfer',
   belfius = 'belfius',
+  billie = 'billie',
+  blik = 'blik',
   creditcard = 'creditcard',
   directdebit = 'directdebit',
   eps = 'eps',
   giftcard = 'giftcard',
-  giropay = 'giropay',
   ideal = 'ideal',
   in3 = 'in3',
   kbc = 'kbc',
+  klarna = 'klarna',
   klarnapaylater = 'klarnapaylater',
   klarnapaynow = 'klarnapaynow',
   klarnasliceit = 'klarnasliceit',
+  mbway = 'mbway',
+  multibanco = 'multibanco',
   mybank = 'mybank',
+  payconiq = 'payconiq',
   paypal = 'paypal',
   paysafecard = 'paysafecard',
+  pointofsale = 'pointofsale',
   przelewy24 = 'przelewy24',
-  sofort = 'sofort',
+  riverty = 'riverty',
+  satispay = 'satispay',
+  trustly = 'trustly',
+  twint = 'twint',
   voucher = 'voucher',
   pointofsale = 'pointofsale'
 }
@@ -50,6 +62,8 @@ export enum PaymentMethod {
 export enum HistoricPaymentMethod {
   bitcoin = 'bitcoin',
   inghomepay = 'inghomepay',
+  giropay = 'giropay',
+  sofort = 'sofort',
 }
 
 export enum ApiMode {
@@ -74,6 +88,24 @@ export interface Amount {
 
 export interface Address {
   /**
+   * The title of the person, for example _Mr._ or _Mrs._.
+   *
+   * @see https://docs.mollie.com/overview/common-data-types?path=title#address-object
+   */
+  title?: string;
+  /**
+   * The given name (first name) of the person should be more than 1 character and cannot contain only numbers.
+   *
+   * @see https://docs.mollie.com/overview/common-data-types?path=givenName#address-object
+   */
+  givenName?: string;
+  /**
+   * The family name (surname) of the person should be more than 1 character and cannot contain only numbers.
+   *
+   * @see https://docs.mollie.com/overview/common-data-types?path=familyName#address-object
+   */
+  familyName?: string;
+  /**
    * The street and street number of the address.
    *
    * @see https://docs.mollie.com/overview/common-data-types?path=streetAndNumber#address-object
@@ -93,7 +125,13 @@ export interface Address {
    *
    * @see https://docs.mollie.com/overview/common-data-types?path=postalCode#address-object
    */
-  postalCode: string;
+  postalCode?: string;
+  /**
+   * The customer's email address.
+   *
+   * @see https://docs.mollie.com/overview/common-data-types?path=email#address-object
+   */
+  email?: string;
   /**
    * The city of the address.
    *
@@ -102,6 +140,8 @@ export interface Address {
   city: string;
   /**
    * The region of the address.
+   *
+   * For certain PayPal payments the `region` field is required.
    *
    * @see https://docs.mollie.com/overview/common-data-types?path=region#address-object
    */

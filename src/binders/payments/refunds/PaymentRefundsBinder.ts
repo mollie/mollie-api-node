@@ -2,8 +2,8 @@ import type TransformingNetworkClient from '../../../communication/TransformingN
 import type Page from '../../../data/page/Page';
 import { type RefundData } from '../../../data/refunds/data';
 import type Refund from '../../../data/refunds/Refund';
-import ApiError from '../../../errors/ApiError';
-import checkId from '../../../plumbing/checkId';
+import alias from '../../../plumbing/alias';
+import assertWellFormedId from '../../../plumbing/assertWellFormedId';
 import renege from '../../../plumbing/renege';
 import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
@@ -16,6 +16,7 @@ function getPathSegments(paymentId: string) {
 export default class PaymentRefundsBinder extends Binder<RefundData, Refund> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    alias(this, { page: ['all', 'list'], cancel: 'delete' });
   }
 
   /**
@@ -29,9 +30,7 @@ export default class PaymentRefundsBinder extends Binder<RefundData, Refund> {
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
     const { paymentId, ...data } = parameters;
-    if (!checkId(paymentId, 'payment')) {
-      throw new ApiError('The payment id is invalid');
-    }
+    assertWellFormedId(paymentId, 'payment');
     return this.networkClient.post<RefundData, Refund>(getPathSegments(paymentId), data);
   }
 
@@ -47,13 +46,9 @@ export default class PaymentRefundsBinder extends Binder<RefundData, Refund> {
   public get(id: string, parameters: GetParameters, callback: Callback<Refund>): void;
   public get(id: string, parameters: GetParameters) {
     if (renege(this, this.get, ...arguments)) return;
-    if (!checkId(id, 'refund')) {
-      throw new ApiError('The payments_refund id is invalid');
-    }
+    assertWellFormedId(id, 'refund');
     const { paymentId, ...query } = parameters;
-    if (!checkId(paymentId, 'payment')) {
-      throw new ApiError('The payment id is invalid');
-    }
+    assertWellFormedId(paymentId, 'payment');
     return this.networkClient.get<RefundData, Refund>(`${getPathSegments(paymentId)}/${id}`, query);
   }
 
@@ -70,9 +65,7 @@ export default class PaymentRefundsBinder extends Binder<RefundData, Refund> {
   public page(parameters: PageParameters) {
     if (renege(this, this.page, ...arguments)) return;
     const { paymentId, ...query } = parameters;
-    if (!checkId(paymentId, 'payment')) {
-      throw new ApiError('The payment id is invalid');
-    }
+    assertWellFormedId(paymentId, 'payment');
     return this.networkClient.page<RefundData, Refund>(getPathSegments(paymentId), 'refunds', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
@@ -86,9 +79,7 @@ export default class PaymentRefundsBinder extends Binder<RefundData, Refund> {
    */
   public iterate(parameters: IterateParameters) {
     const { paymentId, valuesPerMinute, ...query } = parameters;
-    if (!checkId(paymentId, 'payment')) {
-      throw new ApiError('The payment id is invalid');
-    }
+    assertWellFormedId(paymentId, 'payment');
     return this.networkClient.iterate<RefundData, Refund>(getPathSegments(paymentId), 'refunds', query, valuesPerMinute);
   }
 
@@ -105,13 +96,9 @@ export default class PaymentRefundsBinder extends Binder<RefundData, Refund> {
   public cancel(id: string, parameters: CancelParameters, callback: Callback<Promise<true>>): void;
   public cancel(id: string, parameters: CancelParameters) {
     if (renege(this, this.cancel, ...arguments)) return;
-    if (!checkId(id, 'refund')) {
-      throw new ApiError('The payments_refund id is invalid');
-    }
+    assertWellFormedId(id, 'refund');
     const { paymentId, ...context } = parameters;
-    if (!checkId(paymentId, 'payment')) {
-      throw new ApiError('The payment id is invalid');
-    }
+    assertWellFormedId(paymentId, 'payment');
     return this.networkClient.delete<RefundData, true>(`${getPathSegments(paymentId)}/${id}`, context);
   }
 }

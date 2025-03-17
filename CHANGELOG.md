@@ -1,8 +1,38 @@
-![Mollie](https://www.mollie.com/files/Mollie-Logo-Style-Small.png)
+![Mollie](https://github.com/user-attachments/assets/2236d7d8-d5b6-4d1c-bb76-390d5e96db00)
+
 
 ### Changelog
 
-All notable changes to this project will be documented in this file.
+Please see [the migration guide](MIGRATION.md) for guidance about updating to a newer major version.
+
+### v4.2.0 - 2025-03-03
+  - Updated Interface Types to include new payment parameters ([#402](https://github.com/mollie/mollie-api-node/pull/402))
+  - Fix: `order.getPayments()` did not work ([#401](https://github.com/mollie/mollie-api-node/pull/401))
+  - Fix: `paymentChargebacks.get()` did not work ([#400](https://github.com/mollie/mollie-api-node/pull/400))
+  - Fix: `payment.isRefundable` did not work, but was also deprectated in favour of `canBeRefunded` ([#403](https://github.com/mollie/mollie-api-node/pull/403))
+  - Fix: returned links with search parameters, broke iterations ([#405](https://github.com/mollie/mollie-api-node/pull/405))
+
+### v4.1.0 - 2024-10-03
+  - Extend captures API ([#371](https://github.com/mollie/mollie-api-node/pull/371))
+  - Update documentation ([#380](https://github.com/mollie/mollie-api-node/pull/380))
+
+### v4.0.0 - 2024-09-19
+  - Replace Axios dependency in favour of [fetch](https://developer.mozilla.org/docs/Web/API/fetch) ([#358](https://github.com/mollie/mollie-api-node/pull/358))
+  - Add `cancelUrl` and `getDashboardUrl` to payments and orders ([#327](https://github.com/mollie/mollie-api-node/pull/327)/[#373](https://github.com/mollie/mollie-api-node/pull/373))
+  - Add `status` and `issuers` to methods and update `pricing` ([#335](https://github.com/mollie/mollie-api-node/pull/335)/[#374](https://github.com/mollie/mollie-api-node/pull/374))
+  - Update and export `PaymentInclude` ([#370](https://github.com/mollie/mollie-api-node/pull/370))
+  - Update payment methods ([#376](https://github.com/mollie/mollie-api-node/pull/376))
+  - Change type of `metadata` (from `any`) to `unknown` ([#367](https://github.com/mollie/mollie-api-node/pull/367))
+  - Change return type of functions to plain arrays or iterators, depending on whether the represented list is paginated ([#322](https://github.com/mollie/mollie-api-node/pull/322))
+  - Bump Node.js requirement to 14
+  - Remove snake case properties, e.g. `customers_payments` ([#314](https://github.com/mollie/mollie-api-node/pull/314)/[#353](https://github.com/mollie/mollie-api-node/pull/353))
+  - Remove endpoint aliases, e.g. `delete` intead of `cancel` ([#315](https://github.com/mollie/mollie-api-node/pull/315)/[#353](https://github.com/mollie/mollie-api-node/pull/353))
+  - Remove predictable helper functions ([#364](https://github.com/mollie/mollie-api-node/pull/364))
+  - Remove fields from `ApiError` ([#363](https://github.com/mollie/mollie-api-node/pull/363))
+  - Remove `count` from pages ([#365](https://github.com/mollie/mollie-api-node/pull/365))
+  - Remove `withParent` ([#323](https://github.com/mollie/mollie-api-node/pull/323))
+  - Remove `toPlainObject` ([#362](https://github.com/mollie/mollie-api-node/pull/362))
+  - Remove `Object.entries` polyfill ([#352](https://github.com/mollie/mollie-api-node/pull/352))
 
 ### v3.7.0 - 2023-03-08
 

@@ -1,24 +1,19 @@
+import breakUrl from '../../../communication/breakUrl';
 import type TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
 import renege from '../../../plumbing/renege';
 import type Callback from '../../../types/Callback';
 import Helper from '../../Helper';
 import type Customer from '../Customer';
 import { type CustomerData } from '../Customer';
-import { MandateStatus, type MandateData } from './data';
+import { type MandateData } from './data';
 import type Mandate from './Mandate';
 
 export default class MandateHelper extends Helper<MandateData, Mandate> {
-  constructor(networkClient: TransformingNetworkClient, protected readonly links: MandateData['_links']) {
+  constructor(
+    networkClient: TransformingNetworkClient,
+    protected readonly links: MandateData['_links'],
+  ) {
     super(networkClient, links);
-  }
-
-  /**
-   * Returns whether the mandate is valid.
-   *
-   * @deprecated Use `mandate.status == MandateStatus.valid` instead.
-   */
-  public isValid(this: MandateData): boolean {
-    return this.status === MandateStatus.valid;
   }
 
   /**
@@ -30,6 +25,6 @@ export default class MandateHelper extends Helper<MandateData, Mandate> {
   public getCustomer(callback: Callback<Customer>): void;
   public getCustomer() {
     if (renege(this, this.getCustomer, ...arguments)) return;
-    return this.networkClient.get<CustomerData, Customer>(this.links.customer.href);
+    return this.networkClient.get<CustomerData, Customer>(...breakUrl(this.links.customer.href));
   }
 }

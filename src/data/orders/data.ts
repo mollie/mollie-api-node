@@ -105,7 +105,7 @@ export interface OrderData extends Model<'order'> {
    *
    * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=metadata#response
    */
-  metadata?: any;
+  metadata: unknown;
   /**
    * The URL your customer will be redirected to after completing or canceling the payment process.
    *
@@ -202,6 +202,12 @@ export interface OrderLinks extends Links {
    * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=_links/checkout#response
    */
   checkout?: Url;
+  /**
+   * Direct link to the order in the Mollie Dashboard.
+   *
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=_links/dashboard#response
+   */
+  dashboard: Url;
 }
 
 export enum OrderStatus {
@@ -216,12 +222,18 @@ export enum OrderStatus {
 }
 
 export interface OrderAddress extends Address {
-  organizationName?: string;
-  title?: string;
-  givenName: string;
-  familyName: string;
-  email: string;
-  phone?: string;
+  /**
+   * The name of the organization, in case the addressee is an organization.
+   *
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=organizationName#response
+   */
+  organizationName: string;
+  /**
+   * If provided, it must be in the [E.164](https://en.wikipedia.org/wiki/E.164) format. For example: +31208202070.
+   *
+   * @see https://docs.mollie.com/reference/v2/orders-api/get-order?path=phone#response
+   */
+  phone: string;
 }
 
 export enum OrderEmbed {

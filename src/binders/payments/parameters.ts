@@ -1,11 +1,26 @@
-import { type Address, type Amount, type PaymentMethod } from '../../data/global';
-import { type Issuer } from '../../data/Issuer';
+import { type Amount, type PaymentMethod } from '../../data/global';
 import { type PaymentData, type PaymentEmbed, type PaymentInclude } from '../../data/payments/data';
+import type MaybeArray from '../../types/MaybeArray';
 import { type IdempotencyParameter, type PaginationParameters, type ThrottlingParameter } from '../../types/parameters';
 import type PickOptional from '../../types/PickOptional';
 
-export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'redirectUrl' | 'cancelUrl' | 'webhookUrl' | 'customerId' | 'mandateId'> &
-  PickOptional<PaymentData, 'locale' | 'metadata' | 'sequenceType'> & {
+export type CreateParameters = Pick<
+  PaymentData,
+  | 'amount'
+  | 'description'
+  | 'redirectUrl'
+  | 'cancelUrl'
+  | 'webhookUrl'
+  | 'customerId'
+  | 'mandateId'
+  | 'lines'
+  | 'shippingAddress'
+  | 'billingAddress'
+  | 'routing'
+  | 'issuer'
+  | 'restrictPaymentMethodsToCountry'
+> &
+  PickOptional<PaymentData, 'locale' | 'metadata' | 'sequenceType' | 'captureMode' | 'captureDelay'> & {
     /**
      * Normally, a payment method screen is shown. However, when using this parameter, you can choose a specific payment method and your customer will skip the selection screen and is sent directly to
      * the chosen payment method. The parameter enables you to fully integrate the payment method selection into your website.
@@ -17,7 +32,7 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
      *
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=method#parameters
      */
-    method?: PaymentMethod | PaymentMethod[];
+    method?: MaybeArray<PaymentMethod>;
     /**
      * For digital goods in most jurisdictions, you must apply the VAT rate from your customer's country. Choose the VAT rates you have used for the order to ensure your customer's country matches the
      * VAT country.
@@ -44,6 +59,9 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=applePayPaymentToken#apple-pay
      */
     applePayPaymentToken?: string;
+    /**
+     * @deprecated use billingAddress.email instead
+     */
     billingEmail?: string;
     /**
      * The date the payment should expire, in `YYYY-MM-DD` format. **Note:** the minimum date is tomorrow and the maximum date is 100 days after tomorrow.
@@ -54,26 +72,11 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
      */
     dueDate?: string;
     /**
-     * The card holder's address details. We advise to provide these details to improve the credit card fraud protection, and thus improve conversion.
-     *
-     * If an address is provided, then the address has to be in a valid format. See the address object documentation for more information on which formats are accepted.
-     *
-     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=billingAddress#credit-card
-     */
-    billingAddress?: Address;
-    /**
      * The card token you got from Mollie Components. The token contains the card information (such as card holder, card number, and expiry date) needed to complete the payment.
      *
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=cardToken#credit-card
      */
     cardToken?: string;
-    shippingAddress?: Address & {
-      // Note that this field is required for PayPal payments; but is disregarded for credit card payments.
-      givenName?: string;
-      // Note that this field is required for PayPal payments; but is disregarded for credit card payments.
-      familyName?: string;
-    };
-    issuer?: Issuer;
     /**
      * The unique identifier used for referring to a terminal. This ID is used for assigning the payment to a specific terminal and it can be retrieved via List terminals. For more information about
      * point-of-sale payments, please check our guide point-of-sale payments.
@@ -139,7 +142,13 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=consumerAccount#sepa-direct-debit
      */
     consumerAccount?: string;
-    include?: PaymentInclude[] | PaymentInclude;
+    /**
+     * This endpoint allows you to include additional information via the `include` query string parameter.
+     * * `details.qrCode`: Include a QR code object. Only available for iDEAL, Bancontact and bank transfer payments.
+     *
+     * __Note:__ In the REST API, this is not part of the request body, but a query Parameter. It is included here for consistency.
+     */
+    include?: MaybeArray<PaymentInclude.qrCode>; // currently only one valid value, but making 'MaybeArray' for consistency
     profileId?: string;
     testmode?: boolean;
     /**
@@ -169,13 +178,12 @@ export type CreateParameters = Pick<PaymentData, 'amount' | 'description' | 'red
   } & IdempotencyParameter;
 
 export interface GetParameters {
-  include?: PaymentInclude;
-  embed?: PaymentEmbed[] | PaymentEmbed;
+  include?: MaybeArray<PaymentInclude>;
+  embed?: MaybeArray<PaymentEmbed>;
   testmode?: boolean;
 }
 
 export type PageParameters = PaginationParameters & {
-  profileId?: string;
   testmode?: boolean;
 };
 

@@ -1,6 +1,8 @@
 import { runIf } from 'ruply';
 import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import breakUrl from '../../communication/breakUrl';
 import renege from '../../plumbing/renege';
+import resolveIf from '../../plumbing/resolveIf';
 import undefinedPromise from '../../plumbing/undefinedPromise';
 import type Callback from '../../types/Callback';
 import type Maybe from '../../types/Maybe';
@@ -10,57 +12,15 @@ import { type OrderData } from '../orders/data';
 import type Payment from '../payments/Payment';
 import { type PaymentData } from '../payments/data';
 import type Refund from './Refund';
-import { type RefundData, RefundStatus } from './data';
-import resolveIf from '../../plumbing/resolveIf';
+import { type RefundData } from './data';
 
 export default class RefundHelper extends Helper<RefundData, Refund> {
-  constructor(networkClient: TransformingNetworkClient, protected readonly links: RefundData['_links'], protected readonly embedded: RefundData['_embedded']) {
+  constructor(
+    networkClient: TransformingNetworkClient,
+    protected readonly links: RefundData['_links'],
+    protected readonly embedded: RefundData['_embedded'],
+  ) {
     super(networkClient, links);
-  }
-
-  /**
-   * Returns whether the refund is queued due to a lack of balance. A queued refund can be canceled.
-   *
-   * @deprecated Use `refund.status == RefundStatus.queued` instead.
-   */
-  public isQueued(this: RefundData): boolean {
-    return this.status === RefundStatus.queued;
-  }
-
-  /**
-   * Returns whether the refund is ready to be sent to the bank. You can still cancel the refund if you like.
-   *
-   * @deprecated Use `refund.status == RefundStatus.pending` instead.
-   */
-  public isPending(this: RefundData): boolean {
-    return this.status === RefundStatus.pending;
-  }
-
-  /**
-   * Returns whether the refund is being processed. Cancellation is no longer possible if so.
-   *
-   * @deprecated Use `refund.status == RefundStatus.processing` instead.
-   */
-  public isProcessing(this: RefundData): boolean {
-    return this.status === RefundStatus.processing;
-  }
-
-  /**
-   * Returns whether the refund has been settled to your customer.
-   *
-   * @deprecated Use `refund.status == RefundStatus.refunded` instead.
-   */
-  public isRefunded(this: RefundData): boolean {
-    return this.status === RefundStatus.refunded;
-  }
-
-  /**
-   * Returns whether the refund has failed after processing.
-   *
-   * @deprecated Use `refund.status == RefundStatus.failed` instead.
-   */
-  public isFailed(this: RefundData): boolean {
-    return this.status === RefundStatus.failed;
   }
 
   /**
@@ -72,7 +32,7 @@ export default class RefundHelper extends Helper<RefundData, Refund> {
   public getPayment(callback: Callback<Array<Payment>>): void;
   public getPayment() {
     if (renege(this, this.getPayment, ...arguments)) return;
-    return resolveIf(this.embedded?.payment) ?? this.networkClient.get<PaymentData, Payment>(this.links.payment.href);
+    return resolveIf(this.embedded?.payment) ?? this.networkClient.get<PaymentData, Payment>(...breakUrl(this.links.payment.href));
   }
 
   /**
@@ -84,6 +44,12 @@ export default class RefundHelper extends Helper<RefundData, Refund> {
   public getOrder(callback: Callback<Maybe<Order>>): void;
   public getOrder() {
     if (renege(this, this.getOrder, ...arguments)) return;
-    return runIf(this.links.order, ({ href }) => this.networkClient.get<OrderData, Order>(href)) ?? undefinedPromise;
+    return (
+      runIf(
+        this.links.order,
+        ({ href }) => breakUrl(href),
+        ([pathname, query]) => this.networkClient.get<OrderData, Order>(pathname, query),
+      ) ?? undefinedPromise
+    );
   }
 }

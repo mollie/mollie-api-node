@@ -4,9 +4,10 @@ import { type OrderLineData } from '../../data/orders/orderlines/OrderLine';
 import { type IdempotencyParameter, type PaginationParameters, type ThrottlingParameter } from '../../types/parameters';
 import { type CreateParameters as PaymentCreateParameters } from '../payments/parameters';
 import type PickOptional from '../../types/PickOptional';
+import type MaybeArray from '../../types/MaybeArray';
 
-export type CreateParameters = Pick<OrderData, 'amount' | 'orderNumber' | 'consumerDateOfBirth' | 'webhookUrl' | 'locale' | 'metadata' | 'expiresAt'> &
-  PickOptional<OrderData, 'billingAddress' | 'shippingAddress' | 'redirectUrl' | 'cancelUrl'> & {
+export type CreateParameters = Pick<OrderData, 'amount' | 'orderNumber' | 'consumerDateOfBirth' | 'webhookUrl' | 'locale' | 'expiresAt'> &
+  PickOptional<OrderData, 'billingAddress' | 'shippingAddress' | 'redirectUrl' | 'cancelUrl' | 'metadata'> & {
     /**
      * All order lines must have the same currency as the order. You cannot mix currencies within a single order.
      *
@@ -49,7 +50,7 @@ export type CreateParameters = Pick<OrderData, 'amount' | 'orderNumber' | 'consu
      *
      * @see https://docs.mollie.com/reference/v2/orders-api/create-order?path=method#parameters
      */
-    method?: PaymentMethod | PaymentMethod[];
+    method?: MaybeArray<PaymentMethod>;
     /**
      * Any payment specific properties (for example, the `dueDate` for bank transfer payments) can be passed here. See payment-parameters for the possible fields.
      *

@@ -1,9 +1,10 @@
-// If support for Node.js < 10.0.0 is ever dropped, this import can be removed.
+// The following line is only necessary for Node.js < 10.0.0, which we only secretly support. Should we ever drop that support completely, we can remove this import.
 import { URLSearchParams } from 'url';
 
 import { apply, runIf } from 'ruply';
-import getEntries from '../plumbing/getEntries';
+
 import type Maybe from '../types/Maybe';
+import type MaybeArray from '../types/MaybeArray';
 
 export type SearchParameters = Record<string, any>;
 
@@ -21,18 +22,18 @@ export type SearchParameters = Record<string, any>;
  *    `?object[key]=value`).
  */
 export default function buildUrl(originAndPathname: string, searchParameters?: SearchParameters): string {
-  const searchEntries = (runIf(searchParameters, getEntries) ?? []) as [string, Maybe<string | number | string[] | number[] | Record<string, string | number>>][];
+  const searchEntries = (runIf(searchParameters, Object.entries) ?? []) as [string, Maybe<string | number | string[] | number[] | Record<string, string | number>>][];
   if (searchEntries.length == 0) {
     return originAndPathname;
   }
   return `${originAndPathname}?${new URLSearchParams(
-    apply({} as Record<string, string | string[]>, flattenedEntries => {
+    apply({} as Record<string, MaybeArray<string>>, flattenedEntries => {
       for (const [key, value] of searchEntries) {
         if (value == undefined) {
           continue;
         }
         if (typeof value == 'object' && !Array.isArray(value)) {
-          for (const [innerKey, innerValue] of getEntries(value)) {
+          for (const [innerKey, innerValue] of Object.entries(value)) {
             flattenedEntries[`${key}[${innerKey}]`] = String(innerValue);
           }
         } /* if (typeof value != 'object' || Array.isArray(value)) */ else {

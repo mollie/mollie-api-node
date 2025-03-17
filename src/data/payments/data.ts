@@ -1,9 +1,23 @@
 import type Nullable from '../../types/Nullable';
 import { type ChargebackData } from '../chargebacks/Chargeback';
-import { type Address, type Amount, type ApiMode, type CardAudience, type CardFailureReason, type CardLabel, type FeeRegion, type HistoricPaymentMethod, type Links, type Locale, type PaymentMethod, type SequenceType, type Url } from '../global';
+import {
+  type Address,
+  type Amount,
+  type ApiMode,
+  type CardAudience,
+  type CardFailureReason,
+  type CardLabel,
+  type FeeRegion,
+  type HistoricPaymentMethod,
+  type Links,
+  type Locale,
+  type PaymentMethod,
+  type SequenceType,
+  type Url,
+} from '../global';
 import type Model from '../Model';
 import { type RefundData } from '../refunds/data';
-import { type CaptureData } from './captures/data'
+import { type CaptureData } from './captures/data';
 
 export interface PaymentData extends Model<'payment'> {
   /**
@@ -26,6 +40,27 @@ export interface PaymentData extends Model<'payment'> {
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=status#response
    */
   status: PaymentStatus;
+  /**
+   * This object offers details about the status of a payment. Currently it is only available for point-of-sale payments.
+   *
+   * You can find more information about the possible values of this object on [this page](https://docs.mollie.com/reference/status-reasons).
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=statusReason#response
+   */
+  statusReason?: {
+    /**
+     * A machine-readable code that indicates the reason for the payment's status.
+     *
+     * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=statusReason/code#response
+     */
+    code: string;
+    /**
+     * A description of the status reason, localized according to the payment `locale`.
+     *
+     * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=statusReason/message#response
+     */
+    message: string;
+  };
   /**
    * Whether or not the payment can be canceled. This parameter is omitted if the payment reaches a final state.
    *
@@ -132,6 +167,30 @@ export interface PaymentData extends Model<'payment'> {
    */
   webhookUrl?: string;
   /**
+   * Optionally provide the order lines for the payment. Each line contains details such as a description of the item ordered and its price.
+   *
+   * All lines must have the same currency as the payment.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines#response
+   */
+  lines?: PaymentLine[];
+  /**
+   * The customer's billing address details. We advise to provide these details to improve fraud protection and conversion.
+   *
+   * This is particularly relevant for card payments.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=billingAddress#response
+   */
+  billingAddress?: Address;
+  /**
+   * The customer's shipping address details. We advise to provide these details to improve fraud protection and conversion.
+   *
+   * This is particularly relevant for card payments.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=shippingAddress#response
+   */
+  shippingAddress?: Address;
+  /**
    * The payment method used for this payment, either forced on creation by specifying the `method` parameter, or chosen by the customer on our payment method selection screen.
    *
    * If the payment is only partially paid with a gift card, the method remains `giftcard`.
@@ -143,11 +202,69 @@ export interface PaymentData extends Model<'payment'> {
    */
   method?: PaymentMethod | HistoricPaymentMethod;
   /**
+   * **Only relevant for iDEAL, KBC/CBC, gift card, and voucher payments.**
+   *
+   * **⚠️ With the introduction of iDEAL 2 in 2025, this field will be ignored for iDEAL payments. For more information on the migration, refer to our [help center](https://help.mollie.com/hc/de/articles/19100313768338-iDEAL-2-0).**
+   *
+   * Some payment methods are a network of connected banks or card issuers. In these cases, after selecting the payment method, the customer may still need to select the appropriate issuer before the payment can proceed.
+   *
+   * We provide hosted issuer selection screens, but these screens can be skipped by providing the `issuer` via the API up front.
+   *
+   * The full list of issuers for a specific method can be retrieved via the Methods API by using the optional `issuers` include.
+   *
+   * A valid issuer for iDEAL is for example `ideal_INGBNL2A` (for ING Bank).
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=issuer#response
+   */
+  issuer?: string;
+  /**
+   * For digital goods in most jurisdictions, you must apply the VAT rate from your customer's country. Choose the VAT rates you have used for the order to ensure your customer's country matches the VAT country.
+   *
+   * Use this parameter to restrict the payment methods available to your customer to those from a single country.
+   *
+   * If available, the credit card method will still be offered, but only cards from the allowed country are accepted.
+   *
+   * The field expects a country code in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format, for example `NL`.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=restrictPaymentMethodsToCountry#response
+   */
+  restrictPaymentMethodsToCountry?: string;
+  /**
    * The optional metadata you provided upon payment creation. Metadata can for example be used to link an order to a payment.
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=metadata#response
    */
-  metadata: any;
+  metadata: unknown;
+  /**
+   * **Only relevant if you wish to manage authorization and capturing separately.**
+   *
+   * By default, the customer's card or bank account is immediately charged when they complete the payment.
+   *
+   * Some payment methods also allow placing a hold on the card or bank account. This hold or 'authorization' can then at a later point either be 'captured' or canceled.
+   *
+   * To enable this way of working, set the capture mode to `manual` and capture the payment manually using the `paymentCaptures.create` API.
+   */
+  captureMode?: CaptureMethod;
+  /**
+   * **Only relevant if you wish to manage authorization and capturing separately.**
+   *
+   * Some payment methods allow placing a hold on the card or bank account. This hold or 'authorization' can then at a later point either be 'captured' or canceled.
+   *
+   * By default, we charge the customer's card or bank account immediately when they complete the payment. If you set a capture delay however, we will delay the automatic capturing of the payment for the specified amount of time. For example `8 hours` or `2 days`.
+   *
+   * To schedule an automatic capture, the `captureMode` must be set to `automatic`.
+   *
+   * The maximum delay is 7 days (168 hours).
+   *
+   * Possible values: `... hours`, `... days`
+   */
+  captureDelay?: string;
+  /**
+   * **Only relevant if you wish to manage authorization and capturing separately.**
+   *
+   * Indicates the date before which the payment needs to be captured, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. From this date onwards we can no longer guarantee a successful capture. The parameter is omitted if the payment is not authorized (yet).
+   */
+  captureBefore?: string;
   /**
    * The customer's locale, either forced on creation by specifying the `locale` parameter, or detected by us during checkout. Will be a full locale, for example `nl_NL`.
    *
@@ -225,6 +342,22 @@ export interface PaymentData extends Model<'payment'> {
     amount: Amount;
     description: string;
   };
+  /**
+   * _This functionality is not enabled by default. Reach out to our partner management team if you wish to use it._
+   *
+   * With Mollie Connect you can charge fees on payments that your app is processing on behalf of other Mollie merchants.
+   *
+   * If you create payments on your own account that you want to split between yourself and one or more connected merchants, you can use this `routing` parameter to route the payment accordingly.
+   *
+   * The routing parameter should contain an array of objects, with each object describing the destination for a specific portion of the payment.
+   *
+   * It is not necessary to indicate in the array which portion goes to yourself. After all portions of the total payment amount have been routed, the amount left will be routed to the current organization automatically.
+   *
+   * If instead you use OAuth to create payments on a connected merchant's account, refer to the `applicationFee` parameter.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=routing#parameters
+   */
+  routing?: PaymentRoutingInfo[];
   /**
    * An object with several URL objects relevant to the payment. Every URL object will contain an `href` and a `type` field.
    *
@@ -325,6 +458,12 @@ interface PaymentLinks extends Links {
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/order#response
    */
   order?: Url;
+  /**
+   * Direct link to the payment in the Mollie Dashboard.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/dashboard#response
+   */
+  dashboard: Url;
 }
 
 export interface BancontactDetails {
@@ -434,6 +573,7 @@ export interface BankTransferDetails {
   /**
    * Only available if filled out in the API or by the consumer – The email address which the consumer asked the payment instructions to be sent to.
    *
+   * @deprecated use billingAddress.email instead
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/billingEmail#bank-transfer
    */
   billingEmail: string;
@@ -891,12 +1031,20 @@ export enum PaymentStatus {
   paid = 'paid',
 }
 
-export type PaymentInclude = 'details.qrCode';
+export enum PaymentInclude {
+  qrCode = 'details.qrCode',
+  remainderDetails = 'details.remainderDetails',
+}
 
 export enum PaymentEmbed {
   refunds = 'refunds',
   chargebacks = 'chargebacks',
   captures = 'captures',
+}
+
+export enum CaptureMethod {
+  automatic = 'automatic',
+  manual = 'manual',
 }
 
 export interface GiftCard {
@@ -918,4 +1066,207 @@ export interface GiftCard {
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/giftcards/voucherNumber#gift-cards
    */
   voucherNumber: string;
+}
+
+export interface PaymentLine {
+  /**
+   * The type of product purchased. For example, a physical or a digital product.
+   *
+   * The tip payment line type is not available when creating a payment.
+   *
+   * Possible values: `physical` `digital` `shipping_fee` `discount` `store_credit` `gift_card` `surcharge` `tip` (default: `physical`)
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/type#lines
+   */
+  type?: PaymentLineType;
+  /**
+   * A description of the line item. For example _LEGO 4440 Forest Police Station_.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/description#lines
+   */
+  description: string;
+  /**
+   * The number of items.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/quantity#lines
+   */
+  quantity: number;
+  /**
+   * The unit for the quantity. For example _pcs_, _kg_, or _cm_.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/quantityUnit#lines
+   */
+  quantityUnit?: string;
+  /**
+   *
+   * The price of a single item including VAT.
+   *
+   * For example: `{"currency":"EUR", "value":"89.00"}` if the box of LEGO costs €89.00 each.
+   *
+   * For types `discount`, `store_credit`, and `gift_card`, the unit price must be negative.
+   *
+   * The unit price can be zero in case of free items.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/unitPrice#lines
+   */
+  unitPrice: Amount;
+  /**
+   * Any line-specific discounts, as a positive amount. Not relevant if the line itself is already a discount type.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/discountAmount#lines
+   */
+  discountAmount?: Amount;
+  /**
+   * The details of subsequent recurring billing cycles.
+   *
+   * These parameters are used in the Mollie Checkout to inform the shopper of the details for recurring products in the payments.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/recurring#lines
+   */
+  recurring?: RecurringInfo;
+  /**
+   * The total amount of the line, including VAT and discounts.
+   *
+   * Should match the following formula: `(unitPrice × quantity) - discountAmount`.
+   *
+   * The sum of all `totalAmount` values of all order lines should be equal to the full payment amount.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/totalAmount#lines
+   */
+  totalAmount: Amount;
+  /**
+   * The VAT rate applied to the line, for example `21.00` for 21%.
+   *
+   * The vatRate should be passed as a string and not as a float, to ensure the correct number of decimals are passed.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/vatRate#lines
+   */
+  vatRate?: string;
+  /**
+   * The amount of value-added tax on the line. The `totalAmount` field includes VAT, so the `vatAmount` can be calculated with the formula `totalAmount × (vatRate / (100 + vatRate))`.
+   *
+   * Any deviations from this will result in an error.
+   *
+   * For example, for a `totalAmount` of SEK 100.00 with a 25.00% VAT rate, we expect a VAT amount of `SEK 100.00 × (25 / 125) = SEK 20.00`.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/vatAmount#lines
+   */
+  vatAmount?: Amount;
+  /**
+   * The SKU, EAN, ISBN or UPC of the product sold.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/sku#lines
+   */
+  sku?: string;
+  /**
+   * An array with the voucher categories, in case of a line eligible for a voucher. See the Integrating Vouchers guide for more information.
+   *
+   * Possible values: `meal` `eco` `gift` `sport_culture`
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/categories#lines
+   */
+  categories?: PaymentLineCategory[];
+  /**
+   * A link pointing to an image of the product sold.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/_links/imageUrl#lines
+   */
+  imageUrl?: string;
+  /**
+   * A link pointing to the product page in your web shop of the product sold.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=lines/_links/productUrl#lines
+   */
+  productUrl?: string;
+}
+
+export interface RecurringInfo {
+  /**
+   * A description of the recurring item. If not present, the main description of the item will be used.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/recurring/description#recurring
+   */
+  description?: string;
+  /**
+   * TCadence unit of the recurring item. For example: `12 months`, `52 weeks` or `365 days`.
+   *
+   * Possible values: `... months` `... weeks` `... days`
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/recurring/interval#recurring
+   */
+  interval: string;
+  /**
+   * Total amount and currency of the recurring item.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/recurring/amount#recurring
+   */
+  amount?: Amount;
+  /**
+   * Total number of charges for the subscription to complete. Leave empty for ongoing subscription.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/recurring/times#recurring
+   */
+  times?: number;
+  /**
+   * The start date of the subscription if it does not start right away (format `YYYY-MM-DD`)
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/recurring/startDate#recurring
+   */
+  startDate?: string;
+}
+
+export enum PaymentLineType {
+  physical = 'physical',
+  digital = 'digital',
+  shipping_fee = 'shipping_fee',
+  discount = 'discount',
+  store_credit = 'store_credit',
+  gift_card = 'gift_card',
+  surcharge = 'surcharge',
+  tip = 'tip',
+}
+
+export enum PaymentLineCategory {
+  meal = 'meal',
+  eco = 'eco',
+  gift = 'gift',
+  sport_culture = 'sport_culture',
+}
+
+export interface PaymentRoutingInfo {
+  /**
+   * The portion of the total payment amount being routed. Currently only EUR payments can be routed.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=routing/rule#response
+   */
+  amount: Amount;
+  /**
+   * The destination of this portion of the payment.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=routing/rule#response
+   */
+  destination: {
+    /**
+     * The type of destination. Currently only the destination type `organization` is supported.
+     *
+     * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=routing/rule#response
+     */
+    type: RoutingType;
+    /**
+     * Required for destination type `organization`. The ID of the connected organization the funds should be routed to.
+     *
+     * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=routing/rule#response
+     */
+    organizationId: string;
+  };
+  /**
+   * Optionally, schedule this portion of the payment to be transferred to its destination on a later date. The date must be given in `YYYY-MM-DD` format.
+   *
+   * If no date is given, the funds become available to the connected merchant as soon as the payment succeeds.
+   */
+  releaseDate?: string;
+}
+
+export enum RoutingType {
+  organization = 'organization',
 }
