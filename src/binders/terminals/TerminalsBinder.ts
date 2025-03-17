@@ -3,8 +3,9 @@ import renege from '../../plumbing/renege';
 import type Callback from '../../types/Callback';
 import Binder from '../Binder';
 import { type PageParameters, IterateParameters } from './parameters';
-import {Page} from "../../types";
-import Terminal, {TerminalData} from "../../data/terminals/Terminal";
+import { Page } from '../../types';
+import Terminal from '../../data/terminals/Terminal';
+import type { TerminalData } from '../../data/terminals/data';
 
 const pathSegment = 'terminals';
 
