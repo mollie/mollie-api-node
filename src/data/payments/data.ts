@@ -841,13 +841,7 @@ export interface PointOfSaleDetails {
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/cardNumber#point-of-sale
    */
-  cardNumber: string;
-  /**
-   * Only available if the payment has been completed - Unique alphanumeric representation of card, usable for identifying returning customers.
-   *
-   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/cardFingerprint#point-of-sale
-   */
-  cardFingerprint: string;
+  cardNumber?: string;
   /**
    * Only available if the payment has been completed and if the data is available - The card's target audience.
    *
@@ -855,7 +849,7 @@ export interface PointOfSaleDetails {
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/cardAudience#point-of-sale
    */
-  cardAudience: Nullable<'consumer' | 'business'>;
+  cardAudience?: Nullable<'consumer' | 'business'>;
   /**
    * Only available if the payment has been completed - The card's label. Note that not all labels can be processed through Mollie.
    *
@@ -863,14 +857,23 @@ export interface PointOfSaleDetails {
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/cardLabel#point-of-sale
    */
-  cardLabel: Nullable<'American Express' | 'Carta Si' | 'Carte Bleue' | 'Dankort' | 'Diners Club' | 'Discover' | 'JCB' | 'Laser' | 'Maestro' | 'Mastercard' | 'Unionpay' | 'Visa'>;
+  cardLabel?: Nullable<
+    'Visa' | 'Mastercard'
+    // | 'Maestro' // Maestro is currently labeled as Mastercard
+  >;
   /**
    * Only available if the payment has been completed - The [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country the card was issued in. For example:
    * `BE`.
    *
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/cardCountryCode#point-of-sale
    */
-  cardCountryCode: string;
+  cardCountryCode?: string;
+  /**
+   * Only available if the payment has been completed - Unique alphanumeric representation of card, usable for identifying returning customers.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/cardFingerprint#point-of-sale
+   */
+  cardFingerprint?: string;
 }
 
 export interface SepaDirectDebitDetails {
