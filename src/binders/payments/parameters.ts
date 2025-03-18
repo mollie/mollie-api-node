@@ -202,3 +202,7 @@ export type UpdateParameters = Pick<PaymentData, 'redirectUrl' | 'cancelUrl' | '
 export interface CancelParameters extends IdempotencyParameter {
   testmode?: boolean;
 }
+
+export interface ReleaseParameters {
+  testmode?: boolean;
+}
