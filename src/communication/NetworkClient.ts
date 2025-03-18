@@ -81,14 +81,24 @@ const throwApiError = run(
 async function processFetchResponse(response: ResponseWithIdempotencyKey) {
   // Request was successful, but no content was returned.
   if (response.status == 204) return true;
-  // Request was successful and content was returned.
-  const body = await response.json();
-  if (Math.floor(response.status / 100) == 2) {
-    return body;
+  const body = await response.text();
+  const isSuccessStatus = Math.floor(response.status / 100) == 2;
+  // this should have been a 204, but we'll be lenient...
+  if (body.length === 0 && isSuccessStatus) return true;
+  // Parse the response body as JSON.
+  // We could check the content-type header first here, but we always expect thie mollie API to return JSON.
+  let json;
+  try {
+    json = JSON.parse(body);
+  } catch (error) {
+    throw new ApiError('Received unexpected response from the server');
+  }
+  if (isSuccessStatus) {
+    return json;
   }
   // Request was not successful, but the response body contains an error message.
-  if (null != body) {
-    throw ApiError.createFromResponse(body, response.idempotencyKey);
+  if (null != json) {
+    throw ApiError.createFromResponse(json, response.idempotencyKey);
   }
   // Request was not successful.
   throw new ApiError('An unknown error has occurred');

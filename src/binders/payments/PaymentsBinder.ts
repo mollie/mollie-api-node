@@ -8,9 +8,11 @@ import assertWellFormedId from '../../plumbing/assertWellFormedId';
 import renege from '../../plumbing/renege';
 import type Callback from '../../types/Callback';
 import Binder from '../Binder';
-import { type CancelParameters, type CreateParameters, type GetParameters, type IterateParameters, type PageParameters, type UpdateParameters } from './parameters';
+import { type CancelParameters, type CreateParameters, type GetParameters, type IterateParameters, type PageParameters, type ReleaseParameters, type UpdateParameters } from './parameters';
 
 const pathSegment = 'payments';
+
+const assertPaymentResource = (id: string) => assertWellFormedId(id, 'payment');
 
 export default class PaymentsBinder extends Binder<PaymentData, Payment> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
@@ -47,7 +49,7 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
   public get(id: string, parameters: GetParameters, callback: Callback<Payment>): void;
   public get(id: string, parameters?: GetParameters) {
     if (renege(this, this.get, ...arguments)) return;
-    assertWellFormedId(id, 'payment');
+    assertPaymentResource(id);
     return this.networkClient.get<PaymentData, Payment>(`${pathSegment}/${id}`, parameters);
   }
 
@@ -89,7 +91,7 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
   public update(id: string, parameters: UpdateParameters, callback: Callback<Payment>): void;
   public update(id: string, parameters: UpdateParameters) {
     if (renege(this, this.update, ...arguments)) return;
-    assertWellFormedId(id, 'payment');
+    assertPaymentResource(id);
     return this.networkClient.patch<PaymentData, Payment>(`${pathSegment}/${id}`, parameters);
   }
 
@@ -106,7 +108,26 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
   public cancel(id: string, parameters: CancelParameters, callback: Callback<Page<Payment>>): void;
   public cancel(id: string, parameters?: CancelParameters) {
     if (renege(this, this.cancel, ...arguments)) return;
-    assertWellFormedId(id, 'payment');
+    assertPaymentResource(id);
     return this.networkClient.delete<PaymentData, Payment>(`${pathSegment}/${id}`, parameters);
+  }
+
+  /**
+   * Releases the full remaining authorized amount. Call this endpoint when you will not be making any additional captures. Payment authorizations may also be released manually from the
+   * Mollie Dashboard.
+   *
+   * Mollie will do its best to process release requests, but it is not guaranteed that it will succeed. It is up to the issuing bank if and when the hold will be released.
+   *
+   * If the request does succeed, the payment status will change to `canceled` for payments without captures. If there is a successful capture, the payment will transition to `paid`.
+   *
+   * @since 4.3.0
+   * @see https://docs.mollie.com/reference/release-authorization
+   */
+  public releaseAuthorization(id: string, parameters?: ReleaseParameters): Promise<true>;
+  public releaseAuthorization(id: string, parameters: ReleaseParameters, callback: Callback<Page<true>>): void;
+  public releaseAuthorization(id: string, parameters?: ReleaseParameters) {
+    if (renege(this, this.releaseAuthorization, ...arguments)) return;
+    assertPaymentResource(id);
+    return this.networkClient.post<PaymentData, true>(`${pathSegment}/${id}/release-authorization`, parameters ?? {});
   }
 }
