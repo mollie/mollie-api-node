@@ -83,7 +83,7 @@ export type CreateParameters = Pick<
      *
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=terminalId#point-of-sale
      */
-    terminalId?: string
+    terminalId?: string;
     /**
      * The card number on the gift card. You can supply this to prefill the card number.
      *
