@@ -16,4 +16,9 @@ export type PageParameters = PaginationParameters & {
   testmode?: boolean;
 };
 
+export type UpdateParameters = Pick<PaymentLinkData, 'description' | 'minimumAmount' | 'archived' | 'allowedMethods' | 'applicationFee'> &
+  PickOptional<PaymentLinkData, 'profileId'> & {
+  testmode?: boolean;
+};
+
 export type IterateParameters = Omit<PageParameters, 'limit'> & ThrottlingParameter;
