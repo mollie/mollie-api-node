@@ -1,4 +1,4 @@
-import { type Amount, type ApiMode, type Links, type Url } from '../global';
+import { type Amount, type ApiMode, type Links, PaymentMethod, type Url } from '../global';
 import type Model from '../Model';
 
 export interface PaymentLinkData extends Model<'payment-link'> {
@@ -28,7 +28,19 @@ export interface PaymentLinkData extends Model<'payment-link'> {
    *
    * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=amount#response
    */
-  amount: Amount;
+  amount?: Amount;
+  /**
+   * The minimum amount of the payment link. This property is only allowed when there is no amount provided.
+   *
+   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=minimumAmount#response
+   */
+  minimumAmount?: Amount;
+  /**
+   * Whether the payment link is archived
+   *
+   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=archived#response
+   */
+  archived: boolean;
   /**
    * The URL your customer will be redirected to after completing the payment process.
    *
@@ -41,6 +53,13 @@ export interface PaymentLinkData extends Model<'payment-link'> {
    * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=redirectUrl#response
    */
   webhookUrl?: string;
+  /**
+   * Indicates whether the payment link is reusable. If this field is set to true, customers can make multiple payments using the same link.
+   *
+   * @default false
+   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=reusable#response
+   */
+  reusable?: boolean;
   /**
    * The payment link's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    *
@@ -65,5 +84,11 @@ export interface PaymentLinkData extends Model<'payment-link'> {
    * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=expiresAt#response
    */
   expiresAt?: string;
+  /**
+   * The expiry date and time of the payment link, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+   *
+   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=allowedMethods#response
+   */
+  allowedMethods?: PaymentMethod[];
   _links: Links & { paymentLink: Url };
 }
