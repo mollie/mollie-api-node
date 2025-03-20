@@ -118,6 +118,86 @@
     {
         "scope": "https://api.mollie.com:443",
         "method": "GET",
+        "path": "/v2/payment-links/pl_aTMXG7OQ2CS6VhsktUiSB/payments",
+        "body": "",
+        "status": 200,
+        "response": {
+          "count": 5,
+          "_embedded": {
+            "payments": [
+              {
+                "resource": "payment",
+                "id": "tr_5B8cwPMGnU6qLbRvo7qEZo",
+                "mode": "live",
+                "status": "open",
+                "isCancelable": false,
+                "amount": {
+                  "value": "75.00",
+                  "currency": "GBP"
+                },
+                "description": "Order #12345",
+                "method": "ideal",
+                "metadata": null,
+                "details": null,
+                "profileId": "pfl_QkEhN94Ba",
+                "redirectUrl": "https://webshop.example.org/order/12345/",
+                "createdAt": "2024-02-12T11:58:35.0Z",
+                "expiresAt": "2024-02-12T12:13:35.0Z",
+                "reusable": false,
+                "_links": {
+                  "self": {
+                    "href": "...",
+                    "type": "application/hal+json"
+                  },
+                  "checkout": {
+                    "href": "https://www.mollie.com/checkout/issuer/select/ideal/7UhSN1zuXS",
+                    "type": "text/html"
+                  },
+                  "dashboard": {
+                    "href": "https://www.mollie.com/dashboard/org_12345678/payments/tr_5B8cwPMGnU6qLbRvo7qEZo",
+                    "type": "text/html"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "...",
+              "type": "application/hal+json"
+            },
+            "previous": null,
+            "next": {
+              "href": "https://api.mollie.com/v2/payment-links/pl_4Y0eZitmBnQ6IDoMqZQKh/payments?from=tr_SDkzMggpvx&limit=5",
+              "type": "application/hal+json"
+            },
+            "documentation": {
+              "href": "...",
+              "type": "text/html"
+            }
+          }
+        },
+        "rawHeaders": [
+            "Server",
+            "nginx",
+            "Date",
+            "Wed, 24 Nov 2021 11:44:29 GMT",
+            "Content-Type",
+            "application/hal+json",
+            "Content-Length",
+            "643",
+            "Connection",
+            "close",
+            "X-Robots-Tag",
+            "noindex",
+            "Strict-Transport-Security",
+            "max-age=31536000; includeSubDomains; preload"
+        ],
+        "responseIsBinary": false
+    },
+    {
+        "scope": "https://api.mollie.com:443",
+        "method": "GET",
         "path": "/v2/payment-links/pl_fake_id",
         "body": "",
         "status": 404,

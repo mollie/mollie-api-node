@@ -1,5 +1,6 @@
 import { MollieClient } from '../..';
 import NetworkMocker, { getAccessTokenClientProvider } from '../NetworkMocker';
+import getHead from '../getHead';
 
 // 'record' ‒ This test interacts with the real Mollie API over the network, and records the communication.
 // 'replay' ‒ This test uses existing recordings to simulate the network.
@@ -29,6 +30,12 @@ describe('paymentLinks', () => {
   test('paymentLinks error response', async () => {
     await expect(mollieClient.paymentLinks.get('pl_fake_id')).rejects.toThrow('The resource with the token "pl_fake_id" could not be found.');
   });
+
+  test('paymentLink payments paginate', async () => {
+    const payment = await getHead(mollieClient.paymentLinks.payments('pl_aTMXG7OQ2CS6VhsktUiSB'))
+
+    expect(payment.id).toBe('tr_5B8cwPMGnU6qLbRvo7qEZo')
+  })
 
   afterAll(() => networkMocker.cleanup());
 });

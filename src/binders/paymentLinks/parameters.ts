@@ -15,4 +15,9 @@ export type PageParameters = PaginationParameters & {
   testmode?: boolean;
 };
 
+export type PaymentParameters = PaginationParameters & {
+  sort?: string,
+  testmode?: boolean
+}
+
 export type IterateParameters = Omit<PageParameters, 'limit'> & ThrottlingParameter;
