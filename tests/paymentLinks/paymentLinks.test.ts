@@ -31,8 +31,12 @@ describe('paymentLinks', () => {
     await expect(mollieClient.paymentLinks.get('pl_fake_id')).rejects.toThrow('The resource with the token "pl_fake_id" could not be found.');
   });
 
-  test('paymentLink payments paginate', async () => {
-    const payment = await getHead(mollieClient.paymentLinks.payments('pl_aTMXG7OQ2CS6VhsktUiSB'))
+  test('paymentLink payments', async () => {
+    const paymentLink = await mollieClient.paymentLinks.get('pl_aTMXG7OQ2CS6VhsktUiSB')
+
+    const payments = paymentLink.getPayments();
+
+    const payment = await getHead(payments.take(1))
 
     expect(payment.id).toBe('tr_5B8cwPMGnU6qLbRvo7qEZo')
   })

@@ -6,15 +6,7 @@ import assertWellFormedId from '../../plumbing/assertWellFormedId';
 import renege from '../../plumbing/renege';
 import type Callback from '../../types/Callback';
 import Binder from '../Binder';
-import {
-  type CreateParameters,
-  type GetParameters,
-  type IterateParameters,
-  type PageParameters,
-  PaymentParameters,
-} from './parameters';
-import { Payment } from '../../types';
-import { PaymentData } from '../../data/payments/data';
+import { type CreateParameters, type GetParameters, type IterateParameters, type PageParameters } from './parameters';
 
 const pathSegment = 'payment-links';
 
@@ -64,15 +56,6 @@ export default class PaymentsLinksBinder extends Binder<PaymentLinkData, Payment
   public page(parameters: PageParameters = {}) {
     if (renege(this, this.page, ...arguments)) return;
     return this.networkClient.page<PaymentLinkData, PaymentLink>(pathSegment, 'payment_links', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
-  }
-
-  public payments(id: string, parameters?: PaymentParameters): Promise<Page<Payment>>;
-  public payments(id: string, parameters: PaymentParameters, callback: Callback<Page<Payment>>): Promise<Page<Payment>>;
-  public payments(id: string, parameters: PaymentParameters): Promise<Page<Payment>> | undefined {
-    if (renege(this, this.payments, ...arguments)) return;
-    return this.networkClient
-      .page<PaymentData, Payment>(`${pathSegment}/${id}/payments`, 'payments', parameters)
-      .then(result => this.injectPaginationHelpers(result as any, this.payments as any, parameters)) as Promise<Page<Payment>>;
   }
 
   /**

@@ -118,7 +118,7 @@
     {
         "scope": "https://api.mollie.com:443",
         "method": "GET",
-        "path": "/v2/payment-links/pl_aTMXG7OQ2CS6VhsktUiSB/payments",
+        "path": "/v2/payment-links/pl_aTMXG7OQ2CS6VhsktUiSB/payments?limit=64",
         "body": "",
         "status": 200,
         "response": {
