@@ -1,14 +1,14 @@
+import { runIf } from 'ruply';
+import breakUrl from '../../communication/breakUrl';
 import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import emptyHelpfulIterator from '../../plumbing/iteration/emptyHelpfulIterator';
+import type HelpfulIterator from '../../plumbing/iteration/HelpfulIterator';
+import type { Payment } from '../../types';
+import type { ThrottlingParameter } from '../../types/parameters';
 import Helper from '../Helper';
+import type { PaymentData } from '../payments/data';
 import { type PaymentLinkData } from './data';
 import type PaymentLink from './PaymentLink';
-import HelpfulIterator from '../../plumbing/iteration/HelpfulIterator';
-import { Payment } from '../../types';
-import { runIf } from 'ruply';
-import emptyHelpfulIterator from '../../plumbing/iteration/emptyHelpfulIterator';
-import { PaymentData } from '../payments/data';
-import breakUrl from '../../communication/breakUrl';
-import { ThrottlingParameter } from '../../types/parameters';
 
 export default class PaymentLinkHelper extends Helper<PaymentLinkData, PaymentLink> {
   constructor(networkClient: TransformingNetworkClient, protected readonly links: PaymentLinkData['_links']) {
@@ -27,7 +27,11 @@ export default class PaymentLinkHelper extends Helper<PaymentLinkData, PaymentLi
   public getPayments(parameters?: ThrottlingParameter): HelpfulIterator<Payment> {
     return (
       runIf(
-        this.links.self, // TODO: Should use this.links.payments but since the API doesn't support it yet, use string which is always true
+        /**
+         * TODO: Should use this.links.payments but since the API doesn't support it yet, use string which is always true
+         * For issue tracking see https://github.com/mollie/mollie-api-node/issues/417
+         */
+        this.links.self,
         ({ href }) => breakUrl(href),
         ([pathname, query]) => this.networkClient.iterate<PaymentData, Payment>(`${pathname}/payments`, 'payments', query, parameters?.valuesPerMinute),
       ) ?? emptyHelpfulIterator
