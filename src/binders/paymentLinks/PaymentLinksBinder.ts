@@ -66,14 +66,13 @@ export default class PaymentsLinksBinder extends Binder<PaymentLinkData, Payment
     return this.networkClient.page<PaymentLinkData, PaymentLink>(pathSegment, 'payment_links', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
-  public payments(id: string, parameters?: PaymentParameters): Promise<Page<Payment>>
-  public payments(id: string, parameters: PaymentParameters, callback: Callback<Page<Payment>>): Promise<Page<Payment>>
+  public payments(id: string, parameters?: PaymentParameters): Promise<Page<Payment>>;
+  public payments(id: string, parameters: PaymentParameters, callback: Callback<Page<Payment>>): Promise<Page<Payment>>;
   public payments(id: string, parameters: PaymentParameters): Promise<Page<Payment>> | undefined {
     if (renege(this, this.payments, ...arguments)) return;
-    // TODO: How will we fix the typescript for this?
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    return this.networkClient.page<PaymentData, Payment>(`${pathSegment}/${id}/payments`, 'payments', parameters).then(result => this.injectPaginationHelpers(result, this.payments, parameters)) as Promise<Page<Payment>>
+    return this.networkClient
+      .page<PaymentData, Payment>(`${pathSegment}/${id}/payments`, 'payments', parameters)
+      .then(result => this.injectPaginationHelpers(result as any, this.payments as any, parameters)) as Promise<Page<Payment>>;
   }
 
   /**
