@@ -6,7 +6,13 @@ import assertWellFormedId from '../../plumbing/assertWellFormedId';
 import renege from '../../plumbing/renege';
 import type Callback from '../../types/Callback';
 import Binder from '../Binder';
-import { type CreateParameters, type GetParameters, type IterateParameters, type PageParameters } from './parameters';
+import {
+  type CreateParameters,
+  type GetParameters,
+  type IterateParameters,
+  type PageParameters,
+  type UpdateParameters,
+} from './parameters';
 
 const pathSegment = 'payment-links';
 
@@ -67,5 +73,31 @@ export default class PaymentsLinksBinder extends Binder<PaymentLinkData, Payment
   public iterate(parameters?: IterateParameters) {
     const { valuesPerMinute, ...query } = parameters ?? {};
     return this.networkClient.iterate<PaymentLinkData, PaymentLink>(pathSegment, 'payment_links', query, valuesPerMinute);
+  }
+
+  /**
+   * Update a payment link object by its token.
+   *
+   * @see https://docs.mollie.com/reference/update-payment-link
+   */
+  public update(id: string, parameters: Partial<UpdateParameters>): Promise<PaymentLink>;
+  public update(id: string, parameters: Partial<UpdateParameters>, callback: Callback<PaymentLink>): void;
+  public update(id: string, parameters: Partial<UpdateParameters>) {
+    if (renege(this, this.update, ...arguments)) return;
+    assertWellFormedId(id, 'payment-link');
+    return this.networkClient.patch<PaymentLinkData, PaymentLink>(`${pathSegment}/${id}`, parameters);
+  }
+
+  /**
+   * Delete a payment link object by its token.
+   *
+   * @see https://docs.mollie.com/reference/delete-payment-link
+   */
+  public delete(id: string): Promise<true>;
+  public delete(id: string, callback: Callback<true>): void;
+  public delete(id: string) {
+    if (renege(this, this.delete, ...arguments)) return;
+    assertWellFormedId(id, 'payment-link');
+    return this.networkClient.delete<PaymentLinkData, true>(`${pathSegment}/${id}`);
   }
 }
