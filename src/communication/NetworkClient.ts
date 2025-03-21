@@ -86,7 +86,7 @@ async function processFetchResponse(response: ResponseWithIdempotencyKey) {
   // this should have been a 204, but we'll be lenient...
   if (body.length === 0 && isSuccessStatus) return true;
   // Parse the response body as JSON.
-  // We could check the content-type header first here, but we always expect thie mollie API to return JSON.
+  // We could check the content-type header first here, but we always expect the mollie API to return JSON.
   let json;
   try {
     json = JSON.parse(body);
