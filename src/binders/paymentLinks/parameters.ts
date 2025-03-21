@@ -1,10 +1,11 @@
 import { type PaymentLinkData } from '../../data/paymentLinks/data';
 import { type IdempotencyParameter, type PaginationParameters, type ThrottlingParameter } from '../../types/parameters';
+import type PickOptional from '../../types/PickOptional';
 
-export type CreateParameters = Pick<PaymentLinkData, 'description' | 'amount' | 'redirectUrl' | 'webhookUrl' | 'expiresAt'> & {
-  profileId?: string;
-  testmode?: boolean;
-} & IdempotencyParameter;
+export type CreateParameters = Pick<PaymentLinkData, 'description' | 'amount' | 'minimumAmount' | 'redirectUrl' | 'webhookUrl' | 'reusable' | 'expiresAt' | 'allowedMethods' | 'applicationFee'> &
+  PickOptional<PaymentLinkData, 'profileId'> & {
+    testmode?: boolean;
+  } & IdempotencyParameter;
 
 export interface GetParameters {
   testmode?: boolean;
@@ -12,6 +13,11 @@ export interface GetParameters {
 
 export type PageParameters = PaginationParameters & {
   profileId?: string;
+  testmode?: boolean;
+};
+
+export type UpdateParameters = Pick<PaymentLinkData, 'description' | 'minimumAmount' | 'archived' | 'allowedMethods' | 'applicationFee'> &
+  PickOptional<PaymentLinkData, 'profileId'> & {
   testmode?: boolean;
 };
 
