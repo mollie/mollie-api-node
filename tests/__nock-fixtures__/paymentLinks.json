@@ -1,237 +1,292 @@
 [
-    {
-        "scope": "https://api.mollie.com:443",
-        "method": "POST",
-        "path": "/v2/payment-links",
-        "body": {
-            "amount": {
-                "currency": "EUR",
-                "value": "6.99"
-            },
-            "description": "Hair pin"
-        },
-        "status": 201,
-        "response": {
-            "resource": "payment-link",
-            "id": "pl_aTMXG7OQ2CS6VhsktUiSB",
-            "description": "Hair pin",
-            "mode": "test",
-            "profileId": "pfl_nsyuznnvpc",
-            "amount": {
-                "value": "6.99",
-                "currency": "EUR"
-            },
-            "webhookUrl": null,
-            "redirectUrl": null,
-            "createdAt": "2021-11-24T11:44:29+00:00",
-            "paidAt": null,
-            "updatedAt": null,
-            "expiresAt": null,
-            "_links": {
-                "self": {
-                    "href": "https://api.mollie.com/v2/payment-links/pl_aTMXG7OQ2CS6VhsktUiSB",
-                    "type": "application/hal+json"
-                },
-                "paymentLink": {
-                    "href": "https://paymentlink.mollie.com/payment/aTMXG7OQ2CS6VhsktUiSB/",
-                    "type": "text/html"
-                },
-                "documentation": {
-                    "href": "https://docs.mollie.com/reference/v2/payment-links-api/create-payment-link",
-                    "type": "text/html"
-                }
-            }
-        },
-        "rawHeaders": [
-            "Server",
-            "nginx",
-            "Date",
-            "Wed, 24 Nov 2021 11:44:29 GMT",
-            "Content-Type",
-            "application/hal+json",
-            "Content-Length",
-            "646",
-            "Connection",
-            "close",
-            "X-Robots-Tag",
-            "noindex",
-            "Strict-Transport-Security",
-            "max-age=31536000; includeSubDomains; preload"
-        ],
-        "responseIsBinary": false
+  {
+    "scope": "https://api.mollie.com:443",
+    "method": "POST",
+    "path": "/v2/payment-links",
+    "body": {
+      "amount": {
+        "currency": "EUR",
+        "value": "6.99"
+      },
+      "description": "Hair pin"
     },
-    {
-        "scope": "https://api.mollie.com:443",
-        "method": "GET",
-        "path": "/v2/payment-links/pl_aTMXG7OQ2CS6VhsktUiSB",
-        "body": "",
-        "status": 200,
-        "response": {
-            "resource": "payment-link",
-            "id": "pl_aTMXG7OQ2CS6VhsktUiSB",
-            "description": "Hair pin",
-            "mode": "test",
-            "profileId": "pfl_nsyuznnvpc",
-            "amount": {
-                "value": "6.99",
-                "currency": "EUR"
-            },
-            "webhookUrl": null,
-            "redirectUrl": null,
-            "createdAt": "2021-11-24T11:44:29+00:00",
-            "paidAt": null,
-            "updatedAt": null,
-            "expiresAt": null,
-            "_links": {
-                "self": {
-                    "href": "https://api.mollie.com/v2/payment-links/pl_aTMXG7OQ2CS6VhsktUiSB",
-                    "type": "application/hal+json"
-                },
-                "paymentLink": {
-                    "href": "https://paymentlink.mollie.com/payment/aTMXG7OQ2CS6VhsktUiSB/",
-                    "type": "text/html"
-                },
-                "documentation": {
-                    "href": "https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link",
-                    "type": "text/html"
-                }
-            }
+    "status": 201,
+    "response": {
+      "resource": "payment-link",
+      "id": "pl_aTMXG7OQ2CS6VhsktUiSB",
+      "description": "Hair pin",
+      "mode": "test",
+      "profileId": "pfl_nsyuznnvpc",
+      "amount": {
+        "value": "6.99",
+        "currency": "EUR"
+      },
+      "webhookUrl": null,
+      "redirectUrl": null,
+      "createdAt": "2021-11-24T11:44:29+00:00",
+      "paidAt": null,
+      "updatedAt": null,
+      "expiresAt": null,
+      "_links": {
+        "self": {
+          "href": "https://api.mollie.com/v2/payment-links/pl_aTMXG7OQ2CS6VhsktUiSB",
+          "type": "application/hal+json"
         },
-        "rawHeaders": [
-            "Server",
-            "nginx",
-            "Date",
-            "Wed, 24 Nov 2021 11:44:29 GMT",
-            "Content-Type",
-            "application/hal+json",
-            "Content-Length",
-            "643",
-            "Connection",
-            "close",
-            "X-Robots-Tag",
-            "noindex",
-            "Strict-Transport-Security",
-            "max-age=31536000; includeSubDomains; preload"
-        ],
-        "responseIsBinary": false
+        "paymentLink": {
+          "href": "https://paymentlink.mollie.com/payment/aTMXG7OQ2CS6VhsktUiSB/",
+          "type": "text/html"
+        },
+        "documentation": {
+          "href": "https://docs.mollie.com/reference/v2/payment-links-api/create-payment-link",
+          "type": "text/html"
+        }
+      }
     },
-    {
-        "scope": "https://api.mollie.com:443",
-        "method": "GET",
-        "path": "/v2/payment-links/pl_aTMXG7OQ2CS6VhsktUiSB/payments?limit=64",
-        "body": "",
-        "status": 200,
-        "response": {
-          "count": 5,
-          "_embedded": {
-            "payments": [
-              {
-                "resource": "payment",
-                "id": "tr_5B8cwPMGnU6qLbRvo7qEZo",
-                "mode": "live",
-                "status": "open",
-                "isCancelable": false,
-                "amount": {
-                  "value": "75.00",
-                  "currency": "GBP"
-                },
-                "description": "Order #12345",
-                "method": "ideal",
-                "metadata": null,
-                "details": null,
-                "profileId": "pfl_QkEhN94Ba",
-                "redirectUrl": "https://webshop.example.org/order/12345/",
-                "createdAt": "2024-02-12T11:58:35.0Z",
-                "expiresAt": "2024-02-12T12:13:35.0Z",
-                "reusable": false,
-                "_links": {
-                  "self": {
-                    "href": "...",
-                    "type": "application/hal+json"
-                  },
-                  "checkout": {
-                    "href": "https://www.mollie.com/checkout/issuer/select/ideal/7UhSN1zuXS",
-                    "type": "text/html"
-                  },
-                  "dashboard": {
-                    "href": "https://www.mollie.com/dashboard/org_12345678/payments/tr_5B8cwPMGnU6qLbRvo7qEZo",
-                    "type": "text/html"
-                  }
-                }
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Wed, 24 Nov 2021 11:44:29 GMT",
+      "Content-Type",
+      "application/hal+json",
+      "Content-Length",
+      "646",
+      "Connection",
+      "close",
+      "X-Robots-Tag",
+      "noindex",
+      "Strict-Transport-Security",
+      "max-age=31536000; includeSubDomains; preload"
+    ],
+    "responseIsBinary": false
+  },
+  {
+    "scope": "https://api.mollie.com:443",
+    "method": "GET",
+    "path": "/v2/payment-links/pl_aTMXG7OQ2CS6VhsktUiSB",
+    "body": "",
+    "status": 200,
+    "response": {
+      "resource": "payment-link",
+      "id": "pl_aTMXG7OQ2CS6VhsktUiSB",
+      "description": "Hair pin",
+      "mode": "test",
+      "profileId": "pfl_nsyuznnvpc",
+      "amount": {
+        "value": "6.99",
+        "currency": "EUR"
+      },
+      "webhookUrl": null,
+      "redirectUrl": null,
+      "createdAt": "2021-11-24T11:44:29+00:00",
+      "paidAt": null,
+      "updatedAt": null,
+      "expiresAt": null,
+      "_links": {
+        "self": {
+          "href": "https://api.mollie.com/v2/payment-links/pl_aTMXG7OQ2CS6VhsktUiSB",
+          "type": "application/hal+json"
+        },
+        "paymentLink": {
+          "href": "https://paymentlink.mollie.com/payment/aTMXG7OQ2CS6VhsktUiSB/",
+          "type": "text/html"
+        },
+        "documentation": {
+          "href": "https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link",
+          "type": "text/html"
+        }
+      }
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Wed, 24 Nov 2021 11:44:29 GMT",
+      "Content-Type",
+      "application/hal+json",
+      "Content-Length",
+      "643",
+      "Connection",
+      "close",
+      "X-Robots-Tag",
+      "noindex",
+      "Strict-Transport-Security",
+      "max-age=31536000; includeSubDomains; preload"
+    ],
+    "responseIsBinary": false
+  },
+  {
+    "scope": "https://api.mollie.com:443",
+    "method": "GET",
+    "path": "/v2/payment-links/pl_fake_with_payments",
+    "body": "",
+    "status": 200,
+    "response": {
+      "resource": "payment-link",
+      "id": "pl_fake_with_payments",
+      "description": "Hair pin",
+      "mode": "test",
+      "profileId": "pfl_nsyuznnvpc",
+      "amount": {
+        "value": "6.99",
+        "currency": "EUR"
+      },
+      "webhookUrl": null,
+      "redirectUrl": null,
+      "createdAt": "2021-11-24T11:44:29+00:00",
+      "paidAt": null,
+      "updatedAt": null,
+      "expiresAt": null,
+      "_links": {
+        "self": {
+          "href": "https://api.mollie.com/v2/payment-links/pl_fake_with_payments",
+          "type": "application/hal+json"
+        },
+        "paymentLink": {
+          "href": "https://paymentlink.mollie.com/payment/aTMXG7OQ2CS6VhsktUiSB/",
+          "type": "text/html"
+        },
+        "documentation": {
+          "href": "https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link",
+          "type": "text/html"
+        }
+      }
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Wed, 24 Nov 2021 11:44:29 GMT",
+      "Content-Type",
+      "application/hal+json",
+      "Content-Length",
+      "643",
+      "Connection",
+      "close",
+      "X-Robots-Tag",
+      "noindex",
+      "Strict-Transport-Security",
+      "max-age=31536000; includeSubDomains; preload"
+    ],
+    "responseIsBinary": false
+  },
+  {
+    "scope": "https://api.mollie.com:443",
+    "method": "GET",
+    "path": "/v2/payment-links/pl_fake_with_payments/payments?limit=64",
+    "body": "",
+    "status": 200,
+    "response": {
+      "count": 5,
+      "_embedded": {
+        "payments": [
+          {
+            "resource": "payment",
+            "id": "tr_5B8cwPMGnU6qLbRvo7qEZo",
+            "mode": "live",
+            "status": "open",
+            "isCancelable": false,
+            "amount": {
+              "value": "75.00",
+              "currency": "GBP"
+            },
+            "description": "Order #12345",
+            "method": "ideal",
+            "metadata": null,
+            "details": null,
+            "profileId": "pfl_QkEhN94Ba",
+            "redirectUrl": "https://webshop.example.org/order/12345/",
+            "createdAt": "2024-02-12T11:58:35.0Z",
+            "expiresAt": "2024-02-12T12:13:35.0Z",
+            "reusable": false,
+            "_links": {
+              "self": {
+                "href": "...",
+                "type": "application/hal+json"
+              },
+              "checkout": {
+                "href": "https://www.mollie.com/checkout/issuer/select/ideal/7UhSN1zuXS",
+                "type": "text/html"
+              },
+              "dashboard": {
+                "href": "https://www.mollie.com/dashboard/org_12345678/payments/tr_5B8cwPMGnU6qLbRvo7qEZo",
+                "type": "text/html"
               }
-            ]
-          },
-          "_links": {
-            "self": {
-              "href": "...",
-              "type": "application/hal+json"
-            },
-            "previous": null,
-            "next": {
-              "href": "https://api.mollie.com/v2/payment-links/pl_4Y0eZitmBnQ6IDoMqZQKh/payments?from=tr_SDkzMggpvx&limit=5",
-              "type": "application/hal+json"
-            },
-            "documentation": {
-              "href": "...",
-              "type": "text/html"
             }
           }
+        ]
+      },
+      "_links": {
+        "self": {
+          "href": "...",
+          "type": "application/hal+json"
         },
-        "rawHeaders": [
-            "Server",
-            "nginx",
-            "Date",
-            "Wed, 24 Nov 2021 11:44:29 GMT",
-            "Content-Type",
-            "application/hal+json",
-            "Content-Length",
-            "643",
-            "Connection",
-            "close",
-            "X-Robots-Tag",
-            "noindex",
-            "Strict-Transport-Security",
-            "max-age=31536000; includeSubDomains; preload"
-        ],
-        "responseIsBinary": false
+        "previous": null,
+        "next": {
+          "href": "https://api.mollie.com/v2/payment-links/pl_4Y0eZitmBnQ6IDoMqZQKh/payments?from=tr_SDkzMggpvx&limit=5",
+          "type": "application/hal+json"
+        },
+        "documentation": {
+          "href": "...",
+          "type": "text/html"
+        }
+      }
     },
-    {
-        "scope": "https://api.mollie.com:443",
-        "method": "GET",
-        "path": "/v2/payment-links/pl_fake_id",
-        "body": "",
-        "status": 404,
-        "response": {
-            "status": 404,
-            "title": "Not Found",
-            "detail": "The resource with the token \"pl_fake_id\" could not be found.",
-            "_links": {
-                "documentation": {
-                    "href": "https://docs.mollie.com/overview/handling-errors",
-                    "type": "text/html"
-                }
-            }
-        },
-        "rawHeaders": [
-            "date",
-            "Tue, 09 Jul 2024 12:54:46 GMT",
-            "Server",
-            "Mollie",
-            "Content-Length",
-            "214",
-            "content-type",
-            "application/hal+json",
-            "Via",
-            "1.1 google, 1.1 google",
-            "X-XSS-Protection",
-            "1; mode=block",
-            "Strict-Transport-Security",
-            "max-age=31536000; includeSubDomains; preload",
-            "Alt-Svc",
-            "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
-            "Connection",
-            "close"
-        ],
-        "responseIsBinary": false
-    }
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Wed, 24 Nov 2021 11:44:29 GMT",
+      "Content-Type",
+      "application/hal+json",
+      "Content-Length",
+      "643",
+      "Connection",
+      "close",
+      "X-Robots-Tag",
+      "noindex",
+      "Strict-Transport-Security",
+      "max-age=31536000; includeSubDomains; preload"
+    ],
+    "responseIsBinary": false
+  },
+  {
+    "scope": "https://api.mollie.com:443",
+    "method": "GET",
+    "path": "/v2/payment-links/pl_fake_id",
+    "body": "",
+    "status": 404,
+    "response": {
+      "status": 404,
+      "title": "Not Found",
+      "detail": "The resource with the token \"pl_fake_id\" could not be found.",
+      "_links": {
+        "documentation": {
+          "href": "https://docs.mollie.com/overview/handling-errors",
+          "type": "text/html"
+        }
+      }
+    },
+    "rawHeaders": [
+      "date",
+      "Tue, 09 Jul 2024 12:54:46 GMT",
+      "Server",
+      "Mollie",
+      "Content-Length",
+      "214",
+      "content-type",
+      "application/hal+json",
+      "Via",
+      "1.1 google, 1.1 google",
+      "X-XSS-Protection",
+      "1; mode=block",
+      "Strict-Transport-Security",
+      "max-age=31536000; includeSubDomains; preload",
+      "Alt-Svc",
+      "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+      "Connection",
+      "close"
+    ],
+    "responseIsBinary": false
+  }
 ]
