@@ -105,6 +105,12 @@ export interface Address {
    */
   familyName?: string;
   /**
+   * The name of the organization, in case the addressee is an organization.
+   *
+   * @see https://docs.mollie.com/overview/common-data-types?path=organizationName#address
+   */
+  organizationName?: string;
+  /**
    * The street and street number of the address.
    *
    * @see https://docs.mollie.com/overview/common-data-types?path=streetAndNumber#address-object
