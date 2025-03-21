@@ -78,6 +78,13 @@ export type CreateParameters = Pick<
      */
     cardToken?: string;
     /**
+     * The unique identifier used for referring to a terminal. This ID is used for assigning the payment to a specific terminal and it can be retrieved via List terminals. For more information about
+     * point-of-sale payments, please check our guide point-of-sale payments.
+     *
+     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=terminalId#point-of-sale
+     */
+    terminalId?: string;
+    /**
      * The card number on the gift card. You can supply this to prefill the card number.
      *
      * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=voucherNumber#gift-cards

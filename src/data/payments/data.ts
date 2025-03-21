@@ -382,6 +382,7 @@ export interface PaymentData extends Model<'payment'> {
     | KlarnaDetails
     | PayPalDetails
     | PaysafecardDetails
+    | PointOfSaleDetails
     | SepaDirectDebitDetails
     | SofortBankingDetails
     | VoucherDetails;
@@ -826,6 +827,53 @@ export interface PaysafecardDetails {
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/customerReference#paysafecard
    */
   customerReference: string;
+}
+
+export interface PointOfSaleDetails {
+  /**
+   * The identifier referring to the terminal this payment was created for. For example, `term_utGtYu756h`.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/terminalId#point-of-sale
+   */
+  terminalId: string;
+  /**
+   * Only available if the payment has been completed - The last four digits of the card number.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/cardNumber#point-of-sale
+   */
+  cardNumber?: string;
+  /**
+   * Only available if the payment has been completed and if the data is available - The card's target audience.
+   *
+   * Possible values: `consumer` `business` `null`
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/cardAudience#point-of-sale
+   */
+  cardAudience?: Nullable<'consumer' | 'business'>;
+  /**
+   * Only available if the payment has been completed - The card's label. Note that not all labels can be processed through Mollie.
+   *
+   * Possible values: `American Express` `Carta Si` `Carte Bleue` `Dankort` `Diners Club` `Discover` `JCB` `Laser` `Maestro` `Mastercard` `Unionpay` `Visa` `null`
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/cardLabel#point-of-sale
+   */
+  cardLabel?: Nullable<
+    'Visa' | 'Mastercard'
+    // | 'Maestro' // Maestro is currently labeled as Mastercard
+  >;
+  /**
+   * Only available if the payment has been completed - The [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country the card was issued in. For example:
+   * `BE`.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/cardCountryCode#point-of-sale
+   */
+  cardCountryCode?: string;
+  /**
+   * Only available if the payment has been completed - Unique alphanumeric representation of card, usable for identifying returning customers.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/cardFingerprint#point-of-sale
+   */
+  cardFingerprint?: string;
 }
 
 export interface SepaDirectDebitDetails {
