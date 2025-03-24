@@ -8,8 +8,12 @@ export { default as MollieOptions } from './Options';
 export { default as Page } from './data/page/Page';
 
 export { default as Capture } from './data/payments/captures/Capture';
-import { GetParameters as CapturesGetParameters, PageParameters as CapturesPageParameters } from './binders/payments/captures/parameters';
-export { CapturesGetParameters, CapturesPageParameters };
+import {
+  CreateParameters as CapturesCreateParams,
+  GetParameters as CapturesGetParameters,
+  PageParameters as CapturesPageParameters
+} from './binders/payments/captures/parameters';
+export { CapturesCreateParams, CapturesGetParameters, CapturesPageParameters };
 
 export { default as Chargeback } from './data/chargebacks/Chargeback';
 import { PageParameters as ChargebacksPageParameters } from './binders/chargebacks/parameters';
