@@ -25,7 +25,6 @@
       "redirectUrl": null,
       "createdAt": "2021-11-24T11:44:29+00:00",
       "paidAt": null,
-      "updatedAt": null,
       "expiresAt": null,
       "_links": {
         "self": {
@@ -80,7 +79,6 @@
       "redirectUrl": null,
       "createdAt": "2021-11-24T11:44:29+00:00",
       "paidAt": null,
-      "updatedAt": null,
       "expiresAt": null,
       "_links": {
         "self": {
@@ -135,7 +133,6 @@
       "redirectUrl": null,
       "createdAt": "2021-11-24T11:44:29+00:00",
       "paidAt": null,
-      "updatedAt": null,
       "expiresAt": null,
       "_links": {
         "self": {

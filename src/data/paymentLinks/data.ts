@@ -76,11 +76,10 @@ export interface PaymentLinkData extends Model<'payment-link'> {
    */
   paidAt?: string;
   /**
-   * The date and time the payment link last status change, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-   *
-   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=updatedAt#response
+   * @deprecated This field currently always returns null and will be removed from the API in the future.
    */
-  updatedAt?: string;
+  // TODO: Remove in v5.0.0
+  updatedAt?: null;
   /**
    * The expiry date and time of the payment link, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    *
