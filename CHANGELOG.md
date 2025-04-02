@@ -5,6 +5,16 @@
 
 Please see [the migration guide](MIGRATION.md) for guidance about updating to a newer major version.
 
+### v4.3.0 - 2025-04-02
+
+- Add terminal API ([#413](https://github.com/mollie/mollie-api-node/pull/413))
+- Add release payment authorization endpoint ([#414](https://github.com/mollie/mollie-api-node/pull/414))
+- Add payments pagination support for payment links ([#421](https://github.com/mollie/mollie-api-node/pull/421))
+- Add `update` and `delete` methods for payment links ([#422](https://github.com/mollie/mollie-api-node/pull/422))
+- Add `organizationName` to Address Object ([#411](https://github.com/mollie/mollie-api-node/pull/411))
+- Add missing payment link parameters ([#419](https://github.com/mollie/mollie-api-node/pull/419))
+- Remove `updatedAt` field from payment links ([#424](https://github.com/mollie/mollie-api-node/pull/424))
+
 ### v4.2.0 - 2025-03-03
   - Updated Interface Types to include new payment parameters ([#402](https://github.com/mollie/mollie-api-node/pull/402))
   - Fix: `order.getPayments()` did not work ([#401](https://github.com/mollie/mollie-api-node/pull/401))
