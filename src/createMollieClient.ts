@@ -26,6 +26,7 @@ import { transform as transformOnboarding } from './data/onboarding/Onboarding';
 import { transform as transformPaymentLink } from './data/paymentLinks/PaymentLink';
 import { transform as transformIssuer } from './data/issuer/IssuerModel';
 import { transform as transformSettlement } from './data/settlements/SettlementModel';
+import { transform as transformTerminal } from './data/terminals/Terminal';
 
 // Binders
 import ApplePayBinder from './binders/applePay/ApplePayBinder';
@@ -60,6 +61,7 @@ import SettlementChargebacksBinder from './binders/settlements/chargebacks/Settl
 import SettlementsBinder from './binders/settlements/SettlementsBinder';
 import SubscriptionsBinder from './binders/subscriptions/SubscriptionsBinder';
 import SubscriptionPaymentsBinder from './binders/subscriptions/payments/SubscriptionPaymentsBinder';
+import TerminalsBinder from './binders/terminals/TerminalsBinder';
 
 /**
  * Create Mollie client.
@@ -96,7 +98,8 @@ export default function createMollieClient(options: Options) {
       .add('onboarding', transformOnboarding)
       .add('payment-link', transformPaymentLink)
       .add('issuer', transformIssuer)
-      .add('settlement', transformSettlement),
+      .add('settlement', transformSettlement)
+      .add('terminal', transformTerminal),
   );
 
   return apply(
@@ -166,6 +169,9 @@ export default function createMollieClient(options: Options) {
       settlementCaptures: new SettlementCapturesBinder(transformingNetworkClient),
       settlementRefunds: new SettlementRefundsBinder(transformingNetworkClient),
       settlementChargebacks: new SettlementChargebacksBinder(transformingNetworkClient),
+
+      // Terminals
+      terminals: new TerminalsBinder(transformingNetworkClient),
     },
     client =>
       alias(client, {
@@ -197,4 +203,5 @@ export { RefundEmbed, RefundStatus } from './data/refunds/data';
 export { SubscriptionStatus } from './data/subscriptions/data';
 export { ProfileStatus } from './data/profiles/data';
 export { OnboardingStatus } from './data/onboarding/data';
+export { TerminalStatus } from './data/terminals/data';
 export { default as MollieApiError } from './errors/ApiError';
