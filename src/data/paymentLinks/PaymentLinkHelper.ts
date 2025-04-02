@@ -24,11 +24,16 @@ export default class PaymentLinkHelper extends Helper<PaymentLinkData, PaymentLi
     return this.links.paymentLink.href;
   }
 
+  /**
+   * Retrieve the list of payments for a specific payment link.
+   *
+   * @since 4.3.0
+   */
   public getPayments(parameters?: ThrottlingParameter): HelpfulIterator<Payment> {
     return (
       runIf(
         /**
-         * TODO: Should use this.links.payments but since the API doesn't support it yet, use string which is always true
+         * TODO: Should use this.links.payments but since the API doesn't support it yet, use the self-referencing link and add the payments path
          * For issue tracking see https://github.com/mollie/mollie-api-node/issues/417
          */
         this.links.self,
@@ -36,5 +41,5 @@ export default class PaymentLinkHelper extends Helper<PaymentLinkData, PaymentLi
         ([pathname, query]) => this.networkClient.iterate<PaymentData, Payment>(`${pathname}/payments`, 'payments', query, parameters?.valuesPerMinute),
       ) ?? emptyHelpfulIterator
     );
-    }
+  }
 }
