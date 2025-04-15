@@ -56,7 +56,7 @@ export type CreateParameters = Pick<
      *
      * For documentation on how to get this token, see /wallets/applepay-direct-integration.
      *
-     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=applePayPaymentToken#apple-pay
+     * @see https://docs.mollie.com/reference/extra-payment-parameters#apple-pay
      */
     applePayPaymentToken?: string;
     /**
@@ -66,68 +66,96 @@ export type CreateParameters = Pick<
     /**
      * The date the payment should expire, in `YYYY-MM-DD` format. **Note:** the minimum date is tomorrow and the maximum date is 100 days after tomorrow.
      *
-     * After you created the payment, you can still update the `dueDate` via /reference/v2/payments-api/update-payment.
+     * After you created the payment, you can still update the `dueDate` via [Update payment](https://docs.mollie.com/reference/update-payment).
      *
-     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=dueDate#bank-transfer
+     * @see https://docs.mollie.com/reference/extra-payment-parameters#bank-transfer
      */
     dueDate?: string;
     /**
-     * The card token you got from Mollie Components. The token contains the card information (such as card holder, card number, and expiry date) needed to complete the payment.
+     * When creating credit card payments using Mollie Components, you need to provide the card token you received from the card component in this field. The token represents the customer's card information needed to complete the payment.
      *
-     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=cardToken#credit-card
+     * __Note:__ field only valid for `oneoff` and `first` payments. For recurring payments, the `customerId` alone is enough.
+     *
+     * @see https://docs.mollie.com/reference/extra-payment-parameters#credit-card
      */
     cardToken?: string;
     /**
      * The unique identifier used for referring to a terminal. This ID is used for assigning the payment to a specific terminal and it can be retrieved via List terminals. For more information about
      * point-of-sale payments, please check our guide point-of-sale payments.
      *
-     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=terminalId#point-of-sale
+     * @see https://docs.mollie.com/reference/extra-payment-parameters#point-of-sale
      */
     terminalId?: string;
     /**
-     * The card number on the gift card. You can supply this to prefill the card number.
+     * The card token you received from the card component of Mollie Components. The token represents the customer's card information needed to complete the payment.
      *
-     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=voucherNumber#gift-cards
+     * @see https://docs.mollie.com/reference/extra-payment-parameters#gift-card
      */
     voucherNumber?: string;
     /**
-     * The PIN code on the gift card. You can supply this to prefill the PIN, if the card has any.
+     * The PIN on the gift card. You can supply this to prefill the PIN, if the card has any.
      *
-     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=voucherPin#gift-cards
+     * @see https://docs.mollie.com/reference/extra-payment-parameters#gift-card
      */
     voucherPin?: string;
     /**
-     * The unique ID you have used for the PayPal fraud library. You should include this if you use PayPal for an on-demand payment. The maximum character length is 32.
+     * The customer's date of birth. If not provided via the API, iDeal in3 will ask the customer to provide it during the payment process.
+     *
+     * @see https://docs.mollie.com/reference/extra-payment-parameters#ideal-in3
+     */
+    consumerDateOfBirth?: string;
+    /**
+     * For some industries, additional purchase information can be sent to Klarna to increase the authorization rate. You can submit your extra data in this field if you have agreed upon this with Klarna.
+     * This field should be an object containing any of the allowed keys and sub-objects described at the [Klarna Developer Documentation](https://docs.klarna.com/api/extra-merchant-data/).
+     *
+     * Reach out to your account manager at Mollie to enable this feature with Klarna, and to agree on which fields you can send.
+     *
+     * @see https://docs.mollie.com/reference/extra-payment-parameters#klarna
+     */
+    extraMerchantData?: Record<string, unknown>;
+    /**
+     * Billie is a business-to-business (B2B) payment method. It requires extra information to identify the organization that is completing the payment. It is recommended to include these parameters up front for a seamless flow.
+     * Otherwise, Billie will ask the customer to complete the missing fields during checkout.
+     *
+     * @see https://docs.mollie.com/reference/extra-payment-parameters#billie
+     */
+    company?: {
+      /**
+       * The organization's registration number.
+       */
+      registrationNumber: string;
+      /**
+       * The organization's VAT number.
+       */
+      vatNumber: string;
+      /**
+       * The organization's entity type.
+       */
+      entityType: string;
+    };
+    /**
+     * The unique ID you have used for the PayPal fraud library. You should include this if you use PayPal for an on-demand payment.
      *
      * Refer to the Recurring payments guide for more information on how to implement the fraud library.
      *
-     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=sessionId#paypal-method-details
+     * @see https://docs.mollie.com/reference/extra-payment-parameters#paypal
      */
     sessionId?: string;
     /**
-     * Indicate if you are about to deliver digital goods, like for example a license. Setting this parameter can have consequences for your Seller Protection by PayPal. See [PayPal's help
-     * article](https://www.paypal.com/us/brc/article/seller-protection) about Seller Protection for more information.
+     * Indicate if you are about to deliver digital goods, such as for example a software license. Setting this parameter can have consequences for your PayPal Seller Protection.
+     * Refer to [PayPal's documentation]https://www.paypal.com/us/brc/article/seller-protection) for more information.
      *
      * Default: `false`
      *
-     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=digitalGoods#paypal-method-details
+     * @see https://docs.mollie.com/reference/extra-payment-parameters#paypal
      */
     digitalGoods?: boolean;
     /**
-     * Used for consumer identification. Use the following guidelines to create your `customerReference`:
+     * Used by paysafecard for customer identification across payments. When you generate a customer reference yourself, make sure not to put personal identifiable information or IP addresses in the customer reference directly.
      *
-     * -   Has to be unique per shopper
-     * -   Has to remain the same for one shopper
-     * -   Should be as disconnected from personal data as possible
-     * -   Must not contain customer sensitive data
-     * -   Must not contain the timestamp
-     * -   Must not contain the IP address
+     * If not provided, Mollie will use a hashed version of the customer's IP address.
      *
-     * Due to data privacy regulations, make sure not to use any personal identifiable information in this parameter.
-     *
-     * If not provided, Mollie will send a hashed version of the shopper IP address.
-     *
-     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=customerReference#paysafecard
+     * @see https://docs.mollie.com/reference/extra-payment-parameters#paysafecard
      */
     customerReference?: string;
     /**
