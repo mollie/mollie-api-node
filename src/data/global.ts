@@ -46,6 +46,7 @@ export enum PaymentMethod {
   mbway = 'mbway',
   multibanco = 'multibanco',
   mybank = 'mybank',
+  paybybank = 'paybybank',
   payconiq = 'payconiq',
   paypal = 'paypal',
   paysafecard = 'paysafecard',
