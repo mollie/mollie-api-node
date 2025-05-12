@@ -5,6 +5,12 @@
 
 Please see [the migration guide](MIGRATION.md) for guidance about updating to a newer major version.
 
+### v4.3.2 - 2025-
+  - Add paybybank payment method ([#433](https://github.com/mollie/mollie-api-node/pull/433))
+
+### v4.3.1 - 2025-04-23
+  - Add missing method specific parameters ([#429](https://github.com/mollie/mollie-api-node/pull/429))
+
 ### v4.3.0 - 2025-04-02
 
 - Add terminal API ([#413](https://github.com/mollie/mollie-api-node/pull/413))
