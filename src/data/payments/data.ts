@@ -464,6 +464,12 @@ interface PaymentLinks extends Links {
    * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/dashboard#response
    */
   dashboard: Url;
+    /**
+   * Direct link to the payment status page.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/status#response
+   */
+  status: Url;
 }
 
 export interface BancontactDetails {
