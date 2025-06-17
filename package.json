@@ -5,7 +5,7 @@
   "description": "Official Mollie API client for Node",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mollie/mollie-api-node"
+    "url": "git+https://github.com/mollie/mollie-api-node.git"
   },
   "keywords": [
     "mollie",
@@ -25,7 +25,8 @@
     "node": ">=8"
   },
   "scripts": {
-    "prepublish": "yarn build",
+    "prepack": "yarn build",
+    "prepare": "yarn build",
     "commit": "git-cz",
     "prepush": "yarn test",
     "test": "jest",
