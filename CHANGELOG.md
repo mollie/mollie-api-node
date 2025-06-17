@@ -5,7 +5,10 @@
 
 Please see [the migration guide](MIGRATION.md) for guidance about updating to a newer major version.
 
-### v4.3.2 - 2025-
+### v4.3.3 - 2025-06-17
+  - Fix parameters for `customerPayments.create()` ([#442](https://github.com/mollie/mollie-api-node/pull/442))
+
+### v4.3.2 - 2025-05-12
   - Add paybybank payment method ([#433](https://github.com/mollie/mollie-api-node/pull/433))
 
 ### v4.3.1 - 2025-04-23
