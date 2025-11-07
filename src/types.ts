@@ -57,6 +57,7 @@ import { CancelParameters as OrderLineCancelParams, UpdateParameters as OrderLin
 export { OrderLineUpdateParams, OrderLineCancelParams };
 
 export { default as Organization } from './data/organizations/Organizations';
+export { default as PartnerStatus } from './data/organizations/partner/PartnerStatus';
 
 export { default as Payment } from './data/payments/Payment';
 import { CreateParameters as CustomerPaymentCreateParams, PageParameters as CustomerPaymentsListParams } from './binders/customers/payments/parameters';

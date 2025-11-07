@@ -1,6 +1,8 @@
 import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
 import type Organization from '../../data/organizations/Organizations';
 import { type OrganizationData } from '../../data/organizations/Organizations';
+import type PartnerStatus from '../../data/organizations/partner/PartnerStatus';
+import { type PartnerStatusData } from '../../data/organizations/partner/data';
 import assertWellFormedId from '../../plumbing/assertWellFormedId';
 import renege from '../../plumbing/renege';
 import type Callback from '../../types/Callback';
@@ -38,5 +40,19 @@ export default class OrganizationsBinder extends Binder<OrganizationData, Organi
   public getCurrent() {
     if (renege(this, this.getCurrent, ...arguments)) return;
     return this.networkClient.get<OrganizationData, Organization>(`${pathSegment}/me`);
+  }
+
+  /**
+   * Retrieve partnership details about the currently authenticated organization.
+   * Only relevant for partner accounts.
+   *
+   * @since 4.4.0
+   * @see https://docs.mollie.com/reference/get-partner-status
+   */
+  public getPartnerStatus(): Promise<PartnerStatus>;
+  public getPartnerStatus(callback: Callback<PartnerStatus>): void;
+  public getPartnerStatus() {
+    if (renege(this, this.getPartnerStatus, ...arguments)) return;
+    return this.networkClient.get<PartnerStatusData, PartnerStatus>(`${pathSegment}/me/partner`);
   }
 }
