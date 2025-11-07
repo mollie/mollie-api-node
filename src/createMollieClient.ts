@@ -27,6 +27,7 @@ import { transform as transformPaymentLink } from './data/paymentLinks/PaymentLi
 import { transform as transformIssuer } from './data/issuer/IssuerModel';
 import { transform as transformSettlement } from './data/settlements/SettlementModel';
 import { transform as transformTerminal } from './data/terminals/Terminal';
+import { transform as transformRoute } from './data/payments/routes/Route';
 
 // Binders
 import ApplePayBinder from './binders/applePay/ApplePayBinder';
@@ -62,6 +63,7 @@ import SettlementsBinder from './binders/settlements/SettlementsBinder';
 import SubscriptionsBinder from './binders/subscriptions/SubscriptionsBinder';
 import SubscriptionPaymentsBinder from './binders/subscriptions/payments/SubscriptionPaymentsBinder';
 import TerminalsBinder from './binders/terminals/TerminalsBinder';
+import PaymentRoutesBinder from './binders/payments/routes/PaymentRoutesBinder';
 
 /**
  * Create Mollie client.
@@ -99,7 +101,8 @@ export default function createMollieClient(options: Options) {
       .add('payment-link', transformPaymentLink)
       .add('issuer', transformIssuer)
       .add('settlement', transformSettlement)
-      .add('terminal', transformTerminal),
+      .add('terminal', transformTerminal)
+      .add('route', transformRoute),
   );
 
   return apply(
@@ -120,6 +123,9 @@ export default function createMollieClient(options: Options) {
 
       // Captures.
       paymentCaptures: new PaymentCapturesBinder(transformingNetworkClient),
+
+      // Routes.
+      paymentRoutes: new PaymentRoutesBinder(transformingNetworkClient),
 
       // Customers.
       customers: new CustomersBinder(transformingNetworkClient),
@@ -178,6 +184,7 @@ export default function createMollieClient(options: Options) {
         paymentRefunds: 'payments_refunds',
         paymentChargebacks: 'payments_chargebacks',
         paymentCaptures: 'payments_captures',
+        paymentRoutes: 'payments_routes',
         customerPayments: 'customers_payments',
         customerMandates: 'customers_mandates',
         subscriptionPayments: 'subscriptions_payments',

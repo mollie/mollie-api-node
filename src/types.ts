@@ -69,6 +69,9 @@ import {
 } from './binders/payments/parameters';
 export { PaymentCreateParams, PaymentGetParams, PaymentsListParams, PaymentCancelParams, CustomerPaymentCreateParams, CustomerPaymentsListParams, OrderPaymentCreateParams };
 
+export { default as Route } from './data/payments/routes/Route';
+export { CreateParameters as RouteCreateParams, PageParameters as RoutesPageParams } from './binders/payments/routes/parameters';
+
 export { default as Permission } from './data/permissions/Permission';
 
 export { default as Profile } from './data/profiles/Profile';
