@@ -68,3 +68,49 @@ test('getCurrentOrganization', () => {
     testOrganization(organization);
   });
 });
+
+test('getPartnerStatus', () => {
+  const partnerStatusResponse = {
+    resource: 'partner',
+    partnerType: 'signuplink',
+    isCommissionPartner: true,
+    partnerContractSignedAt: '2024-03-20T13:59:02.0Z',
+    partnerContractUpdateAvailable: false,
+    partnerContractExpiresAt: '2024-04-19T23:59:59.0Z',
+    _links: {
+      self: {
+        href: 'https://api.mollie.com/v2/organizations/me/partner',
+        type: 'application/hal+json',
+      },
+      signuplink: {
+        href: 'https://www.mollie.com/dashboard/signup/exampleCode',
+        type: 'text/html',
+      },
+      documentation: {
+        href: 'https://docs.mollie.com/reference/get-partner-status',
+        type: 'text/html',
+      },
+    },
+  };
+
+  return new NetworkMocker(getApiKeyClientProvider()).use(async ([mollieClient, networkMocker]) => {
+    networkMocker.intercept('GET', '/organizations/me/partner', 200, partnerStatusResponse).twice();
+
+    const partnerStatus = await bluster(mollieClient.organizations.getPartnerStatus.bind(mollieClient.organizations))();
+
+    expect(partnerStatus.resource).toBe('partner');
+    expect(partnerStatus.partnerType).toBe('signuplink');
+    expect(partnerStatus.isCommissionPartner).toBe(true);
+    expect(partnerStatus.partnerContractSignedAt).toBe('2024-03-20T13:59:02.0Z');
+    expect(partnerStatus.partnerContractUpdateAvailable).toBe(false);
+    expect(partnerStatus.partnerContractExpiresAt).toBe('2024-04-19T23:59:59.0Z');
+    expect(partnerStatus._links.self).toEqual({
+      href: 'https://api.mollie.com/v2/organizations/me/partner',
+      type: 'application/hal+json',
+    });
+    expect(partnerStatus._links.signuplink).toEqual({
+      href: 'https://www.mollie.com/dashboard/signup/exampleCode',
+      type: 'text/html',
+    });
+  });
+});

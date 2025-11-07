@@ -21,6 +21,7 @@ import { transform as transformOrder } from './data/orders/Order';
 import { transform as transformShipment } from './data/orders/shipments/Shipment';
 import { transform as transformPermission } from './data/permissions/Permission';
 import { transform as transformOrganization } from './data/organizations/Organizations';
+import { transform as transformPartnerStatus } from './data/organizations/partner/PartnerStatus';
 import { transform as transformProfile } from './data/profiles/Profile';
 import { transform as transformOnboarding } from './data/onboarding/Onboarding';
 import { transform as transformPaymentLink } from './data/paymentLinks/PaymentLink';
@@ -94,6 +95,7 @@ export default function createMollieClient(options: Options) {
       .add('shipment', transformShipment)
       .add('permission', transformPermission)
       .add('organization', transformOrganization)
+      .add('partner', transformPartnerStatus)
       .add('profile', transformProfile)
       .add('onboarding', transformOnboarding)
       .add('payment-link', transformPaymentLink)
