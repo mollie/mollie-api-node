@@ -7,6 +7,9 @@ export { default as MollieOptions } from './Options';
 
 export { default as Page } from './data/page/Page';
 
+export { default as BalanceTransfer } from './data/balance-transfers/BalanceTransfer';
+export { CreateParameters as BalanceTransferCreateParams, GetParameters as BalanceTransferGetParams, PageParameters as BalanceTransfersPageParams } from './binders/balance-transfers/parameters';
+
 export { default as Capture } from './data/payments/captures/Capture';
 import { GetParameters as CapturesGetParameters, PageParameters as CapturesPageParameters } from './binders/payments/captures/parameters';
 export { CapturesGetParameters, CapturesPageParameters };
