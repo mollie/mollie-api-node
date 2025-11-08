@@ -1,7 +1,7 @@
 const { join } = require('path');
-const json = require('rollup-plugin-json');
-const resolve = require('rollup-plugin-node-resolve');
-const babel = require('rollup-plugin-babel');
+const json = require('@rollup/plugin-json');
+const resolve = require('@rollup/plugin-node-resolve');
+const babel = require('@rollup/plugin-babel');
 
 // Known safe circular dependencies that are intentional by design.
 // These cycles exist because the Mollie API returns embedded resources bidirectionally:
@@ -22,11 +22,18 @@ module.exports = {
   input: join('src', 'createMollieClient.ts'),
   external: [
     // These Node.js internals are external to our bundles…
-    'crypto', 'https', 'querystring', 'url', 'util',
+    'crypto',
+    'https',
+    'querystring',
+    'url',
+    'util',
     // …as are the dependencies listed in our package.json.
     ...Object.keys(require('./package.json').dependencies),
   ],
-  output: [{ file: join('dist', 'mollie.cjs.js'), format: 'cjs' }, { file: join('dist', 'mollie.esm.js'), format: 'es' }],
+  output: [
+    { file: join('dist', 'mollie.cjs.js'), format: 'cjs' },
+    { file: join('dist', 'mollie.esm.js'), format: 'es' },
+  ],
   onLog(level, log, defaultHandler) {
     // Suppress specific circular dependency warnings
     if (log.code === 'CIRCULAR_DEPENDENCY') {
@@ -51,12 +58,13 @@ module.exports = {
     resolve({
       extensions: ['.ts'],
       customResolveOptions: {
-        moduleDirectory: 'src',
+        moduleDirectories: ['src'],
       },
       preferBuiltins: true,
     }),
     babel({
       extensions: ['.ts'],
+      babelHelpers: 'bundled',
     }),
     {
       name: 'cert',
@@ -66,9 +74,9 @@ module.exports = {
         }
         return {
           code: `export default ${JSON.stringify(code)}`,
-          map: { mappings: '' }
+          map: { mappings: '' },
         };
-      }
-    }
+      },
+    },
   ],
 };
