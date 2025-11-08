@@ -1,12 +1,12 @@
 import type TransformingNetworkClient from '../../../communication/TransformingNetworkClient';
 import type Seal from '../../../types/Seal';
-import Helper from '../../Helper';
 import type { PartnerStatusData } from './data';
+import PartnerStatusHelper from './PartnerStatusHelper';
 
-type PartnerStatus = Seal<PartnerStatusData, Helper<PartnerStatusData, PartnerStatus>>;
+type PartnerStatus = Seal<PartnerStatusData, PartnerStatusHelper>;
 
 export default PartnerStatus;
 
 export function transform(networkClient: TransformingNetworkClient, input: PartnerStatusData): PartnerStatus {
-  return Object.assign(Object.create(new Helper<PartnerStatusData, PartnerStatus>(networkClient, input._links)), input);
+  return Object.assign(Object.create(new PartnerStatusHelper(networkClient, input._links)), input);
 }
