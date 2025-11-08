@@ -1,4 +1,4 @@
-import { apply, run } from 'ruply';
+import { apply } from 'ruply';
 
 function createDescriptor<T>(value: T) {
   return {

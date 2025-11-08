@@ -104,7 +104,11 @@ async function processFetchResponse(response: ResponseWithIdempotencyKey) {
   throw new ApiError('An unknown error has occurred');
 }
 
+// Empty interfaces used as flexible constraints in intersections (e.g., Data & IdempotencyParameter).
+// They allow specific types without index signatures to pass through, unlike Record<string, unknown>.
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Data {}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Context {}
 
 /**
