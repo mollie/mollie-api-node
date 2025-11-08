@@ -29,6 +29,7 @@ import { transform as transformIssuer } from './data/issuer/IssuerModel';
 import { transform as transformSettlement } from './data/settlements/SettlementModel';
 import { transform as transformTerminal } from './data/terminals/Terminal';
 import { transform as transformRoute } from './data/payments/routes/Route';
+import { transform as transformBalanceTransfer } from './data/balance-transfers/BalanceTransfer';
 
 // Binders
 import ApplePayBinder from './binders/applePay/ApplePayBinder';
@@ -65,6 +66,7 @@ import SubscriptionsBinder from './binders/subscriptions/SubscriptionsBinder';
 import SubscriptionPaymentsBinder from './binders/subscriptions/payments/SubscriptionPaymentsBinder';
 import TerminalsBinder from './binders/terminals/TerminalsBinder';
 import PaymentRoutesBinder from './binders/payments/routes/PaymentRoutesBinder';
+import BalanceTransfersBinder from './binders/balance-transfers/BalanceTransfersBinder';
 
 /**
  * Create Mollie client.
@@ -104,7 +106,8 @@ export default function createMollieClient(options: Options) {
       .add('issuer', transformIssuer)
       .add('settlement', transformSettlement)
       .add('terminal', transformTerminal)
-      .add('route', transformRoute),
+      .add('route', transformRoute)
+      .add('connect-balance-transfer', transformBalanceTransfer),
   );
 
   return apply(
@@ -180,6 +183,9 @@ export default function createMollieClient(options: Options) {
 
       // Terminals
       terminals: new TerminalsBinder(transformingNetworkClient),
+
+      // Balance Transfers
+      balanceTransfers: new BalanceTransfersBinder(transformingNetworkClient),
     },
     client =>
       alias(client, {
@@ -202,6 +208,7 @@ export default function createMollieClient(options: Options) {
 export { createMollieClient };
 
 export { ApiMode, Locale, PaymentMethod, HistoricPaymentMethod, SequenceType } from './data/global';
+export { BalanceTransferStatus, BalanceTransferStatusReasonCode, BalanceTransferCategory } from './data/balance-transfers/data';
 export { CaptureStatus, CaptureInclude } from './data/payments/captures/data';
 export { MandateMethod, MandateStatus } from './data/customers/mandates/data';
 export { MethodImageSize, MethodInclude } from './data/methods/data';

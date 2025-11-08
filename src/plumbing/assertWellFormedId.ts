@@ -2,6 +2,7 @@ import ApiError from '../errors/ApiError';
 import type Maybe from '../types/Maybe';
 
 const prefixes = {
+  'balance-transfer': 'cbtr_',
   'capture': 'cpt_',
   'chargeback': 'chb_',
   'customer': 'cst_',
