@@ -149,6 +149,9 @@ export interface OrderLineData extends Model<'orderline'> {
   metadata: unknown;
 }
 
+// OrderLine has no helper methods (transform is identity function), so the second Seal
+// parameter is an empty object literal. This is the correct TypeScript pattern.
+// eslint-disable-next-line @typescript-eslint/ban-types
 type OrderLine = Seal<OrderLineData, {}>;
 
 export default OrderLine;

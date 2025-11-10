@@ -31,6 +31,7 @@ export enum PaymentMethod {
   banktransfer = 'banktransfer',
   belfius = 'belfius',
   billie = 'billie',
+  bizum = 'bizum',
   blik = 'blik',
   creditcard = 'creditcard',
   directdebit = 'directdebit',
@@ -44,6 +45,7 @@ export enum PaymentMethod {
   klarnapaynow = 'klarnapaynow',
   klarnasliceit = 'klarnasliceit',
   mbway = 'mbway',
+  mobilepay = 'mobilepay',
   multibanco = 'multibanco',
   mybank = 'mybank',
   paybybank = 'paybybank',
@@ -54,8 +56,10 @@ export enum PaymentMethod {
   przelewy24 = 'przelewy24',
   riverty = 'riverty',
   satispay = 'satispay',
+  swish = 'swish',
   trustly = 'trustly',
   twint = 'twint',
+  vipps = 'vipps',
   voucher = 'voucher',
 }
 
