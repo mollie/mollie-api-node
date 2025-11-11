@@ -1,6 +1,6 @@
 {
   "name": "@mollie/api-client",
-  "version": "4.3.3",
+  "version": "4.4.0-rc.0",
   "license": "BSD-3-Clause",
   "description": "Official Mollie API client for Node",
   "repository": {
