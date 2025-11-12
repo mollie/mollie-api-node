@@ -56,8 +56,12 @@ function testRoute(route, paymentId = 'tr_5B8cwPMGnU6qLbRvo7qEZo', routeId = 'cr
 
 test('createRoute', () => {
   return new NetworkMocker(getApiKeyClientProvider()).use(async ([mollieClient, networkMocker]) => {
+    // TODO: API Bug - Create route endpoint does not return createdAt (unlike other resources)
+    // Remove the destructuring workaround below once the API is fixed to return createdAt on create
+    const { createdAt, ...mockResponseWithoutCreatedAt } = composeRouteResponse('tr_5B8cwPMGnU6qLbRvo7qEZo', 'crt_dyARQ3JzCgtPDhU2Pbq3J');
+
     networkMocker
-      .intercept('POST', '/payments/tr_5B8cwPMGnU6qLbRvo7qEZo/routes', 200, composeRouteResponse('tr_5B8cwPMGnU6qLbRvo7qEZo', 'crt_dyARQ3JzCgtPDhU2Pbq3J'))
+      .intercept('POST', '/payments/tr_5B8cwPMGnU6qLbRvo7qEZo/routes', 200, mockResponseWithoutCreatedAt)
       .twice();
 
     const route = await bluster(mollieClient.paymentRoutes.create.bind(mollieClient.paymentRoutes))({
@@ -67,7 +71,11 @@ test('createRoute', () => {
       destination: { type: 'organization', organizationId: 'org_123' },
     });
 
-    testRoute(route, 'tr_5B8cwPMGnU6qLbRvo7qEZo', 'crt_dyARQ3JzCgtPDhU2Pbq3J');
+    // Exclude createdAt from assertion since create doesn't return it
+    const { createdAt: _createdAt, ...routeWithoutCreatedAt } = route;
+    const { createdAt: _expectedCreatedAt, ...expectedWithoutCreatedAt } = composeRouteResponse('tr_5B8cwPMGnU6qLbRvo7qEZo', 'crt_dyARQ3JzCgtPDhU2Pbq3J');
+
+    expect(routeWithoutCreatedAt).toMatchObject(expectedWithoutCreatedAt);
   });
 });
 
