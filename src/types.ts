@@ -67,6 +67,9 @@ export { OrderLineUpdateParams, OrderLineCancelParams };
 export { default as Organization } from './data/organizations/Organizations';
 export { default as PartnerStatus } from './data/organizations/partner/PartnerStatus';
 
+export { default as OAuthToken } from './data/oauth/data';
+export { CreateParameters as OAuthCreateTokenParams, RevokeParameters as OAuthRevokeTokenParams } from './binders/oauth/parameters';
+
 export { default as Payment } from './data/payments/Payment';
 import { CreateParameters as CustomerPaymentCreateParams, PageParameters as CustomerPaymentsListParams } from './binders/customers/payments/parameters';
 import { CreateParameters as OrderPaymentCreateParams } from './binders/payments/orders/parameters';

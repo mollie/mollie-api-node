@@ -70,6 +70,7 @@ import PaymentRoutesBinder from './binders/payments/routes/PaymentRoutesBinder';
 import BalanceTransfersBinder from './binders/balance-transfers/BalanceTransfersBinder';
 import CapabilitiesBinder from './binders/capabilities/CapabilitiesBinder';
 import ClientsBinder from './binders/clients/ClientsBinder';
+import OAuthBinder from './binders/oauth/OAuthBinder';
 
 /**
  * Create Mollie client.
@@ -196,6 +197,9 @@ export default function createMollieClient(options: Options) {
 
       // Clients
       clients: new ClientsBinder(transformingNetworkClient),
+
+      // OAuth
+      oauth: new OAuthBinder(networkClient),
     },
     client =>
       alias(client, {
@@ -232,4 +236,5 @@ export { OnboardingStatus } from './data/onboarding/data';
 export { TerminalStatus } from './data/terminals/data';
 export { CapabilityStatus, CapabilityStatusReason, RequirementStatus } from './data/capabilities/data';
 export { ClientEmbed } from './data/clients/data';
+export { GrantType as OAuthGrantType, TokenType as OAuthTokenType } from './data/oauth/data';
 export { default as MollieApiError } from './errors/ApiError';
