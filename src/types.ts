@@ -15,6 +15,9 @@ export { default as Capability } from './data/capabilities/Capability';
 export { default as Client } from './data/clients/Client';
 export { GetParameters as ClientGetParams, PageParameters as ClientsListParams } from './binders/clients/parameters';
 
+export { default as ClientLink } from './data/client-links/ClientLink';
+export { CreateParameters as ClientLinkCreateParams } from './binders/client-links/parameters';
+
 export { default as Capture } from './data/payments/captures/Capture';
 import { GetParameters as CapturesGetParameters, PageParameters as CapturesPageParameters } from './binders/payments/captures/parameters';
 export { CapturesGetParameters, CapturesPageParameters };
