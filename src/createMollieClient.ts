@@ -30,6 +30,7 @@ import { transform as transformSettlement } from './data/settlements/SettlementM
 import { transform as transformTerminal } from './data/terminals/Terminal';
 import { transform as transformRoute } from './data/payments/routes/Route';
 import { transform as transformBalanceTransfer } from './data/balance-transfers/BalanceTransfer';
+import { transform as transformClient } from './data/clients/Client';
 
 // Binders
 import ApplePayBinder from './binders/applePay/ApplePayBinder';
@@ -68,6 +69,7 @@ import TerminalsBinder from './binders/terminals/TerminalsBinder';
 import PaymentRoutesBinder from './binders/payments/routes/PaymentRoutesBinder';
 import BalanceTransfersBinder from './binders/balance-transfers/BalanceTransfersBinder';
 import CapabilitiesBinder from './binders/capabilities/CapabilitiesBinder';
+import ClientsBinder from './binders/clients/ClientsBinder';
 
 /**
  * Create Mollie client.
@@ -108,7 +110,8 @@ export default function createMollieClient(options: Options) {
       .add('settlement', transformSettlement)
       .add('terminal', transformTerminal)
       .add('route', transformRoute)
-      .add('connect-balance-transfer', transformBalanceTransfer),
+      .add('connect-balance-transfer', transformBalanceTransfer)
+      .add('client', transformClient),
   );
 
   return apply(
@@ -190,6 +193,9 @@ export default function createMollieClient(options: Options) {
 
       // Capabilities
       capabilities: new CapabilitiesBinder(networkClient),
+
+      // Clients
+      clients: new ClientsBinder(transformingNetworkClient),
     },
     client =>
       alias(client, {
@@ -225,4 +231,5 @@ export { ProfileStatus } from './data/profiles/data';
 export { OnboardingStatus } from './data/onboarding/data';
 export { TerminalStatus } from './data/terminals/data';
 export { CapabilityStatus, CapabilityStatusReason, RequirementStatus } from './data/capabilities/data';
+export { ClientEmbed } from './data/clients/data';
 export { default as MollieApiError } from './errors/ApiError';
