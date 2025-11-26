@@ -67,6 +67,7 @@ import SubscriptionPaymentsBinder from './binders/subscriptions/payments/Subscri
 import TerminalsBinder from './binders/terminals/TerminalsBinder';
 import PaymentRoutesBinder from './binders/payments/routes/PaymentRoutesBinder';
 import BalanceTransfersBinder from './binders/balance-transfers/BalanceTransfersBinder';
+import CapabilitiesBinder from './binders/capabilities/CapabilitiesBinder';
 
 /**
  * Create Mollie client.
@@ -186,6 +187,9 @@ export default function createMollieClient(options: Options) {
 
       // Balance Transfers
       balanceTransfers: new BalanceTransfersBinder(transformingNetworkClient),
+
+      // Capabilities
+      capabilities: new CapabilitiesBinder(networkClient),
     },
     client =>
       alias(client, {
@@ -220,4 +224,5 @@ export { SubscriptionStatus } from './data/subscriptions/data';
 export { ProfileStatus } from './data/profiles/data';
 export { OnboardingStatus } from './data/onboarding/data';
 export { TerminalStatus } from './data/terminals/data';
+export { CapabilityStatus, CapabilityStatusReason, RequirementStatus } from './data/capabilities/data';
 export { default as MollieApiError } from './errors/ApiError';
