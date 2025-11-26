@@ -4,27 +4,29 @@ import renege from '../../plumbing/renege';
 import type Callback from '../../types/Callback';
 import { type CreateParameters, type RevokeParameters } from './parameters';
 
-const endpoint = 'https://api.mollie.com/oauth2/tokens';
-
-const generateToken = (clientId: string, clientSecret: string) => Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
+const encodeBasicAuthCredentials = (clientId: string, clientSecret: string) => Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
 
 export default class OAuthBinder {
-  constructor(protected readonly networkClient: NetworkClient) {}
+  constructor(
+    protected readonly networkClient: NetworkClient,
+    protected readonly endpoint: string = 'https://api.mollie.com/oauth2/tokens',
+  ) {}
 
   /**
    * Makes an OAuth API request with Basic authentication.
    * OAuth token endpoints require application/x-www-form-urlencoded body encoding
    * and Basic auth with client credentials (different from standard Mollie API).
    */
-  protected request<T>(method: string, basicAuthToken: string, data: Record<string, string> = {}): Promise<T> {
-    return this.networkClient.rawRequest<T>(endpoint, {
+  protected request<T>(method: string, basicAuthToken: string, data: Partial<Record<string, string>> = {}): Promise<T> {
+    const definedData = Object.entries(data).filter((entry): entry is [string, string] => entry[1] !== undefined);
+    return this.networkClient.rawRequest<T>(this.endpoint, {
       method,
       headers: {
         Authorization: `Basic ${basicAuthToken}`,
         'Content-Type': 'application/x-www-form-urlencoded',
         Accept: 'application/json',
       },
-      body: new URLSearchParams(data).toString(),
+      body: new URLSearchParams(definedData).toString(),
     });
   }
 
@@ -39,7 +41,7 @@ export default class OAuthBinder {
   public create(parameters: CreateParameters) {
     if (renege(this, this.create, ...arguments)) return;
     const { clientId, clientSecret, ...data } = parameters;
-    return this.request<Token>('POST', generateToken(clientId, clientSecret), data);
+    return this.request<Token>('POST', encodeBasicAuthCredentials(clientId, clientSecret), data);
   }
 
   /**
@@ -53,6 +55,6 @@ export default class OAuthBinder {
   public revoke(parameters: RevokeParameters) {
     if (renege(this, this.revoke, ...arguments)) return;
     const { clientId, clientSecret, ...data } = parameters;
-    return this.request<true>('DELETE', generateToken(clientId, clientSecret), data);
+    return this.request<true>('DELETE', encodeBasicAuthCredentials(clientId, clientSecret), data);
   }
 }
