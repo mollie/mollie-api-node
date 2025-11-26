@@ -31,6 +31,7 @@ import { transform as transformTerminal } from './data/terminals/Terminal';
 import { transform as transformRoute } from './data/payments/routes/Route';
 import { transform as transformBalanceTransfer } from './data/balance-transfers/BalanceTransfer';
 import { transform as transformClient } from './data/clients/Client';
+import { transform as transformClientLink } from './data/client-links/ClientLink';
 
 // Binders
 import ApplePayBinder from './binders/applePay/ApplePayBinder';
@@ -71,6 +72,7 @@ import BalanceTransfersBinder from './binders/balance-transfers/BalanceTransfers
 import CapabilitiesBinder from './binders/capabilities/CapabilitiesBinder';
 import ClientsBinder from './binders/clients/ClientsBinder';
 import OAuthBinder from './binders/oauth/OAuthBinder';
+import ClientLinksBinder from './binders/client-links/ClientLinksBinder';
 
 /**
  * Create Mollie client.
@@ -112,7 +114,8 @@ export default function createMollieClient(options: Options) {
       .add('terminal', transformTerminal)
       .add('route', transformRoute)
       .add('connect-balance-transfer', transformBalanceTransfer)
-      .add('client', transformClient),
+      .add('client', transformClient)
+      .add('client-link', transformClientLink),
   );
 
   return apply(
@@ -200,6 +203,9 @@ export default function createMollieClient(options: Options) {
 
       // OAuth
       oauth: new OAuthBinder(networkClient),
+
+      // Client Links
+      clientLinks: new ClientLinksBinder(transformingNetworkClient),
     },
     client =>
       alias(client, {
