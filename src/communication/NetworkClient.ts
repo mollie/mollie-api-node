@@ -287,4 +287,15 @@ export default class NetworkClient {
     };
     return this.request(buildUrl(pathname), config);
   }
+
+  /**
+   * Low-level request method for endpoints that don't follow the standard Mollie API conventions.
+   * Allows full control over URL, headers, and body encoding while still using retry logic and error handling.
+   *
+   * @param url - Full URL (not relative to apiEndpoint)
+   * @param options - Full RequestInit options (method, headers, body)
+   */
+  async rawRequest<R>(url: string, options: RequestInit): Promise<R> {
+    return this.request(url, options);
+  }
 }
