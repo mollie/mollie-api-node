@@ -3,7 +3,7 @@ import type Seal from '../../types/Seal';
 import BalanceTransferHelper from './BalanceTransferHelper';
 import { type BalanceTransferData } from './data';
 
-type BalanceTransfer = Seal<BalanceTransferData, BalanceTransferHelper>;
+type BalanceTransfer = Seal<Omit<BalanceTransferData, '_links'>, BalanceTransferHelper>;
 
 export default BalanceTransfer;
 

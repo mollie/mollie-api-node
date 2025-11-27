@@ -108,9 +108,7 @@ test('getPartnerStatus', () => {
       href: 'https://api.mollie.com/v2/organizations/me/partner',
       type: 'application/hal+json',
     });
-    expect(partnerStatus._links.signuplink).toEqual({
-      href: 'https://www.mollie.com/dashboard/signup/exampleCode',
-      type: 'text/html',
-    });
+    // Test the getSignupLink helper (provides access to signuplink URL)
+    expect(partnerStatus.getSignupLink()).toBe('https://www.mollie.com/dashboard/signup/exampleCode');
   });
 });

@@ -3,7 +3,7 @@ import type Seal from '../../../types/Seal';
 import type { PartnerStatusData } from './data';
 import PartnerStatusHelper from './PartnerStatusHelper';
 
-type PartnerStatus = Seal<PartnerStatusData, PartnerStatusHelper>;
+type PartnerStatus = Seal<Omit<PartnerStatusData, '_links'>, PartnerStatusHelper>;
 
 export default PartnerStatus;
 
