@@ -1,4 +1,4 @@
-import { MollieApiError, MollieClient, PaymentCreateParams } from '../..';
+import { MollieApiError, MollieClient, OAuthGrantType, PaymentCreateParams } from '../..';
 import NetworkMocker, { getApiKeyClientProvider } from '../NetworkMocker';
 
 describe('errorHandling', () => {
@@ -60,6 +60,70 @@ describe('errorHandling', () => {
     } catch (error) {
       expect(error).toBeInstanceOf(MollieApiError);
       expect(error.idempotencyKey).toBe('mock-key');
+    }
+  });
+
+  const oauthEndpoint = { basePath: 'https://api.mollie.com:443', path: '/oauth2/tokens' };
+
+  test('OAuth invalid credentials (401)', async () => {
+    expect.assertions(3);
+    networkMocker
+      .intercept('POST', oauthEndpoint, 401, {
+        status: 401,
+        title: 'Unauthorized Request',
+        detail: 'Missing authentication, or failed to authenticate',
+        _links: {
+          documentation: {
+            href: 'https://docs.mollie.com/overview/authentication',
+            type: 'text/html',
+          },
+        },
+      })
+      .twice();
+
+    try {
+      await bluster(mollieClient.oauth.create.bind(mollieClient.oauth))({
+        clientId: 'app_invalid',
+        clientSecret: 'invalid_secret',
+        grant_type: OAuthGrantType.authorization_code,
+        code: 'auth_code_test',
+      });
+    } catch (error) {
+      expect(error).toBeInstanceOf(MollieApiError);
+      expect((error as MollieApiError).statusCode).toBe(401);
+      expect((error as MollieApiError).message).toBe('Missing authentication, or failed to authenticate');
+    }
+  });
+
+  test('OAuth invalid grant (422)', async () => {
+    expect.assertions(4);
+    networkMocker
+      .intercept('POST', oauthEndpoint, 422, {
+        status: 422,
+        title: 'Unprocessable Entity',
+        detail: 'The authorization code is invalid or has expired',
+        field: 'code',
+        _links: {
+          documentation: {
+            href: 'https://docs.mollie.com/reference/oauth-generate-tokens',
+            type: 'text/html',
+          },
+        },
+      })
+      .twice();
+
+    try {
+      await bluster(mollieClient.oauth.create.bind(mollieClient.oauth))({
+        clientId: 'app_test123',
+        clientSecret: 'secret_test456',
+        grant_type: OAuthGrantType.authorization_code,
+        code: 'expired_code',
+      });
+    } catch (error) {
+      expect(error).toBeInstanceOf(MollieApiError);
+      expect((error as MollieApiError).statusCode).toBe(422);
+      expect((error as MollieApiError).field).toBe('code');
+      expect((error as MollieApiError).message).toBe('The authorization code is invalid or has expired');
     }
   });
 
