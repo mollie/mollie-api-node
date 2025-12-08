@@ -871,6 +871,14 @@ export interface PointOfSaleDetails {
    */
   cardLabel?: Nullable<'Visa' | 'Mastercard' | 'Vpay' | 'Maestro'>;
   /**
+   * Only available if the payment has been completed - The card funding type, if known.
+   *
+   * Possible values: `credit` `debit` `null`
+   *
+   * @see https://docs.mollie.com/reference/extra-payment-parameters#detailscardfunding-string--null-1
+   */
+  cardFunding?: Nullable<'credit' | 'debit'>;
+  /**
    * Only available if the payment has been completed - The [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country the card was issued in. For example:
    * `BE`.
    *
