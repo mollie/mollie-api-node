@@ -92,11 +92,30 @@ export interface RefundData extends Model<'refund'> {
 }
 
 export enum RefundStatus {
+  /**
+   * The refund is queued due to a lack of balance. See the insufficient balance section below. A queued refund can be canceled.
+   */
   queued = 'queued',
+  /**
+   * The refund is ready to be picked up for processing. You can still cancel the refund if you like.
+   */
   pending = 'pending',
+  /**
+   * The refund was canceled and will no longer be processed.
+   */
+  canceled = 'canceled',
+  /**
+   * The refund is being processed. Cancelation is no longer possible.
+   */
   processing = 'processing',
-  refunded = 'refunded',
+  /**
+   * The refund has failed after processing. For example, the customer has closed his / her bank account. The funds will be returned to your account.
+   */
   failed = 'failed',
+  /**
+   * The refund has been completed and your customer has either received the funds or the funds are on their way.
+   */
+  refunded = 'refunded',
 }
 
 export enum RefundEmbed {
