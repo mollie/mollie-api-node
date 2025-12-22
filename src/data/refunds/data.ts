@@ -105,7 +105,7 @@ export enum RefundStatus {
    */
   canceled = 'canceled',
   /**
-   * The refund is being processed. Cancelation is no longer possible.
+   * The refund is being processed. Cancellation is no longer possible.
    */
   processing = 'processing',
   /**
