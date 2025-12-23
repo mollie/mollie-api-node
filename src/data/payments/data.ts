@@ -1061,9 +1061,9 @@ export interface PointOfSaleReceipt {
   /**
    * The method by which the card was read by the terminal.
    *
-   * Possible values: `chip` `magnetic-stripe` `near-field-communication` `moto` `null`
+   * Possible values: `chip` `magnetic-stripe` `near-field-communication` `contactless` `moto` `null`
    */
-  cardReadMethod?: 'chip' | 'magnetic-stripe' | 'near-field-communication' | 'moto';
+  cardReadMethod?: 'chip' | 'magnetic-stripe' | 'near-field-communication' | 'contactless' | 'moto';
   /**
    * The method used to verify the cardholder's identity.
    *
