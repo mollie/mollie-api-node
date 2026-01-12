@@ -1,5 +1,6 @@
-import { type Amount, type ApiMode, type Links, type PaymentMethod, type Url } from '../global';
+import { type SequenceType, type Address, type Amount, type ApiMode, type Links, type PaymentMethod, type Url } from '../global';
 import type Model from '../Model';
+import { type PaymentLine } from '../payments/data';
 
 export interface PaymentLinkData extends Model<'payment-link'> {
   /**
@@ -48,6 +49,28 @@ export interface PaymentLinkData extends Model<'payment-link'> {
    */
   webhookUrl?: string;
   /**
+   * Optionally provide the order lines for the payment. Each line contains details such as a description of the item ordered and its price.
+   *
+   * All lines must have the same currency as the payment.
+   *
+   * @see https://docs.mollie.com/reference/v2/payments-links-api/get-payment?path=lines#response
+   */
+  lines?: PaymentLine[];
+  /**
+   * The customer's billing address details. We advise to provide these details to improve fraud protection and conversion.
+   *
+   * This is particularly relevant for card payments.
+   *
+   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=billingAddress#response
+   */
+  billingAddress?: Address;
+  /**
+   * The shipping address details.
+   *
+   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=details/shippingAddress
+   */
+  shippingAddress?: Address;
+  /**
    * The identifier referring to the profile this payment link was created on. For example, `pfl_QkEhN94Ba`.
    *
    * Most API credentials are linked to a single profile. In these cases the profileId can be omitted in the creation request. For organization-level credentials such as OAuth access tokens however, the profileId parameter is required.
@@ -86,6 +109,16 @@ export interface PaymentLinkData extends Model<'payment-link'> {
    * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=expiresAt#response
    */
   expiresAt?: string;
+  /**
+   * Indicates which type of payment this is in a recurring sequence. If set to `first`, a payment mandate is established right after a payment is made by the customer.
+   *
+   * Set to `oneoff` by default, which is a regular payment link and will not establish a mandate after payment.
+   *
+   * Possible values: `oneoff` `first`
+   *
+   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=sequenceType#response
+   */
+  sequenceType: SequenceType;
   /**
    * An array of payment methods that are allowed to be used for this payment link. When this parameter is not provided or is an empty array, all enabled payment methods will be available.
    *
