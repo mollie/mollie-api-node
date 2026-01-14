@@ -833,21 +833,33 @@ export interface PointOfSaleDetails {
   /**
    * The identifier referring to the terminal this payment was created for. For example, `term_utGtYu756h`.
    *
-   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/terminalId#point-of-sale
+   * @see https://docs.mollie.com/reference/extra-payment-parameters#detailsterminalid-string
    */
   terminalId: string;
   /**
    * Only available if the payment has been completed - The last four digits of the card number.
    *
-   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/cardNumber#point-of-sale
+   * @see https://docs.mollie.com/reference/extra-payment-parameters#detailscardnumber-string--null-2
    */
   cardNumber?: string;
+  /**
+   * Only available if the payment has been completed - The first 6 digits & last 4 digits of the customer's masked card number.
+   *
+   * @see https://docs.mollie.com/reference/extra-payment-parameters#detailsmaskednumber-string--null
+   */
+  maskedNumber?: string;
+  /**
+   * Only available if the payment has been completed - A unique identifier assigned to a cardholder's payment account, linking multiple transactions from wallets and physical card to a single account, also across payment methods or when the card is reissued.
+   *
+   * @see https://docs.mollie.com/reference/extra-payment-parameters#detailscardfingerprint-string--null-1
+   */
+  cardFingerprint?: string;
   /**
    * Only available if the payment has been completed and if the data is available - The card's target audience.
    *
    * Possible values: `consumer` `business` `null`
    *
-   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/cardAudience#point-of-sale
+   * @see https://docs.mollie.com/reference/extra-payment-parameters#detailscardaudience-string--null-1
    */
   cardAudience?: Nullable<'consumer' | 'business'>;
   /**
@@ -855,25 +867,38 @@ export interface PointOfSaleDetails {
    *
    * Possible values: `American Express` `Carta Si` `Carte Bleue` `Dankort` `Diners Club` `Discover` `JCB` `Laser` `Maestro` `Mastercard` `Unionpay` `Visa` `null`
    *
-   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/cardLabel#point-of-sale
+   * @see https://docs.mollie.com/reference/extra-payment-parameters#detailscardlabel-string--null-1
    */
-  cardLabel?: Nullable<
-    'Visa' | 'Mastercard'
-    // | 'Maestro' // Maestro is currently labeled as Mastercard
-  >;
+  cardLabel?: Nullable<'Visa' | 'Mastercard' | 'Vpay' | 'Maestro'>;
+  /**
+   * Only available if the payment has been completed - The card funding type, if known.
+   *
+   * Possible values: `credit` `debit` `null`
+   *
+   * @see https://docs.mollie.com/reference/extra-payment-parameters#detailscardfunding-string--null-1
+   */
+  cardFunding?: Nullable<'credit' | 'debit'>;
   /**
    * Only available if the payment has been completed - The [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country the card was issued in. For example:
    * `BE`.
    *
-   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/cardCountryCode#point-of-sale
+   * @see https://docs.mollie.com/reference/extra-payment-parameters#detailscardcountrycode-string--null-1
    */
   cardCountryCode?: string;
   /**
-   * Only available if the payment has been completed - Unique alphanumeric representation of card, usable for identifying returning customers.
+   * Only available if the payment has been completed - The applicable card fee region. For example, intra_eea applies to consumer cards from the European Economic Area (EEA).
    *
-   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=details/cardFingerprint#point-of-sale
+   * Possible values: `domestic` `inter` `intra_eea` `null`
+   *
+   * @see https://docs.mollie.com/reference/extra-payment-parameters#detailsfeeregion-string--null-1
    */
-  cardFingerprint?: string;
+  feeRegion?: Nullable<'domestic' | 'inter' | 'intra_eea'>;
+  /**
+   * Only available if the payment has been completed - The Point of sale receipt object.
+   *
+   * @see https://docs.mollie.com/reference/extra-payment-parameters#detailsreceipt-object--%EF%B8%8F-beta-feature-reach-out-to-support
+   */
+  receipt?: Nullable<PointOfSaleReceipt>;
 }
 
 export interface SepaDirectDebitDetails {
@@ -1022,6 +1047,29 @@ export interface QrCode {
   height: number;
   width: number;
   src: string;
+}
+
+export interface PointOfSaleReceipt {
+  /**
+   * A unique code provided by the cardholder’s bank to confirm that the transaction was successfully approved.
+   */
+  authorizationCode?: string;
+  /**
+   * The unique number that identifies a specific payment application on a chip card.
+   */
+  applicationIdentifier?: string;
+  /**
+   * The method by which the card was read by the terminal.
+   *
+   * Possible values: `chip` `magnetic-stripe` `near-field-communication` `contactless` `moto` `null`
+   */
+  cardReadMethod?: 'chip' | 'magnetic-stripe' | 'near-field-communication' | 'contactless' | 'moto';
+  /**
+   * The method used to verify the cardholder's identity.
+   *
+   * Possible values: `no-cvm-required` `online-pin` `offline-pin` `consumer-device` `signature` `signature-and-online-pin` `online-pin-and-signature` `none` `failed` `null`
+   */
+  cardVerificationMethod?: 'no-cvm-required' | 'online-pin' | 'offline-pin' | 'consumer-device' | 'signature' | 'signature-and-online-pin' | 'online-pin-and-signature' | 'none' | 'failed';
 }
 
 export enum PaymentStatus {
