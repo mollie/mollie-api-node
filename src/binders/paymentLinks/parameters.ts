@@ -2,8 +2,11 @@ import { type PaymentLinkData } from '../../data/paymentLinks/data';
 import { type IdempotencyParameter, type PaginationParameters, type ThrottlingParameter } from '../../types/parameters';
 import type PickOptional from '../../types/PickOptional';
 
-export type CreateParameters = Pick<PaymentLinkData, 'description' | 'amount' | 'minimumAmount' | 'redirectUrl' | 'webhookUrl' | 'reusable' | 'expiresAt' | 'allowedMethods' | 'applicationFee'> &
-  PickOptional<PaymentLinkData, 'profileId'> & {
+export type CreateParameters = Pick<PaymentLinkData, 'description'> &
+  PickOptional<
+    PaymentLinkData,
+    'amount' | 'minimumAmount' | 'redirectUrl' | 'webhookUrl' | 'lines' | 'billingAddress' | 'shippingAddress' | 'profileId' | 'reusable' | 'expiresAt' | 'sequenceType' | 'customerId' | 'allowedMethods' | 'applicationFee'
+  > & {
     testmode?: boolean;
   } & IdempotencyParameter;
 
