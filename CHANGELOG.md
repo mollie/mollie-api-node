@@ -5,6 +5,23 @@
 
 Please see [the migration guide](MIGRATION.md) for guidance about updating to a newer major version.
 
+### v4.4.0 - 2026-01-14
+  - Add OAuth API support ([#461](https://github.com/mollie/mollie-api-node/pull/461))
+  - Add Clients API support ([#463](https://github.com/mollie/mollie-api-node/pull/463))
+  - Add Client Links API support ([#464](https://github.com/mollie/mollie-api-node/pull/464))
+  - Add Capabilities API support ([#462](https://github.com/mollie/mollie-api-node/pull/462))
+  - Add Delayed Routing API support ([#454](https://github.com/mollie/mollie-api-node/pull/454))
+  - Add Balance Transfers API
+  - Add Organizations API `getPartnerStatus` endpoint ([#453](https://github.com/mollie/mollie-api-node/pull/453))
+  - Add missing payment methods: Bizum, MobilePay, Swish, Vipps ([#452](https://github.com/mollie/mollie-api-node/pull/452))
+  - Add missing `cancelled` refund status ([#468](https://github.com/mollie/mollie-api-node/pull/468))
+  - Enhance PointOfSaleDetails with additional fields ([#469](https://github.com/mollie/mollie-api-node/pull/469))
+  - Add missing payment links parameters ([#471](https://github.com/mollie/mollie-api-node/pull/471))
+  - Fix partner status helper implementation
+  - Fix `cardReadMethod` options in PointOfSaleReceipt interface
+  - Omit `_links` from public types for consistency ([#465](https://github.com/mollie/mollie-api-node/pull/465))
+  - Improve build tooling and suppress intentional warnings ([#451](https://github.com/mollie/mollie-api-node/pull/451))
+
 ### v4.3.3 - 2025-06-17
   - Fix parameters for `customerPayments.create()` ([#442](https://github.com/mollie/mollie-api-node/pull/442))
 

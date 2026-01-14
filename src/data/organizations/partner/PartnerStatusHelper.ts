@@ -14,6 +14,8 @@ export default class PartnerStatusHelper extends Helper<PartnerStatusData, Partn
   /**
    * Returns the signup link URL for this partner, if available.
    * Only present for partners of type "signuplink".
+   *
+   * @since 4.4.0
    */
   public getSignupLink(): string | undefined {
     return this.links.signuplink?.href;
