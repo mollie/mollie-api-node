@@ -43,9 +43,11 @@ export interface PaymentLinkData extends Model<'payment-link'> {
    */
   redirectUrl?: string;
   /**
-   * The URL your customer will be redirected to after completing the payment process.
+   * The webhook URL where we will send payment status updates to.
    *
-   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=redirectUrl#response
+   * The webhookUrl is optional, but without a webhook you will miss out on important status changes to any payments resulting from the payment link.
+   *
+   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=webhookUrl#response
    */
   webhookUrl?: string;
   /**
@@ -53,21 +55,25 @@ export interface PaymentLinkData extends Model<'payment-link'> {
    *
    * All lines must have the same currency as the payment.
    *
-   * @see https://docs.mollie.com/reference/v2/payments-links-api/get-payment?path=lines#response
+   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=lines#response
    */
   lines?: PaymentLine[];
   /**
    * The customer's billing address details. We advise to provide these details to improve fraud protection and conversion.
    *
-   * This is particularly relevant for card payments.
+   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
+   *
+   * Required for payment methods `in3`, `klarna`, `billie` and `riverty`.
    *
    * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=billingAddress#response
    */
   billingAddress?: Address;
   /**
-   * The shipping address details.
+   * The customer's shipping address details. We advise to provide these details to improve fraud protection and conversion.
    *
-   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=details/shippingAddress
+   * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
+   *
+   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=shippingAddress#response
    */
   shippingAddress?: Address;
   /**
@@ -120,9 +126,17 @@ export interface PaymentLinkData extends Model<'payment-link'> {
    */
   sequenceType: SequenceType;
   /**
+   * The ID of the customer the payment link is being created for. Only relevant when `sequenceType` is set to `first`.
+   *
+   * If a value is not provided, the customer will be required to input relevant information which will be used to establish a mandate after the payment is made.
+   *
+   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=customerId#response
+   */
+  customerId?: string;
+  /**
    * An array of payment methods that are allowed to be used for this payment link. When this parameter is not provided or is an empty array, all enabled payment methods will be available.
    *
-   * Possible values: `applepay` `bancomatpay` `bancontact` `banktransfer` `belfius` `blik` `creditcard` `eps` `giftcard` `ideal` `kbc` `mybank` `paybybank` `paypal` `paysafecard` `pointofsale` `przelewy24` `satispay` `trustly` `twint`
+   * Possible values: `applepay` `bacs` `bancomatpay` `bancontact` `banktransfer` `belfius` `billie` `blik` `creditcard` `eps` `giftcard` `ideal` `in3` `kbc` `klarna` `mbway` `multibanco` `mybank` `paybybank` `paypal` `paysafecard` `pointofsale` `przelewy24` `riverty` `satispay` `swish` `trustly` `twint` `voucher`
    *
    * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=allowedMethods#response
    */
