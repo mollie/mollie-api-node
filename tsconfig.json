@@ -3,7 +3,8 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "target": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "node10",
+    "ignoreDeprecations": "6.0",
     "strict": true
   }
 }
