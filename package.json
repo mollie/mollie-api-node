@@ -47,12 +47,12 @@
     "ruply": "^1.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0-0",
-    "@babel/plugin-transform-class-properties": "^7.27.1",
-    "@babel/preset-env": "^7.28.5",
+    "@babel/core": "^7.29.0",
+    "@babel/plugin-transform-class-properties": "^7.28.6",
+    "@babel/preset-env": "^7.29.2",
     "@babel/preset-typescript": "^7.28.5",
     "@mollie/eslint-config-typescript": "^1.6.5",
-    "@rollup/plugin-babel": "^6.1.0",
+    "@rollup/plugin-babel": "^7.0.0",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@types/jest": "^29.5.14",
@@ -60,15 +60,15 @@
     "babel-jest": "^29.7.0",
     "commitizen": "^4.3.1",
     "cz-conventional-changelog": "^3.3.0",
-    "dotenv": "^17.2.3",
+    "dotenv": "^17.3.1",
     "eslint": "^8.57.1",
     "jest": "^29.7.0",
     "jest-bluster": "^2.0.0",
     "nock": "^13.5.6",
     "nock-record": "^0.3.9",
-    "prettier": "^3.6.2",
+    "prettier": "^3.8.1",
     "rollup": "^3.29.5",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.2"
   },
   "resolutions": {
     "eslint-plugin-import": "^2.26.0"
