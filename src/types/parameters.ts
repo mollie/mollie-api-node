@@ -1,6 +1,27 @@
 export interface PaginationParameters {
+  /**
+   * Offset the result set to the resource with the given ID. The returned result set will start with the resource after the given one.
+   *
+   * @see https://docs.mollie.com/reference/pagination
+   */
   from?: string;
+  /**
+   * The number of resources to return per page. Defaults to 250.
+   *
+   * @see https://docs.mollie.com/reference/pagination
+   */
   limit?: number;
+}
+
+export interface SortParameter {
+  /**
+   * Determines the sorting direction of the results. By default, the results are sorted in descending order (newest first).
+   *
+   * Possible values: `asc` `desc`
+   *
+   * @see https://docs.mollie.com/reference/pagination
+   */
+  sort?: 'asc' | 'desc';
 }
 
 export interface ThrottlingParameter {

@@ -1,7 +1,7 @@
 import { type PaymentMethod } from '../../data/global';
 import { type OrderData, type OrderEmbed } from '../../data/orders/data';
 import { type OrderLineData } from '../../data/orders/orderlines/OrderLine';
-import { type IdempotencyParameter, type PaginationParameters, type ThrottlingParameter } from '../../types/parameters';
+import { type IdempotencyParameter, type PaginationParameters, type SortParameter, type ThrottlingParameter } from '../../types/parameters';
 import { type CreateParameters as PaymentCreateParameters } from '../payments/parameters';
 import type PickOptional from '../../types/PickOptional';
 import type MaybeArray from '../../types/MaybeArray';
@@ -95,7 +95,7 @@ export type UpdateParameters = PickOptional<OrderData, 'billingAddress' | 'shipp
   testmode?: boolean;
 };
 
-export type PageParameters = PaginationParameters & {
+export type PageParameters = PaginationParameters & SortParameter & {
   profileId?: string;
   testmode?: boolean;
 };

@@ -1,7 +1,7 @@
 import { type ChargebackEmbed } from '../../data/chargebacks/Chargeback';
-import { type PaginationParameters, type ThrottlingParameter } from '../../types/parameters';
+import { type PaginationParameters, type SortParameter, type ThrottlingParameter } from '../../types/parameters';
 
-export type PageParameters = PaginationParameters & {
+export type PageParameters = PaginationParameters & SortParameter & {
   profileId?: string;
   embed?: ChargebackEmbed[];
 };

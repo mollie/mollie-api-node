@@ -1,7 +1,7 @@
 import { type Amount, type PaymentMethod } from '../../data/global';
 import { type PaymentData, type PaymentEmbed, type PaymentInclude } from '../../data/payments/data';
 import type MaybeArray from '../../types/MaybeArray';
-import { type IdempotencyParameter, type PaginationParameters, type ThrottlingParameter } from '../../types/parameters';
+import { type IdempotencyParameter, type PaginationParameters, type SortParameter, type ThrottlingParameter } from '../../types/parameters';
 import type PickOptional from '../../types/PickOptional';
 
 export type CreateParameters = Pick<
@@ -211,7 +211,7 @@ export interface GetParameters {
   testmode?: boolean;
 }
 
-export type PageParameters = PaginationParameters & {
+export type PageParameters = PaginationParameters & SortParameter & {
   testmode?: boolean;
 };
 

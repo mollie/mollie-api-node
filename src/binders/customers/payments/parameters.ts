@@ -1,4 +1,4 @@
-import type { PaginationParameters, ThrottlingParameter } from '../../../types/parameters';
+import type { PaginationParameters, SortParameter, ThrottlingParameter } from '../../../types/parameters';
 import type { CreateParameters as PaymentCreateParameters } from '../../payments/parameters';
 
 interface ContextParameters {
@@ -7,6 +7,6 @@ interface ContextParameters {
 
 export type CreateParameters = Omit<PaymentCreateParameters, 'customerId'> & ContextParameters;
 
-export type PageParameters = ContextParameters & PaginationParameters;
+export type PageParameters = ContextParameters & PaginationParameters & SortParameter;
 
 export type IterateParameters = Omit<PageParameters, 'limit'> & ThrottlingParameter;

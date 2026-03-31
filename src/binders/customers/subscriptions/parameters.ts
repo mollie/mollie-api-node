@@ -1,5 +1,5 @@
 import { type SubscriptionData } from '../../../data/subscriptions/data';
-import { type IdempotencyParameter, type PaginationParameters, type ThrottlingParameter } from '../../../types/parameters';
+import { type IdempotencyParameter, type PaginationParameters, type SortParameter, type ThrottlingParameter } from '../../../types/parameters';
 import type PickOptional from '../../../types/PickOptional';
 
 interface ContextParameters {
@@ -14,7 +14,7 @@ export type CreateParameters = ContextParameters &
 
 export type GetParameters = ContextParameters;
 
-export type PageParameters = ContextParameters & PaginationParameters;
+export type PageParameters = ContextParameters & PaginationParameters & SortParameter;
 
 export type IterateParameters = Omit<PageParameters, 'limit'> & ThrottlingParameter;
 

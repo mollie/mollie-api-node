@@ -1,6 +1,6 @@
-import { PaginationParameters, ThrottlingParameter } from '../../types/parameters';
+import { PaginationParameters, SortParameter, ThrottlingParameter } from '../../types/parameters';
 
-export type PageParameters = PaginationParameters & {
+export type PageParameters = PaginationParameters & SortParameter & {
   testmode?: boolean;
 };
 
