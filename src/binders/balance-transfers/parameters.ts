@@ -1,5 +1,5 @@
 import { type BalanceTransferData } from '../../data/balance-transfers/data';
-import { type IdempotencyParameter, type PaginationParameters, type ThrottlingParameter } from '../../types/parameters';
+import { type IdempotencyParameter, type PaginationParameters, type SortParameter, type ThrottlingParameter } from '../../types/parameters';
 
 interface ContextParameters {
   /**
@@ -14,6 +14,6 @@ export type CreateParameters = ContextParameters & Pick<BalanceTransferData, 'am
 
 export type GetParameters = ContextParameters;
 
-export type PageParameters = ContextParameters & PaginationParameters;
+export type PageParameters = ContextParameters & PaginationParameters & SortParameter;
 
 export type IterateParameters = Omit<PageParameters, 'limit'> & ThrottlingParameter;
