@@ -1,10 +1,9 @@
 import { type Amount } from '../../../data/global';
 import { type RefundData } from '../../../data/refunds/data';
-import { type IdempotencyParameter, type PaginationParameters, type ThrottlingParameter } from '../../../types/parameters';
+import { type IdempotencyParameter, type PaginationParameters, type TestModeParameter, type ThrottlingParameter } from '../../../types/parameters';
 
-interface ContextParameters {
+interface ContextParameters extends TestModeParameter {
   orderId: string;
-  testmode?: boolean;
 }
 
 export type CreateParameters = ContextParameters &

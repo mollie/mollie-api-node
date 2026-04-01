@@ -1,11 +1,10 @@
 import { type PaymentMethod } from '../../../data/global';
 import { type PaymentData } from '../../../data/payments/data';
 import type MaybeArray from '../../../types/MaybeArray';
-import { type IdempotencyParameter } from '../../../types/parameters';
+import { type IdempotencyParameter, type TestModeParameter } from '../../../types/parameters';
 
-interface ContextParameters {
+interface ContextParameters extends TestModeParameter {
   orderId: string;
-  testmode?: boolean;
 }
 
 export type CreateParameters = ContextParameters &

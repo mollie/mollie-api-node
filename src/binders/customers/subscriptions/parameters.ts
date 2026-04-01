@@ -1,10 +1,9 @@
 import { type SubscriptionData } from '../../../data/subscriptions/data';
-import { type IdempotencyParameter, type PaginationParameters, type SortParameter, type ThrottlingParameter } from '../../../types/parameters';
+import { type IdempotencyParameter, type PaginationParameters, type SortParameter, type TestModeParameter, type ThrottlingParameter } from '../../../types/parameters';
 import type PickOptional from '../../../types/PickOptional';
 
-interface ContextParameters {
+interface ContextParameters extends TestModeParameter {
   customerId: string;
-  testmode?: boolean;
 }
 
 export type CreateParameters = ContextParameters &

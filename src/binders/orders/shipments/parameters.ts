@@ -1,11 +1,10 @@
 import { type Amount } from '../../../data/global';
 import { type ShipmentData } from '../../../data/orders/shipments/Shipment';
-import { type IdempotencyParameter } from '../../../types/parameters';
+import { type IdempotencyParameter, type TestModeParameter } from '../../../types/parameters';
 import type PickRequired from '../../../types/PickRequired';
 
-interface ContextParameters {
+interface ContextParameters extends TestModeParameter {
   orderId: string;
-  testmode?: boolean;
 }
 
 export type CreateParameters = ContextParameters &

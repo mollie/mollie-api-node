@@ -1,8 +1,9 @@
 import { type Amount, type Locale, type SequenceType } from '../../data/global';
 import { type MethodInclude } from '../../data/methods/data';
 import type MaybeArray from '../../types/MaybeArray';
+import { type TestModeParameter } from '../../types/parameters';
 
-export interface GetParameters {
+export interface GetParameters extends TestModeParameter {
   /**
    * Passing a locale will translate the payment method name in the corresponding language.
    *
@@ -13,7 +14,6 @@ export interface GetParameters {
   locale?: Locale;
   include?: MaybeArray<MethodInclude>;
   profileId?: string;
-  testmode?: boolean;
   /**
    * The currency to receiving the `minimumAmount` and `maximumAmount` in. We will return an error when the currency is not supported by the payment method.
    *
@@ -37,7 +37,7 @@ export interface GetParameters {
  *
  * @see https://docs.mollie.com/reference/v2/methods-api/list-methods
  */
-export interface ListParameters {
+export interface ListParameters extends TestModeParameter {
   /**
    * Passing `first` will only show payment methods eligible for making a first payment. Passing `recurring` shows payment methods which can be used to automatically charge your customer's account
    * when authorization has been given.
@@ -106,5 +106,4 @@ export interface ListParameters {
   orderLineCategories?: string[];
   include?: MaybeArray<MethodInclude>;
   profileId?: string;
-  testmode?: boolean;
 }

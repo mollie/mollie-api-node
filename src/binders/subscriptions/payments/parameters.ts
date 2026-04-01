@@ -1,7 +1,6 @@
-import { type PaginationParameters, type SortParameter, type ThrottlingParameter } from '../../../types/parameters';
+import { type PaginationParameters, type SortParameter, type TestModeParameter, type ThrottlingParameter } from '../../../types/parameters';
 
-interface ContextParameters {
-  testmode?: boolean;
+interface ContextParameters extends TestModeParameter {
   customerId: string;
   subscriptionId: string;
 }

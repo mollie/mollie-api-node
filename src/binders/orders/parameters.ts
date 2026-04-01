@@ -1,13 +1,15 @@
 import { type PaymentMethod } from '../../data/global';
 import { type OrderData, type OrderEmbed } from '../../data/orders/data';
 import { type OrderLineData } from '../../data/orders/orderlines/OrderLine';
-import { type IdempotencyParameter, type PaginationParameters, type SortParameter, type ThrottlingParameter } from '../../types/parameters';
+import { type IdempotencyParameter, type PaginationParameters, type SortParameter, type TestModeParameter, type ThrottlingParameter } from '../../types/parameters';
 import { type CreateParameters as PaymentCreateParameters } from '../payments/parameters';
 import type PickOptional from '../../types/PickOptional';
 import type MaybeArray from '../../types/MaybeArray';
 
 export type CreateParameters = Pick<OrderData, 'amount' | 'orderNumber' | 'consumerDateOfBirth' | 'webhookUrl' | 'locale' | 'expiresAt'> &
-  PickOptional<OrderData, 'billingAddress' | 'shippingAddress' | 'redirectUrl' | 'cancelUrl' | 'metadata'> & {
+  PickOptional<OrderData, 'billingAddress' | 'shippingAddress' | 'redirectUrl' | 'cancelUrl' | 'metadata'> &
+  TestModeParameter &
+  IdempotencyParameter & {
     /**
      * All order lines must have the same currency as the order. You cannot mix currencies within a single order.
      *
@@ -82,26 +84,21 @@ export type CreateParameters = Pick<OrderData, 'amount' | 'orderNumber' | 'consu
     shopperCountryMustMatchBillingCountry?: boolean;
     embed?: OrderEmbed.payments[];
     profileId?: string;
-    testmode?: boolean;
-  } & IdempotencyParameter;
+  };
 
-export interface GetParameters {
-  testmode?: boolean;
+export interface GetParameters extends TestModeParameter {
   embed?: OrderEmbed[];
 }
 
-export type UpdateParameters = PickOptional<OrderData, 'billingAddress' | 'shippingAddress' | 'redirectUrl' | 'cancelUrl' | 'webhookUrl'> & {
-  orderNumber?: string;
-  testmode?: boolean;
-};
+export type UpdateParameters = PickOptional<OrderData, 'billingAddress' | 'shippingAddress' | 'redirectUrl' | 'cancelUrl' | 'webhookUrl'> &
+  TestModeParameter & {
+    orderNumber?: string;
+  };
 
-export type PageParameters = PaginationParameters & SortParameter & {
+export type PageParameters = PaginationParameters & SortParameter & TestModeParameter & {
   profileId?: string;
-  testmode?: boolean;
 };
 
 export type IterateParameters = Omit<PageParameters, 'limit'> & ThrottlingParameter;
 
-export interface CancelParameters extends IdempotencyParameter {
-  testmode?: boolean;
-}
+export type CancelParameters = TestModeParameter & IdempotencyParameter;

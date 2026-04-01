@@ -1,14 +1,7 @@
 import { type BalanceTransferData } from '../../data/balance-transfers/data';
-import { type IdempotencyParameter, type PaginationParameters, type SortParameter, type ThrottlingParameter } from '../../types/parameters';
+import { type IdempotencyParameter, type PaginationParameters, type SortParameter, type TestModeParameter, type ThrottlingParameter } from '../../types/parameters';
 
-interface ContextParameters {
-  /**
-   * Set this to `true` to use test mode.
-   *
-   * @see https://docs.mollie.com/reference/create-connect-balance-transfer?path=testmode#body-params
-   */
-  testmode?: boolean;
-}
+type ContextParameters = TestModeParameter;
 
 export type CreateParameters = ContextParameters & Pick<BalanceTransferData, 'amount' | 'source' | 'destination' | 'description' | 'category'> & IdempotencyParameter;
 
