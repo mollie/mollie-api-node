@@ -1,7 +1,7 @@
 import { type Amount, type PaymentMethod } from '../../data/global';
 import { type PaymentData, type PaymentEmbed, type PaymentInclude } from '../../data/payments/data';
 import type MaybeArray from '../../types/MaybeArray';
-import { type IdempotencyParameter, type PaginationParameters, type SortParameter, type ThrottlingParameter } from '../../types/parameters';
+import { type IdempotencyParameter, type PaginationParameters, type SortParameter, type TestModeParameter, type ThrottlingParameter } from '../../types/parameters';
 import type PickOptional from '../../types/PickOptional';
 
 export type CreateParameters = Pick<
@@ -20,7 +20,9 @@ export type CreateParameters = Pick<
   | 'issuer'
   | 'restrictPaymentMethodsToCountry'
 > &
-  PickOptional<PaymentData, 'locale' | 'metadata' | 'sequenceType' | 'captureMode' | 'captureDelay'> & {
+  PickOptional<PaymentData, 'locale' | 'metadata' | 'sequenceType' | 'captureMode' | 'captureDelay'> &
+  TestModeParameter &
+  IdempotencyParameter & {
     /**
      * Normally, a payment method screen is shown. However, when using this parameter, you can choose a specific payment method and your customer will skip the selection screen and is sent directly to
      * the chosen payment method. The parameter enables you to fully integrate the payment method selection into your website.
@@ -178,7 +180,6 @@ export type CreateParameters = Pick<
      */
     include?: MaybeArray<PaymentInclude.qrCode>; // currently only one valid value, but making 'MaybeArray' for consistency
     profileId?: string;
-    testmode?: boolean;
     /**
      * Adding an application fee allows you to charge the merchant a small sum for the payment and transfer this to your own account.
      *
@@ -203,17 +204,14 @@ export type CreateParameters = Pick<
        */
       description: string;
     };
-  } & IdempotencyParameter;
+  };
 
-export interface GetParameters {
+export interface GetParameters extends TestModeParameter {
   include?: MaybeArray<PaymentInclude>;
   embed?: MaybeArray<PaymentEmbed>;
-  testmode?: boolean;
 }
 
-export type PageParameters = PaginationParameters & SortParameter & {
-  testmode?: boolean;
-};
+export type PageParameters = PaginationParameters & SortParameter & TestModeParameter;
 
 export type IterateParameters = Omit<PageParameters, 'limit'> & ThrottlingParameter;
 
@@ -234,10 +232,6 @@ export type UpdateParameters = Pick<PaymentData, 'redirectUrl' | 'cancelUrl' | '
     restrictPaymentMethodsToCountry?: string;
   };
 
-export interface CancelParameters extends IdempotencyParameter {
-  testmode?: boolean;
-}
+export type CancelParameters = TestModeParameter & IdempotencyParameter;
 
-export interface ReleaseParameters {
-  testmode?: boolean;
-}
+export type ReleaseParameters = TestModeParameter;

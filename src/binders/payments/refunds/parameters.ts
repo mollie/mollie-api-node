@@ -1,10 +1,9 @@
 import { type RefundData, type RefundEmbed } from '../../../data/refunds/data';
-import { type IdempotencyParameter, type PaginationParameters, type ThrottlingParameter } from '../../../types/parameters';
+import { type IdempotencyParameter, type PaginationParameters, type TestModeParameter, type ThrottlingParameter } from '../../../types/parameters';
 import type PickOptional from '../../../types/PickOptional';
 
-interface ContextParameters {
+interface ContextParameters extends TestModeParameter {
   paymentId: string;
-  testmode?: boolean;
 }
 
 export type CreateParameters = ContextParameters & Pick<RefundData, 'amount'> & PickOptional<RefundData, 'description' | 'metadata'> & IdempotencyParameter;

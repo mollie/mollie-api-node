@@ -6,7 +6,7 @@ export interface PaginationParameters {
    */
   from?: string;
   /**
-   * The number of resources to return per page. Defaults to 250.
+   * The number of resources to return per page. Defaults to 50. Maximum 250.
    *
    * @see https://docs.mollie.com/reference/pagination
    */
@@ -22,6 +22,14 @@ export interface SortParameter {
    * @see https://docs.mollie.com/reference/pagination
    */
   sort?: 'asc' | 'desc';
+}
+
+export interface TestModeParameter {
+  /**
+   * Most API credentials are specifically created for either live mode or test mode, in which case this parameter does not need to be set.
+   * For organization-level credentials such as OAuth access tokens, set this to `true` to use test mode.
+   */
+  testmode?: boolean;
 }
 
 export interface ThrottlingParameter {

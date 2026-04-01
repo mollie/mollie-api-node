@@ -1,6 +1,6 @@
 import { type CaptureData, type CaptureInclude } from '../../../data/payments/captures/data';
 import type MaybeArray from '../../../types/MaybeArray';
-import { type IdempotencyParameter, type PaginationParameters, type ThrottlingParameter } from '../../../types/parameters';
+import { type IdempotencyParameter, type PaginationParameters, type TestModeParameter, type ThrottlingParameter } from '../../../types/parameters';
 import type PickOptional from '../../../types/PickOptional';
 
 interface ContextParameters {
@@ -9,15 +9,15 @@ interface ContextParameters {
 
 export type CreateParameters = ContextParameters & PickOptional<CaptureData, 'amount' | 'description' | 'metadata'> & IdempotencyParameter;
 
-export type GetParameters = ContextParameters & {
-  include?: MaybeArray<CaptureInclude>;
-  testmode?: boolean;
-};
+export type GetParameters = ContextParameters &
+  TestModeParameter & {
+    include?: MaybeArray<CaptureInclude>;
+  };
 
 export type PageParameters = ContextParameters &
-  PaginationParameters & {
+  PaginationParameters &
+  TestModeParameter & {
     include?: MaybeArray<CaptureInclude>;
-    testmode?: boolean;
   };
 
 export type IterateParameters = Omit<PageParameters, 'limit'> & ThrottlingParameter;
