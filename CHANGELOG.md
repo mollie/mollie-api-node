@@ -5,6 +5,11 @@
 
 Please see [the migration guide](MIGRATION.md) for guidance about updating to a newer major version.
 
+### v4.5.0 - 2026-04-01
+  - Add `sort` parameter to list endpoints ([#474](https://github.com/mollie/mollie-api-node/pull/474))
+  - Add `TestModeParameter` type and apply consistently across all binders ([#475](https://github.com/mollie/mollie-api-node/pull/475))
+  - Update dev dependencies ([#473](https://github.com/mollie/mollie-api-node/pull/473))
+
 ### v4.4.0 - 2026-01-14
   - Add OAuth API support ([#461](https://github.com/mollie/mollie-api-node/pull/461))
   - Add Clients API support ([#463](https://github.com/mollie/mollie-api-node/pull/463))
