@@ -82,6 +82,15 @@ export type CreateParameters = Pick<
      */
     cardToken?: string;
     /**
+     * Whether to store the customer's payment credentials for future payments. When set to `true`, the customer's card details can be used for subsequent payments without the customer having to re-enter
+     * their card information.
+     *
+     * Requires a `customerId` to be provided.
+     *
+     * @see https://docs.mollie.com/reference/create-payment
+     */
+    storeCredentials?: boolean;
+    /**
      * The unique identifier used for referring to a terminal. This ID is used for assigning the payment to a specific terminal and it can be retrieved via List terminals. For more information about
      * point-of-sale payments, please check our guide point-of-sale payments.
      *

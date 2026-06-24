@@ -70,6 +70,7 @@ export type CreateParameters = Pick<OrderData, 'amount' | 'orderNumber' | 'consu
       | 'issuer'
       | 'mandateId'
       | 'sequenceType'
+      | 'storeCredentials'
       | 'voucherNumber'
       | 'voucherPin'
       | 'webhookUrl'
