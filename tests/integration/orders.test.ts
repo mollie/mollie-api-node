@@ -99,8 +99,11 @@ describe('orders', () => {
       return;
     }
 
-    if (!payment.isRefundable()) {
-      console.log('This payment is not refundable, you cannot test the full flow.');
+    // `isRefundable()` only signals that `amountRemaining` is present, not that a given amount fits within it.
+    // Refund the actual remaining balance so the request never exceeds what the payment can absorb.
+    const { amountRemaining } = payment;
+    if (amountRemaining == undefined || Number.parseFloat(amountRemaining.value) <= 0) {
+      console.log('This payment has no remaining refundable amount, you cannot test the full flow.');
       return;
     }
 
@@ -112,7 +115,7 @@ describe('orders', () => {
       refundExists = mollieClient.paymentRefunds
         .create({
           paymentId: payment.id,
-          amount: { value: '5.00', currency: payment.amount.currency },
+          amount: amountRemaining,
         })
         .then(refund => {
           expect(refund).toBeDefined();
