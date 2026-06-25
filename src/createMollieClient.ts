@@ -229,7 +229,7 @@ export { createMollieClient };
 
 export { ApiMode, Locale, PaymentMethod, HistoricPaymentMethod, SequenceType } from './data/global';
 export { BalanceTransferStatus, BalanceTransferStatusReasonCode, BalanceTransferCategory } from './data/balance-transfers/data';
-export { CaptureStatus, CaptureInclude } from './data/payments/captures/data';
+export { CaptureStatus, CaptureEmbed, CaptureInclude } from './data/payments/captures/data';
 export { MandateMethod, MandateStatus } from './data/customers/mandates/data';
 export { MethodImageSize, MethodInclude } from './data/methods/data';
 export { OrderEmbed, OrderStatus } from './data/orders/data';
