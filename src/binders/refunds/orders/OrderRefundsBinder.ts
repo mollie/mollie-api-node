@@ -13,6 +13,9 @@ export function getPathSegments(orderId: string) {
   return `orders/${orderId}/refunds`;
 }
 
+/**
+ * @deprecated We no longer recommend using the Orders API. Please refer to the [Payments API](https://docs.mollie.com/reference/payments-api) instead. Already using the Orders API? See the [migrating from Orders to Payments guide](https://docs.mollie.com/docs/migrating-from-orders-to-payments) for more information.
+ */
 export default class OrderRefundsBinder extends Binder<RefundData, Refund> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
@@ -30,6 +33,7 @@ export default class OrderRefundsBinder extends Binder<RefundData, Refund> {
    *
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/refunds-api/create-order-refund
+   * @deprecated We no longer recommend using the Orders API. Please refer to the [Payments API](https://docs.mollie.com/reference/payments-api) instead. Already using the Orders API? See the [migrating from Orders to Payments guide](https://docs.mollie.com/docs/migrating-from-orders-to-payments) for more information.
    */
   public create(parameters: CreateParameters): Promise<Refund>;
   public create(parameters: CreateParameters, callback: Callback<Refund>): void;
@@ -47,6 +51,7 @@ export default class OrderRefundsBinder extends Binder<RefundData, Refund> {
    *
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-order-refunds
+   * @deprecated We no longer recommend using the Orders API. Please refer to the [Payments API](https://docs.mollie.com/reference/payments-api) instead. Already using the Orders API? See the [migrating from Orders to Payments guide](https://docs.mollie.com/docs/migrating-from-orders-to-payments) for more information.
    */
   public page(parameters: PageParameters): Promise<Page<Refund>>;
   public page(parameters: PageParameters, callback: Callback<Page<Refund>>): void;
@@ -64,6 +69,7 @@ export default class OrderRefundsBinder extends Binder<RefundData, Refund> {
    *
    * @since 3.6.0
    * @see https://docs.mollie.com/reference/v2/refunds-api/list-order-refunds
+   * @deprecated We no longer recommend using the Orders API. Please refer to the [Payments API](https://docs.mollie.com/reference/payments-api) instead. Already using the Orders API? See the [migrating from Orders to Payments guide](https://docs.mollie.com/docs/migrating-from-orders-to-payments) for more information.
    */
   public iterate(parameters: IterateParameters) {
     const { orderId, valuesPerMinute, ...query } = parameters;

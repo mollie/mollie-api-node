@@ -11,6 +11,9 @@ function getPathSegments(orderId: string) {
   return `orders/${orderId}/payments`;
 }
 
+/**
+ * @deprecated We no longer recommend using the Orders API. Please refer to the [Payments API](https://docs.mollie.com/reference/payments-api) instead. Already using the Orders API? See the [migrating from Orders to Payments guide](https://docs.mollie.com/docs/migrating-from-orders-to-payments) for more information.
+ */
 export default class OrderPaymentsBinder extends Binder<PaymentData, Payment> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
@@ -26,6 +29,7 @@ export default class OrderPaymentsBinder extends Binder<PaymentData, Payment> {
    *
    * @since 3.1.0
    * @see https://docs.mollie.com/reference/v2/orders-api/create-order-payment
+   * @deprecated We no longer recommend using the Orders API. Please refer to the [Payments API](https://docs.mollie.com/reference/payments-api) instead. Already using the Orders API? See the [migrating from Orders to Payments guide](https://docs.mollie.com/docs/migrating-from-orders-to-payments) for more information.
    */
   public create(parameters: CreateParameters): Promise<Payment>;
   public create(parameters: CreateParameters, callback: Callback<Payment>): void;
