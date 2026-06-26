@@ -28,6 +28,13 @@ type Options = Xor<
    * The URL of the root of the Mollie API. Default: `'https://api.mollie.com:443/v2/'`.
    */
   apiEndpoint?: string;
+  /**
+   * By default, this client refuses to run in a browser-like environment, as doing so would ship your API key to the
+   * public and allow anyone to act on your behalf. Set this to `true` only if you understand the risks and have
+   * appropriate mitigations in place (e.g. a short-lived, narrowly-scoped token).
+   * @see https://github.com/mollie/mollie-api-node/#a-note-on-use-outside-of-nodejs
+   */
+  dangerouslyAllowBrowser?: boolean;
 };
 
 const falsyDescriptions = new Map<any, string>([
