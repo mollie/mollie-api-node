@@ -1,19 +1,25 @@
-import { type Amount, type Links, type Url } from '../global';
+import { type Amount, type ApiMode, type Links, type Url } from '../global';
 import type Model from '../Model';
 import { type OrderLineData } from '../orders/orderlines/OrderLine';
 import { type PaymentData } from '../payments/data';
 
 export interface RefundData extends Model<'refund'> {
   /**
-   * The amount refunded to your customer with this refund.
+   * Whether this entity was created in live mode or in test mode.
    *
-   * @see https://docs.mollie.com/reference/v2/refunds-api/get-payment-refund?path=amount#response
+   * @see https://docs.mollie.com/reference/get-refund?path=mode#response
+   */
+  mode: ApiMode;
+  /**
+   * The amount refunded to your customer with this refund. The amount is allowed to be lower than the original payment amount.
+   *
+   * @see https://docs.mollie.com/reference/get-refund?path=amount#response
    */
   amount: Amount;
   /**
    * The identifier referring to the settlement this payment was settled with. For example, `stl_BkEjN2eBb`. This field is omitted if the refund is not settled (yet).
    *
-   * @see https://docs.mollie.com/reference/v2/refunds-api/get-payment-refund?path=settlementId#response
+   * @see https://docs.mollie.com/reference/get-refund?path=settlementId#response
    */
   settlementId?: string;
   /**
@@ -26,19 +32,19 @@ export interface RefundData extends Model<'refund'> {
    *
    * Queued refunds in non-EUR currencies will not have a settlement amount until they become `pending`.
    *
-   * @see https://docs.mollie.com/reference/v2/refunds-api/get-payment-refund?path=settlementAmount#response
+   * @see https://docs.mollie.com/reference/get-refund?path=settlementAmount#response
    */
   settlementAmount?: Amount;
   /**
    * The description of the refund that may be shown to your customer, depending on the payment method used.
    *
-   * @see https://docs.mollie.com/reference/v2/refunds-api/get-payment-refund?path=description#response
+   * @see https://docs.mollie.com/reference/get-refund?path=description#response
    */
   description: string;
   /**
    * The optional metadata you provided upon refund creation. Metadata can for example be used to link an bookkeeping ID to a refund.
    *
-   * @see https://docs.mollie.com/reference/v2/refunds-api/get-payment-refund?path=metadata#response
+   * @see https://docs.mollie.com/reference/get-refund?path=metadata#response
    */
   metadata: unknown;
   /**
@@ -46,7 +52,7 @@ export interface RefundData extends Model<'refund'> {
    *
    * For a full overview, see refund-statuses.
    *
-   * @see https://docs.mollie.com/reference/v2/refunds-api/get-payment-refund?path=status#response
+   * @see https://docs.mollie.com/reference/get-refund?path=status#response
    */
   status: RefundStatus;
   /**
@@ -57,13 +63,13 @@ export interface RefundData extends Model<'refund'> {
    *
    * Only available if the refund was created via the Create order refund endpoint.
    *
-   * @see https://docs.mollie.com/reference/v2/refunds-api/get-payment-refund?path=lines#response
+   * @see https://docs.mollie.com/reference/get-refund?path=lines#response
    */
   lines?: OrderLineData[];
   /**
    * The unique identifier of the payment this refund was created for. For example: `tr_7UhSN1zuXS`. The full payment object can be retrieved via the `payment` URL in the `_links` object.
    *
-   * @see https://docs.mollie.com/reference/v2/refunds-api/get-payment-refund?path=paymentId#response
+   * @see https://docs.mollie.com/reference/get-refund?path=paymentId#response
    */
   paymentId: string;
   /**
@@ -71,21 +77,51 @@ export interface RefundData extends Model<'refund'> {
    *
    * The full order object can be retrieved via the `order` URL in the `_links` object.
    *
-   * @see https://docs.mollie.com/reference/v2/refunds-api/get-payment-refund?path=orderId#response
+   * @see https://docs.mollie.com/reference/get-refund?path=orderId#response
    */
   orderId?: string;
   /**
    * The date and time the refund was issued, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    *
-   * @see https://docs.mollie.com/reference/v2/refunds-api/get-payment-refund?path=createdAt#response
+   * @see https://docs.mollie.com/reference/get-refund?path=createdAt#response
    */
   createdAt: string;
   /**
+   * A reference to the refund as registered by the payment provider. Contains the reference `type` (for example `acquirer-reference`) and the unique `id` provided by the payment provider.
+   *
+   * @see https://docs.mollie.com/reference/get-refund?path=externalReference#response
+   */
+  externalReference?: {
+    /**
+     * Specifies the reference type.
+     */
+    type?: string;
+    /**
+     * Unique reference from the payment provider.
+     */
+    id?: string;
+  };
+  /**
+   * *This feature is only available to marketplace operators.*
+   *
+   * When creating refunds for *routed* payments, by default the full amount is deducted from your balance.
+   *
+   * If you want to pull back funds from the connected merchant(s), you can use this parameter to specify what amount needs to be reversed from which merchant(s).
+   *
+   * If you simply want to fully reverse the routed funds, you can also use the `reverseRouting` parameter instead.
+   *
+   * @see https://docs.mollie.com/reference/get-refund?path=routingReversals#response
+   */
+  routingReversals?: RefundRoutingReversal[];
+  /**
    * An object with several URL objects relevant to the refund. Every URL object will contain an `href` and a `type` field.
    *
-   * @see https://docs.mollie.com/reference/v2/refunds-api/get-payment-refund?path=_links#response
+   * @see https://docs.mollie.com/reference/get-refund?path=_links#response
    */
   _links: PaymentRefundLinks;
+  /**
+   * An object with related resources that have been embedded in the response. Only present if a related resource was requested via the `embed` query parameter.
+   */
   _embedded?: {
     payment?: Omit<PaymentData, '_embedded'>;
   };
@@ -126,19 +162,43 @@ export interface PaymentRefundLinks extends Links {
   /**
    * The API resource URL of the payment the refund belongs to.
    *
-   * @see https://docs.mollie.com/reference/v2/refunds-api/get-payment-refund?path=_links/payment#response
+   * @see https://docs.mollie.com/reference/get-refund?path=_links/payment#response
    */
   payment: Url;
   /**
    * The API resource URL of the settlement this payment has been settled with. Not present if not yet settled.
    *
-   * @see https://docs.mollie.com/reference/v2/refunds-api/get-payment-refund?path=_links/settlement#response
+   * @see https://docs.mollie.com/reference/get-refund?path=_links/settlement#response
    */
   settlement?: Url;
   /**
    * The API resource URL of the order the refund belongs to. Not present if the refund does not belong to an order.
    *
-   * @see https://docs.mollie.com/reference/v2/refunds-api/get-payment-refund?path=_links/order#response
+   * @see https://docs.mollie.com/reference/get-refund?path=_links/order#response
    */
   order?: Url;
+}
+
+export interface RefundRoutingReversal {
+  /**
+   * The amount that will be pulled back.
+   *
+   * @see https://docs.mollie.com/reference/get-refund?path=routingReversals/amount#response
+   */
+  amount: Amount;
+  /**
+   * Where the funds will be pulled back from.
+   *
+   * @see https://docs.mollie.com/reference/get-refund?path=routingReversals/source#response
+   */
+  source: {
+    /**
+     * The type of source. Currently only the source type `organization` is supported.
+     */
+    type: 'organization';
+    /**
+     * Required for source type `organization`. The ID of the connected organization the funds should be pulled back from.
+     */
+    organizationId: string;
+  };
 }
