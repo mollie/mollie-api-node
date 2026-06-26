@@ -23,7 +23,7 @@ export default class PaymentRefundsBinder extends Binder<RefundData, Refund> {
    * Creates a refund for a specific payment. The refunded amount is credited to your customer usually either via a bank transfer or by refunding the amount to your customer's credit card.
    *
    * @since 1.1.1
-   * @see https://docs.mollie.com/reference/v2/refunds-api/create-payment-refund
+   * @see https://docs.mollie.com/reference/create-refund
    */
   public create(parameters: CreateParameters): Promise<Refund>;
   public create(parameters: CreateParameters, callback: Callback<Refund>): void;
@@ -37,10 +37,10 @@ export default class PaymentRefundsBinder extends Binder<RefundData, Refund> {
   /**
    * Retrieve a single payment refund by its ID. Note the payment ID is required as well.
    *
-   * If you do not know the original payment's ID, you can use the /reference/v2/refunds-api/list-refunds.
+   * If you do not know the original payment's ID, you can use the [List all refunds endpoint](https://docs.mollie.com/reference/list-all-refunds).
    *
    * @since 1.1.1
-   * @see https://docs.mollie.com/reference/v2/refunds-api/get-payment-refund
+   * @see https://docs.mollie.com/reference/get-refund
    */
   public get(id: string, parameters: GetParameters): Promise<Refund>;
   public get(id: string, parameters: GetParameters, callback: Callback<Refund>): void;
@@ -53,12 +53,12 @@ export default class PaymentRefundsBinder extends Binder<RefundData, Refund> {
   }
 
   /**
-   * Retrieve a list of all of your refunds.
+   * Retrieve a list of all refunds created for a specific payment.
    *
    * The results are paginated. See pagination for more information.
    *
    * @since 3.0.0
-   * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
+   * @see https://docs.mollie.com/reference/list-refunds
    */
   public page(parameters: PageParameters): Promise<Page<Refund>>;
   public page(parameters: PageParameters, callback: Callback<Page<Refund>>): void;
@@ -70,12 +70,12 @@ export default class PaymentRefundsBinder extends Binder<RefundData, Refund> {
   }
 
   /**
-   * Retrieve a list of all of your refunds.
+   * Retrieve a list of all refunds created for a specific payment.
    *
    * The results are paginated. See pagination for more information.
    *
    * @since 3.6.0
-   * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
+   * @see https://docs.mollie.com/reference/list-refunds
    */
   public iterate(parameters: IterateParameters) {
     const { paymentId, valuesPerMinute, ...query } = parameters;
@@ -84,13 +84,13 @@ export default class PaymentRefundsBinder extends Binder<RefundData, Refund> {
   }
 
   /**
-   * For certain payment methods, like iDEAL, the underlying banking system will delay refunds until the next day. Until that time, refunds may be canceled manually in the [Mollie
-   * Dashboard](https://www.mollie.com/dashboard), or programmatically by using this endpoint.
+   * Refunds will be executed with a delay of two hours. Until that time, refunds may be canceled manually in the [Mollie Dashboard](https://www.mollie.com/dashboard), or programmatically by using
+   * this endpoint.
    *
    * A refund can only be canceled while its `status` field is either `queued` or `pending`. See the Get refund endpoint for more information.
    *
    * @since 1.1.1
-   * @see https://docs.mollie.com/reference/v2/refunds-api/cancel-payment-refund
+   * @see https://docs.mollie.com/reference/cancel-refund
    */
   public cancel(id: string, parameters: CancelParameters): Promise<true>;
   public cancel(id: string, parameters: CancelParameters, callback: Callback<Promise<true>>): void;

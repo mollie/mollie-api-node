@@ -20,7 +20,7 @@ export default class SettlementRefundsBinder extends Binder<RefundData, Refund> 
    * Retrieve all refunds included in a settlement.
    *
    * @since 3.7.0
-   * @see https://docs.mollie.com/reference/v2/settlements-api/list-settlement-refunds
+   * @see https://docs.mollie.com/reference/list-settlement-refunds
    */
   public page(parameters: PageParameters): Promise<Page<Refund>>;
   public page(parameters: PageParameters, callback: Callback<Page<Refund>>): void;
@@ -34,7 +34,7 @@ export default class SettlementRefundsBinder extends Binder<RefundData, Refund> 
    * Retrieve all refunds included in a settlement.
    *
    * @since 3.7.0
-   * @see https://docs.mollie.com/reference/v2/settlements-api/list-settlement-refunds
+   * @see https://docs.mollie.com/reference/list-settlement-refunds
    */
   public iterate(parameters: IterateParameters) {
     const { settlementId, valuesPerMinute, ...query } = parameters;

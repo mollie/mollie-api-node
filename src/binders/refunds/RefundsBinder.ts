@@ -22,7 +22,7 @@ export default class RefundsBinder extends Binder<RefundData, Refund> {
    * The results are paginated. See pagination for more information.
    *
    * @since 3.0.0
-   * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
+   * @see https://docs.mollie.com/reference/list-all-refunds
    */
   public page(parameters?: PageParameters): Promise<Page<Refund>>;
   public page(parameters: PageParameters, callback: Callback<Page<Refund>>): void;
@@ -37,7 +37,7 @@ export default class RefundsBinder extends Binder<RefundData, Refund> {
    * The results are paginated. See pagination for more information.
    *
    * @since 3.6.0
-   * @see https://docs.mollie.com/reference/v2/refunds-api/list-refunds
+   * @see https://docs.mollie.com/reference/list-all-refunds
    */
   public iterate(parameters?: IterateParameters) {
     const { valuesPerMinute, ...query } = parameters ?? {};
