@@ -1,9 +1,9 @@
 import { type ChargebackEmbed } from '../../../data/chargebacks/Chargeback';
-import { type PaginationParameters, type ThrottlingParameter } from '../../../types/parameters';
+import { type PaginationParameters, type TestModeParameter, type ThrottlingParameter } from '../../../types/parameters';
 
-interface ContextParameters {
+type ContextParameters = TestModeParameter & {
   paymentId: string;
-}
+};
 
 export type GetParameters = ContextParameters & {
   embed?: ChargebackEmbed[];

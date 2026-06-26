@@ -12,7 +12,7 @@ export interface ChargebackData extends Model<'chargeback'> {
   /**
    * The amount charged back by the consumer.
    *
-   * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-payment-chargeback?path=amount#response
+   * @see https://docs.mollie.com/reference/get-chargeback?path=amount#response
    */
   amount: Amount;
   /**
@@ -22,53 +22,59 @@ export interface ChargebackData extends Model<'chargeback'> {
    *
    * Any amounts not settled by Mollie will not be reflected in this amount, e.g. PayPal chargebacks.
    *
-   * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-payment-chargeback?path=settlementAmount#response
+   * @see https://docs.mollie.com/reference/get-chargeback?path=settlementAmount#response
    */
   settlementAmount: Amount;
   /**
    * The date and time the chargeback was issued, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    *
-   * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-payment-chargeback?path=createdAt#response
+   * @see https://docs.mollie.com/reference/get-chargeback?path=createdAt#response
    */
   createdAt: string;
   /**
-   * Reason for the chargeback as given by the bank.
+   * Reason for the chargeback as given by the bank. Only available for chargebacks of SEPA Direct Debit payments.
    *
-   * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-payment-chargeback?path=reason#response
+   * @see https://docs.mollie.com/reference/get-chargeback?path=reason#response
    */
   reason: {
     /**
      * Bank code of the chargeback reason.
      *
-     * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-payment-chargeback?path=reason/code#response
+     * @see https://docs.mollie.com/reference/get-chargeback?path=reason/code#response
      */
     code: string;
     /**
      * Detailed description of the reason.
      *
-     * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-payment-chargeback?path=reason/description#response
+     * @see https://docs.mollie.com/reference/get-chargeback?path=reason/description#response
      */
     description: string;
   };
   /**
    * The date and time the chargeback was reversed if applicable, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    *
-   * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-payment-chargeback?path=reversedAt#response
+   * @see https://docs.mollie.com/reference/get-chargeback?path=reversedAt#response
    */
   reversedAt: string;
   /**
    * The unique identifier of the payment this chargeback was issued for. For example: `tr_7UhSN1zuXS`. The full payment object can be retrieved via the `payment` URL in the `_links` object.
    *
-   * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-payment-chargeback?path=paymentId#response
+   * @see https://docs.mollie.com/reference/get-chargeback?path=paymentId#response
    */
   paymentId: string;
+  /**
+   * The identifier referring to the settlement this chargeback was settled with. For example: `stl_BkEjN2eBb`. This field is omitted if the chargeback is not settled (yet).
+   *
+   * @see https://docs.mollie.com/reference/get-chargeback?path=settlementId#response
+   */
+  settlementId?: string;
   _embedded?: {
     payment?: Omit<PaymentData, '_embedded'>;
   };
   /**
    * An object with several URL objects relevant to the chargeback. Every URL object will contain an `href` and a `type` field.
    *
-   * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-payment-chargeback?path=_links#response
+   * @see https://docs.mollie.com/reference/get-chargeback?path=_links#response
    */
   _links: ChargebackLinks;
 }
@@ -88,13 +94,13 @@ export interface ChargebackLinks extends Links {
   /**
    * The API resource URL of the payment this chargeback belongs to.
    *
-   * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-payment-chargeback?path=_links/payment#response
+   * @see https://docs.mollie.com/reference/get-chargeback?path=_links/payment#response
    */
   payment: Url;
   /**
    * The API resource URL of the settlement this payment has been settled with. Not present if not yet settled.
    *
-   * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-payment-chargeback?path=_links/settlement#response
+   * @see https://docs.mollie.com/reference/get-chargeback?path=_links/settlement#response
    */
   settlement?: Url;
 }
