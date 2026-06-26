@@ -82,10 +82,9 @@ export type CreateParameters = Pick<
      */
     cardToken?: string;
     /**
-     * Whether to store the customer's payment credentials for future payments. When set to `true`, the customer's card details can be used for subsequent payments without the customer having to re-enter
-     * their card information.
+     * Whether the card details should be stored for the customer after a successful payment. This will create a mandate for the customer, allowing for future customer present saved-card CIT payments.
      *
-     * Requires a `customerId` to be provided.
+     * Requires `customerId`, `cardToken`, and the `creditcard` method to be specified.
      *
      * @see https://docs.mollie.com/reference/create-payment
      */
