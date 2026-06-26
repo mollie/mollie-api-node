@@ -32,6 +32,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
+    "test:unit": "jest ./tests/unit",
     "test:unit:cov": "jest ./tests/unit --coverage",
     "build": "yarn build:library && yarn build:declarations",
     "build:library": "rollup --config rollup.config.js",
