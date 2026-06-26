@@ -24,7 +24,7 @@ export default class MethodsBinder extends Binder<MethodData, Method> {
    * Additionally, it is possible to check if Wallets such as Apple Pay are enabled by passing the wallet ID (`applepay`) as the method ID.
    *
    * @since 2.0.0
-   * @see https://docs.mollie.com/reference/v2/methods-api/get-method
+   * @see https://docs.mollie.com/reference/get-method
    */
   public get(id: string, parameters?: GetParameters): Promise<Method>;
   public get(id: string, parameters: GetParameters, callback: Callback<Method>): void;
@@ -46,8 +46,11 @@ export default class MethodsBinder extends Binder<MethodData, Method> {
    * When using the `recurring` sequence type, payment methods that can be used for recurring payments or subscriptions will be returned. Enabling / disabling methods in the dashboard does not affect
    * how they can be used for recurring payments.
    *
+   * This endpoint only returns online payment methods. By default, only payment methods for the Euro currency are returned; to retrieve methods that exclusively support other currencies (e.g. Twint),
+   * use the `amount` parameter.
+   *
    * @since 3.0.0
-   * @see https://docs.mollie.com/reference/v2/methods-api/list-methods
+   * @see https://docs.mollie.com/reference/list-methods
    */
   public list(parameters?: ListParameters): Promise<Method[]>;
   public list(parameters: ListParameters, callback: Callback<Method[]>): void;

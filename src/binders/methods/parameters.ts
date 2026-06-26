@@ -7,19 +7,28 @@ export interface GetParameters extends TestModeParameter {
   /**
    * Passing a locale will translate the payment method name in the corresponding language.
    *
-   * Possible values: `en_US` `en_GB` `nl_NL` `nl_BE` `fr_FR` `fr_BE` `de_DE` `de_AT` `de_CH` `es_ES` `ca_ES` `pt_PT` `it_IT` `nb_NO` `sv_SE` `fi_FI` `da_DK` `is_IS` `hu_HU` `pl_PL` `lv_LV` `lt_LT`
+   * Possible values: `en_US` `en_GB` `nl_NL` `nl_BE` `fr_FR` `fr_BE` `fr_LU` `de_DE` `de_AT` `de_CH` `de_LU` `es_ES` `ca_ES` `pt_PT` `it_IT` `nb_NO` `sv_SE` `fi_FI` `da_DK` `is_IS` `hu_HU` `pl_PL` `lv_LV` `lt_LT`
    *
-   * @see https://docs.mollie.com/reference/v2/methods-api/get-method?path=locale#parameters
+   * @see https://docs.mollie.com/reference/get-method?path=locale#parameters
    */
   locale?: Locale;
   include?: MaybeArray<MethodInclude>;
   profileId?: string;
   /**
-   * The currency to receiving the `minimumAmount` and `maximumAmount` in. We will return an error when the currency is not supported by the payment method.
+   * If provided, the `minimumAmount` and `maximumAmount` will be converted to the given currency. An error is returned if the currency is not supported by the payment method.
    *
-   * @see https://docs.mollie.com/reference/v2/methods-api/get-method?path=currency#parameters
+   * @see https://docs.mollie.com/reference/get-method?path=currency#parameters
    */
   currency?: string;
+  /**
+   * Set this parameter to `first` to only return the methods that can be used for the first payment of a recurring sequence. Set it to `recurring` to only return methods that can be used for recurring
+   * payments or subscriptions.
+   *
+   * Possible values: `oneoff` `first` `recurring`
+   *
+   * @see https://docs.mollie.com/reference/get-method?path=sequenceType#parameters
+   */
+  sequenceType?: SequenceType;
 }
 
 /**
@@ -35,7 +44,7 @@ export interface GetParameters extends TestModeParameter {
  * When using the `recurring` sequence type, payment methods that can be used for recurring payments or subscriptions will be returned. Enabling / disabling methods in the dashboard does not affect
  * how they can be used for recurring payments.
  *
- * @see https://docs.mollie.com/reference/v2/methods-api/list-methods
+ * @see https://docs.mollie.com/reference/list-methods
  */
 export interface ListParameters extends TestModeParameter {
   /**
@@ -46,15 +55,15 @@ export interface ListParameters extends TestModeParameter {
    *
    * Possible values: `oneoff` `first` `recurring`
    *
-   * @see https://docs.mollie.com/reference/v2/methods-api/list-methods?path=sequenceType#parameters
+   * @see https://docs.mollie.com/reference/list-methods?path=sequenceType#parameters
    */
   sequenceType?: SequenceType;
   /**
    * Passing a locale will sort the payment methods in the preferred order for the country, and translate the payment method names in the corresponding language.
    *
-   * Possible values: `en_US` `en_GB` `nl_NL` `nl_BE` `fr_FR` `fr_BE` `de_DE` `de_AT` `de_CH` `es_ES` `ca_ES` `pt_PT` `it_IT` `nb_NO` `sv_SE` `fi_FI` `da_DK` `is_IS` `hu_HU` `pl_PL` `lv_LV` `lt_LT`
+   * Possible values: `en_US` `en_GB` `nl_NL` `nl_BE` `fr_FR` `fr_BE` `fr_LU` `de_DE` `de_AT` `de_CH` `de_LU` `es_ES` `ca_ES` `pt_PT` `it_IT` `nb_NO` `sv_SE` `fi_FI` `da_DK` `is_IS` `hu_HU` `pl_PL` `lv_LV` `lt_LT`
    *
-   * @see https://docs.mollie.com/reference/v2/methods-api/list-methods?path=locale#parameters
+   * @see https://docs.mollie.com/reference/list-methods?path=locale#parameters
    */
   locale?: Locale;
   /**
@@ -62,18 +71,18 @@ export interface ListParameters extends TestModeParameter {
    *
    * Example: `https://api.mollie.com/v2/methods?amount[value]=100.00&amount[currency]=USD`
    *
-   * @see https://docs.mollie.com/reference/v2/methods-api/list-methods?path=amount#parameters
+   * @see https://docs.mollie.com/reference/list-methods?path=amount#parameters
    */
   amount?: Amount;
   /**
    * Use the `resource` parameter to indicate if you will use the result with the Create order or Create payment endpoints.
    *
-   * For example: when passing `orders` the result will include payment methods that can only be used in conjunction with orders, such as *Klarna Pay later* and meal vouchers. Default behaviour is
-   * returning all available payment methods for `payments`.
+   * **We no longer recommend using the Orders API. Please refer to the Payments API instead.** When passing the value `orders` the result will include payment methods that are only available for
+   * payments created via the Orders API, such as *Klarna Pay later* and meal vouchers. Default behaviour is returning all available payment methods for `payments`.
    *
    * Possible values: `orders` `payments`
    *
-   * @see https://docs.mollie.com/reference/v2/methods-api/list-methods?path=resource#parameters
+   * @see https://docs.mollie.com/reference/list-methods?path=resource#parameters
    */
   resource?: string;
   /**
@@ -82,7 +91,7 @@ export interface ListParameters extends TestModeParameter {
    *
    * Example: `https://api.mollie.com/v2/methods?resource=orders&billingCountry=DE`
    *
-   * @see https://docs.mollie.com/reference/v2/methods-api/list-methods?path=billingCountry#parameters
+   * @see https://docs.mollie.com/reference/list-methods?path=billingCountry#parameters
    */
   billingCountry?: string;
   /**
@@ -91,9 +100,9 @@ export interface ListParameters extends TestModeParameter {
    *
    * Example: `https://api.mollie.com/v2/methods?includeWallets=applepay`
    *
-   * Possible values: `applepay`
+   * Possible values: `applepay` `googlepay`
    *
-   * @see https://docs.mollie.com/reference/v2/methods-api/list-methods?path=includeWallets#parameters
+   * @see https://docs.mollie.com/reference/list-methods?path=includeWallets#parameters
    */
   includeWallets?: string;
   /**
@@ -101,7 +110,7 @@ export interface ListParameters extends TestModeParameter {
    *
    * Example: `https://api.mollie.com/v2/methods?resource=orders&orderLineCategories=eco,meal`
    *
-   * @see https://docs.mollie.com/reference/v2/methods-api/list-methods?path=orderLineCategories#parameters
+   * @see https://docs.mollie.com/reference/list-methods?path=orderLineCategories#parameters
    */
   orderLineCategories?: string[];
   include?: MaybeArray<MethodInclude>;

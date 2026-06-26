@@ -6,50 +6,50 @@ export interface MethodData extends Model<'method', PaymentMethodEnum> {
   /**
    * The full name of the payment method, translated in the optional locale passed.
    *
-   * @see https://docs.mollie.com/reference/v2/methods-api/get-method?path=description#response
+   * @see https://docs.mollie.com/reference/get-method?path=description#response
    */
   description: string;
   /**
    * The minimum payment amount required to use this payment method.
    *
-   * @see https://docs.mollie.com/reference/v2/methods-api/get-method?path=minimumAmount#response
+   * @see https://docs.mollie.com/reference/get-method?path=minimumAmount#response
    */
   minimumAmount: Amount;
   /**
-   * The maximum payment amount allowed when using this payment method.
+   * The maximum payment amount allowed when using this payment method. If there is no method-specific maximum, `null` is returned instead.
    *
-   * @see https://docs.mollie.com/reference/v2/methods-api/get-method?path=maximumAmount#response
+   * @see https://docs.mollie.com/reference/get-method?path=maximumAmount#response
    */
   maximumAmount: Nullable<Amount>;
   /**
    * The URLs of images representing the payment method.
    *
-   * @see https://docs.mollie.com/reference/v2/methods-api/get-method?path=image#response
+   * @see https://docs.mollie.com/reference/get-method?path=image#response
    */
   image: Image;
   /**
    * Array of objects describing the pricing configuration applicable for this payment method on your account.
    *
-   * @see https://docs.mollie.com/reference/v2/methods-api/get-method?path=pricing#response
+   * @see https://docs.mollie.com/reference/get-method?path=pricing#response
    */
   pricing?: MethodPricing[];
   /**
-   * Array of objects for each 'issuer' that is available for this payment method. Only relevant for iDEAL, KBC/CBC,
-   * gift cards, and vouchers.
+   * Optional include. Array of objects for each 'issuer' that is available for this payment method. Only relevant for
+   * iDEAL, KBC/CBC, gift cards, and vouchers.
    *
-   * @see https://docs.mollie.com/reference/v2/methods-api/get-method?path=pricing#response
+   * @see https://docs.mollie.com/reference/get-method?path=issuers#response
    */
   issuers?: MethodIssuers[];
   /**
    * An object with several URL objects relevant to the payment method. Every URL object will contain an `href` and a `type` field.
    *
-   * @see https://docs.mollie.com/reference/v2/methods-api/get-method?path=_links#response
+   * @see https://docs.mollie.com/reference/get-method?path=_links#response
    */
   _links: Links;
   /**
-   * The status of the payment method.
+   * The payment method's activation status for this profile.
    *
-   * @see https://docs.mollie.com/reference/v2/methods-api/get-method?path=status#response
+   * @see https://docs.mollie.com/reference/get-method?path=status#response
    */
   status: MethodStatus | null;
 }
@@ -58,19 +58,19 @@ export interface Image {
   /**
    * The URL for a payment method icon of 32x24 pixels.
    *
-   * @see https://docs.mollie.com/reference/v2/methods-api/get-method?path=image/size1x#response
+   * @see https://docs.mollie.com/reference/get-method?path=image/size1x#response
    */
   size1x: string;
   /**
    * The URL for a payment method icon of 64x48 pixels.
    *
-   * @see https://docs.mollie.com/reference/v2/methods-api/get-method?path=image/size2x#response
+   * @see https://docs.mollie.com/reference/get-method?path=image/size2x#response
    */
   size2x: string;
   /**
    * The URL for a payment method icon in vector format. Usage of this format is preferred since it can scale to any desired size.
    *
-   * @see https://docs.mollie.com/reference/v2/methods-api/get-method?path=image/svg#response
+   * @see https://docs.mollie.com/reference/get-method?path=image/svg#response
    */
   svg: string;
 }
