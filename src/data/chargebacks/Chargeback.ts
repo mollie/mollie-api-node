@@ -98,7 +98,7 @@ export interface ChargebackLinks extends Links {
    */
   payment: Url;
   /**
-   * The API resource URL of the settlement this payment has been settled with. Not present if not yet settled.
+   * The API resource URL of the settlement this chargeback has been settled with. Not present if not yet settled.
    *
    * @see https://docs.mollie.com/reference/get-chargeback?path=_links/settlement#response
    */
