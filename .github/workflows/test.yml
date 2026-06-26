@@ -15,11 +15,13 @@ jobs:
         node-version: [14.x, 18.x, 20.x, 22.x, 24.x]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
+          # v6 limits automatic caching to npm; opt in explicitly to cache the global yarn cache.
+          cache: yarn
       - name: Install dependencies
         # --ignore-engines is scoped to Node 14 only: the commitizen dev tool declares engines.node >=18,
         # which is irrelevant to CI/runtime but aborts the install on our oldest supported runner. Newer
