@@ -9,7 +9,7 @@ export default class MethodHelper extends Helper<MethodData, Method> {
    *
    * @since 2.0.0
    * @since 3.0.0 SVG support
-   * @see https://docs.mollie.com/reference/v2/methods-api/get-method?path=image#response
+   * @see https://docs.mollie.com/reference/get-method?path=image#response
    */
   public getImage(this: MethodData, size: MethodImageSize | '1x' | '2x' = MethodImageSize.size2x): string {
     switch (size) {
