@@ -141,7 +141,9 @@ See [the migration guide](MIGRATION.md) if you are migrating from an older versi
 
 ## Contributing
 
-Want to help us make our API client even better? We take [pull requests](https://github.com/mollie/mollie-api-node/pulls), sure. But how would you like to contribute to a technology oriented organization? Mollie is hiring developers and system engineers. [Check out our vacancies](https://jobs.mollie.com/) or [get in touch](mailto:personeel@mollie.com).
+Want to help us make our API client even better? We take [pull requests](https://github.com/mollie/mollie-api-node/pulls), sure. See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup, our commit conventions, and the release process.
+
+But how would you like to contribute to a technology oriented organization? Mollie is hiring developers and system engineers. [Check out our vacancies](https://jobs.mollie.com/) or [get in touch](mailto:personeel@mollie.com).
 
 ## License
 
