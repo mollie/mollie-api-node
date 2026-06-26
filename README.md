@@ -13,7 +13,7 @@
 
 This library runs on any server-side JavaScript runtime that provides `fetch` and Node-compatible APIs — Node.js, Bun, and Deno, as well as edge runtimes such as Cloudflare Workers (with the `nodejs_compat` flag and a recent compatibility date). See [Requirements](#requirements) for the versions tested in CI.
 
-What it is _not_ meant for is the browser. In the typical setup you make calls to the Mollie API ‒ through one of our libraries ‒ from your server, where your API key sits safely out of reach of the outside world. If you were to include this library in a website or mobile app, your API key would be shipped to your users, who could then act on your behalf.
+What it is _not_ meant for is the browser. In the typical setup you make calls to the Mollie API ‒ through one of our libraries ‒ from your server, where your credentials sit safely out of reach of the outside world. If you were to include this library in a website or mobile app, your credentials would be shipped to your users, who could then act on your behalf.
 
 To prevent this, the client throws when it detects a browser-like environment. If you understand the risk and have appropriate mitigations in place (for example a short-lived, narrowly-scoped access token rather than a full API key), you can bypass the check with the `dangerouslyAllowBrowser` option:
 
