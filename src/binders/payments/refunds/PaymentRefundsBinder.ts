@@ -93,7 +93,7 @@ export default class PaymentRefundsBinder extends Binder<RefundData, Refund> {
    * @see https://docs.mollie.com/reference/cancel-refund
    */
   public cancel(id: string, parameters: CancelParameters): Promise<true>;
-  public cancel(id: string, parameters: CancelParameters, callback: Callback<Promise<true>>): void;
+  public cancel(id: string, parameters: CancelParameters, callback: Callback<true>): void;
   public cancel(id: string, parameters: CancelParameters) {
     if (renege(this, this.cancel, ...arguments)) return;
     assertWellFormedId(id, 'refund');
