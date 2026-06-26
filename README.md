@@ -11,15 +11,28 @@
 
 ### A note on use outside of Node.js
 
-This is a JavaScript library, a language which is universal by nature. While it is theoretically possible to include this library into a website or mobile app, it is not recommended to do so.
+This library runs on any server-side JavaScript runtime that provides `fetch` and Node-compatible APIs — Node.js, Bun, and Deno, as well as edge runtimes such as Cloudflare Workers (with the `nodejs_compat` flag and a recent compatibility date). See [Requirements](#requirements) for the versions tested in CI.
 
-In the typical setup, you will make calls to the Mollie API ‒ through one of our libraries ‒ from your server (e.g. a Node.js server). Your API key sits safely on this server, out of reach to the outside world.
+What it is _not_ meant for is the browser. In the typical setup you make calls to the Mollie API ‒ through one of our libraries ‒ from your server, where your API key sits safely out of reach of the outside world. If you were to include this library in a website or mobile app, your API key would be shipped to your users, who could then act on your behalf.
 
-If you include this library in a website or app, however, your API key will be shipped to users. With this key, users will be able to act on your behalf.
+To prevent this, the client throws when it detects a browser-like environment. If you understand the risk and have appropriate mitigations in place (for example a short-lived, narrowly-scoped access token rather than a full API key), you can bypass the check with the `dangerouslyAllowBrowser` option:
+
+```js
+const mollieClient = createMollieClient({ apiKey: 'test_...', dangerouslyAllowBrowser: true });
+```
 
 ## Requirements
 
-- Node.js 14.× or greater.
+This library runs on any server-side JavaScript runtime with `fetch` and Node-compatible APIs. The following are verified in CI:
+
+- Node.js 14 or greater.
+- Bun 1.0 or greater.
+- Deno 2.0 or greater.
+
+It also runs on edge runtimes such as Cloudflare Workers, provided the `nodejs_compat` compatibility flag is enabled and a compatibility date of `2025-08-15` or later is set.
+
+You will also need:
+
 - A free [Mollie account](https://www.mollie.com/dashboard/signup).
 - Your API keys, which you can find on your [dashboard](https://www.mollie.com/dashboard/developers/api-keys).
 
