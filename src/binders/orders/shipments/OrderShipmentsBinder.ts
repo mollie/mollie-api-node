@@ -12,6 +12,9 @@ export function getPathSegments(orderId: string) {
   return `orders/${orderId}/shipments`;
 }
 
+/**
+ * @deprecated We no longer recommend using the Orders API. Please refer to the [Payments API](https://docs.mollie.com/reference/payments-api) instead. Already using the Orders API? See the [migrating from Orders to Payments guide](https://docs.mollie.com/docs/migrating-from-orders-to-payments) for more information.
+ */
 export default class OrderShipmentsBinder extends Binder<ShipmentData, Shipment> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
@@ -28,6 +31,7 @@ export default class OrderShipmentsBinder extends Binder<ShipmentData, Shipment>
    *
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/shipments-api/create-shipment
+   * @deprecated We no longer recommend using the Orders API. Please refer to the [Payments API](https://docs.mollie.com/reference/payments-api) instead. Already using the Orders API? See the [migrating from Orders to Payments guide](https://docs.mollie.com/docs/migrating-from-orders-to-payments) for more information.
    */
   public create(parameters: CreateParameters): Promise<Shipment>;
   public create(parameters: CreateParameters, callback: Callback<Shipment>): void;
@@ -43,6 +47,7 @@ export default class OrderShipmentsBinder extends Binder<ShipmentData, Shipment>
    *
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/shipments-api/get-shipment
+   * @deprecated We no longer recommend using the Orders API. Please refer to the [Payments API](https://docs.mollie.com/reference/payments-api) instead. Already using the Orders API? See the [migrating from Orders to Payments guide](https://docs.mollie.com/docs/migrating-from-orders-to-payments) for more information.
    */
   public get(id: string, parameters: GetParameters): Promise<Shipment>;
   public get(id: string, parameters: GetParameters, callback: Callback<Shipment>): void;
@@ -59,6 +64,7 @@ export default class OrderShipmentsBinder extends Binder<ShipmentData, Shipment>
    *
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/shipments-api/list-shipments
+   * @deprecated We no longer recommend using the Orders API. Please refer to the [Payments API](https://docs.mollie.com/reference/payments-api) instead. Already using the Orders API? See the [migrating from Orders to Payments guide](https://docs.mollie.com/docs/migrating-from-orders-to-payments) for more information.
    */
   public list(parameters: ListParameters): Promise<Shipment[]>;
   public list(parameters: ListParameters, callback: Callback<Shipment[]>): void;
@@ -74,6 +80,7 @@ export default class OrderShipmentsBinder extends Binder<ShipmentData, Shipment>
    *
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/shipments-api/update-shipment
+   * @deprecated We no longer recommend using the Orders API. Please refer to the [Payments API](https://docs.mollie.com/reference/payments-api) instead. Already using the Orders API? See the [migrating from Orders to Payments guide](https://docs.mollie.com/docs/migrating-from-orders-to-payments) for more information.
    */
   public update(id: string, parameters: UpdateParameters): Promise<Shipment>;
   public update(id: string, parameters: UpdateParameters, callback: Callback<Shipment>): void;

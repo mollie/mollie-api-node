@@ -32,6 +32,7 @@ export const pathSegment = 'orders';
  * -   Eco vouchers, gift vouchers, and meal vouchers
  *
  * @see https://docs.mollie.com/orders/overview#orders-api
+ * @deprecated We no longer recommend using the Orders API. Please refer to the [Payments API](https://docs.mollie.com/reference/payments-api) instead. Already using the Orders API? See the [migrating from Orders to Payments guide](https://docs.mollie.com/docs/migrating-from-orders-to-payments) for more information.
  */
 export default class OrdersBinder extends Binder<OrderData, Order> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
@@ -52,6 +53,7 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
    *
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/orders-api/create-order
+   * @deprecated We no longer recommend using the Orders API. Please refer to the [Payments API](https://docs.mollie.com/reference/payments-api) instead. Already using the Orders API? See the [migrating from Orders to Payments guide](https://docs.mollie.com/docs/migrating-from-orders-to-payments) for more information.
    */
   public create(parameters: CreateParameters): Promise<Order>;
   public create(parameters: CreateParameters, callback: Callback<Order>): void;
@@ -67,6 +69,7 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
    *
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/orders-api/get-order
+   * @deprecated We no longer recommend using the Orders API. Please refer to the [Payments API](https://docs.mollie.com/reference/payments-api) instead. Already using the Orders API? See the [migrating from Orders to Payments guide](https://docs.mollie.com/docs/migrating-from-orders-to-payments) for more information.
    */
   public get(id: string, parameters?: GetParameters): Promise<Order>;
   public get(id: string, parameters: GetParameters, callback: Callback<Order>): void;
@@ -83,6 +86,7 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
    *
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/orders-api/list-orders
+   * @deprecated We no longer recommend using the Orders API. Please refer to the [Payments API](https://docs.mollie.com/reference/payments-api) instead. Already using the Orders API? See the [migrating from Orders to Payments guide](https://docs.mollie.com/docs/migrating-from-orders-to-payments) for more information.
    */
   public page(parameters?: PageParameters): Promise<Page<Order>>;
   public page(parameters: PageParameters, callback: Callback<Page<Order>>): void;
@@ -98,6 +102,7 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
    *
    * @since 3.6.0
    * @see https://docs.mollie.com/reference/v2/orders-api/list-orders
+   * @deprecated We no longer recommend using the Orders API. Please refer to the [Payments API](https://docs.mollie.com/reference/payments-api) instead. Already using the Orders API? See the [migrating from Orders to Payments guide](https://docs.mollie.com/docs/migrating-from-orders-to-payments) for more information.
    */
   public iterate(parameters?: IterateParameters) {
     const { valuesPerMinute, ...query } = parameters ?? {};
@@ -112,6 +117,7 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
    *
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/orders-api/update-order
+   * @deprecated We no longer recommend using the Orders API. Please refer to the [Payments API](https://docs.mollie.com/reference/payments-api) instead. Already using the Orders API? See the [migrating from Orders to Payments guide](https://docs.mollie.com/docs/migrating-from-orders-to-payments) for more information.
    */
   public update(id: string, parameters: UpdateParameters): Promise<Order>;
   public update(id: string, parameters: UpdateParameters, callback: Callback<Order>): void;
@@ -138,6 +144,7 @@ export default class OrdersBinder extends Binder<OrderData, Order> {
    *
    * @since 3.0.0
    * @see https://docs.mollie.com/reference/v2/orders-api/cancel-order
+   * @deprecated We no longer recommend using the Orders API. Please refer to the [Payments API](https://docs.mollie.com/reference/payments-api) instead. Already using the Orders API? See the [migrating from Orders to Payments guide](https://docs.mollie.com/docs/migrating-from-orders-to-payments) for more information.
    */
   public cancel(id: string, parameters?: CancelParameters): Promise<Order>;
   public cancel(id: string, parameters: CancelParameters, callback: Callback<Order>): void;
