@@ -22,7 +22,7 @@ export default class ChargebacksBinder extends Binder<ChargebackData, Chargeback
    * The results are paginated. See pagination for more information.
    *
    * @since 3.0.0
-   * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
+   * @see https://docs.mollie.com/reference/list-all-chargebacks
    */
   public page(parameters?: PageParameters): Promise<Page<Chargeback>>;
   public page(parameters: PageParameters, callback: Callback<Page<Chargeback>>): void;
@@ -37,7 +37,7 @@ export default class ChargebacksBinder extends Binder<ChargebackData, Chargeback
    * The results are paginated. See pagination for more information.
    *
    * @since 3.6.0
-   * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
+   * @see https://docs.mollie.com/reference/list-all-chargebacks
    */
   public iterate(parameters?: IterateParameters) {
     const { valuesPerMinute, ...query } = parameters ?? {};

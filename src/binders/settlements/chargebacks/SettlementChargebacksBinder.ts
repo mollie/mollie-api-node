@@ -20,7 +20,7 @@ export default class SettlementChargebacksBinder extends Binder<ChargebackData, 
    * Retrieve all chargebacks included in a settlement.
    *
    * @since 3.7.0
-   * @see https://docs.mollie.com/reference/v2/settlements-api/list-settlement-chargebacks
+   * @see https://docs.mollie.com/reference/list-settlement-chargebacks
    */
   public page(parameters: PageParameters): Promise<Page<Chargeback>>;
   public page(parameters: PageParameters, callback: Callback<Page<Chargeback>>): void;
@@ -34,7 +34,7 @@ export default class SettlementChargebacksBinder extends Binder<ChargebackData, 
    * Retrieve all chargebacks included in a settlement.
    *
    * @since 3.7.0
-   * @see https://docs.mollie.com/reference/v2/settlements-api/list-settlement-chargebacks
+   * @see https://docs.mollie.com/reference/list-settlement-chargebacks
    */
   public iterate(parameters: IterateParameters) {
     const { settlementId, valuesPerMinute, ...query } = parameters;

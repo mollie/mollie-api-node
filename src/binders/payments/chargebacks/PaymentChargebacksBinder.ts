@@ -25,7 +25,7 @@ export default class PaymentChargebacksBinder extends Binder<ChargebackData, Cha
    * If you do not know the original payment's ID, you can use the chargebacks list endpoint.
    *
    * @since 1.1.1
-   * @see https://docs.mollie.com/reference/v2/chargebacks-api/get-payment-chargeback
+   * @see https://docs.mollie.com/reference/get-chargeback
    */
   public get(id: string, parameters: GetParameters): Promise<Chargeback>;
   public get(id: string, parameters: GetParameters, callback: Callback<Chargeback>): void;
@@ -38,12 +38,12 @@ export default class PaymentChargebacksBinder extends Binder<ChargebackData, Cha
   }
 
   /**
-   * Retrieve all chargebacks filed for your payments.
+   * Retrieve the chargebacks initiated for a specific payment.
    *
    * The results are paginated. See pagination for more information.
    *
    * @since 3.0.0
-   * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
+   * @see https://docs.mollie.com/reference/list-payment-chargebacks
    */
   public page(parameters: PageParameters): Promise<Page<Chargeback>>;
   public page(parameters: PageParameters, callback: Callback<Page<Chargeback>>): void;
@@ -55,12 +55,12 @@ export default class PaymentChargebacksBinder extends Binder<ChargebackData, Cha
   }
 
   /**
-   * Retrieve all chargebacks filed for your payments.
+   * Retrieve the chargebacks initiated for a specific payment.
    *
    * The results are paginated. See pagination for more information.
    *
    * @since 3.6.0
-   * @see https://docs.mollie.com/reference/v2/chargebacks-api/list-chargebacks
+   * @see https://docs.mollie.com/reference/list-payment-chargebacks
    */
   public iterate(parameters: IterateParameters) {
     const { paymentId, valuesPerMinute, ...query } = parameters;
