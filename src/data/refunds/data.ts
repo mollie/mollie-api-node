@@ -42,7 +42,7 @@ export interface RefundData extends Model<'refund'> {
    */
   description: string;
   /**
-   * The optional metadata you provided upon refund creation. Metadata can for example be used to link an bookkeeping ID to a refund.
+   * The optional metadata you provided upon refund creation. Metadata can for example be used to link a bookkeeping ID to a refund.
    *
    * @see https://docs.mollie.com/reference/get-refund?path=metadata#response
    */
