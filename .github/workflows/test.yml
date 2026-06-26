@@ -33,3 +33,57 @@ jobs:
           # Set the API key for the integration tests. In the future, all tests will rely on snapshots. An API key will
           # then only be required to update those snapshots. The API key can then be removed from this file.
           API_KEY: ${{ secrets.TEST_API_KEY }}
+
+  # Bun and Deno run the Node-oriented Jest suite unmodified, guarding the SDK's runtime-agnostic support. Dependencies
+  # are installed with Node/yarn (which also builds the bundle via the `prepare` hook); only the test runtime differs.
+  # Floor versions are pinned so the lowest supported runtime is exercised, not only the latest.
+  test-bun:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        bun-version: ['1.0.0', 'latest']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Use Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20.x
+          cache: yarn
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+      - name: Use Bun ${{ matrix.bun-version }}
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: ${{ matrix.bun-version }}
+      - name: Run test suite on Bun
+        # Explicit local jest path (not `bun x jest`, which can fetch a mismatched jest@latest when .bin/jest is absent).
+        run: bun node_modules/jest/bin/jest.js
+        env:
+          API_KEY: ${{ secrets.TEST_API_KEY }}
+
+  test-deno:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        deno-version: [v2.0.0, v2.x]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Use Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20.x
+          cache: yarn
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+      - name: Use Deno ${{ matrix.deno-version }}
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: ${{ matrix.deno-version }}
+      - name: Run test suite on Deno
+        run: deno run -A --node-modules-dir=auto ./node_modules/jest/bin/jest.js
+        env:
+          API_KEY: ${{ secrets.TEST_API_KEY }}
