@@ -75,8 +75,8 @@ import OAuthBinder from './binders/oauth/OAuthBinder';
 import ClientLinksBinder from './binders/client-links/ClientLinksBinder';
 
 /**
- * Returns whether the code appears to be running in a browser-like environment, where shipping an API key would expose
- * it to the public. It checks for `window`, `window.document`, and `navigator` ‒ all present in real browsers, but
+ * Returns whether the code appears to be running in a browser-like environment, where shipping credentials would expose
+ * them to the public. It checks for `window`, `window.document`, and `navigator` ‒ all present in real browsers, but
  * absent in Node.js, Bun, Deno, and server-side edge runtimes (Cloudflare Workers, Vercel/Netlify edge), which are
  * therefore not flagged. Property access on `globalThis` (rather than a bare identifier) keeps this safe in runtimes
  * where these are undeclared globals.
@@ -91,13 +91,13 @@ function isBrowserLike() {
  * @since 2.0.0
  */
 export default function createMollieClient(options: Options) {
-  // Refuse to run in a browser-like environment by default, as doing so would ship the API key to the public. This is
+  // Refuse to run in a browser-like environment by default, as doing so would ship credentials to the public. This is
   // a guardrail against accidental misuse, not a security boundary (any global can be spoofed); it can be bypassed with
   // `dangerouslyAllowBrowser`. Unlike the previous `process.release.name` check, this lets the library run on non-Node
   // server runtimes (Bun, Deno, Cloudflare Workers, and other edge runtimes), none of which define `window.document`.
   if (options.dangerouslyAllowBrowser !== true && isBrowserLike()) {
     throw new Error(
-      "It looks like you're running in a browser-like environment, which is disabled by default as it risks exposing your API key to the public. If you understand the risks and have appropriate mitigations in place, set the `dangerouslyAllowBrowser` option to `true`, e.g. `createMollieClient({ apiKey, dangerouslyAllowBrowser: true })`. See https://github.com/mollie/mollie-api-node/#a-note-on-use-outside-of-nodejs",
+      "It looks like you're running in a browser-like environment, which is disabled by default as it risks exposing your credentials (API key or access token) to the public. If you understand the risks and have appropriate mitigations in place, set the `dangerouslyAllowBrowser` option to `true`, e.g. `createMollieClient({ apiKey, dangerouslyAllowBrowser: true })`. See https://github.com/mollie/mollie-api-node/#a-note-on-use-outside-of-nodejs",
     );
   }
 

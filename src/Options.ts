@@ -29,9 +29,9 @@ type Options = Xor<
    */
   apiEndpoint?: string;
   /**
-   * By default, this client refuses to run in a browser-like environment, as doing so would ship your API key to the
-   * public and allow anyone to act on your behalf. Set this to `true` only if you understand the risks and have
-   * appropriate mitigations in place (e.g. a short-lived, narrowly-scoped token).
+   * By default, this client refuses to run in a browser-like environment, as doing so would ship your credentials (API
+   * key or access token) to the public and allow anyone to act on your behalf. Set this to `true` only if you understand
+   * the risks and have appropriate mitigations in place (e.g. a short-lived, narrowly-scoped token).
    * @see https://github.com/mollie/mollie-api-node/#a-note-on-use-outside-of-nodejs
    */
   dangerouslyAllowBrowser?: boolean;
