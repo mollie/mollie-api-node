@@ -6,6 +6,7 @@ import { run } from 'ruply';
 import type Page from '../data/page/Page';
 import ApiError from '../errors/ApiError';
 import type Options from '../Options';
+import type { ParameterDefaults } from '../Options';
 import fling from '../plumbing/fling';
 import DemandingIterator from '../plumbing/iteration/DemandingIterator';
 import HelpfulIterator from '../plumbing/iteration/HelpfulIterator';
@@ -124,15 +125,22 @@ export default class NetworkClient {
    * - appropriately process the response body before returning it (i.e. parsing it as JSON or throwing an ApiError if the response status indicates an error)
    */
   protected readonly request: (pathname: string, options?: RequestInit) => Promise<any>;
+  /**
+   * The values configured through the `parameterDefaults` option, read (read-only) by `withParameterDefaults` when filling requests.
+   * `undefined` unless an OAuth client was created with a `parameterDefaults` object.
+   */
+  public readonly parameterDefaults?: Readonly<ParameterDefaults>;
   constructor({
     apiKey,
     accessToken,
+    parameterDefaults,
     versionStrings,
     apiEndpoint = 'https://api.mollie.com:443/v2/',
     caCertificates,
     libraryVersion,
     nodeVersion,
   }: Options & { caCertificates?: SecureContextOptions['ca']; libraryVersion: string; nodeVersion: string }) {
+    this.parameterDefaults = parameterDefaults;
     // Compose the headers set in the sent requests.
     const headers: Record<string, string> = {};
     headers['User-Agent'] = composeUserAgent(nodeVersion, libraryVersion, versionStrings);

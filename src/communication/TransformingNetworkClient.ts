@@ -22,13 +22,20 @@ export class Transformers {
  */
 export default class TransformingNetworkClient {
   protected readonly transform: (input: Model<any, Maybe<string>>) => any;
-  constructor(protected readonly networkClient: NetworkClient, transformers: Transformers) {
+  constructor(
+    protected readonly networkClient: NetworkClient,
+    transformers: Transformers,
+  ) {
     /**
      * Transforms the passed plain object returned by the Mollie API into a more convenient JavaScript object.
      */
     this.transform = function transform(this: TransformingNetworkClient, input: Model<any, Maybe<string>>) {
       return (transformers.get(input.resource) ?? fling(() => new Error(`Received unexpected response from the server with resource ${input.resource}`)))(this, input);
     }.bind(this);
+  }
+
+  get parameterDefaults() {
+    return this.networkClient.parameterDefaults;
   }
 
   async post<R extends Model<any, any>, U>(...passingArguments: Parameters<NetworkClient['post']>) {

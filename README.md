@@ -78,6 +78,22 @@ const { createMollieClient } = require('@mollie/api-client');
 const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
 ```
 
+### Using an OAuth access token
+
+When authenticating with an OAuth access token instead of an API key, most requests expect a `profileId`, and you opt into test mode with `testmode`. Rather than passing these on every call, you can configure them once as `parameterDefaults`. They are applied to every request that accepts them, unless the individual call specifies its own value (per-call values always take precedence):
+
+```javascript
+const mollieClient = createMollieClient({
+  accessToken: 'access_Wwvu7egPcJLLJ9Kb7J632x8wJ2zMeJ',
+  parameterDefaults: {
+    profileId: 'pfl_zcfJRjkf6P',
+    testmode: true,
+  },
+});
+```
+
+`parameterDefaults` is only available together with an `accessToken`. With an API key the profile and mode are fixed by the key itself, so the Mollie API rejects these parameters.
+
 ### Create a new payment
 
 ```javascript
