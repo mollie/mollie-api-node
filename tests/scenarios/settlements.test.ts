@@ -109,6 +109,7 @@ describe('settlements', () => {
             },
           },
         },
+        balanceId: 'bal_gVMhHKqSSRYJyPsuoPNFH',
         invoiceId: 'inv_FrvewDA3Pr',
         _links: {
           self: {
@@ -147,9 +148,95 @@ describe('settlements', () => {
   test('settlements', async () => {
     let settlement = await mollieClient.settlements.get('stl_jDk30akdN');
     expect(settlement.id).toBe('stl_jDk30akdN');
+    expect(settlement.balanceId).toBe('bal_gVMhHKqSSRYJyPsuoPNFH');
 
     settlement = await mollieClient.settlements.get('1234567.1804.03');
     expect(settlement.reference).toBe('1234567.1804.03');
+  });
+
+  test('settlementInvoice', async () => {
+    networkMocker
+      .intercept('GET', '/invoices/inv_FrvewDA3Pr', 200, {
+        resource: 'invoice',
+        id: 'inv_FrvewDA3Pr',
+        reference: '2018.10000',
+        vatNumber: 'NL001234567B01',
+        status: 'paid',
+        netAmount: { value: '35.07', currency: 'EUR' },
+        vatAmount: { value: '7.36', currency: 'EUR' },
+        grossAmount: { value: '42.43', currency: 'EUR' },
+        lines: [
+          {
+            period: '2018-04',
+            description: 'iDEAL transaction costs',
+            count: 6,
+            vatPercentage: 21,
+            amount: { value: '2.10', currency: 'EUR' },
+          },
+        ],
+        issuedAt: '2018-05-01',
+        paidAt: '2018-05-14',
+        _links: {
+          self: {
+            href: 'https://api.mollie.com/v2/invoices/inv_FrvewDA3Pr',
+            type: 'application/hal+json',
+          },
+          documentation: {
+            href: 'https://docs.mollie.com/reference/get-invoice',
+            type: 'text/html',
+          },
+        },
+      })
+      .once();
+
+    const settlement = await mollieClient.settlements.get('stl_jDk30akdN');
+    const invoice = await settlement.getInvoice();
+    expect(invoice?.id).toBe('inv_FrvewDA3Pr');
+    expect(invoice?.status).toBe('paid');
+
+    // The open settlement has no invoice link, so getInvoice() resolves to undefined.
+    networkMocker
+      .intercept('GET', '/settlements/open', 200, {
+        resource: 'settlement',
+        id: 'stl_open',
+        reference: '1234567.1805.03',
+        createdAt: '2018-05-01T06:00:01.0Z',
+        settledAt: null,
+        status: 'open',
+        amount: { value: '0.00', currency: 'EUR' },
+        balanceId: 'bal_gVMhHKqSSRYJyPsuoPNFH',
+        periods: {},
+        _links: {
+          self: {
+            href: 'https://api.mollie.com/v2/settlements/open',
+            type: 'application/hal+json',
+          },
+          payments: {
+            href: 'https://api.mollie.com/v2/settlements/open/payments',
+            type: 'application/hal+json',
+          },
+          refunds: {
+            href: 'https://api.mollie.com/v2/settlements/open/refunds',
+            type: 'application/hal+json',
+          },
+          chargebacks: {
+            href: 'https://api.mollie.com/v2/settlements/open/chargebacks',
+            type: 'application/hal+json',
+          },
+          captures: {
+            href: 'https://api.mollie.com/v2/settlements/open/captures',
+            type: 'application/hal+json',
+          },
+          documentation: {
+            href: 'https://docs.mollie.com/reference/get-open-settlement',
+            type: 'text/html',
+          },
+        },
+      })
+      .once();
+
+    const open = await mollieClient.settlements.getOpen();
+    expect(await open.getInvoice()).toBeUndefined();
   });
 
   test('settlementPayments', async () => {
