@@ -22,7 +22,7 @@ export default class CustomersBinder extends Binder<CustomerData, Customer> {
    * appear in your [Mollie Dashboard](https://www.mollie.com/dashboard) where you can manage their details, and also see their payments and subscriptions.
    *
    * @since 2.0.0
-   * @see https://docs.mollie.com/reference/v2/customers-api/create-customer
+   * @see https://docs.mollie.com/reference/create-customer
    */
   public create(parameters: CreateParameters): Promise<Customer>;
   public create(parameters: CreateParameters, callback: Callback<Customer>): void;
@@ -35,7 +35,7 @@ export default class CustomersBinder extends Binder<CustomerData, Customer> {
    * Retrieve a single customer by its ID.
    *
    * @since 2.0.0
-   * @see https://docs.mollie.com/reference/v2/customers-api/get-customer
+   * @see https://docs.mollie.com/reference/get-customer
    */
   public get(id: string, parameters?: GetParameters): Promise<Customer>;
   public get(id: string, parameters: GetParameters, callback: Callback<Customer>): void;
@@ -51,7 +51,7 @@ export default class CustomersBinder extends Binder<CustomerData, Customer> {
    * The results are paginated. See pagination for more information.
    *
    * @since 3.0.0
-   * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
+   * @see https://docs.mollie.com/reference/list-customers
    */
   public page(parameters?: PageParameters): Promise<Page<Customer>>;
   public page(parameters: PageParameters, callback: Callback<Page<Customer>>): void;
@@ -66,7 +66,7 @@ export default class CustomersBinder extends Binder<CustomerData, Customer> {
    * The results are paginated. See pagination for more information.
    *
    * @since 3.6.0
-   * @see https://docs.mollie.com/reference/v2/customers-api/list-customers
+   * @see https://docs.mollie.com/reference/list-customers
    */
   public iterate(parameters?: IterateParameters) {
     const { valuesPerMinute, ...query } = parameters ?? {};
@@ -77,7 +77,7 @@ export default class CustomersBinder extends Binder<CustomerData, Customer> {
    * Update an existing customer.
    *
    * @since 2.0.0
-   * @see https://docs.mollie.com/reference/v2/customers-api/update-customer
+   * @see https://docs.mollie.com/reference/update-customer
    */
   public update(id: string, parameters: UpdateParameters): Promise<Customer>;
   public update(id: string, parameters: UpdateParameters, callback: Callback<Customer>): void;
@@ -91,7 +91,7 @@ export default class CustomersBinder extends Binder<CustomerData, Customer> {
    * Delete a customer. All mandates and subscriptions created for this customer will be canceled as well.
    *
    * @since 2.0.0
-   * @see https://docs.mollie.com/reference/v2/customers-api/delete-customer
+   * @see https://docs.mollie.com/reference/delete-customer
    */
   public delete(id: string, parameters?: DeleteParameters): Promise<true>;
   public delete(id: string, parameters: DeleteParameters, callback: Callback<true>): void;

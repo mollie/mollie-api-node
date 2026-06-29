@@ -30,7 +30,7 @@ export default class CustomerPaymentsBinder extends Binder<PaymentData, Payment>
    * -   Recurring payments.
    *
    * @since 1.1.1
-   * @see https://docs.mollie.com/reference/v2/customers-api/create-customer-payment
+   * @see https://docs.mollie.com/reference/create-customer-payment
    */
   public create(parameters: CreateParameters): Promise<Payment>;
   public create(parameters: CreateParameters, callback: Callback<Payment>): void;
@@ -45,7 +45,7 @@ export default class CustomerPaymentsBinder extends Binder<PaymentData, Payment>
    * Retrieve all Payments linked to the Customer.
    *
    * @since 3.0.0
-   * @see https://docs.mollie.com/reference/v2/customers-api/list-customer-payments
+   * @see https://docs.mollie.com/reference/list-customer-payments
    */
   public page(parameters: PageParameters): Promise<Page<Payment>>;
   public page(parameters: PageParameters, callback: Callback<Page<Payment>>): void;
@@ -60,7 +60,7 @@ export default class CustomerPaymentsBinder extends Binder<PaymentData, Payment>
    * Retrieve all Payments linked to the Customer.
    *
    * @since 3.6.0
-   * @see https://docs.mollie.com/reference/v2/customers-api/list-customer-payments
+   * @see https://docs.mollie.com/reference/list-customer-payments
    */
   public iterate(parameters: IterateParameters) {
     const { customerId, valuesPerMinute, ...query } = parameters;
