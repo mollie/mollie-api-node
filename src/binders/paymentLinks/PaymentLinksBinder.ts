@@ -16,8 +16,8 @@ export default class PaymentsLinksBinder extends Binder<PaymentLinkData, Payment
   }
 
   /**
-   * With the Payment links API you can generate payment links that by default, unlike regular payments, do not expire. The payment link can be shared with your customers and will redirect them to
-   * them the payment page where they can complete the payment. A payment will only be created once the customer initiates the payment.
+   * With the Payment links API you can generate payment links that by default, unlike regular payments, do not expire. The payment link can be shared with your customers and will redirect them to the
+   * payment page where they can complete the payment. A payment will only be created once the customer initiates the payment.
    *
    * @since 3.6.0
    * @see https://docs.mollie.com/reference/create-payment-link
