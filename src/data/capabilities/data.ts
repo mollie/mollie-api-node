@@ -45,7 +45,7 @@ export interface Requirement {
   /**
    * The name of this requirement, referring to the task to be fulfilled by the organization
    * to enable or re-enable the capability. The name is unique among other requirements of
-   * the same capability.
+   * the same capability. Examples include `needs-data` and `process-first-payment`.
    *
    * @see https://docs.mollie.com/reference/list-capabilities?path=id#response
    */
@@ -71,7 +71,8 @@ export interface Requirement {
    */
   _links: {
     /**
-     * The dashboard URL where the requirement can be fulfilled.
+     * If known, a deep link to the Mollie dashboard of the client, where the requirement
+     * can be fulfilled. For example, where necessary documents are to be uploaded.
      */
     dashboard: Url;
   };
