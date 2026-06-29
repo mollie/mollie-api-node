@@ -1,10 +1,17 @@
+import { runIf } from 'ruply';
 import breakUrl from '../../communication/breakUrl';
 import type TransformingNetworkClient from '../../communication/TransformingNetworkClient';
+import renege from '../../plumbing/renege';
+import undefinedPromise from '../../plumbing/undefinedPromise';
 import { type Capture } from '../../types';
+import type Callback from '../../types/Callback';
+import type Maybe from '../../types/Maybe';
 import { type ThrottlingParameter } from '../../types/parameters';
 import type Chargeback from '../chargebacks/Chargeback';
 import { type ChargebackData } from '../chargebacks/Chargeback';
 import Helper from '../Helper';
+import { type InvoiceData } from '../invoices/data';
+import type Invoice from '../invoices/Invoice';
 import { type CaptureData } from '../payments/captures/data';
 import { type PaymentData } from '../payments/data';
 import type Payment from '../payments/Payment';
@@ -59,5 +66,23 @@ export default class SettlementHelper extends Helper<SettlementData, SettlementM
   public getCaptures(parameters?: ThrottlingParameter) {
     const [pathname, query] = breakUrl(this.links.captures.href);
     return this.networkClient.iterate<CaptureData, Capture>(pathname, 'captures', query, parameters?.valuesPerMinute);
+  }
+
+  /**
+   * Returns the invoice that contains this settlement, if an invoice has been created for it.
+   *
+   * @since 4.6.0
+   */
+  public getInvoice(): Promise<Invoice> | Promise<undefined>;
+  public getInvoice(callback: Callback<Maybe<Invoice>>): void;
+  public getInvoice() {
+    if (renege(this, this.getInvoice, ...arguments)) return;
+    return (
+      runIf(
+        this.links.invoice,
+        ({ href }) => breakUrl(href),
+        ([pathname, query]) => this.networkClient.get<InvoiceData, Invoice>(pathname, query),
+      ) ?? undefinedPromise
+    );
   }
 }

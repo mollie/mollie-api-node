@@ -267,5 +267,6 @@ export { TerminalStatus } from './data/terminals/data';
 export { CapabilityStatus, CapabilityStatusReason, RequirementStatus } from './data/capabilities/data';
 export { ClientEmbed } from './data/clients/data';
 export { InvoiceStatus } from './data/invoices/data';
+export { SettlementStatus } from './data/settlements/data';
 export { GrantType as OAuthGrantType, TokenType as OAuthTokenType } from './data/oauth/data';
 export { default as MollieApiError } from './errors/ApiError';

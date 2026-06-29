@@ -22,7 +22,7 @@ export default class SettlementPaymentsBinder extends Binder<PaymentData, Paymen
    * Note that payments for Klarna payment methods are not listed in here. These payment methods are settled using captures. To retrieve the captures, use the List settlement captures endpoint.
    *
    * @since 3.7.0
-   * @see https://docs.mollie.com/reference/v2/settlements-api/list-settlement-payments
+   * @see https://docs.mollie.com/reference/list-settlement-payments
    */
   public page(parameters: PageParameters): Promise<Page<Payment>>;
   public page(parameters: PageParameters, callback: Callback<Page<Payment>>): void;
@@ -38,7 +38,7 @@ export default class SettlementPaymentsBinder extends Binder<PaymentData, Paymen
    * Note that payments for Klarna payment methods are not listed in here. These payment methods are settled using captures. To retrieve the captures, use the List settlement captures endpoint.
    *
    * @since 3.7.0
-   * @see https://docs.mollie.com/reference/v2/settlements-api/list-settlement-payments
+   * @see https://docs.mollie.com/reference/list-settlement-payments
    */
   public iterate(parameters: IterateParameters) {
     const { settlementId, valuesPerMinute, ...query } = parameters;
