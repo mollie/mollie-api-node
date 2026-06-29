@@ -23,6 +23,10 @@ const response = {
       href: 'https://docs.mollie.com/reference/v2/organizations-api/get-organization',
       type: 'text/html',
     },
+    dashboard: {
+      href: 'https://www.mollie.com/dashboard/org_12345678',
+      type: 'text/html',
+    },
   },
 };
 
@@ -47,6 +51,7 @@ function testOrganization(organization) {
     href: 'https://docs.mollie.com/reference/v2/organizations-api/get-organization',
     type: 'text/html',
   });
+  expect(organization.getDashboardUrl()).toBe('https://www.mollie.com/dashboard/org_12345678');
 }
 
 test('getOrganization', () => {
@@ -66,6 +71,20 @@ test('getCurrentOrganization', () => {
     const organization = await bluster(mollieClient.organizations.getCurrent.bind(mollieClient.organizations))();
 
     testOrganization(organization);
+  });
+});
+
+test('getDashboardUrl returns null when the organization has no dashboard link', () => {
+  return new NetworkMocker(getApiKeyClientProvider()).use(async ([mollieClient, networkMocker]) => {
+    const responseWithoutDashboard = {
+      ...response,
+      _links: { self: response._links.self, documentation: response._links.documentation },
+    };
+    networkMocker.intercept('GET', '/organizations/org_12345678', 200, responseWithoutDashboard).twice();
+
+    const organization = await bluster(mollieClient.organizations.get.bind(mollieClient.organizations))('org_12345678');
+
+    expect(organization.getDashboardUrl()).toBeNull();
   });
 });
 
