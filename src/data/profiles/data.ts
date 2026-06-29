@@ -11,39 +11,53 @@ export interface ProfileData extends Model<'profile'> {
    * -   `live`: The profile is verified.
    * -   `test`: The profile has not been verified yet and can only be used to create test payments.
    *
-   * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=mode#response
+   * @see https://docs.mollie.com/reference/get-profile?path=mode#response
    */
   mode: ApiMode;
   /**
    * The profile's name, this will usually reflect the trade name or brand name of the profile's website or application.
    *
-   * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=name#response
+   * @see https://docs.mollie.com/reference/get-profile?path=name#response
    */
   name: string;
   /**
-   * The URL to the profile's website or application.
+   * The URL to the profile's website or application. Only `https` or `http` URLs are allowed. No `@` signs are allowed.
    *
-   * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=website#response
+   * @see https://docs.mollie.com/reference/get-profile?path=website#response
    */
   website: string;
   /**
    * The email address associated with the profile's trade name or brand.
    *
-   * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=email#response
+   * If the domain contains non-ASCII characters, encode it as Punycode per [RFC 3492](https://www.rfc-editor.org/rfc/rfc3492).
+   *
+   * @see https://docs.mollie.com/reference/get-profile?path=email#response
    */
   email: string;
   /**
    * The phone number associated with the profile's trade name or brand.
    *
-   * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=phone#response
+   * @see https://docs.mollie.com/reference/get-profile?path=phone#response
    */
   phone: string;
+  /**
+   * The products or services offered by the profile's website or application.
+   *
+   * @see https://docs.mollie.com/reference/get-profile?path=description#response
+   */
+  description?: string;
+  /**
+   * A list of countries where you expect that the majority of the profile's customers reside, in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
+   *
+   * @see https://docs.mollie.com/reference/get-profile?path=countriesOfActivity#response
+   */
+  countriesOfActivity?: string[];
   /**
    * The industry associated with the profile's trade name or brand.
    *
    * Refer to the documentation of the business category for more information on which values are accepted.
    *
-   * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=businessCategory#response
+   * @see https://docs.mollie.com/reference/get-profile?path=businessCategory#response
    */
   businessCategory: string;
   /**
@@ -80,7 +94,7 @@ export interface ProfileData extends Model<'profile'> {
    * -   `9399` Government services
    * -   `0` Other
    *
-   * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=categoryCode#response
+   * @see https://docs.mollie.com/reference/get-profile?path=categoryCode#response
    */
   categoryCode: number;
   /**
@@ -92,14 +106,14 @@ export interface ProfileData extends Model<'profile'> {
    * -   `verified`: The profile has been verified and can be used to create live payments and test payments.
    * -   `blocked`: The profile is blocked and can thus no longer be used or changed.
    *
-   * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=status#response
+   * @see https://docs.mollie.com/reference/get-profile?path=status#response
    */
   status: ProfileStatus;
   /**
    * The presence of a review object indicates changes have been made that have not yet been approved by Mollie. Changes to test profiles are approved automatically, unless a switch to a live profile
    * has been requested. The review object will therefore usually be `null` in test mode.
    *
-   * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=review#response
+   * @see https://docs.mollie.com/reference/get-profile?path=review#response
    */
   review: Nullable<{
     /**
@@ -110,53 +124,59 @@ export interface ProfileData extends Model<'profile'> {
      * -   `pending`: The changes are pending review. We will review your changes soon.
      * -   `rejected`: We have reviewed and rejected your changes.
      *
-     * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=review/status#response
+     * @see https://docs.mollie.com/reference/get-profile?path=review/status#response
      */
     status: string;
   }>;
   /**
    * The profile's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    *
-   * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=createdAt#response
+   * @see https://docs.mollie.com/reference/get-profile?path=createdAt#response
    */
   createdAt: string;
   /**
    * An object with several URL objects relevant to the profile. Every URL object will contain an `href` and a `type` field.
    *
-   * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=_links#response
+   * @see https://docs.mollie.com/reference/get-profile?path=_links#response
    */
   _links: ProfileLinks;
 }
 
 export interface ProfileLinks extends Links {
   /**
+   * Link to the profile in the Mollie dashboard.
+   *
+   * @see https://docs.mollie.com/reference/get-profile?path=_links/dashboard#response
+   */
+  dashboard: Url;
+  /**
    * The API resource URL of the chargebacks that belong to this profile.
    *
-   * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=_links/chargebacks#response
+   * @see https://docs.mollie.com/reference/get-profile?path=_links/chargebacks#response
    */
   chargebacks: Url;
   /**
    * The API resource URL of the methods that are enabled for this profile.
    *
-   * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=_links/methods#response
+   * @see https://docs.mollie.com/reference/get-profile?path=_links/methods#response
    */
   methods: Url;
   /**
    * The API resource URL of the payments that belong to this profile.
    *
-   * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=_links/payments#response
+   * @see https://docs.mollie.com/reference/get-profile?path=_links/payments#response
    */
   payments: Url;
   /**
    * The API resource URL of the refunds that belong to this profile.
    *
-   * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=_links/refunds#response
+   * @see https://docs.mollie.com/reference/get-profile?path=_links/refunds#response
    */
   refunds: Url;
   /**
    * The Checkout preview URL. You need to be logged in to access this page.
    *
-   * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=_links/checkoutPreviewUrl#response
+   * @see https://docs.mollie.com/reference/get-profile?path=_links/checkoutPreviewUrl#response
    */
   checkoutPreviewUrl: Url;
 }
