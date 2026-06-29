@@ -32,6 +32,7 @@ import { transform as transformRoute } from './data/payments/routes/Route';
 import { transform as transformBalanceTransfer } from './data/balance-transfers/BalanceTransfer';
 import { transform as transformClient } from './data/clients/Client';
 import { transform as transformClientLink } from './data/client-links/ClientLink';
+import { transform as transformInvoice } from './data/invoices/Invoice';
 
 // Binders
 import ApplePayBinder from './binders/applePay/ApplePayBinder';
@@ -73,6 +74,7 @@ import CapabilitiesBinder from './binders/capabilities/CapabilitiesBinder';
 import ClientsBinder from './binders/clients/ClientsBinder';
 import OAuthBinder from './binders/oauth/OAuthBinder';
 import ClientLinksBinder from './binders/client-links/ClientLinksBinder';
+import InvoicesBinder from './binders/invoices/InvoicesBinder';
 
 /**
  * Returns whether the code appears to be running in a browser-like environment, where shipping credentials would expose
@@ -133,7 +135,8 @@ export default function createMollieClient(options: Options) {
       .add('route', transformRoute)
       .add('connect-balance-transfer', transformBalanceTransfer)
       .add('client', transformClient)
-      .add('client-link', transformClientLink),
+      .add('client-link', transformClientLink)
+      .add('invoice', transformInvoice),
   );
 
   return apply(
@@ -224,6 +227,9 @@ export default function createMollieClient(options: Options) {
 
       // Client Links
       clientLinks: new ClientLinksBinder(transformingNetworkClient),
+
+      // Invoices
+      invoices: new InvoicesBinder(transformingNetworkClient),
     },
     client =>
       alias(client, {
@@ -260,5 +266,6 @@ export { OnboardingStatus } from './data/onboarding/data';
 export { TerminalStatus } from './data/terminals/data';
 export { CapabilityStatus, CapabilityStatusReason, RequirementStatus } from './data/capabilities/data';
 export { ClientEmbed } from './data/clients/data';
+export { InvoiceStatus } from './data/invoices/data';
 export { GrantType as OAuthGrantType, TokenType as OAuthTokenType } from './data/oauth/data';
 export { default as MollieApiError } from './errors/ApiError';
