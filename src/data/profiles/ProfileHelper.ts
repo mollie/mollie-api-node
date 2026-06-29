@@ -33,8 +33,8 @@ export default class ProfileHelper extends Helper<ProfileData, Profile> {
    * @since 4.6.0
    * @see https://docs.mollie.com/reference/get-profile?path=_links/dashboard#response
    */
-  public getDashboardUrl(): string {
-    return this.links.dashboard.href;
+  public getDashboardUrl(): Nullable<string> {
+    return this.links.dashboard?.href ?? null;
   }
 
   /**
