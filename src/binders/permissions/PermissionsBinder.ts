@@ -22,10 +22,11 @@ export default class PermissionsBinder extends Binder<PermissionData, Permission
    * @see https://docs.mollie.com/reference/get-permission
    */
   public get(id: string, parameters?: GetParameters): Promise<Permission>;
+  public get(id: string, callback: Callback<Permission>): void;
   public get(id: string, parameters: GetParameters, callback: Callback<Permission>): void;
-  public get(id: string, parameters?: GetParameters) {
+  public get(id: string, parameters?: GetParameters | Callback<Permission>) {
     if (renege(this, this.get, ...arguments)) return;
-    return this.networkClient.get<PermissionData, Permission>(`${pathSegment}/${id}`, parameters);
+    return this.networkClient.get<PermissionData, Permission>(`${pathSegment}/${id}`, parameters as GetParameters);
   }
 
   /**

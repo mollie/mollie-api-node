@@ -36,22 +36,24 @@ test('getPermissions', () => {
         'organizations.read',
         'organizations.write',
       ].map(async id => {
-        networkMocker.intercept('GET', `/permissions/${id}`, 200, {
-          resource: 'permission',
-          id,
-          description: 'Some dummy permission description',
-          granted: true,
-          _links: {
-            self: {
-              href: `https://api.mollie.com/v2/permissions/${id}`,
-              type: 'application/hal+json',
+        networkMocker
+          .intercept('GET', `/permissions/${id}`, 200, {
+            resource: 'permission',
+            id,
+            description: 'Some dummy permission description',
+            granted: true,
+            _links: {
+              self: {
+                href: `https://api.mollie.com/v2/permissions/${id}`,
+                type: 'application/hal+json',
+              },
+              documentation: {
+                href: 'https://docs.mollie.com/reference/v2/permissions-api/get-permission',
+                type: 'text/html',
+              },
             },
-            documentation: {
-              href: 'https://docs.mollie.com/reference/v2/permissions-api/get-permission',
-              type: 'text/html',
-            },
-          },
-        }).twice();
+          })
+          .twice();
 
         const permission = await bluster(mollieClient.permissions.get.bind(mollieClient.permissions))(id);
 
@@ -61,57 +63,90 @@ test('getPermissions', () => {
   });
 });
 
+test('getPermissionTestmode', () => {
+  return new NetworkMocker(getApiKeyClientProvider()).use(async ([mollieClient, networkMocker]) => {
+    const id = 'payments.read';
+
+    // The interceptor only matches when the request carries `?testmode=true`, so it fails if the
+    // parameter is dropped instead of being threaded into the query string.
+    networkMocker
+      .intercept('GET', `/permissions/${id}?testmode=true`, 200, {
+        resource: 'permission',
+        id,
+        description: 'Some dummy permission description',
+        granted: true,
+        _links: {
+          self: {
+            href: `https://api.mollie.com/v2/permissions/${id}`,
+            type: 'application/hal+json',
+          },
+          documentation: {
+            href: 'https://docs.mollie.com/reference/v2/permissions-api/get-permission',
+            type: 'text/html',
+          },
+        },
+      })
+      .twice();
+
+    const permission = await bluster(mollieClient.permissions.get.bind(mollieClient.permissions))(id, { testmode: true });
+
+    testPermission(permission, id);
+  });
+});
+
 test('listPermissions', () => {
   return new NetworkMocker(getApiKeyClientProvider()).use(async ([mollieClient, networkMocker]) => {
-    networkMocker.intercept('GET', '/permissions', 200, {
-      _embedded: {
-        permissions: [
-          {
-            resource: 'permission',
-            id: 'payments.write',
-            description: 'Some dummy permission description',
-            granted: true,
-            _links: {
-              self: {
-                href: 'https://api.mollie.com/v2/permissions/payments.write',
-                type: 'application/hal+json',
-              },
-              documentation: {
-                href: 'https://docs.mollie.com/reference/v2/permissions-api/get-permission',
-                type: 'text/html',
-              },
-            },
-          },
-          {
-            resource: 'permission',
-            id: 'payments.read',
-            description: 'Some dummy permission description',
-            granted: true,
-            _links: {
-              self: {
-                href: 'https://api.mollie.com/v2/permissions/payments.read',
-                type: 'application/hal+json',
-              },
-              documentation: {
-                href: 'https://docs.mollie.com/reference/v2/permissions-api/get-permission',
-                type: 'text/html',
+    networkMocker
+      .intercept('GET', '/permissions', 200, {
+        _embedded: {
+          permissions: [
+            {
+              resource: 'permission',
+              id: 'payments.write',
+              description: 'Some dummy permission description',
+              granted: true,
+              _links: {
+                self: {
+                  href: 'https://api.mollie.com/v2/permissions/payments.write',
+                  type: 'application/hal+json',
+                },
+                documentation: {
+                  href: 'https://docs.mollie.com/reference/v2/permissions-api/get-permission',
+                  type: 'text/html',
+                },
               },
             },
+            {
+              resource: 'permission',
+              id: 'payments.read',
+              description: 'Some dummy permission description',
+              granted: true,
+              _links: {
+                self: {
+                  href: 'https://api.mollie.com/v2/permissions/payments.read',
+                  type: 'application/hal+json',
+                },
+                documentation: {
+                  href: 'https://docs.mollie.com/reference/v2/permissions-api/get-permission',
+                  type: 'text/html',
+                },
+              },
+            },
+          ],
+        },
+        count: 2,
+        _links: {
+          documentation: {
+            href: 'https://docs.mollie.com/reference/v2/permissions-api/list-permissions',
+            type: 'text/html',
           },
-        ],
-      },
-      count: 2,
-      _links: {
-        documentation: {
-          href: 'https://docs.mollie.com/reference/v2/permissions-api/list-permissions',
-          type: 'text/html',
+          self: {
+            href: 'https://api.mollie.com/v2/permissions',
+            type: 'application/hal+json',
+          },
         },
-        self: {
-          href: 'https://api.mollie.com/v2/permissions',
-          type: 'application/hal+json',
-        },
-      },
-    }).twice();
+      })
+      .twice();
 
     const permissions = await bluster(mollieClient.permissions.list.bind(mollieClient.permissions))();
 
