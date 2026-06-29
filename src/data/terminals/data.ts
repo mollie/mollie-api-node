@@ -1,7 +1,15 @@
 import type Model from '../Model';
-import { Links } from '../global';
+import { ApiMode, Links } from '../global';
 
 export interface TerminalData extends Model<'terminal'> {
+  /**
+   * Whether this entity was created in live mode or in test mode.
+   *
+   * Possible values: `live` `test`
+   *
+   * @see https://docs.mollie.com/reference/get-terminal?path=mode#response
+   */
+  mode: ApiMode;
   /**
    * A short description of the terminal. The description can be used as an identifier for the terminal. Currently, the description is set when the terminal is initially configured. It will be visible in the Mollie Dashboard, and it may be visible on the device itself depending on the device.
    */
@@ -9,7 +17,7 @@ export interface TerminalData extends Model<'terminal'> {
   /**
    * The terminal's status. Refer to the documentation regarding statuses for more info about which statuses occur at what point.
    *
-   * @see https://docs.mollie.com/reference/v2/terminals-api/get-terminal#response
+   * @see https://docs.mollie.com/reference/get-terminal?path=status#response
    */
   status: TerminalStatus;
   /**
@@ -29,13 +37,21 @@ export interface TerminalData extends Model<'terminal'> {
    */
   currency?: string;
   /**
-   * The identifier used for referring to the profile the terminal was created on. For example, pfl_QkEhN94Ba.
+   * The identifier used for referring to the profile the terminal was created on. For example, `pfl_QkEhN94Ba`.
+   *
+   * Most API credentials are linked to a single profile. In these cases the profileId can be omitted in the creation request. For organization-level credentials such as OAuth access tokens however, the profileId parameter is required.
+   *
+   * @see https://docs.mollie.com/reference/get-terminal?path=profileId#response
    */
   profileId?: string;
   /**
    * The date and time the terminal was created, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   createdAt: string;
+  /**
+   * The date and time the terminal was last updated, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+   */
+  updatedAt: string;
   _links: Links;
 }
 

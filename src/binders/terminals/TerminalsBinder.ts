@@ -21,7 +21,7 @@ export default class TerminalsBinder extends Binder<TerminalData, Terminal> {
    * For more information on accepting point-of-sale payments, please refer to the [point-of-sale guide](https://docs.mollie.com/point-of-sale/overview).
    *
    * @since 4.3.0
-   * @see https://docs.mollie.com/reference/v2/terminals-api/get-terminal
+   * @see https://docs.mollie.com/reference/get-terminal
    */
   public get(id: string): Promise<Terminal>;
   public get(id: string, callback: Callback<Terminal>): void;
@@ -37,7 +37,7 @@ export default class TerminalsBinder extends Binder<TerminalData, Terminal> {
    * The results are paginated. See pagination for more information.
    *
    * @since 4.3.0
-   * @see https://docs.mollie.com/reference/v2/terminals-api/list-terminals
+   * @see https://docs.mollie.com/reference/list-terminals
    */
   public page(parameters?: PageParameters): Promise<Page<Terminal>>;
   public page(parameters: PageParameters, callback: Callback<Page<Terminal>>): void;
@@ -52,7 +52,7 @@ export default class TerminalsBinder extends Binder<TerminalData, Terminal> {
    * The results are paginated. See pagination for more information.
    *
    * @since 4.3.0
-   * @see https://docs.mollie.com/reference/v2/terminals-api/list-terminals
+   * @see https://docs.mollie.com/reference/list-terminals
    */
   public iterate(parameters?: IterateParameters) {
     const { valuesPerMinute, ...query } = parameters ?? {};
