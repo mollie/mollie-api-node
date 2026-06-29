@@ -55,4 +55,24 @@ export interface CreateParameters extends IdempotencyParameter {
    * @see https://docs.mollie.com/reference/create-client-link?path=vatNumber#body-params
    */
   vatNumber?: string;
+  /**
+   * The legal entity type of the organization, based on its country of origin. Please refer to the
+   * [legal entity list](https://docs.mollie.com/overview/common-data-types#legal-entity) for all possible options.
+   *
+   * @see https://docs.mollie.com/reference/create-client-link?path=legalEntity#body-params
+   */
+  legalEntity?: string;
+  /**
+   * The registration office that the organization was registered at. Please refer to the
+   * [registration office list](https://docs.mollie.com/overview/common-data-types#registration-office) for all possible options.
+   *
+   * @see https://docs.mollie.com/reference/create-client-link?path=registrationOffice#body-params
+   */
+  registrationOffice?: string;
+  /**
+   * The incorporation date of the organization (format `YYYY-MM-DD`).
+   *
+   * @see https://docs.mollie.com/reference/create-client-link?path=incorporationDate#body-params
+   */
+  incorporationDate?: string;
 }
