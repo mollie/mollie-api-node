@@ -7,7 +7,7 @@ export interface SubscriptionData extends Model<'subscription'> {
    *
    * Possible values: `live` `test`
    *
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=mode#response
+   * @see https://docs.mollie.com/reference/get-subscription?path=mode#response
    */
   mode: ApiMode;
   /**
@@ -15,25 +15,27 @@ export interface SubscriptionData extends Model<'subscription'> {
    *
    * Possible values: `pending` `active` `canceled` `suspended` `completed`
    *
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=status#response
+   * @see https://docs.mollie.com/reference/get-subscription?path=status#response
    */
   status: SubscriptionStatus;
   /**
    * The constant amount that is charged with each subscription payment, e.g. `{"currency":"EUR", "value":"10.00"}` for a €10.00 subscription.
    *
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=amount#response
+   * @see https://docs.mollie.com/reference/get-subscription?path=amount#response
    */
   amount: Amount;
   /**
    * Total number of charges for the subscription to complete.
    *
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=times#response
+   * Test mode subscriptions are automatically canceled after 10 payments.
+   *
+   * @see https://docs.mollie.com/reference/get-subscription?path=times#response
    */
   times: number;
   /**
    * Number of charges left for the subscription to complete.
    *
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=timesRemaining#response
+   * @see https://docs.mollie.com/reference/get-subscription?path=timesRemaining#response
    */
   timesRemaining: number;
   /**
@@ -41,25 +43,27 @@ export interface SubscriptionData extends Model<'subscription'> {
    *
    * Possible values: `... months` `... weeks` `... days`
    *
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=interval#response
+   * @see https://docs.mollie.com/reference/get-subscription?path=interval#response
    */
   interval: string;
   /**
    * The start date of the subscription in `YYYY-MM-DD` format.
    *
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=startDate#response
+   * @see https://docs.mollie.com/reference/get-subscription?path=startDate#response
    */
   startDate: string;
   /**
    * The date of the next scheduled payment in `YYYY-MM-DD` format. When there will be no next payment, for example when the subscription has ended, this parameter will not be returned.
    *
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=nextPaymentDate#response
+   * @see https://docs.mollie.com/reference/get-subscription?path=nextPaymentDate#response
    */
   nextPaymentDate?: string;
   /**
    * The description specified during subscription creation. This will be included in the payment description.
    *
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=description#response
+   * The description needs to be unique for the customer in case they have multiple active subscriptions.
+   *
+   * @see https://docs.mollie.com/reference/get-subscription?path=description#response
    */
   description: string;
   /**
@@ -67,43 +71,47 @@ export interface SubscriptionData extends Model<'subscription'> {
    *
    * Possible values: `creditcard` `directdebit` `paypal` `null`
    *
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=method#response
+   * @see https://docs.mollie.com/reference/get-subscription?path=method#response
    */
   method: string | null;
   /**
    * The subscription's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    *
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=createdAt#response
+   * @see https://docs.mollie.com/reference/get-subscription?path=createdAt#response
    */
   createdAt: string;
   /**
    * The subscription's date and time of cancellation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. This parameter is omitted if the payment is not canceled (yet).
    *
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=canceledAt#response
+   * @see https://docs.mollie.com/reference/get-subscription?path=canceledAt#response
    */
   canceledAt?: string;
   /**
    * The URL Mollie will call as soon a payment status change takes place.
    *
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=webhookUrl#response
+   * This webhook receives all events for the subscription's payments, which may include payment failures. Be sure to verify the payment's subscription ID and its status.
+   *
+   * @see https://docs.mollie.com/reference/get-subscription?path=webhookUrl#response
    */
   webhookUrl: string;
   /**
    * The optional metadata you provided upon subscription creation. Metadata can for example be used to link a plan to a subscription.
    *
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=metadata#response
+   * Any metadata added to the subscription is automatically forwarded to the payments generated for it.
+   *
+   * @see https://docs.mollie.com/reference/get-subscription?path=metadata#response
    */
   metadata: unknown;
   /**
    * The customer this subscription belongs to.
    *
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=customerId#response
+   * @see https://docs.mollie.com/reference/get-subscription?path=customerId#response
    */
   customerId: string;
   /**
    * The mandate used for this subscription. When there is no mandate specified, this parameter will not be returned.
    *
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=mandateId#response
+   * @see https://docs.mollie.com/reference/get-subscription?path=mandateId#response
    */
   mandateId?: string;
   /**
@@ -111,19 +119,19 @@ export interface SubscriptionData extends Model<'subscription'> {
    *
    * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted in the creation request. For organization-level credentials such as OAuth access tokens however, the `profileId` parameter is required.
    *
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=profileId#response
+   * @see https://docs.mollie.com/reference/get-subscription?path=profileId#response
    */
   profileId?: string;
   /**
    * The application fee, if the subscription was created with one. This will be applied on each payment created for the subscription.
    *
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=applicationFee#response
+   * @see https://docs.mollie.com/reference/get-subscription?path=applicationFee#response
    */
   applicationFee?: Amount;
   /**
    * An object with several URL objects relevant to the subscription. Every URL object will contain an `href` and a `type` field.
    *
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=_links#response
+   * @see https://docs.mollie.com/reference/get-subscription?path=_links#response
    */
   _links: SubscriptionLinks;
 }
@@ -132,19 +140,25 @@ export interface SubscriptionLinks extends Links {
   /**
    * The API resource URL of the customer the subscription is for.
    *
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=_links/customer#response
+   * @see https://docs.mollie.com/reference/get-subscription?path=_links/customer#response
    */
   customer: Url;
   /**
+   * The API resource URL of the mandate this subscription was created for. When no mandate is specified, this parameter will not be returned.
+   *
+   * @see https://docs.mollie.com/reference/get-subscription?path=_links/mandate#response
+   */
+  mandate?: Url;
+  /**
    * The API resource URL of the website profile on which this subscription was created.
    *
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=_links/profile#response
+   * @see https://docs.mollie.com/reference/get-subscription?path=_links/profile#response
    */
   profile?: Url;
   /**
    * The API resource URL of the payments that are created by this subscription. Not present if no payments yet created.
    *
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription?path=_links/payments#response
+   * @see https://docs.mollie.com/reference/get-subscription?path=_links/payments#response
    */
   payments?: Url;
 }

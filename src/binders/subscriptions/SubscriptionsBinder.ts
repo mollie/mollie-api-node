@@ -21,7 +21,7 @@ export default class SubscriptionsBinder extends Binder<SubscriptionData, Subscr
    * Token relies the website profile on the `profileId` field. All subscriptions of the merchant will be returned if you do not provide it.
    *
    * @since 3.2.0 (as `list`)
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-all-subscriptions
+   * @see https://docs.mollie.com/reference/list-all-subscriptions
    */
   public page(parameters?: PageParameters): Promise<Page<Subscription>>;
   public page(parameters: PageParameters, callback: Callback<Page<Subscription>>): void;
@@ -35,6 +35,7 @@ export default class SubscriptionsBinder extends Binder<SubscriptionData, Subscr
    * Token relies the website profile on the `profileId` field. All subscriptions of the merchant will be returned if you do not provide it.
    *
    * @since 3.6.0
+   * @see https://docs.mollie.com/reference/list-all-subscriptions
    */
   public iterate(parameters?: IterateParameters) {
     const { valuesPerMinute, ...query } = parameters ?? {};

@@ -33,7 +33,7 @@ export default class CustomerSubscriptionsBinder extends Binder<SubscriptionData
    * -   `amount[currency]="EUR" amount[value]="10.00" interval="1 month" startDate="2018-04-30"` Your consumer will be charged €10 on the last day of each month, starting in April 2018.
    *
    * @since 1.3.2
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/create-subscription
+   * @see https://docs.mollie.com/reference/create-subscription
    */
   public create(parameters: CreateParameters): Promise<Subscription>;
   public create(parameters: CreateParameters, callback: Callback<Subscription>): void;
@@ -48,7 +48,7 @@ export default class CustomerSubscriptionsBinder extends Binder<SubscriptionData
    * Retrieve a subscription by its ID and its customer's ID.
    *
    * @since 1.3.2
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/get-subscription
+   * @see https://docs.mollie.com/reference/get-subscription
    */
   public get(id: string, parameters: GetParameters): Promise<Subscription>;
   public get(id: string, parameters: GetParameters, callback: Callback<Subscription>): void;
@@ -64,7 +64,7 @@ export default class CustomerSubscriptionsBinder extends Binder<SubscriptionData
    * Retrieve all subscriptions of a customer.
    *
    * @since 3.0.0
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions
+   * @see https://docs.mollie.com/reference/list-subscriptions
    */
   public page(parameters: PageParameters): Promise<Page<Subscription>>;
   public page(parameters: PageParameters, callback: Callback<Page<Subscription>>): void;
@@ -79,7 +79,7 @@ export default class CustomerSubscriptionsBinder extends Binder<SubscriptionData
    * Retrieve all subscriptions of a customer.
    *
    * @since 3.6.0
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscriptions
+   * @see https://docs.mollie.com/reference/list-subscriptions
    */
   public iterate(parameters: IterateParameters) {
     const { customerId, valuesPerMinute, ...query } = parameters;
@@ -93,7 +93,7 @@ export default class CustomerSubscriptionsBinder extends Binder<SubscriptionData
    * You cannot update a canceled subscription.
    *
    * @since 2.0.0
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/update-subscription
+   * @see https://docs.mollie.com/reference/update-subscription
    */
   public update(id: string, parameters: UpdateParameters): Promise<Subscription>;
   public update(id: string, parameters: UpdateParameters, callback: Callback<Subscription>): void;
@@ -109,7 +109,7 @@ export default class CustomerSubscriptionsBinder extends Binder<SubscriptionData
    * A subscription can be canceled any time by calling `DELETE` on the resource endpoint.
    *
    * @since 1.3.2
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/cancel-subscription
+   * @see https://docs.mollie.com/reference/cancel-subscription
    */
   public cancel(id: string, parameters: CancelParameters): Promise<Subscription>;
   public cancel(id: string, parameters: CancelParameters, callback: Callback<Subscription>): void;

@@ -20,10 +20,10 @@ export default class SubscriptionPaymentsBinder extends Binder<PaymentData, Paym
   }
 
   /**
-   * Retrieve all payments of a specific subscriptions of a customer.
+   * Retrieve all payments of a specific subscription of a customer.
    *
    * @since 3.3.0 (as `list`)
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscription-payments
+   * @see https://docs.mollie.com/reference/list-subscription-payments
    */
   public page(parameters: PageParameters): Promise<Page<Payment>>;
   public page(parameters: PageParameters, callback: Callback<Page<Payment>>): void;
@@ -36,10 +36,10 @@ export default class SubscriptionPaymentsBinder extends Binder<PaymentData, Paym
   }
 
   /**
-   * Retrieve all payments of a specific subscriptions of a customer.
+   * Retrieve all payments of a specific subscription of a customer.
    *
    * @since 3.6.0
-   * @see https://docs.mollie.com/reference/v2/subscriptions-api/list-subscription-payments
+   * @see https://docs.mollie.com/reference/list-subscription-payments
    */
   public iterate(parameters: IterateParameters) {
     const { customerId, subscriptionId, valuesPerMinute, ...query } = parameters;
