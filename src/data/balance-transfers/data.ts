@@ -3,7 +3,7 @@ import type Model from '../Model';
 
 export interface BalanceTransferData extends Model<'connect-balance-transfer'> {
   /**
-   * The amount to be transferred.
+   * The amount to be transferred, e.g. `{"currency":"EUR", "value":"1000.00"}` if you would like to transfer €1000.00.
    *
    * @see https://docs.mollie.com/reference/create-connect-balance-transfer?path=amount#body-params
    */
@@ -44,6 +44,13 @@ export interface BalanceTransferData extends Model<'connect-balance-transfer'> {
    * @see https://docs.mollie.com/reference/create-connect-balance-transfer?path=category#body-params
    */
   category?: BalanceTransferCategory;
+  /**
+   * A JSON object that you can attach to a balance transfer.
+   * This can be useful for storing additional information about the transfer in a structured format. Maximum size is approximately 1KB.
+   *
+   * @see https://docs.mollie.com/reference/create-connect-balance-transfer?path=metadata#body-params
+   */
+  metadata: unknown;
   /**
    * The entity's date and time of creation, in ISO 8601 format.
    *
