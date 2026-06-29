@@ -8,38 +8,40 @@ export interface PaymentLinkData extends Model<'payment-link'> {
    *
    * Possible values: `live` `test`
    *
-   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=mode#response
+   * @see https://docs.mollie.com/reference/get-payment-link?path=mode#response
    */
   mode: ApiMode;
   /**
    * A short description of the payment link. The description is visible in the Dashboard and will be shown on the customer's bank or card statement when possible. This description will eventual been
    * used as payment description.
    *
-   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=description#response
+   * @see https://docs.mollie.com/reference/get-payment-link?path=description#response
    */
   description: string;
   /**
    * The amount of the payment link, e.g. `{"currency":"EUR", "value":"100.00"}` for a €100.00 payment link.
    *
-   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=amount#response
+   * If no amount is provided initially, the customer will be prompted to enter an amount.
+   *
+   * @see https://docs.mollie.com/reference/get-payment-link?path=amount#response
    */
   amount?: Amount;
   /**
    * The minimum amount of the payment link. This property is only allowed when there is no amount provided. The customer will be prompted to enter a value greater than or equal to the minimum amount.
    *
-   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=minimumAmount#response
+   * @see https://docs.mollie.com/reference/get-payment-link?path=minimumAmount#response
    */
   minimumAmount?: Amount;
   /**
    * Whether the payment link is archived. Customers will not be able to complete payments on archived payment links.
    *
-   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=archived#response
+   * @see https://docs.mollie.com/reference/get-payment-link?path=archived#response
    */
   archived: boolean;
   /**
    * The URL your customer will be redirected to after completing the payment process.
    *
-   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=redirectUrl#response
+   * @see https://docs.mollie.com/reference/get-payment-link?path=redirectUrl#response
    */
   redirectUrl?: string;
   /**
@@ -47,7 +49,10 @@ export interface PaymentLinkData extends Model<'payment-link'> {
    *
    * The webhookUrl is optional, but without a webhook you will miss out on important status changes to any payments resulting from the payment link.
    *
-   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=webhookUrl#response
+   * The webhookUrl must be reachable from Mollie's point of view, so you cannot use `localhost`. If you want to use webhook during development on `localhost`, you must use a tool like ngrok to have
+   * the webhooks delivered to your local machine.
+   *
+   * @see https://docs.mollie.com/reference/get-payment-link?path=webhookUrl#response
    */
   webhookUrl?: string;
   /**
@@ -55,7 +60,9 @@ export interface PaymentLinkData extends Model<'payment-link'> {
    *
    * All lines must have the same currency as the payment.
    *
-   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=lines#response
+   * Required for payment methods `billie`, `in3`, `klarna`, `riverty` and `voucher`.
+   *
+   * @see https://docs.mollie.com/reference/get-payment-link?path=lines#response
    */
   lines?: PaymentLine[];
   /**
@@ -65,7 +72,7 @@ export interface PaymentLinkData extends Model<'payment-link'> {
    *
    * Required for payment methods `in3`, `klarna`, `billie` and `riverty`.
    *
-   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=billingAddress#response
+   * @see https://docs.mollie.com/reference/get-payment-link?path=billingAddress#response
    */
   billingAddress?: Address;
   /**
@@ -73,7 +80,7 @@ export interface PaymentLinkData extends Model<'payment-link'> {
    *
    * Should include `email` or a valid postal address consisting of `streetAndNumber`, `postalCode`, `city` and `country`.
    *
-   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=shippingAddress#response
+   * @see https://docs.mollie.com/reference/get-payment-link?path=shippingAddress#response
    */
   shippingAddress?: Address;
   /**
@@ -81,7 +88,7 @@ export interface PaymentLinkData extends Model<'payment-link'> {
    *
    * Most API credentials are linked to a single profile. In these cases the profileId can be omitted in the creation request. For organization-level credentials such as OAuth access tokens however, the profileId parameter is required.
    *
-   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=profileId#response
+   * @see https://docs.mollie.com/reference/get-payment-link?path=profileId#response
    */
   profileId: string;
   /**
@@ -89,19 +96,19 @@ export interface PaymentLinkData extends Model<'payment-link'> {
    *
    * If no value is specified, the field defaults to false, allowing only a single payment per link.
    *
-   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=reusable#response
+   * @see https://docs.mollie.com/reference/get-payment-link?path=reusable#response
    */
   reusable?: boolean;
   /**
    * The payment link's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    *
-   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=createdAt#response
+   * @see https://docs.mollie.com/reference/get-payment-link?path=createdAt#response
    */
   createdAt: string;
   /**
    * The date and time the payment link became paid, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    *
-   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=paidAt#response
+   * @see https://docs.mollie.com/reference/get-payment-link?path=paidAt#response
    */
   paidAt?: string;
   /**
@@ -112,7 +119,9 @@ export interface PaymentLinkData extends Model<'payment-link'> {
   /**
    * The expiry date and time of the payment link, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    *
-   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=expiresAt#response
+   * If no expiry date was provided up front, the payment link will not expire automatically.
+   *
+   * @see https://docs.mollie.com/reference/get-payment-link?path=expiresAt#response
    */
   expiresAt?: string;
   /**
@@ -120,9 +129,11 @@ export interface PaymentLinkData extends Model<'payment-link'> {
    *
    * Set to `oneoff` by default, which is a regular payment link and will not establish a mandate after payment.
    *
+   * The mandate ID can be retrieved by retrieving the payment link's payments.
+   *
    * Possible values: `oneoff` `first`
    *
-   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=sequenceType#response
+   * @see https://docs.mollie.com/reference/get-payment-link?path=sequenceType#response
    */
   sequenceType: SequenceType;
   /**
@@ -130,7 +141,7 @@ export interface PaymentLinkData extends Model<'payment-link'> {
    *
    * If a value is not provided, the customer will be required to input relevant information which will be used to establish a mandate after the payment is made.
    *
-   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=customerId#response
+   * @see https://docs.mollie.com/reference/get-payment-link?path=customerId#response
    */
   customerId?: string;
   /**
@@ -138,15 +149,16 @@ export interface PaymentLinkData extends Model<'payment-link'> {
    *
    * Possible values: `applepay` `bacs` `bancomatpay` `bancontact` `banktransfer` `belfius` `billie` `blik` `creditcard` `eps` `giftcard` `ideal` `in3` `kbc` `klarna` `mbway` `multibanco` `mybank` `paybybank` `paypal` `paysafecard` `pointofsale` `przelewy24` `riverty` `satispay` `swish` `trustly` `twint` `voucher`
    *
-   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=allowedMethods#response
+   * @see https://docs.mollie.com/reference/get-payment-link?path=allowedMethods#response
    */
   allowedMethods?: PaymentMethod[];
   /**
    * With Mollie Connect you can charge fees on payment links that your app is processing on behalf of other Mollie merchants.
    *
-   * If you use OAuth to create payment links on a connected merchant's account, you can charge a fee using this applicationFee parameter.
+   * If you use OAuth to create payment links on a connected merchant's account, you can charge a fee using this applicationFee parameter. If a payment on the payment link succeeds, the fee will be
+   * deducted from the merchant's balance and sent to your own account balance.
    *
-   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link?path=applicationFee#response
+   * @see https://docs.mollie.com/reference/get-payment-link?path=applicationFee#response
    */
   applicationFee?: {
     /**
