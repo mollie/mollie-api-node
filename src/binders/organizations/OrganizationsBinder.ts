@@ -22,12 +22,16 @@ export default class OrganizationsBinder extends Binder<OrganizationData, Organi
    * @since 3.2.0
    * @see https://docs.mollie.com/reference/get-organization
    */
-  public get(id: string, parameters?: GetParameters): Promise<Organization>;
+  // Four overloads (rather than the params-only pair used by other binders) so the released
+  // `get(id, callback)` signature keeps compiling while `testmode` is also accepted.
+  public get(id: string): Promise<Organization>;
+  public get(id: string, callback: Callback<Organization>): void;
+  public get(id: string, parameters: GetParameters): Promise<Organization>;
   public get(id: string, parameters: GetParameters, callback: Callback<Organization>): void;
-  public get(id: string, parameters?: GetParameters) {
+  public get(id: string, parameters?: GetParameters | Callback<Organization>) {
     if (renege(this, this.get, ...arguments)) return;
     assertWellFormedId(id, 'organization');
-    return this.networkClient.get<OrganizationData, Organization>(`${pathSegment}/${id}`, parameters);
+    return this.networkClient.get<OrganizationData, Organization>(`${pathSegment}/${id}`, parameters as GetParameters | undefined);
   }
 
   /**
