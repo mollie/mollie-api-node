@@ -21,6 +21,8 @@ export default class BalanceTransfersBinder extends Binder<BalanceTransferData, 
    * Create a balance transfer from your organization's balance to a connected organization's balance, or vice versa.
    * You can also create a balance transfer between two connected organizations.
    *
+   * To create a balance transfer, you must be authenticated as the source organization, and the destination organization must be a connected organization that has authorized the `balance-transfers.write` scope for your organization.
+   *
    * @since 4.4.0
    * @see https://docs.mollie.com/reference/create-connect-balance-transfer
    */
