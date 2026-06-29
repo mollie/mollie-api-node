@@ -99,20 +99,25 @@ describe('orders', () => {
       return;
     }
 
-    if (!payment.isRefundable()) {
-      console.log('This payment is not refundable, you cannot test the full flow.');
-      return;
-    }
-
     const paymentRefunds = await mollieClient.paymentRefunds.page({ paymentId: payment.id });
 
     let refundExists;
 
-    if (!paymentRefunds.length) {
+    if (paymentRefunds.length) {
+      refundExists = Promise.resolve(paymentRefunds[0]);
+    } else {
+      // No refund yet — create one. `isRefundable()` only signals that `amountRemaining` is present, not that a
+      // given amount fits within it, so refund the actual remaining balance (a fixed amount could exceed it).
+      const { amountRemaining } = payment;
+      if (amountRemaining == undefined || Number.parseFloat(amountRemaining.value) <= 0) {
+        console.log('This payment has no remaining refundable amount and no existing refund, you cannot test the full flow.');
+        return;
+      }
+
       refundExists = mollieClient.paymentRefunds
         .create({
           paymentId: payment.id,
-          amount: { value: '5.00', currency: payment.amount.currency },
+          amount: amountRemaining,
         })
         .then(refund => {
           expect(refund).toBeDefined();
@@ -120,8 +125,6 @@ describe('orders', () => {
           return refund;
         })
         .catch(fail);
-    } else {
-      refundExists = Promise.resolve(paymentRefunds[0]);
     }
 
     const paymentRefund = await refundExists;

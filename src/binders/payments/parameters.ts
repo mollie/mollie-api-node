@@ -82,6 +82,14 @@ export type CreateParameters = Pick<
      */
     cardToken?: string;
     /**
+     * Whether the card details should be stored for the customer after a successful payment. This will create a mandate for the customer, allowing for future customer present saved-card CIT payments.
+     *
+     * Requires `customerId`, `cardToken`, and the `creditcard` method to be specified.
+     *
+     * @see https://docs.mollie.com/reference/create-payment
+     */
+    storeCredentials?: boolean;
+    /**
      * The unique identifier used for referring to a terminal. This ID is used for assigning the payment to a specific terminal and it can be retrieved via List terminals. For more information about
      * point-of-sale payments, please check our guide point-of-sale payments.
      *

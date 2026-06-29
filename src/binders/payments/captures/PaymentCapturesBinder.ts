@@ -4,6 +4,7 @@ import type Capture from '../../../data/payments/captures/Capture';
 import { type CaptureData } from '../../../data/payments/captures/data';
 import alias from '../../../plumbing/alias';
 import assertWellFormedId from '../../../plumbing/assertWellFormedId';
+import foldParameters from '../../../plumbing/foldParameters';
 import renege from '../../../plumbing/renege';
 import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
@@ -22,6 +23,10 @@ export default class PaymentCapturesBinder extends Binder<CaptureData, Capture> 
   /**
    * Capture an *authorized* payment.
    *
+   * Some payment methods allow you to first collect a customer's authorization, and capture the amount at a later point.
+   *
+   * By default, Mollie captures payments automatically. If however you configured your payment with `captureMode: manual`, you can capture the payment using this endpoint after having collected the customer's authorization.
+   *
    * @since 4.1.0
    * @see https://docs.mollie.com/reference/create-capture
    */
@@ -35,50 +40,48 @@ export default class PaymentCapturesBinder extends Binder<CaptureData, Capture> 
   }
 
   /**
-   * Retrieve a single capture by its ID. Note the original payment's ID is needed as well.
-   *
-   * Captures are used for payments that have the *authorize-then-capture* flow. Mollie currently supports captures for **Cards** and **Klarna**.
+   * Retrieve a single payment capture by its ID and the ID of its parent payment.
    *
    * @since 1.1.1
-   * @see https://docs.mollie.com/reference/v2/captures-api/get-capture
+   * @see https://docs.mollie.com/reference/get-capture
    */
   public get(id: string, parameters: GetParameters): Promise<Capture>;
   public get(id: string, parameters: GetParameters, callback: Callback<Capture>): void;
   public get(id: string, parameters: GetParameters) {
     if (renege(this, this.get, ...arguments)) return;
     assertWellFormedId(id, 'capture');
-    const { paymentId, ...query } = parameters;
+    const { paymentId, ...query } = foldParameters(parameters, { embed: ['include'] });
     assertWellFormedId(paymentId, 'payment');
     return this.networkClient.get<CaptureData, Capture>(`${getPathSegments(paymentId)}/${id}`, query);
   }
 
   /**
-   * Retrieve all captures for a certain payment.
+   * Retrieve a list of all captures created for a specific payment.
    *
-   * Captures are used for payments that have the *authorize-then-capture* flow. Mollie currently supports captures for **Cards** and **Klarna**.
+   * The results are paginated.
    *
    * @since 3.0.0
-   * @see https://docs.mollie.com/reference/v2/captures-api/list-captures
+   * @see https://docs.mollie.com/reference/list-captures
    */
   public page(parameters: PageParameters): Promise<Page<Capture>>;
   public page(parameters: PageParameters, callback: Callback<Page<Capture>>): void;
   public page(parameters: PageParameters) {
     if (renege(this, this.page, ...arguments)) return;
-    const { paymentId, ...query } = parameters;
+    const { paymentId, ...query } = foldParameters(parameters, { embed: ['include'] });
     assertWellFormedId(paymentId, 'payment');
     return this.networkClient.page<CaptureData, Capture>(getPathSegments(paymentId), 'captures', query).then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
   /**
-   * Retrieve all captures for a certain payment.
+   * Retrieve a list of all captures created for a specific payment.
    *
-   * Captures are used for payments that have the *authorize-then-capture* flow. Mollie currently supports captures for **Cards** and **Klarna**.
+   * The results are paginated.
    *
    * @since 3.6.0
-   * @see https://docs.mollie.com/reference/v2/captures-api/list-captures
+   * @see https://docs.mollie.com/reference/list-captures
    */
   public iterate(parameters: IterateParameters) {
-    const { paymentId, valuesPerMinute, ...query } = parameters;
+    const { paymentId, valuesPerMinute, ...query } = foldParameters(parameters, { embed: ['include'] });
     assertWellFormedId(paymentId, 'payment');
     return this.networkClient.iterate<CaptureData, Capture>(getPathSegments(paymentId), 'captures', query, valuesPerMinute);
   }

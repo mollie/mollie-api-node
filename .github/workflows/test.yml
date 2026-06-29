@@ -10,17 +10,23 @@ jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        node-version: [14.x, 18.x, 20.x]
+        node-version: [14.x, 18.x, 20.x, 22.x, 24.x]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
+          # v6 limits automatic caching to npm; opt in explicitly to cache the global yarn cache.
+          cache: yarn
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        # --ignore-engines is scoped to Node 14 only: the commitizen dev tool declares engines.node >=18,
+        # which is irrelevant to CI/runtime but aborts the install on our oldest supported runner. Newer
+        # Node versions keep strict engine checks, and this workaround disappears once Node 14 is dropped.
+        run: yarn --frozen-lockfile ${{ matrix.node-version == '14.x' && '--ignore-engines' || '' }}
       - name: Run test suite
         run: yarn test
         env:

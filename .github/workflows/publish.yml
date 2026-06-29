@@ -1,0 +1,66 @@
+# Publishes @mollie/api-client to npm when a GitHub Release is published.
+#
+# Authentication uses npm Trusted Publishing (OIDC) — there is NO npm token.
+# npm validates the workflow's OIDC claim against the Trusted Publisher
+# configured on the package (org `mollie`, repo `mollie-api-node`, and this
+# workflow's filename). Provenance attestations are generated on every publish.
+#
+# Cutting a release: bump the version (`npm version <major|minor|patch>`), push
+# the commit and its tag, then publish a GitHub Release for that tag — that is
+# what triggers this workflow. Who may publish a release is governed by the
+# repository's tag/release ruleset.
+name: Publish to npm
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write # required for npm Trusted Publishing (OIDC)
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the released tag
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.release.tag_name }}
+
+      - name: Set up Node.js
+        # Node 24 bundles npm >= 11.5.1, which npm Trusted Publishing requires.
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false # never cache in release builds
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Verify tag matches package.json and resolve dist-tag
+        id: release
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          TAG_VERSION="${TAG#v}"
+          PKG_VERSION="$(node -p "require('./package.json').version")"
+          if [ "$TAG_VERSION" != "$PKG_VERSION" ]; then
+            echo "::error::Release tag '$TAG' (version '$TAG_VERSION') does not match package.json version '$PKG_VERSION'."
+            exit 1
+          fi
+          # Stable -> 'latest'. Prereleases (e.g. 4.4.0-rc.1) go to their own
+          # channel (rc/beta/…) so they never become the default install.
+          DIST_TAG="$(node -p "const v=require('./package.json').version; v.includes('-') ? (v.match(/-([a-zA-Z]+)/)?.[1] ?? 'next') : 'latest'")"
+          echo "dist-tag=$DIST_TAG" >> "$GITHUB_OUTPUT"
+          echo "Publishing $PKG_VERSION to dist-tag '$DIST_TAG'."
+
+      - name: Build
+        run: yarn build
+
+      - name: Run unit tests
+        run: yarn test:unit
+
+      - name: Publish to npm
+        run: npm publish --provenance --tag "${{ steps.release.outputs.dist-tag }}"
