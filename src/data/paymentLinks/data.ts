@@ -12,8 +12,7 @@ export interface PaymentLinkData extends Model<'payment-link'> {
    */
   mode: ApiMode;
   /**
-   * A short description of the payment link. The description is visible in the Dashboard and will be shown on the customer's bank or card statement when possible. This description will eventual been
-   * used as payment description.
+   * A short description of the payment link. The description is visible in the Dashboard and will be shown on the customer's bank or card statement when possible.
    *
    * @see https://docs.mollie.com/reference/get-payment-link?path=description#response
    */
