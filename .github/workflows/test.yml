@@ -34,10 +34,34 @@ jobs:
           # then only be required to update those snapshots. The API key can then be removed from this file.
           API_KEY: ${{ secrets.TEST_API_KEY }}
 
-  # Bun and Deno run the Node-oriented Jest suite unmodified, guarding the SDK's runtime-agnostic support. Dependencies
-  # are installed with Node/yarn (which also builds the bundle via the `prepare` hook); only the test runtime differs.
-  # Floor versions are pinned so the lowest supported runtime is exercised, not only the latest.
-  test-bun:
+  # Build the publishable package once on Node (same version as publish.yml), then check on Bun and Deno that the
+  # resulting tarball installs by package name (so module resolution is exercised) and works: tests/compat/check.mjs
+  # constructs a client and round-trips a request. This guards runtime-agnostic support without running the
+  # Node-oriented Jest suite under Bun/Deno — jest is incompatible with Bun, and the suite's default-import of the
+  # bundle trips Deno's CJS interop; neither reflects whether the SDK itself works on those runtimes. (Node itself is
+  # covered by the `test` job above, and the packaging is exercised by the Bun/Deno checks here.)
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Use Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24' # match publish.yml: build the artifact with the same Node that publishes it
+          cache: yarn
+      - name: Install dependencies
+        run: yarn --frozen-lockfile # builds the bundle via the prepare hook
+      - name: Pack the package
+        run: mkdir -p artifact && npm pack --ignore-scripts --pack-destination ./artifact
+      - name: Upload package tarball
+        uses: actions/upload-artifact@v7
+        with:
+          name: package-tarball
+          path: artifact/*.tgz
+
+  compat-bun:
+    needs: build
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -46,44 +70,49 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-      - name: Use Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: 20.x
-          cache: yarn
-      - name: Install dependencies
-        run: yarn --frozen-lockfile
       - name: Use Bun ${{ matrix.bun-version }}
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: ${{ matrix.bun-version }}
-      - name: Run test suite on Bun
-        # Explicit local jest path (not `bun x jest`, which can fetch a mismatched jest@latest when .bin/jest is absent).
-        run: bun node_modules/jest/bin/jest.js
-        env:
-          API_KEY: ${{ secrets.TEST_API_KEY }}
+      - name: Download package tarball
+        uses: actions/download-artifact@v8
+        with:
+          name: package-tarball
+          path: artifact
+      - name: Compatibility check
+        # Run outside the repo checkout, so the runtime doesn't treat it as the @mollie/api-client package itself.
+        working-directory: ${{ runner.temp }}
+        run: |
+          cp "$GITHUB_WORKSPACE/tests/compat/check.mjs" .
+          echo '{"name":"compat-check","private":true}' > package.json
+          bun add "$GITHUB_WORKSPACE"/artifact/*.tgz
+          bun check.mjs
 
-  test-deno:
+  compat-deno:
+    needs: build
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        deno-version: [v2.0.0, v2.x]
+        deno-version: [v2.0.0, latest]
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-      - name: Use Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: 20.x
-          cache: yarn
-      - name: Install dependencies
-        run: yarn --frozen-lockfile
       - name: Use Deno ${{ matrix.deno-version }}
         uses: denoland/setup-deno@v2
         with:
           deno-version: ${{ matrix.deno-version }}
-      - name: Run test suite on Deno
-        run: deno run -A --node-modules-dir=auto ./node_modules/jest/bin/jest.js
-        env:
-          API_KEY: ${{ secrets.TEST_API_KEY }}
+      - name: Download package tarball
+        uses: actions/download-artifact@v8
+        with:
+          name: package-tarball
+          path: artifact
+      - name: Compatibility check
+        # Run outside the repo checkout (else Deno treats it as the @mollie/api-client package). npm populates
+        # node_modules from the tarball; Deno runs against it via --node-modules-dir=manual.
+        working-directory: ${{ runner.temp }}
+        run: |
+          cp "$GITHUB_WORKSPACE/tests/compat/check.mjs" .
+          npm init -y >/dev/null
+          npm install "$GITHUB_WORKSPACE"/artifact/*.tgz
+          deno run -A --node-modules-dir=manual check.mjs
