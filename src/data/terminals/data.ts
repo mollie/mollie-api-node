@@ -1,5 +1,5 @@
 import type Model from '../Model';
-import { ApiMode, Links } from '../global';
+import { type ApiMode, type Links } from '../global';
 
 export interface TerminalData extends Model<'terminal'> {
   /**
