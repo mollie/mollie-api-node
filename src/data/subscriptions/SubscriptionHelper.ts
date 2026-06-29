@@ -11,6 +11,8 @@ import { type ThrottlingParameter } from '../../types/parameters';
 import Helper from '../Helper';
 import type Customer from '../customers/Customer';
 import { type CustomerData } from '../customers/Customer';
+import type Mandate from '../customers/mandates/Mandate';
+import { type MandateData } from '../customers/mandates/data';
 import type Payment from '../payments/Payment';
 import { type PaymentData } from '../payments/data';
 import type Profile from '../profiles/Profile';
@@ -43,6 +45,24 @@ export default class SubscriptionHelper extends Helper<SubscriptionData, Subscri
   public getCustomer() {
     if (renege(this, this.getCustomer, ...arguments)) return;
     return this.networkClient.get<CustomerData, Customer>(...breakUrl(this.links.customer.href));
+  }
+
+  /**
+   * Returns the mandate this subscription was created for.
+   *
+   * @since 4.6.0
+   */
+  public getMandate(): Promise<Mandate> | Promise<undefined>;
+  public getMandate(callback: Callback<Maybe<Mandate>>): void;
+  public getMandate() {
+    if (renege(this, this.getMandate, ...arguments)) return;
+    return (
+      runIf(
+        this.links.mandate,
+        ({ href }) => breakUrl(href),
+        ([pathname, query]) => this.networkClient.get<MandateData, Mandate>(pathname, query),
+      ) ?? undefinedPromise
+    );
   }
 
   /**
