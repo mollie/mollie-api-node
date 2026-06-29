@@ -126,6 +126,14 @@ import {
 } from './binders/customers/subscriptions/parameters';
 export { SubscriptionCreateParams, SubscriptionGetParams, SubscriptionsListParams, SubscriptionUpdateParams, SubscriptionCancelParams };
 
+export { default as TerminalPairingCode } from './data/terminals/pairing-codes/TerminalPairingCode';
+import {
+  CreateParameters as TerminalPairingCodeCreateParams,
+  GetParameters as TerminalPairingCodeGetParams,
+  PageParameters as TerminalPairingCodesListParams,
+} from './binders/terminals/pairing-codes/parameters';
+export { TerminalPairingCodeCreateParams, TerminalPairingCodeGetParams, TerminalPairingCodesListParams };
+
 export { CardAudience, CardFailureReason, CardLabel, FeeRegion } from './data/global';
 export { Issuer } from './data/Issuer';
 export { PaymentInclude } from './data/payments/data';

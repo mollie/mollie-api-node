@@ -28,6 +28,7 @@ import { transform as transformPaymentLink } from './data/paymentLinks/PaymentLi
 import { transform as transformIssuer } from './data/issuer/IssuerModel';
 import { transform as transformSettlement } from './data/settlements/SettlementModel';
 import { transform as transformTerminal } from './data/terminals/Terminal';
+import { transform as transformTerminalPairingCode } from './data/terminals/pairing-codes/TerminalPairingCode';
 import { transform as transformRoute } from './data/payments/routes/Route';
 import { transform as transformBalanceTransfer } from './data/balance-transfers/BalanceTransfer';
 import { transform as transformClient } from './data/clients/Client';
@@ -68,6 +69,7 @@ import SettlementsBinder from './binders/settlements/SettlementsBinder';
 import SubscriptionsBinder from './binders/subscriptions/SubscriptionsBinder';
 import SubscriptionPaymentsBinder from './binders/subscriptions/payments/SubscriptionPaymentsBinder';
 import TerminalsBinder from './binders/terminals/TerminalsBinder';
+import TerminalPairingCodesBinder from './binders/terminals/pairing-codes/TerminalPairingCodesBinder';
 import PaymentRoutesBinder from './binders/payments/routes/PaymentRoutesBinder';
 import BalanceTransfersBinder from './binders/balance-transfers/BalanceTransfersBinder';
 import CapabilitiesBinder from './binders/capabilities/CapabilitiesBinder';
@@ -132,6 +134,7 @@ export default function createMollieClient(options: Options) {
       .add('issuer', transformIssuer)
       .add('settlement', transformSettlement)
       .add('terminal', transformTerminal)
+      .add('terminal-pairing-code', transformTerminalPairingCode)
       .add('route', transformRoute)
       .add('connect-balance-transfer', transformBalanceTransfer)
       .add('client', transformClient)
@@ -212,6 +215,7 @@ export default function createMollieClient(options: Options) {
 
       // Terminals
       terminals: new TerminalsBinder(transformingNetworkClient),
+      terminalPairingCodes: new TerminalPairingCodesBinder(transformingNetworkClient),
 
       // Balance Transfers
       balanceTransfers: new BalanceTransfersBinder(transformingNetworkClient),
@@ -264,6 +268,7 @@ export { SubscriptionStatus } from './data/subscriptions/data';
 export { ProfileStatus } from './data/profiles/data';
 export { OnboardingStatus } from './data/onboarding/data';
 export { TerminalStatus } from './data/terminals/data';
+export { PairingCodeStatus, TerminalPairingCodeInclude } from './data/terminals/pairing-codes/data';
 export { CapabilityStatus, CapabilityStatusReason, RequirementStatus } from './data/capabilities/data';
 export { ClientEmbed } from './data/clients/data';
 export { InvoiceStatus } from './data/invoices/data';
