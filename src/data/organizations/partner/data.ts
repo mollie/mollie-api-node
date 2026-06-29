@@ -58,7 +58,7 @@ export interface PartnerStatusData extends Model<'partner'> {
    */
   partnerContractExpiresAt?: string;
   /**
-   * An object with several URL objects relevant to the partner status.
+   * An object with several URL objects relevant to the partner status. Every URL object will contain an `href` and a `type` field.
    *
    * @see https://docs.mollie.com/reference/get-partner-status
    */

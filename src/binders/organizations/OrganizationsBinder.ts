@@ -7,6 +7,7 @@ import assertWellFormedId from '../../plumbing/assertWellFormedId';
 import renege from '../../plumbing/renege';
 import type Callback from '../../types/Callback';
 import Binder from '../Binder';
+import { type GetParameters } from './parameters';
 
 const pathSegment = 'organizations';
 
@@ -19,21 +20,21 @@ export default class OrganizationsBinder extends Binder<OrganizationData, Organi
    * Retrieve an organization by its ID.
    *
    * @since 3.2.0
-   * @see https://docs.mollie.com/reference/v2/organizations-api/get-organization
+   * @see https://docs.mollie.com/reference/get-organization
    */
-  public get(id: string): Promise<Organization>;
-  public get(id: string, callback: Callback<Organization>): void;
-  public get(id: string) {
+  public get(id: string, parameters?: GetParameters): Promise<Organization>;
+  public get(id: string, parameters: GetParameters, callback: Callback<Organization>): void;
+  public get(id: string, parameters?: GetParameters) {
     if (renege(this, this.get, ...arguments)) return;
     assertWellFormedId(id, 'organization');
-    return this.networkClient.get<OrganizationData, Organization>(`${pathSegment}/${id}`);
+    return this.networkClient.get<OrganizationData, Organization>(`${pathSegment}/${id}`, parameters);
   }
 
   /**
    * Retrieve the currently authenticated organization.
    *
    * @since 3.2.0
-   * @see https://docs.mollie.com/reference/v2/organizations-api/current-organization
+   * @see https://docs.mollie.com/reference/get-current-organization
    */
   public getCurrent(): Promise<Organization>;
   public getCurrent(callback: Callback<Organization>): void;
