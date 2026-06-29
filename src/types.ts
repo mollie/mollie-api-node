@@ -88,6 +88,7 @@ export { default as Route } from './data/payments/routes/Route';
 export { CreateParameters as RouteCreateParams, PageParameters as RoutesPageParams } from './binders/payments/routes/parameters';
 
 export { default as Permission } from './data/permissions/Permission';
+export { GetParameters as PermissionGetParams } from './binders/permissions/parameters';
 
 export { default as Profile } from './data/profiles/Profile';
 import { CreateParameters as ProfileCreateParameters, PageParameters as ProfilePageParameters, UpdateParameters as ProfileUpdateParameters } from './binders/profiles/parameters';
