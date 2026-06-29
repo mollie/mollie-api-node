@@ -1,9 +1,10 @@
+import type Nullable from '../../types/Nullable';
 import { type Amount, type Links, type Url } from '../global';
 import type Model from '../Model';
 
 export interface InvoiceData extends Model<'invoice'> {
   /**
-   * The reference number of the invoice. An example value would be `2018.10000`.
+   * The reference number of the invoice. An example value would be: `2024.10000`.
    *
    * @see https://docs.mollie.com/reference/get-invoice?path=reference#response
    */
@@ -13,29 +14,31 @@ export interface InvoiceData extends Model<'invoice'> {
    *
    * @see https://docs.mollie.com/reference/get-invoice?path=vatNumber#response
    */
-  vatNumber?: string;
+  vatNumber?: Nullable<string>;
   /**
    * Status of the invoice.
+   *
+   * Possible values: `open` `paid` `overdue`
    *
    * @see https://docs.mollie.com/reference/get-invoice?path=status#response
    */
   status: InvoiceStatus;
   /**
-   * The total amount of the invoice excluding VAT, e.g. `100.00`.
+   * Total amount of the invoice, excluding VAT.
    *
    * @see https://docs.mollie.com/reference/get-invoice?path=netAmount#response
    */
   netAmount: Amount;
   /**
-   * The VAT amount of the invoice. Only applicable for merchants registered in the Netherlands. For EU merchants, VAT
-   * will be shifted to recipient; article 44 and 196 EU VAT Directive 2006/112. For merchants outside the EU, no VAT
-   * will be charged.
+   * VAT amount of the invoice. Only applicable to merchants registered in the Netherlands. For EU merchants, VAT will be
+   * shifted to the recipient (as per article 44 and 196 in the EU VAT Directive 2006/112). For merchants outside the EU,
+   * no VAT will be charged.
    *
    * @see https://docs.mollie.com/reference/get-invoice?path=vatAmount#response
    */
   vatAmount: Amount;
   /**
-   * The total amount of the invoice including VAT.
+   * Total amount of the invoice, including VAT.
    *
    * @see https://docs.mollie.com/reference/get-invoice?path=grossAmount#response
    */
@@ -47,23 +50,23 @@ export interface InvoiceData extends Model<'invoice'> {
    */
   lines: InvoiceLine[];
   /**
-   * The date on which the invoice was issued, in `YYYY-MM-DD` format.
+   * The invoice date in `YYYY-MM-DD` format.
    *
    * @see https://docs.mollie.com/reference/get-invoice?path=issuedAt#response
    */
   issuedAt: string;
   /**
-   * The date on which the invoice was paid, in `YYYY-MM-DD` format. Only available if the invoice is `paid`.
+   * The date on which the invoice was paid, if applicable, in `YYYY-MM-DD` format.
    *
    * @see https://docs.mollie.com/reference/get-invoice?path=paidAt#response
    */
-  paidAt?: string;
+  paidAt?: Nullable<string>;
   /**
-   * The date on which the invoice is due, in `YYYY-MM-DD` format. Only available if the invoice is not `paid` yet.
+   * The date on which the invoice is due, if applicable, in `YYYY-MM-DD` format.
    *
    * @see https://docs.mollie.com/reference/get-invoice?path=dueAt#response
    */
-  dueAt?: string;
+  dueAt?: Nullable<string>;
   /**
    * An object with several relevant URLs. Every URL object will contain an `href` and a `type` field.
    *
@@ -80,25 +83,25 @@ export interface InvoiceLine {
    */
   period: string;
   /**
-   * A description of the product, for example `iDEAL transaction costs`.
+   * Description of the product.
    *
    * @see https://docs.mollie.com/reference/get-invoice?path=lines/description#response
    */
   description: string;
   /**
-   * The number of products invoiced, for example the number of payments in case of transaction costs.
+   * Number of products invoiced. For example, the number of payments.
    *
    * @see https://docs.mollie.com/reference/get-invoice?path=lines/count#response
    */
   count: number;
   /**
-   * The VAT percentage rate that applies to this product.
+   * VAT percentage rate that applies to this product.
    *
    * @see https://docs.mollie.com/reference/get-invoice?path=lines/vatPercentage#response
    */
   vatPercentage: number;
   /**
-   * The price of a single product, excluding VAT.
+   * Line item amount excluding VAT.
    *
    * @see https://docs.mollie.com/reference/get-invoice?path=lines/amount#response
    */
@@ -107,7 +110,7 @@ export interface InvoiceLine {
 
 export interface InvoiceLinks extends Links {
   /**
-   * The URL to the PDF version of the invoice. Only available if the invoice has been generated.
+   * URL to a downloadable PDF of the invoice.
    *
    * @see https://docs.mollie.com/reference/get-invoice?path=_links/pdf#response
    */
