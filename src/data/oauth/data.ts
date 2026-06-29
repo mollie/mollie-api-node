@@ -31,7 +31,7 @@ export default interface Token {
    */
   token_type: 'bearer';
   /**
-   * A space-separated list of permissions.
+   * A space-separated list of [permissions](https://docs.mollie.com/docs/permissions).
    *
    * @see https://docs.mollie.com/reference/oauth-generate-tokens?path=scope#response
    */

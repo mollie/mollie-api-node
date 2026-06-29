@@ -47,6 +47,8 @@ export default class OAuthBinder {
   /**
    * Revoke an access token or refresh token. Once revoked, the token can no longer be used.
    *
+   * Revoking a refresh token revokes all access tokens that were created using the same authorization.
+   *
    * @since 4.4.0
    * @see https://docs.mollie.com/reference/oauth-revoke-tokens
    */
