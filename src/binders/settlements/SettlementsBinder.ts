@@ -21,7 +21,7 @@ export default class SettlementsBinder extends Binder<SettlementData, Settlement
    * Beside payments, settlements can be composed of other entities such as refunds, chargebacks or captures.
    *
    * @since 3.7.0
-   * @see https://docs.mollie.com/reference/v2/settlements-api/get-settlement
+   * @see https://docs.mollie.com/reference/get-settlement
    */
   public get(id: string): Promise<SettlementModel>;
   public get(id: string, callback: Callback<SettlementModel>): void;
@@ -35,7 +35,7 @@ export default class SettlementsBinder extends Binder<SettlementData, Settlement
    * Retrieve the details of the current settlement that has not yet been paid out.
    *
    * @since 3.7.0
-   * @see https://docs.mollie.com/reference/v2/settlements-api/get-next-settlement
+   * @see https://docs.mollie.com/reference/get-next-settlement
    */
   public getNext(): Promise<SettlementModel>;
   public getNext(callback: Callback<SettlementModel>): void;
@@ -48,7 +48,7 @@ export default class SettlementsBinder extends Binder<SettlementData, Settlement
    * Retrieve the details of the open balance of the organization. This will return a settlement object representing your organization's balance.
    *
    * @since 3.7.0
-   * @see https://docs.mollie.com/reference/v2/settlements-api/get-open-settlement
+   * @see https://docs.mollie.com/reference/get-open-settlement
    */
   public getOpen(): Promise<SettlementModel>;
   public getOpen(callback: Callback<SettlementModel>): void;
@@ -58,12 +58,12 @@ export default class SettlementsBinder extends Binder<SettlementData, Settlement
   }
 
   /**
-   * Retrieve all payments links created with the current website profile, ordered from newest to oldest.
+   * Retrieve a list of all your settlements.
    *
    * The results are paginated. See pagination for more information.
    *
    * @since 3.7.0
-   * @see https://docs.mollie.com/reference/v2/payment-links-api/list-payment-links
+   * @see https://docs.mollie.com/reference/list-settlements
    */
   public page(parameters?: PageParameters): Promise<Page<SettlementModel>>;
   public page(parameters: PageParameters, callback: Callback<Page<SettlementModel>>): void;
@@ -73,10 +73,10 @@ export default class SettlementsBinder extends Binder<SettlementData, Settlement
   }
 
   /**
-   * Retrieve a single payment link object by its token.
+   * Retrieve a list of all your settlements, iterating over the paginated result set.
    *
    * @since 3.7.0
-   * @see https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link
+   * @see https://docs.mollie.com/reference/list-settlements
    */
   public iterate(parameters?: IterateParameters) {
     const { valuesPerMinute, ...query } = parameters ?? {};
