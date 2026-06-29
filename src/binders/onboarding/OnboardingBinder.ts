@@ -17,7 +17,7 @@ export default class OnboardingBinder extends Binder<OnboardingData, Onboarding>
    * Get the status of onboarding of the authenticated organization.
    *
    * @since 3.2.0
-   * @see https://docs.mollie.com/reference/v2/onboarding-api/get-onboarding-status
+   * @see https://docs.mollie.com/reference/get-onboarding-status
    */
   public get(): Promise<Onboarding>;
   public get(callback: Callback<Onboarding>): void;
@@ -27,10 +27,11 @@ export default class OnboardingBinder extends Binder<OnboardingData, Onboarding>
   }
 
   /**
-   * Submit data that will be prefilled in the merchant's onboarding. The data you submit will only be processed when the onboarding status is `needs-data`.
+   * Submit data that will be prefilled in the merchant's onboarding. The data you submit will only be processed when the onboarding status is `needs-data`. Information that the merchant has entered in their dashboard will not be overwritten.
    *
    * @since 3.2.0
-   * @see https://docs.mollie.com/reference/v2/onboarding-api/submit-onboarding-data
+   * @deprecated Implementing this endpoint is no longer recommended. Use the Client Links API instead to kick off the onboarding process for your merchants.
+   * @see https://docs.mollie.com/reference/submit-onboarding-data
    */
   public submit(parameters?: SubmitParameters): Promise<true>;
   public submit(parameters: SubmitParameters, callback: Callback<true>): void;
