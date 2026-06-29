@@ -28,9 +28,19 @@ export default class ProfileHelper extends Helper<ProfileData, Profile> {
   }
 
   /**
+   * Link to the profile in the Mollie dashboard.
+   *
+   * @since 4.6.0
+   * @see https://docs.mollie.com/reference/get-profile?path=_links/dashboard#response
+   */
+  public getDashboardUrl(): Nullable<string> {
+    return this.links.dashboard?.href ?? null;
+  }
+
+  /**
    * The Checkout preview URL. You need to be logged in to access this page.
    *
-   * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile?path=_links/checkoutPreviewUrl#response
+   * @see https://docs.mollie.com/reference/get-profile?path=_links/checkoutPreviewUrl#response
    */
   public getCheckoutPreviewUrl(): Nullable<string> {
     return this.links.checkoutPreviewUrl?.href ?? null;

@@ -20,7 +20,7 @@ export default class ProfileGiftcardIssuersBinder extends Binder<IssuerData, Iss
    * Enable a gift card issuer on a specific or authenticated profile to use it with payments.
    *
    * @since 3.7.0
-   * @see https://docs.mollie.com/reference/v2/profiles-api/enable-gift-card-issuer
+   * @see https://docs.mollie.com/reference/enable-method-issuer
    */
   public enable(parameters: Parameters): Promise<IssuerModel>;
   public enable(parameters: Parameters, callback: Callback<IssuerModel>): void;
@@ -35,7 +35,7 @@ export default class ProfileGiftcardIssuersBinder extends Binder<IssuerData, Iss
    * Disable a gift card issuer on a specific or authenticated profile.
    *
    * @since 3.7.0
-   * @see https://docs.mollie.com/reference/v2/profiles-api/disable-gift-card-issuer
+   * @see https://docs.mollie.com/reference/disable-method-issuer
    */
   public disable(parameters: Parameters): Promise<true>;
   public disable(parameters: Parameters, callback: Callback<true>): void;

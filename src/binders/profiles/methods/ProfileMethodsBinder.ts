@@ -19,10 +19,10 @@ export default class ProfileMethodsBinder extends Binder<MethodData, Method> {
   /**
    * Enable a payment method on a specific or authenticated profile to use it with payments.
    *
-   * The payment method `vouchers` cannot be enabled via this API. Instead, refer to /reference/v2/profiles-api/enable-voucher-issuer.
+   * The payment method `vouchers` cannot be enabled via this API. Instead, refer to /reference/enable-method-issuer.
    *
    * @since 3.7.0
-   * @see https://docs.mollie.com/reference/v2/profiles-api/enable-method
+   * @see https://docs.mollie.com/reference/enable-method
    */
   public enable(parameters: Parameters): Promise<Method>;
   public enable(parameters: Parameters, callback: Callback<Method>): void;
@@ -37,7 +37,7 @@ export default class ProfileMethodsBinder extends Binder<MethodData, Method> {
    * Disable a payment method on a specific or authenticated profile.
    *
    * @since 3.7.0
-   * @see https://docs.mollie.com/reference/v2/profiles-api/disable-method
+   * @see https://docs.mollie.com/reference/disable-method
    */
   public disable(parameters: Parameters): Promise<true>;
   public disable(parameters: Parameters, callback: Callback<true>): void;

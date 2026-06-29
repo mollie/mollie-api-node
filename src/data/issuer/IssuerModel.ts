@@ -17,13 +17,13 @@ export interface IssuerData extends Model<'issuer'> {
    * -   `activated`: The issuer is activated and ready for use.
    * -   `pending-issuer`: Activation of this issuer relies on you taking action with the issuer itself.
    *
-   * @see https://docs.mollie.com/reference/v2/profiles-api/enable-gift-card-issuer?path=status#response
+   * @see https://docs.mollie.com/reference/enable-method-issuer?path=status#response
    */
   status: 'activated' | 'pending-issuer';
   /**
    * An object with contractor information.
    *
-   * @see https://docs.mollie.com/reference/v2/profiles-api/enable-voucher-issuer?path=contractor#response
+   * @see https://docs.mollie.com/reference/enable-method-issuer?path=contractor#response
    */
   contractor?: { id: string; name: string; contractId: string };
   _links: Links;

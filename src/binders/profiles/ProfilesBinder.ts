@@ -22,7 +22,7 @@ export default class ProfilesBinder extends Binder<ProfileData, Profile> {
    * creation via the Profiles API.
    *
    * @since 3.2.0
-   * @see https://docs.mollie.com/reference/v2/profiles-api/create-profile
+   * @see https://docs.mollie.com/reference/create-profile
    */
   public create(parameters: CreateParameters): Promise<Profile>;
   public create(parameters: CreateParameters, callback: Callback<Profile>): void;
@@ -35,7 +35,7 @@ export default class ProfilesBinder extends Binder<ProfileData, Profile> {
    * Retrieve details of a profile, using the profile's identifier.
    *
    * @since 3.2.0
-   * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile
+   * @see https://docs.mollie.com/reference/get-profile
    */
   public get(id: string): Promise<Profile>;
   public get(id: string, callback: Callback<Profile>): void;
@@ -52,7 +52,7 @@ export default class ProfilesBinder extends Binder<ProfileData, Profile> {
    * This is similar to the Get current organization endpoint for OAuth.
    *
    * @since 3.2.0
-   * @see https://docs.mollie.com/reference/v2/profiles-api/get-profile-me
+   * @see https://docs.mollie.com/reference/get-current-profile
    */
   public getCurrent(): Promise<Profile>;
   public getCurrent(callback: Callback<Profile>): void;
@@ -67,7 +67,7 @@ export default class ProfilesBinder extends Binder<ProfileData, Profile> {
    * The results are paginated. See pagination for more information.
    *
    * @since 3.2.0 (as `list`)
-   * @see https://docs.mollie.com/reference/v2/profiles-api/list-profiles
+   * @see https://docs.mollie.com/reference/list-profiles
    */
   public page(parameters?: PageParameters): Promise<Page<Profile>>;
   public page(parameters: PageParameters, callback: Callback<Page<Profile>>): void;
@@ -82,7 +82,7 @@ export default class ProfilesBinder extends Binder<ProfileData, Profile> {
    * The results are paginated. See pagination for more information.
    *
    * @since 3.6.0
-   * @see https://docs.mollie.com/reference/v2/profiles-api/list-profiles
+   * @see https://docs.mollie.com/reference/list-profiles
    */
   public iterate(parameters?: IterateParameters) {
     const { valuesPerMinute, ...query } = parameters ?? {};
@@ -94,7 +94,7 @@ export default class ProfilesBinder extends Binder<ProfileData, Profile> {
    * the Profiles API.
    *
    * @since 3.2.0
-   * @see https://docs.mollie.com/reference/v2/profiles-api/update-profile
+   * @see https://docs.mollie.com/reference/update-profile
    */
   public update(id: string, parameters: UpdateParameters): Promise<Profile>;
   public update(id: string, parameters: UpdateParameters, callback: Callback<Profile>): void;
@@ -108,7 +108,7 @@ export default class ProfilesBinder extends Binder<ProfileData, Profile> {
    * This endpoint enables profile deletions, rendering the profile unavailable for further API calls and transactions.
    *
    * @since 3.2.0
-   * @see https://docs.mollie.com/reference/v2/profiles-api/delete-profile
+   * @see https://docs.mollie.com/reference/delete-profile
    */
   public delete(id: string, parameters?: DeleteParameters): Promise<true>;
   public delete(id: string, parameters: DeleteParameters, callback: Callback<true>): void;
