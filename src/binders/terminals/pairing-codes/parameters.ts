@@ -1,5 +1,6 @@
 import { type TerminalPairingCodeData, type TerminalPairingCodeInclude } from '../../../data/terminals/pairing-codes/data';
 import { type PaginationParameters, type SortParameter, type ThrottlingParameter } from '../../../types/parameters';
+import type MaybeArray from '../../../types/MaybeArray';
 
 export type CreateParameters = Pick<TerminalPairingCodeData, 'profileId'> & {
   /**
@@ -11,7 +12,7 @@ export type CreateParameters = Pick<TerminalPairingCodeData, 'profileId'> & {
    *
    * @see https://docs.mollie.com/reference/terminals-request-pairing-code?path=include#parameters
    */
-  include?: TerminalPairingCodeInclude;
+  include?: MaybeArray<TerminalPairingCodeInclude>;
 };
 
 export type GetParameters = {
@@ -22,7 +23,7 @@ export type GetParameters = {
    *
    * @see https://docs.mollie.com/reference/terminals-get-pairing-code?path=include#parameters
    */
-  include?: TerminalPairingCodeInclude;
+  include?: MaybeArray<TerminalPairingCodeInclude>;
 };
 
 export type PageParameters = PaginationParameters &

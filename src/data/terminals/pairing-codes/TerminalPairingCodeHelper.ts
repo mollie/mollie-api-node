@@ -18,6 +18,8 @@ export default class TerminalPairingCodeHelper extends Helper<TerminalPairingCod
 
   /**
    * Returns the profile the terminal is being paired with.
+   *
+   * @since 4.6.0
    */
   public getProfile(): Promise<Profile>;
   public getProfile(callback: Callback<Profile>): void;
