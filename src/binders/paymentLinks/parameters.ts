@@ -7,18 +7,32 @@ type ContextParameters = TestModeParameter;
 export type CreateParameters = Pick<PaymentLinkData, 'description'> &
   PickOptional<
     PaymentLinkData,
-    'amount' | 'minimumAmount' | 'redirectUrl' | 'webhookUrl' | 'lines' | 'billingAddress' | 'shippingAddress' | 'profileId' | 'reusable' | 'expiresAt' | 'sequenceType' | 'customerId' | 'allowedMethods' | 'applicationFee'
+    | 'amount'
+    | 'minimumAmount'
+    | 'redirectUrl'
+    | 'webhookUrl'
+    | 'lines'
+    | 'billingAddress'
+    | 'shippingAddress'
+    | 'profileId'
+    | 'reusable'
+    | 'expiresAt'
+    | 'sequenceType'
+    | 'customerId'
+    | 'allowedMethods'
+    | 'applicationFee'
   > &
   ContextParameters &
   IdempotencyParameter;
 
 export type GetParameters = ContextParameters;
 
-export type PageParameters = ContextParameters & PaginationParameters & {
-  profileId?: string;
-};
+export type PageParameters = ContextParameters &
+  PaginationParameters & {
+    profileId?: string;
+  };
 
-export type UpdateParameters = Pick<PaymentLinkData, 'description' | 'minimumAmount' | 'archived' | 'allowedMethods' | 'applicationFee'> &
+export type UpdateParameters = Pick<PaymentLinkData, 'description' | 'minimumAmount' | 'archived' | 'lines' | 'billingAddress' | 'shippingAddress' | 'allowedMethods' | 'applicationFee'> &
   PickOptional<PaymentLinkData, 'profileId'> &
   ContextParameters;
 
