@@ -148,7 +148,7 @@ export interface ProfileLinks extends Links {
    *
    * @see https://docs.mollie.com/reference/get-profile?path=_links/dashboard#response
    */
-  dashboard: Url;
+  dashboard?: Url;
   /**
    * The API resource URL of the chargebacks that belong to this profile.
    *

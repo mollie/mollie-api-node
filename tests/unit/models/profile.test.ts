@@ -1,49 +1,52 @@
 import { Profile } from '../../..';
 import NetworkMocker, { getApiKeyClientProvider } from '../../NetworkMocker';
 
-function getProfile(status) {
+function getProfile(status, extraLinks = {}) {
   return new NetworkMocker(getApiKeyClientProvider()).use(([mollieClient, networkMocker]) => {
-    networkMocker.intercept('GET', '/profiles/pfl_ahe8z8OPut', 200, {
-      resource: 'profile',
-      id: 'pfl_ahe8z8OPut',
-      mode: 'live',
-      name: 'My website name',
-      website: 'http://www.mywebsite.com',
-      email: 'info@mywebsite.com',
-      phone: '31123456789',
-      categoryCode: 5399,
-      status,
-      review: {
-        status: 'pending',
-      },
-      createdAt: '2016-01-11T13:03:55+00:00',
-      _links: {
-        self: {
-          href: 'https://api.mollie.com/v2/profiles/pfl_ahe8z8OPut',
-          type: 'application/hal+json',
+    networkMocker
+      .intercept('GET', '/profiles/pfl_ahe8z8OPut', 200, {
+        resource: 'profile',
+        id: 'pfl_ahe8z8OPut',
+        mode: 'live',
+        name: 'My website name',
+        website: 'http://www.mywebsite.com',
+        email: 'info@mywebsite.com',
+        phone: '31123456789',
+        categoryCode: 5399,
+        status,
+        review: {
+          status: 'pending',
         },
-        chargebacks: {
-          href: 'https://api.mollie.com/v2/chargebacks?profileId=pfl_ahe8z8OPut',
-          type: 'application/hal+json',
+        createdAt: '2016-01-11T13:03:55+00:00',
+        _links: {
+          self: {
+            href: 'https://api.mollie.com/v2/profiles/pfl_ahe8z8OPut',
+            type: 'application/hal+json',
+          },
+          chargebacks: {
+            href: 'https://api.mollie.com/v2/chargebacks?profileId=pfl_ahe8z8OPut',
+            type: 'application/hal+json',
+          },
+          methods: {
+            href: 'https://api.mollie.com/v2/methods?profileId=pfl_ahe8z8OPut',
+            type: 'application/hal+json',
+          },
+          payments: {
+            href: 'https://api.mollie.com/v2/payments?profileId=pfl_ahe8z8OPut',
+            type: 'application/hal+json',
+          },
+          refunds: {
+            href: 'https://api.mollie.com/v2/refunds?profileId=pfl_ahe8z8OPut',
+            type: 'application/hal+json',
+          },
+          checkoutPreviewUrl: {
+            href: 'https://www.mollie.com/payscreen/preview/pfl_ahe8z8OPut',
+            type: 'text/html',
+          },
+          ...extraLinks,
         },
-        methods: {
-          href: 'https://api.mollie.com/v2/methods?profileId=pfl_ahe8z8OPut',
-          type: 'application/hal+json',
-        },
-        payments: {
-          href: 'https://api.mollie.com/v2/payments?profileId=pfl_ahe8z8OPut',
-          type: 'application/hal+json',
-        },
-        refunds: {
-          href: 'https://api.mollie.com/v2/refunds?profileId=pfl_ahe8z8OPut',
-          type: 'application/hal+json',
-        },
-        checkoutPreviewUrl: {
-          href: 'https://www.mollie.com/payscreen/preview/pfl_ahe8z8OPut',
-          type: 'text/html',
-        },
-      },
-    }).twice();
+      })
+      .twice();
 
     return bluster(mollieClient.profiles.get.bind(mollieClient.profiles))('pfl_ahe8z8OPut');
   });
@@ -57,4 +60,21 @@ test('profileStatuses', () => {
       expect(profile.status).toBe(status);
     }),
   );
+});
+
+test('getDashboardUrl returns the dashboard link when present', async () => {
+  const profile = await getProfile('verified', {
+    dashboard: {
+      href: 'https://www.mollie.com/dashboard/org_12345678/settings/profiles/pfl_ahe8z8OPut',
+      type: 'text/html',
+    },
+  });
+
+  expect(profile.getDashboardUrl()).toBe('https://www.mollie.com/dashboard/org_12345678/settings/profiles/pfl_ahe8z8OPut');
+});
+
+test('getDashboardUrl returns null when the profile has no dashboard link', async () => {
+  const profile = await getProfile('verified');
+
+  expect(profile.getDashboardUrl()).toBeNull();
 });
