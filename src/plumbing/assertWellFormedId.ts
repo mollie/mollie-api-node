@@ -6,6 +6,7 @@ const prefixes = {
   'capture': 'cpt_',
   'chargeback': 'chb_',
   'customer': 'cst_',
+  'invoice': 'inv_',
   'mandate': 'mdt_',
   'order': 'ord_',
   'orderline': 'odl_',

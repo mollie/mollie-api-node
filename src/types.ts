@@ -18,6 +18,9 @@ export { GetParameters as ClientGetParams, PageParameters as ClientsListParams }
 export { default as ClientLink } from './data/client-links/ClientLink';
 export { CreateParameters as ClientLinkCreateParams } from './binders/client-links/parameters';
 
+export { default as Invoice } from './data/invoices/Invoice';
+export { PageParameters as InvoicePageParams } from './binders/invoices/parameters';
+
 export { default as Capture } from './data/payments/captures/Capture';
 import { GetParameters as CapturesGetParameters, PageParameters as CapturesPageParameters } from './binders/payments/captures/parameters';
 export { CapturesGetParameters, CapturesPageParameters };
