@@ -25,6 +25,7 @@ export default class TerminalPairingCodesBinder extends Binder<TerminalPairingCo
    *
    * This endpoint currently does not support test mode yet.
    *
+   * @since 4.6.0
    * @see https://docs.mollie.com/reference/terminals-request-pairing-code
    */
   public create(parameters: CreateParameters): Promise<TerminalPairingCode>;
@@ -43,6 +44,7 @@ export default class TerminalPairingCodesBinder extends Binder<TerminalPairingCo
    *
    * This endpoint currently does not support test mode yet.
    *
+   * @since 4.6.0
    * @see https://docs.mollie.com/reference/terminals-get-pairing-code
    */
   public get(id: string, parameters?: GetParameters): Promise<TerminalPairingCode>;
@@ -60,6 +62,7 @@ export default class TerminalPairingCodesBinder extends Binder<TerminalPairingCo
    *
    * This endpoint currently does not support test mode yet.
    *
+   * @since 4.6.0
    * @see https://docs.mollie.com/reference/terminals-list-pairing-codes
    */
   public page(parameters?: PageParameters): Promise<Page<TerminalPairingCode>>;
@@ -78,6 +81,7 @@ export default class TerminalPairingCodesBinder extends Binder<TerminalPairingCo
    *
    * This endpoint currently does not support test mode yet.
    *
+   * @since 4.6.0
    * @see https://docs.mollie.com/reference/terminals-list-pairing-codes
    */
   public iterate(parameters?: IterateParameters) {
@@ -92,6 +96,7 @@ export default class TerminalPairingCodesBinder extends Binder<TerminalPairingCo
    *
    * This endpoint currently does not support test mode yet.
    *
+   * @since 4.6.0
    * @see https://docs.mollie.com/reference/terminals-revoke-pairing-code
    */
   public revoke(id: string): Promise<TerminalPairingCode>;
