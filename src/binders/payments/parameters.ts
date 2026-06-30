@@ -32,7 +32,7 @@ export type CreateParameters = Pick<
      *
      * Possible values: `applepay` `bancontact` `banktransfer` `belfius` `creditcard` `directdebit` `eps` `giftcard` `giropay` `ideal` `kbc` `mybank` `paypal` `paysafecard` `przelewy24` `sofort`
      *
-     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=method#parameters
+     * @see https://docs.mollie.com/reference/create-payment?path=method#parameters
      */
     method?: MaybeArray<PaymentMethod>;
     /**
@@ -45,7 +45,7 @@ export type CreateParameters = Pick<
      *
      * The field expects a country code in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format, for example <span class="title-ref">NL</span>.
      *
-     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=restrictPaymentMethodsToCountry#parameters
+     * @see https://docs.mollie.com/reference/create-payment?path=restrictPaymentMethodsToCountry#parameters
      */
     restrictPaymentMethodsToCountry?: string;
     /**
@@ -61,6 +61,15 @@ export type CreateParameters = Pick<
      * @see https://docs.mollie.com/reference/extra-payment-parameters#apple-pay
      */
     applePayPaymentToken?: string;
+    /**
+     * The Google Pay payment token object (encoded as JSON) returned by the Google Pay SDK after the customer authorizes the payment. The token contains the payment information needed to complete the
+     * payment.
+     *
+     * The object should be passed encoded in a JSON string.
+     *
+     * @see https://docs.mollie.com/reference/extra-payment-parameters#google-pay
+     */
+    googlePayPaymentToken?: string;
     /**
      * @deprecated use billingAddress.email instead
      */
@@ -171,13 +180,13 @@ export type CreateParameters = Pick<
     /**
      * Beneficiary name of the account holder. Only available if one-off payments are enabled on your account. Supplying this field will pre-fill the beneficiary name in the checkout screen.
      *
-     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=consumerName#sepa-direct-debit
+     * @see https://docs.mollie.com/reference/create-payment?path=consumerName#sepa-direct-debit
      */
     consumerName?: string;
     /**
      * IBAN of the account holder. Only available if one-off payments are enabled on your account. Supplying this field will pre-fill the IBAN in the checkout screen.
      *
-     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=consumerAccount#sepa-direct-debit
+     * @see https://docs.mollie.com/reference/create-payment?path=consumerAccount#sepa-direct-debit
      */
     consumerAccount?: string;
     /**
@@ -187,11 +196,19 @@ export type CreateParameters = Pick<
      * __Note:__ In the REST API, this is not part of the request body, but a query Parameter. It is included here for consistency.
      */
     include?: MaybeArray<PaymentInclude.qrCode>; // currently only one valid value, but making 'MaybeArray' for consistency
+    /**
+     * The identifier referring to the [profile](https://docs.mollie.com/reference/get-profile) this entity belongs to.
+     *
+     * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted in the creation request. For organization-level credentials such as OAuth access tokens however,
+     * the `profileId` parameter is required.
+     *
+     * @see https://docs.mollie.com/reference/create-payment?path=profileId#parameters
+     */
     profileId?: string;
     /**
      * Adding an application fee allows you to charge the merchant a small sum for the payment and transfer this to your own account.
      *
-     * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=applicationFee#mollie-connect-parameters
+     * @see https://docs.mollie.com/reference/create-payment?path=applicationFee#mollie-connect-parameters
      */
     applicationFee?: {
       /**
@@ -200,7 +217,7 @@ export type CreateParameters = Pick<
        * There need to be enough funds left from the payment to deduct the Mollie payment fees as well. For example, you cannot charge a €0.99 fee on a €1.00 payment. The API will return an error if
        * the requested application fee is too high for the specific payment amount and method.
        *
-       * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=applicationFee/amount#mollie-connect-parameters
+       * @see https://docs.mollie.com/reference/create-payment?path=applicationFee/amount#mollie-connect-parameters
        */
       amount: Amount;
       /**
@@ -208,23 +225,46 @@ export type CreateParameters = Pick<
        *
        * The maximum length is 255 characters.
        *
-       * @see https://docs.mollie.com/reference/v2/payments-api/create-payment?path=applicationFee/description#mollie-connect-parameters
+       * @see https://docs.mollie.com/reference/create-payment?path=applicationFee/description#mollie-connect-parameters
        */
       description: string;
     };
   };
 
 export interface GetParameters extends TestModeParameter {
+  /**
+   * This endpoint allows you to include additional information via the `include` query string parameter.
+   *
+   * @see https://docs.mollie.com/reference/get-payment?path=include#parameters
+   */
   include?: MaybeArray<PaymentInclude>;
+  /**
+   * This endpoint allows embedding related API items by appending the following values via the `embed` query string parameter: `refunds`, `chargebacks` and `captures`.
+   *
+   * @see https://docs.mollie.com/reference/get-payment?path=embed#parameters
+   */
   embed?: MaybeArray<PaymentEmbed>;
 }
 
-export type PageParameters = PaginationParameters & SortParameter & TestModeParameter;
+export type PageParameters = PaginationParameters &
+  SortParameter &
+  TestModeParameter & {
+    /**
+     * The identifier referring to the [profile](https://docs.mollie.com/reference/get-profile) you wish to retrieve the resources for.
+     *
+     * Most API credentials are linked to a single profile. In these cases the `profileId` must not be sent. For organization-level credentials such as OAuth access tokens however, the `profileId`
+     * parameter is required.
+     *
+     * @see https://docs.mollie.com/reference/list-payments?path=profileId#parameters
+     */
+    profileId?: string;
+  };
 
 export type IterateParameters = Omit<PageParameters, 'limit'> & ThrottlingParameter;
 
-export type UpdateParameters = Pick<PaymentData, 'redirectUrl' | 'cancelUrl' | 'webhookUrl'> &
-  PickOptional<PaymentData, 'description' | 'metadata'> & {
+export type UpdateParameters = Pick<PaymentData, 'redirectUrl' | 'cancelUrl' | 'webhookUrl' | 'billingAddress' | 'shippingAddress' | 'issuer'> &
+  PickOptional<PaymentData, 'description' | 'metadata' | 'locale'> &
+  TestModeParameter & {
     /**
      * For digital goods in most jurisdictions, you must apply the VAT rate from your customer's country. Choose the VAT rates you have used for the order to ensure your customer's country matches the
      * VAT country.
@@ -235,11 +275,41 @@ export type UpdateParameters = Pick<PaymentData, 'redirectUrl' | 'cancelUrl' | '
      *
      * The field expects a country code in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format, for example <span class="title-ref">NL</span>.
      *
-     * @see https://docs.mollie.com/reference/v2/payments-api/update-payment?path=restrictPaymentMethodsToCountry#parameters
+     * @see https://docs.mollie.com/reference/update-payment?path=restrictPaymentMethodsToCountry#parameters
      */
     restrictPaymentMethodsToCountry?: string;
+    /**
+     * Normally, a payment method screen is shown. However, when using this parameter, you can choose a specific payment method and your customer will skip the selection screen and is sent directly to
+     * the chosen payment method. The parameter enables you to fully integrate the payment method selection into your website.
+     *
+     * You can also specify the methods in an array. By doing so we will still show the payment method selection screen but will only show the methods specified in the array. For example, you can use
+     * this functionality to only show payment methods from a specific country to your customer `['bancontact', 'belfius']`.
+     *
+     * @see https://docs.mollie.com/reference/update-payment?path=method#parameters
+     */
+    method?: MaybeArray<PaymentMethod>;
+    /**
+     * The date by which the payment should be completed in `YYYY-MM-DD` format.
+     *
+     * @see https://docs.mollie.com/reference/update-payment?path=dueDate#parameters
+     */
+    dueDate?: string;
+    /**
+     * @deprecated use billingAddress.email instead
+     */
+    billingEmail?: string;
   };
 
 export type CancelParameters = TestModeParameter & IdempotencyParameter;
 
-export type ReleaseParameters = TestModeParameter;
+export type ReleaseParameters = TestModeParameter & {
+  /**
+   * The identifier referring to the [profile](https://docs.mollie.com/reference/get-profile) this entity belongs to.
+   *
+   * Most API credentials are linked to a single profile. In these cases the `profileId` can be omitted in the creation request. For organization-level credentials such as OAuth access tokens however,
+   * the `profileId` parameter is required.
+   *
+   * @see https://docs.mollie.com/reference/release-authorization?path=profileId#parameters
+   */
+  profileId?: string;
+};

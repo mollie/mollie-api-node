@@ -13,10 +13,20 @@ import { type ThrottlingParameter } from '../../types/parameters';
 import Helper from '../Helper';
 import type Chargeback from '../chargebacks/Chargeback';
 import { type ChargebackData } from '../chargebacks/Chargeback';
+import type Customer from '../customers/Customer';
+import { type CustomerData } from '../customers/Customer';
+import type Mandate from '../customers/mandates/Mandate';
+import { type MandateData } from '../customers/mandates/data';
 import type Order from '../orders/Order';
 import { type OrderData } from '../orders/data';
 import type Refund from '../refunds/Refund';
 import { type RefundData } from '../refunds/data';
+import type SettlementModel from '../settlements/SettlementModel';
+import { type SettlementData } from '../settlements/data';
+import type Subscription from '../subscriptions/Subscription';
+import { type SubscriptionData } from '../subscriptions/data';
+import type Terminal from '../terminals/Terminal';
+import { type TerminalData } from '../terminals/data';
 import type Payment from './Payment';
 import type Capture from './captures/Capture';
 import { type CaptureData } from './captures/data';
@@ -58,7 +68,7 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
   /**
    * The URL your customer should visit to make the payment. This is where you should redirect the consumer to.
    *
-   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/checkout#response
+   * @see https://docs.mollie.com/reference/get-payment?path=_links/checkout#response
    */
   public getCheckoutUrl(): Nullable<string> {
     return this.links.checkout?.href ?? null;
@@ -67,7 +77,7 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
   /**
    * Returns the direct link to the payment in the Mollie Dashboard.
    *
-   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/dashboard#response
+   * @see https://docs.mollie.com/reference/get-payment?path=_links/dashboard#response
    * @since 4.0.0
    */
   public getDashboardUrl(): string {
@@ -89,7 +99,7 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
    * This link is also included for paid test mode payments. This allows you to create a refund or chargeback for the payment. This works for all payment types that can be charged back and/or
    * refunded.
    *
-   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/changePaymentState#response-parameters-for-recurring-payments
+   * @see https://docs.mollie.com/reference/get-payment?path=_links/changePaymentState#response-parameters-for-recurring-payments
    */
   public getChangePaymentStateUrl(): Nullable<string> {
     return this.links.changePaymentState?.href ?? null;
@@ -98,7 +108,7 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
   /**
    * A link to a hosted payment page where your customer can finish the payment using an alternative payment method also activated on your website profile.
    *
-   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/payOnline#bank-transfer
+   * @see https://docs.mollie.com/reference/get-payment?path=_links/payOnline#bank-transfer
    */
   public getPayOnlineUrl(): Nullable<string> {
     const links = this.links as Partial<BankTransferLinks>;
@@ -108,7 +118,7 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
   /**
    * A link to a hosted payment page where your customer can check the status of their payment.
    *
-   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment?path=_links/status#bank-transfer
+   * @see https://docs.mollie.com/reference/get-payment?path=_links/status#bank-transfer
    */
   public getStatusUrl(): Nullable<string> {
     const links = this.links as Partial<BankTransferLinks>;
@@ -182,5 +192,105 @@ export default class PaymentHelper extends Helper<PaymentData, Payment> {
         ([pathname, query]) => this.networkClient.get<OrderData, Order>(pathname, query),
       ) ?? undefinedPromise
     );
+  }
+
+  /**
+   * Returns the settlement this payment has been settled with. Not available if the payment is not yet settled.
+   *
+   * @since 4.6.0
+   */
+  public getSettlement(): Promise<SettlementModel> | Promise<undefined>;
+  public getSettlement(callback: Callback<Maybe<SettlementModel>>): void;
+  public getSettlement() {
+    if (renege(this, this.getSettlement, ...arguments)) return;
+    return (
+      runIf(
+        this.links.settlement,
+        ({ href }) => breakUrl(href),
+        ([pathname, query]) => this.networkClient.get<SettlementData, SettlementModel>(pathname, query),
+      ) ?? undefinedPromise
+    );
+  }
+
+  /**
+   * Returns the customer this payment belongs to. Not available if the payment is not linked to a customer.
+   *
+   * @since 4.6.0
+   */
+  public getCustomer(): Promise<Customer> | Promise<undefined>;
+  public getCustomer(callback: Callback<Maybe<Customer>>): void;
+  public getCustomer() {
+    if (renege(this, this.getCustomer, ...arguments)) return;
+    return (
+      runIf(
+        this.links.customer,
+        ({ href }) => breakUrl(href),
+        ([pathname, query]) => this.networkClient.get<CustomerData, Customer>(pathname, query),
+      ) ?? undefinedPromise
+    );
+  }
+
+  /**
+   * Returns the mandate linked to this payment. Not available for one-off payments.
+   *
+   * @since 4.6.0
+   */
+  public getMandate(): Promise<Mandate> | Promise<undefined>;
+  public getMandate(callback: Callback<Maybe<Mandate>>): void;
+  public getMandate() {
+    if (renege(this, this.getMandate, ...arguments)) return;
+    return (
+      runIf(
+        this.links.mandate,
+        ({ href }) => breakUrl(href),
+        ([pathname, query]) => this.networkClient.get<MandateData, Mandate>(pathname, query),
+      ) ?? undefinedPromise
+    );
+  }
+
+  /**
+   * Returns the subscription this payment is part of. Not available if the payment is not a subscription payment.
+   *
+   * @since 4.6.0
+   */
+  public getSubscription(): Promise<Subscription> | Promise<undefined>;
+  public getSubscription(callback: Callback<Maybe<Subscription>>): void;
+  public getSubscription() {
+    if (renege(this, this.getSubscription, ...arguments)) return;
+    return (
+      runIf(
+        this.links.subscription,
+        ({ href }) => breakUrl(href),
+        ([pathname, query]) => this.networkClient.get<SubscriptionData, Subscription>(pathname, query),
+      ) ?? undefinedPromise
+    );
+  }
+
+  /**
+   * Returns the terminal this payment was created for. Only available for point-of-sale payments.
+   *
+   * @since 4.6.0
+   */
+  public getTerminal(): Promise<Terminal> | Promise<undefined>;
+  public getTerminal(callback: Callback<Maybe<Terminal>>): void;
+  public getTerminal() {
+    if (renege(this, this.getTerminal, ...arguments)) return;
+    return (
+      runIf(
+        this.links.terminal,
+        ({ href }) => breakUrl(href),
+        ([pathname, query]) => this.networkClient.get<TerminalData, Terminal>(pathname, query),
+      ) ?? undefinedPromise
+    );
+  }
+
+  /**
+   * The deeplink URL to the app of the payment method. Currently only available for `bancontact`.
+   *
+   * @see https://docs.mollie.com/reference/get-payment?path=_links/mobileAppCheckout#response
+   * @since 4.6.0
+   */
+  public getMobileAppCheckoutUrl(): Nullable<string> {
+    return this.links.mobileAppCheckout?.href ?? null;
   }
 }
