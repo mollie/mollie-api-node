@@ -15,7 +15,8 @@ const pathSegment = 'terminals/pairing-codes';
 export default class TerminalPairingCodesBinder extends Binder<TerminalPairingCodeData, TerminalPairingCode> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
-    withParameterDefaults(this, networkClient, { create: ['profileId'], page: ['profileId'], iterate: ['profileId'] });
+    // profileId is a required body parameter on create (not defaultable), so create is intentionally excluded.
+    withParameterDefaults(this, networkClient, { page: ['profileId'], iterate: ['profileId'] });
   }
 
   /**
