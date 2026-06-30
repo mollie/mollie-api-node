@@ -7,7 +7,7 @@ import assertWellFormedId from '../../../plumbing/assertWellFormedId';
 import renege from '../../../plumbing/renege';
 import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
-import { type CreateParameters, type IterateParameters, type PageParameters } from './parameters';
+import { type CreateParameters, type GetParameters, type IterateParameters, type PageParameters } from './parameters';
 
 function getPathSegments(paymentId: string) {
   return `payments/${paymentId}/routes`;
@@ -32,6 +32,22 @@ export default class PaymentRoutesBinder extends Binder<RouteData, Route> {
     const { paymentId, ...data } = parameters;
     assertWellFormedId(paymentId, 'payment');
     return this.networkClient.post<RouteData, Route>(getPathSegments(paymentId), data);
+  }
+
+  /**
+   * Retrieve a single route created for a specific payment.
+   *
+   * @since 4.6.0
+   * @see https://docs.mollie.com/reference/payment-get-route
+   */
+  public get(id: string, parameters: GetParameters): Promise<Route>;
+  public get(id: string, parameters: GetParameters, callback: Callback<Route>): void;
+  public get(id: string, parameters: GetParameters) {
+    if (renege(this, this.get, ...arguments)) return;
+    assertWellFormedId(id, 'route');
+    const { paymentId, ...query } = parameters;
+    assertWellFormedId(paymentId, 'payment');
+    return this.networkClient.get<RouteData, Route>(`${getPathSegments(paymentId)}/${id}`, query);
   }
 
   /**

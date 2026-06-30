@@ -12,6 +12,8 @@ interface ContextParameters extends TestModeParameter {
 
 export type CreateParameters = ContextParameters & Pick<RouteData, 'amount' | 'description' | 'destination'> & IdempotencyParameter;
 
+export type GetParameters = ContextParameters;
+
 export type PageParameters = ContextParameters & PaginationParameters;
 
 export type IterateParameters = Omit<PageParameters, 'limit'> & ThrottlingParameter;
