@@ -45,14 +45,18 @@ export enum PaymentMethod {
   in3 = 'in3',
   kbc = 'kbc',
   klarna = 'klarna',
+  /** @deprecated Use `klarna` instead. */
   klarnapaylater = 'klarnapaylater',
+  /** @deprecated Use `klarna` instead. */
   klarnapaynow = 'klarnapaynow',
+  /** @deprecated Use `klarna` instead. */
   klarnasliceit = 'klarnasliceit',
   mbway = 'mbway',
   mobilepay = 'mobilepay',
   multibanco = 'multibanco',
   mybank = 'mybank',
   paybybank = 'paybybank',
+  /** @deprecated No longer available. */
   payconiq = 'payconiq',
   paypal = 'paypal',
   paysafecard = 'paysafecard',
