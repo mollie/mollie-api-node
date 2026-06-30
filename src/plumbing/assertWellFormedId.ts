@@ -15,6 +15,7 @@ const prefixes = {
   'payment-link': 'pl_',
   'profile': 'pfl_',
   'refund': 're_',
+  'route': 'crt_',
   'shipment': 'shp_',
   'subscription': 'sub_',
   'terminal': 'term_',

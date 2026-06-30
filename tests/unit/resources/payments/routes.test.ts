@@ -20,6 +20,10 @@ function composeRouteResponse(paymentId = 'tr_5B8cwPMGnU6qLbRvo7qEZo', routeId =
         href: `https://api.mollie.com/v2/payments/${paymentId}/routes/${routeId}`,
         type: 'application/hal+json',
       },
+      payment: {
+        href: `https://api.mollie.com/v2/payments/${paymentId}`,
+        type: 'application/hal+json',
+      },
       documentation: {
         href: 'https://docs.mollie.com/reference/payment-create-route',
         type: 'text/html',
@@ -45,6 +49,11 @@ function testRoute(route, paymentId = 'tr_5B8cwPMGnU6qLbRvo7qEZo', routeId = 'cr
 
   expect(route._links.self).toEqual({
     href: `https://api.mollie.com/v2/payments/${paymentId}/routes/${routeId}`,
+    type: 'application/hal+json',
+  });
+
+  expect(route._links.payment).toEqual({
+    href: `https://api.mollie.com/v2/payments/${paymentId}`,
     type: 'application/hal+json',
   });
 
@@ -76,6 +85,18 @@ test('createRoute', () => {
     const { createdAt: _expectedCreatedAt, ...expectedWithoutCreatedAt } = composeRouteResponse('tr_5B8cwPMGnU6qLbRvo7qEZo', 'crt_dyARQ3JzCgtPDhU2Pbq3J');
 
     expect(routeWithoutCreatedAt).toMatchObject(expectedWithoutCreatedAt);
+  });
+});
+
+test('getRoute', () => {
+  return new NetworkMocker(getApiKeyClientProvider()).use(async ([mollieClient, networkMocker]) => {
+    networkMocker.intercept('GET', '/payments/tr_5B8cwPMGnU6qLbRvo7qEZo/routes/crt_dyARQ3JzCgtPDhU2Pbq3J', 200, composeRouteResponse('tr_5B8cwPMGnU6qLbRvo7qEZo', 'crt_dyARQ3JzCgtPDhU2Pbq3J')).twice();
+
+    const route = await bluster(mollieClient.paymentRoutes.get.bind(mollieClient.paymentRoutes))('crt_dyARQ3JzCgtPDhU2Pbq3J', { paymentId: 'tr_5B8cwPMGnU6qLbRvo7qEZo' });
+
+    expect(typeof route.getPayment).toBe('function');
+
+    testRoute(route);
   });
 });
 

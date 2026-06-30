@@ -1,4 +1,4 @@
-import { type Amount, type Links } from '../../global';
+import { type Amount, type Links, type Url } from '../../global';
 import type Model from '../../Model';
 
 export interface RouteData extends Model<'route'> {
@@ -38,7 +38,16 @@ export interface RouteData extends Model<'route'> {
    *
    * @see https://docs.mollie.com/reference/payment-create-route?path=_links#response
    */
-  _links: Links;
+  _links: RouteLinks;
+}
+
+interface RouteLinks extends Links {
+  /**
+   * The API resource URL of the payment this route belongs to.
+   *
+   * @see https://docs.mollie.com/reference/payment-create-route?path=_links/payment#response
+   */
+  payment: Url;
 }
 
 export interface RouteDestination {
