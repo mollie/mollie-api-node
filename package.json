@@ -69,7 +69,8 @@
     "nock-record": "^0.3.9",
     "prettier": "^3.8.4",
     "rollup": "^3.29.5",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "yaml": "^2.9.0"
   },
   "resolutions": {
     "eslint-plugin-import": "^2.26.0"
