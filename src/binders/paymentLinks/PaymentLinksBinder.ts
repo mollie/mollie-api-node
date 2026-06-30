@@ -90,10 +90,14 @@ export default class PaymentsLinksBinder extends Binder<PaymentLinkData, Payment
    * @see https://docs.mollie.com/reference/delete-payment-link
    */
   public delete(id: string, parameters?: DeleteParameters): Promise<true>;
+  /**
+   * @deprecated Passing a callback as the second argument is deprecated and will be removed in the next major version. Use the returned promise instead, or pass `parameters` before the callback.
+   */
+  public delete(id: string, callback: Callback<true>): void;
   public delete(id: string, parameters: DeleteParameters, callback: Callback<true>): void;
-  public delete(id: string, parameters?: DeleteParameters) {
+  public delete(id: string, parameters?: DeleteParameters | Callback<true>) {
     if (renege(this, this.delete, ...arguments)) return;
     assertWellFormedId(id, 'payment-link');
-    return this.networkClient.delete<PaymentLinkData, true>(`${pathSegment}/${id}`, parameters);
+    return this.networkClient.delete<PaymentLinkData, true>(`${pathSegment}/${id}`, parameters as DeleteParameters);
   }
 }

@@ -22,6 +22,9 @@ export default class PermissionsBinder extends Binder<PermissionData, Permission
    * @see https://docs.mollie.com/reference/get-permission
    */
   public get(id: string, parameters?: GetParameters): Promise<Permission>;
+  /**
+   * @deprecated Passing a callback as the second argument is deprecated and will be removed in the next major version. Use the returned promise instead, or pass `parameters` before the callback.
+   */
   public get(id: string, callback: Callback<Permission>): void;
   public get(id: string, parameters: GetParameters, callback: Callback<Permission>): void;
   public get(id: string, parameters?: GetParameters | Callback<Permission>) {
