@@ -6,6 +6,7 @@ import alias from '../../../plumbing/alias';
 import assertWellFormedId from '../../../plumbing/assertWellFormedId';
 import foldParameters from '../../../plumbing/foldParameters';
 import renege from '../../../plumbing/renege';
+import withParameterDefaults from '../../../plumbing/withParameterDefaults';
 import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
 import { type CreateParameters, type GetParameters, type IterateParameters, type PageParameters } from './parameters';
@@ -17,6 +18,7 @@ function getPathSegments(paymentId: string) {
 export default class PaymentCapturesBinder extends Binder<CaptureData, Capture> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    withParameterDefaults(this, networkClient, { get: ['testmode'], page: ['testmode'], iterate: ['testmode'] });
     alias(this, { page: ['all', 'list'] });
   }
 

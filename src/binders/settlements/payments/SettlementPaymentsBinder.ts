@@ -3,6 +3,7 @@ import type Page from '../../../data/page/Page';
 import { type PaymentData } from '../../../data/payments/data';
 import type Payment from '../../../data/payments/Payment';
 import renege from '../../../plumbing/renege';
+import withParameterDefaults from '../../../plumbing/withParameterDefaults';
 import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
 import { type IterateParameters, type PageParameters } from './parameters';
@@ -14,6 +15,7 @@ export function getPathSegments(settlementId: string) {
 export default class SettlementPaymentsBinder extends Binder<PaymentData, Payment> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    withParameterDefaults(this, networkClient, { page: ['testmode', 'profileId'], iterate: ['testmode', 'profileId'] });
   }
 
   /**

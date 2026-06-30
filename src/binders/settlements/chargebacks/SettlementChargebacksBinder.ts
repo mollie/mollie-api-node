@@ -3,6 +3,7 @@ import type Chargeback from '../../../data/chargebacks/Chargeback';
 import { type ChargebackData } from '../../../data/chargebacks/Chargeback';
 import type Page from '../../../data/page/Page';
 import renege from '../../../plumbing/renege';
+import withParameterDefaults from '../../../plumbing/withParameterDefaults';
 import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
 import { type IterateParameters, type PageParameters } from './parameters';
@@ -14,6 +15,7 @@ export function getPathSegments(settlementId: string) {
 export default class SettlementChargebacksBinder extends Binder<ChargebackData, Chargeback> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    withParameterDefaults(this, networkClient, { page: ['testmode', 'profileId'], iterate: ['testmode', 'profileId'] });
   }
 
   /**

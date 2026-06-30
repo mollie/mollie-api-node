@@ -3,6 +3,7 @@ import type Method from '../../data/methods/Method';
 import { type MethodData } from '../../data/methods/data';
 import alias from '../../plumbing/alias';
 import renege from '../../plumbing/renege';
+import withParameterDefaults from '../../plumbing/withParameterDefaults';
 import type Callback from '../../types/Callback';
 import Binder from '../Binder';
 import { type GetParameters, type ListParameters } from './parameters';
@@ -12,6 +13,7 @@ const pathSegment = 'methods';
 export default class MethodsBinder extends Binder<MethodData, Method> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    withParameterDefaults(this, networkClient, { get: ['testmode', 'profileId'], list: ['testmode', 'profileId'] });
     alias(this, { list: ['all', 'page'] });
   }
 

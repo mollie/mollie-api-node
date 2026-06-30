@@ -5,6 +5,7 @@ import type Page from '../../../data/page/Page';
 import alias from '../../../plumbing/alias';
 import assertWellFormedId from '../../../plumbing/assertWellFormedId';
 import renege from '../../../plumbing/renege';
+import withParameterDefaults from '../../../plumbing/withParameterDefaults';
 import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
 import { type CreateParameters, type GetParameters, type IterateParameters, type PageParameters, type RevokeParameters } from './parameters';
@@ -16,6 +17,7 @@ function getPathSegments(customerId: string) {
 export default class CustomerMandatesBinder extends Binder<MandateData, Mandate> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    withParameterDefaults(this, networkClient, { create: ['testmode'], get: ['testmode'], page: ['testmode'], iterate: ['testmode'], revoke: ['testmode'] });
     alias(this, { page: ['all', 'list'], revoke: ['cancel', 'delete'] });
   }
 

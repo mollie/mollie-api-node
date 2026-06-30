@@ -5,6 +5,7 @@ import type PartnerStatus from '../../data/organizations/partner/PartnerStatus';
 import { type PartnerStatusData } from '../../data/organizations/partner/data';
 import assertWellFormedId from '../../plumbing/assertWellFormedId';
 import renege from '../../plumbing/renege';
+import withParameterDefaults from '../../plumbing/withParameterDefaults';
 import type Callback from '../../types/Callback';
 import Binder from '../Binder';
 import { type GetParameters } from './parameters';
@@ -14,6 +15,7 @@ const pathSegment = 'organizations';
 export default class OrganizationsBinder extends Binder<OrganizationData, Organization> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    withParameterDefaults(this, networkClient, { get: ['testmode'] });
   }
 
   /**

@@ -5,6 +5,7 @@ import type Subscription from '../../../data/subscriptions/Subscription';
 import alias from '../../../plumbing/alias';
 import assertWellFormedId from '../../../plumbing/assertWellFormedId';
 import renege from '../../../plumbing/renege';
+import withParameterDefaults from '../../../plumbing/withParameterDefaults';
 import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
 import { type CancelParameters, type CreateParameters, type GetParameters, type IterateParameters, type PageParameters, type UpdateParameters } from './parameters';
@@ -16,6 +17,7 @@ function getPathSegments(customerId: string) {
 export default class CustomerSubscriptionsBinder extends Binder<SubscriptionData, Subscription> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    withParameterDefaults(this, networkClient, { create: ['testmode', 'profileId'], get: ['testmode'], page: ['testmode'], iterate: ['testmode'], update: ['testmode'], cancel: ['testmode'] });
     alias(this, { page: ['all', 'list'], cancel: 'delete' });
   }
 
