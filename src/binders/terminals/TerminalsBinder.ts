@@ -24,11 +24,15 @@ export default class TerminalsBinder extends Binder<TerminalData, Terminal> {
    * @see https://docs.mollie.com/reference/get-terminal
    */
   public get(id: string, parameters?: GetParameters): Promise<Terminal>;
+  /**
+   * @deprecated Passing a callback as the second argument is deprecated and will be removed in the next major version. Use the returned promise instead, or pass `parameters` before the callback.
+   */
+  public get(id: string, callback: Callback<Terminal>): void;
   public get(id: string, parameters: GetParameters, callback: Callback<Terminal>): void;
-  public get(id: string, parameters?: GetParameters) {
+  public get(id: string, parameters?: GetParameters | Callback<Terminal>) {
     if (renege(this, this.get, ...arguments)) return;
     assertWellFormedId(id, 'terminal');
-    return this.networkClient.get(`${pathSegment}/${id}`, parameters);
+    return this.networkClient.get(`${pathSegment}/${id}`, parameters as GetParameters);
   }
 
   /**

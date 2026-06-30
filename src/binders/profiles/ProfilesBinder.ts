@@ -38,11 +38,15 @@ export default class ProfilesBinder extends Binder<ProfileData, Profile> {
    * @see https://docs.mollie.com/reference/get-profile
    */
   public get(id: string, parameters?: GetParameters): Promise<Profile>;
+  /**
+   * @deprecated Passing a callback as the second argument is deprecated and will be removed in the next major version. Use the returned promise instead, or pass `parameters` before the callback.
+   */
+  public get(id: string, callback: Callback<Profile>): void;
   public get(id: string, parameters: GetParameters, callback: Callback<Profile>): void;
-  public get(id: string, parameters?: GetParameters) {
+  public get(id: string, parameters?: GetParameters | Callback<Profile>) {
     if (renege(this, this.get, ...arguments)) return;
     assertWellFormedId(id, 'profile');
-    return this.networkClient.get<ProfileData, Profile>(`${pathSegment}/${id}`, parameters);
+    return this.networkClient.get<ProfileData, Profile>(`${pathSegment}/${id}`, parameters as GetParameters);
   }
 
   /**

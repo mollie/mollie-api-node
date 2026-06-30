@@ -25,6 +25,9 @@ export default class OrganizationsBinder extends Binder<OrganizationData, Organi
   // Four overloads (rather than the params-only pair used by other binders) so the released
   // `get(id, callback)` signature keeps compiling while `testmode` is also accepted.
   public get(id: string): Promise<Organization>;
+  /**
+   * @deprecated Passing a callback as the second argument is deprecated and will be removed in the next major version. Use the returned promise instead, or pass `parameters` before the callback.
+   */
   public get(id: string, callback: Callback<Organization>): void;
   public get(id: string, parameters: GetParameters): Promise<Organization>;
   public get(id: string, parameters: GetParameters, callback: Callback<Organization>): void;
