@@ -6,6 +6,7 @@ import type Payment from '../../data/payments/Payment';
 import alias from '../../plumbing/alias';
 import assertWellFormedId from '../../plumbing/assertWellFormedId';
 import renege from '../../plumbing/renege';
+import withParameterDefaults from '../../plumbing/withParameterDefaults';
 import type Callback from '../../types/Callback';
 import Binder from '../Binder';
 import { type CancelParameters, type CreateParameters, type GetParameters, type IterateParameters, type PageParameters, type ReleaseParameters, type UpdateParameters } from './parameters';
@@ -17,6 +18,15 @@ const assertPaymentResource = (id: string) => assertWellFormedId(id, 'payment');
 export default class PaymentsBinder extends Binder<PaymentData, Payment> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    withParameterDefaults(this, networkClient, {
+      create: ['testmode', 'profileId'],
+      get: ['testmode'],
+      page: ['testmode', 'profileId'],
+      iterate: ['testmode', 'profileId'],
+      update: ['testmode'],
+      cancel: ['testmode'],
+      releaseAuthorization: ['testmode', 'profileId'],
+    });
     alias(this, { page: ['all', 'list'], cancel: 'delete' });
   }
 

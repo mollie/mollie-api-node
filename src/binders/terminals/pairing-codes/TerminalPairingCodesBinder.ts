@@ -5,6 +5,7 @@ import { type TerminalPairingCodeData } from '../../../data/terminals/pairing-co
 import type TerminalPairingCode from '../../../data/terminals/pairing-codes/TerminalPairingCode';
 import assertWellFormedId from '../../../plumbing/assertWellFormedId';
 import renege from '../../../plumbing/renege';
+import withParameterDefaults from '../../../plumbing/withParameterDefaults';
 import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
 import { type CreateParameters, type GetParameters, type IterateParameters, type PageParameters } from './parameters';
@@ -14,6 +15,7 @@ const pathSegment = 'terminals/pairing-codes';
 export default class TerminalPairingCodesBinder extends Binder<TerminalPairingCodeData, TerminalPairingCode> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    withParameterDefaults(this, networkClient, { create: ['profileId'], page: ['profileId'], iterate: ['profileId'] });
   }
 
   /**

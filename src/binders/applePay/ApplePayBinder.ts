@@ -1,13 +1,16 @@
 import type NetworkClient from '../../communication/NetworkClient';
 import type ApplePaySession from '../../data/applePaySession/ApplePaySession';
 import renege from '../../plumbing/renege';
+import withParameterDefaults from '../../plumbing/withParameterDefaults';
 import type Callback from '../../types/Callback';
 import { type RequestPaymentSessionParameters } from './parameters';
 
 const pathSegments = 'wallets/applepay/sessions';
 
 export default class ApplePayBinder {
-  constructor(protected readonly networkClient: NetworkClient) {}
+  constructor(protected readonly networkClient: NetworkClient) {
+    withParameterDefaults(this, networkClient, { requestPaymentSession: ['profileId'] });
+  }
 
   /**
    * For integrating Apple Pay in your own checkout on the web, you need to [provide merchant

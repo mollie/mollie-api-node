@@ -4,6 +4,7 @@ import { type PaymentLinkData } from '../../data/paymentLinks/data';
 import type PaymentLink from '../../data/paymentLinks/PaymentLink';
 import assertWellFormedId from '../../plumbing/assertWellFormedId';
 import renege from '../../plumbing/renege';
+import withParameterDefaults from '../../plumbing/withParameterDefaults';
 import type Callback from '../../types/Callback';
 import Binder from '../Binder';
 import { type CreateParameters, type DeleteParameters, type GetParameters, type IterateParameters, type PageParameters, type UpdateParameters } from './parameters';
@@ -13,6 +14,14 @@ const pathSegment = 'payment-links';
 export default class PaymentsLinksBinder extends Binder<PaymentLinkData, PaymentLink> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    withParameterDefaults(this, networkClient, {
+      create: ['testmode', 'profileId'],
+      get: ['testmode'],
+      delete: ['testmode'],
+      page: ['testmode', 'profileId'],
+      iterate: ['testmode', 'profileId'],
+      update: ['testmode', 'profileId'],
+    });
   }
 
   /**

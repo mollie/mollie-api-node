@@ -3,6 +3,7 @@ import type Permission from '../../data/permissions/Permission';
 import { type PermissionData } from '../../data/permissions/Permission';
 import alias from '../../plumbing/alias';
 import renege from '../../plumbing/renege';
+import withParameterDefaults from '../../plumbing/withParameterDefaults';
 import type Callback from '../../types/Callback';
 import Binder from '../Binder';
 import { type GetParameters } from './parameters';
@@ -12,6 +13,7 @@ const pathSegment = 'permissions';
 export default class PermissionsBinder extends Binder<PermissionData, Permission> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    withParameterDefaults(this, networkClient, { get: ['testmode'] });
     alias(this, { list: 'page' });
   }
 

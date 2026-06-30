@@ -7,12 +7,14 @@ import { Page } from '../../types';
 import Terminal from '../../data/terminals/Terminal';
 import type { TerminalData } from '../../data/terminals/data';
 import assertWellFormedId from '../../plumbing/assertWellFormedId';
+import withParameterDefaults from '../../plumbing/withParameterDefaults';
 
 const pathSegment = 'terminals';
 
 export default class TerminalsBinder extends Binder<TerminalData, Terminal> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    withParameterDefaults(this, networkClient, { get: ['testmode'], page: ['testmode'], iterate: ['testmode'] });
   }
 
   /**

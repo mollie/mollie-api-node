@@ -5,6 +5,7 @@ import type Page from '../../data/page/Page';
 import alias from '../../plumbing/alias';
 import assertWellFormedId from '../../plumbing/assertWellFormedId';
 import renege from '../../plumbing/renege';
+import withParameterDefaults from '../../plumbing/withParameterDefaults';
 import type Callback from '../../types/Callback';
 import Binder from '../Binder';
 import { type CreateParameters, type DeleteParameters, type GetParameters, type IterateParameters, type PageParameters, type UpdateParameters } from './parameters';
@@ -14,6 +15,7 @@ const pathSegment = 'customers';
 export default class CustomersBinder extends Binder<CustomerData, Customer> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    withParameterDefaults(this, networkClient, { create: ['testmode'], get: ['testmode'], page: ['testmode'], iterate: ['testmode'], update: ['testmode'], delete: ['testmode'] });
     alias(this, { page: ['all', 'list'], delete: 'cancel' });
   }
 

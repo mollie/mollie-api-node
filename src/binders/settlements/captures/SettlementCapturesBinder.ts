@@ -4,6 +4,7 @@ import type Capture from '../../../data/payments/captures/Capture';
 import { type CaptureData } from '../../../data/payments/captures/data';
 import foldParameters from '../../../plumbing/foldParameters';
 import renege from '../../../plumbing/renege';
+import withParameterDefaults from '../../../plumbing/withParameterDefaults';
 import type Callback from '../../../types/Callback';
 import Binder from '../../Binder';
 import { type IterateParameters, type PageParameters } from './parameters';
@@ -15,6 +16,7 @@ export function getPathSegments(settlementId: string) {
 export default class SettlementCapturesBinder extends Binder<CaptureData, Capture> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    withParameterDefaults(this, networkClient, { page: ['testmode'], iterate: ['testmode'] });
   }
 
   /**

@@ -4,6 +4,7 @@ import { type SubscriptionData } from '../../data/subscriptions/data';
 import type Subscription from '../../data/subscriptions/Subscription';
 import alias from '../../plumbing/alias';
 import renege from '../../plumbing/renege';
+import withParameterDefaults from '../../plumbing/withParameterDefaults';
 import type Callback from '../../types/Callback';
 import Binder from '../Binder';
 import { type IterateParameters, type PageParameters } from './parameters';
@@ -13,6 +14,7 @@ const pathSegment = 'subscriptions';
 export default class SubscriptionsBinder extends Binder<SubscriptionData, Subscription> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    withParameterDefaults(this, networkClient, { page: ['testmode', 'profileId'], iterate: ['testmode', 'profileId'] });
     alias(this, { page: 'list' });
   }
 

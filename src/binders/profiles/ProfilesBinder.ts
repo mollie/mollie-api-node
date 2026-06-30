@@ -5,6 +5,7 @@ import type Profile from '../../data/profiles/Profile';
 import alias from '../../plumbing/alias';
 import assertWellFormedId from '../../plumbing/assertWellFormedId';
 import renege from '../../plumbing/renege';
+import withParameterDefaults from '../../plumbing/withParameterDefaults';
 import type Callback from '../../types/Callback';
 import Binder from '../Binder';
 import { type CreateParameters, type DeleteParameters, type GetParameters, type IterateParameters, type PageParameters, type UpdateParameters } from './parameters';
@@ -14,6 +15,7 @@ const pathSegment = 'profiles';
 export default class ProfilesBinder extends Binder<ProfileData, Profile> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    withParameterDefaults(this, networkClient, { get: ['testmode'] });
     alias(this, { page: 'list' });
   }
 

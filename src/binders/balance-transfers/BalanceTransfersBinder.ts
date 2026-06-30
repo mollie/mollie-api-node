@@ -5,6 +5,7 @@ import type Page from '../../data/page/Page';
 import alias from '../../plumbing/alias';
 import assertWellFormedId from '../../plumbing/assertWellFormedId';
 import renege from '../../plumbing/renege';
+import withParameterDefaults from '../../plumbing/withParameterDefaults';
 import type Callback from '../../types/Callback';
 import Binder from '../Binder';
 import { type CreateParameters, type GetParameters, type IterateParameters, type PageParameters } from './parameters';
@@ -14,6 +15,7 @@ const pathSegment = 'connect/balance-transfers';
 export default class BalanceTransfersBinder extends Binder<BalanceTransferData, BalanceTransfer> {
   constructor(protected readonly networkClient: TransformingNetworkClient) {
     super();
+    withParameterDefaults(this, networkClient, { create: ['testmode'], get: ['testmode'], page: ['testmode'], iterate: ['testmode'] });
     alias(this, { page: ['all', 'list'] });
   }
 
@@ -57,7 +59,9 @@ export default class BalanceTransfersBinder extends Binder<BalanceTransferData, 
   public page(parameters: PageParameters, callback: Callback<Page<BalanceTransfer>>): void;
   public page(parameters: PageParameters = {}) {
     if (renege(this, this.page, ...arguments)) return;
-    return this.networkClient.page<BalanceTransferData, BalanceTransfer>(pathSegment, 'connect-balance-transfers', parameters).then(result => this.injectPaginationHelpers(result, this.page, parameters));
+    return this.networkClient
+      .page<BalanceTransferData, BalanceTransfer>(pathSegment, 'connect-balance-transfers', parameters)
+      .then(result => this.injectPaginationHelpers(result, this.page, parameters));
   }
 
   /**
