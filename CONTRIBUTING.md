@@ -44,17 +44,37 @@ This project follows [Conventional Commits](https://www.conventionalcommits.org/
 
 Releases are published to npm **automatically** by [`.github/workflows/publish.yml`](.github/workflows/publish.yml) when a GitHub Release is published. Authentication uses [npm Trusted Publishing (OIDC)](https://docs.npmjs.com/trusted-publishers) — there is no npm token, and there is no manual `npm publish` step.
 
-To cut a release:
+> ⚠️ **Publishing the GitHub Release is the point of no return.** It immediately triggers the publish workflow, so it must be the *last* step. Do all verification *before* you bump the version — by the time you create the Release, everything must already be green.
 
-1. Update `CHANGELOG.md`.
-2. `npm version <major|minor|patch>` — bumps `package.json`, creates a commit and a `vX.Y.Z` tag.
-3. `git push --follow-tags` — pushes the commit and the tag.
-4. Publish a [GitHub Release](https://github.com/mollie/mollie-api-node/releases) for the new tag. **This is what triggers publishing.**
+### 1. Verify — before touching the version
 
-The workflow then:
+Start from an up-to-date `master` with everything that belongs in the release already merged, then confirm locally:
+
+- `yarn build` succeeds.
+- `yarn test` passes — the **full** suite. The integration tests hit the live API and need `API_KEY` set; the publish workflow only runs `yarn test:unit`, so integration coverage is exercised *only* if you run it here.
+- `yarn lint` is clean.
+- `CHANGELOG.md` has an entry for the new version.
+
+### 2. Bump the version — via a release PR
+
+`master` is protected, so the bump rides in through a PR like any other change; it cannot be pushed directly.
+
+- On a release branch (e.g. `chore/release-x-y-z`), run `npm version <major|minor|patch>` — bumps `package.json` and creates the release commit and a local `vX.Y.Z` tag.
+- Push the **branch only** (not the tag yet) and open the release PR; get it approved.
+
+### 3. Push the tag, then merge
+
+- **Push the tag only once the PR is approved:** `git push origin vX.Y.Z`. Pushing it earlier risks a stale tag — if review forces any change to the PR, the tag would point at outdated content, and you would have to delete the remote tag, re-tag, and push again.
+- Merge the PR. Use a **merge commit** if you want the tag to stay an ancestor of `master`; squash/rebase rewrites the commit and leaves the tag off-master (fine for publishing either way).
+
+### 4. Publish the GitHub Release — this triggers publishing
+
+Publish a [GitHub Release](https://github.com/mollie/mollie-api-node/releases) for the new tag. This starts the workflow, which then:
 
 - verifies the release tag matches the `package.json` version (and fails loudly if not),
 - builds the package and runs the unit tests,
 - publishes to npm with provenance, routing prereleases (e.g. `4.4.0-rc.1`) to their own dist-tag (`rc`, `beta`, …) so they never become the default `latest` install.
+
+These workflow checks are a last-resort guard, not a substitute for step 1: if they fail, nothing is published — but the Release and tag already exist, leaving a half-cut release to undo. Keep real verification in step 1.
 
 Permission to create the tag / publish the release is governed by the repository's tag/release ruleset.

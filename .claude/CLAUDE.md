@@ -40,10 +40,12 @@ Consumers should never access underscore-prefixed properties directly (the `_` p
 
 Publishing is automated via `.github/workflows/publish.yml` (npm Trusted Publishing / OIDC) — it runs when a GitHub Release is published. There is **no manual `npm publish`** and no npm token.
 
-1. Update `CHANGELOG.md`
-2. `npm version <major|minor|patch>` (bumps `package.json`, commits, creates the `vX.Y.Z` tag)
-3. `git push --follow-tags`
-4. Publish a GitHub Release for the tag → the workflow verifies the tag matches `package.json`, builds, runs unit tests, and publishes with provenance (prereleases like `-rc.N` go to their own dist-tag, not `latest`).
+`master` is protected, so the version bump rides in through a release PR like any other change — it can't be pushed directly. **Verify before bumping**, and treat publishing the Release as the irreversible final step.
+
+1. **Verify** on up-to-date `master` (all release content merged): `yarn build`, `yarn test` (the **full** suite — the workflow only runs `yarn test:unit`, so integration is covered only here), `yarn lint`, and `CHANGELOG.md` updated.
+2. On a release branch: `npm version <major|minor|patch>` (bumps `package.json`, commits, creates the `vX.Y.Z` tag). Push the **branch** and open the release PR.
+3. **Push the tag only once the PR is approved** (`git push origin vX.Y.Z`) — pushing it earlier risks a stale tag (delete-and-re-tag) if review forces changes. Merge with a merge-commit to keep the tag on `master`.
+4. Once merged, publish a GitHub Release for the tag → the workflow re-verifies the tag matches `package.json`, builds, runs unit tests, and publishes with provenance (prereleases like `-rc.N` go to their own dist-tag, not `latest`).
 
 See `CONTRIBUTING.md` for the maintainer-facing version of this.
 
