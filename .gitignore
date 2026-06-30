@@ -1,6 +1,6 @@
-/coverage/
-/dist/
-/node_modules/
+/coverage
+/dist
+/node_modules
 /.idea/
 /.vscode/
 /.env
@@ -9,3 +9,8 @@
 .DS_Store
 /mk-ca-bundle.pl
 /*.code-workspace
+/.tmp/
+
+.claude/settings.json
+.claude/settings.local.json
+.claude/worktrees/
