@@ -2,7 +2,7 @@ import type TransformingNetworkClient from '../../communication/TransformingNetw
 import renege from '../../plumbing/renege';
 import type Callback from '../../types/Callback';
 import Binder from '../Binder';
-import { type PageParameters, IterateParameters } from './parameters';
+import { type GetParameters, type PageParameters, IterateParameters } from './parameters';
 import { Page } from '../../types';
 import Terminal from '../../data/terminals/Terminal';
 import type { TerminalData } from '../../data/terminals/data';
@@ -23,12 +23,12 @@ export default class TerminalsBinder extends Binder<TerminalData, Terminal> {
    * @since 4.3.0
    * @see https://docs.mollie.com/reference/get-terminal
    */
-  public get(id: string): Promise<Terminal>;
-  public get(id: string, callback: Callback<Terminal>): void;
-  public get(id: string) {
+  public get(id: string, parameters?: GetParameters): Promise<Terminal>;
+  public get(id: string, parameters: GetParameters, callback: Callback<Terminal>): void;
+  public get(id: string, parameters?: GetParameters) {
     if (renege(this, this.get, ...arguments)) return;
     assertWellFormedId(id, 'terminal');
-    return this.networkClient.get(`${pathSegment}/${id}`);
+    return this.networkClient.get(`${pathSegment}/${id}`, parameters);
   }
 
   /**
