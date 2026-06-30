@@ -63,16 +63,23 @@ export default function withParameterDefaults<T extends object>(target: T, netwo
             // (no `enumerable` ‒ the wrappers stay non-enumerable, like the prototype methods they shadow)
             value(this: unknown, ...args: unknown[]) {
               // The parameters object sits just before a trailing callback (or is the last argument). The `id` is a
-              // string and the callback is a function, so an object at that position is always the parameters.
+              // string and the callback is a function, so a non-string at that position is the parameters ‒ which the
+              // caller may have passed explicitly as `undefined`, equivalent to `{}`.
               const slot = typeof args[args.length - 1] == 'function' ? args.length - 1 : args.length;
               const parameters = args[slot - 1];
               const hasParameters = parameters != null && typeof parameters == 'object';
               const base = (hasParameters ? parameters : {}) as Record<string, unknown>;
               const filled = applyDefaults(networkClient.parameterDefaults, base, keys as Array<keyof ParameterDefaults>);
-              if (hasParameters) {
+              // Nothing was filled (no defaults apply, or the call already set them) ‒ leave the arguments untouched.
+              if (filled === base) {
+                return original.apply(this, args);
+              }
+              // Replace the parameters slot when it is occupied ‒ by an object, or by an explicit `undefined`/`null`
+              // standing in for `{}`. Otherwise only a leading `id` (a string) or nothing was passed, so insert the
+              // filled object before any trailing callback.
+              if (slot >= 1 && typeof parameters != 'string') {
                 args[slot - 1] = filled;
-              } else if (filled !== base) {
-                // No parameters object was passed, but a default applied ‒ insert it (before any trailing callback).
+              } else {
                 args.splice(slot, 0, filled);
               }
               return original.apply(this, args);
