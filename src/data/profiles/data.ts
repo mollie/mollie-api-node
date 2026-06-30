@@ -94,6 +94,7 @@ export interface ProfileData extends Model<'profile'> {
    * -   `9399` Government services
    * -   `0` Other
    *
+   * @deprecated Use {@link businessCategory} instead. The numeric category code is no longer part of the Profiles API.
    * @see https://docs.mollie.com/reference/get-profile?path=categoryCode#response
    */
   categoryCode: number;
