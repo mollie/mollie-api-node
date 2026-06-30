@@ -28,7 +28,7 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
    * To wrap your head around the payment process, an explanation and flow charts can be found in the Accepting payments guide.
    *
    * @since 2.0.0
-   * @see https://docs.mollie.com/reference/v2/payments-api/create-payment
+   * @see https://docs.mollie.com/reference/create-payment
    */
   public create(parameters: CreateParameters): Promise<Payment>;
   public create(parameters: CreateParameters, callback: Callback<Payment>): void;
@@ -43,7 +43,7 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
    * Retrieve a single payment object by its payment token.
    *
    * @since 2.0.0
-   * @see https://docs.mollie.com/reference/v2/payments-api/get-payment
+   * @see https://docs.mollie.com/reference/get-payment
    */
   public get(id: string, parameters?: GetParameters): Promise<Payment>;
   public get(id: string, parameters: GetParameters, callback: Callback<Payment>): void;
@@ -59,7 +59,7 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
    * The results are paginated. See pagination for more information.
    *
    * @since 3.0.0
-   * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
+   * @see https://docs.mollie.com/reference/list-payments
    */
   public page(parameters?: PageParameters): Promise<Page<Payment>>;
   public page(parameters: PageParameters, callback: Callback<Page<Payment>>): void;
@@ -74,7 +74,7 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
    * The results are paginated. See pagination for more information.
    *
    * @since 3.6.0
-   * @see https://docs.mollie.com/reference/v2/payments-api/list-payments
+   * @see https://docs.mollie.com/reference/list-payments
    */
   public iterate(parameters?: IterateParameters) {
     const { valuesPerMinute, ...query } = parameters ?? {};
@@ -85,7 +85,7 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
    * This endpoint can be used to update some details of a created payment.
    *
    * @since 3.2.0
-   * @see https://docs.mollie.com/reference/v2/payments-api/update-payment
+   * @see https://docs.mollie.com/reference/update-payment
    */
   public update(id: string, parameters: UpdateParameters): Promise<Payment>;
   public update(id: string, parameters: UpdateParameters, callback: Callback<Payment>): void;
@@ -102,7 +102,7 @@ export default class PaymentsBinder extends Binder<PaymentData, Payment> {
    * The `isCancelable` property on the Payment object will indicate if the payment can be canceled.
    *
    * @since 2.0.0
-   * @see https://docs.mollie.com/reference/v2/payments-api/cancel-payment
+   * @see https://docs.mollie.com/reference/cancel-payment
    */
   public cancel(id: string, parameters?: CancelParameters): Promise<Payment>;
   public cancel(id: string, parameters: CancelParameters, callback: Callback<Page<Payment>>): void;

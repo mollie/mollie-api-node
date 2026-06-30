@@ -128,6 +128,16 @@ test('paymentGetCheckoutUrl', async () => {
   expect(payment.getCheckoutUrl()).toBe('https://example.com');
 });
 
+test('paymentGetMobileAppCheckoutUrl', async () => {
+  let payment = await getPayment('open', undefined, { mobileAppCheckout: { href: 'https://app.example/checkout', type: 'text/html' } });
+
+  expect(payment.getMobileAppCheckoutUrl()).toBe('https://app.example/checkout');
+
+  payment = await getPayment('open');
+
+  expect(payment.getMobileAppCheckoutUrl()).toBe(null);
+});
+
 test('paymentCanBeRefunded', async () => {
   let payment = await getPayment('paid' /*, { amountRemaining: { value: '20.00', currency: 'EUR' } } */);
 
