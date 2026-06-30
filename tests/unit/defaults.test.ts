@@ -51,6 +51,28 @@ test('injects the client defaults even when no parameters object is passed', () 
   });
 });
 
+test('treats an explicit undefined parameters argument the same as {}', () => {
+  return new NetworkMocker(clientWith({ testmode: true, profileId: 'pfl_mock' })).use(async ([mollieClient, networkMocker]) => {
+    networkMocker.intercept('GET', '/payments?testmode=true&profileId=pfl_mock', 200, paymentsPage).twice();
+
+    // Passing `undefined` is type-valid (the parameter is optional) and must inject just like `{}` ‒ not be dropped.
+    const payments = await bluster(mollieClient.payments.page.bind(mollieClient.payments))(undefined);
+
+    expect(payments.length).toBe(1);
+  });
+});
+
+test('treats an explicit undefined parameters argument the same as {} for id-methods', () => {
+  return new NetworkMocker(clientWith({ testmode: true, profileId: 'pfl_mock' })).use(async ([mollieClient, networkMocker]) => {
+    // payments.get accepts testmode (not profileId), so only testmode is injected into the query.
+    networkMocker.intercept('GET', '/payments/tr_mock0001?testmode=true', 200, payment).twice();
+
+    const result = await bluster(mollieClient.payments.get.bind(mollieClient.payments))('tr_mock0001', undefined);
+
+    expect(result.id).toBe('tr_mock0001');
+  });
+});
+
 test('injects the client defaults into the request body', () => {
   return new NetworkMocker(clientWith({ testmode: true, profileId: 'pfl_mock' })).use(async ([mollieClient, networkMocker]) => {
     let capturedBody: any;
