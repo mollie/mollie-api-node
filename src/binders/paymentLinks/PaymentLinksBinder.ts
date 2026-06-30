@@ -6,7 +6,7 @@ import assertWellFormedId from '../../plumbing/assertWellFormedId';
 import renege from '../../plumbing/renege';
 import type Callback from '../../types/Callback';
 import Binder from '../Binder';
-import { type CreateParameters, type GetParameters, type IterateParameters, type PageParameters, type UpdateParameters } from './parameters';
+import { type CreateParameters, type DeleteParameters, type GetParameters, type IterateParameters, type PageParameters, type UpdateParameters } from './parameters';
 
 const pathSegment = 'payment-links';
 
@@ -89,11 +89,11 @@ export default class PaymentsLinksBinder extends Binder<PaymentLinkData, Payment
    *
    * @see https://docs.mollie.com/reference/delete-payment-link
    */
-  public delete(id: string): Promise<true>;
-  public delete(id: string, callback: Callback<true>): void;
-  public delete(id: string) {
+  public delete(id: string, parameters?: DeleteParameters): Promise<true>;
+  public delete(id: string, parameters: DeleteParameters, callback: Callback<true>): void;
+  public delete(id: string, parameters?: DeleteParameters) {
     if (renege(this, this.delete, ...arguments)) return;
     assertWellFormedId(id, 'payment-link');
-    return this.networkClient.delete<PaymentLinkData, true>(`${pathSegment}/${id}`);
+    return this.networkClient.delete<PaymentLinkData, true>(`${pathSegment}/${id}`, parameters);
   }
 }

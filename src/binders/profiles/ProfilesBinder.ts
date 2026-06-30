@@ -7,7 +7,7 @@ import assertWellFormedId from '../../plumbing/assertWellFormedId';
 import renege from '../../plumbing/renege';
 import type Callback from '../../types/Callback';
 import Binder from '../Binder';
-import { type CreateParameters, type DeleteParameters, type IterateParameters, type PageParameters, type UpdateParameters } from './parameters';
+import { type CreateParameters, type DeleteParameters, type GetParameters, type IterateParameters, type PageParameters, type UpdateParameters } from './parameters';
 
 const pathSegment = 'profiles';
 
@@ -37,12 +37,12 @@ export default class ProfilesBinder extends Binder<ProfileData, Profile> {
    * @since 3.2.0
    * @see https://docs.mollie.com/reference/get-profile
    */
-  public get(id: string): Promise<Profile>;
-  public get(id: string, callback: Callback<Profile>): void;
-  public get(id: string) {
+  public get(id: string, parameters?: GetParameters): Promise<Profile>;
+  public get(id: string, parameters: GetParameters, callback: Callback<Profile>): void;
+  public get(id: string, parameters?: GetParameters) {
     if (renege(this, this.get, ...arguments)) return;
     assertWellFormedId(id, 'profile');
-    return this.networkClient.get<ProfileData, Profile>(`${pathSegment}/${id}`);
+    return this.networkClient.get<ProfileData, Profile>(`${pathSegment}/${id}`, parameters);
   }
 
   /**

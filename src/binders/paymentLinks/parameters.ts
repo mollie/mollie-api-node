@@ -27,6 +27,8 @@ export type CreateParameters = Pick<PaymentLinkData, 'description'> &
 
 export type GetParameters = ContextParameters;
 
+export type DeleteParameters = ContextParameters & IdempotencyParameter;
+
 export type PageParameters = ContextParameters &
   PaginationParameters & {
     profileId?: string;

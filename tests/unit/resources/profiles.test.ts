@@ -79,6 +79,33 @@ test('getProfile', () => {
   });
 });
 
+test('getProfileTestmode', () => {
+  return new NetworkMocker(getApiKeyClientProvider()).use(async ([mollieClient, networkMocker]) => {
+    // The interceptor only matches when the request carries `?testmode=true`, so it fails if the parameter is dropped instead of being threaded into the query string.
+    networkMocker.intercept('GET', '/profiles/pfl_ahe8z8OPut?testmode=true', 200, {
+      resource: 'profile',
+      id: 'pfl_ahe8z8OPut',
+      mode: 'test',
+      name: 'My website name',
+      website: 'http://www.mywebsite.com',
+      email: 'info@mywebsite.com',
+      phone: '31123456789',
+      categoryCode: 5399,
+      status: 'verified',
+      review: { status: 'pending' },
+      createdAt: '2016-01-11T13:03:55+00:00',
+      _links: {
+        self: { href: 'https://api.mollie.com/v2/profiles/pfl_ahe8z8OPut', type: 'application/hal+json' },
+      },
+    }).twice();
+
+    const profile = await bluster(mollieClient.profiles.get.bind(mollieClient.profiles))('pfl_ahe8z8OPut', { testmode: true });
+
+    expect(profile.id).toBe('pfl_ahe8z8OPut');
+    expect(profile.mode).toBe('test');
+  });
+});
+
 test('listProfiles', () => {
   return new NetworkMocker(getApiKeyClientProvider()).use(async ([mollieClient, networkMocker]) => {
     networkMocker.intercept('GET', '/profiles', 200, {

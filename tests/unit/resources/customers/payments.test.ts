@@ -231,3 +231,48 @@ test('listCustomerPayouts', () => {
     });
   });
 });
+
+test('listCustomerPaymentsTestmodeAndProfileId', () => {
+  return new NetworkMocker(getApiKeyClientProvider()).use(async ([mollieClient, networkMocker]) => {
+    // The interceptor only matches when the request carries `?testmode=true&profileId=...`, so it fails if either parameter is dropped instead of being threaded into the query string.
+    networkMocker.intercept('GET', '/customers/cst_FhQJRw4s2n/payments?testmode=true&profileId=pfl_7N5qjbu42V', 200, {
+      _embedded: {
+        payments: [
+          {
+            resource: 'payment',
+            id: 'tr_admNa2tFfa',
+            mode: 'test',
+            createdAt: '2018-03-19T15:00:50+00:00',
+            amount: { value: '100.00', currency: 'EUR' },
+            description: 'Payment no 1',
+            method: null,
+            metadata: null,
+            status: 'open',
+            isCancelable: false,
+            expiresAt: '2018-03-19T15:15:50+00:00',
+            details: null,
+            locale: 'nl_NL',
+            profileId: 'pfl_7N5qjbu42V',
+            sequenceType: 'oneoff',
+            redirectUrl: 'https://www.example.org/',
+            _links: {
+              self: { href: 'https://api.mollie.com/v2/payments/tr_admNa2tFfa', type: 'application/hal+json' },
+            },
+          },
+        ],
+      },
+      _links: {
+        self: { href: 'https://api.mollie.com/v2/customers/cst_FhQJRw4s2n/payments?testmode=true&profileId=pfl_7N5qjbu42V', type: 'application/hal+json' },
+        previous: null,
+        next: null,
+      },
+      count: 1,
+    }).twice();
+
+    const payments = await bluster(mollieClient.customerPayments.page.bind(mollieClient.customerPayments))({ customerId: 'cst_FhQJRw4s2n', testmode: true, profileId: 'pfl_7N5qjbu42V' });
+
+    expect(payments.length).toBe(1);
+    expect(payments[0].id).toBe('tr_admNa2tFfa');
+    expect(payments[0].profileId).toBe('pfl_7N5qjbu42V');
+  });
+});
