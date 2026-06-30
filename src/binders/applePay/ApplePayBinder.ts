@@ -30,7 +30,7 @@ export default class ApplePayBinder {
    * For the full documentation, see the official [Apple Pay JS API](https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_js_api) documentation.
    *
    * @since 3.5.0
-   * @see https://docs.mollie.com/reference/v2/wallets-api/request-apple-pay-payment-session
+   * @see https://docs.mollie.com/reference/request-apple-pay-payment-session
    */
   public requestPaymentSession(parameters: RequestPaymentSessionParameters): Promise<ApplePaySession>;
   public requestPaymentSession(parameters: RequestPaymentSessionParameters, callback: Callback<ApplePaySession>): void;
