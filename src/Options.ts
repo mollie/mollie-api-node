@@ -32,7 +32,7 @@ type Options = Xor<
   },
   {
     /**
-     * OAuth access token, starting with `'access_''.
+     * OAuth access token, starting with `'access_'`.
      */
     accessToken: string;
     /**
