@@ -5,6 +5,36 @@
 
 Please see [the migration guide](MIGRATION.md) for guidance about updating to a newer major version.
 
+### v4.6.0 - 2026-06-30
+  - Add Invoices API support ([#506](https://github.com/mollie/mollie-api-node/pull/506))
+  - Add terminal pairing codes endpoints ([#508](https://github.com/mollie/mollie-api-node/pull/508))
+  - Add `paymentRoutes.get` and a route `getPayment()` helper to complete Routes API coverage ([#511](https://github.com/mollie/mollie-api-node/pull/511))
+  - Support running on non-Node.js server runtimes (Bun, Deno, Cloudflare Workers) via a browser-environment guard and a `dangerouslyAllowBrowser` option ([#490](https://github.com/mollie/mollie-api-node/pull/490))
+  - Add a `parameterDefaults` option for OAuth clients to auto-fill `testmode` and `profileId` on every request that accepts them ([#517](https://github.com/mollie/mollie-api-node/pull/517))
+  - Add `storeCredentials` parameter to payment and order create ([#480](https://github.com/mollie/mollie-api-node/pull/480))
+  - Add `testmode` and `profileId` parameters to the endpoints that accept them, and deprecate the callback-as-second-argument overloads ([#514](https://github.com/mollie/mollie-api-node/pull/514))
+  - Support `testmode` on `permissions.get` ([#503](https://github.com/mollie/mollie-api-node/pull/503))
+  - Add `profileId` parameter to the Apple Pay payment session request ([#512](https://github.com/mollie/mollie-api-node/pull/512))
+  - Add `legalEntity`, `registrationOffice`, and `incorporationDate` parameters to the Create client link endpoint ([#495](https://github.com/mollie/mollie-api-node/pull/495))
+  - Add `metadata` support to connect balance transfers ([#492](https://github.com/mollie/mollie-api-node/pull/492))
+  - Add `mode` and `updatedAt` fields to the `Terminal` response type ([#507](https://github.com/mollie/mollie-api-node/pull/507))
+  - Sync Payments types with the Mollie API spec, adding the `getSettlement`, `getCustomer`, `getMandate`, `getSubscription`, `getTerminal`, and `getMobileAppCheckoutUrl` helpers plus new request parameters ([#510](https://github.com/mollie/mollie-api-node/pull/510))
+  - Sync `payments` enums and JSDoc with the Mollie API spec, adding the `additional`/`consume` voucher line categories and deprecating the legacy Klarna methods, `payconiq`, and `settlementAmount` ([#516](https://github.com/mollie/mollie-api-node/pull/516))
+  - Sync settlements with the Mollie API spec, adding `balanceId`, `invoiceId`, a `getInvoice()` helper, and the `SettlementStatus` enum ([#509](https://github.com/mollie/mollie-api-node/pull/509))
+  - Sync the `subscriptions` resource with the Mollie API spec, adding `getMandate()` and the `profileId` list parameter ([#504](https://github.com/mollie/mollie-api-node/pull/504))
+  - Sync the Profiles resource with the Mollie API spec, adding `description`, `countriesOfActivity`, and `profile.getDashboardUrl()` ([#505](https://github.com/mollie/mollie-api-node/pull/505))
+  - Sync the `organizations` resource with the Mollie API spec, adding the `email` field, a `getDashboardUrl()` helper, and `testmode` support ([#502](https://github.com/mollie/mollie-api-node/pull/502))
+  - Sync `refunds` types and docs with the Mollie API spec, adding `mode`, `externalReference`, routing reversals, and the `embed` parameter ([#484](https://github.com/mollie/mollie-api-node/pull/484))
+  - Sync `onboarding` types with the Mollie API spec, adding `businessCategory` and the `british` `vatRegulation`, and deprecating the `submit` method ([#500](https://github.com/mollie/mollie-api-node/pull/500))
+  - Sync `paymentLinks` types and docs with the Mollie API spec, adding `lines`, `billingAddress`, and `shippingAddress` to `UpdateParameters` ([#501](https://github.com/mollie/mollie-api-node/pull/501))
+  - Sync Methods API types and docs with the Mollie API spec, adding the `googlepay` payment method, `en_GB`/`fr_LU`/`de_LU` locales, and the `sequenceType` get-method parameter ([#488](https://github.com/mollie/mollie-api-node/pull/488))
+  - Sync `chargebacks` types with the Mollie API spec, adding the `settlementId` field and `testmode` parameter support ([#487](https://github.com/mollie/mollie-api-node/pull/487))
+  - Sync JSDoc and documentation links with the Mollie API reference across the capabilities, OAuth, and customer resources ([#494](https://github.com/mollie/mollie-api-node/pull/494)/[#496](https://github.com/mollie/mollie-api-node/pull/496)/[#498](https://github.com/mollie/mollie-api-node/pull/498))
+  - Fix capture payment embedding by sending the `embed` query parameter instead of the silently-ignored `include` ([#483](https://github.com/mollie/mollie-api-node/pull/483))
+  - Deprecate the Orders API binders and methods ([#486](https://github.com/mollie/mollie-api-node/pull/486))
+  - Automate npm publishing via GitHub Actions Trusted Publishing (OIDC) ([#485](https://github.com/mollie/mollie-api-node/pull/485))
+  - Update dev dependencies and re-resolve `form-data` to clear a CRLF-injection advisory ([#482](https://github.com/mollie/mollie-api-node/pull/482))
+
 ### v4.5.0 - 2026-04-01
   - Add `sort` parameter to list endpoints ([#474](https://github.com/mollie/mollie-api-node/pull/474))
   - Add `TestModeParameter` type and apply consistently across all binders ([#475](https://github.com/mollie/mollie-api-node/pull/475))

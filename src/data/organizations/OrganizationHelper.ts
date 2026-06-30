@@ -15,6 +15,7 @@ export default class OrganizationHelper extends Helper<OrganizationData, Organiz
   /**
    * Returns the direct link to the organization in the Mollie Dashboard.
    *
+   * @since 4.6.0
    * @see https://docs.mollie.com/reference/get-organization?path=_links/dashboard#response
    */
   public getDashboardUrl(): Nullable<string> {

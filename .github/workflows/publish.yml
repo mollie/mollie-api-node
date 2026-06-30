@@ -5,10 +5,11 @@
 # configured on the package (org `mollie`, repo `mollie-api-node`, and this
 # workflow's filename). Provenance attestations are generated on every publish.
 #
-# Cutting a release: bump the version (`npm version <major|minor|patch>`), push
-# the commit and its tag, then publish a GitHub Release for that tag — that is
-# what triggers this workflow. Who may publish a release is governed by the
-# repository's tag/release ruleset.
+# Cutting a release: bump the version on a release branch (`npm version
+# <major|minor|patch>`) and merge it via PR (master is protected); push the tag
+# once the PR is approved, then publish a GitHub Release for that tag — that is
+# what triggers this workflow. See CONTRIBUTING.md for the full checklist. Who
+# may publish a release is governed by the repository's tag/release ruleset.
 name: Publish to npm
 
 on:

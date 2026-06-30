@@ -15,6 +15,7 @@ export default class InvoiceHelper extends Helper<InvoiceData, Invoice> {
   /**
    * Returns the URL to the PDF version of the invoice, or `null` if it is not available.
    *
+   * @since 4.6.0
    * @see https://docs.mollie.com/reference/get-invoice?path=_links/pdf#response
    */
   public getPdfUrl(): Nullable<string> {
