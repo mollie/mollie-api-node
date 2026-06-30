@@ -291,6 +291,7 @@ export interface PaymentData extends Model<'payment'> {
    *
    * Any amounts not settled by Mollie will not be reflected in this amount, e.g. PayPal or gift cards. If no amount is settled by Mollie the `settlementAmount` is omitted from the response.
    *
+   * @deprecated This field will be removed on January 1st, 2027. Use the [Settlements API](https://docs.mollie.com/reference/list-settlements) or the [List balance transactions](https://docs.mollie.com/reference/list-balance-transactions) endpoint for settlement data instead.
    * @see https://docs.mollie.com/reference/get-payment?path=settlementAmount#response
    */
   settlementAmount?: Amount;
@@ -1226,7 +1227,7 @@ export interface PaymentLine {
   /**
    * An array with the voucher categories, in case of a line eligible for a voucher. See the Integrating Vouchers guide for more information.
    *
-   * Possible values: `meal` `eco` `gift` `sport_culture`
+   * Possible values: `meal` `eco` `gift` `sport_culture` `additional` `consume`
    *
    * @see https://docs.mollie.com/reference/get-payment?path=lines/categories#lines
    */
@@ -1296,9 +1297,29 @@ export enum PaymentLineCategory {
   eco = 'eco',
   gift = 'gift',
   sport_culture = 'sport_culture',
+  additional = 'additional',
+  consume = 'consume',
 }
 
 export interface PaymentRoutingInfo {
+  /**
+   * Indicates the response contains a route object. Will always contain the string `route` for this resource.
+   */
+  resource?: string;
+  /**
+   * The identifier uniquely referring to this route, for example `rt_5B8cwPMGnU`. Mollie assigns this identifier at route creation time.
+   */
+  id?: string;
+  /**
+   * Whether this route was created in live mode or in test mode.
+   *
+   * Possible values: `live` `test`
+   */
+  mode?: ApiMode;
+  /**
+   * The route's date and time of creation, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+   */
+  createdAt?: string;
   /**
    * The portion of the total payment amount being routed. Currently only EUR payments can be routed.
    *
@@ -1330,6 +1351,19 @@ export interface PaymentRoutingInfo {
    * If no date is given, the funds become available to the connected merchant as soon as the payment succeeds.
    */
   releaseDate?: string;
+  /**
+   * An object with several relevant URLs. Only present in the response.
+   */
+  _links?: {
+    /**
+     * The API resource URL of the route itself.
+     */
+    self: Url;
+    /**
+     * The API resource URL of the payment this route belongs to.
+     */
+    payment: Url;
+  };
 }
 
 export enum RoutingType {
