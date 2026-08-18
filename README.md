@@ -1,3 +1,8 @@
+> ⚠️ **Important: Latest Node SDK Information**
+> 
+> Mollie is transitioning to new, automatically generated SDKs. 
+> As a part of this transition, new features will be developed exclusively for the [new Node (TypeScript) SDK](https://github.com/mollie/mollie-api-typescript). We encourage you to migrate by **17 November 2026**, after which the legacy SDK will enter maintenance mode and receive no further updates.
+
 <p align="center">
   <img src="https://github.com/user-attachments/assets/a98b62f7-f0f1-44ac-8ade-3a83cfecf264" width="128" height="128"/>
 </p>
