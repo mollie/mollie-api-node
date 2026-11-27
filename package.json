@@ -1,6 +1,6 @@
 {
   "name": "@mollie/api-client",
-  "version": "4.6.0",
+  "version": "4.7.0",
   "license": "BSD-3-Clause",
   "description": "[DEPRECATED] Legacy Mollie API client for Node — migrate to mollie-api-typescript",
   "homepage": "https://github.com/mollie/mollie-api-typescript",
