@@ -5,6 +5,9 @@
 
 Please see [the migration guide](MIGRATION.md) for guidance about updating to a newer major version.
 
+### v4.7.0 - 2026-11-27
+  - Deprecate `@mollie/api-client` in favor of [`mollie-api-typescript`](https://github.com/mollie/mollie-api-typescript): add a one-time non-production `DeprecationWarning` (`MOLLIE_LEGACY_SDK`, silenceable via `MOLLIE_SUPPRESS_DEPRECATION_WARNING=1`), `@deprecated` JSDoc tags on `createMollieClient`/`MollieClient`/`MollieOptions`, updated README and `package.json` metadata, and GitHub issue template redirects ([#519](https://github.com/mollie/mollie-api-node/pull/519)/[#520](https://github.com/mollie/mollie-api-node/pull/520))
+
 ### v4.6.0 - 2026-06-30
   - Add Invoices API support ([#506](https://github.com/mollie/mollie-api-node/pull/506))
   - Add terminal pairing codes endpoints ([#508](https://github.com/mollie/mollie-api-node/pull/508))
