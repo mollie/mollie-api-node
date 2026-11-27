@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: New Mollie TypeScript / Node.js SDK (Recommended)
+    url: https://github.com/mollie/mollie-api-typescript/issues
+    about: Feature requests and bug reports for the new official Mollie SDK (`mollie-api-typescript`).
+  - name: Migration Guide
+    url: https://github.com/mollie/mollie-api-typescript/blob/main/MIGRATION.md
+    about: Step-by-step guide for migrating from `@mollie/api-client` to `mollie-api-typescript`.
+  - name: Mollie Support
+    url: https://help.mollie.com/hc/en-us
+    about: Questions about your Mollie account, payments, or API integration.

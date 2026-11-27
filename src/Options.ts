@@ -23,6 +23,10 @@ export interface ParameterDefaults {
   testmode?: boolean;
 }
 
+/**
+ * @deprecated `@mollie/api-client` is in maintenance mode and receives no further feature updates.
+ * Please migrate to `mollie-api-typescript`: https://github.com/mollie/mollie-api-typescript/blob/main/MIGRATION.md
+ */
 type Options = Xor<
   {
     /**
