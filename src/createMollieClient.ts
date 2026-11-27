@@ -90,9 +90,40 @@ function isBrowserLike() {
   return globals.window?.document != undefined && globals.navigator != undefined;
 }
 
+let hasEmittedDeprecationWarning = false;
+
+/**
+ * Emits a one-time deprecation warning in non-production environments to nudge consumers toward the new TypeScript SDK.
+ * Safe in runtimes where `process` or `process.emitWarning` is absent (browsers, edge runtimes). Can be silenced with
+ * `MOLLIE_SUPPRESS_DEPRECATION_WARNING=1` or Node's `--no-deprecation` flag.
+ */
+function emitDeprecationWarning() {
+  if (hasEmittedDeprecationWarning) {
+    return;
+  }
+  if (typeof process == 'undefined' || typeof process.emitWarning != 'function') {
+    return;
+  }
+  if (process.env?.NODE_ENV === 'production') {
+    return;
+  }
+  const suppressed = process.env?.MOLLIE_SUPPRESS_DEPRECATION_WARNING;
+  if (suppressed && suppressed !== '0' && suppressed !== 'false') {
+    return;
+  }
+  hasEmittedDeprecationWarning = true;
+  process.emitWarning(
+    '@mollie/api-client is deprecated and in maintenance mode. Please migrate to mollie-api-typescript: https://github.com/mollie/mollie-api-typescript/blob/main/MIGRATION.md (Set MOLLIE_SUPPRESS_DEPRECATION_WARNING=1 to silence this warning.)',
+    'DeprecationWarning',
+    'MOLLIE_LEGACY_SDK',
+  );
+}
+
 /**
  * Create Mollie client.
  * @since 2.0.0
+ * @deprecated `@mollie/api-client` is in maintenance mode and receives no further feature updates.
+ * Please migrate to `mollie-api-typescript`: https://github.com/mollie/mollie-api-typescript/blob/main/MIGRATION.md
  */
 export default function createMollieClient(options: Options) {
   // Refuse to run in a browser-like environment by default, as doing so would ship credentials to the public. This is
@@ -106,6 +137,7 @@ export default function createMollieClient(options: Options) {
   }
 
   checkCredentials(options);
+  emitDeprecationWarning();
 
   // `process` is not defined in every runtime (browsers, some edge runtimes). `typeof` is ReferenceError-safe even when
   // the identifier is undeclared, whereas `process?.version` would still throw.

@@ -2,6 +2,10 @@ import createMollieClient from './createMollieClient';
 export default createMollieClient;
 
 export * from './createMollieClient';
+/**
+ * @deprecated `@mollie/api-client` is in maintenance mode and receives no further feature updates.
+ * Please migrate to `mollie-api-typescript`: https://github.com/mollie/mollie-api-typescript/blob/main/MIGRATION.md
+ */
 export type MollieClient = ReturnType<typeof createMollieClient>;
 export { default as MollieOptions } from './Options';
 

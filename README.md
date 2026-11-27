@@ -1,7 +1,14 @@
-> ⚠️ **Important: Latest Node SDK Information**
-> 
-> Mollie is transitioning to new, automatically generated SDKs. 
-> As a part of this transition, new features will be developed exclusively for the [new Node (TypeScript) SDK](https://github.com/mollie/mollie-api-typescript). We encourage you to migrate by **17 November 2026**, after which the legacy SDK will enter maintenance mode and receive no further updates.
+> ⚠️ **Deprecated: Migrate to the new Mollie TypeScript SDK (`mollie-api-typescript`)**
+>
+> `@mollie/api-client` is in **maintenance mode** and receives no further feature updates. New Mollie API features are developed exclusively for the [new Mollie TypeScript / Node.js SDK (`mollie-api-typescript`)](https://github.com/mollie/mollie-api-typescript).
+>
+> ```sh
+> npm install mollie-api-typescript
+> ```
+>
+> Already using `@mollie/api-client`? Follow the **[Migration Guide](https://github.com/mollie/mollie-api-typescript/blob/main/MIGRATION.md)** to upgrade.
+>
+> In non-production environments (`NODE_ENV !== 'production'`), `createMollieClient()` emits a one-time `DeprecationWarning` (`MOLLIE_LEGACY_SDK`). Set `MOLLIE_SUPPRESS_DEPRECATION_WARNING=1` (or pass Node's `--no-deprecation` flag) if you need to silence it while migrating.
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/a98b62f7-f0f1-44ac-8ade-3a83cfecf264" width="128" height="128"/>
@@ -46,6 +53,14 @@ You will also need:
 In order to accept payments in live mode, payment methods must be activated in your account. Just follow [a few steps](https://www.mollie.com/dashboard/onboarding) and let us handle the rest.
 
 ## Installation
+
+> **New integrations:** install the new SDK instead:
+>
+> ```sh
+> npm install mollie-api-typescript
+> ```
+
+Legacy SDK:
 
 Using [npm](https://npmjs.org/):
 
